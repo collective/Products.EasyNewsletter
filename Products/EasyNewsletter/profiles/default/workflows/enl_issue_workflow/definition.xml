@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<dc-workflow workflow_id="enl_issue_workflow"
+             title="Single State Workflow"
+             description="- Essentially a workflow with no transitions, but has a Published state, so portlets and applications that expect that state will continue to work."
+             state_variable="review_state"
+             initial_state="draft">
+ <permission>Access contents information</permission>
+ <permission>Change portal events</permission>
+ <permission>List folder contents</permission>
+ <permission>Modify portal content</permission>
+ <permission>View</permission>
+ <state state_id="draft" title="Draft">
+  <exit-transition transition_id="send"/>
+  <permission-map name="Access contents information"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+  </permission-map>
+  <permission-map name="Change portal events"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+  </permission-map>
+  <permission-map name="List folder contents"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+  </permission-map>
+ </state>
+ <state state_id="sent" title="Sent">
+  <exit-transition transition_id="make_draft"/>
+ </state>
+ <transition transition_id="make_draft" title="Make draft"
+             new_state="draft" trigger="USER"
+             before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=make_draft"
+          category="workflow">Make draft</action>
+  <guard>
+   <guard-permission>Manage portal content</guard-permission>
+  </guard>
+ </transition>
+ <transition transition_id="send" title="Send"
+             new_state="sent" trigger="USER"
+             before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=send"
+          category="workflow">Send</action>
+  <guard>
+   <guard-permission>Modify portal content</guard-permission>
+  </guard>
+ </transition>
+ <variable variable_id="action" for_catalog="False"
+           for_status="True" update_always="True">
+  <description>Previous transition</description>
+  <default>
+   
+   <expression>transition/getId|nothing</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="actor" for_catalog="False"
+           for_status="True" update_always="True">
+  <description>The ID of the user who performed the previous transition
+</description>
+  <default>
+   
+   <expression>user/getUserName</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="comments" for_catalog="False"
+           for_status="True" update_always="True">
+  <description>Comment about the last transition
+</description>
+  <default>
+   
+   <expression>python:state_change.kwargs.get('comment', '')</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="review_history" for_catalog="False"
+           for_status="False" update_always="False">
+  <description>Provides access to workflow history
+</description>
+  <default>
+   
+   <expression>state_change/getHistory</expression>
+  </default>
+  <guard>
+   <guard-permission>Request review</guard-permission>
+   <guard-permission>Review portal content</guard-permission>
+  </guard>
+ </variable>
+ <variable variable_id="time" for_catalog="False"
+           for_status="True" update_always="True">
+  <description>When the previous transition was performed
+</description>
+  <default>
+   
+   <expression>state_change/getDateTime</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+</dc-workflow>

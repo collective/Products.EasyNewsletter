@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="EasyNewsletter">
+<body>
+
+<metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main"
+           tal:define="kssClassesView context/@@kss_field_decorator_view;
+                       getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;
+                       templateId template/getId;
+                       text here/getText;">
+
+        <div tal:replace="structure provider:plone.abovecontenttitle" />
+
+        <h1 class="documentFirstHeading">
+
+            <span tal:omit-tag=""
+                  i18n:translate="easynewsletter_templates_label">Templates</span>
+        </h1>
+
+        <div tal:define="templates python:context.portal_catalog(portal_type = 'ENLTemplate',
+                         path = '/'.join(context.getPhysicalPath()))">
+
+            <div tal:condition="not: templates"
+                 i18n:translate="easynewsletter_notemplates_label">
+                 There are no templates.
+            </div>
+
+            <ul tal:repeat="template templates">
+                <li>
+                    <a tal:content="template/Title"
+                       tal:attributes="href template/getURL">
+                        Link to Template
+                    </a>
+                   <div tal:content="template/Description">Template Description</div>
+                </li>
+            </ul>
+        </div>
+    </tal:main-macro>
+</metal:main>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: EasyNewsletter\n"
+"POT-Creation-Date: Tue Apr 25 11:18:19 2006\n"
+"PO-Revision-Date: Tue Apr 25 11:18:19 2006\n"
+"Last-Translator: Thomas Desvenain - iqplusplus <kai.diefenbach <at> iqpp.de>\n"
+"Language-Team: Thomas Desvenain - <thomas.desvenain@ingeniweb.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: fr\n"
+"Language-Name: Francais\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone\n"
+
+msgid "An error occured."
+msgstr "Une erreur est survenue."
+
+msgid "Archive"
+msgstr "Archive"
+
+msgid "Drafts"
+msgstr "Brouillons"
+
+msgid "Please enter a valid e-mail address."
+msgstr "Veuillez entrer une adresse email valide"
+
+msgid "Receivers"
+msgstr "Destinataires"
+
+msgid "Send"
+msgstr "Envoi"
+
+msgid "Subscriber"
+msgstr "Abonné"
+
+msgid "Subscribers"
+msgstr "Abonnés"
+
+msgid "Template"
+msgstr "Modèle"
+
+msgid "Templates"
+msgstr "Modèles"
+
+msgid "The Newsletter has been send."
+msgstr "La newsletter a été envoyée."
+
+msgid "Your e-mail address is already registered."
+msgstr "Votre adresse email est déjà enregistrée."
+
+msgid "Your e-mail has been added. Thanks for your interest."
+msgstr "Votre adresse email a été ajoutée. Merci !"
+
+msgid "draft"
+msgstr "Brouillon"
+
+msgid "make draft"
+msgstr "Cacher"
+
+msgid "make sent"
+msgstr "Envoyer"
+
+msgid "sent"
+msgstr "Envoyé"
+

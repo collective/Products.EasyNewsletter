@@ -1,0 +1,168 @@
+# ArchGenXML generated POT File
+# Kai Diefenbach - iqplusplus <kai.diefenbach <at> iqpp.de>, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: EasyNewsletter\n"
+"POT-Creation-Date: Thu May  4 12:51:56 2006\n"
+"PO-Revision-Date: Thu May  4 12:51:56 2006\n"
+"Last-Translator: Kai Diefenbach - iqplusplus <kai.diefenbach <at> iqpp.de>\n"
+"Language-Team: Kai Diefenbach - iqplusplus <kai.diefenbach <at> iqpp.de>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ascii\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: latin1 utf-8\n"
+"Domain: EasyNewsletter\n"
+
+#. Default: "acquireCriteria"
+#: content/ENLBase.py
+msgid "EasyNewsletter_help_acquireCriteria"
+msgstr ""
+
+#. Default: "TextAreaWidget"
+#: content/ENLTemplate.py
+msgid "EasyNewsletter_help_body"
+msgstr ""
+
+#. Default: "customView"
+#: content/ENLBase.py
+msgid "EasyNewsletter_help_customView"
+msgstr ""
+
+#. Default: "customViewFields"
+#: content/ENLBase.py
+msgid "EasyNewsletter_help_customViewFields"
+msgstr ""
+
+#. Default: "email"
+#: content/ENLSubscriber.py
+msgid "EasyNewsletter_help_email"
+msgstr ""
+
+#. Default: "itemCount"
+#: content/ENLBase.py
+msgid "EasyNewsletter_help_itemCount"
+msgstr ""
+
+#. Default: "limitNumber"
+#: content/ENLBase.py
+msgid "EasyNewsletter_help_limitNumber"
+msgstr ""
+
+#. Default: "Selected subscribers will be used as receivers of the newsletter."
+#: content/ENLNewsletter.py
+msgid "EasyNewsletter_help_receivers"
+msgstr ""
+
+#. Default: "Default for the sender address of the newsletters."
+#: content/EasyNewsletter.py
+msgid "EasyNewsletter_help_senderEmail"
+msgstr ""
+
+#. Default: "Default for the sender name of the newsletters."
+#: content/EasyNewsletter.py
+msgid "EasyNewsletter_help_senderName"
+msgstr ""
+
+#. Default: "Template, to generate the newsletter."
+#: content/ENLNewsletter.py
+msgid "EasyNewsletter_help_template"
+msgstr ""
+
+#. Default: "Default for the test e-mail address."
+#: content/EasyNewsletter.py
+msgid "EasyNewsletter_help_testEmail"
+msgstr ""
+
+#. Default: "text"
+#: content/ENLNewsletter.py
+msgid "EasyNewsletter_help_text"
+msgstr ""
+
+#. Default: "title"
+#: content/ENLSubscriber.py
+msgid "EasyNewsletter_help_title"
+msgstr ""
+
+#. Default: "Inherit Criteria"
+#: content/ENLBase.py
+msgid "EasyNewsletter_label_acquireCriteria"
+msgstr ""
+
+#. Default: "Body"
+#: content/ENLTemplate.py
+msgid "EasyNewsletter_label_body"
+msgstr ""
+
+#. Default: "Customview"
+#: content/ENLBase.py
+msgid "EasyNewsletter_label_customView"
+msgstr ""
+
+#. Default: "Customviewfields"
+#: content/ENLBase.py
+msgid "EasyNewsletter_label_customViewFields"
+msgstr ""
+
+#. Default: "Email"
+#: content/ENLSubscriber.py
+msgid "EasyNewsletter_label_email"
+msgstr ""
+
+#. Default: "Itemcount"
+#: content/ENLBase.py
+msgid "EasyNewsletter_label_itemCount"
+msgstr ""
+
+#. Default: "Limitnumber"
+#: content/ENLBase.py
+msgid "EasyNewsletter_label_limitNumber"
+msgstr ""
+
+#. Default: "Receivers"
+#: content/ENLNewsletter.py
+msgid "EasyNewsletter_label_receivers"
+msgstr ""
+
+#. Default: "Sender e-mail"
+#: content/EasyNewsletter.py
+msgid "EasyNewsletter_label_senderEmail"
+msgstr ""
+
+#. Default: "Sender name"
+#: content/EasyNewsletter.py
+msgid "EasyNewsletter_label_senderName"
+msgstr ""
+
+#. Default: "Newsletter Template"
+#: content/ENLNewsletter.py
+msgid "EasyNewsletter_label_template"
+msgstr ""
+
+#. Default: "Test e-mail"
+#: content/EasyNewsletter.py
+msgid "EasyNewsletter_label_testEmail"
+msgstr ""
+
+#. Default: "Text"
+#: content/ENLNewsletter.py
+msgid "EasyNewsletter_label_text"
+msgstr ""
+
+#. Default: "Title"
+#: content/ENLSubscriber.py
+msgid "EasyNewsletter_label_title"
+msgstr ""
+
+#. Default: "Enter a value for description."
+#: content/ENLTemplate.py
+msgid "help_description"
+msgstr ""
+
+#. Default: "Description"
+#: content/ENLTemplate.py
+msgid "label_description"
+msgstr ""
+

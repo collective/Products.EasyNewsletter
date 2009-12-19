@@ -1,0 +1,34 @@
+<tal:block i18n:domain="EasyNewsletter">
+<dl class="portlet portletNewsletterSubscriber">
+
+    <dt class="portletHeader">        
+        <span class="portletTopLeft"></span>
+        <span i18n:translate="newsletter_label">Newsletter</span>
+        <span class="portletTopRight"></span>
+    </dt>
+
+    <dd class="portletItem lastItem">
+        
+        <form action="@@add-subscriber">
+            <input type="hidden" 
+                   name="newsletter" 
+                   value="newsletter" 
+                   tal:attributes="value view/get_newsletter" />
+                   
+            <input class="easynewsletter_text"
+                   onclick="this.value=''"
+                   name="subscriber" 
+                   value="Your e-mail"
+                   i18n:attributes="value easynewsletter_input_value;" />
+
+            <input class="standalone easynewsletter_button"
+                   type="submit" 
+                   value="Add subscriber" 
+                   i18n:attributes="value easynewsletter_button_label2;" />
+        </form>
+        
+        <span class="portletBottomLeft"></span>
+        <span class="portletBottomRight"></span>
+    </dd>
+</dl>
+</tal:block>

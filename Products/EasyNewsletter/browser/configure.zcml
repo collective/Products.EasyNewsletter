@@ -1,0 +1,35 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:cmf="http://namespaces.zope.org/cmf"
+    i18n_domain="EasyNewsletter">
+
+    <browser:page
+        name="send-issue-form"
+        for="..interfaces.IENLIssue"
+        class=".issue.IssueView"
+        template="issue_send_form.pt"
+        permission="cmf.ManagePortal" />
+
+    <browser:page
+        name="send-issue"
+        for="..interfaces.IENLIssue"
+        class=".issue.IssueView"
+        attribute="send_issue"
+        permission="cmf.ManagePortal" />
+
+    <browser:page
+        name="refresh-issue"
+        for="..interfaces.IENLIssue"
+        class=".issue.IssueView"
+        attribute="refresh_issue"
+        permission="cmf.ManagePortal" />
+
+    <browser:page
+        name="unsubscribe"
+        for="..interfaces.IEasyNewsletter"
+        class=".newsletter.NewsletterView"
+        attribute="unsubscribe"
+        permission="zope2.Public" />
+
+</configure>

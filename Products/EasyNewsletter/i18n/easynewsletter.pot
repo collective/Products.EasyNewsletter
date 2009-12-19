@@ -1,0 +1,286 @@
+# ArchGenXML generated POT File
+# Kai Diefenbach - iqplusplus <kai.diefenbach <at> iqpp.de>, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: EasyNewsletter\n"
+"POT-Creation-Date: 2006-05-04 07:55+0000\n"
+"PO-Revision-Date: Thu May  4 09:30:42 2006\n"
+"Last-Translator: Kai Diefenbach - iqplusplus <kai.diefenbach <at> iqpp.de>\n"
+"Language-Team: Kai Diefenbach - iqplusplus <kai.diefenbach <at> iqpp.de>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ascii\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: latin1 utf-8\n"
+"Domain: EasyNewsletter\n"
+
+#. Default: "acquireCriteria"
+#: content/ENLBase.py
+msgid "EasyNewsletter_help_acquireCriteria"
+msgstr ""
+
+#. Default: "TextAreaWidget"
+#: content/ENLTemplate.py
+msgid "EasyNewsletter_help_body"
+msgstr ""
+
+#. Default: "customView"
+#: content/ENLBase.py
+msgid "EasyNewsletter_help_customView"
+msgstr ""
+
+#. Default: "customViewFields"
+#: content/ENLBase.py
+msgid "EasyNewsletter_help_customViewFields"
+msgstr ""
+
+#. Default: "email"
+#: content/ENLSubscriber.py
+msgid "EasyNewsletter_help_email"
+msgstr ""
+
+#. Default: "itemCount"
+#: content/ENLBase.py
+msgid "EasyNewsletter_help_itemCount"
+msgstr ""
+
+#. Default: "limitNumber"
+#: content/ENLBase.py
+msgid "EasyNewsletter_help_limitNumber"
+msgstr ""
+
+#. Default: "Selected subscribers will be used as receivers of the newsletter."
+#: ../skins/EasyNewsletter/newsletter_send_form.cpt
+msgid "EasyNewsletter_help_receivers"
+msgstr ""
+
+#. Default: "This e-mail will be used as sender e-mail of the newsletters."
+#: content/EasyNewsletter.py
+msgid "EasyNewsletter_help_senderEmail"
+msgstr ""
+
+#. Default: "This e-mail address will be used as the sender e-mail address of the newsletter e-mail. If you let this field empty, the default sender e-mail address will be used."
+#: ../skins/EasyNewsletter/newsletter_send_form.cpt
+msgid "EasyNewsletter_help_senderEmailForm"
+msgstr ""
+
+#. Default: "This name will be used as sender name of the newsletters."
+#: content/EasyNewsletter.py
+msgid "EasyNewsletter_help_senderName"
+msgstr ""
+
+#. Default: "This name will be used as the sender name of the newsletter e-mail. If you let this field empty, the default sender name will be used."
+#: ../skins/EasyNewsletter/newsletter_send_form.cpt
+msgid "EasyNewsletter_help_senderNameForm"
+msgstr ""
+
+#. Default: "This subject will be used as the subject of the newsletter e-mail. If you let this field empty, the title of the newsletter will be used."
+#: ../skins/EasyNewsletter/newsletter_send_form.cpt
+msgid "EasyNewsletter_help_subject"
+msgstr ""
+
+#. Default: "Enter template, which is used to generate the newsletter"
+#: content/ENLNewsletter.py
+msgid "EasyNewsletter_help_template"
+msgstr ""
+
+#. Default: "This e-mail will be used to send a test of a newsletter."
+#: content/EasyNewsletter.py
+msgid "EasyNewsletter_help_testEmail"
+msgstr ""
+
+#. Default: "This e-mail will be used as receiver of the newsletter e-mail, if you push the test-newsletter button. If you let this field empty, the default test e-mail address will be used."
+#: ../skins/EasyNewsletter/newsletter_send_form.cpt
+msgid "EasyNewsletter_help_testreceiverForm"
+msgstr ""
+
+#. Default: "text"
+#: content/ENLNewsletter.py
+msgid "EasyNewsletter_help_text"
+msgstr ""
+
+#. Default: "title"
+#: content/ENLSubscriber.py
+msgid "EasyNewsletter_help_title"
+msgstr ""
+
+#. Default: "Inherit Criteria"
+#: content/ENLBase.py
+msgid "EasyNewsletter_label_acquireCriteria"
+msgstr ""
+
+#. Default: "Body"
+#: content/ENLTemplate.py
+msgid "EasyNewsletter_label_body"
+msgstr ""
+
+#. Default: "Customview"
+#: content/ENLBase.py
+msgid "EasyNewsletter_label_customView"
+msgstr ""
+
+#. Default: "Customviewfields"
+#: content/ENLBase.py
+msgid "EasyNewsletter_label_customViewFields"
+msgstr ""
+
+#. Default: "Email"
+#: content/ENLSubscriber.py
+msgid "EasyNewsletter_label_email"
+msgstr ""
+
+#. Default: "Itemcount"
+#: content/ENLBase.py
+msgid "EasyNewsletter_label_itemCount"
+msgstr ""
+
+#. Default: "Limitnumber"
+#: content/ENLBase.py
+msgid "EasyNewsletter_label_limitNumber"
+msgstr ""
+
+#. Default: "Receivers"
+#: ../skins/EasyNewsletter/newsletter_send_form.cpt
+msgid "EasyNewsletter_label_receivers"
+msgstr ""
+
+#. Default: "Sender e-mail"
+#: ../skins/EasyNewsletter/newsletter_send_form.cpt
+msgid "EasyNewsletter_label_senderEmail"
+msgstr ""
+
+#. Default: "Sender name"
+#: ../skins/EasyNewsletter/newsletter_send_form.cpt
+msgid "EasyNewsletter_label_senderName"
+msgstr ""
+
+#. Default: "Subject"
+#: ../skins/EasyNewsletter/newsletter_send_form.cpt
+msgid "EasyNewsletter_label_subject"
+msgstr ""
+
+#. Default: "Newsletter Template"
+#: content/ENLNewsletter.py
+msgid "EasyNewsletter_label_template"
+msgstr ""
+
+#. Default: "Test e-mail"
+#: content/EasyNewsletter.py
+msgid "EasyNewsletter_label_testEmail"
+msgstr ""
+
+#. Default: "Test e-mail"
+#: ../skins/EasyNewsletter/newsletter_send_form.cpt
+msgid "EasyNewsletter_label_testreceiver"
+msgstr ""
+
+#. Default: "Text"
+#: content/ENLNewsletter.py
+msgid "EasyNewsletter_label_text"
+msgstr ""
+
+#. Default: "Title"
+#: content/ENLSubscriber.py
+msgid "EasyNewsletter_label_title"
+msgstr ""
+
+#. Default: "Save & Update"
+#: ../skins/EasyNewsletter/NewsletterTemplateWidget.pt
+msgid "easycms_saveupdate_label"
+msgstr ""
+
+#. Default: "Archive"
+#: ../skins/EasyNewsletter/portlet_easynewsletter.pt
+#: ../skins/EasyNewsletter/easynewsletter_view.pt
+msgid "easynewsletter_archive_label"
+msgstr ""
+
+#. Default: "Back to newsletter"
+#: ../skins/EasyNewsletter/enlnewsletter_edit.pt
+#: ../skins/EasyNewsletter/drafts_view.pt
+#: ../skins/EasyNewsletter/enltemplate_view.pt
+msgid "easynewsletter_backtonewsletter_label"
+msgstr ""
+
+#. Default: "Add"
+#: ../skins/EasyNewsletter/portlet_easynewsletter.pt
+msgid "easynewsletter_button_label"
+msgstr ""
+
+#. Default: "Drafts"
+#: ../skins/EasyNewsletter/drafts_view.pt
+msgid "easynewsletter_drafts_label"
+msgstr ""
+
+#. Default: "Your e-mail"
+#: ../skins/EasyNewsletter/portlet_easynewsletter.pt
+msgid "easynewsletter_input_value"
+msgstr ""
+
+#. Default: "The newsletter was already sent."
+#: ../skins/EasyNewsletter/newsletter_send_form.cpt
+msgid "easynewsletter_newslettersent_label"
+msgstr ""
+
+#. Default: "There are no drafts."
+#: ../skins/EasyNewsletter/drafts_view.pt
+msgid "easynewsletter_nondrafts_label"
+msgstr ""
+
+#. Default: "There are no newsletters."
+#: ../skins/EasyNewsletter/easynewsletter_view.pt
+msgid "easynewsletter_nonnewsletters_label"
+msgstr ""
+
+#. Default: "There are no subscribers."
+#: ../skins/EasyNewsletter/subscribers_view.pt
+msgid "easynewsletter_nosubscribers_label"
+msgstr ""
+
+#. Default: "There are no templates."
+#: ../skins/EasyNewsletter/templates_view.pt
+msgid "easynewsletter_notemplates_label"
+msgstr ""
+
+#. Default: "Send Newsletter"
+#: ../skins/EasyNewsletter/newsletter_send_form.cpt
+msgid "easynewsletter_send_button"
+msgstr ""
+
+#. Default: "Send Newsletter"
+#: ../skins/EasyNewsletter/newsletter_send_form.cpt
+msgid "easynewsletter_sendnewsletter_label"
+msgstr ""
+
+#. Default: "Subscribers"
+#: ../skins/EasyNewsletter/subscribers_view.pt
+msgid "easynewsletter_subcribers_label"
+msgstr ""
+
+#. Default: "Templates"
+#: ../skins/EasyNewsletter/templates_view.pt
+msgid "easynewsletter_templates_label"
+msgstr ""
+
+#. Default: "Test Newsletter"
+#: ../skins/EasyNewsletter/newsletter_send_form.cpt
+msgid "easynewsletter_test_button"
+msgstr ""
+
+#. Default: "Newsletter"
+#: ../skins/EasyNewsletter/portlet_easynewsletter.pt
+msgid "easynewsletter_title_label"
+msgstr ""
+
+#. Default: "Enter a value for description."
+#: content/ENLTemplate.py
+msgid "help_description"
+msgstr ""
+
+#. Default: "Description"
+#: content/ENLTemplate.py
+msgid "label_description"
+msgstr ""
+

@@ -1,0 +1,15 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:cmf="http://namespaces.zope.org/cmf"    
+    i18n_domain="EasyNewsletter">
+    
+    <include package=".browser" />
+    <include package=".portlets" />
+    <include file="profiles.zcml" />
+
+    <!-- File System Directory Views registration -->
+    <cmf:registerDirectory name="EasyNewsletter" directory="skins/EasyNewsletter" />
+
+    
+</configure>
