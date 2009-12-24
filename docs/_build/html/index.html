@@ -71,9 +71,12 @@ subscribers will be added).</li>
 Newsletter as well as the Issues are actually specialized Collections.</p>
 <p>Hence you can use familiar criteria to decide which content should be part of
 a newsletter.</p>
-<p>It&#8217;s a feature of Collections that sub topics are able to inherit criteria from
-its parent, so all Issue instances are able to inherit criteria from the
+<p>It&#8217;s a feature of Collections that sub topics are able to inherit criteria
+from its parent, so all Issue instances are able to inherit criteria from the
 outer Newsletter instance.</p>
+<p>Plone&#8217;s default feature of sub topics is used to create sections within the
+newsletter issue. For example one can create to sections: news and events by
+creating sub topics which collect just this kind of content objects.</p>
 <p>Once the content is generated one could edit the text as ususal in Plone.</p>
 <p>You can create own templates to structure the selected content. Please refer
 to the provided &#8220;default&#8221;-template to see how it works.</p>
@@ -82,10 +85,13 @@ to the provided &#8220;default&#8221;-template to see how it works.</p>
 <h3>Step by step<a class="headerlink" href="#step-by-step" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
 <li>Add a EasyNewsletter instance, fill in the form and save it.</li>
-<li>Go to criteria tab and add the criteria, which shall be applied to <em>all</em> of your Newsletters, e.g. &#8220;Items Type&#8221;.</li>
+<li>Go to criteria tab and add the criteria, which shall be applied to <em>all</em> of
+your Newsletters, e.g. &#8220;Items Type&#8221;.</li>
 <li>Add a Newsletter instance, fill in the form and save it.</li>
-<li>Go to criteria tab and add the criteria, which shall be applied to <em>this</em> Newsletter, e.g. &#8220;Creation Date&#8221;,</li>
-<li>Go to the view tab and press refresh (see the document actions)</li>
+<li>Go to criteria tab and add the criteria, which shall be applied to <em>this</em>
+Newsletter, e.g. &#8220;Creation Date&#8221;,</li>
+<li>Go to the view tab and press refresh (see Plone&#8217;s document actions at the
+bottom of the page)</li>
 <li>Go to send tab and push &#8220;Test Newsletter&#8221;.</li>
 </ol>
 </div>

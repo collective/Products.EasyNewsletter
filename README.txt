@@ -6,7 +6,7 @@ A newsletter for Plone.
 Features
 ========
 
-- Plonish (uses Plone's Collections to collect content)
+- Plone-ish (uses Plone's Collections to collect content)
 
 - Subscribing / Unsubscribing
 
@@ -17,24 +17,26 @@ Documentation
 
 For more documentation please visit: http://packages.python.org/Products.EasyNewsletter/
 
-Todos
-=====
+Source Code 
+===========
 
-- Remove subscribers from Navigation
-
-- Batch subscribers
-
-- Re-check behaviour of inheriting criteria
+The source code is within the collective: https://svn.plone.org/svn/collective/Products.EasyNewsletter/
 
 Changes
 =======
 
-1.0 beta 2 (2009-09-19)
+1.0 beta 3 (2009-12-24)
+-----------------------
+* Removed subscribers and templates from Navigation
+
+* Batch subscribers
+
+1.0 beta 2 (2009-12-19)
 -----------------------
 
 * Added missing non-python files
 
-1.0 beta 1 (2009-09-19)
+1.0 beta 1 (2009-12-19)
 -----------------------
 
 * First version for Plone 3

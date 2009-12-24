@@ -42,6 +42,12 @@ class ENLSubscriber(BaseContent):
     _at_rename_after_creation  = True
     schema = BaseSchema + schema
 
+    def initializeArchetype(self, **kwargs):
+        """Overwritten hook
+        """
+        BaseContent.initializeArchetype(self, **kwargs)
+        self.setExcludeFromNav(True)
+
     def setEmail(self, value):
         """
         """

@@ -22,14 +22,19 @@
         </h1>
 
         <div tal:define="subscribers python:context.portal_catalog(portal_type = 'ENLSubscriber',
-                                                                   path='/'.join(context.getPhysicalPath()))">
+                                                                   path='/'.join(context.getPhysicalPath()));
+                         Batch python:modules['Products.CMFPlone'].Batch;
+                         b_start python:request.get('b_start',0);
+                         batch python:Batch(subscribers, 10, int(b_start), orphan=1)">
 
             <div tal:condition="not: subscribers"
                   i18n:translate="easynewsletter_nosubscribers_label">
                  There are no subscribers.
             </div>
 
-            <ul tal:repeat="subscriber subscribers">
+            <div metal:use-macro="here/batch_macros/macros/navigation" />
+
+            <ul tal:repeat="subscriber batch">
                 <li>
                     <a tal:content="python: subscriber.Title"
                        tal:attributes="href string:${subscriber/getURL}">
