@@ -27,7 +27,7 @@ Changes
 
 1.0 beta 3 (2009-12-24)
 -----------------------
-* Removed subscribers and templates from Navigation
+* Removed subscribers and templates from navigation
 
 * Batch subscribers
 
