@@ -33,6 +33,6 @@ DEFAULT_TEMPLATE = """
 
 <hr />
 <p>
-    <a href="{% unsubscribe-link %}">Click here to unscubsribe</a>
+    <a href="{% unsubscribe-link %}">Click here to unsubscribe</a>
 </p>
 """
