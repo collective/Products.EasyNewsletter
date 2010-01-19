@@ -123,7 +123,7 @@ class EasyNewsletter(ATTopic, BaseFolder):
         return False
 
     security.declarePublic('addSubscriber')
-    def addSubscriber(self, subscriber):
+    def addSubscriber(self, subscriber, fullname):
         """Adds a new subscriber to the newsletter (if valid).
         """
         from Products.validation.validators.BaseValidators import EMAIL_RE
@@ -143,7 +143,8 @@ class EasyNewsletter(ATTopic, BaseFolder):
                 return (False, 2)
                 
             o = getattr(self, subscriber_id)
-            o.setEmail( subscriber)
+            o.setEmail(subscriber)
+            o.setFullname(fullname)
         
             return (True, 0)
     

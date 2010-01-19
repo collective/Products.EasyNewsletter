@@ -27,7 +27,7 @@ schema=Schema((
     TextField('header',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         widget=RichWidget(
-            rows=30,
+            rows=20,
             label='Header',
             label_msgid='EasyNewsletter_label_header',
             description_msgid='EasyNewsletter_help_header',
@@ -51,7 +51,7 @@ schema=Schema((
     TextField('footer',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         widget=RichWidget(
-            rows=30,
+            rows=20,
             label='Footer',
             label_msgid='EasyNewsletter_label_footer',
             description_msgid='EasyNewsletter_help_footer',

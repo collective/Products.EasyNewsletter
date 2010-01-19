@@ -3,18 +3,25 @@
 
     <dt class="portletHeader">        
         <span class="portletTopLeft"></span>
-        <span i18n:translate="newsletter_label">Newsletter</span>
+        <span tal:content="view/header|nothing">Newsletter</span>
         <span class="portletTopRight"></span>
     </dt>
 
     <dd class="portletItem lastItem">
-        
+	<p tal:content="view/description|nothing">Portlet Description</p> 
+
         <form action="@@add-subscriber">
             <input type="hidden" 
                    name="newsletter" 
                    value="newsletter" 
                    tal:attributes="value view/get_newsletter" />
                    
+            <input class="easynewsletter_text"
+                   onclick="this.value=''"
+                   name="fullname" 
+                   value="Full Name"
+                   i18n:attributes="value easynewsletter_input_value_fullname;" />
+
             <input class="easynewsletter_text"
                    onclick="this.value=''"
                    name="subscriber" 

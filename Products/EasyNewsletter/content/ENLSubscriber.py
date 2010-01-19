@@ -21,6 +21,16 @@ schema=Schema((
         required = False
     ),
 
+    StringField('fullname',
+        widget=StringWidget(
+            label='Full Name',
+            label_msgid='EasyNewsletter_label_fullname',
+            description_msgid='EasyNewsletter_help_fullname',
+            i18n_domain='EasyNewsletter',
+        ),
+        required = False
+    ),
+
     StringField('email',
         widget=StringWidget(
             label='Email',
