@@ -19,7 +19,7 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
     newsletter = schema.TextLine(
             title=_(u"label_newsletter_title", default=u"Path to Newsletter"),
             description=_(u"help_newsletter_title",
-                          default=u"The path to the newsletter"),
+                          default=u"The absolute path from portal_root to the newsletter"),
             default=u"",
             required=True)
 
@@ -84,6 +84,10 @@ class SubscriberView(BrowserView):
         putils = getToolByName(self.context, "plone_utils")
         portal_url = getToolByName(self.context, "portal_url")
         path_to_easynewsletter = self.request.get("newsletter")
+
+        # remove leading slash from paths like: /mynewsletter
+        if path_to_easynewsletter and path_to_easynewsletter[0] == '/':
+            path_to_easynewsletter = path_to_easynewsletter[1:]
 
         MESSAGE_CODE = [
             "Your e-mail has been added. Thanks for your interest.",
