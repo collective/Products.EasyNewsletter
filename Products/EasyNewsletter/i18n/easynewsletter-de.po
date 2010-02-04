@@ -205,12 +205,17 @@ msgstr "Zurück zum Newsletter"
 #. Default: "Add"
 #: ../skins/EasyNewsletter/portlet_easynewsletter.pt
 msgid "easynewsletter_button_label"
-msgstr "Add Subscriber"
+msgstr "Abonnieren"
 
 #. Default: "Drafts"
 #: ../skins/EasyNewsletter/drafts_view.pt
 msgid "easynewsletter_drafts_label"
 msgstr "Entwürfe"
+
+#. Default: "Full Name"
+#: ../skins/EasyNewsletter/portlet_easynewsletter.pt
+msgid "easynewsletter_input_value_fullname"
+msgstr "Vorname Nachname"
 
 #. Default: "Your e-mail"
 #: ../skins/EasyNewsletter/portlet_easynewsletter.pt

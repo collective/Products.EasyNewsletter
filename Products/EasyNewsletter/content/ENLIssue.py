@@ -14,6 +14,7 @@ from Products.Archetypes.atapi import *
 from Products.ATContentTypes import ATCTMessageFactory as _
 from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
+from Products.Archetypes.public import DisplayList
 from Products.CMFCore.utils import getToolByName
 
 # EasyNewsletter imports
@@ -126,12 +127,25 @@ schema=Schema((
             i18n_domain='EasyNewsletter',
         )
     ),
+
+    #LinesField('ploneMembersAndGroups',
+    #    vocabulary="nested_users_and_groups",
+    #    widget=MultiSelectionWidget(
+    #        label='Plone Members and Groups',
+    #        label_msgid='EasyNewsletter_label_ploneMembersAndGroups',
+    #        description_msgid='EasyNewsletter_help_ploneMembersAndGroups',
+    #        i18n_domain='EasyNewsletter',
+    #    )
+    #),
 ),
 )
 
 schema = ATTopicSchema + schema
 schema.moveField('text', after='header')
 schema.moveField('acquireCriteria', before='template')
+# hide id, even if visible_ids is True
+schema['id'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
+
 
 class ENLIssue(ATTopic, BaseContent):
     """A newsletter which can be send to subscribers.
@@ -214,9 +228,17 @@ class ENLIssue(ATTopic, BaseContent):
                 personal_text_plain = text_plain
                 mail['To'] = receiver
             else:
+                # remove >>PERSOLINE>> Maker first:
+                personal_text = text.replace("<p>&gt;&gt;PERSOLINE&gt;&gt;", "")
                 unsubscribe_link = enl.absolute_url() + "/unsubscribe?subscriber=" + receiver.UID()
                 personal_text = text.replace("{% unsubscribe-link %}", unsubscribe_link)
                 personal_text_plain = text_plain.replace("{% unsubscribe-link %}", unsubscribe_link)
+                fullname = None
+                fullname = receiver.getFullname()
+                if not fullname:
+                    fullname = "Sir or Madam"
+                personal_text = text.replace("{% subscriber-fullname %}", fullname)
+                personal_text_plain = text_plain.replace("{% subscriber-fullname %}}", fullname)
                 mail['To'] = receiver.getEmail()
 
             mail['From']    = from_header
@@ -274,5 +296,32 @@ class ENLIssue(ATTopic, BaseContent):
             return self.aq_inner.aq_parent.objectValues("ATTopic")
         else:
             return topics
+
+    def get_unpersonalized_body(self):
+        """
+        """
+        personalized_body_lines = self.getRawText().split('\r\n')
+        unpersonalized_body = '\r\n'.join([line for line in personalized_body_lines if not line.startswith("<p>&gt;&gt;PERSOLINE&gt;&gt;")])
+        return unpersonalized_body
+
+
+    #def get_members(self):
+    #    """
+    #    """
+    #    mtool = getToolByName(self, 'portal_membership')
+    #    members = mtool.listMemberIds()
+    #    return DisplayList()
+
+    #def get_group_members():
+    #    """
+    #    """
+    #    mtool = getToolByName(self, 'portal_membership')
+    #    gtool = getToolByName(self, 'portal_groups')
+    #    members = mtool.listMemberIds()
+    #    groups = gtool.listGroups()
+    #    for group in groups:
+    #        group_members[group.id] = group.getGroupMemberIds()
+    #    return DisplayList()
+
 
 registerType(ENLIssue, PROJECTNAME)

@@ -24,11 +24,8 @@
 
         <div tal:replace="structure provider:plone.belowcontenttitle" />
 
-        <p class="documentDescription">
-            <metal:field use-macro="python:here.widget('description', mode='view')">
-            Description
-            </metal:field>
-        </p>
+        <div tal:content="here/Description" 
+             class="documentDescription">description</div>
 
         <div tal:replace="structure provider:plone.abovecontentbody" />
         
@@ -39,15 +36,12 @@
            Back to newsletter
         </a>  
         
-        <div tal:content="here/Description" 
-             class="documentDescription">description</div>
       
         <div metal:define-macro="body">
-          <div tal:content="structure here/getText">
+          <div tal:content="structure context/get_unpersonalized_body">
             The newsletter's text
           </div>      
         </div>
-           
         <div tal:replace="structure provider:plone.belowcontentbody" />
 
     </tal:main-macro>

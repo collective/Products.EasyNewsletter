@@ -214,6 +214,11 @@ msgstr ""
 msgid "easynewsletter_drafts_label"
 msgstr ""
 
+#. Default: "Full Name"
+#: ../skins/EasyNewsletter/portlet_easynewsletter.pt
+msgid "easynewsletter_input_value_fullname"
+msgstr ""
+
 #. Default: "Your e-mail"
 #: ../skins/EasyNewsletter/portlet_easynewsletter.pt
 msgid "easynewsletter_input_value"

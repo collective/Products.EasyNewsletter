@@ -30,8 +30,8 @@
 
             <input class="standalone easynewsletter_button"
                    type="submit" 
-                   value="Add subscriber" 
-                   i18n:attributes="value easynewsletter_button_label2;" />
+                   value="subscribe" 
+                   i18n:attributes="value easynewsletter_button_label;" />
         </form>
         
         <span class="portletBottomLeft"></span>
