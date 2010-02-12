@@ -18,6 +18,6 @@
         name="add-subscriber"
         class=".subscriber.SubscriberView"
         attribute="add_subscriber"
-        permission="cmf.ManagePortal" />
+        permission="zope.Public" />
 
 </configure>
