@@ -7,6 +7,8 @@ from zope.interface import implements
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import PloneMessageFactory as _
 from plone.app.portlets.portlets import base
+from plone.app.vocabularies.catalog import SearchableTextSourceBinder
+from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
 from plone.portlets.interfaces import IPortletDataProvider
 
 # Five imports
@@ -29,12 +31,10 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
             default=u"",
             required=False)
 
-    newsletter = schema.TextLine(
-            title=_(u"label_newsletter_title", default=u"Path to Newsletter"),
-            description=_(u"help_newsletter_title",
-                          default=u"The absolute path from portal_root to the newsletter"),
-            default=u"",
-            required=True)
+    newsletter = schema.Choice(title=_(u"label_newsletter_title", default=u"Location of Newsletter"),
+                            description=_(u"Search for the newsletter using the search field. Click apply to select the newsletter that is found."),
+                            required=True,
+                            source=SearchableTextSourceBinder({'is_folderish' : True}))
 
 
 class Assignment(base.Assignment):
@@ -84,11 +84,7 @@ class AddForm(base.AddForm):
     def create(self, data):
         """
         """
-        return Assignment(
-            portlet_title = data.get("portlet_title", ""),
-            portlet_description = data.get("portlet_description", ""),
-            newsletter = data.get("newsletter", ""),
-        )
+        return Assignment(**data)
 
 class EditForm(base.EditForm):
     """
@@ -121,6 +117,7 @@ class SubscriberView(BrowserView):
         subscriber = self.request.get("subscriber", "")
         fullname = self.request.get("fullname", "")
         easynewsletter = portal_url.restrictedTraverse(path_to_easynewsletter)
+
         valid_email, error_code = easynewsletter.addSubscriber(subscriber, fullname)
 
         if valid_email == True:

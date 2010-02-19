@@ -24,3 +24,11 @@ class IIssueView(Interface):
     def get_unpersonalized_body(self):
         """
         """
+
+class IListSubscribers(Interface):
+    """
+    """
+
+    def listSubscribers(self, context):
+        """
+        """

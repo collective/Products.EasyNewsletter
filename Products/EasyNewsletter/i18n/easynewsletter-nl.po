@@ -2,187 +2,182 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EasyNewsletter\n"
 "POT-Creation-Date: 2010-02-19 14:11+0000\n"
-"PO-Revision-Date: Tue Apr 25 11:18:19 2006\n"
-"Last-Translator: Kai Diefenbach - iqplusplus <kai.diefenbach <at> iqpp.de>\n"
-"Language-Team: Kai Diefenbach - iqplusplus <kai.diefenbach <at> iqpp.de>\n"
+"PO-Revision-Date: Fri Feb  19 06:30:03 2010\n"
+"Last-Translator: Huub Bouma and Kim Chee Leong - gw20e <info <at> gw20e.com>\n"
+"Language-Team: Huub Bouma and Kim Chee Leong - gw20e <info <at> gw20e.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=ascii\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"Language-Code: de\n"
-"Language-Name: Deutsch\n"
-"Preferred-Encodings: utf-8 latin1\n"
+"Language-Code: nl\n"
+"Language-Name: Dutch\n"
+"Preferred-Encodings: latin1 utf-8\n"
 "Domain: EasyNewsletter\n"
+"X-Is-Fallback-For: nl-be nl-nl\n"
 
 #. Default: "Sender address of the newsletter e-mail. If you let this field empty, the default sender e-mail address will be used."
 #: ./browser/issue_send_form.pt:48
-#, fuzzy
 msgid "EasyNewsletter_help_senderEmailForm"
-msgstr "Absenderadresse der Newsletters-E-Mail. Falls Sie dieses Feld frei lassen, wird die voreingestellte E-Mail-Adresse verwendet."
+msgstr "Afzender adres van de nieuwsbrief. Wanneer niet ingevuld wordt het standaard mailadres gebruikt"
 
 #. Default: "Sender name of the newsletter e-mail. If you let this field empty, the default sender name will be used."
 #: ./browser/issue_send_form.pt:31
-#, fuzzy
 msgid "EasyNewsletter_help_senderNameForm"
-msgstr "Absendername der Newsletters-E-Mail. Falls Sie dieses Feld frei lassen, wird der voreingestellte Name verwendet."
+msgstr "Afzender naam van de nieuwsbrief. Wanneer niet ingevuld wordt de standaard naam gebruikt"
 
 #. Default: "Subject of the newsletter e-mail. If you let this field empty, the title of the newsletter will be used."
 #: ./browser/issue_send_form.pt:65
-#, fuzzy
 msgid "EasyNewsletter_help_subject"
-msgstr "Thema der Newsletter-E-Mail. Falls Sie dieses Feld frei lassen, wird der Titel des Newsletters verwendet."
+msgstr "Onderwerp van de nieuwsbrief. Wanneer niet ingevuld wordt de titel van de nieuwsbrief gebruikt."
 
 #. Default: "Test e-mail. If you let this field empty, the default test e-mail address will be used."
 #: ./browser/issue_send_form.pt:107
-#, fuzzy
 msgid "EasyNewsletter_help_testreceiverForm"
-msgstr "E-Mail-Adresse, die zum Test des Newsletters verwendet wird. Falls Sie diese Feld leer lassen, wird die voreingestellt E-Mail-Adresse verwendet."
+msgstr "Test mailadres. Wanneer niet ingevuld wordt het standaard mailadres gebruikt."
 
 #. Default: "Sender e-mail"
 #: ./browser/issue_send_form.pt:43
 msgid "EasyNewsletter_label_senderEmail"
-msgstr "E-Mail des Absenders"
+msgstr "Afzender mailadres"
 
 #. Default: "Sender name"
 #: ./browser/issue_send_form.pt:26
 msgid "EasyNewsletter_label_senderName"
-msgstr "Name des Absenders"
+msgstr "Afzender naam"
 
 #. Default: "Subject"
 #: ./browser/issue_send_form.pt:60
 msgid "EasyNewsletter_label_subject"
-msgstr "Thema"
+msgstr "Onderwerp"
 
 #. Default: "Test e-mail"
 #: ./browser/issue_send_form.pt:102
 msgid "EasyNewsletter_label_testreceiver"
-msgstr "Test-E-Mail"
+msgstr "Test mailadres"
 
 #: ./portlets/subscriber.py:97
 msgid "Edit Newsletter portlet"
-msgstr ""
+msgstr "Bewerk nieuwsbrief portlet"
 
 #: ./portlets/subscriber.py:56
 msgid "Newsletter Subscriber"
-msgstr ""
+msgstr "Nieuwsbrief abonnee"
 
 #: ./portlets/subscriber.py:98
 msgid "This portlet displays the subscriber add form of a newsletter."
-msgstr ""
+msgstr "Dit portlet toont het nieuwsbrief abonnement inschrijfformulier. "
 
 #: ./portlets/subscriber.py:20
 msgid "Title for the portlet."
-msgstr ""
+msgstr "Titel voor het portlet."
 
 #. Default: "Save & Update"
 #: ./skins/EasyNewsletter/NewsletterTemplateWidget.pt:25
 msgid "easycms_saveupdate_label"
-msgstr "Sichern und Aktualisieren"
+msgstr "Opslaan en bijwerken"
 
 #. Default: "Back to newsletter"
 #: ./browser/issue_send_form.pt:14
 msgid "easynewsletter_backtonewsletter_label"
-msgstr "Zurück zum Newsletter"
+msgstr "Terug naar nieuwsbrief"
 
 #. Default: "subscribe"
 #: ./portlets/subscriber.pt:31
-#, fuzzy
 msgid "easynewsletter_button_label"
-msgstr "Abonnieren"
+msgstr "Abonneren"
 
 #. Default: "Drafts"
 #: ./skins/EasyNewsletter/enl_drafts_view.pt:20
 msgid "easynewsletter_drafts_label"
-msgstr "Entwürfe"
+msgstr "Concepten"
 
 #. Default: "Your e-mail"
 #: ./portlets/subscriber.pt:25
 msgid "easynewsletter_input_value"
-msgstr "Ihre E-Mail"
+msgstr "Uw mailadres"
 
 #. Default: "Full Name"
 #: ./portlets/subscriber.pt:19
 msgid "easynewsletter_input_value_fullname"
-msgstr "Vorname Nachname"
+msgstr "Volledige naam"
 
 #. Default: "The newsletter was already sent."
 #: ./browser/issue_send_form.pt:118
 msgid "easynewsletter_newslettersent_label"
-msgstr "Dieser Newsletter wurde bereits versendet."
+msgstr "De nieuwsbrief is reeds verzonden."
 
 #. Default: "There are no issues."
 #: ./skins/EasyNewsletter/easynewsletter_view.pt:40
 msgid "easynewsletter_non_issues_label"
-msgstr ""
+msgstr "Er zijn geen nieuwsbrief uitgaven."
 
 #. Default: "There are no drafts."
 #: ./skins/EasyNewsletter/enl_drafts_view.pt:32
 msgid "easynewsletter_nondrafts_label"
-msgstr "Es sind keine Entwürfe vorhanden."
+msgstr "Er zijn geen concepten."
 
 #. Default: "There are no subscribers."
 #: ./skins/EasyNewsletter/enl_subscribers_view.pt:30
 msgid "easynewsletter_nosubscribers_label"
-msgstr "Es sind keine Abonnenten vorhanden."
+msgstr "Er zijn geen abonnees"
 
 #. Default: "There are no templates."
 #: ./skins/EasyNewsletter/enl_templates_view.pt:28
 msgid "easynewsletter_notemplates_label"
-msgstr "Es sind keine Schablonen vorhanden."
+msgstr "Er zijn geen sjablonen"
 
 #. Default: "Send Newsletter"
 #: ./browser/issue_send_form.pt:123
 msgid "easynewsletter_send_button"
-msgstr "Newsletter versenden"
+msgstr "Verstuur nieuwsbrief"
 
 #. Default: "Send Issue"
 #: ./browser/issue_send_form.pt:9
-#, fuzzy
 msgid "easynewsletter_sendnewsletter_label"
-msgstr "Newsletter versenden"
+msgstr "Verstuur nieuwsbrief uitgave"
 
 #. Default: "Subscribers"
 #: ./skins/EasyNewsletter/enl_subscribers_view.pt:20
 msgid "easynewsletter_subcribers_label"
-msgstr "Abonnenten"
+msgstr "Abonnees"
 
 #. Default: "Templates"
 #: ./skins/EasyNewsletter/enl_templates_view.pt:21
 msgid "easynewsletter_templates_label"
-msgstr "Schablonen"
+msgstr "Sjablonen"
 
 #. Default: "Test Newsletter"
 #: ./browser/issue_send_form.pt:129
 msgid "easynewsletter_test_button"
-msgstr "Newsletter testen"
+msgstr "Test nieuwsbrief"
 
 #. Default: "Subscribe here to our newsletter."
 #: ./portlets/subscriber.py:27
 msgid "help_newsletter_description"
-msgstr ""
+msgstr "Abonneer op onze nieuwsbrief"
 
 #. Default: "The absolute path from portal_root to the newsletter"
 #: ./portlets/subscriber.py:34
 msgid "help_newsletter_title"
-msgstr ""
+msgstr "Het absolute path vanuit portal_root naar de nieuwbrief"
 
 #. Default: "Issues"
 #: ./skins/EasyNewsletter/easynewsletter_view.pt:35
 msgid "issues_label"
-msgstr ""
+msgstr "Uitgaven"
 
 #. Default: "Inherit Criteria"
 #: ./content/ENLIssue.py:67
 msgid "label_inherit_criteria"
-msgstr ""
+msgstr "Criteria overerven"
 
 #. Default: "Description"
 #: ./portlets/subscriber.py:26
 msgid "label_newsletter_description"
-msgstr ""
+msgstr "Omschrijving"
 
 #. Default: "Path to Newsletter"
 #: ./portlets/subscriber.py:33
 msgid "label_newsletter_title"
-msgstr ""
+msgstr "Pad naar nieuwsbrief"
 

@@ -19,7 +19,8 @@
 
   <br/>
   <form tal:attributes="action string:${context/absolute_url}/send-issue"
-        tal:define="sent python:wtool.getInfoFor(context, 'review_state') == 'sent'"
+        tal:define="wtool context/portal_workflow;
+                    sent python:wtool.getInfoFor(context, 'review_state') == 'sent'"
         method="post">
 
     <label for="sender name" 

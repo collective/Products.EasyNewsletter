@@ -25,6 +25,16 @@ The source code is within the collective: https://svn.plone.org/svn/collective/P
 Changes
 =======
 
+1.1 (branch for Plone 4, 2010-02-19)
+------------------------------------
+* Compatible with Plone 4
+* Utility for listing subscribers
+* One-state private subcriber workflow
+* Changed permission for sending newsletter, from portal manager to editor
+* Updated all translation files
+* Added Dutch translations
+* Currently only works with Products.TemplateFields from subversion (trunk).
+
 1.0 beta 3 (2009-12-24)
 -----------------------
 * Removed subscribers and templates from navigation

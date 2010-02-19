@@ -2,17 +2,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EasyNewsletter\n"
 "POT-Creation-Date: 2010-02-19 14:28+0000\n"
-"PO-Revision-Date: Tue Apr 25 11:18:19 2006\n"
-"Last-Translator: Thomas Desvenain - iqplusplus <kai.diefenbach <at> iqpp.de>\n"
-"Language-Team: Thomas Desvenain - <thomas.desvenain@ingeniweb.com>\n"
+"PO-Revision-Date: Fri Feb  19 06:30:03 2010\n"
+"Last-Translator: Huub Bouma and Kim Chee Leong - gw20e <info <at> gw20e.com>\n"
+"Language-Team: Huub Bouma and Kim Chee Leong - gw20e <info <at> gw20e.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=ascii\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"Language-Code: fr\n"
-"Language-Name: Francais\n"
-"Preferred-Encodings: utf-8 latin1\n"
+"Language-Code: nl\n"
+"Language-Name: Dutch\n"
+"Preferred-Encodings: latin1 utf-8\n"
 "Domain: plone\n"
+"X-Is-Fallback-For: nl-be nl-nl\n"
 
 #. Default: "A page in the site. Can contain rich text."
 #: ./profiles/default/types/ENLSubscriber.xml
@@ -23,12 +24,12 @@ msgstr ""
 #. Default: "An easy to use Newsletter"
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "An easy to use Newsletter"
-msgstr ""
+msgstr "Een makkelijk te gebruiken nieuwsbrief"
 
 #. Default: "An issue of a newsleter"
 #: ./profiles/default/types/ENLIssue.xml
 msgid "An issue of a newsleter"
-msgstr ""
+msgstr "Een uitgave van een nieuwsbrief"
 
 #. Default: "Criteria"
 #: ./profiles/default/types/ENLIssue.xml
@@ -39,7 +40,7 @@ msgstr ""
 #. Default: "Drafts"
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "Drafts"
-msgstr "Brouillons"
+msgstr "Concepten"
 
 #. Default: "EasyNewsletter"
 #: ./profiles/default/types/EasyNewsletter.xml
@@ -51,11 +52,11 @@ msgstr ""
 #: ./profiles/default/types/EasyNewsletter.xml
 #: ./profiles/default/types/ENLSubscriber.xml
 msgid "Edit"
-msgstr ""
+msgstr "Bewerken"
 
 #: ./portlets/subscriber.py:97
 msgid "Edit Newsletter portlet"
-msgstr ""
+msgstr "Bewerk nieuwsbrief portlet"
 
 #. Default: "External Edit"
 #: ./profiles/default/types/ENLSubscriber.xml
@@ -72,11 +73,11 @@ msgstr ""
 #. Default: "Issue"
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Issue"
-msgstr ""
+msgstr "Nieuwsbrief uitgave"
 
 #: ./portlets/subscriber.py:56
 msgid "Newsletter Subscriber"
-msgstr ""
+msgstr "Nieuwsbrief abonnee"
 
 #. Default: "References"
 #: ./profiles/default/types/ENLIssue.xml
@@ -93,7 +94,7 @@ msgstr ""
 #. Default: "Send"
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Send"
-msgstr "Envoi"
+msgstr ""
 
 #. Default: "Subfolders"
 #: ./profiles/default/types/ENLIssue.xml
@@ -104,30 +105,30 @@ msgstr ""
 #. Default: "Subscriber"
 #: ./profiles/default/types/ENLSubscriber.xml
 msgid "Subscriber"
-msgstr "Abonné"
+msgstr "Abonnee"
 
 #. Default: "Subscribers"
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "Subscribers"
-msgstr "Abonnés"
+msgstr "Abonnees"
 
 #. Default: "Template"
 #: ./profiles/default/types/ENLTemplate.xml
 msgid "Template"
-msgstr "Modèle"
+msgstr "Sjabloon"
 
 #. Default: "Templates"
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "Templates"
-msgstr "Modèles"
+msgstr "Sjablonen"
 
 #: ./portlets/subscriber.py:98
 msgid "This portlet displays the subscriber add form of a newsletter."
-msgstr ""
+msgstr "Dit portlet toont het inschrijfformulier voor de nieuwsbrief"
 
 #: ./portlets/subscriber.py:20
 msgid "Title for the portlet."
-msgstr ""
+msgstr "Titel voor het portlet."
 
 #. Default: "View"
 #: ./profiles/default/types/ENLIssue.xml
@@ -139,7 +140,7 @@ msgstr ""
 #. Default: "Subscribe here to our newsletter."
 #: ./portlets/subscriber.py:27
 msgid "help_newsletter_description"
-msgstr ""
+msgstr "Abonneer hier op onze nieuwsbrief"
 
 #. Default: "The absolute path from portal_root to the newsletter"
 #: ./portlets/subscriber.py:34
@@ -149,15 +150,15 @@ msgstr ""
 #. Default: "Inherit Criteria"
 #: ./content/ENLIssue.py:67
 msgid "label_inherit_criteria"
-msgstr ""
+msgstr "Criteria overerven"
 
 #. Default: "Description"
 #: ./portlets/subscriber.py:26
 msgid "label_newsletter_description"
-msgstr ""
+msgstr "Omschrijving"
 
 #. Default: "Path to Newsletter"
 #: ./portlets/subscriber.py:33
 msgid "label_newsletter_title"
-msgstr ""
+msgstr "Pad naar nieuwsbrief"
 

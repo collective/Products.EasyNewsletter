@@ -7,6 +7,7 @@ from email import Encoders
 
 # zope imports
 from zope.interface import implements
+from zope.component import getUtility 
 
 # Zope / Plone import
 from AccessControl import ClassSecurityInfo
@@ -18,7 +19,7 @@ from Products.Archetypes.public import DisplayList
 from Products.CMFCore.utils import getToolByName
 
 # EasyNewsletter imports
-from Products.EasyNewsletter.interfaces import IENLIssue
+from Products.EasyNewsletter.interfaces import IENLIssue, IListSubscribers
 from Products.EasyNewsletter.config import PROJECTNAME
 from Products.EasyNewsletter.utils.ENLHTMLParser import ENLHTMLParser
 from Products.EasyNewsletter.content.ENLSubscriber import ENLSubscriber
@@ -205,7 +206,8 @@ class ENLIssue(ATTopic, BaseContent):
         if hasattr(request, "test"):
             receivers = [test_receiver]
         else:
-            receivers = self.aq_inner.aq_parent.objectValues("ENLSubscriber")
+            listSubscribers = getUtility(IListSubscribers)
+            receivers = listSubscribers.listSubscribers(self)
 
         # get charset
         props = getToolByName(self, "portal_properties").site_properties
@@ -222,23 +224,24 @@ class ENLIssue(ATTopic, BaseContent):
         for receiver in receivers:
             # create multipart mail
             mail = MIMEMultipart("alternative")
+            personal_text = text
+            personal_text_plain = text_plain
 
             if hasattr(request, "test"):
-                personal_text = text
-                personal_text_plain = text_plain
                 mail['To'] = receiver
             else:
                 # remove >>PERSOLINE>> Maker first:
-                personal_text = text.replace("<p>&gt;&gt;PERSOLINE&gt;&gt;", "")
+
+                personal_text = personal_text.replace("<p>&gt;&gt;PERSOLINE&gt;&gt;", "")
                 unsubscribe_link = enl.absolute_url() + "/unsubscribe?subscriber=" + receiver.UID()
-                personal_text = text.replace("{% unsubscribe-link %}", unsubscribe_link)
-                personal_text_plain = text_plain.replace("{% unsubscribe-link %}", unsubscribe_link)
+                personal_text = personal_text.replace("{% unsubscribe-link %}", unsubscribe_link)
+                personal_text_plain = personal_text_plain.replace("{% unsubscribe-link %}", unsubscribe_link)
                 fullname = None
                 fullname = receiver.getFullname()
                 if not fullname:
                     fullname = "Sir or Madam"
-                personal_text = text.replace("{% subscriber-fullname %}", fullname)
-                personal_text_plain = text_plain.replace("{% subscriber-fullname %}}", fullname)
+                personal_text = personal_text.replace("{% subscriber-fullname %}", fullname)
+                personal_text_plain = personal_text_plain.replace("{% subscriber-fullname %}", fullname)
                 mail['To'] = receiver.getEmail()
 
             mail['From']    = from_header
@@ -251,6 +254,8 @@ class ENLIssue(ATTopic, BaseContent):
 
             # Attach html part with images
             html_part = MIMEMultipart("related")
+            # Setting the Content-Transfer-Encoding fixes error with MailHost
+            html_part['Content-Transfer-Encoding'] = 'quoted-printable'
 
             html_text = MIMEText(personal_text, "html", charset)
             html_part.attach(html_text)
@@ -269,7 +274,6 @@ class ENLIssue(ATTopic, BaseContent):
                 html_part.attach(image)
 
             mail.attach(html_part)
-
             self.MailHost.send(mail.as_string())
 
         # change status

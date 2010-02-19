@@ -9,6 +9,7 @@ from zExceptions import BadRequest
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes.atapi import *
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import _createObjectByType
 from Products.ATContentTypes import ATCTMessageFactory as _
 from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
@@ -131,17 +132,18 @@ class EasyNewsletter(ATTopic, BaseFolder):
         mo = re.search(EMAIL_RE, subscriber)
                 
         if mo is None:
-            return (False, 1)
+            return (False, 1) #invalid address 
         else:
             # Normalize Subscriber
             plone_tool = getToolByName(self, 'plone_utils')    
+           
             subscriber_id = plone_tool.normalizeString(subscriber)
-            
-            try:
-                self.manage_addProduct["EasyNewsletter"].addENLSubscriber(id=subscriber_id)
-            except BadRequest:
-                return (False, 2)
-                
+           
+            if hasattr(self, subscriber_id):
+                return (False, 2) #address already in use
+
+            _createObjectByType("ENLSubscriber", self, subscriber_id)
+
             o = getattr(self, subscriber_id)
             o.setEmail(subscriber)
             o.setFullname(fullname)

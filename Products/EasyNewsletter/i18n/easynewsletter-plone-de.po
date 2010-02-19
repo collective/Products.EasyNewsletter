@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: EasyNewsletter\n"
-"POT-Creation-Date: Tue Apr 25 11:18:19 2006\n"
+"POT-Creation-Date: 2010-02-19 14:28+0000\n"
 "PO-Revision-Date: Tue Apr 25 11:18:19 2006\n"
 "Last-Translator: Kai Diefenbach - iqplusplus <kai.diefenbach <at> iqpp.de>\n"
 "Language-Team: Kai Diefenbach - iqplusplus <kai.diefenbach <at> iqpp.de>\n"
@@ -14,54 +14,150 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: plone\n"
 
-msgid "An error occured."
-msgstr "Es ist ein Fehler aufgetreten."
+#. Default: "A page in the site. Can contain rich text."
+#: ./profiles/default/types/ENLSubscriber.xml
+#: ./profiles/default/types/ENLTemplate.xml
+msgid "A page in the site. Can contain rich text."
+msgstr ""
 
-msgid "Archive"
-msgstr "Archiv"
+#. Default: "An easy to use Newsletter"
+#: ./profiles/default/types/EasyNewsletter.xml
+msgid "An easy to use Newsletter"
+msgstr ""
 
+#. Default: "An issue of a newsleter"
+#: ./profiles/default/types/ENLIssue.xml
+msgid "An issue of a newsleter"
+msgstr ""
+
+#. Default: "Criteria"
+#: ./profiles/default/types/ENLIssue.xml
+#: ./profiles/default/types/EasyNewsletter.xml
+msgid "Criteria"
+msgstr ""
+
+#. Default: "Drafts"
+#: ./profiles/default/types/EasyNewsletter.xml
 msgid "Drafts"
 msgstr "Entwürfe"
 
-msgid "Please enter a valid e-mail address."
-msgstr "Bitte geben Sie eine gültige E-Mail-Adresse ein."
+#. Default: "EasyNewsletter"
+#: ./profiles/default/types/EasyNewsletter.xml
+msgid "EasyNewsletter"
+msgstr ""
 
-msgid "Receivers"
-msgstr "Empfänger"
+#. Default: "Edit"
+#: ./profiles/default/types/ENLIssue.xml
+#: ./profiles/default/types/EasyNewsletter.xml
+#: ./profiles/default/types/ENLSubscriber.xml
+msgid "Edit"
+msgstr ""
 
+#: ./portlets/subscriber.py:97
+msgid "Edit Newsletter portlet"
+msgstr ""
+
+#. Default: "External Edit"
+#: ./profiles/default/types/ENLSubscriber.xml
+#: ./profiles/default/types/ENLTemplate.xml
+msgid "External Edit"
+msgstr ""
+
+#. Default: "History"
+#: ./profiles/default/types/ENLSubscriber.xml
+#: ./profiles/default/types/ENLTemplate.xml
+msgid "History"
+msgstr ""
+
+#. Default: "Issue"
+#: ./profiles/default/types/ENLIssue.xml
+msgid "Issue"
+msgstr ""
+
+#: ./portlets/subscriber.py:56
+msgid "Newsletter Subscriber"
+msgstr ""
+
+#. Default: "References"
+#: ./profiles/default/types/ENLIssue.xml
+#: ./profiles/default/types/EasyNewsletter.xml
+#: ./profiles/default/types/ENLSubscriber.xml
+msgid "References"
+msgstr ""
+
+#. Default: "Refresh"
+#: ./profiles/default/types/ENLIssue.xml
+msgid "Refresh"
+msgstr ""
+
+#. Default: "Send"
+#: ./profiles/default/types/ENLIssue.xml
 msgid "Send"
 msgstr "Senden"
 
+#. Default: "Subfolders"
+#: ./profiles/default/types/ENLIssue.xml
+#: ./profiles/default/types/EasyNewsletter.xml
+msgid "Subfolders"
+msgstr ""
+
+#. Default: "Subscriber"
+#: ./profiles/default/types/ENLSubscriber.xml
 msgid "Subscriber"
 msgstr "Abonnent"
 
+#. Default: "Subscribers"
+#: ./profiles/default/types/EasyNewsletter.xml
 msgid "Subscribers"
 msgstr "Abonnenten"
 
+#. Default: "Template"
+#: ./profiles/default/types/ENLTemplate.xml
 msgid "Template"
 msgstr "Schablone"
 
+#. Default: "Templates"
+#: ./profiles/default/types/EasyNewsletter.xml
 msgid "Templates"
 msgstr "Schablonen"
 
-msgid "The Newsletter has been send."
-msgstr "Der Newsletter wurde versendet."
+#: ./portlets/subscriber.py:98
+msgid "This portlet displays the subscriber add form of a newsletter."
+msgstr ""
 
-msgid "Your e-mail address is already registered."
-msgstr "Ihre E-Mail-Adresse ist bereits registriert."
+#: ./portlets/subscriber.py:20
+msgid "Title for the portlet."
+msgstr ""
 
-msgid "Your e-mail has been added. Thanks for your interest."
-msgstr "Ihre E-Mail-Adresse wurde hinzugefügt. Vielen Dank für Ihr Interesse!"
+#. Default: "View"
+#: ./profiles/default/types/ENLIssue.xml
+#: ./profiles/default/types/EasyNewsletter.xml
+#: ./profiles/default/types/ENLSubscriber.xml
+msgid "View"
+msgstr ""
 
-msgid "draft"
-msgstr "Entwurf"
+#. Default: "Subscribe here to our newsletter."
+#: ./portlets/subscriber.py:27
+msgid "help_newsletter_description"
+msgstr ""
 
-msgid "make draft"
-msgstr "Zu Entwurf wechseln"
+#. Default: "The absolute path from portal_root to the newsletter"
+#: ./portlets/subscriber.py:34
+msgid "help_newsletter_title"
+msgstr ""
 
-msgid "make sent"
-msgstr "Zu gesendet wechseln"
+#. Default: "Inherit Criteria"
+#: ./content/ENLIssue.py:67
+msgid "label_inherit_criteria"
+msgstr ""
 
-msgid "sent"
-msgstr "Gesendet"
+#. Default: "Description"
+#: ./portlets/subscriber.py:26
+msgid "label_newsletter_description"
+msgstr ""
+
+#. Default: "Path to Newsletter"
+#: ./portlets/subscriber.py:33
+msgid "label_newsletter_title"
+msgstr ""
 

@@ -9,21 +9,21 @@
         for="..interfaces.IENLIssue"
         class=".issue.IssueView"
         template="issue_send_form.pt"
-        permission="cmf.ManagePortal" />
+        permission="cmf.ModifyPortalContent" />
 
     <browser:page
         name="send-issue"
         for="..interfaces.IENLIssue"
         class=".issue.IssueView"
         attribute="send_issue"
-        permission="cmf.ManagePortal" />
+        permission="cmf.ModifyPortalContent" />
 
     <browser:page
         name="refresh-issue"
         for="..interfaces.IENLIssue"
         class=".issue.IssueView"
         attribute="refresh_issue"
-        permission="cmf.ManagePortal" />
+        permission="cmf.ModifyPortalContent" />
 
     <browser:page
         name="unsubscribe"
