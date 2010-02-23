@@ -29,7 +29,7 @@ Changes
 ------------------------------------
 * Compatible with Plone 4
 * Utility for listing subscribers
-* One-state private subcriber workflow
+* One-state private subcriber workflow, anonymous users can subscribe
 * Changed permission for sending newsletter, from portal manager to editor
 * When subscribing to a newsletter, a confirmation mail is sent.
 * Updated all translation files
