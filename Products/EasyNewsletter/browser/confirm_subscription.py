@@ -60,7 +60,7 @@ class ConfirmSubscriptionForm(formbase.PageForm):
 
         try:
             # Unauthorized to access a subscriber anonymously, so try to activate
-        	# this subscriber thru script with manager proxy role.
+            # this subscriber thru script with manager proxy role.
             activated = context.activate_subscriber(subscriber, data['email'])
         except:
             IStatusMessage(self.request).addStatusMessage(\

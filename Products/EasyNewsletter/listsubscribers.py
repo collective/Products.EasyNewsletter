@@ -11,4 +11,5 @@ class ListSubscribers(object):
     def listSubscribers(self, context):
         """
         """
-        return context.aq_inner.aq_parent.objectValues("ENLSubscriber")
+        # TODO: filter on workflow state, so only confirmed subscribers are in the list....
+        newsletter = context.aq_inner.aq_parent.objectValues("ENLSubscriber")
