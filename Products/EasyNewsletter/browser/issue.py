@@ -21,8 +21,8 @@ class IssueView(BrowserView):
         putils = getToolByName(self.context, "plone_utils")
         try:
             self.context.send()
-        except Exception, e:
-            putils.addPortalMessage(_(u"error_occured", default="An error occured"), "error"))
+        except Exception:
+            putils.addPortalMessage(_(u"error_occured", default="An error occured"), "error")
         else:
             putils.addPortalMessage(_(u"issue_send", default="The issue has been send."))
 

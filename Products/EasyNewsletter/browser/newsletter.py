@@ -16,12 +16,10 @@ class NewsletterView(BrowserView):
         try:
             subscriber = catalog.searchResults(UID = self.request.get("subscriber", ""))[0]
         except IndexError:
-            putils.addPortalMessage(_(u"error_occured", default="An error occured"), "error"))
+            putils.addPortalMessage(_(u"error_occured", default="An error occured"), "error")
         else:
             newsletter = self.context
             del newsletter[subscriber.id]
             putils.addPortalMessage(_(u"subscriber_deleted", default="You have been unsubscribed."))
 
         return self.request.response.redirect(self.context.absolute_url())
-
-
