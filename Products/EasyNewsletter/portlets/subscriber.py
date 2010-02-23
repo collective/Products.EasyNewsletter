@@ -5,7 +5,7 @@ from zope.interface import implements
 
 # plone imports
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone import PloneMessageFactory as _
+
 from plone.app.portlets.portlets import base
 from plone.app.vocabularies.catalog import SearchableTextSourceBinder
 from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
@@ -14,6 +14,8 @@ from plone.portlets.interfaces import IPortletDataProvider
 # Five imports
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.Five.browser import BrowserView
+
+from Products.EasyNewsletter import _
 
 class INewsletterSubscriberPortlet(IPortletDataProvider):
     """
@@ -109,9 +111,10 @@ class SubscriberView(BrowserView):
             path_to_easynewsletter = path_to_easynewsletter[1:]
 
         MESSAGE_CODE = [
-            "Your e-mail has been added. Thanks for your interest.",
-            "Please enter a valid e-mail address.",
-            "Your e-mail address is already registered."
+            _("Your e-mail has been added and you'll receive a confirmation e-mail shortly. "
+              "Thanks for your interest."),
+            _("Please enter a valid e-mail address."),
+            _("Your e-mail address is already registered.")
             ]
         
         subscriber = self.request.get("subscriber", "")

@@ -4,8 +4,36 @@
  <permission>Change portal events</permission>
  <permission>Modify portal content</permission>
  <permission>View</permission>
+ <state state_id="new" title="Newly created subscriber">
+  <exit-transition transition_id="confirm"/>
+  <permission-map name="Access contents information" acquired="False">
+   <permission-role>Contributor</permission-role>
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Reader</permission-role>
+  </permission-map>
+  <permission-map name="Change portal events" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Contributor</permission-role>
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Reader</permission-role>
+  </permission-map>
+ </state>
  <state state_id="private" title="Private">
   <description>Can only be seen and edited by the owner.</description>
+  <exit-transition transition_id="disable"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
@@ -31,6 +59,16 @@
    <permission-role>Contributor</permission-role>
   </permission-map>
  </state>
+ <transition transition_id="confirm" title="Confirm subscription" new_state="private" trigger="USER" before_script="" after_script="">
+  <action url="" category="workflow" icon="">Confirm subscription</action>
+  <guard>
+  </guard>
+ </transition>
+ <transition transition_id="disable" title="Disable subscription" new_state="new" trigger="USER" before_script="" after_script="">
+  <action url="" category="workflow" icon="">Disable subscription</action>
+  <guard>
+  </guard>
+ </transition>
  <worklist worklist_id="reviewer_queue" title="">
   <description>Reviewer tasks</description>
   <action url="%(portal_url)s/search?review_state=pending" category="global" icon="">Pending (%(count)d)</action>

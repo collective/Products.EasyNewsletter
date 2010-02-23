@@ -1,0 +1,27 @@
+<div tal:omit-tag="python: True" i18n:domain="EasyNewsletter">
+    <p i18n:translate="subscriber-confirm-mail-start">
+      Dear Sir or Madam,
+    </p>
+    <p i18n:translate="subsciber-confirm-mail-body">
+      We have received a request for subscription of your email address to the
+      <a i18n:name="newsletter_title"
+         tal:attributes="href options/newsletter_url"
+         tal:content="options/newsletter_title"/> newsletter.
+      To confirm that you want to receive the newsletter open the link below
+      and click the confirm button. If the fields in the confirmation form are empty
+      please enter your e-mail address and this confirmation code
+      <span i18n:name="confirm_code"
+            tal:content="options/confirm_code"/> .
+    </p>
+    <p>
+      <a i18n:translate="confirm_link"
+         tal:attributes="href options/confirm_link">Confirm newsletter subscription</a>
+    </p>
+    <p>
+      <span i18n:translate="subscriber-confirm-mail-end">With kind regards,</span><br/>
+      <span tal:replace="options/sender_name"/><br/>
+      <a tal:attributes="href options/portal_url"
+         tal:content="options/portal_title"/>
+    </p>
+</div>
+

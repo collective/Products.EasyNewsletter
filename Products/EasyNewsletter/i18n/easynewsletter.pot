@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-02-19 14:11+0000\n"
+"POT-Creation-Date: 2010-02-23 10:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,14 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: EasyNewsletter\n"
+
+#: ./browser/confirm_subscription.py:56
+msgid "Confirm"
+msgstr ""
+
+#: ./content/EasyNewsletter.py:179
+msgid "Confirm newsletter subscription"
+msgstr ""
 
 #. Default: "Sender address of the newsletter e-mail. If you let this field empty, the default sender e-mail address will be used."
 #: ./browser/issue_send_form.pt:48
@@ -57,20 +65,56 @@ msgstr ""
 msgid "EasyNewsletter_label_testreceiver"
 msgstr ""
 
-#: ./portlets/subscriber.py:97
+#: ./portlets/subscriber.py:95
 msgid "Edit Newsletter portlet"
 msgstr ""
 
-#: ./portlets/subscriber.py:56
+#: ./portlets/subscriber.py:58
 msgid "Newsletter Subscriber"
 msgstr ""
 
-#: ./portlets/subscriber.py:98
+#: ./portlets/subscriber.py:116
+msgid "Please enter a valid e-mail address."
+msgstr ""
+
+#: ./portlets/subscriber.py:37
+msgid "Search for the newsletter using the search field. Click apply to select the newsletter that is found."
+msgstr ""
+
+#: ./portlets/subscriber.py:96
 msgid "This portlet displays the subscriber add form of a newsletter."
 msgstr ""
 
-#: ./portlets/subscriber.py:20
+#: ./portlets/subscriber.py:24
 msgid "Title for the portlet."
+msgstr ""
+
+#: ./portlets/subscriber.py:117
+msgid "Your e-mail address is already registered."
+msgstr ""
+
+#: ./portlets/subscriber.py:114
+msgid "Your e-mail has been added and you'll receive a confirmation e-mail shortly. Thanks for your interest."
+msgstr ""
+
+#. Default: "Confirm newsletter subscription"
+#: ./browser/confirm_mail.pt:17
+msgid "confirm_link"
+msgstr ""
+
+#. Default: "We have received a request for subscription of your email address to this newsletter.  To confirm that you want to receive the newsletter enter your e-mail address together with the confirm code from the confirmation mail."
+#: ./browser/confirm_subscription.py:40
+msgid "confirm_subscription_form_description"
+msgstr ""
+
+#. Default: "Confirm newsletter subscription"
+#: ./browser/confirm_subscription.py:38
+msgid "confirm_subscription_form_label"
+msgstr ""
+
+#. Default: "Confirmation code"
+#: ./browser/confirm_subscription.py:32
+msgid "confirmcode_field_title"
 msgstr ""
 
 #. Default: "Save & Update"
@@ -80,6 +124,8 @@ msgstr ""
 
 #. Default: "Back to newsletter"
 #: ./browser/issue_send_form.pt:14
+#: ./skins/EasyNewsletter/enl_drafts_view.pt:23
+#: ./skins/EasyNewsletter/enl_issue_view.pt:32
 msgid "easynewsletter_backtonewsletter_label"
 msgstr ""
 
@@ -153,14 +199,25 @@ msgstr ""
 msgid "easynewsletter_test_button"
 msgstr ""
 
+#. Default: "Email address"
+#: ./browser/confirm_subscription.py:29
+msgid "email_field_title"
+msgstr ""
+
+#. Default: "An error occured"
+#: ./browser/issue.py:25
+#: ./browser/newsletter.py:19
+msgid "error_occured"
+msgstr ""
+
 #. Default: "Subscribe here to our newsletter."
-#: ./portlets/subscriber.py:27
+#: ./portlets/subscriber.py:31
 msgid "help_newsletter_description"
 msgstr ""
 
-#. Default: "The absolute path from portal_root to the newsletter"
-#: ./portlets/subscriber.py:34
-msgid "help_newsletter_title"
+#. Default: "The issue has been send."
+#: ./browser/issue.py:27
+msgid "issue_send"
 msgstr ""
 
 #. Default: "Issues"
@@ -169,17 +226,52 @@ msgid "issues_label"
 msgstr ""
 
 #. Default: "Inherit Criteria"
-#: ./content/ENLIssue.py:67
+#: ./content/ENLIssue.py:68
 msgid "label_inherit_criteria"
 msgstr ""
 
 #. Default: "Description"
-#: ./portlets/subscriber.py:26
+#: ./portlets/subscriber.py:30
 msgid "label_newsletter_description"
 msgstr ""
 
-#. Default: "Path to Newsletter"
-#: ./portlets/subscriber.py:33
+#. Default: "Location of Newsletter"
+#: ./portlets/subscriber.py:36
 msgid "label_newsletter_title"
+msgstr ""
+
+#. Default: "We have received a request for subscription of your email address to the ${newsletter_title} newsletter. To confirm that you want to receive the newsletter open the link below and click the confirm button. If the fields in the confirmation form are empty please enter your e-mail address and this confirmation code ${confirm_code} ."
+#: ./browser/confirm_mail.pt:13
+msgid "subsciber-confirm-mail-body"
+msgstr ""
+
+#. Default: "With kind regards,"
+#: ./browser/confirm_mail.pt:21
+msgid "subscriber-confirm-mail-end"
+msgstr ""
+
+#. Default: "Dear Sir or Madam,"
+#: ./browser/confirm_mail.pt:2
+msgid "subscriber-confirm-mail-start"
+msgstr ""
+
+#. Default: "You have been unsubscribed."
+#: ./browser/newsletter.py:23
+msgid "subscriber_deleted"
+msgstr ""
+
+#. Default: "E-mail already confirmed for this newsletter."
+#: ./browser/confirm_subscription.py:78
+msgid "subscription_form_already_confirmed"
+msgstr ""
+
+#. Default: "E-mail confirmed for this newsletter."
+#: ./browser/confirm_subscription.py:74
+msgid "subscription_form_confirmed"
+msgstr ""
+
+#. Default: "E-mail address not found or wrong confirmation code."
+#: ./browser/confirm_subscription.py:67
+msgid "subscription_form_not_found"
 msgstr ""
 

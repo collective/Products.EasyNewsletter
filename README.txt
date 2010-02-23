@@ -31,6 +31,7 @@ Changes
 * Utility for listing subscribers
 * One-state private subcriber workflow
 * Changed permission for sending newsletter, from portal manager to editor
+* When subscribing to a newsletter, a confirmation mail is sent.
 * Updated all translation files
 * Added Dutch translations
 * Currently only works with Products.TemplateFields from subversion (trunk).

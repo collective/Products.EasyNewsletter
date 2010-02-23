@@ -198,7 +198,7 @@ class ENLIssue(ATTopic, BaseContent):
             subject = self.Title()
 
         # Create from-header
-        if enl.getSenderName():
+        if sender_name:
             from_header = "%s <%s>" % (sender_name, sender_email)
         else:
             from_header = sender_email

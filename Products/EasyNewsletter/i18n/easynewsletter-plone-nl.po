@@ -49,8 +49,8 @@ msgstr ""
 
 #. Default: "Edit"
 #: ./profiles/default/types/ENLIssue.xml
-#: ./profiles/default/types/EasyNewsletter.xml
 #: ./profiles/default/types/ENLSubscriber.xml
+#: ./profiles/default/types/EasyNewsletter.xml
 msgid "Edit"
 msgstr "Bewerken"
 
@@ -81,8 +81,8 @@ msgstr "Nieuwsbrief abonnee"
 
 #. Default: "References"
 #: ./profiles/default/types/ENLIssue.xml
-#: ./profiles/default/types/EasyNewsletter.xml
 #: ./profiles/default/types/ENLSubscriber.xml
+#: ./profiles/default/types/EasyNewsletter.xml
 msgid "References"
 msgstr ""
 
@@ -132,8 +132,8 @@ msgstr "Titel voor het portlet."
 
 #. Default: "View"
 #: ./profiles/default/types/ENLIssue.xml
-#: ./profiles/default/types/EasyNewsletter.xml
 #: ./profiles/default/types/ENLSubscriber.xml
+#: ./profiles/default/types/EasyNewsletter.xml
 msgid "View"
 msgstr ""
 

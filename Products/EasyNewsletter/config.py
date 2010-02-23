@@ -37,3 +37,5 @@ DEFAULT_TEMPLATE = """
 &gt;&gt;PERSOLINE&gt;&gt;    <a href="{% unsubscribe-link %}">Click here to unsubscribe</a>
 </p>
 """
+
+

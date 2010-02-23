@@ -4,32 +4,28 @@
     xmlns:cmf="http://namespaces.zope.org/cmf"
     i18n_domain="EasyNewsletter">
 
-    <browser:page
-        name="send-issue-form"
+    <browser:pages 
         for="..interfaces.IENLIssue"
-        class=".issue.IssueView"
-        template="issue_send_form.pt"
-        permission="cmf.ModifyPortalContent" />
+        permission="cmf.ModifyPortalContent"
+        class=".issue.IssueView">
+       <browser:page template="issue_send_form.pt"  name="send-issue-form" />
+       <browser:page attribute="send_issue"  name="send-issue" />
+       <browser:page attribute="refresh_issue"  name="refresh-issue" />
+    </browser:pages>
 
-    <browser:page
-        name="send-issue"
-        for="..interfaces.IENLIssue"
-        class=".issue.IssueView"
-        attribute="send_issue"
-        permission="cmf.ModifyPortalContent" />
-
-    <browser:page
-        name="refresh-issue"
-        for="..interfaces.IENLIssue"
-        class=".issue.IssueView"
-        attribute="refresh_issue"
-        permission="cmf.ModifyPortalContent" />
-
-    <browser:page
-        name="unsubscribe"
+    <browser:pages
         for="..interfaces.IEasyNewsletter"
-        class=".newsletter.NewsletterView"
-        attribute="unsubscribe"
+        permission="zope2.Public" 
+        class=".newsletter.NewsletterView">
+       <browser:page attribute="unsubscribe" name="unsubscribe" />
+       <browser:page template="confirm_mail.pt"  name="confirm-mail" />
+    </browser:pages>
+
+    <browser:page
+        name="confirm-subscription"
+        for="..interfaces.IEasyNewsletter"
+        class=".confirm_subscription.ConfirmSubscriptionForm"
         permission="zope2.Public" />
+
 
 </configure>
