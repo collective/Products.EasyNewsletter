@@ -31,4 +31,6 @@ class IListSubscribers(Interface):
 
     def listSubscribers(self, context):
         """
+        returns an iterable sequence of dicts.
+        each dict should have 'fullname', 'email' and UID field
         """

@@ -13,5 +13,11 @@
 
     <utility factory=".listsubscribers.ListSubscribers" />
 
+    <subscriber
+        for=".content.ENLSubscriber.ENLSubscriber
+             Products.Archetypes.interfaces.IObjectInitializedEvent"
+        handler=".utils.subscriber.subscriberAdded" />
+
+
     
 </configure>

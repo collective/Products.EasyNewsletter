@@ -4,6 +4,8 @@ from Products.Five.browser import BrowserView
 # CMFCore imports
 from Products.CMFCore.utils import getToolByName
 
+from Products.EasyNewsletter import _
+
 class NewsletterView(BrowserView):
     """
     """

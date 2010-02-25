@@ -11,5 +11,14 @@ class ListSubscribers(object):
     def listSubscribers(self, context):
         """
         """
-        # TODO: filter on workflow state, so only confirmed subscribers are in the list....
-        newsletter = context.aq_inner.aq_parent.objectValues("ENLSubscriber")
+        result = []
+        parent_path = '/'.join(context.aq_inner.aq_parent.getPhysicalPath())
+        found = context.portal_catalog(portal_type='ENLSubscriber',
+                review_state='private',
+                path={'query': parent_path})
+        for sub in found:
+            subscriber = sub.getObject()
+            result += {'fullname': subscriber.getFullname(),
+                       'email':    subscriber.getEmail(),
+                       'UID':      subscriber.UID()},
+        return result

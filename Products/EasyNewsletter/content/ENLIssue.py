@@ -233,16 +233,16 @@ class ENLIssue(ATTopic, BaseContent):
                 # remove >>PERSOLINE>> Maker first:
 
                 personal_text = personal_text.replace("<p>&gt;&gt;PERSOLINE&gt;&gt;", "")
-                unsubscribe_link = enl.absolute_url() + "/unsubscribe?subscriber=" + receiver.UID()
+                unsubscribe_link = enl.absolute_url() + "/unsubscribe?subscriber=" + receiver['UID']
                 personal_text = personal_text.replace("{% unsubscribe-link %}", unsubscribe_link)
                 personal_text_plain = personal_text_plain.replace("{% unsubscribe-link %}", unsubscribe_link)
                 fullname = None
-                fullname = receiver.getFullname()
+                fullname = receiver['fullname']
                 if not fullname:
                     fullname = "Sir or Madam"
                 personal_text = personal_text.replace("{% subscriber-fullname %}", fullname)
                 personal_text_plain = personal_text_plain.replace("{% subscriber-fullname %}", fullname)
-                mail['To'] = receiver.getEmail()
+                mail['To'] = receiver['email']
 
             mail['From']    = from_header
             mail['Subject'] = subject
