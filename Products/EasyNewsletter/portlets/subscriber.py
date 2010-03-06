@@ -109,8 +109,7 @@ class SubscriberView(BrowserView):
         path_to_easynewsletter = self.request.get("newsletter")
 
         # remove leading slash from paths like: /mynewsletter
-        if path_to_easynewsletter and path_to_easynewsletter[0] == '/':
-            path_to_easynewsletter = path_to_easynewsletter[1:]
+        path_to_easynewsletter = path_to_easynewsletter.strip('/')
 
         MESSAGE_CODE = [
             "Your e-mail has been added. Thanks for your interest.",
