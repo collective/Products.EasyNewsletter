@@ -14,7 +14,7 @@
     <utility factory=".listsubscribers.ListSubscribers" />
 
     <subscriber
-        for=".content.ENLSubscriber.ENLSubscriber
+        for=".interfaces.IENLSubscriber
              Products.Archetypes.interfaces.IObjectInitializedEvent"
         handler=".utils.subscriber.subscriberAdded" />
 

@@ -5,11 +5,13 @@ from email.MIMEMultipart import MIMEMultipart
 
 # zope imports
 from zope.interface import implements
+import zope.event
  
 # Zope / Plone imports
 from zExceptions import BadRequest
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes.atapi import *
+from Products.Archetypes.event import ObjectInitializedEvent
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import _createObjectByType
 from Products.ATContentTypes import ATCTMessageFactory as _
@@ -150,6 +152,9 @@ class EasyNewsletter(ATTopic, BaseFolder):
             subscriberObj.setEmail(subscriber)
             subscriberObj.setFullname(fullname)
             subscriberObj.reindexObject()
+
+            #notify Zope's event system
+            zope.event.notify(ObjectInitializedEvent(subscriberObj))
 
             return (True, 0)
     
