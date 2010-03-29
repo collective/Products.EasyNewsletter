@@ -93,7 +93,7 @@ msgstr "Uw mailadres is reeds geregistreerd"
 
 #: ./portlets/subscriber.py:114
 msgid "Your e-mail has been added and you'll receive a confirmation e-mail shortly. Thanks for your interest."
-msgstr "Uw mailadres is toegevoegd and u zal een bevestigingsmail binnenkort ontvangen."
+msgstr "Uw mailadres is toegevoegd en u zult binnenkort een bevestigingsmail ontvangen."
 
 #. Default: "Confirm newsletter subscription"
 #: ./browser/confirm_mail.pt:17
@@ -103,7 +103,7 @@ msgstr "Bevestig nieuwsbrief abonnement"
 #. Default: "We have received a request for subscription of your email address to this newsletter.  To confirm that you want to receive the newsletter enter your e-mail address together with the confirm code from the confirmation mail."
 #: ./browser/confirm_subscription.py:40
 msgid "confirm_subscription_form_description"
-msgstr "Wij hebben een aanvraag ontvangen om uw mailadres toe te voegen aan de nieuwsbrief. Om te bevestigingen dat u de nieuwsbrief wilt ontvangen voer uw mailadres met de bevestigingscode in en klik op bevestigen."
+msgstr "Wij hebben een aanvraag ontvangen om uw mailadres toe te voegen aan de nieuwsbrief. Voer uw mailadres met de bevestigingscode in en bevestig dat u de nieuwsbrief wilt ontvangen"
 
 #. Default: "Confirm newsletter subscription"
 #: ./browser/confirm_subscription.py:38
@@ -241,7 +241,7 @@ msgstr "Pad naar nieuwsbrief"
 #. Default: "We have received a request for subscription of your email address to the ${newsletter_title} newsletter. To confirm that you want to receive the newsletter open the link below and click the confirm button. If the fields in the confirmation form are empty please enter your e-mail address and this confirmation code ${confirm_code} ."
 #: ./browser/confirm_mail.pt:13
 msgid "subsciber-confirm-mail-body"
-msgstr "Wij hebben een aanvraag ontvangen om uw mailadres toe te voegen aan onze "
+msgstr "Wij hebben een aanvraag ontvangen om uw mailadres toe te voegen aan onze ${newsletter_title} nieuwsbrief. Open de onderstaande link om te bevestigen dat u deze nieuwsbrief wilt ontvangen en klik op de bevestigen knop. Als de velden in het bevestigingsformulier leeg zijn vul dan uw e-mail adres en deze bevestigingscode ${confirm_code} in."
 
 #. Default: "With kind regards,"
 #: ./browser/confirm_mail.pt:21
