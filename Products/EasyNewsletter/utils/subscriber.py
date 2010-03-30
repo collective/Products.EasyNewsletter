@@ -3,7 +3,7 @@ from email.MIMEMultipart import MIMEMultipart
 
 from Products.CMFCore.utils import getToolByName
 
-from Products.ATContentTypes import ATCTMessageFactory as _
+from Products.EasyNewsletter import _
 
 def subscriberAdded(context, event):
     """ send confirmation email """
