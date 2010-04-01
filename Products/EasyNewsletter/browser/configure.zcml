@@ -26,6 +26,10 @@
         for="..interfaces.IEasyNewsletter"
         class=".confirm_subscription.ConfirmSubscriptionForm"
         permission="zope2.Public" />
-
+    <browser:page
+        name="confirm-subject"
+        for="..interfaces.IEasyNewsletter"
+        template="confirm_subject.pt"
+        permission="zope2.Public" />
 
 </configure>

@@ -35,7 +35,7 @@ def subscriberAdded(context, event):
     mail = MIMEMultipart("alternative")
     mail['From'] = from_header
     mail['To'] = subscriber.getEmail()
-    mail['Subject'] = _("Confirm newsletter subscription")
+    mail['Subject'] = newsletter.restrictedTraverse('@@confirm-subject')()
     
     props = getToolByName(context, "portal_properties").site_properties
     charset = props.getProperty("default_charset") 

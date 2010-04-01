@@ -1,0 +1,3 @@
+<tal:subject i18n:domain="EasyNewsletter"
+     i18n:translate=""
+>Confirm newsletter subscription</tal:subject>
