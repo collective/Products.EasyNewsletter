@@ -35,7 +35,7 @@ schema=Schema((
             description_msgid='EasyNewsletter_help_header',
             i18n_domain='EasyNewsletter',
         ),
-        default_output_type='text/html'
+        default_output_type = 'text/x-html-enl',
     ),
 
     TextField('text',
@@ -47,7 +47,7 @@ schema=Schema((
             description_msgid='EasyNewsletter_help_text',
             i18n_domain='EasyNewsletter',
         ),
-        default_output_type='text/html'
+        default_output_type = 'text/x-html-enl',
     ),
 
     TextField('footer',
@@ -59,7 +59,7 @@ schema=Schema((
             description_msgid='EasyNewsletter_help_footer',
             i18n_domain='EasyNewsletter',
         ),
-        default_output_type='text/html'
+        default_output_type = 'text/x-html-enl',
     ),
 
     BooleanField('acquireCriteria',
@@ -214,7 +214,7 @@ class ENLIssue(ATTopic, BaseContent):
         charset = props.getProperty("default_charset")
 
         # exchange relative URLs
-        parser = ENLHTMLParser(self)
+        parser = ENLHTMLParser(self, cid_images=True)
         parser.feed(self.getText())
         text = parser.html
 
@@ -230,9 +230,9 @@ class ENLIssue(ATTopic, BaseContent):
             if hasattr(request, "test"):
                 mail['To'] = receiver
             else:
-                # remove >>PERSOLINE>> Maker first:
+                # remove ::PERSOLINE:: Maker first:
 
-                personal_text = personal_text.replace("<p>&gt;&gt;PERSOLINE&gt;&gt;", "")
+                personal_text = personal_text.replace("::PERSOLINE::", "")
                 unsubscribe_link = enl.absolute_url() + "/unsubscribe?subscriber=" + receiver['UID']
                 personal_text = personal_text.replace("{% unsubscribe-link %}", unsubscribe_link)
                 personal_text_plain = personal_text_plain.replace("{% unsubscribe-link %}", unsubscribe_link)
@@ -262,9 +262,7 @@ class ENLIssue(ATTopic, BaseContent):
 
             # Add images to the message
             image_number = 0
-            for image_url in parser.image_urls:
-                image_url = urlparse(image_url)[2]
-                o = self.restrictedTraverse(image_url)
+            for o in parser.image_objs:
                 if hasattr(o, "_data"):                               # file-based
                     image = MIMEImage(o._data)
                 else:
@@ -305,8 +303,12 @@ class ENLIssue(ATTopic, BaseContent):
         """
         """
         personalized_body_lines = self.getRawText().split('\r\n')
-        unpersonalized_body = '\r\n'.join([line for line in personalized_body_lines if not line.startswith("<p>&gt;&gt;PERSOLINE&gt;&gt;")])
-        return unpersonalized_body
+        unpersonalized_body = '\r\n'.join([line for line in personalized_body_lines if not "::PERSOLINE::" in line])
+
+        parser = ENLHTMLParser(self)
+        parser.feed(unpersonalized_body)
+
+        return parser.html
 
 
     #def get_members(self):

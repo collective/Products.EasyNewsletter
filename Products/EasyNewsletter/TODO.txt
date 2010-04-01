@@ -1,8 +1,6 @@
 #TODO:
-    
-X   * remove the unsubscribe link in archive view [derstappenit] 
 
-    * add Double Opt-in to subscribe process [derstappenit]
+X   * remove the unsubscribe link in archive view [derstappenit] 
 
     * ask before unsubscribe, if a user click on the unsubscribe link. [derstappenit]
 

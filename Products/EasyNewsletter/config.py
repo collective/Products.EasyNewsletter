@@ -1,7 +1,7 @@
 PROJECTNAME = "EasyNewsletter"
 
 DEFAULT_TEMPLATE = """
-<p>&gt;&gt;PERSOLINE&gt;&gt;Dear {% subscriber-fullname %}</p>
+<p>::PERSOLINE::Dear {% subscriber-fullname %}</p>
 <tal:block tal:content="structure context/getHeader" />
 
 <tal:block tal:repeat="object context/queryCatalog">
@@ -34,7 +34,7 @@ DEFAULT_TEMPLATE = """
 
 <hr />
 <p>
-&gt;&gt;PERSOLINE&gt;&gt;    <a href="{% unsubscribe-link %}">Click here to unsubscribe</a>
+::PERSOLINE::    <a href="{% unsubscribe-link %}">Click here to unsubscribe</a>
 </p>
 """
 
