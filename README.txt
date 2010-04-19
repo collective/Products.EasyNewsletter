@@ -25,6 +25,26 @@ The source code is within the collective: https://svn.plone.org/svn/collective/P
 Changes
 =======
 
+1.1 beta 1 (2010-04-19)
+-----------------------
+ * integrate the header and footer field into email text
+
+ * add fullname attribute to subscriber
+
+ * add description and fullname to subscriber portlet
+
+ * add plone members and groups selection to Newsletter and Issue
+
+ * use inqbus.fastmemberproperties to get all memberproperties (inqbus.fastmemberproperties is now required!)
+
+ * add personalization of emails
+
+ * add PERSOLINE marker to indicate personalize lines, this lines are removed in archive view
+
+ * add usefull path description to subscriber portlet and allow also a path starting with '/'
+
+
+
 1.0 beta 3 (2009-12-24)
 -----------------------
 * Removed subscribers and templates from navigation

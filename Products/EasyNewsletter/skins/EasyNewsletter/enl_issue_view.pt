@@ -13,7 +13,7 @@
                        getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;
                        templateId template/getId;
                        text here/getText;">
-
+        <div id='easynewsletter'>
         <div tal:replace="structure provider:plone.abovecontenttitle" />
 
         <h1 class="documentFirstHeading"> 
@@ -43,7 +43,7 @@
           </div>      
         </div>
         <div tal:replace="structure provider:plone.belowcontentbody" />
-
+        </div>
     </tal:main-macro>
 </metal:main>
 

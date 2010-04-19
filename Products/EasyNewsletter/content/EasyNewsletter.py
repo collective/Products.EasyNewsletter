@@ -3,19 +3,26 @@ import re
 
 # zope imports
 from zope.interface import implements
- 
+from zope.component import queryUtility
+from zope.component import subscribers
+
 # Zope / Plone imports
 from zExceptions import BadRequest
 from AccessControl import ClassSecurityInfo
+
 from Products.Archetypes.atapi import *
 from Products.CMFCore.utils import getToolByName
 from Products.ATContentTypes import ATCTMessageFactory as _
 from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
 
+from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool
+
 # EasyNewsletter imports
+from Products.EasyNewsletter.interfaces import IENLIssue, IReceiversMemberFilter, IReceiversGroupFilter
 from Products.EasyNewsletter.interfaces import IEasyNewsletter
-from Products.EasyNewsletter.config import PROJECTNAME
+from Products.EasyNewsletter.config import PROJECTNAME, EMAIL_RE
+
 
 schema=Schema((
     StringField('senderEmail',
@@ -95,6 +102,28 @@ schema=Schema((
             i18n_domain='EasyNewsletter',
         )
     ),
+
+    LinesField('ploneReceiverMembers',
+        vocabulary="get_plone_members",
+        widget=MultiSelectionWidget(
+            label='Plone Members to reveive',
+            label_msgid='EasyNewsletter_label_ploneReceiverMembers',
+            description_msgid='EasyNewsletter_help_ploneReceiverMembers',
+            i18n_domain='EasyNewsletter',
+            size = 20,
+        )
+    ),
+
+    LinesField('ploneReceiverGroups',
+        vocabulary="get_plone_groups",
+        widget=MultiSelectionWidget(
+            label='Plone Groups to reveive',
+            label_msgid='EasyNewsletter_label_ploneReceiverGroups',
+            description_msgid='EasyNewsletter_help_ploneReceiverGroups',
+            i18n_domain='EasyNewsletter',
+            size = 10,
+        )
+    ),
 ),
 )
 
@@ -152,5 +181,40 @@ class EasyNewsletter(ATTopic, BaseFolder):
         """Returns sub topics.
         """
         return self.objectValues("ATTopic")
+
+    def get_plone_members(self):
+        """
+        """
+        fmp_tool = queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool')
+        member_properties = fmp_tool.get_all_memberproperties()
+        if not member_properties:
+            return []
+        results = DisplayList([(id, property['fullname'] + ' - ' + property['email']) for id, property in member_properties.items() 
+            if EMAIL_RE.findall(property['email'])])
+
+        # run registered member filter subscribers:
+        for subscriber in subscribers([self], IReceiversMemberFilter):
+            results = subscriber.filter(results)
+        return results.sortedByValue()
+
+    def get_plone_groups(self):
+        """
+        """
+        gtool = getToolByName(self, 'portal_groups')
+        groups = gtool.listGroups()
+        group_properties = {}
+        for group in groups:
+            group_id = group.getId()
+            group_properties[group_id] = {
+                'title' : group.getProperty('title'),
+                'email': group.getProperty('email'),
+                }
+        results = DisplayList([(id, id) for id, property in group_properties.items()])
+        
+        # run registered group filter subscribers:
+        for subscriber in subscribers([self], IReceiversGroupFilter):
+            results = subscriber.filter(results)
+        return results.sortedByValue()
+
 
 registerType(EasyNewsletter, PROJECTNAME)

@@ -1,4 +1,7 @@
+import re
 PROJECTNAME = "EasyNewsletter"
+
+EMAIL_RE = re.compile(r"(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,6}(?:\s|$)",re.IGNORECASE)
 
 DEFAULT_TEMPLATE = """
 <p>&gt;&gt;PERSOLINE&gt;&gt;Dear {% subscriber-fullname %}</p>
@@ -32,8 +35,4 @@ DEFAULT_TEMPLATE = """
 
 <tal:block tal:content="structure context/getFooter" />
 
-<hr />
-<p>
-&gt;&gt;PERSOLINE&gt;&gt;    <a href="{% unsubscribe-link %}">Click here to unsubscribe</a>
-</p>
 """

@@ -7,6 +7,8 @@ from email import Encoders
 
 # zope imports
 from zope.interface import implements
+from zope.component import queryUtility
+from Acquisition import aq_parent, aq_inner
 
 # Zope / Plone import
 from AccessControl import ClassSecurityInfo
@@ -16,12 +18,17 @@ from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
 from Products.Archetypes.public import DisplayList
 from Products.CMFCore.utils import getToolByName
-
+from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool
 # EasyNewsletter imports
 from Products.EasyNewsletter.interfaces import IENLIssue
-from Products.EasyNewsletter.config import PROJECTNAME
+from Products.EasyNewsletter.config import PROJECTNAME, EMAIL_RE
 from Products.EasyNewsletter.utils.ENLHTMLParser import ENLHTMLParser
 from Products.EasyNewsletter.content.ENLSubscriber import ENLSubscriber
+
+import logging
+
+log = logging.getLogger("Products.EasyNewsletter")
+
 
 schema=Schema((
 
@@ -128,15 +135,27 @@ schema=Schema((
         )
     ),
 
-    #LinesField('ploneMembersAndGroups',
-    #    vocabulary="nested_users_and_groups",
-    #    widget=MultiSelectionWidget(
-    #        label='Plone Members and Groups',
-    #        label_msgid='EasyNewsletter_label_ploneMembersAndGroups',
-    #        description_msgid='EasyNewsletter_help_ploneMembersAndGroups',
-    #        i18n_domain='EasyNewsletter',
-    #    )
-    #),
+    LinesField('ploneReceiverMembers',
+        vocabulary="get_plone_members",
+        widget=MultiSelectionWidget(
+            label='Plone Members to receive',
+            label_msgid='EasyNewsletter_label_ploneReceiverMembers',
+            description_msgid='EasyNewsletter_help_ploneReceiverMembers',
+            i18n_domain='EasyNewsletter',
+            size = 20,
+        )
+    ),
+
+    LinesField('ploneReceiverGroups',
+        vocabulary="get_plone_groups",
+        widget=MultiSelectionWidget(
+            label='Plone Groups to receive',
+            label_msgid='EasyNewsletter_label_ploneReceiverGroups',
+            description_msgid='EasyNewsletter_help_ploneReceiverGroups',
+            i18n_domain='EasyNewsletter',
+            size = 10,
+        )
+    ),
 ),
 )
 
@@ -202,57 +221,84 @@ class ENLIssue(ATTopic, BaseContent):
         else:
             from_header = sender_email
 
+        # get subscribers:
         if hasattr(request, "test"):
-            receivers = [test_receiver]
+            receivers = [{'email': test_receiver, 'fullname': ''}]
         else:
-            receivers = self.aq_inner.aq_parent.objectValues("ENLSubscriber")
+            # get ENLSubscribers
+            enl_receivers = [{
+                'email': subscriber.getEmail(),
+                'fullname': subscriber.getFullname(),
+                'uid': subscriber.UID()} \
+                    for subscriber in self.aq_inner.aq_parent.objectValues("ENLSubscriber")]
+            # get subscribers over selected plone members and groups
+            plone_receivers = self.get_plone_subscribers()
+            receivers = plone_receivers + enl_receivers
 
         # get charset
         props = getToolByName(self, "portal_properties").site_properties
         charset = props.getProperty("default_charset")
 
+        # prepaire header text:
+        text_header = self.getHeader()
+        # exchange relative URLs
+        parser_header = ENLHTMLParser(self)
+        parser_header.feed(text_header)
+        text_header = parser_header.html
+        text_plain_header = self.portal_transforms.convert('html_to_text', text_header).getData()
+
+        # prepaire body text:
+        text = self.getText()
+        # remove >>PERSOLINE>> Maker first:
+        text = text.replace("<p>&gt;&gt;PERSOLINE&gt;&gt;", "")
         # exchange relative URLs
         parser = ENLHTMLParser(self)
-        parser.feed(self.getText())
+        parser.feed(text)
         text = parser.html
-
         # create & attach text part
         text_plain = self.portal_transforms.convert('html_to_text', text).getData()
+
+        # prepaire body footer text:
+        text_footer = self.getFooter()
+        # exchange relative URLs
+        parser_footer = ENLHTMLParser(self)
+        parser_footer.feed(text_footer)
+        text_footer = parser_footer.html
+        text_plain_footer = self.portal_transforms.convert('html_to_text', text_footer).getData()
 
         for receiver in receivers:
             # create multipart mail
             mail = MIMEMultipart("alternative")
 
             if hasattr(request, "test"):
-                personal_text = text
-                personal_text_plain = text_plain
-                mail['To'] = receiver
+                mail['To'] = receiver['email']
+                fullname = "Test Member"
             else:
-                # remove >>PERSOLINE>> Maker first:
-                personal_text = text.replace("<p>&gt;&gt;PERSOLINE&gt;&gt;", "")
-                unsubscribe_link = enl.absolute_url() + "/unsubscribe?subscriber=" + receiver.UID()
-                personal_text = text.replace("{% unsubscribe-link %}", unsubscribe_link)
-                personal_text_plain = text_plain.replace("{% unsubscribe-link %}", unsubscribe_link)
-                fullname = None
-                fullname = receiver.getFullname()
+                if receiver.has_key('uid'):
+                    unsubscribe_link = enl.absolute_url() + "/unsubscribe?subscriber=" + receiver['uid']
+                    personal_text = text + """<hr><p><a href="%s">Click here to unsubscribe</a></p>""" % unsubscribe_link
+                    personal_text_plain = text_plain + """Click here to unsubscribe: %s""" % unsubscribe_link
+                fullname = receiver['fullname']
                 if not fullname:
                     fullname = "Sir or Madam"
-                personal_text = text.replace("{% subscriber-fullname %}", fullname)
-                personal_text_plain = text_plain.replace("{% subscriber-fullname %}}", fullname)
-                mail['To'] = receiver.getEmail()
+                mail['To'] = receiver['email']
+
+            personal_text = text.replace("{% subscriber-fullname %}", fullname)
+            personal_text_plain = text_plain.replace("{% subscriber-fullname %}}", fullname)
 
             mail['From']    = from_header
             mail['Subject'] = subject
             mail.epilogue   = ''
 
             # Attach text part
-            text_part = MIMEText(personal_text_plain, "plain", charset)
+            jointed_text_plain = text_plain_header + personal_text_plain + text_plain_footer
+            text_part = MIMEText(jointed_text_plain, "plain", charset)
             mail.attach(text_part)
 
             # Attach html part with images
+            jointed_personal_text = text_header + personal_text + text_footer
             html_part = MIMEMultipart("related")
-
-            html_text = MIMEText(personal_text, "html", charset)
+            html_text = MIMEText(jointed_personal_text, "html", charset)
             html_part.attach(html_text)
 
             # Add images to the message
@@ -270,8 +316,10 @@ class ENLIssue(ATTopic, BaseContent):
 
             mail.attach(html_part)
 
+            log.info("Send newsletter to \"%s\"" % receiver['email'])
             self.MailHost.send(mail.as_string())
 
+        log.info("Newsletter was send to \"%s\" receivers" % len(receivers))
         # change status
         if not hasattr(request, "test"):
             wftool = getToolByName(self, "portal_workflow")
@@ -304,24 +352,57 @@ class ENLIssue(ATTopic, BaseContent):
         unpersonalized_body = '\r\n'.join([line for line in personalized_body_lines if not line.startswith("<p>&gt;&gt;PERSOLINE&gt;&gt;")])
         return unpersonalized_body
 
+    def get_plone_members(self):
+        newsletter_obj = aq_parent(aq_inner(self))
+        return newsletter_obj.get_plone_members()
 
-    #def get_members(self):
-    #    """
-    #    """
-    #    mtool = getToolByName(self, 'portal_membership')
-    #    members = mtool.listMemberIds()
-    #    return DisplayList()
+    def get_plone_groups(self):
+        newsletter_obj = aq_parent(aq_inner(self))
+        return newsletter_obj.get_plone_groups()
 
-    #def get_group_members():
-    #    """
-    #    """
-    #    mtool = getToolByName(self, 'portal_membership')
-    #    gtool = getToolByName(self, 'portal_groups')
-    #    members = mtool.listMemberIds()
-    #    groups = gtool.listGroups()
-    #    for group in groups:
-    #        group_members[group.id] = group.getGroupMemberIds()
-    #    return DisplayList()
+    def get_ploneReceiverMembers_defaults(self):
+        """ return all selected groups from parant newsletter object.
+        """
+        newsletter_obj = aq_parent(aq_inner(self))
+        return newsletter_obj.getPloneReceiverMembers() 
+
+    def get_ploneReceiverGroups_defaults(self):
+        """ return all selected groups from parant newsletter object.
+        """
+        newsletter_obj = aq_parent(aq_inner(self))
+        return newsletter_obj.getPloneReceiverGroups() 
+
+    def get_plone_subscribers(self):
+        """ Search for all selected Members and Groups
+            and return a list of subscribers.
+        """
+        plone_subscribers = []
+        receiver_member_list = self.getPloneReceiverMembers()
+        receiver_group_list = self.getPloneReceiverGroups()
+        gtool = getToolByName(self, 'portal_groups')
+        # use fastmemberproperties_tool to get all member properties
+        fmp_tool = queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool')
+        member_properties = fmp_tool.get_all_memberproperties()
+        if not member_properties:
+            return []
+        selected_group_members = []
+        for group in receiver_group_list:
+            selected_group_members.extend(gtool.getGroupMembers(group))
+        receiver_member_list = receiver_member_list + tuple(selected_group_members)
+        # get all selected member properties
+        for receiver_id in set(receiver_member_list):
+            if not member_properties.has_key(receiver_id):
+                log.debug("Ignore reveiver \"%s\", because we have no properties for this member!" % receiver_id)
+                continue
+            member_property = member_properties[receiver_id]
+            if EMAIL_RE.findall(member_property['email']):
+                plone_subscribers.append({
+                    'fullname': member_property['fullname'],
+                    'email': member_property['email'],
+                })
+            else:
+                log.debug("Skip '%s' because \"%s\" is not a real email!" % (receiver_id, member_property['email']))
+        return plone_subscribers
 
 
 registerType(ENLIssue, PROJECTNAME)

@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '1.0b3'
+version = '1.0b4'
 
 setup(name='Products.EasyNewsletter',
       version=version,
@@ -25,5 +25,6 @@ setup(name='Products.EasyNewsletter',
       install_requires=[
           'setuptools',
           'Products.TemplateFields',
+          'inqbus.plone.fastmemberproperties',
       ],
 )

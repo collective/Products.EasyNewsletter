@@ -24,3 +24,11 @@ class IIssueView(Interface):
     def get_unpersonalized_body(self):
         """
         """
+
+class IReceiversMemberFilter(Interface):
+    """ Marker interface for ReceiverMemberFilters subscribers.
+    """
+
+class IReceiversGroupFilter(Interface):
+    """ Marker interface for ReceiverGroupFilters subscribers.
+    """
