@@ -4,6 +4,8 @@
     xmlns:cmf="http://namespaces.zope.org/cmf"    
     i18n_domain="EasyNewsletter">
     
+    <include package="inqbus.plone.fastmemberproperties" />
+
     <include package=".browser" />
     <include package=".portlets" />
     <include file="profiles.zcml" />
