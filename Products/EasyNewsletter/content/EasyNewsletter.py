@@ -15,6 +15,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.ATContentTypes import ATCTMessageFactory as _
 from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
+from Products.TemplateFields import ZPTField
 
 from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool
 
@@ -123,6 +124,22 @@ schema=Schema((
             i18n_domain='EasyNewsletter',
             size = 10,
         )
+    ),
+
+    ZPTField('out_template_pt',
+        schemata="settings",
+        widget=TextAreaWidget(description = 'This is a Zope Page Template '
+            'used for rendering of the out going mail. You don\'t need to modify '
+            'it, but if you know TAL (Zope\'s Template Attribute Language) '
+            'you have the full power to customize your outgoing mails.',
+            description_msgid = "help_mailtemplate_body_pt",
+            label = 'Outgoing Mail Template',
+            label_msgid = "label_out_template_pt",
+            i18n_domain = "EasyNewsletter",
+            rows = 30,
+            ) ,
+        required=False,
+        validators=('zptvalidator',),
     ),
 ),
 )

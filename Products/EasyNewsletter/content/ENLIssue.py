@@ -18,7 +18,10 @@ from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
 from Products.Archetypes.public import DisplayList
 from Products.CMFCore.utils import getToolByName
+from Products.PageTemplates.ZopePageTemplate import ZopePageTemplate
+from Products.Archetypes.public import ObjectField
 from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool
+
 # EasyNewsletter imports
 from Products.EasyNewsletter.interfaces import IENLIssue
 from Products.EasyNewsletter.config import PROJECTNAME, EMAIL_RE
@@ -238,33 +241,20 @@ class ENLIssue(ATTopic, BaseContent):
         # get charset
         props = getToolByName(self, "portal_properties").site_properties
         charset = props.getProperty("default_charset")
-
-        # prepaire header text:
-        text_header = self.getHeader()
+        # get parent ENL object
+        parent = aq_parent(aq_inner(self))
+        # get out_template from ENL object and render it in context of issue
+        out_template_pt_field = parent.getField('out_template_pt')
+        ObjectField.set(out_template_pt_field, self, ZopePageTemplate(out_template_pt_field.getName(), parent.getRawOut_template_pt()))
+        output_html = self.out_template_pt.pt_render().encode(charset)
         # exchange relative URLs
-        parser_header = ENLHTMLParser(self)
-        parser_header.feed(text_header)
-        text_header = parser_header.html
-        text_plain_header = self.portal_transforms.convert('html_to_text', text_header).getData()
-
-        # prepaire body text:
-        text = self.getText()
+        parser_output_zpt = ENLHTMLParser(self)
+        parser_output_zpt.feed(output_html)
+        text = parser_output_zpt.html
         # remove >>PERSOLINE>> Maker first:
         text = text.replace("<p>&gt;&gt;PERSOLINE&gt;&gt;", "")
-        # exchange relative URLs
-        parser = ENLHTMLParser(self)
-        parser.feed(text)
-        text = parser.html
-        # create & attach text part
         text_plain = self.portal_transforms.convert('html_to_text', text).getData()
 
-        # prepaire body footer text:
-        text_footer = self.getFooter()
-        # exchange relative URLs
-        parser_footer = ENLHTMLParser(self)
-        parser_footer.feed(text_footer)
-        text_footer = parser_footer.html
-        text_plain_footer = self.portal_transforms.convert('html_to_text', text_footer).getData()
 
         for receiver in receivers:
             # create multipart mail
@@ -291,19 +281,17 @@ class ENLIssue(ATTopic, BaseContent):
             mail.epilogue   = ''
 
             # Attach text part
-            jointed_text_plain = text_plain_header + personal_text_plain + text_plain_footer
-            text_part = MIMEText(jointed_text_plain, "plain", charset)
+            text_part = MIMEText(personal_text_plain, "plain", charset)
             mail.attach(text_part)
 
             # Attach html part with images
-            jointed_personal_text = text_header + personal_text + text_footer
             html_part = MIMEMultipart("related")
-            html_text = MIMEText(jointed_personal_text, "html", charset)
+            html_text = MIMEText(personal_text, "html", charset)
             html_part.attach(html_text)
 
             # Add images to the message
             image_number = 0
-            for image_url in parser.image_urls:
+            for image_url in parser_output_zpt.image_urls:
                 image_url = urlparse(image_url)[2]
                 o = self.restrictedTraverse(image_url)
                 if hasattr(o, "_data"):                               # file-based
@@ -403,6 +391,8 @@ class ENLIssue(ATTopic, BaseContent):
             else:
                 log.debug("Skip '%s' because \"%s\" is not a real email!" % (receiver_id, member_property['email']))
         return plone_subscribers
+
+
 
 
 registerType(ENLIssue, PROJECTNAME)
