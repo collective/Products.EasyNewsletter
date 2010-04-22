@@ -247,12 +247,12 @@ class ENLIssue(ATTopic, BaseContent):
         out_template_pt_field = parent.getField('out_template_pt')
         ObjectField.set(out_template_pt_field, self, ZopePageTemplate(out_template_pt_field.getName(), parent.getRawOut_template_pt()))
         output_html = self.out_template_pt.pt_render().encode(charset)
+        text = output_html.replace("<p>&gt;&gt;PERSOLINE&gt;&gt;", "")
         # exchange relative URLs
         parser_output_zpt = ENLHTMLParser(self)
-        parser_output_zpt.feed(output_html)
+        parser_output_zpt.feed(text)
         text = parser_output_zpt.html
         # remove >>PERSOLINE>> Maker first:
-        text = text.replace("<p>&gt;&gt;PERSOLINE&gt;&gt;", "")
         text_plain = self.portal_transforms.convert('html_to_text', text).getData()
 
 
