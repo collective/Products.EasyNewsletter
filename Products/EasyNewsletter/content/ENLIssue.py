@@ -231,8 +231,8 @@ class ENLIssue(ATTopic, BaseContent):
                 mail['To'] = receiver
             else:
                 # remove ::PERSOLINE:: Maker first:
-
                 personal_text = personal_text.replace("::PERSOLINE::", "")
+                personal_text_plain = personal_text_plain.replace("::PERSOLINE::", "")
                 unsubscribe_link = enl.absolute_url() + "/unsubscribe?subscriber=" + receiver['UID']
                 personal_text = personal_text.replace("{% unsubscribe-link %}", unsubscribe_link)
                 personal_text_plain = personal_text_plain.replace("{% unsubscribe-link %}", unsubscribe_link)
