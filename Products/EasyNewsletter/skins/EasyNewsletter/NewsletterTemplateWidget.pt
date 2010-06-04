@@ -8,11 +8,8 @@
           <metal:fill fill-slot="widget_body"
                       tal:define="vocab python:context.aq_parent.objectValues('ENLTemplate')">
 
-            <select tal:define="Iterator python:modules['Products.CMFPlone'].IndexIterator;
-                                tabindex python:Iterator(mainSlot=False)"
-                    tal:attributes="name fieldName;
-                                    id fieldName;
-                                    tabindex tabindex/next;">
+            <select tal:attributes="name fieldName;
+                                    id fieldName;">
 
                 <option tal:repeat="item vocab"
                         tal:attributes="value python:item.getId();

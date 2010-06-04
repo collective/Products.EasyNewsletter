@@ -25,6 +25,10 @@ The source code is within the collective: https://svn.plone.org/svn/collective/P
 Changes
 =======
 
+1.2 unreleased
+--------------
+* Removed deprecated IndexItererator from NewsletterTemplateWidget.pt
+
 1.1 (branch for Plone 4, 2010-02-19)
 ------------------------------------
 * Compatible with Plone 4
