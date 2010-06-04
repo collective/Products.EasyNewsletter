@@ -27,7 +27,7 @@
 
           </metal:fill>
 
-      </metal:use>    
+      </metal:use>
     </div>
 
     <div metal:define-macro="view">
