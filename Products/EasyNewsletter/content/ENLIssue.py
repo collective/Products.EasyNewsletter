@@ -1,9 +1,7 @@
 # python imports
-from urlparse import urlparse
 from email.MIMEText import MIMEText
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEImage import MIMEImage
-from email import Encoders
 
 # zope imports
 from zope.interface import implements
@@ -15,14 +13,12 @@ from Products.Archetypes.atapi import *
 from Products.ATContentTypes import ATCTMessageFactory as _
 from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
-from Products.Archetypes.public import DisplayList
 from Products.CMFCore.utils import getToolByName
 
 # EasyNewsletter imports
 from Products.EasyNewsletter.interfaces import IENLIssue, IListSubscribers
 from Products.EasyNewsletter.config import PROJECTNAME
 from Products.EasyNewsletter.utils.ENLHTMLParser import ENLHTMLParser
-from Products.EasyNewsletter.content.ENLSubscriber import ENLSubscriber
 
 schema=Schema((
 

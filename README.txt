@@ -30,6 +30,7 @@ Changes
 * Removed deprecated IndexItererator from NewsletterTemplateWidget.pt
 * Fixed bug in HTML parser, images with relative link are parsed properly
 * Fixed bug in sending mechanism 
+* Added workflow subsciber for sending an issue
 
 1.1 (branch for Plone 4, 2010-02-19)
 ------------------------------------

@@ -19,5 +19,10 @@
         handler=".utils.subscriber.subscriberAdded" />
 
 
+  <subscriber
+      for=".interfaces.IENLIssue
+           Products.DCWorkflow.interfaces.IAfterTransitionEvent"
+      handler=".wfsubscribers.sendENLIssue"/>
+
     
 </configure>
