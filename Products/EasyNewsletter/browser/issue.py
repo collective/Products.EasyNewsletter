@@ -1,3 +1,4 @@
+from Acquisition import aq_inner
 # Five imports
 from Products.Five.browser import BrowserView
 
@@ -18,12 +19,15 @@ class IssueView(BrowserView):
     def send_issue(self):
         """
         """
-        putils = getToolByName(self.context, "plone_utils")
+        context = aq_inner(self.context)
+        putils = getToolByName(context, "plone_utils")
+        wf_tool = getToolByName(context, "portal_workflow")
         try:
-            self.context.send()
+            wf_tool.doActionFor(context, 'send')
+            context.send()
         except Exception:
             putils.addPortalMessage(_(u"error_occured", default="An error occured"), "error")
         else:
             putils.addPortalMessage(_(u"issue_send", default="The issue has been send."))
 
-        return self.request.response.redirect(self.context.absolute_url())
+        return self.request.response.redirect(context.absolute_url())
