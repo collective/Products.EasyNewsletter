@@ -264,16 +264,16 @@ class ENLIssue(ATTopic, BaseContent):
             if hasattr(request, "test"):
                 mail['To'] = receiver['email']
                 fullname = "Test Member"
-                personal_text = text
-                personal_text_plain = text_plain
+                personal_text = text.replace("{% unsubscribe %}", "")
+                personal_text_plain = text_plain.replace("{% unsubscribe %}", "")
             else:
                 if receiver.has_key('uid'):
                     unsubscribe_link = enl.absolute_url() + "/unsubscribe?subscriber=" + receiver['uid']
                     personal_text = text.replace("{% unsubscribe %}", """<a href="%s">Click here to unsubscribe</a>""" % unsubscribe_link)
                     personal_text_plain = text_plain.replace("{% unsubscribe %}", """Click here to unsubscribe: %s""" % unsubscribe_link)
                 else:
-                    personal_text = text
-                    personal_text_plain = text_plain
+                    personal_text = text.replace("{% unsubscribe %}", "")
+                    personal_text_plain = text_plain.replace("{% unsubscribe %}", "")
 
                 fullname = receiver['fullname']
                 if not fullname:
