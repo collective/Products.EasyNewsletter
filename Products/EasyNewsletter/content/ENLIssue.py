@@ -61,6 +61,7 @@ schema=Schema((
 
     TextField('footer',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        default="{% unsubscribe %}",
         widget=RichWidget(
             rows=20,
             label='Footer',
@@ -247,12 +248,12 @@ class ENLIssue(ATTopic, BaseContent):
         out_template_pt_field = parent.getField('out_template_pt')
         ObjectField.set(out_template_pt_field, self, ZopePageTemplate(out_template_pt_field.getName(), parent.getRawOut_template_pt()))
         output_html = self.out_template_pt.pt_render().encode(charset)
+        # remove >>PERSOLINE>> marker
         text = output_html.replace("<p>&gt;&gt;PERSOLINE&gt;&gt;", "")
         # exchange relative URLs
         parser_output_zpt = ENLHTMLParser(self)
         parser_output_zpt.feed(text)
         text = parser_output_zpt.html
-        # remove >>PERSOLINE>> Maker first:
         text_plain = self.portal_transforms.convert('html_to_text', text).getData()
 
 
@@ -266,15 +267,19 @@ class ENLIssue(ATTopic, BaseContent):
             else:
                 if receiver.has_key('uid'):
                     unsubscribe_link = enl.absolute_url() + "/unsubscribe?subscriber=" + receiver['uid']
-                    personal_text = text + """<p><a href="%s">Click here to unsubscribe</a></p>""" % unsubscribe_link
-                    personal_text_plain = text_plain + """Click here to unsubscribe: %s""" % unsubscribe_link
+                    personal_text = text.replace("{% unsubscribe %}", """<a href="%s">Click here to unsubscribe</a>""" % unsubscribe_link)
+                    personal_text_plain = text_plain.replace("{% unsubscribe %}", """Click here to unsubscribe: %s""" % unsubscribe_link)
+                else:
+                    personal_text = text
+                    personal_text_plain = text_plain
+
                 fullname = receiver['fullname']
                 if not fullname:
                     fullname = "Sir or Madam"
                 mail['To'] = receiver['email']
 
-            personal_text = text.replace("{% subscriber-fullname %}", fullname)
-            personal_text_plain = text_plain.replace("{% subscriber-fullname %}}", fullname)
+            personal_text = personal_text.replace("{% subscriber-fullname %}", fullname)
+            personal_text_plain = personal_text_plain.replace("{% subscriber-fullname %}", fullname)
 
             mail['From']    = from_header
             mail['Subject'] = subject
