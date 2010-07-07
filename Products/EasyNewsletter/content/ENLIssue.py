@@ -266,7 +266,7 @@ class ENLIssue(ATTopic, BaseContent):
             else:
                 if receiver.has_key('uid'):
                     unsubscribe_link = enl.absolute_url() + "/unsubscribe?subscriber=" + receiver['uid']
-                    personal_text = text + """<hr><p><a href="%s">Click here to unsubscribe</a></p>""" % unsubscribe_link
+                    personal_text = text + """<p><a href="%s">Click here to unsubscribe</a></p>""" % unsubscribe_link
                     personal_text_plain = text_plain + """Click here to unsubscribe: %s""" % unsubscribe_link
                 fullname = receiver['fullname']
                 if not fullname:

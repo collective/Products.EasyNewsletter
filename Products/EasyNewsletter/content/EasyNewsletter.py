@@ -159,8 +159,8 @@ class EasyNewsletter(ATTopic, BaseFolder):
         ATTopic.initializeArchetype(self, **kwargs)
         
         # Add default template
-        self.manage_addProduct["EasyNewsletter"].addENLTemplate(id="default", title="Default")
-        tmpl = self.default
+        self.manage_addProduct["EasyNewsletter"].addENLTemplate(id="default_template", title="Default")
+        tmpl = self.default_template
 
     security.declarePublic("displayContentsTab")
     def displayContentsTab(self):
