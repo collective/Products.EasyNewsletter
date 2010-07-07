@@ -264,6 +264,8 @@ class ENLIssue(ATTopic, BaseContent):
             if hasattr(request, "test"):
                 mail['To'] = receiver['email']
                 fullname = "Test Member"
+                personal_text = text
+                personal_text_plain = text_plain
             else:
                 if receiver.has_key('uid'):
                     unsubscribe_link = enl.absolute_url() + "/unsubscribe?subscriber=" + receiver['uid']
