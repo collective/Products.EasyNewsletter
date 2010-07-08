@@ -258,8 +258,6 @@ class ENLIssue(ATTopic, BaseContent):
 
         send_counter = 0
         send_error_counter = 0
-        receivers.append({'email': '', 'fullname': 'test'})
-        receivers.append({'email': 'huhu', 'fullname': 'test'})
         for receiver in receivers:
             # create multipart mail
             mail = MIMEMultipart("alternative")
