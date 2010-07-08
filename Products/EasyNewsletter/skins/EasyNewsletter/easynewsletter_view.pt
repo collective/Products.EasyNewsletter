@@ -23,8 +23,8 @@
         </h1>
 
         <div tal:replace="structure provider:plone.belowcontenttitle" />
-
-        <p class="documentDescription">
+        
+	<p class="documentDescription">
             <metal:field use-macro="python:here.widget('description', mode='view')">
             Description
             </metal:field>
@@ -32,6 +32,17 @@
 
         <div tal:replace="structure provider:plone.abovecontentbody" />
         
+        <div metal:define-macro="text-field-view"
+             id="parent-fieldname-text" class="stx"
+             tal:define="kss_class python:getKssClasses('text',
+                         templateId=templateId, macro='text-field-view');
+                         text here/getText|nothing"
+             tal:condition="text"
+             tal:attributes="class python:test(here.Format() in ('text/structured',
+                                                   'text/x-rst', ), 'stx' + kss_class, 'plain' + kss_class)">
+            <div metal:define-slot="inside" tal:replace="structure text">The body</div>
+        </div>
+
         <h2 i18n:translate="issues_label">Issues</h2>
         <tal:block metal:define-macro="folderlisting"
                    tal:define="newsletters python:context.portal_catalog(portal_type='ENLIssue', 

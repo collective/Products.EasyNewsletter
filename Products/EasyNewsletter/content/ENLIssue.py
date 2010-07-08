@@ -141,6 +141,7 @@ schema=Schema((
 
     LinesField('ploneReceiverMembers',
         vocabulary="get_plone_members",
+        default_method="get_ploneReceiverMembers_defaults",
         widget=MultiSelectionWidget(
             label='Plone Members to receive',
             label_msgid='EasyNewsletter_label_ploneReceiverMembers',
@@ -152,6 +153,7 @@ schema=Schema((
 
     LinesField('ploneReceiverGroups',
         vocabulary="get_plone_groups",
+        default_method="get_ploneReceiverGroups_defaults",
         widget=MultiSelectionWidget(
             label='Plone Groups to receive',
             label_msgid='EasyNewsletter_label_ploneReceiverGroups',
@@ -362,13 +364,13 @@ class ENLIssue(ATTopic, BaseContent):
         return newsletter_obj.get_plone_groups()
 
     def get_ploneReceiverMembers_defaults(self):
-        """ return all selected groups from parant newsletter object.
+        """ return all selected members from parent newsletter object.
         """
         newsletter_obj = aq_parent(aq_inner(self))
         return newsletter_obj.getPloneReceiverMembers() 
 
     def get_ploneReceiverGroups_defaults(self):
-        """ return all selected groups from parant newsletter object.
+        """ return all selected groups from parent newsletter object.
         """
         newsletter_obj = aq_parent(aq_inner(self))
         return newsletter_obj.getPloneReceiverGroups() 
