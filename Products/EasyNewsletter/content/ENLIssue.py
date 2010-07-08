@@ -256,7 +256,10 @@ class ENLIssue(ATTopic, BaseContent):
         text = parser_output_zpt.html
         text_plain = self.portal_transforms.convert('html_to_text', text).getData()
 
-
+        send_counter = 0
+        send_error_counter = 0
+        receivers.append({'email': '', 'fullname': 'test'})
+        receivers.append({'email': 'huhu', 'fullname': 'test'})
         for receiver in receivers:
             # create multipart mail
             mail = MIMEMultipart("alternative")
@@ -311,10 +314,15 @@ class ENLIssue(ATTopic, BaseContent):
 
             mail.attach(html_part)
 
-            log.info("Send newsletter to \"%s\"" % receiver['email'])
-            self.MailHost.send(mail.as_string())
+            try:
+                self.MailHost.send(mail.as_string())
+                log.info("Send newsletter to \"%s\"" % receiver['email'])
+                send_counter += 1
+            except Exception, e:
+                log.info("Sending newsletter to \"%s\" failt, with error \"%s\"!" % (receiver['email'], e))
+                send_error_counter += 1
 
-        log.info("Newsletter was send to \"%s\" receivers" % len(receivers))
+        log.info("Newsletter was send to (%s) receivers. (%s) errors occurred!" % (send_counter, send_error_counter))
         # change status
         if not hasattr(request, "test"):
             wftool = getToolByName(self, "portal_workflow")
