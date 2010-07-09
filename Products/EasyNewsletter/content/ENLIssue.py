@@ -37,10 +37,12 @@ schema=Schema((
 
     TextField('header',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        default_method = "get_default_header",
         widget=RichWidget(
-            rows=20,
+            rows=10,
             label='Header',
             label_msgid='EasyNewsletter_label_header',
+            description=_(u'description_help_header', default=u'The header will included in outgoing mails.'),
             description_msgid='EasyNewsletter_help_header',
             i18n_domain='EasyNewsletter',
         ),
@@ -53,6 +55,7 @@ schema=Schema((
             rows=30,
             label='Text',
             label_msgid='EasyNewsletter_label_text',
+            description=_(u'description_text', default=u'The main content of the mailing. You can use the topic criteria to collect content or put manual content in. This will included in outgoing mails.'),
             description_msgid='EasyNewsletter_help_text',
             i18n_domain='EasyNewsletter',
         ),
@@ -61,11 +64,12 @@ schema=Schema((
 
     TextField('footer',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        default="{% unsubscribe %}",
+        default_method = "get_default_footer",
         widget=RichWidget(
-            rows=20,
+            rows=10,
             label='Footer',
             label_msgid='EasyNewsletter_label_footer',
+            description=_(u'description_help_footer', default=u'The footer will included in outgoing mails.'),
             description_msgid='EasyNewsletter_help_footer',
             i18n_domain='EasyNewsletter',
         ),
@@ -354,6 +358,14 @@ class ENLIssue(ATTopic, BaseContent):
         personalized_body_lines = self.getRawText().split('\r\n')
         unpersonalized_body = '\r\n'.join([line for line in personalized_body_lines if not line.startswith("<p>&gt;&gt;PERSOLINE&gt;&gt;")])
         return unpersonalized_body
+
+    def get_default_header(self):
+        newsletter_obj = aq_parent(aq_inner(self))
+        return newsletter_obj.getRawDefault_header()
+
+    def get_default_footer(self):
+        newsletter_obj = aq_parent(aq_inner(self))
+        return newsletter_obj.getRawDefault_footer()
 
     def get_plone_members(self):
         newsletter_obj = aq_parent(aq_inner(self))

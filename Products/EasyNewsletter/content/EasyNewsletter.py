@@ -60,6 +60,33 @@ schema=Schema((
         validators=('isEmail',)
     ),
 
+    TextField('default_header',
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        widget=RichWidget(
+            rows=10,
+            label='Header',
+            label_msgid='EasyNewsletter_label_default_header',
+            description=_(u'description_text', default=u'The default header text. This is used as a default for new issues.'),
+            description_msgid='EasyNewsletter_help_deault_header',
+            i18n_domain='EasyNewsletter',
+        ),
+        default_output_type='text/html'
+    ),
+
+    TextField('default_footer',
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        default="{% unsubscribe %}",
+        widget=RichWidget(
+            rows=10,
+            label='Footer',
+            label_msgid='EasyNewsletter_label_default_footer',
+            description=_(u'description_text', default=u'The default footer text. This is used as a default for new issues.'),
+            description_msgid='EasyNewsletter_help_default_footer',
+            i18n_domain='EasyNewsletter',
+        ),
+        default_output_type='text/html'
+    ),
+
     #Overwritten to hide attribute from ATTopic
     BooleanField('limitNumber',
         widget=BooleanWidget(
@@ -144,12 +171,20 @@ schema=Schema((
 ),
 )
 
+
+
+schema = ATTopicSchema + schema
+schema['text'].widget.description = _(u'description_text', default=u'This is used in the frontpage of EasyNewsletter on top of Issue archive list.')
+
+
+
+
 class EasyNewsletter(ATTopic, BaseFolder):
     """A folder for managing and archiving newsletters.
     """
     implements(IEasyNewsletter) 
     security = ClassSecurityInfo()
-    schema = ATTopicSchema + schema
+    schema = schema
     _at_rename_after_creation  = True
 
     security.declarePublic("initializeArchetype")

@@ -32,7 +32,4 @@ DEFAULT_TEMPLATE = """
         </p>
     </tal:block>
 </tal:block>
-
-<tal:block tal:content="structure context/getFooter" />
-
 """
