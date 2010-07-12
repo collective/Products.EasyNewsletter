@@ -5,7 +5,6 @@ EMAIL_RE = re.compile(r"(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,6}(?:\s|$)
 
 DEFAULT_TEMPLATE = """
 <p>&gt;&gt;PERSOLINE&gt;&gt;Dear {% subscriber-fullname %}</p>
-<tal:block tal:content="structure context/getHeader" />
 
 <tal:block tal:repeat="object context/queryCatalog">
     <h1 tal:content="object/Title">Title</h1>

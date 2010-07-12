@@ -36,12 +36,20 @@
            Back to newsletter
         </a>  
         
+	<div tal:content="structure context/getHeader">
+		The header
+	</div>
       
         <div metal:define-macro="body">
           <div tal:content="structure context/get_unpersonalized_body">
             The newsletter's text
           </div>      
         </div>
+
+	<div tal:content="structure context/getFooter">
+		The footer
+	</div>
+
         <div tal:replace="structure provider:plone.belowcontentbody" />
         </div>
     </tal:main-macro>

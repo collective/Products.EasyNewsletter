@@ -1,13 +1,5 @@
 #TODO:
     
-X   * remove the unsubscribe link in archive view [derstappenit] 
-
     * add Double Opt-in to subscribe process [derstappenit]
 
     * ask before unsubscribe, if a user click on the unsubscribe link. [derstappenit]
-
-X   * use the new fullname attribute of subscribers to personalize newletter mails.  [derstappenit]
-
-    * add Multiselection to choose Plone groups as subscriber, 
-      selected group members should add to the subscriberlist dynamicly. [derstappenit]
-

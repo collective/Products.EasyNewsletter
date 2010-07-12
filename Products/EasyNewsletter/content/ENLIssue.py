@@ -87,7 +87,7 @@ schema=Schema((
 
     # Overwritten to adapt attribute from ATTopic
     StringField('template',
-        default="default",
+        default="default_template",
         widget=StringWidget(
             macro="NewsletterTemplateWidget",
             label="Newsletter Template",
@@ -227,7 +227,7 @@ class ENLIssue(ATTopic, BaseContent):
 
         # Create from-header
         if enl.getSenderName():
-            from_header = "%s <%s>" % (sender_name, sender_email)
+            from_header = '"%s" <%s>' % (sender_name, sender_email)
         else:
             from_header = sender_email
 
