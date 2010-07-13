@@ -32,3 +32,7 @@ class IReceiversMemberFilter(Interface):
 class IReceiversGroupFilter(Interface):
     """ Marker interface for ReceiverGroupFilters subscribers.
     """
+
+class IENLRegistrationTool(Interface):
+    """ Marker interface for ENL registration utility
+    """

@@ -13,11 +13,5 @@
         addview=".subscriber.AddForm" 
         editview=".subscriber.EditForm" />
 
-    <browser:page
-        for="*"
-        name="add-subscriber"
-        class=".subscriber.SubscriberView"
-        attribute="add_subscriber"
-        permission="zope.Public" />
 
 </configure>

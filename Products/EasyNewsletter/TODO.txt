@@ -1,5 +1,10 @@
 #TODO:
     
-    * add Double Opt-in to subscribe process [derstappenit]
-
     * ask before unsubscribe, if a user click on the unsubscribe link. [derstappenit]
+
+    * add validator to ENLSubsciber to check if this email already exists, 
+      works now only for the portlet, but not if we use the add item menu. [derstappenit]
+
+    * provide default values for sender_name, sender_address and test_email from portal_properties
+
+    * cleanup of double opt-in tempobjects, don't use PasswordResetToll [derstappenit]

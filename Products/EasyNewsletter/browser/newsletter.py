@@ -1,7 +1,7 @@
-# Five imports
+from AccessControl.SecurityManagement import newSecurityManager
+
 from Products.Five.browser import BrowserView
 
-# CMFCore imports
 from Products.CMFCore.utils import getToolByName
 
 class NewsletterView(BrowserView):
@@ -19,6 +19,10 @@ class NewsletterView(BrowserView):
             putils.addPortalMessage("An error occured", "error")
         else:
             newsletter = self.context
+            # We do the deletion as the owner of the newsletter object
+            # so that this is possible without login.
+            owner = newsletter.getWrappedOwner()
+            newSecurityManager(newsletter, owner)
             del newsletter[subscriber.id]
             putils.addPortalMessage("You have been unsubscribed.")
 

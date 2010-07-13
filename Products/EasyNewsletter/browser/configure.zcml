@@ -32,4 +32,20 @@
         attribute="unsubscribe"
         permission="zope2.Public" />
 
+    <browser:page
+        for="*"
+        name="register-subscriber"
+        class=".registration.SubscriberView"
+        attribute="register_subscriber"
+        permission="zope.Public" />
+
+    <browser:page
+        name="confirm-subscriber"
+	class=".registration.SubscriberView"
+	attribute="confirm_subscriber"
+	permission="zope.Public"
+	for="*"
+	/>
+
+
 </configure>

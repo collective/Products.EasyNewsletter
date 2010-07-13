@@ -4,14 +4,11 @@ from zope.formlib import form
 from zope.interface import implements
 
 # plone imports
-from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import PloneMessageFactory as _
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
 
-# Five imports
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from Products.Five.browser import BrowserView
 
 class INewsletterSubscriberPortlet(IPortletDataProvider):
     """
@@ -98,33 +95,7 @@ class EditForm(base.EditForm):
     description = _(u"This portlet displays the subscriber add form of a newsletter.")
 
 
-class SubscriberView(BrowserView):
-    """
-    """
-    def add_subscriber(self):
-        """
-        """
-        putils = getToolByName(self.context, "plone_utils")
-        portal_url = getToolByName(self.context, "portal_url")
-        path_to_easynewsletter = self.request.get("newsletter")
 
-        # remove leading slash from paths like: /mynewsletter
-        path_to_easynewsletter = path_to_easynewsletter.strip('/')
 
-        MESSAGE_CODE = [
-            "Your e-mail has been added. Thanks for your interest.",
-            "Please enter a valid e-mail address.",
-            "Your e-mail address is already registered."
-            ]
-        
-        subscriber = self.request.get("subscriber", "")
-        fullname = self.request.get("fullname", "")
-        easynewsletter = portal_url.restrictedTraverse(path_to_easynewsletter)
-        valid_email, error_code = easynewsletter.addSubscriber(subscriber, fullname)
 
-        if valid_email == True:
-            putils.addPortalMessage(MESSAGE_CODE[0])
-        else:
-            putils.addPortalMessage(MESSAGE_CODE[error_code], "error")
 
-        self.request.response.redirect(self.context.absolute_url())

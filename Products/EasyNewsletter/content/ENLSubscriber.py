@@ -70,6 +70,9 @@ class ENLSubscriber(BaseContent):
     def Title(self):
         """Overwritten accessor for Title
         """
-        return self.getEmail()
+        title_str = self.getEmail()
+        if self.getFullname():
+            title_str += ' - ' + self.getFullname()
+        return title_str
 
 registerType(ENLSubscriber, PROJECTNAME)

@@ -1,5 +1,4 @@
 # python imports
-import re
 
 # zope imports
 from zope.interface import implements
@@ -22,7 +21,7 @@ from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTo
 # EasyNewsletter imports
 from Products.EasyNewsletter.interfaces import IENLIssue, IReceiversMemberFilter, IReceiversGroupFilter
 from Products.EasyNewsletter.interfaces import IEasyNewsletter
-from Products.EasyNewsletter.config import PROJECTNAME, EMAIL_RE
+from Products.EasyNewsletter.config import *
 
 
 schema=Schema((
@@ -155,6 +154,7 @@ schema=Schema((
 
     ZPTField('out_template_pt',
         schemata="settings",
+        default = DEFAULT_OUT_TEMPLATE_PT,
         widget=TextAreaWidget(description = 'This is a Zope Page Template '
             'used for rendering of the out going mail. You don\'t need to modify '
             'it, but if you know TAL (Zope\'s Template Attribute Language) '
@@ -163,10 +163,33 @@ schema=Schema((
             label = 'Outgoing Mail Template',
             label_msgid = "label_out_template_pt",
             i18n_domain = "EasyNewsletter",
-            rows = 30,
+            rows = 40,
             ) ,
-        required=False,
+        required=True,
         validators=('zptvalidator',),
+    ),
+    
+    StringField('subscriber_confirmation_mail_subject',
+        schemata="settings",
+        default = DEFAULT_SUBSCRIBER_CONFOMATION_MAIL_SUBJECT,
+        widget=StringWidget(
+            label= _ (u'EasyNewsletter_label_subscriber_confirmation_mail_subject', default=u'Subscriber confirmation mail subject'),
+                description = _(u'EasyNewsletter_label_subscriber_confirmation_mail_subject', default=u'Text used for confirmation email subject. You can customize the text, but it should include the placeholder: ${portal_url}!'),
+            i18n_domain='EasyNewsletter',
+        ),
+        required=True,
+    ),
+
+    TextField('subscriber_confirmation_mail_text',
+        schemata="settings",
+        default = DEFAULT_SUBSCRIBER_CONFOMATION_MAIL_TEXT,
+        widget=TextAreaWidget(
+            rows=8,
+            label=_(u'EasyNewsletter_label_subscriber_confirmation_mail_text', default=u'Subscriber confirmation mail text'),
+            description=_(u'description_subscriber_confirmation_mail_text', default=u'Text used for confirmation email. You can customize the text, but it should include the placeholders: ${portal_url}, ${subscriber_email} and ${confirmation_url}!'),
+            i18n_domain='EasyNewsletter',
+        ),
+        required=True,
     ),
 ),
 )
@@ -207,28 +230,19 @@ class EasyNewsletter(ATTopic, BaseFolder):
     def addSubscriber(self, subscriber, fullname):
         """Adds a new subscriber to the newsletter (if valid).
         """
-        from Products.validation.validators.BaseValidators import EMAIL_RE
-        EMAIL_RE = "^" + EMAIL_RE
-        mo = re.search(EMAIL_RE, subscriber)
-                
-        if mo is None:
-            return (False, 1)
-        else:
-            # Normalize Subscriber
-            plone_tool = getToolByName(self, 'plone_utils')    
-            subscriber_id = plone_tool.normalizeString(subscriber)
+        # we need the subscriber email here as an id, to check for existing entries
+        subscriber_id = subscriber
+        try:
+            self.manage_addProduct["EasyNewsletter"].addENLSubscriber(id=subscriber_id)
+        except BadRequest:
+            return (False, "email_exists")
             
-            try:
-                self.manage_addProduct["EasyNewsletter"].addENLSubscriber(id=subscriber_id)
-            except BadRequest:
-                return (False, 2)
-                
-            o = getattr(self, subscriber_id)
-            o.setEmail(subscriber)
-            o.setFullname(fullname)
-        
-            return (True, 0)
+        o = getattr(self, subscriber_id)
+        o.setEmail(subscriber)
+        o.setFullname(fullname)
     
+        return (True, "subscription_confirmed")
+   
     def getSubTopics(self):
         """Returns sub topics.
         """

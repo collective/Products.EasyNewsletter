@@ -10,6 +10,8 @@
     <include package=".portlets" />
     <include file="profiles.zcml" />
 
+
+
     <!-- File System Directory Views registration -->
     <cmf:registerDirectory name="EasyNewsletter" directory="skins/EasyNewsletter" />
 

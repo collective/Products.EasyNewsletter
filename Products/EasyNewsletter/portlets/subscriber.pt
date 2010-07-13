@@ -10,7 +10,7 @@
     <dd class="portletItem lastItem">
 	<p tal:content="view/description|nothing">Portlet Description</p> 
 
-        <form action="@@add-subscriber">
+        <form action="@@register-subscriber">
             <input type="hidden" 
                    name="newsletter" 
                    value="newsletter" 
