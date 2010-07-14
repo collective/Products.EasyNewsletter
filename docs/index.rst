@@ -1,41 +1,56 @@
-==========================================
-Welcome to EasyNewsletter's documentation!
-==========================================
+=========================================
+Welcome to EasyNewsletter's documentation
+=========================================
 
 What is it?
 ===========
 
-EasyNewsletter is a simple newsletter product for Plone.
+EasyNewsletter is a simple but powerful newsletter/mailing product for Plone.
 
 Features
 ========
 
-- Plonish (uses Plone's Collections to collect content)
+    - Plonish (can use Plone's Collections to collect content)
 
-- Subscribing / Unsubscribing
+    - Support Text and HTML Newsletter (including images)
 
-- Variable templates to generate a newsletter
+    - Subscribing / Unsubscribing and can use Plone Members/Groups as receivers (works also with Membrane)
+
+    - Variable templates to generate newsletter content
+
+    - TTW customizeable output Template to generate nice HTML Newsletter
+
+    - Support personalized mails
+
+Requirements
+============
+
+    - inqbus.plone.fastmemberproperties, speed up access of member properties (should automaticly installed)
+
 
 Installation
 ============
 
-1. Add Products.EasyNewsletter to your buildout
+    1. Add Products.EasyNewsletter to your buildout
 
-2. Run your buildout script
+    2. Run your buildout script
 
-3. Restart zope
+    3. Restart zope
 
-4. Install EasyNewsletter via Plone Management Interface
+    4. Install EasyNewsletter via Plone Management Interface
 
-5. Add an "Newsletter Subscriber" portlet and enter the path to the
-   EasyNewsletter object, e.g.: /portal/newsletter (To this newsletter the
-   subscribers will be added).
+    5. Add an "Newsletter Subscriber" portlet and enter the path to the
+    EasyNewsletter object, e.g.: /portal/newsletter (To this newsletter the
+    subscribers will be added).
 
 Usage
 =====
 
 General
 -------
+You can use EasyNewslleter to create manually mailings/newsletters 
+or you can use the collection criteria to collect content.
+
 EasyNewsletter is heavily based on Plone's Collections. In fact, the
 Newsletter as well as the Issues are actually specialized Collections.
 
@@ -60,8 +75,14 @@ Step by step
 
 1. Add a EasyNewsletter instance, fill in the form and save it.
 
-2. Go to criteria tab and add the criteria, which shall be applied to *all* of 
+2. If you whant write a simple mannually mailing, you can add an Issue and fill it out with you text.
+
+3. Or if you whant use collections to collect you content first, then you can add an Issue, 
+   go to criteria tab and add the criteria, which shall be applied to *all* of 
    your Newsletters, e.g. "Items Type".
+
+TODO...
+
 
 3. Add a Newsletter instance, fill in the form and save it.
 

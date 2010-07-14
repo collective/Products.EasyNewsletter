@@ -38,7 +38,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'EasyNewsletter'
-copyright = u'2009, Kai Diefenbach'
+copyright = u'2009 - 2010, Kai Diefenbach and the Plone community'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
