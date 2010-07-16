@@ -57,7 +57,7 @@ The source code is within the collective: https://svn.plone.org/svn/collective/P
 Changes
 =======
 
-2.0 beta 2 (2010-07-12)
+2.0 (2010-07-16)
 -----------------------
 
  * integrate the header and footer field into email text
