@@ -53,6 +53,14 @@ Source Code
 
 The source code is within the collective: https://svn.plone.org/svn/collective/Products.EasyNewsletter/
 
+Changes
+=======
+
+2.0.1 (2010-07-31)
+-----------------------
+
+ * bugfix: use the Zope MailHost for conformations mails, instead of sendmail.
+   Now you settings in plone sitesetup will respected ;).
 
 Changes
 =======

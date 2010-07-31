@@ -1,6 +1,5 @@
 import OFS
 import re
-import smtplib
 
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
@@ -38,14 +37,12 @@ class SubscriberView(BrowserView):
         if not subscriber:
             self.portal.plone_utils.addPortalMessage(MESSAGE_CODE["invalid_email"], "error")
             return self.request.response.redirect(newsletter_container.absolute_url())
-            
         from Products.validation.validators.BaseValidators import EMAIL_RE
         EMAIL_RE = "^" + EMAIL_RE
         mo = re.search(EMAIL_RE, subscriber)
         if not mo: 
             self.portal.plone_utils.addPortalMessage(MESSAGE_CODE["invalid_email"], "error")
             return self.request.response.redirect(newsletter_container.absolute_url())
-
         if subscriber in newsletter_container.objectIds(): 
             self.portal.plone_utils.addPortalMessage(MESSAGE_CODE["email_exists"], "error")
             return self.request.response.redirect(newsletter_container.absolute_url())
@@ -60,8 +57,9 @@ class SubscriberView(BrowserView):
         enl_registration_tool = queryUtility(IENLRegistrationTool,'enl_registration_tool')
         if hashkey not in enl_registration_tool.objectIds():
             enl_registration_tool[hashkey] = RegistrationData(hashkey, **subscriber_data)
-
-            msg_subject = newsletter_container.getRawSubscriber_confirmation_mail_subject().replace("${portal_url}", self.portal.absolute_url().strip('http://'))
+            msg_subject = newsletter_container.getRawSubscriber_confirmation_mail_subject().replace(
+                "${portal_url}", self.portal.absolute_url().strip('http://')
+            )
             confirmation_url = self.portal.absolute_url() + '/confirm-subscriber?hkey=' + str(hashkey)
             msg_text = newsletter_container.getRawSubscriber_confirmation_mail_text().replace("${newsletter_title}", newsletter_container.Title())
             msg_text = msg_text.replace("${subscriber_email}", subscriber)
@@ -69,19 +67,13 @@ class SubscriberView(BrowserView):
             msg_sender = self.portal.getProperty('email_from_address')
             msg_receiver = subscriber 
             msg = MIMEText(msg_text)
-            msg['Subject'] = msg_subject
+            msg['To']= msg_receiver
             msg['From'] = msg_sender
-            msg['To'] = msg_receiver
-
-            # Send the message via our own SMTP server, 
-            # but don't include the envelope header.
-            s = smtplib.SMTP()
-            s.connect()
-            s.sendmail(msg_sender, [msg_receiver], msg.as_string())
-            s.close() 
+            msg['Subject'] = msg_subject
+            #msg.epilogue   = ''
+            self.portal.MailHost.send(msg.as_string())
             self.portal.plone_utils.addPortalMessage(MESSAGE_CODE["email_added"])
         self.request.response.redirect(newsletter_container.absolute_url())
-
 
     def confirm_subscriber(self):
         hashkey = self.request.get('hkey')
@@ -115,11 +107,9 @@ class SubscriberView(BrowserView):
         randomstring = pwrtool.uniqueString(userid)
         expiry = pwrtool.expirationDate()
         pwrtool._requests[randomstring] = (userid, expiry)
-        
         pwrtool.clearExpired(10)   # clear out untouched records more than 10 days old
                                 # this is a cheap sort of "automatic" clearing
         pwrtool._p_changed = 1
-        
         retval = {}
         retval['randomstring'] = randomstring
         retval['expires'] = expiry
