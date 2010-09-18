@@ -1,4 +1,7 @@
 # python imports
+import formatter
+import StringIO
+from htmllib import HTMLParser
 from urlparse import urlparse
 from email.MIMEText import MIMEText
 from email.MIMEMultipart import MIMEMultipart
@@ -260,7 +263,7 @@ class ENLIssue(ATTopic, BaseContent):
         parser_output_zpt = ENLHTMLParser(self)
         parser_output_zpt.feed(text)
         text = parser_output_zpt.html
-        text_plain = self.portal_transforms.convert('html_to_text', text).getData()
+        text_plain = self.create_plaintext_message(text)
 
         send_counter = 0
         send_error_counter = 0
@@ -316,7 +319,7 @@ class ENLIssue(ATTopic, BaseContent):
                 image_number += 1
                 html_part.attach(image)
 
-            mail.attach(html_part)
+            #mail.attach(html_part)
 
             try:
                 self.MailHost.send(mail.as_string())
@@ -419,7 +422,29 @@ class ENLIssue(ATTopic, BaseContent):
                 log.debug("Skip '%s' because \"%s\" is not a real email!" % (receiver_id, member_property['email']))
         return plone_subscribers
 
+    def create_plaintext_message(self, text):
+        """ Create a plain-text-message by parsing the html
+            and attaching links as endnotes 
+        """
+        plain_text_maxcols = 72
+        textout = StringIO.StringIO()
+        formtext = formatter.AbstractFormatter(formatter.DumbWriter(
+                        textout, plain_text_maxcols))
+        parser = htmllib.HTMLParser(formtext)
+        parser.feed(text)
+        parser.close()
 
+        # append the anchorlist at the bottom of a message
+        # to keep the message readable.
+        counter = 0
+        anchorlist  = "\n\n" + ("-" * plain_text_maxcols) + "\n\n"
+        for item in parser.anchorlist:
+            counter += 1
+            anchorlist += "[%d] %s\n" % (counter, item)
+
+        text = textout.getvalue() + anchorlist
+        del textout, formtext, parser, anchorlist
+        return text
 
 
 registerType(ENLIssue, PROJECTNAME)
