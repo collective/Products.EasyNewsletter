@@ -9,8 +9,7 @@
                       tal:define="vocab python:context.aq_parent.objectValues('ENLTemplate')">
 
             <select tal:attributes="name fieldName;
-                                    id fieldName;
-                                    tabindex tabindex/next;">
+                                    id fieldName;">
 
                 <option tal:repeat="item vocab"
                         tal:attributes="value python:item.getId();
