@@ -41,7 +41,11 @@
                        E-Mail
                     </a>
                     <a href="#" 
-                       tal:attributes="href string:${subscriber/getURL}/delete_confirmation" i18n:translate="">Delete subscriber</a> 
+                       tal:attributes="href string:${subscriber/getURL}/delete_confirmation">
+                           <img tal:attributes="alt string:Delete subscriber;
+                                                title string:Delete subscriber;
+                                                src string:delete_icon.png" />
+                    </a> 
                 </li>
             </ul>
         </div>

@@ -242,6 +242,10 @@ msgstr "Es sind keine Newsletter vorhanden."
 msgid "easynewsletter_nosubscribers_label"
 msgstr "Es sind keine Abonnenten vorhanden."
 
+#. Default: "Delete subscriber"
+#: ../skins/EasyNewsletter/subscribers_view.pt
+msgstr "Abonnent löschen"
+
 #. Default: "There are no templates."
 #: ../skins/EasyNewsletter/templates_view.pt
 msgid "easynewsletter_notemplates_label"
