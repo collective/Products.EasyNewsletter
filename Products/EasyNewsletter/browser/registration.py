@@ -9,6 +9,7 @@ from zope.component import queryUtility
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
+from Products.statusmessages.interfaces import IStatusMessage
 
 from Products.EasyNewsletter.interfaces import IENLRegistrationTool
 from Products.EasyNewsletter.config import MESSAGE_CODE
@@ -34,17 +35,18 @@ class SubscriberView(BrowserView):
         # remove leading slash from paths like: /mynewsletter
         path_to_easynewsletter = path_to_easynewsletter.strip('/')
         newsletter_container = self.portal.restrictedTraverse(path_to_easynewsletter)
+        messages = IStatusMessage(self.request)
         if not subscriber:
-            self.portal.plone_utils.addPortalMessage(MESSAGE_CODE["invalid_email"], "error")
+            messages.addStatusMessage(MESSAGE_CODE["invalid_email"], "error")
             return self.request.response.redirect(newsletter_container.absolute_url())
         from Products.validation.validators.BaseValidators import EMAIL_RE
         EMAIL_RE = "^" + EMAIL_RE
         mo = re.search(EMAIL_RE, subscriber)
         if not mo: 
-            self.portal.plone_utils.addPortalMessage(MESSAGE_CODE["invalid_email"], "error")
+            messages.addStatusMessage(MESSAGE_CODE["invalid_email"], "error")
             return self.request.response.redirect(newsletter_container.absolute_url())
         if subscriber in newsletter_container.objectIds(): 
-            self.portal.plone_utils.addPortalMessage(MESSAGE_CODE["email_exists"], "error")
+            messages.addStatusMessage(MESSAGE_CODE["email_exists"], "error")
             return self.request.response.redirect(newsletter_container.absolute_url())
         subscriber_data = {}
         subscriber_data["subscriber"] = subscriber
@@ -72,24 +74,25 @@ class SubscriberView(BrowserView):
             msg['Subject'] = msg_subject
             #msg.epilogue   = ''
             self.portal.MailHost.send(msg.as_string())
-            self.portal.plone_utils.addPortalMessage(MESSAGE_CODE["email_added"])
+            messages.addStatusMessage(MESSAGE_CODE["email_added"], "info")
         self.request.response.redirect(newsletter_container.absolute_url())
 
     def confirm_subscriber(self):
         hashkey = self.request.get('hkey')
         enl_registration_tool = queryUtility(IENLRegistrationTool,'enl_registration_tool')
         regdataobj = enl_registration_tool.get(hashkey)
+        messages = IStatusMessage(self.request)
         if regdataobj:
             easynewsletter = self.portal.restrictedTraverse(regdataobj.path_to_easynewsletter)
             valid_email, error_code = easynewsletter.addSubscriber(regdataobj.subscriber, regdataobj.fullname)
             if valid_email:
                 # now delete the regobj
                 del enl_registration_tool[hashkey]
-                self.portal.plone_utils.addPortalMessage(MESSAGE_CODE[error_code])
+                messages.addStatusMessage(MESSAGE_CODE[error_code])
             else:
-                self.portal.plone_utils.addPortalMessage(MESSAGE_CODE[error_code], "error")
+                messages.addStatusMessage(MESSAGE_CODE[error_code], "error")
         else:
-            self.portal.plone_utils.addPortalMessage(MESSAGE_CODE["invalid_hashkey"], "error")
+            messages.addStatusMessage(MESSAGE_CODE["invalid_hashkey"], "error")
         return self.request.response.redirect(easynewsletter.absolute_url())
 
 
