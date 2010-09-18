@@ -8,7 +8,8 @@ from Products.CMFPlone import PloneMessageFactory as _
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
-
+from plone.app.vocabularies.catalog import SearchableTextSourceBinder
+from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
 
 class INewsletterSubscriberPortlet(IPortletDataProvider):
     """
@@ -26,10 +27,14 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
             default=u"",
             required=False)
 
-    newsletter = schema.TextLine(
+    newsletter = schema.Choice(
             title=_(u"label_newsletter_title", default=u"Path to Newsletter"),
             description=_(u"help_newsletter_title",
                           default=u"The absolute path from portal_root to the newsletter"),
+            source=SearchableTextSourceBinder(
+                        {'portal_type':'EasyNewsletter'},
+                        default_query='path:'
+                        ),
             default=u"",
             required=True)
 
@@ -78,6 +83,7 @@ class AddForm(base.AddForm):
     """
     """
     form_fields = form.Fields(INewsletterSubscriberPortlet)
+
     def create(self, data):
         """
         """
