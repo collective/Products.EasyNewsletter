@@ -40,6 +40,8 @@
                        tal:attributes="href string:${subscriber/getURL}">
                        E-Mail
                     </a>
+                    <a href="#" 
+                       tal:attributes="href string:${subscriber/getURL}/delete_confirmation" i18n:translate="">Delete subscriber</a> 
                 </li>
             </ul>
         </div>
