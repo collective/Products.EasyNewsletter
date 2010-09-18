@@ -4,6 +4,8 @@ import re
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from zope.component import queryUtility
+from zope.component import getMultiAdapter
+from Acquisition import aq_inner
 #from zope.interface import implements
 
 from Products.CMFCore.interfaces import ISiteRoot
@@ -14,17 +16,24 @@ from Products.statusmessages.interfaces import IStatusMessage
 from Products.EasyNewsletter.interfaces import IENLRegistrationTool
 from Products.EasyNewsletter.config import MESSAGE_CODE
 
+
 class SubscriberView(BrowserView):
     """
     """
+    
+    def portal_state(self):
+        context = aq_inner(self.context)
+        return getMultiAdapter((context, self.request), name=u'plone_portal_state')
 
     @property
     def portal(self):
-        return queryUtility(ISiteRoot)
+        pstate = self.portal_state()
+        return pstate.portal()
 
     @property
     def portal_url(self):
-        return self.portal.portal_url()
+        pstate = self.portal_state()
+        return pstate.portal_url()
 
     def register_subscriber(self):
         """
@@ -60,9 +69,9 @@ class SubscriberView(BrowserView):
         if hashkey not in enl_registration_tool.objectIds():
             enl_registration_tool[hashkey] = RegistrationData(hashkey, **subscriber_data)
             msg_subject = newsletter_container.getRawSubscriber_confirmation_mail_subject().replace(
-                "${portal_url}", self.portal.absolute_url().strip('http://')
+                "${portal_url}", self.portal_url.strip('http://')
             )
-            confirmation_url = self.portal.absolute_url() + '/confirm-subscriber?hkey=' + str(hashkey)
+            confirmation_url = self.portal_url + '/confirm-subscriber?hkey=' + str(hashkey)
             msg_text = newsletter_container.getRawSubscriber_confirmation_mail_text().replace("${newsletter_title}", newsletter_container.Title())
             msg_text = msg_text.replace("${subscriber_email}", subscriber)
             msg_text = msg_text.replace("${confirmation_url}", confirmation_url)
