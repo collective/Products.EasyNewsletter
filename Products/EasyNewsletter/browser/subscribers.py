@@ -38,3 +38,10 @@ class Enl_Subscribers_View(BrowserView):
         dummy = (u'a dummy string')
 
         return {'dummy': dummy}
+
+    def subscribers(self):
+        results = self.portal_catalog(portal_type = 'ENLSubscriber', path='/'.join(self.context.getPhysicalPath()))
+        return results
+
+
+

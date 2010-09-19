@@ -21,8 +21,7 @@
                   i18n:translate="easynewsletter_subcribers_label">Subscribers</span>
         </h1>
 
-        <div tal:define="subscribers python:context.portal_catalog(portal_type = 'ENLSubscriber',
-                                                                   path='/'.join(context.getPhysicalPath()));
+        <div tal:define="subscribers python:view.subscribers();
                          Batch python:modules['Products.CMFPlone'].Batch;
                          b_start python:request.get('b_start',0);
                          batch python:Batch(subscribers, 10, int(b_start), orphan=1)">
@@ -36,7 +35,9 @@
 
             <ul>
                 <li tal:repeat="subscriber batch">
-                    <a tal:content="string:${subscriber/Title}"
+                    <a tal:define="email python:subscriber.email != '' and subscriber.email or subscriber.id;
+                                   fullname python:subscriber.fullname != '' and subscriber.fullname + ' - ' or ''"
+                       tal:content="string:${fullname} ${email}"
                        tal:attributes="href string:${subscriber/getURL}">
                        E-Mail
                     </a>
