@@ -319,7 +319,7 @@ class ENLIssue(ATTopic, BaseContent):
                 image_number += 1
                 html_part.attach(image)
 
-            #mail.attach(html_part)
+            mail.attach(html_part)
 
             try:
                 self.MailHost.send(mail.as_string())
@@ -430,7 +430,7 @@ class ENLIssue(ATTopic, BaseContent):
         textout = StringIO.StringIO()
         formtext = formatter.AbstractFormatter(formatter.DumbWriter(
                         textout, plain_text_maxcols))
-        parser = htmllib.HTMLParser(formtext)
+        parser = HTMLParser(formtext)
         parser.feed(text)
         parser.close()
 
