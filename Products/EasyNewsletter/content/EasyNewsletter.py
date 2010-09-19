@@ -219,6 +219,7 @@ class EasyNewsletter(ATTopic, BaseFolder):
         # Add default template
         self.manage_addProduct["EasyNewsletter"].addENLTemplate(id="default_template", title="Default")
         tmpl = self.default_template
+        self.setExcludeFromNav(False)
 
     security.declarePublic("displayContentsTab")
     def displayContentsTab(self):
