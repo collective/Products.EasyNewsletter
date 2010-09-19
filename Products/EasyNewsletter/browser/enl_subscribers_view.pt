@@ -34,9 +34,9 @@
 
             <div metal:use-macro="here/batch_macros/macros/navigation" />
 
-            <ul tal:repeat="subscriber batch">
-                <li>
-                    <a tal:content="python: subscriber.Title"
+            <ul>
+                <li tal:repeat="subscriber batch">
+                    <a tal:content="string:${subscriber/Title}"
                        tal:attributes="href string:${subscriber/getURL}">
                        E-Mail
                     </a>
