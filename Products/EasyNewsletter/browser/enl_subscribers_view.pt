@@ -24,31 +24,47 @@
         <div tal:define="subscribers python:view.subscribers();
                          Batch python:modules['Products.CMFPlone'].Batch;
                          b_start python:request.get('b_start',0);
-                         batch python:Batch(subscribers, 10, int(b_start), orphan=1)">
+                         batch python:Batch(subscribers, 30, int(b_start), orphan=1)">
 
             <div tal:condition="not: subscribers"
-                  i18n:translate="easynewsletter_nosubscribers_label">
+                 i18n:translate="easynewsletter_nosubscribers_label">
                  There are no subscribers.
             </div>
 
             <div metal:use-macro="here/batch_macros/macros/navigation" />
 
-            <ul>
-                <li tal:repeat="subscriber batch">
-                    <a tal:define="email python:subscriber.email != '' and subscriber.email or subscriber.id;
-                                   fullname python:subscriber.fullname != '' and subscriber.fullname + ' - ' or ''"
-                       tal:content="string:${fullname} ${email}"
-                       tal:attributes="href string:${subscriber/getURL}">
-                       E-Mail
-                    </a>
+            <table class="listing" summary="Subscriber Listing">
+                <tr>
+                    <th i18n:translate="">E-Mail</th>
+                    <th i18n:translate="">Name</th>
+                    <th i18n:translate="">Company/Organization</th>
+                    <th></th>
+                </tr>
+                <tal:subscriber tal:repeat="subscriber batch">
+                <tr tal:define="oddrow repeat/subscriber/odd"
+                    tal:attributes="class python:oddrow and 'odd' or 'even'">
+                    <td><a tal:attributes="href string:${subscriber/getURL}" 
+                           tal:content="subscriber/email">
+                               email </a>
+                    </td>
+                    <td><a tal:content="subscriber/fullname"
+                           tal:attributes="href string:${subscriber/getURL}">
+                           Name
+                        </a>
+                    </td>
+                    <td tal:content="subscriber/organization"></td>
+                    <td>
                     <a href="#" 
                        tal:attributes="href string:${subscriber/getURL}/delete_confirmation">
                            <img tal:attributes="alt string:Delete subscriber;
                                                 title string:Delete subscriber;
                                                 src string:delete_icon.png" />
-                    </a> 
-                </li>
-            </ul>
+                    </a>
+                    </td> 
+                </tr>
+                </tal:subscriber>
+            </table>
+
         </div>
 
     </tal:main-macro>

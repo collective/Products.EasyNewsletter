@@ -40,6 +40,7 @@ class SubscriberView(BrowserView):
         """
         subscriber = self.request.get("subscriber")
         fullname = self.request.get("fullname", "")
+        organization = self.request.get("organization", "")
         path_to_easynewsletter = self.request.get("newsletter")
         # remove leading slash from paths like: /mynewsletter
         path_to_easynewsletter = path_to_easynewsletter.strip('/')
@@ -60,6 +61,7 @@ class SubscriberView(BrowserView):
         subscriber_data = {}
         subscriber_data["subscriber"] = subscriber
         subscriber_data["fullname"] = fullname
+        subscriber_data["organization"] = organization
         subscriber_data["path_to_easynewsletter"] = path_to_easynewsletter
 
         # use password reset tool to create a hash
@@ -93,7 +95,7 @@ class SubscriberView(BrowserView):
         messages = IStatusMessage(self.request)
         if regdataobj:
             easynewsletter = self.portal.restrictedTraverse(regdataobj.path_to_easynewsletter)
-            valid_email, error_code = easynewsletter.addSubscriber(regdataobj.subscriber, regdataobj.fullname)
+            valid_email, error_code = easynewsletter.addSubscriber(regdataobj.subscriber, regdataobj.fullname, regdataobj.organization)
             if valid_email:
                 # now delete the regobj
                 del enl_registration_tool[hashkey]

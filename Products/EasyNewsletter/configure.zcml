@@ -2,6 +2,8 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:cmf="http://namespaces.zope.org/cmf"    
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
     i18n_domain="EasyNewsletter">
     
     <include package="inqbus.plone.fastmemberproperties" />
@@ -10,10 +12,7 @@
     <include package=".portlets" />
     <include file="profiles.zcml" />
 
-
-
     <!-- File System Directory Views registration -->
     <cmf:registerDirectory name="EasyNewsletter" directory="skins/EasyNewsletter" />
-
     
 </configure>

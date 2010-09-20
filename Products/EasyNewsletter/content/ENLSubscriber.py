@@ -22,6 +22,7 @@ schema=Schema((
     ),
 
     StringField('fullname',
+        searchable = True,
         widget=StringWidget(
             label='Full Name',
             label_msgid='EasyNewsletter_label_fullname',
@@ -31,7 +32,20 @@ schema=Schema((
         required = False
     ),
 
+    StringField('organization',
+        searchable = True,
+        widget=StringWidget(
+            label='Company/Organization',
+            label_msgid='EasyNewsletter_label_organization',
+            description_msgid='EasyNewsletter_help_organization',
+            i18n_domain='EasyNewsletter',
+        ),
+        required = False
+    ),
+
     StringField('email',
+        searchable = True,
+        required = True,
         widget=StringWidget(
             label='Email',
             label_msgid='EasyNewsletter_label_email',
@@ -50,7 +64,7 @@ class ENLSubscriber(BaseContent):
     implements(IENLSubscriber)
     security = ClassSecurityInfo()
     _at_rename_after_creation  = True
-    schema = BaseSchema + schema
+    schema = BaseSchema + schema    
 
     def initializeArchetype(self, **kwargs):
         """Overwritten hook

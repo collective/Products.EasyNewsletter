@@ -55,4 +55,12 @@
         permission="cmf.ManagePortal"
         />
 
+    <browser:page
+        for="..interfaces.IEasyNewsletter"
+        name="upload_csv"
+        class=".subscribers.UploadCSV"
+        template="upload_csv.pt"
+        permission="cmf.ManagePortal"
+        />
+
 </configure>

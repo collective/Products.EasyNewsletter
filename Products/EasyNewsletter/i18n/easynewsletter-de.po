@@ -14,40 +14,15 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: EasyNewsletter\n"
 
-#. Default: "acquireCriteria"
-#: content/ENLBase.py
-msgid "EasyNewsletter_help_acquireCriteria"
-msgstr ""
-
 #. Default: "TextAreaWidget"
 #: content/ENLTemplate.py
 msgid "EasyNewsletter_help_body"
-msgstr ""
-
-#. Default: "customView"
-#: content/ENLBase.py
-msgid "EasyNewsletter_help_customView"
-msgstr ""
-
-#. Default: "customViewFields"
-#: content/ENLBase.py
-msgid "EasyNewsletter_help_customViewFields"
 msgstr ""
 
 #. Default: "email"
 #: content/ENLSubscriber.py
 msgid "EasyNewsletter_help_email"
 msgstr "E-Mail"
-
-#. Default: "itemCount"
-#: content/ENLBase.py
-msgid "EasyNewsletter_help_itemCount"
-msgstr ""
-
-#. Default: "limitNumber"
-#: content/ENLBase.py
-msgid "EasyNewsletter_help_limitNumber"
-msgstr ""
 
 #. Default: "Selected subscribers will be used as receivers of the newsletter."
 #: ../skins/EasyNewsletter/newsletter_send_form.cpt
@@ -104,40 +79,15 @@ msgstr "Text"
 msgid "EasyNewsletter_help_title"
 msgstr ""
 
-#. Default: "Inherit Criteria"
-#: content/ENLBase.py
-msgid "EasyNewsletter_label_acquireCriteria"
-msgstr "Kriterien erben"
-
 #. Default: "Body"
 #: content/ENLTemplate.py
 msgid "EasyNewsletter_label_body"
-msgstr ""
-
-#. Default: "Customview"
-#: content/ENLBase.py
-msgid "EasyNewsletter_label_customView"
-msgstr ""
-
-#. Default: "Customviewfields"
-#: content/ENLBase.py
-msgid "EasyNewsletter_label_customViewFields"
 msgstr ""
 
 #. Default: "Email"
 #: content/ENLSubscriber.py
 msgid "EasyNewsletter_label_email"
 msgstr "E-Mail"
-
-#. Default: "Itemcount"
-#: content/ENLBase.py
-msgid "EasyNewsletter_label_itemCount"
-msgstr ""
-
-#. Default: "Limitnumber"
-#: content/ENLBase.py
-msgid "EasyNewsletter_label_limitNumber"
-msgstr ""
 
 #. Default: "Receivers"
 #: ../skins/EasyNewsletter/newsletter_send_form.cpt
@@ -216,6 +166,11 @@ msgstr "Entwürfe"
 #: ../skins/EasyNewsletter/portlet_easynewsletter.pt
 msgid "easynewsletter_input_value_fullname"
 msgstr "Vorname Nachname"
+
+#. Default: "Company/Organization"
+#: ../skins/EasyNewsletter/portlet_easynewsletter.pt
+msgid "easynewsletter_input_value_organization"
+msgstr "Firma/Organisation"
 
 #. Default: "Your e-mail"
 #: ../skins/EasyNewsletter/portlet_easynewsletter.pt

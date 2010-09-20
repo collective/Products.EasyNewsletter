@@ -1,12 +1,8 @@
 <?xml version="1.0"?>
 <object name="portal_catalog" meta_type="Plone Catalog Tool">
- <index name="email" meta_type="FieldIndex">
-  <indexed_attr value="email"/>
- </index>
- <index name="fullname" meta_type="FieldIndex">
-  <indexed_attr value="fullname"/>
- </index>
-
+  <!-- Add indexes here on penalty of death or worse.
+       See add_catalog_indexes in setuphandlers.py instead. -->
  <column value="email"/>
  <column value="fullname"/>
+ <column value="organization"/>
 </object>

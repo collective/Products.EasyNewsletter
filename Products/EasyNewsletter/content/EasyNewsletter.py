@@ -133,7 +133,7 @@ schema=Schema((
     LinesField('ploneReceiverMembers',
         vocabulary="get_plone_members",
         widget=MultiSelectionWidget(
-            label='Plone Members to reveive',
+            label='Plone Members to receive the newsletter',
             label_msgid='EasyNewsletter_label_ploneReceiverMembers',
             description_msgid='EasyNewsletter_help_ploneReceiverMembers',
             i18n_domain='EasyNewsletter',
@@ -144,7 +144,7 @@ schema=Schema((
     LinesField('ploneReceiverGroups',
         vocabulary="get_plone_groups",
         widget=MultiSelectionWidget(
-            label='Plone Groups to reveive',
+            label='Plone Groups to receive the newsletter',
             label_msgid='EasyNewsletter_label_ploneReceiverGroups',
             description_msgid='EasyNewsletter_help_ploneReceiverGroups',
             i18n_domain='EasyNewsletter',
@@ -228,20 +228,17 @@ class EasyNewsletter(ATTopic, BaseFolder):
         return False
 
     security.declarePublic('addSubscriber')
-    def addSubscriber(self, subscriber, fullname):
+    def addSubscriber(self, subscriber, fullname, organisation):
         """Adds a new subscriber to the newsletter (if valid).
         """
         # we need the subscriber email here as an id, to check for existing entries
-        subscriber_id = subscriber
+        email = subscriber
+        plone_utils = getToolByName(self, 'plone_utils')
+        id = plone_utils.normalizeString(email)
         try:
-            self.manage_addProduct["EasyNewsletter"].addENLSubscriber(id=subscriber_id)
+            self.invokeFactory('ENLSubscriber', id=id, description="", email=email, fullname=fullname, organisation=organisation)
         except BadRequest:
             return (False, "email_exists")
-            
-        o = getattr(self, subscriber_id)
-        o.setEmail(subscriber)
-        o.setFullname(fullname)
-    
         return (True, "subscription_confirmed")
    
     def getSubTopics(self):
