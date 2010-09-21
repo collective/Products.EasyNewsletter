@@ -23,7 +23,12 @@ from Products.Archetypes.public import DisplayList
 from Products.CMFCore.utils import getToolByName
 from Products.PageTemplates.ZopePageTemplate import ZopePageTemplate
 from Products.Archetypes.public import ObjectField
-from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool
+try:
+    from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool
+    no_fmp = False
+except:
+    no_fmp = True
+
 
 # EasyNewsletter imports
 from Products.EasyNewsletter.interfaces import IENLIssue
@@ -320,7 +325,6 @@ class ENLIssue(ATTopic, BaseContent):
                 html_part.attach(image)
 
             mail.attach(html_part)
-
             try:
                 self.MailHost.send(mail.as_string())
                 log.info("Send newsletter to \"%s\"" % receiver['email'])
@@ -398,9 +402,22 @@ class ENLIssue(ATTopic, BaseContent):
         receiver_member_list = self.getPloneReceiverMembers()
         receiver_group_list = self.getPloneReceiverGroups()
         gtool = getToolByName(self, 'portal_groups')
-        # use fastmemberproperties_tool to get all member properties
-        fmp_tool = queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool')
-        member_properties = fmp_tool.get_all_memberproperties()
+        if not no_fmp:
+            # use fastmemberproperties_tool to get all member properties
+            fmp_tool = queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool')
+            member_properties = fmp_tool.get_all_memberproperties()
+        #else:
+        #    ##use plone membership tool to get infos
+        #    member_properties = {}
+        #    portal = getUtility(IPloneSiteRoot)
+        #    acl_userfolder = portal.acl_users
+        #    member_objs = acl_userfolder.getUsers()
+        #    member_id = member.getId()
+        #    propdict = PersistentDict()
+        #    for id, property in portal.portal_memberdata.propertyItems():
+        #        propdict[id] = member.getProperty(id)
+        #        member_properties[member_id] = propdict
+
         if not member_properties:
             return []
         selected_group_members = []
