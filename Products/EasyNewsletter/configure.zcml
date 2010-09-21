@@ -4,9 +4,11 @@
     xmlns:cmf="http://namespaces.zope.org/cmf"    
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="EasyNewsletter">
     
-    <include package="inqbus.plone.fastmemberproperties" />
+    <include zcml:condition="installed inqbus.plone.fastmemberproperties"
+        package="inqbus.plone.fastmemberproperties" />
 
     <include package=".browser" />
     <include package=".portlets" />

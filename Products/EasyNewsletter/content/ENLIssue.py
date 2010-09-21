@@ -25,7 +25,11 @@ from Products.PageTemplates.ZopePageTemplate import ZopePageTemplate
 from Products.Archetypes.public import ObjectField
 try:
     from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool
-    no_fmp = False
+    fmp_tool = queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool')
+    if fmp_tool:
+        no_fmp = False
+    else:
+        no_fmp = True
 except:
     no_fmp = True
 
@@ -403,20 +407,20 @@ class ENLIssue(ATTopic, BaseContent):
         receiver_group_list = self.getPloneReceiverGroups()
         gtool = getToolByName(self, 'portal_groups')
         if not no_fmp:
-            # use fastmemberproperties_tool to get all member properties
-            fmp_tool = queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool')
+            # use fastmemberproperties to get mememberproperties: 
             member_properties = fmp_tool.get_all_memberproperties()
-        #else:
-        #    ##use plone membership tool to get infos
-        #    member_properties = {}
-        #    portal = getUtility(IPloneSiteRoot)
-        #    acl_userfolder = portal.acl_users
-        #    member_objs = acl_userfolder.getUsers()
-        #    member_id = member.getId()
-        #    propdict = PersistentDict()
-        #    for id, property in portal.portal_memberdata.propertyItems():
-        #        propdict[id] = member.getProperty(id)
-        #        member_properties[member_id] = propdict
+        else:
+            # use plone API to get memberproperties, works without fastmemberproperties, 
+            # but is much slower!
+            acl_userfolder = getToolByName(self, 'acl_users')
+            member_objs = acl_userfolder.getUsers()
+            member_properties = {}
+            for member in member_objs:
+                probdict = {}
+                probdict['id'] = member.getUserId()
+                probdict['email'] = member.getProperty('email')
+                probdict['fullname'] = member.getProperty('fullname')
+                member_properties[probdict['id']] = probdict
 
         if not member_properties:
             return []

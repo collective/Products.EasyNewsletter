@@ -16,7 +16,15 @@ from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
 from Products.TemplateFields import ZPTField
 
-from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool
+try:
+    from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool
+    fmp_tool = queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool')
+    if fmp_tool:
+        no_fmp = False
+    else:
+        no_fmp = True
+except:
+    no_fmp = True
 
 # EasyNewsletter imports
 from Products.EasyNewsletter.interfaces import IENLIssue, IReceiversMemberFilter, IReceiversGroupFilter
@@ -249,8 +257,22 @@ class EasyNewsletter(ATTopic, BaseFolder):
     def get_plone_members(self):
         """
         """
-        fmp_tool = queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool')
-        member_properties = fmp_tool.get_all_memberproperties()
+        if not no_fmp:
+            # use fastmemberproperties to get mememberproperties: 
+            member_properties = fmp_tool.get_all_memberproperties()
+        else:
+            # use plone API to get memberproperties, works without fastmemberproperties, 
+            # but is much slower!
+            acl_userfolder = getToolByName(self, 'acl_users')
+            member_objs = acl_userfolder.getUsers()
+            member_properties = {}
+            for member in member_objs:
+                probdict = {}
+                probdict['id'] = member.getUserId()
+                probdict['email'] = member.getProperty('email')
+                probdict['fullname'] = member.getProperty('fullname')
+                member_properties[probdict['id']] = probdict
+
         if not member_properties:
             return []
         results = DisplayList([(id, property['fullname'] + ' - ' + property['email']) for id, property in member_properties.items() 
