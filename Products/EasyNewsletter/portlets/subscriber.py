@@ -41,27 +41,25 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
     query_organization = schema.Bool(
             title=_(u"label_newletter_show_organization", default=u"Display field to enter company/organization of subscriber"),
             default=False,
-            required=False)
-
-    hide_fullname = schema.Bool(
-            title=_(u"label_newletter_hide_fullname", default=u"Do not display a field to enter name of subscriber"),
-            default=False,
-            required=False)
-
+            required=True)
 
 class Assignment(base.Assignment):
     """
     """
     implements(INewsletterSubscriberPortlet)
+    
+    portlet_title = "Newsletter"
+    portlet_description = u""
+    newsletter = u""
+    query_organization = False
 
-    def __init__(self, portlet_title="", portlet_description="", newsletter="", hide_fullname=True, query_organization=False):
+    def __init__(self, portlet_title=u"", portlet_description=u"", newsletter="", query_organization=False):
         """
         """
         self.portlet_title = portlet_title
         self.portlet_description = portlet_description
         self.newsletter = newsletter
         self.query_organization = query_organization
-        self.hide_fullname = hide_fullname
 
     @property
     def title(self):
