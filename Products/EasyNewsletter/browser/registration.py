@@ -15,6 +15,7 @@ from Products.statusmessages.interfaces import IStatusMessage
 
 from Products.EasyNewsletter.interfaces import IENLRegistrationTool
 from Products.EasyNewsletter.config import MESSAGE_CODE
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 
 
 class SubscriberView(BrowserView):
@@ -47,16 +48,16 @@ class SubscriberView(BrowserView):
         newsletter_container = self.portal.restrictedTraverse(path_to_easynewsletter)
         messages = IStatusMessage(self.request)
         if not subscriber:
-            messages.addStatusMessage(MESSAGE_CODE["invalid_email"], "error")
+            messages.addStatusMessage(_("Please enter a valid e-mail address."), "error")
             return self.request.response.redirect(newsletter_container.absolute_url())
         from Products.validation.validators.BaseValidators import EMAIL_RE
         EMAIL_RE = "^" + EMAIL_RE
         mo = re.search(EMAIL_RE, subscriber)
         if not mo: 
-            messages.addStatusMessage(MESSAGE_CODE["invalid_email"], "error")
+            messages.addStatusMessage(_("Please enter a valid e-mail address."), "error")
             return self.request.response.redirect(newsletter_container.absolute_url())
         if subscriber in newsletter_container.objectIds(): 
-            messages.addStatusMessage(MESSAGE_CODE["email_exists"], "error")
+            messages.addStatusMessage(_("Your e-mail address is already registered."), "error")
             return self.request.response.redirect(newsletter_container.absolute_url())
         subscriber_data = {}
         subscriber_data["subscriber"] = subscriber
@@ -85,7 +86,7 @@ class SubscriberView(BrowserView):
             msg['Subject'] = msg_subject
             #msg.epilogue   = ''
             self.portal.MailHost.send(msg.as_string())
-            messages.addStatusMessage(MESSAGE_CODE["email_added"], "info")
+            messages.addStatusMessage(_("Your email has been registered. A confirmation email was sent to your address. Please check your inbox and click on the link in the email in order to confirm your subscription."), "info")
         self.request.response.redirect(newsletter_container.absolute_url())
 
     def confirm_subscriber(self):
@@ -103,7 +104,7 @@ class SubscriberView(BrowserView):
             else:
                 messages.addStatusMessage(MESSAGE_CODE[error_code], "error")
         else:
-            messages.addStatusMessage(MESSAGE_CODE["invalid_hashkey"], "error")
+            messages.addStatusMessage(_("Please enter a valid e-mail address."), "error")
         return self.request.response.redirect(easynewsletter.absolute_url())
 
 

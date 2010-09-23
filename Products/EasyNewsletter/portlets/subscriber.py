@@ -4,7 +4,7 @@ from zope.formlib import form
 from zope.interface import implements
 
 # plone imports
-from Products.CMFPlone import PloneMessageFactory as _
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider

@@ -3,6 +3,7 @@ from Products.Five.browser import BrowserView
 
 # CMFCore imports
 from Products.CMFCore.utils import getToolByName
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 
 class IssueView(BrowserView):
     """
@@ -20,8 +21,8 @@ class IssueView(BrowserView):
         try:
             self.context.send()
         except Exception, e:
-            putils.addPortalMessage("An error occured: %s" % e, "error")
+            putils.addPortalMessage(_("An error occured: %s") % e, "error")
         else:
-            putils.addPortalMessage("The issue has been send.")
+            putils.addPortalMessage(_("The issue has been send."))
 
         return self.request.response.redirect(self.context.absolute_url())

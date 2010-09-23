@@ -25,9 +25,9 @@
                          fail subscribers/fail;
                          success subscribers/success">
             
-            <h3>Failures</h3>
+            <h3 i18n:translate="not_created_subscribers">Not imported subscribers</h3>
             <p tal:repeat="mail fail" tal:content="mail"></p>
-            <h3>Successes</h3>
+            <h3 i18n:translate="sucessfully_created_subscribers">Sucessfully created Subscribers</h3>
             <p tal:repeat="mail success" tal:content="mail"></p>
 
         </div>

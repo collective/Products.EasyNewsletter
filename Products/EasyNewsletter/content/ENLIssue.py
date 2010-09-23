@@ -16,7 +16,8 @@ from Acquisition import aq_parent, aq_inner
 # Zope / Plone import
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes.atapi import *
-from Products.ATContentTypes import ATCTMessageFactory as _
+#from Products.ATContentTypes import ATCTMessageFactory as _
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
 from Products.Archetypes.public import DisplayList
@@ -67,7 +68,7 @@ schema=Schema((
             rows=30,
             label='Text',
             label_msgid='EasyNewsletter_label_text',
-            description=_(u'description_text', default=u'The main content of the mailing. You can use the topic criteria to collect content or put manual content in. This will included in outgoing mails.'),
+            description=_(u'description_text_issue', default=u'The main content of the mailing. You can use the topic criteria to collect content or put manual content in. This will included in outgoing mails.'),
             description_msgid='EasyNewsletter_help_text',
             i18n_domain='EasyNewsletter',
         ),

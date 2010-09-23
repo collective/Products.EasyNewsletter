@@ -8,6 +8,7 @@ from Products.Archetypes.atapi import *
 # EasyNewsletter imports
 from Products.EasyNewsletter.interfaces import IENLSubscriber
 from Products.EasyNewsletter.config import *
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 
 schema=Schema((
     StringField('title',

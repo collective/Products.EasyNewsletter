@@ -11,7 +11,9 @@ from AccessControl import ClassSecurityInfo
 
 from Products.Archetypes.atapi import *
 from Products.CMFCore.utils import getToolByName
-from Products.ATContentTypes import ATCTMessageFactory as _
+#from Products.ATContentTypes import ATCTMessageFactory as _
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
+
 from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
 from Products.TemplateFields import ZPTField
@@ -73,7 +75,7 @@ schema=Schema((
             rows=10,
             label='Header',
             label_msgid='EasyNewsletter_label_default_header',
-            description=_(u'description_text', default=u'The default header text. This is used as a default for new issues.'),
+            description=_(u'description_text_header', default=u'The default header text. This is used as a default for new issues.'),
             description_msgid='EasyNewsletter_help_deault_header',
             i18n_domain='EasyNewsletter',
         ),
@@ -87,7 +89,7 @@ schema=Schema((
             rows=10,
             label='Footer',
             label_msgid='EasyNewsletter_label_default_footer',
-            description=_(u'description_text', default=u'The default footer text. This is used as a default for new issues.'),
+            description=_(u'description_text_footer', default=u'The default footer text. This is used as a default for new issues.'),
             description_msgid='EasyNewsletter_help_default_footer',
             i18n_domain='EasyNewsletter',
         ),
@@ -179,10 +181,10 @@ schema=Schema((
     
     StringField('subscriber_confirmation_mail_subject',
         schemata="settings",
-        default = DEFAULT_SUBSCRIBER_CONFOMATION_MAIL_SUBJECT,
+        default = DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT,
         widget=StringWidget(
             label= _ (u'EasyNewsletter_label_subscriber_confirmation_mail_subject', default=u'Subscriber confirmation mail subject'),
-                description = _(u'EasyNewsletter_label_subscriber_confirmation_mail_subject', default=u'Text used for confirmation email subject. You can customize the text, but it should include the placeholder: ${portal_url}!'),
+            description = _(u'EasyNewsletter_description_subscriber_confirmation_mail_subject', default=u'Text used for confirmation email subject. You can customize the text, but it should include the placeholder: ${portal_url}!'),
             i18n_domain='EasyNewsletter',
         ),
         required=True,
@@ -190,7 +192,7 @@ schema=Schema((
 
     TextField('subscriber_confirmation_mail_text',
         schemata="settings",
-        default = DEFAULT_SUBSCRIBER_CONFOMATION_MAIL_TEXT,
+        default = DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_TEXT,
         widget=TextAreaWidget(
             rows=8,
             label=_(u'EasyNewsletter_label_subscriber_confirmation_mail_text', default=u'Subscriber confirmation mail text'),

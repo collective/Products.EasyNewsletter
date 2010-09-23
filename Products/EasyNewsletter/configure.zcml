@@ -13,6 +13,7 @@
     <include package=".browser" />
     <include package=".portlets" />
     <include file="profiles.zcml" />
+    <i18n:registerTranslations directory="locales" />
 
     <!-- File System Directory Views registration -->
     <cmf:registerDirectory name="EasyNewsletter" directory="skins/EasyNewsletter" />

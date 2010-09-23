@@ -52,7 +52,7 @@
                            Name
                         </a>
                     </td>
-                    <td tal:content="subscriber/organization"></td>
+                    <td tal:content="subscriber/organization|nothing"></td>
                     <td>
                     <a href="#" 
                        tal:attributes="href string:${subscriber/getURL}/delete_confirmation">

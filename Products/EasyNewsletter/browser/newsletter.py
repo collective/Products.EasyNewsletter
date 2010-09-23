@@ -3,6 +3,7 @@ from AccessControl.SecurityManagement import newSecurityManager
 from Products.Five.browser import BrowserView
 
 from Products.CMFCore.utils import getToolByName
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 
 class NewsletterView(BrowserView):
     """
@@ -16,7 +17,7 @@ class NewsletterView(BrowserView):
         try:
             subscriber = catalog.searchResults(UID = self.request.get("subscriber", ""))[0]
         except IndexError:
-            putils.addPortalMessage("An error occured", "error")
+            putils.addPortalMessage(_("An error occured"), "error")
         else:
             newsletter = self.context
             # We do the deletion as the owner of the newsletter object
@@ -24,6 +25,6 @@ class NewsletterView(BrowserView):
             owner = newsletter.getWrappedOwner()
             newSecurityManager(newsletter, owner)
             del newsletter[subscriber.id]
-            putils.addPortalMessage("You have been unsubscribed.")
+            putils.addPortalMessage(_("You have been unsubscribed."))
 
         return self.request.response.redirect(self.context.absolute_url())

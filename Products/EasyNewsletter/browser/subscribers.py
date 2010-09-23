@@ -5,7 +5,7 @@ from zope.app.component.hooks import getSite
 from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
-from Products.EasyNewsletter.config import MESSAGE_CODE
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 
 
 class IEnl_Subscribers_View(Interface):
@@ -80,7 +80,7 @@ class UploadCSV(BrowserView):
             email = new_subscriber[1]
             id = plone_utils.normalizeString(email)
             if id in existing:
-                messages.addStatusMessage(MESSAGE_CODE["email_exists"], "error")
+                messages.addStatusMessage(_("Your e-mail address is already registered."), "error")
                 fail.append(email)
             else:
                 fullname = new_subscriber[0]

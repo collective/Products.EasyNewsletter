@@ -8,6 +8,9 @@ from Products.Archetypes import listTypes
 
 # drako.knowledgebase imports
 from Products.EasyNewsletter.config import *
+
+from zope.i18nmessageid import MessageFactory
+EasyNewsletterMessageFactory = MessageFactory('EasyNewsletter')
         
 def initialize(context):
     """Intializer called when used as a Zope 2 product.

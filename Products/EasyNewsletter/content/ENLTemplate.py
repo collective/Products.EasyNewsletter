@@ -13,6 +13,7 @@ from Products.CMFCore.utils import getToolByName
 # EasyNewsletter imports
 from Products.EasyNewsletter.config import *
 from Products.EasyNewsletter.interfaces import IENLTemplate
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 
 schema=Schema((
     ZPTField('body',

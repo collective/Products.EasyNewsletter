@@ -1,4 +1,5 @@
 import re
+
 PROJECTNAME = "EasyNewsletter"
 
 MESSAGE_CODE = {
@@ -61,9 +62,9 @@ DEFAULT_OUT_TEMPLATE_PT = """<html xmlns="http://www.w3.org/1999/xhtml">
 </body>
 </html>"""
 
-DEFAULT_SUBSCRIBER_CONFOMATION_MAIL_SUBJECT = """Confirm your subscription on ${portal_url}"""
+DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT = """Confirm your subscription on ${portal_url}"""
 
-DEFAULT_SUBSCRIBER_CONFOMATION_MAIL_TEXT = """You subscribe to the ${newsletter_title} Newsletter.\n\n
+DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_TEXT = """You subscribe to the ${newsletter_title} Newsletter.\n\n
 Your registered email is: ${subscriber_email}\n
 Please click on the link to confirm your subscription: \n
 ${confirmation_url}"""
