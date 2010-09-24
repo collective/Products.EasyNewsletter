@@ -33,7 +33,6 @@ from Products.EasyNewsletter.interfaces import IENLIssue, IReceiversMemberFilter
 from Products.EasyNewsletter.interfaces import IEasyNewsletter
 from Products.EasyNewsletter.config import *
 
-
 schema=Schema((
     StringField('senderEmail',
         widget=StringWidget(
@@ -80,6 +79,18 @@ schema=Schema((
             i18n_domain='EasyNewsletter',
         ),
         default_output_type='text/html'
+    ),
+
+
+    StringField('unsubscribe_string',
+        default="Click here to unsubscribe",
+        widget=StringWidget(
+            label=_(u"Text for the 'unsubscribe' link"),
+            label_msgid='EasyNewsletter_label_unsubscribe_string',
+            description=_(u"EasyNewsletter_help_unsubscribe_string", default=u'This text will be used for the placeholder {% unsubscribe %} in the Email.'),
+            i18n_domain='EasyNewsletter',
+        ),
+        required=True,
     ),
 
     TextField('default_footer',
