@@ -290,7 +290,7 @@ class ENLIssue(ATTopic, BaseContent):
                 if receiver.has_key('uid'):
                     try:
                         unsubscribe_text = parent.getUnsubscribe_string()
-                    except:
+                    except AttributeError:
                         unsubscribe_text = "Click here to unsubscribe"
                     unsubscribe_link = enl.absolute_url() + "/unsubscribe?subscriber=" + receiver['uid']
                     personal_text = text.replace("{% unsubscribe %}", """<a href="%s">%s.</a>""" % (unsubscribe_link, unsubscribe_text))
@@ -301,7 +301,10 @@ class ENLIssue(ATTopic, BaseContent):
 
                 fullname = receiver['fullname']
                 if not fullname:
-                    fullname = "Sir or Madam"
+                    try:
+                        fullname = parent.getFullname_fallback()
+                    except AttributeError:
+                        fullname = "Sir or Madam"
                 mail['To'] = receiver['email']
 
             personal_text = personal_text.replace("{% subscriber-fullname %}", fullname)

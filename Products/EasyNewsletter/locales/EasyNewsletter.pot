@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-09-24 18:03+0000\n"
+"POT-Creation-Date: 2010-09-24 18:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,8 +34,13 @@ msgid "E-Mail"
 msgstr ""
 
 #. Default: "Text used for confirmation email subject. You can customize the text, but it should include the placeholder: ${portal_url}!"
-#: ./content/EasyNewsletter.py:198
+#: ./content/EasyNewsletter.py:205
 msgid "EasyNewsletter_description_subscriber_confirmation_mail_subject"
+msgstr ""
+
+#. Default: "This will replace the placeholder {% subscriber-fullname %} if the subscriber has no fullname."
+#: ./content/EasyNewsletter.py:88
+msgid "EasyNewsletter_help_fullname_fallback"
 msgstr ""
 
 #. Default: "Sender address of the newsletter e-mail. If you let this field empty, the default sender e-mail address will be used."
@@ -58,9 +63,14 @@ msgstr ""
 msgid "EasyNewsletter_help_testreceiverForm"
 msgstr ""
 
-#. Default: "This text will be used for the placeholder {% unsubscribe %} in the Email."
-#: ./content/EasyNewsletter.py:90
+#. Default: "This will replace the placeholder {% unsubscribe %}."
+#: ./content/EasyNewsletter.py:98
 msgid "EasyNewsletter_help_unsubscribe_string"
+msgstr ""
+
+#. Default: "Fallback for subscribers without a name."
+#: ./content/EasyNewsletter.py:87
+msgid "EasyNewsletter_label_fullname_fallback"
 msgstr ""
 
 #. Default: "Sender e-mail"
@@ -79,12 +89,12 @@ msgid "EasyNewsletter_label_subject"
 msgstr ""
 
 #. Default: "Subscriber confirmation mail subject"
-#: ./content/EasyNewsletter.py:197
+#: ./content/EasyNewsletter.py:204
 msgid "EasyNewsletter_label_subscriber_confirmation_mail_subject"
 msgstr ""
 
 #. Default: "Subscriber confirmation mail text"
-#: ./content/EasyNewsletter.py:209
+#: ./content/EasyNewsletter.py:216
 msgid "EasyNewsletter_label_subscriber_confirmation_mail_text"
 msgstr ""
 
@@ -109,7 +119,7 @@ msgstr ""
 msgid "Please enter a valid e-mail address."
 msgstr ""
 
-#: ./content/EasyNewsletter.py:88
+#: ./content/EasyNewsletter.py:96
 msgid "Text for the 'unsubscribe' link"
 msgstr ""
 
@@ -149,17 +159,17 @@ msgid "description_help_header"
 msgstr ""
 
 #. Default: "Text used for confirmation email. You can customize the text, but it should include the placeholders: ${portal_url}, ${subscriber_email} and ${confirmation_url}!"
-#: ./content/EasyNewsletter.py:210
+#: ./content/EasyNewsletter.py:217
 msgid "description_subscriber_confirmation_mail_text"
 msgstr ""
 
 #. Default: "This is used in the frontpage of EasyNewsletter on top of Issue archive list."
-#: ./content/EasyNewsletter.py:221
+#: ./content/EasyNewsletter.py:228
 msgid "description_text"
 msgstr ""
 
 #. Default: "The default footer text. This is used as a default for new issues."
-#: ./content/EasyNewsletter.py:103
+#: ./content/EasyNewsletter.py:110
 msgid "description_text_footer"
 msgstr ""
 

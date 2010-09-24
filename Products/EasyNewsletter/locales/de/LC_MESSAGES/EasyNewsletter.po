@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-09-24 18:03+0000\n"
+"POT-Creation-Date: 2010-09-24 18:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,9 +31,14 @@ msgid "E-Mail"
 msgstr ""
 
 #. Default: "Text used for confirmation email subject. You can customize the text, but it should include the placeholder: ${portal_url}!"
-#: ./content/EasyNewsletter.py:198
+#: ./content/EasyNewsletter.py:205
 msgid "EasyNewsletter_description_subscriber_confirmation_mail_subject"
 msgstr "Betreff der Bestätigungsmail. Sie sollte den Platzhalter ${portal_url} verwenden! "
+
+#. Default: "This will replace the placeholder {% subscriber-fullname %} if the subscriber has no fullname."
+#: ./content/EasyNewsletter.py:88
+msgid "EasyNewsletter_help_fullname_fallback"
+msgstr "Dieser Text ersetzt den Platzhalter  {% subscriber-fullname %}, sofern der Abonnent keinen Namen gespeichert hat."
 
 #. Default: "Sender address of the newsletter e-mail. If you let this field empty, the default sender e-mail address will be used."
 #: ./browser/issue_send_form.pt:48
@@ -55,10 +60,15 @@ msgstr "Thema der Newsletter-E-Mail. Falls Sie dieses Feld frei lassen, wird der
 msgid "EasyNewsletter_help_testreceiverForm"
 msgstr "E-Mail-Adresse, die zum Test des Newsletters verwendet wird. Falls Sie diese Feld leer lassen, wird die voreingestellt E-Mail-Adresse verwendet."
 
-#. Default: "This text will be used for the placeholder {% unsubscribe %} in the Email."
-#: ./content/EasyNewsletter.py:90
+#. Default: "This will replace the placeholder {% unsubscribe %}."
+#: ./content/EasyNewsletter.py:98
 msgid "EasyNewsletter_help_unsubscribe_string"
 msgstr "Dieser Text wird anstelle des Platzhalters {% unsubscribe %} in die Email eingefügt."
+
+#. Default: "Fallback for subscribers without a name."
+#: ./content/EasyNewsletter.py:87
+msgid "EasyNewsletter_label_fullname_fallback"
+msgstr "Ersatz für Abonnenten ohne Namen"
 
 #. Default: "Sender e-mail"
 #: ./browser/issue_send_form.pt:43
@@ -76,12 +86,12 @@ msgid "EasyNewsletter_label_subject"
 msgstr "Betreff"
 
 #. Default: "Subscriber confirmation mail subject"
-#: ./content/EasyNewsletter.py:197
+#: ./content/EasyNewsletter.py:204
 msgid "EasyNewsletter_label_subscriber_confirmation_mail_subject"
 msgstr "Betreff der Bestätigungsmail"
 
 #. Default: "Subscriber confirmation mail text"
-#: ./content/EasyNewsletter.py:209
+#: ./content/EasyNewsletter.py:216
 msgid "EasyNewsletter_label_subscriber_confirmation_mail_text"
 msgstr "Text der Bestätigungsmail"
 
@@ -106,7 +116,7 @@ msgstr "Newsletter Abonnent"
 msgid "Please enter a valid e-mail address."
 msgstr "Bitte geben Sie eine gültige Email-Adresse ein."
 
-#: ./content/EasyNewsletter.py:88
+#: ./content/EasyNewsletter.py:96
 msgid "Text for the 'unsubscribe' link"
 msgstr "Text des Links zum Abbestellen des Newsletters"
 
@@ -146,17 +156,17 @@ msgid "description_help_header"
 msgstr "Dieser Text wird dem Newsletter vorangestellt."
 
 #. Default: "Text used for confirmation email. You can customize the text, but it should include the placeholders: ${portal_url}, ${subscriber_email} and ${confirmation_url}!"
-#: ./content/EasyNewsletter.py:210
+#: ./content/EasyNewsletter.py:217
 msgid "description_subscriber_confirmation_mail_text"
 msgstr "Text der Bestätigungsmail. Sie können den Text anpassen, er sollte aber die Platzhalter ${portal_url}, ${subscriber_email} und ${confirmation_url} enthalten!"
 
 #. Default: "This is used in the frontpage of EasyNewsletter on top of Issue archive list."
-#: ./content/EasyNewsletter.py:221
+#: ./content/EasyNewsletter.py:228
 msgid "description_text"
 msgstr "Dieser Text wird auf der Startseite des Newsletters über der Liste der Ausgaben angezeigt."
 
 #. Default: "The default footer text. This is used as a default for new issues."
-#: ./content/EasyNewsletter.py:103
+#: ./content/EasyNewsletter.py:110
 msgid "description_text_footer"
 msgstr "Der Standard-Seitenfuß. Er wird als Vorlage für neue Ausgaben verwendet."
 

@@ -81,16 +81,23 @@ schema=Schema((
         default_output_type='text/html'
     ),
 
+    StringField('fullname_fallback',
+        default="Sir or Madam",
+        widget=StringWidget(
+            label=_(u'EasyNewsletter_label_fullname_fallback', default=u"Fallback for subscribers without a name."),
+            description=_(u"EasyNewsletter_help_fullname_fallback", default=u'This will replace the placeholder {% subscriber-fullname %} if the subscriber has no fullname.'),
+            i18n_domain='EasyNewsletter',
+        ),
+    ),
 
     StringField('unsubscribe_string',
         default="Click here to unsubscribe",
         widget=StringWidget(
             label=_(u"Text for the 'unsubscribe' link"),
             label_msgid='EasyNewsletter_label_unsubscribe_string',
-            description=_(u"EasyNewsletter_help_unsubscribe_string", default=u'This text will be used for the placeholder {% unsubscribe %} in the Email.'),
+            description=_(u"EasyNewsletter_help_unsubscribe_string", default=u'This will replace the placeholder {% unsubscribe %}.'),
             i18n_domain='EasyNewsletter',
         ),
-        required=True,
     ),
 
     TextField('default_footer',
