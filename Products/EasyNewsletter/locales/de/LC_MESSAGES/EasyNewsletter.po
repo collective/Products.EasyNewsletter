@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-09-23 09:00+0000\n"
+"POT-Creation-Date: 2010-09-24 15:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,13 +22,13 @@ msgstr "Ein Fehler ist aufgetreten"
 msgid "An error occured: %s"
 msgstr "Ein Fehler ist aufgetreten: %s"
 
+#: ./content/ENLIssue.py:292
+msgid "Click here to unsubscribe"
+msgstr "Klicken Sie hier um den Newsletter abzubestellen."
+
 #: ./browser/enl_subscribers_view.pt:40
 msgid "Company/Organization"
 msgstr "Firma/Organisation"
-
-#: ./profiles/default/types/EasyNewsletter.xml
-msgid "Drafts"
-msgstr "Entwürfe"
 
 #: ./browser/enl_subscribers_view.pt:38
 msgid "E-Mail"
@@ -105,18 +105,6 @@ msgstr "Newsletter Abonnent"
 msgid "Please enter a valid e-mail address."
 msgstr "Bitte geben Sie eine gültige Email-Adresse ein."
 
-#: ./profiles/default/types/EasyNewsletter.xml
-msgid "Subfolders"
-msgstr "Unterordner"
-
-#: ./profiles/default/types/EasyNewsletter.xml
-msgid "Subscribers"
-msgstr "Abonnenten"
-
-#: ./profiles/default/types/EasyNewsletter.xml
-msgid "Templates"
-msgstr "Schablonen"
-
 #: ./browser/issue.py:26
 msgid "The issue has been send."
 msgstr "Die Ausgabe wurde verschickt."
@@ -134,7 +122,7 @@ msgid "You have been unsubscribed."
 msgstr "Sie haben den Newsletter abbestellt."
 
 #: ./browser/registration.py:60
-#: ./browser/subscribers.py:83
+#: ./browser/subscribers.py:230
 msgid "Your e-mail address is already registered."
 msgstr "Ihre Email-Adresse wurde bereits registriert."
 

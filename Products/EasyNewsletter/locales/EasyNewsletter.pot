@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-09-23 09:00+0000\n"
+"POT-Creation-Date: 2010-09-24 15:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,12 +25,12 @@ msgstr ""
 msgid "An error occured: %s"
 msgstr ""
 
-#: ./browser/enl_subscribers_view.pt:40
-msgid "Company/Organization"
+#: ./content/ENLIssue.py:292
+msgid "Click here to unsubscribe"
 msgstr ""
 
-#: ./profiles/default/types/EasyNewsletter.xml
-msgid "Drafts"
+#: ./browser/enl_subscribers_view.pt:40
+msgid "Company/Organization"
 msgstr ""
 
 #: ./browser/enl_subscribers_view.pt:38
@@ -108,18 +108,6 @@ msgstr ""
 msgid "Please enter a valid e-mail address."
 msgstr ""
 
-#: ./profiles/default/types/EasyNewsletter.xml
-msgid "Subfolders"
-msgstr ""
-
-#: ./profiles/default/types/EasyNewsletter.xml
-msgid "Subscribers"
-msgstr ""
-
-#: ./profiles/default/types/EasyNewsletter.xml
-msgid "Templates"
-msgstr ""
-
 #: ./browser/issue.py:26
 msgid "The issue has been send."
 msgstr ""
@@ -137,7 +125,7 @@ msgid "You have been unsubscribed."
 msgstr ""
 
 #: ./browser/registration.py:60
-#: ./browser/subscribers.py:83
+#: ./browser/subscribers.py:230
 msgid "Your e-mail address is already registered."
 msgstr ""
 
