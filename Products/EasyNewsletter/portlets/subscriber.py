@@ -35,7 +35,6 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
                         {'portal_type':'EasyNewsletter'},
                         default_query='path:'
                         ),
-            default=u"",
             required=True)
 
     query_organization = schema.Bool(

@@ -205,7 +205,7 @@ class ENLIssue(ATTopic, BaseContent):
 
     security.declarePublic("folder_contents")
     def folder_contents(self):
-        """Overwritten to "forbid"" folder_contents
+        """Overwritten to "forbid" folder_contents
         """
         url = self.absolute_url()
         self.REQUEST.RESPONSE.redirect(url)
