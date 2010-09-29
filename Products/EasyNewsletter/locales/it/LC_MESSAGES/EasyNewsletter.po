@@ -38,67 +38,67 @@ msgstr ""
 #. Default: "This will replace the placeholder {% subscriber-fullname %} if the subscriber has no fullname."
 #: ./content/EasyNewsletter.py:88
 msgid "EasyNewsletter_help_fullname_fallback"
-msgstr ""
+msgstr "Questo rimpiazzerà il marcatore {% subscriber-fullname %} se l'iscritto non ha un nome completo"
 
 #. Default: "Sender address of the newsletter e-mail. If you let this field empty, the default sender e-mail address will be used."
 #: ./browser/issue_send_form.pt:48
 msgid "EasyNewsletter_help_senderEmailForm"
-msgstr ""
+msgstr "Indirizzo e-mail del mittente della newsletter. Se viene lasciato vuoto, l'indirizzo di default verrà usato"
 
 #. Default: "Sender name of the newsletter e-mail. If you let this field empty, the default sender name will be used."
 #: ./browser/issue_send_form.pt:31
 msgid "EasyNewsletter_help_senderNameForm"
-msgstr ""
+msgstr "Nome del mittente della newsletter. Se viene lasciato vuoto, verrà usato il nome predefinito."
 
 #. Default: "Subject of the newsletter e-mail. If you let this field empty, the title of the newsletter will be used."
 #: ./browser/issue_send_form.pt:65
 msgid "EasyNewsletter_help_subject"
-msgstr ""
+msgstr "Oggetto dell'e-mail. Se lasciato vuoto, verrà usato il titolo della newsletter."
 
 #. Default: "Test e-mail. If you let this field empty, the default test e-mail address will be used."
 #: ./browser/issue_send_form.pt:107
 msgid "EasyNewsletter_help_testreceiverForm"
-msgstr ""
+msgstr "E-mail di test. Se lasciato vuoto, verrà usato l'indirizzo predefinito"
 
 #. Default: "This will replace the placeholder {% unsubscribe %}."
 #: ./content/EasyNewsletter.py:98
 msgid "EasyNewsletter_help_unsubscribe_string"
-msgstr ""
+msgstr "Questo sostituirà il marcatore {% unsubscribe %}."
 
 #. Default: "Fallback for subscribers without a name."
 #: ./content/EasyNewsletter.py:87
 msgid "EasyNewsletter_label_fullname_fallback"
-msgstr ""
+msgstr "Sostituto per iscritti senza nome"
 
 #. Default: "Sender e-mail"
 #: ./browser/issue_send_form.pt:43
 msgid "EasyNewsletter_label_senderEmail"
-msgstr ""
+msgstr "E-mail del mittente"
 
 #. Default: "Sender name"
 #: ./browser/issue_send_form.pt:26
 msgid "EasyNewsletter_label_senderName"
-msgstr ""
+msgstr "Nome del mittente"
 
 #. Default: "Subject"
 #: ./browser/issue_send_form.pt:60
 msgid "EasyNewsletter_label_subject"
-msgstr ""
+msgstr "Oggetto"
 
 #. Default: "Subscriber confirmation mail subject"
 #: ./content/EasyNewsletter.py:204
 msgid "EasyNewsletter_label_subscriber_confirmation_mail_subject"
-msgstr ""
+msgstr "Oggetto e-mail per conferma iscrizione"
 
 #. Default: "Subscriber confirmation mail text"
 #: ./content/EasyNewsletter.py:216
 msgid "EasyNewsletter_label_subscriber_confirmation_mail_text"
-msgstr ""
+msgstr "Testo e-mail per conferma iscrizione"
 
 #. Default: "Test e-mail"
 #: ./browser/issue_send_form.pt:102
 msgid "EasyNewsletter_label_testreceiver"
-msgstr ""
+msgstr "E-mail di test"
 
 #: ./portlets/subscriber.py:110
 msgid "Edit Newsletter portlet"
