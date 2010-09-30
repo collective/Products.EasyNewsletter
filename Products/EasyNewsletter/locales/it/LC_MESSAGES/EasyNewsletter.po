@@ -102,58 +102,58 @@ msgstr "E-mail di test"
 
 #: ./portlets/subscriber.py:110
 msgid "Edit Newsletter portlet"
-msgstr ""
+msgstr "Modifica il riquadro newsletter"
 
 #: ./browser/enl_subscribers_view.pt:39
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: ./portlets/subscriber.py:68
 msgid "Newsletter Subscriber"
-msgstr ""
+msgstr "Iscritto alla newsletter"
 
 #: ./browser/registration.py:51
 msgid "Please enter a valid e-mail address."
-msgstr ""
+msgstr "Prego inserire un indirizzo e-mail valido."
 
 #: ./content/EasyNewsletter.py:96
 msgid "Text for the 'unsubscribe' link"
-msgstr ""
+msgstr "Testo per il link 'annulla iscrizione'"
 
 #: ./browser/issue.py:26
 msgid "The issue has been send."
-msgstr ""
+msgstr "Il messaggio è stato spedito."
 
 #: ./portlets/subscriber.py:111
 msgid "This portlet displays the subscriber add form of a newsletter."
-msgstr ""
+msgstr "Questo riquadro mostra il modulo di iscrizione per la newsletter"
 
 #: ./portlets/subscriber.py:18
 msgid "Title for the portlet."
-msgstr ""
+msgstr "Titolo del riquadro."
 
 #: ./browser/newsletter.py:28
 msgid "You have been unsubscribed."
-msgstr ""
+msgstr "La tua registrazione è stata annullata."
 
 #: ./browser/registration.py:60
 #: ./browser/subscribers.py:83
 msgid "Your e-mail address is already registered."
-msgstr ""
+msgstr "La tua e-mail è già registrata."
 
 #: ./browser/registration.py:89
 msgid "Your email has been registered. A confirmation email was sent to your address. Please check your inbox and click on the link in the email in order to confirm your subscription."
-msgstr ""
+msgstr "La tua e-mail è stata registrata. Un messaggio di conferma verrà inviato al tuo indirizzo. Prego controlla la tua posta in arrivo e visita il link nella e-mail per confermare l'iscrizione."
 
 #. Default: "The footer will included in outgoing mails."
 #: ./content/ENLIssue.py:85
 msgid "description_help_footer"
-msgstr ""
+msgstr "L'epilogo del messaggio incluso nei messaggi in uscita."
 
 #. Default: "The header will included in outgoing mails."
 #: ./content/ENLIssue.py:58
 msgid "description_help_header"
-msgstr ""
+msgstr "L'intestazione che verrà inclusa nei messaggi in uscita."
 
 #. Default: "Text used for confirmation email. You can customize the text, but it should include the placeholders: ${portal_url}, ${subscriber_email} and ${confirmation_url}!"
 #: ./content/EasyNewsletter.py:217
