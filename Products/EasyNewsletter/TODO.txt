@@ -7,4 +7,4 @@
 
     * provide default values for sender_name, sender_address and test_email from portal_properties
 
-    * cleanup of double opt-in tempobjects, don't use PasswordResetToll [derstappenit]
+    * cleanup of double opt-in tempobjects, don't use PasswordResetTool [derstappenit]
