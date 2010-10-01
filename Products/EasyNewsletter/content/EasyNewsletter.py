@@ -256,17 +256,22 @@ class EasyNewsletter(ATTopic, BaseFolder):
         return False
 
     security.declarePublic('addSubscriber')
-    def addSubscriber(self, subscriber, fullname, organisation):
+    def addSubscriber(self, subscriber, fullname, organization):
         """Adds a new subscriber to the newsletter (if valid).
         """
         # we need the subscriber email here as an id, to check for existing entries
         email = subscriber
         plone_utils = getToolByName(self, 'plone_utils')
-        id = plone_utils.normalizeString(email)
+        subscriber_id = plone_utils.normalizeString(email)
         try:
-            self.invokeFactory('ENLSubscriber', id=id, description="", email=email, fullname=fullname, organisation=organisation)
+            self.manage_addProduct["EasyNewsletter"].addENLSubscriber(id=subscriber_id) 
         except BadRequest:
             return (False, "email_exists")
+        o = getattr(self, subscriber_id) 
+        o.setEmail(subscriber)
+        o.setFullname(fullname) 
+        o.setOrganization(organization)
+        
         return (True, "subscription_confirmed")
    
     def getSubTopics(self):
