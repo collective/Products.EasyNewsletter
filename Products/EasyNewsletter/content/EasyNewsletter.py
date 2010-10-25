@@ -18,6 +18,14 @@ from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
 from Products.TemplateFields import ZPTField
 
+# Stuff for security workaround
+from AccessControl import ClassSecurityInfo, getSecurityManager
+from AccessControl.SecurityManagement import newSecurityManager, setSecurityManager
+from AccessControl.User import nobody
+from AccessControl.User import UnrestrictedUser as BaseUnrestrictedUser
+
+
+
 try:
     from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool
     fmp_tool = queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool')
@@ -263,15 +271,17 @@ class EasyNewsletter(ATTopic, BaseFolder):
         email = subscriber
         plone_utils = getToolByName(self, 'plone_utils')
         subscriber_id = plone_utils.normalizeString(email)
+        portal = getToolByName(self, 'portal_url').getPortalObject()
         try:
-            self.manage_addProduct["EasyNewsletter"].addENLSubscriber(id=subscriber_id) 
+            execute_under_special_role(portal, "Contributor", self.invokeFactory, "ENLSubscriber", id=subscriber_id)
         except BadRequest:
             return (False, "email_exists")
-        o = getattr(self, subscriber_id) 
+        o = getattr(self, subscriber_id)
         o.setEmail(subscriber)
         o.setFullname(fullname) 
         o.setOrganization(organization)
-        
+        o.reindexObject()
+
         return (True, "subscription_confirmed")
    
     def getSubTopics(self):
@@ -329,3 +339,52 @@ class EasyNewsletter(ATTopic, BaseFolder):
 
 
 registerType(EasyNewsletter, PROJECTNAME)
+
+
+class UnrestrictedUser(BaseUnrestrictedUser):
+    """Unrestricted user that still has an id.
+    """
+    def getId(self):
+        """Return the ID of the user.
+        """
+        return self.getUserName()
+
+def execute_under_special_role(portal, role, function, *args, **kwargs):
+    """ Execute code under special role priviledges.
+    Example how to call::
+        execute_under_special_role(portal, "Manager",
+            doSomeNormallyNotAllowedStuff,
+            source_folder, target_folder)
+
+    @param portal: Reference to ISiteRoot object whose access controls we are using
+    @param function: Method to be called with special priviledges
+    @param role: User role we are using for the security context when calling the priviledged code. For example, use "Manager".
+    @param args: Passed to the function
+    @param kwargs: Passed to the function
+    """
+
+    sm = getSecurityManager()
+    try:
+        try:
+            # Clone the current access control user and assign a new role for him/her
+            # Note that the username (getId()) is left in exception tracebacks in error_log
+            # so it is important thing to store
+            tmp_user = UnrestrictedUser(
+              sm.getUser().getId(),
+               '', [role],
+               ''
+               )
+
+            # Act as user of the portal
+            tmp_user = tmp_user.__of__(portal.acl_users)
+            newSecurityManager(None, tmp_user)
+
+            # Call the function
+            return function(*args, **kwargs)
+
+        except:
+            # If special exception handlers are needed, run them here
+            raise
+    finally:
+        # Restore the old security manager
+        setSecurityManager(sm)
