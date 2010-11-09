@@ -121,12 +121,14 @@
     </div>
     <br/>    
     <input tal:condition="not:sent"
+           class="context"
            type="submit" 
            name="send"
            value="Send Newsletter"
            i18n:attributes="value easynewsletter_send_button;"/>
            
     <input type="submit"
+           class="context"
            name="test"
            value="Test Newsletter"
            i18n:attributes="value easynewsletter_test_button;"/>
