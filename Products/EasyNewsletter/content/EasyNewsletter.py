@@ -337,6 +337,10 @@ class EasyNewsletter(ATTopic, BaseFolder):
             results = subscriber.filter(results)
         return results.sortedByValue()
 
+    def getNewsletter(self):
+        """ return the (parent) Newsletter instance using Acquisition """
+        return self
+
 
 registerType(EasyNewsletter, PROJECTNAME)
 
