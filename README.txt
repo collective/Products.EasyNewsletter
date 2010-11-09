@@ -56,6 +56,15 @@ The source code is within the collective: https://svn.plone.org/svn/collective/P
 Changes
 =======
 
+2.1.0 (unreleased)
+------------------
+
+ * added support for Zope utilities providing the ISubscriberSource
+   interface to hook in external subscriber sources (e.g. some sub-system
+   managing subscriptions to newsletters on their own (instead of relying
+   on instances of 'Subscriber' located inside the newsletter folder itself)
+   [ajung]
+
 2.0.1 (2010-07-31)
 -----------------------
 
