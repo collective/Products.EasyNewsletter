@@ -11,19 +11,21 @@ from email import Encoders
 # zope imports
 from zope.interface import implements
 from zope.component import queryUtility
+from zope.component import getUtility, ComponentLookupError
 from Acquisition import aq_parent, aq_inner
 
 # Zope / Plone import
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes.atapi import *
-#from Products.ATContentTypes import ATCTMessageFactory as _
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
+from Products.EasyNewsletter.interfaces import ISubscriberSource
 from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
 from Products.Archetypes.public import DisplayList
 from Products.CMFCore.utils import getToolByName
 from Products.PageTemplates.ZopePageTemplate import ZopePageTemplate
 from Products.Archetypes.public import ObjectField
+
 try:
     from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool
     fmp_tool = queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool')
@@ -215,8 +217,9 @@ class ENLIssue(ATTopic, BaseContent):
         """Sends the newsletter
         """
         # preparations
+
         request = self.REQUEST
-        enl = self.aq_inner.aq_parent
+        enl = self.getNewsletter()
 
         # get sender name
         sender_name = request.get("sender_name", "")
@@ -253,10 +256,16 @@ class ENLIssue(ATTopic, BaseContent):
                 'email': subscriber.getEmail(),
                 'fullname': subscriber.getFullname(),
                 'uid': subscriber.UID()} \
-                    for subscriber in self.aq_inner.aq_parent.objectValues("ENLSubscriber")]
+                    for subscriber in enl.objectValues("ENLSubscriber")]
             # get subscribers over selected plone members and groups
             plone_receivers = self.get_plone_subscribers()
-            receivers = plone_receivers + enl_receivers
+            # check external subscriber source
+            try:
+                external_source = getUtility(ISubscriberSource)
+                external_subscribers = external_source.getSubscribers(enl)
+            except ComponentLookupError:
+                external_subscribers = []
+            receivers = plone_receivers + enl_receivers + external_subscribers
 
         # get charset
         props = getToolByName(self, "portal_properties").site_properties
