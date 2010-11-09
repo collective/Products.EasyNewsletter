@@ -29,7 +29,10 @@ class ISubscriberSource(Interface):
     """ Interface for utilities providing a list of subscribers. """
 
     def getSubscribers(newsletter):
-        """ return a list of subscribers for a given newsletter """
+        """ Return a list of subscribers for a given newsletter.
+            Each subscriber should be represented as dictionary
+            with keys 'email' and 'fullname'.
+        """
 
 class IReceiversMemberFilter(Interface):
     """ Marker interface for ReceiverMemberFilters subscribers.
