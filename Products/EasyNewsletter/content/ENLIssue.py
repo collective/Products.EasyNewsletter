@@ -269,7 +269,7 @@ class ENLIssue(ATTopic, BaseContent):
                     external_subscribers = external_source.getSubscribers(enl)
                     log.info('Found %d external subscriptions' % len(external_subscribers))
                 except ComponentLookupError:
-                    pas
+                    pass
             receivers = plone_receivers + enl_receivers + external_subscribers
 
         # get charset

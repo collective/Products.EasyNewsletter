@@ -1,11 +1,13 @@
 from zope.interface import implements, Interface
 from zope import schema
+from zope.component import getUtility
 from zope.app.component.hooks import getSite
 
 from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
+from Products.EasyNewsletter.interfaces import ISubscriberSource
 
 
 class IEnl_Subscribers_View(Interface):
@@ -36,8 +38,32 @@ class Enl_Subscribers_View(BrowserView):
         return getToolByName(self.context, 'portal_url').getPortalObject()
 
     def subscribers(self):
-        results = self.portal_catalog(portal_type = 'ENLSubscriber', path='/'.join(self.context.getPhysicalPath()), sort_on='email')
-        return results
+        subscribers = list()
+
+        # Plone subscribers
+        for brain in self.portal_catalog(portal_type = 'ENLSubscriber', 
+                                         path='/'.join(self.context.getPhysicalPath()), 
+                                         sort_on='email'):
+            subscribers.append(dict(source='plone',
+                               deletable=True,
+                               email=brain.email, 
+                               fullname=brain.fullname, 
+                               organization=brain.organization))
+
+        # External subscribers
+        
+        external_source_name = self.context.getSubscriberSource()
+        if external_source_name != 'default':
+            try:
+                external_source = getUtility(ISubscriberSource, name=external_source_name)
+            except ComponentLookupError:
+                pass
+
+            for subscriber in external_source.getSubscribers(self.context):
+                subscriber['source'] = 'external'
+                subscribers.append(subscriber)
+
+        return subscribers                
 
 
 class UploadCSV(BrowserView):
