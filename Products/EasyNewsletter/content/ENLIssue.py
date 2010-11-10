@@ -213,8 +213,10 @@ class ENLIssue(ATTopic, BaseContent):
         self.REQUEST.RESPONSE.redirect(url)
 
     security.declarePublic('send')
-    def send(self):
-        """Sends the newsletter
+    def send(self, recipients=[]):
+        """Sends the newsletter.
+           An optional list of dicts (keys=fullname|mail) can be passed in 
+           for sending a newsletter out addresses != subscribers.
         """
         # preparations
 
@@ -247,8 +249,9 @@ class ENLIssue(ATTopic, BaseContent):
         else:
             from_header = sender_email
 
-        # get subscribers:
-        if hasattr(request, "test"):
+        if recipients:
+            receivers = recipients
+        elif hasattr(request, "test"):
             receivers = [{'email': test_receiver, 'fullname': ''}]
         else:
             # get ENLSubscribers
@@ -360,8 +363,9 @@ class ENLIssue(ATTopic, BaseContent):
                 send_error_counter += 1
 
         log.info("Newsletter was send to (%s) receivers. (%s) errors occurred!" % (send_counter, send_error_counter))
-        # change status
-        if not hasattr(request, "test"):
+        # change status only for a 'regular' send operation (not 'test', no
+        # explicit recipients)
+        if not hasattr(request, "test") and not recipients:
             wftool = getToolByName(self, "portal_workflow")
             if wftool.getInfoFor(self, 'review_state') == 'draft':
                 wftool.doActionFor(self, "send")
