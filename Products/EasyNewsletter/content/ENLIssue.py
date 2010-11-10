@@ -278,11 +278,9 @@ class ENLIssue(ATTopic, BaseContent):
         # get charset
         props = getToolByName(self, "portal_properties").site_properties
         charset = props.getProperty("default_charset")
-        # get parent ENL object
-        parent = aq_parent(aq_inner(self))
         # get out_template from ENL object and render it in context of issue
-        out_template_pt_field = parent.getField('out_template_pt')
-        ObjectField.set(out_template_pt_field, self, ZopePageTemplate(out_template_pt_field.getName(), parent.getRawOut_template_pt()))
+        out_template_pt_field = enl.getField('out_template_pt')
+        ObjectField.set(out_template_pt_field, self, ZopePageTemplate(out_template_pt_field.getName(), enl.getRawOut_template_pt()))
         output_html = self.out_template_pt.pt_render().encode(charset)
         # remove >>PERSOLINE>> marker
         text = output_html.replace("<p>&gt;&gt;PERSOLINE&gt;&gt;", "")
@@ -306,7 +304,7 @@ class ENLIssue(ATTopic, BaseContent):
             else:
                 if receiver.has_key('uid'):
                     try:
-                        unsubscribe_text = parent.getUnsubscribe_string()
+                        unsubscribe_text = enl.getUnsubscribe_string()
                     except AttributeError:
                         unsubscribe_text = "Click here to unsubscribe"
                     unsubscribe_link = enl.absolute_url() + "/unsubscribe?subscriber=" + receiver['uid']
@@ -319,7 +317,7 @@ class ENLIssue(ATTopic, BaseContent):
                 fullname = receiver['fullname']
                 if not fullname:
                     try:
-                        fullname = parent.getFullname_fallback()
+                        fullname = enl.getFullname_fallback()
                     except AttributeError:
                         fullname = "Sir or Madam"
                 mail['To'] = receiver['email']
