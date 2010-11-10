@@ -47,11 +47,11 @@ class Enl_Subscribers_View(BrowserView):
             subscribers.append(dict(source='plone',
                                deletable=True,
                                email=brain.email, 
+                               getURL=brain.getURL(),
                                fullname=brain.fullname, 
                                organization=brain.organization))
 
         # External subscribers
-        
         external_source_name = self.context.getSubscriberSource()
         if external_source_name != 'default':
             try:
