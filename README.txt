@@ -65,6 +65,14 @@ Changes
    on instances of 'Subscriber' located inside the newsletter folder itself)
    [ajung]
 
+ * the 'Subscribers' tab of Issue instance now also includes subscribers
+   from an utility providing ISubscriberSource 
+   [ajung]
+
+ * the Newsletter instance now got an new schemata 'External' and a new
+   option to configure an utility providing ISubscriberSource
+   [ajung]
+
 2.0.1 (2010-07-31)
 -----------------------
 
