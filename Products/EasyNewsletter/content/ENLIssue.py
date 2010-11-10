@@ -260,11 +260,16 @@ class ENLIssue(ATTopic, BaseContent):
             # get subscribers over selected plone members and groups
             plone_receivers = self.get_plone_subscribers()
             # check external subscriber source
-            try:
-                external_source = getUtility(ISubscriberSource)
-                external_subscribers = external_source.getSubscribers(enl)
-            except ComponentLookupError:
-                external_subscribers = []
+            external_subscribers = []
+            external_source_name = enl.getSubscriberSource()
+            if external_source_name != 'default':
+                log.info('Searching for users in external source "%s"' % external_source_name)
+                try:
+                    external_source = getUtility(ISubscriberSource, name=external_source_name)
+                    external_subscribers = external_source.getSubscribers(enl)
+                    log.info('Found %d external subscriptions' % len(external_subscribers))
+                except ComponentLookupError:
+                    pas
             receivers = plone_receivers + enl_receivers + external_subscribers
 
         # get charset

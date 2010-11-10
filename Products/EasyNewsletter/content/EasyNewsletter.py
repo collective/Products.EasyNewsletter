@@ -3,6 +3,7 @@
 # zope imports
 from zope.interface import implements
 from zope.component import queryUtility
+from zope.component import getUtilitiesFor
 from zope.component import subscribers
 
 # Zope / Plone imports
@@ -24,6 +25,7 @@ from AccessControl.SecurityManagement import newSecurityManager, setSecurityMana
 from AccessControl.User import nobody
 from AccessControl.User import UnrestrictedUser as BaseUnrestrictedUser
 
+from Products.EasyNewsletter.interfaces import ISubscriberSource
 
 
 try:
@@ -188,6 +190,19 @@ schema=Schema((
         )
     ),
 
+    StringField('subscriberSource',
+        schemata='External',
+        vocabulary="get_subscriber_sources",
+        default='default',
+        widget=SelectionWidget(
+            label='External subscriber source to be used',
+            label_msgid='EasyNewsletter_label_externalSubscriberSource',
+            description_msgid='EasyNewsletter_help_externalSubscriberSource',
+            i18n_domain='EasyNewsletter',
+            size = 10,
+        )
+    ),
+
     ZPTField('out_template_pt',
         schemata="settings",
         default = DEFAULT_OUT_TEMPLATE_PT,
@@ -340,6 +355,13 @@ class EasyNewsletter(ATTopic, BaseFolder):
     def getNewsletter(self):
         """ return the (parent) Newsletter instance using Acquisition """
         return self
+
+    def get_subscriber_sources(self):
+        result = DisplayList()
+        result.add(u'default', _(u'EasyNewsletter_label_noSource', u'no external subscriber source'))
+        for utility in getUtilitiesFor(ISubscriberSource):
+            result.add(utility[0], utility[0])
+        return result
 
 
 registerType(EasyNewsletter, PROJECTNAME)

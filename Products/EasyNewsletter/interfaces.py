@@ -26,7 +26,11 @@ class IIssueView(Interface):
         """
 
 class ISubscriberSource(Interface):
-    """ Interface for utilities providing a list of subscribers. """
+    """ Interface for utilities providing a list of subscribers.
+        Such an utility should be registered as named utility since
+        the name of the utility is referenced inside the Newsletter
+        implementation as a reference to an external subscriber source.
+    """
 
     def getSubscribers(newsletter):
         """ Return a list of subscribers for a given newsletter.
