@@ -327,6 +327,10 @@ class ENLIssue(ATTopic, BaseContent):
             personal_text = personal_text.replace("{% subscriber-fullname %}", fullname)
             personal_text_plain = personal_text_plain.replace("{% subscriber-fullname %}", fullname)
 
+            if '{% supplementary_content %}' in personal_text_plain:
+                personal_text_plain = personal_text_plain.replace('{% supplementary_content %}', self.getSupplementaryContent())
+
+
             mail['From']    = from_header
             mail['Subject'] = subject
             mail.epilogue   = ''
@@ -492,6 +496,19 @@ class ENLIssue(ATTopic, BaseContent):
         text = textout.getvalue() + anchorlist
         del textout, formtext, parser, anchorlist
         return text
+
+    def getSupplementaryContent(self):
+        result = list()
+        result.append('Additional content:')
+
+        for brain in self.getFolderContents(contentFilter=dict(portal_type=('File',))):
+            result.append('- %s' % brain.Title)
+            result.append('  %s' % brain.Description)
+            result.append('  %s' % brain.getURL())
+            result.append('')
+
+        return '\n'.join(result)
+
 
 
 registerType(ENLIssue, PROJECTNAME)
