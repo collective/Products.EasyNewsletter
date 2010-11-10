@@ -60,7 +60,7 @@ class Enl_Subscribers_View(BrowserView):
                 pass
 
             for subscriber in external_source.getSubscribers(self.context):
-                subscriber['source'] = 'external'
+                subscriber['source'] = external_source_name
                 subscribers.append(subscriber)
 
         return subscribers                
