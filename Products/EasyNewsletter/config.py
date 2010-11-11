@@ -16,18 +16,6 @@ EMAIL_RE = re.compile(r"(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,6}(?:\s|$)
 DEFAULT_TEMPLATE = """
 <p>&gt;&gt;PERSOLINE&gt;&gt;Dear {% subscriber-fullname %}</p>
 
-<tal:block tal:repeat="object context/getFiles">
-    <h1 tal:content="object/Title">Title</h1>
-
-    <p>
-        <span tal:content="object/Description">Description</span>
-    </p>
-    <p>
-        <a tal:attributes="href object/getURL">Please read on.</a>
-    </p>
-</tal:block>
-
-
 <tal:block tal:repeat="object context/queryCatalog">
     <h1 tal:content="object/Title">Title</h1>
 
@@ -69,8 +57,18 @@ DEFAULT_OUT_TEMPLATE_PT = """<html xmlns="http://www.w3.org/1999/xhtml">
     </div>
 
     <!-- this is the main text of the newsletter -->
-    <div id="body">
+    <div id="body-text">
         <span tal:replace="structure context/getText" />
+        <tal:def tal:define="files context/getFiles">
+            <dl id="file-attachments" tal:condition="files">
+                <tal:loop repeat="file files">
+                    <dt>
+                        <a tal:attributes="href file/getURL" tal:content="file/Title" />
+                    </dt>
+                    <dd tal:content="file/Description" />                          
+                </tal:loop>
+            </dl>
+        </tal:def>
     </div>
 
     <!-- this is the footer of the newsletter -->
