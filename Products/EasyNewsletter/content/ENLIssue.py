@@ -1,6 +1,6 @@
 # python imports
 import formatter
-import StringIO
+import cStringIO
 from htmllib import HTMLParser
 from urlparse import urlparse
 from email.MIMEText import MIMEText
@@ -210,47 +210,23 @@ class ENLIssue(ATTopic, BaseContent):
         url = self.absolute_url()
         self.REQUEST.RESPONSE.redirect(url)
 
-    security.declarePublic('send')
-    def send(self, recipients=[]):
-        """Sends the newsletter.
-           An optional list of dicts (keys=fullname|mail) can be passed in 
-           for sending a newsletter out addresses != subscribers.
-        """
-        # preparations
+
+    def _send_recipients(self, recipients=[]):
+        """ return list of recipients """
 
         request = self.REQUEST
         enl = self.getNewsletter()
 
-        # get sender name
-        sender_name = request.get("sender_name", "")
-        if sender_name == "":
-            sender_name = enl.getSenderName()
-
-        # get sender e-mail
-        sender_email = request.get("sender_email", "")
-        if sender_email == "":
-            sender_email = enl.getSenderEmail()
-
-        # get test e-mail
-        test_receiver = request.get("test_receiver", "")
-        if test_receiver == "":
-            test_receiver = enl.getTestEmail()
-
-        # get subject
-        subject = request.get("subject", "")
-        if subject == "":
-            subject = self.Title()
-
-        # Create from-header
-        if enl.getSenderName():
-            from_header = '"%s" <%s>' % (sender_name, sender_email)
-        else:
-            from_header = sender_email
-
         if recipients:
             receivers = recipients
+
         elif hasattr(request, "test"):
+            # get test e-mail
+            test_receiver = request.get("test_receiver", "")
+            if test_receiver == "":
+                test_receiver = enl.getTestEmail()
             receivers = [{'email': test_receiver, 'fullname': ''}]
+
         else:
             # get ENLSubscribers
             enl_receivers = [{
@@ -260,6 +236,7 @@ class ENLIssue(ATTopic, BaseContent):
                     for subscriber in enl.objectValues("ENLSubscriber")]
             # get subscribers over selected plone members and groups
             plone_receivers = self.get_plone_subscribers()
+
             # check external subscriber source
             external_subscribers = []
             external_source_name = enl.getSubscriberSource()
@@ -273,6 +250,15 @@ class ENLIssue(ATTopic, BaseContent):
                     pass
             receivers = plone_receivers + enl_receivers + external_subscribers
 
+        return receivers
+
+    def _send_body(self):
+        """ Return rendered body of newsletter (text+html) 
+            w/o header and footer.
+        """
+
+        enl = self.getNewsletter()
+
         # get charset
         props = getToolByName(self, "portal_properties").site_properties
         charset = props.getProperty("default_charset")
@@ -282,14 +268,58 @@ class ENLIssue(ATTopic, BaseContent):
         output_html = self.out_template_pt.pt_render().encode(charset)
         # remove >>PERSOLINE>> marker
         text = output_html.replace("<p>&gt;&gt;PERSOLINE&gt;&gt;", "")
+        # supplementary content place holder
+        if '{% supplementary_content %}' in text:
+            supplementary_content = self.getSupplementaryContent()
+            text = text.replace('{% supplementary_content %}', supplementary_content)
         # exchange relative URLs
         parser_output_zpt = ENLHTMLParser(self)
         parser_output_zpt.feed(text)
         text = parser_output_zpt.html
         text_plain = self.create_plaintext_message(text)
+        return text, text_plain
 
+    security.declarePublic('send')
+    def send(self, recipients=[]):
+        """Sends the newsletter.
+           An optional list of dicts (keys=fullname|mail) can be passed in 
+           for sending a newsletter out addresses != subscribers.
+        """
 
-        # determine MailHost first (build-in vs. external
+        # preparations
+        request = self.REQUEST
+
+        # get hold of the parent Newsletter object#       
+        enl = self.getNewsletter()
+
+        # get sender name
+        sender_name = request.get("sender_name", "")
+        if sender_name == "":
+            sender_name = enl.getSenderName()
+
+        # get sender e-mail
+        sender_email = request.get("sender_email", "")
+        if sender_email == "":
+            sender_email = enl.getSenderEmail()
+
+        # get subject
+        subject = request.get("subject", "")
+        if subject == "":
+            subject = self.Title()
+
+        # Create from-header
+        if enl.getSenderName():
+            from_header = '"%s" <%s>' % (sender_name, sender_email)
+        else:
+            from_header = sender_email
+
+        # determine recipients
+        receivers = self._send_recipients(recipients)
+
+        # determin mail body
+        text, text_plain = self._send_body()
+
+        # determine MailHost first (build-in vs. external)
         deliveryServiceName = enl.getDeliveryService()
         if deliveryServiceName == 'mailhost':
             MailHost = getToolByName(enl, 'MailHost')
@@ -299,7 +329,6 @@ class ENLIssue(ATTopic, BaseContent):
 
         send_counter = 0
         send_error_counter = 0
-        supplementary_content = self.getSupplementaryContent()
 
         for receiver in receivers:
             # create multipart mail
@@ -334,10 +363,6 @@ class ENLIssue(ATTopic, BaseContent):
             personal_text = personal_text.replace("{% subscriber-fullname %}", fullname)
             personal_text_plain = personal_text_plain.replace("{% subscriber-fullname %}", fullname)
 
-            # supplementary content place holder
-            if '{% supplementary_content %}' in personal_text_plain:
-                personal_text_plain = personal_text_plain.replace('{% supplementary_content %}', 
-                                                                  supplementary_content)
 
             mail['From']    = from_header
             mail['Subject'] = subject
@@ -487,7 +512,7 @@ class ENLIssue(ATTopic, BaseContent):
             and attaching links as endnotes 
         """
         plain_text_maxcols = 72
-        textout = StringIO.StringIO()
+        textout = cStringIO.StringIO()
         formtext = formatter.AbstractFormatter(formatter.DumbWriter(
                         textout, plain_text_maxcols))
         parser = HTMLParser(formtext)
@@ -509,12 +534,14 @@ class ENLIssue(ATTopic, BaseContent):
     def getSupplementaryContent(self):
 
         result = list()
-        result.append('Additional content:')
+        result.append('<div>')
+        result.append('<span>Additional content</span>')
+        result.append('<dl>')
         for brain in self.getFolderContents(contentFilter=dict(portal_type=('File',))):
-            result.append('- %s' % brain.Title)
-            result.append('  %s' % brain.Description)
-            result.append('  %s' % brain.getURL())
-            result.append('')
+            result.append('<dd><a href="%s">%s</a></dt>' % (brain.getURL(), brain.Title))
+            result.append('<dt>%s</dt>' % brain.Description)
+        result.append('</dl>')
+        result.append('</div>')
         return '\n'.join(result)
 
 
