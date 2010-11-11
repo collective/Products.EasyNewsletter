@@ -268,17 +268,13 @@ class ENLIssue(ATTopic, BaseContent):
         output_html = self.out_template_pt.pt_render().encode(charset)
         # remove >>PERSOLINE>> marker
         text = output_html.replace("<p>&gt;&gt;PERSOLINE&gt;&gt;", "")
-        # supplementary content place holder
-        if '{% supplementary_content %}' in text:
-            supplementary_content = self.getSupplementaryContent()
-            text = text.replace('{% supplementary_content %}', supplementary_content)
         # exchange relative URLs
         parser_output_zpt = ENLHTMLParser(self)
         parser_output_zpt.feed(text)
         text = parser_output_zpt.html
         text_plain = self.create_plaintext_message(text)
         image_urls = parser_output_zpt.image_urls
-        return text, text_plain, image_urls
+        return dict(html=text, plain=text_plain, images=image_urls)
 
     security.declarePublic('send')
     def send(self, recipients=[]):
@@ -323,7 +319,10 @@ class ENLIssue(ATTopic, BaseContent):
         send_error_counter = 0
 
         receivers = self._send_recipients(recipients)
-        text, text_plain, image_urls = self._send_body()
+        send_body = self._send_body()
+        text = send_body['html']
+        text_plain = send_body['text']
+        image_urls = send_body['images']
         props = getToolByName(self, "portal_properties").site_properties
         charset = props.getProperty("default_charset")
 
@@ -527,18 +526,9 @@ class ENLIssue(ATTopic, BaseContent):
         del textout, formtext, parser, anchorlist
         return text
 
-    def getSupplementaryContent(self):
-
-        result = list()
-        result.append('<div>')
-        result.append('<span>Additional content</span>')
-        result.append('<dl>')
-        for brain in self.getFolderContents(contentFilter=dict(portal_type=('File',))):
-            result.append('<dd><a href="%s">%s</a></dt>' % (brain.getURL(), brain.Title))
-            result.append('<dt>%s</dt>' % brain.Description)
-        result.append('</dl>')
-        result.append('</div>')
-        return '\n'.join(result)
-
+    def getFiles(self):
+        """ Return list of files in subtree """
+        return self.getFolderContents(contentFilter=dict(portal_type=('File',), 
+                                      sort_on='getObjPositionInParent'))
 
 registerType(ENLIssue, PROJECTNAME)
