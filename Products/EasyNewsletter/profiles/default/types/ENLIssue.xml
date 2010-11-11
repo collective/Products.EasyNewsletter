@@ -9,7 +9,7 @@
  <property name="content_meta_type">ENLIssue</property>
  <property name="product">EasyNewsletter</property>
  <property name="factory">addENLIssue</property>
- <property name="immediate_view">enl_issue_view</property>
+ <property name="immediate_view">@@enl_public_view</property>
  <property name="global_allow">False</property>
  <property name="filter_content_types">True</property>
  <property name="allowed_content_types">
@@ -17,8 +17,9 @@
   <element value="File"/>
  </property>
  <property name="allow_discussion">False</property>
- <property name="default_view">enl_issue_view</property>
+ <property name="default_view">@@enl_public_view</property>
  <property name="view_methods">
+  <element value="@@enl_public_view"/>
   <element value="enl_issue_view"/>
  </property>
  <alias from="(Default)" to="(dynamic view)"/>
