@@ -380,7 +380,7 @@ class EasyNewsletter(ATTopic, BaseFolder):
 
     def get_delivery_services(self):
         result = DisplayList()
-        result.add(u'default', _(u'EasyNewsletter_label_PloneMailHost', u'Default Plone Mailhost'))
+        result.add(u'mailhost', _(u'EasyNewsletter_label_PloneMailHost', u'Default Plone Mailhost'))
         for utility in getUtilitiesFor(IMailHost):
             if utility[0]:
                 result.add(utility[0], utility[0])
