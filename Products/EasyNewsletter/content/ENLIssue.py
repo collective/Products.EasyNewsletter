@@ -277,7 +277,8 @@ class ENLIssue(ATTopic, BaseContent):
         parser_output_zpt.feed(text)
         text = parser_output_zpt.html
         text_plain = self.create_plaintext_message(text)
-        return text, text_plain
+        image_urls = parser_output_zpt.image_urls
+        return text, text_plain, image_urls
 
     security.declarePublic('send')
     def send(self, recipients=[]):
@@ -308,16 +309,7 @@ class ENLIssue(ATTopic, BaseContent):
             subject = self.Title()
 
         # Create from-header
-        if enl.getSenderName():
-            from_header = '"%s" <%s>' % (sender_name, sender_email)
-        else:
-            from_header = sender_email
-
-        # determine recipients
-        receivers = self._send_recipients(recipients)
-
-        # determin mail body
-        text, text_plain = self._send_body()
+        from_header = enl.getSenderName() and '"%s" <%s>' % (sender_name, sender_email) or sender_email
 
         # determine MailHost first (build-in vs. external)
         deliveryServiceName = enl.getDeliveryService()
@@ -329,6 +321,11 @@ class ENLIssue(ATTopic, BaseContent):
 
         send_counter = 0
         send_error_counter = 0
+
+        receivers = self._send_recipients(recipients)
+        text, text_plain, image_urls = self._send_body()
+        props = getToolByName(self, "portal_properties").site_properties
+        charset = props.getProperty("default_charset")
 
         for receiver in receivers:
             # create multipart mail
@@ -363,7 +360,6 @@ class ENLIssue(ATTopic, BaseContent):
             personal_text = personal_text.replace("{% subscriber-fullname %}", fullname)
             personal_text_plain = personal_text_plain.replace("{% subscriber-fullname %}", fullname)
 
-
             mail['From']    = from_header
             mail['Subject'] = subject
             mail.epilogue   = ''
@@ -379,7 +375,7 @@ class ENLIssue(ATTopic, BaseContent):
 
             # Add images to the message
             image_number = 0
-            for image_url in parser_output_zpt.image_urls:
+            for image_url in image_urls:
                 image_url = urlparse(image_url)[2]
                 o = self.restrictedTraverse(image_url)
                 if hasattr(o, "_data"):                               # file-based
