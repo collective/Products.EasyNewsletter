@@ -16,6 +16,7 @@ from Acquisition import aq_parent, aq_inner
 
 # Zope / Plone import
 from AccessControl import ClassSecurityInfo
+from Products.MailHost.interfaces import IMailHost
 from Products.Archetypes.atapi import *
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.interfaces import ISubscriberSource
@@ -290,8 +291,19 @@ class ENLIssue(ATTopic, BaseContent):
         text = parser_output_zpt.html
         text_plain = self.create_plaintext_message(text)
 
+
+        # determine MailHost first (build-in vs. external
+        deliveryServiceName = enl.getDeliveryService()
+        if deliveryServiceName == 'mailhost':
+            MailHost = getToolByName(enl, 'MailHost')
+        else:
+            MailHost = getUtility(IMailHost, name=deliveryServiceName)
+        log.info('Using mail delivery service "%r"' % MailHost)
+
         send_counter = 0
         send_error_counter = 0
+        supplementary_content = self.getSupplementaryContent()
+
         for receiver in receivers:
             # create multipart mail
             mail = MIMEMultipart("alternative")
@@ -325,9 +337,10 @@ class ENLIssue(ATTopic, BaseContent):
             personal_text = personal_text.replace("{% subscriber-fullname %}", fullname)
             personal_text_plain = personal_text_plain.replace("{% subscriber-fullname %}", fullname)
 
+            # supplementary content place holder
             if '{% supplementary_content %}' in personal_text_plain:
-                personal_text_plain = personal_text_plain.replace('{% supplementary_content %}', self.getSupplementaryContent())
-
+                personal_text_plain = personal_text_plain.replace('{% supplementary_content %}', 
+                                                                  supplementary_content)
 
             mail['From']    = from_header
             mail['Subject'] = subject
@@ -357,7 +370,7 @@ class ENLIssue(ATTopic, BaseContent):
 
             mail.attach(html_part)
             try:
-                self.MailHost.send(mail.as_string())
+                MailHost.send(mail.as_string())
                 log.info("Send newsletter to \"%s\"" % receiver['email'])
                 send_counter += 1
             except Exception, e:
@@ -365,6 +378,7 @@ class ENLIssue(ATTopic, BaseContent):
                 send_error_counter += 1
 
         log.info("Newsletter was send to (%s) receivers. (%s) errors occurred!" % (send_counter, send_error_counter))
+
         # change status only for a 'regular' send operation (not 'test', no
         # explicit recipients)
         if not hasattr(request, "test") and not recipients:
@@ -496,17 +510,15 @@ class ENLIssue(ATTopic, BaseContent):
         return text
 
     def getSupplementaryContent(self):
+
         result = list()
         result.append('Additional content:')
-
         for brain in self.getFolderContents(contentFilter=dict(portal_type=('File',))):
             result.append('- %s' % brain.Title)
             result.append('  %s' % brain.Description)
             result.append('  %s' % brain.getURL())
             result.append('')
-
         return '\n'.join(result)
-
 
 
 registerType(ENLIssue, PROJECTNAME)
