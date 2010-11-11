@@ -321,7 +321,7 @@ class ENLIssue(ATTopic, BaseContent):
         receivers = self._send_recipients(recipients)
         send_body = self._send_body()
         text = send_body['html']
-        text_plain = send_body['text']
+        text_plain = send_body['plain']
         image_urls = send_body['images']
         props = getToolByName(self, "portal_properties").site_properties
         charset = props.getProperty("default_charset")
