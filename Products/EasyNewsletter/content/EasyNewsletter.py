@@ -204,7 +204,7 @@ schema=Schema((
         )
     ),
 
-    StringField('deliverySevice',
+    StringField('deliveryService',
         schemata='External',
         vocabulary="get_delivery_services",
         default='mailhost',
