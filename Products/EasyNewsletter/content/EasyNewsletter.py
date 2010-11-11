@@ -81,6 +81,7 @@ schema=Schema((
 
     TextField('default_header',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        default="Dear {% subscriber-fullname %}",
         widget=RichWidget(
             rows=10,
             label='Header',
