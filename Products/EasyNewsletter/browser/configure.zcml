@@ -26,6 +26,13 @@
         permission="cmf.ManagePortal" />
 
     <browser:page
+        name="enl_public_view"
+        for="..interfaces.IENLIssue"
+        class=".issue.IssueView"
+        template="issue_public_view.pt"
+        permission="zope2.View" />
+
+    <browser:page
         name="unsubscribe"
         for="..interfaces.IEasyNewsletter"
         class=".newsletter.NewsletterView"

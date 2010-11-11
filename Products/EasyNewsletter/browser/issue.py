@@ -1,7 +1,6 @@
-# Five imports
-from Products.Five.browser import BrowserView
+from BeautifulSoup import BeautifulSoup
 
-# CMFCore imports
+from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 
@@ -18,6 +17,7 @@ class IssueView(BrowserView):
         """
         """
         putils = getToolByName(self.context, "plone_utils")
+        self.context.send()
         try:
             self.context.send()
         except Exception, e:
@@ -26,3 +26,14 @@ class IssueView(BrowserView):
             putils.addPortalMessage(_("The issue has been send."))
 
         return self.request.response.redirect(self.context.absolute_url())
+
+    def get_public_body(self):
+        """ Return the rendered HTML version of the newsletter """
+
+        html = self.context._send_body()['html']
+        soup = BeautifulSoup(html)
+        for id in ('header', 'footer'):
+            node = soup.find('div', {'id' : id})
+            if node:
+                node.extract()
+        return soup.renderContents()
