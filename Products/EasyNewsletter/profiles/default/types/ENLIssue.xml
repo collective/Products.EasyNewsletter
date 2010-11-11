@@ -20,7 +20,6 @@
  <property name="default_view">@@enl_public_view</property>
  <property name="view_methods">
   <element value="@@enl_public_view"/>
-  <element value="enl_issue_view"/>
  </property>
  <alias from="(Default)" to="(dynamic view)"/>
  <alias from="edit" to="atct_edit"/>
