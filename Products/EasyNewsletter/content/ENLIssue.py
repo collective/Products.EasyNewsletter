@@ -30,10 +30,7 @@ from Products.Archetypes.public import ObjectField
 try:
     from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool
     fmp_tool = queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool')
-    if fmp_tool:
-        no_fmp = False
-    else:
-        no_fmp = True
+    no_fmp = not(fmp_tool)
 except:
     no_fmp = True
 
