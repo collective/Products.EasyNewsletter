@@ -17,7 +17,7 @@ class IssueView(BrowserView):
         """
         """
         putils = getToolByName(self.context, "plone_utils")
-        self.context.send()
+
         try:
             self.context.send()
         except Exception, e:
