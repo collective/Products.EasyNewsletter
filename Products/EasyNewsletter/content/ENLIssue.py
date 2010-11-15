@@ -6,7 +6,7 @@ from urlparse import urlparse
 from email.MIMEText import MIMEText
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEImage import MIMEImage
-from email.header import Header
+from email.Header import Header
 from email import Encoders
 
 # zope imports
