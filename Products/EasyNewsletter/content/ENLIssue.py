@@ -6,6 +6,7 @@ from urlparse import urlparse
 from email.MIMEText import MIMEText
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEImage import MIMEImage
+from email.header import Header
 from email import Encoders
 
 # zope imports
@@ -360,7 +361,7 @@ class ENLIssue(ATTopic, BaseContent):
             personal_text_plain = personal_text_plain.replace("{% subscriber-fullname %}", fullname)
 
             mail['From']    = from_header
-            mail['Subject'] = subject
+            mail['Subject'] = Header(subject)
             mail.epilogue   = ''
 
             # Attach text part
