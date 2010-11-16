@@ -102,6 +102,9 @@ Changes
    header and footer
    [ajung]    
 
+ * added all types to portal_factory configuration
+   [ajung]
+
  * various cleanup
    [ajung]
 
