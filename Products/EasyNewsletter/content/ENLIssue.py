@@ -329,7 +329,7 @@ class ENLIssue(ATTopic, BaseContent):
 
         for receiver in receivers:
             # create multipart mail
-            outer = MIMEMultipart()
+            outer = MIMEMultipart('alternative')
 
             if hasattr(request, "test"):
                 outer['To'] = receiver['email']
