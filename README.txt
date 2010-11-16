@@ -105,6 +105,9 @@ Changes
  * added all types to portal_factory configuration
    [ajung]
 
+ * added @@all_issues_view to Newsletter implementation
+   [ajung]
+
  * various cleanup
    [ajung]
 
