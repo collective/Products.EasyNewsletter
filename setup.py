@@ -1,10 +1,10 @@
 from setuptools import setup, find_packages
 
-version = '2.1.0-dev'
+version = '2.5.0b1'
 
 setup(name='Products.EasyNewsletter',
       version=version,
-      description="An easy to use but powerfull newsletter/mailing product for Plone",
+      description="An easy to use but powerfull newsletter/mailing product for Plone 3+4",
       long_description=open("README.txt").read(),
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
@@ -14,6 +14,7 @@ setup(name='Products.EasyNewsletter',
         "Development Status :: 4 - Beta",
         ],
       keywords='Zope Plone Newsletter Mailing',
+      maintainer='Andreas Jung, Maik Derstappen',
       author='Kai Diefenbach',
       author_email='kai.diefenbach@iqpp.de',
       url='http://plone.org/products/easynewsletter/',

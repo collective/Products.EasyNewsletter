@@ -65,8 +65,8 @@ Autors
 Changes
 =======
 
-2.1.0 (unreleased)
-------------------
+2.5.0b1 (unreleased)
+--------------------
 
  * added support for Zope utilities providing the ISubscriberSource
    interface to hook in external subscriber sources (e.g. some sub-system
