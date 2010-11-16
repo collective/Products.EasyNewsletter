@@ -4,13 +4,31 @@
       i18n:domain="EasyNewsletter">
     <body>
         <div metal:fill-slot="main">
-            <h1 tal:content="context/Title" />
-            <div tal:repeat="nl view/getRenderedIssues">
+
+            <h1 class="documentFirstHeading"> 
+                <metal:field use-macro="python:here.widget('title', mode='view')">
+                Title
+                </metal:field>
+            </h1>
+
+            <div tal:replace="structure provider:plone.belowcontenttitle" />
+            
+            <p class="documentDescription">
+                <metal:field use-macro="python:here.widget('description', mode='view')">
+                Description
+                </metal:field>
+            </p>
+
+            <div tal:replace="structure provider:plone.abovecontentbody" />
+
+            <tal:loop repeat="nl view/getRenderedIssues">
                 <div id="newsletter-content">
                     <h1 tal:content="nl/title" />
                     <div tal:content="structure nl/content" />
                 </div>
-            </div>
+            </tal:loop>
+
+            <div tal:replace="structure provider:plone.belowcontentbody" />
         </div>
     </body>
 </html>
