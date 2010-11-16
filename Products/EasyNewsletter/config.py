@@ -50,28 +50,30 @@ DEFAULT_OUT_TEMPLATE_PT = """<html xmlns="http://www.w3.org/1999/xhtml">
 </head>
 <body>
     <!-- this is the header of the newsletter -->
-    <div id="header">
-        <span tal:replace="structure context/getHeader" />
-    </div>
+    <div class="newsletter-issue">
+        <div id="header">
+            <span tal:replace="structure context/getHeader" />
+        </div>
 
-    <!-- this is the main text of the newsletter -->
-    <div id="body-text">
-        <span tal:replace="structure context/getText" />
-        <tal:def tal:define="files context/getFiles">
-            <dl id="file-attachments" tal:condition="files">
-                <tal:loop repeat="file files">
-                    <dt>
-                        <a tal:attributes="href file/getURL" tal:content="file/Title" />
-                    </dt>
-                    <dd tal:content="file/Description" />                          
-                </tal:loop>
-            </dl>
-        </tal:def>
-    </div>
+        <!-- this is the main text of the newsletter -->
+        <div id="body-text">
+            <span tal:replace="structure context/getText" />
+            <tal:def tal:define="files context/getFiles">
+                <dl id="file-attachments" tal:condition="files">
+                    <tal:loop repeat="file files">
+                        <dt>
+                            <a tal:attributes="href file/getURL" tal:content="file/Title" />
+                        </dt>
+                        <dd tal:content="file/Description" />                          
+                    </tal:loop>
+                </dl>
+            </tal:def>
+        </div>
 
-    <!-- this is the footer of the newsletter -->
-    <div id="footer">
-        <span tal:replace="structure context/getFooter" />
+        <!-- this is the footer of the newsletter -->
+        <div id="footer">
+            <span tal:replace="structure context/getFooter" />
+        </div>
     </div>
 </body>
 </html>"""
