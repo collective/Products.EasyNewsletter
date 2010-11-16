@@ -110,6 +110,8 @@ Changes
  * added @@all_issues_view to Newsletter implementation
    [ajung]
 
+ * Plone 4 compatibility fixes
+
  * various cleanup
    [ajung]
 
