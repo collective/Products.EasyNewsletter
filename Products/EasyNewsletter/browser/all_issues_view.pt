@@ -1,0 +1,17 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="EasyNewsletter">
+<body>
+    <div metal:fill-slot="main">
+        <h1 tal:content="context/Title" />
+
+        <div tal:repeat="nl view/getRenderedIssues">
+            <div id="newsletter-content">
+                <h2 tal:content="nl/title" />
+                <div tal:content="structure nl/content" />
+            </div>
+        </div>
+    </div>
+</body>
+</html>
