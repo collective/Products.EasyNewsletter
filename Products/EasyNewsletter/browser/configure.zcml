@@ -4,6 +4,8 @@
     xmlns:cmf="http://namespaces.zope.org/cmf"
     i18n_domain="EasyNewsletter">
 
+    <include package="plone.app.contentmenu" />
+
     <browser:page
         name="send-issue-form"
         for="..interfaces.IENLIssue"
@@ -68,6 +70,14 @@
         template="all_issues_view.pt"
         permission="zope2.View"
         />
+    
+    <browser:menuItem
+        for="..interfaces.IEasyNewsletter"
+        menu="plone_displayviews"
+        title="All issues"
+        action="all_issues_view"
+        description="Display all issues as fulltext"
+        /> 
 
     <browser:page
         for="..interfaces.IEasyNewsletter"
