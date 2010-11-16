@@ -336,7 +336,7 @@ class EasyNewsletter(ATTopic, BaseFolder):
                 probdict = {}
                 probdict['id'] = member.getUserId()
                 probdict['email'] = member.getProperty('email')
-                probdict['fullname'] = member.getProperty('fullname')
+                probdict['fullname'] = unicode(member.getProperty('fullname'), 'utf-8', 'ignore')
                 member_properties[probdict['id']] = probdict
 
         if not member_properties:
