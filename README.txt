@@ -13,6 +13,10 @@ Features
 
     * Subscribing / Unsubscribing and can use Plone Members/Groups as receivers (works also with Membrane)
 
+    * support for external subscriber sources (configured through a Zope utility)
+
+    * support for external delivery services (other than Plone MailHost)
+
     * Variable templates to generate newsletter content
 
     * TTW customizeable output Template to generate nice HTML Newsletter
