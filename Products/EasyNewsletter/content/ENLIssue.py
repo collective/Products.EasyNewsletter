@@ -329,10 +329,10 @@ class ENLIssue(ATTopic, BaseContent):
 
         for receiver in receivers:
             # create multipart mail
-            mail = MIMEMultipart("alternative")
+            outer = MIMEMultipart()
 
             if hasattr(request, "test"):
-                mail['To'] = receiver['email']
+                outer['To'] = receiver['email']
                 fullname = "Test Member"
                 personal_text = text.replace("{% unsubscribe %}", "")
                 personal_text_plain = text_plain.replace("{% unsubscribe %}", "")
@@ -355,23 +355,23 @@ class ENLIssue(ATTopic, BaseContent):
                         fullname = enl.getFullname_fallback()
                     except AttributeError:
                         fullname = "Sir or Madam"
-                mail['To'] = receiver['email']
+                outer['To'] = receiver['email']
 
             personal_text = personal_text.replace("{% subscriber-fullname %}", fullname)
             personal_text_plain = personal_text_plain.replace("{% subscriber-fullname %}", fullname)
 
-            mail['From']    = from_header
-            mail['Subject'] = Header(subject)
-            mail.epilogue   = ''
+            outer['From']    = from_header
+            outer['Subject'] = Header(subject)
+            outer.epilogue   = ''
 
             # Attach text part
             text_part = MIMEText(personal_text_plain, "plain", charset)
-            mail.attach(text_part)
+            outer.attach(text_part)
 
             # Attach html part with images
             html_part = MIMEMultipart("related")
             html_text = MIMEText(personal_text, "html", charset)
-            html_part.attach(html_text)
+            outer.attach(html_text)
 
             # Add images to the message
             image_number = 0
@@ -384,16 +384,10 @@ class ENLIssue(ATTopic, BaseContent):
                     image = MIMEImage(o.data)                         # zodb-based
                 image["Content-ID"] = "image_%s" % image_number
                 image_number += 1
-                html_part.attach(image)
+                outer.attach(image)
 
-            mail.attach(html_part)
-            try:
-                MailHost.send(mail.as_string())
-                log.info("Send newsletter to \"%s\"" % receiver['email'])
-                send_counter += 1
-            except Exception, e:
-                log.info("Sending newsletter to \"%s\" failt, with error \"%s\"!" % (receiver['email'], e))
-                send_error_counter += 1
+            MailHost.send(outer.as_string())
+
 
         log.info("Newsletter was send to (%s) receivers. (%s) errors occurred!" % (send_counter, send_error_counter))
 
