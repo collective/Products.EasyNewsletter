@@ -60,7 +60,7 @@ Autors
 
 * Kai Dieffenbach (V 1.X)
 * Maik Derstappen (V 2.0)
-* Andreas Jung (V 2.1)
+* Andreas Jung (V 2.5)
 
 Changes
 =======
