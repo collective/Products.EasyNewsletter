@@ -18,7 +18,7 @@
 
         <h1 class="documentFirstHeading">
             <span tal:omit-tag=""
-                  i18n:translate="easynewsletter_subcribers_label">Subscribers</span>
+                i18n:translate="easynewsletter_subcribers_label">Subscribers</span>
         </h1>
 
         <div tal:define="subscribers python:view.subscribers();
@@ -33,7 +33,12 @@
 
             <div metal:use-macro="here/batch_macros/macros/navigation" />
 
-            <table class="listing" summary="Subscriber Listing">
+            <div tal:condition="subscribers">
+                <span tal:replace="python: len(subscribers)" />
+                <span i18n:translate="easynewsletter_subscribers_label">subscribers</span>
+            </div>
+
+            <table class="listing" summary="Subscriber Listing" tal:condition="subscribers">
                 <tr>
                     <th i18n:translate="">E-Mail</th>
                     <th i18n:translate="">Name</th>
