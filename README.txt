@@ -65,7 +65,7 @@ Autors
 Changes
 =======
 
-2.5.0b1 (unreleased)
+2.5.0b1 (2010/11/16)
 --------------------
 
  * added support for Zope utilities providing the ISubscriberSource
