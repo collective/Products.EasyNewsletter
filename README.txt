@@ -24,6 +24,8 @@ Requirements
 ============
 
     * inqbus.plone.fastmemberproperties, speed up access of member properties (should automaticly installed)
+    * Plone 3.X (tested)
+    * Plone 4.X (slightly tested)
 
 
 Installation
