@@ -50,12 +50,12 @@ DEFAULT_OUT_TEMPLATE_PT = """<html xmlns="http://www.w3.org/1999/xhtml">
 </head>
 <body>
     <!-- this is the header of the newsletter -->
-    <div id="header">
+    <div class="header">
         <span tal:replace="structure context/getHeader" />
     </div>
 
     <!-- this is the main text of the newsletter -->
-    <div id="body-text">
+    <div class="body-text">
         <span tal:replace="structure context/getText" />
         <tal:def tal:define="files context/getFiles">
             <dl id="file-attachments" tal:condition="files">
@@ -70,7 +70,7 @@ DEFAULT_OUT_TEMPLATE_PT = """<html xmlns="http://www.w3.org/1999/xhtml">
     </div>
 
     <!-- this is the footer of the newsletter -->
-    <div id="footer">
+    <div class="footer">
         <span tal:replace="structure context/getFooter" />
     </div>
 </body>
