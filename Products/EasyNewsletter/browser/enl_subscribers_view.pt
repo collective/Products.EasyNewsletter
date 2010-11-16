@@ -40,8 +40,8 @@
 
             <table class="listing" summary="Subscriber Listing" tal:condition="subscribers">
                 <tr>
-                    <th i18n:translate="">E-Mail</th>
                     <th i18n:translate="">Name</th>
+                    <th i18n:translate="">E-Mail</th>
                     <th i18n:translate="">Company/Organization</th>
                     <th i18n:translate="">Source</th>
                     <th i18n:translate="">Action</th>
@@ -50,6 +50,7 @@
                     <tr tal:define="oddrow repeat/subscriber/odd;
                                     isPlone python: subscriber['source']=='plone'"
                     tal:attributes="class python:oddrow and 'odd' or 'even'">
+                    <td tal:content="subscriber/fullname" />
                     <td>
                         <tal:if condition="isPlone">
                             <a tal:condition="isPlone"
@@ -59,7 +60,6 @@
                         </tal:if>                         
                         <span tal:condition="not: isPlone" tal:content="subscriber/email" />
                     </td>
-                    <td tal:content="subscriber/fullname" />
                     <td tal:content="subscriber/organization|nothing"></td>
                     <td tal:content="subscriber/source|nothing"></td>
                     <td>
