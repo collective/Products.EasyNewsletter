@@ -1,0 +1,34 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="EasyNewsletter">
+    <body>
+        <div metal:fill-slot="main">
+
+            <h1 class="documentFirstHeading"> 
+                <metal:field use-macro="python:here.widget('title', mode='view')">
+                Title
+                </metal:field>
+            </h1>
+
+            <div tal:replace="structure provider:plone.belowcontenttitle" />
+            
+            <p class="documentDescription">
+                <metal:field use-macro="python:here.widget('description', mode='view')">
+                Description
+                </metal:field>
+            </p>
+
+            <div tal:replace="structure provider:plone.abovecontentbody" />
+
+            <tal:loop repeat="nl view/getRenderedIssues">
+                <div id="newsletter-content">
+                    <h1 tal:content="nl/title" />
+                    <div tal:content="structure nl/content" />
+                </div>
+            </tal:loop>
+
+            <div tal:replace="structure provider:plone.belowcontentbody" />
+        </div>
+    </body>
+</html>

@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '2.0.1'
+version = '2.1.0-dev'
 
 setup(name='Products.EasyNewsletter',
       version=version,
@@ -24,6 +24,7 @@ setup(name='Products.EasyNewsletter',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'BeautifulSoup',
           'Products.TemplateFields',
           'inqbus.plone.fastmemberproperties',
       ],

@@ -3,6 +3,7 @@
 # zope imports
 from zope.interface import implements
 from zope.component import queryUtility
+from zope.component import getUtilitiesFor
 from zope.component import subscribers
 
 # Zope / Plone imports
@@ -17,6 +18,7 @@ from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
 from Products.TemplateFields import ZPTField
+from Products.MailHost.interfaces import IMailHost
 
 # Stuff for security workaround
 from AccessControl import ClassSecurityInfo, getSecurityManager
@@ -24,6 +26,7 @@ from AccessControl.SecurityManagement import newSecurityManager, setSecurityMana
 from AccessControl.User import nobody
 from AccessControl.User import UnrestrictedUser as BaseUnrestrictedUser
 
+from Products.EasyNewsletter.interfaces import ISubscriberSource
 
 
 try:
@@ -78,6 +81,7 @@ schema=Schema((
 
     TextField('default_header',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        default="Dear {% subscriber-fullname %}",
         widget=RichWidget(
             rows=10,
             label='Header',
@@ -187,6 +191,33 @@ schema=Schema((
             size = 10,
         )
     ),
+
+    StringField('subscriberSource',
+        schemata='External',
+        vocabulary="get_subscriber_sources",
+        default='default',
+        widget=SelectionWidget(
+            label='External subscriber source',
+            label_msgid='EasyNewsletter_label_externalSubscriberSource',
+            description_msgid='EasyNewsletter_help_externalSubscriberSource',
+            i18n_domain='EasyNewsletter',
+            size = 10,
+        )
+    ),
+
+    StringField('deliveryService',
+        schemata='External',
+        vocabulary="get_delivery_services",
+        default='mailhost',
+        widget=SelectionWidget(
+            label='External delivery service',
+            label_msgid='EasyNewsletter_label_externalDeliveryService',
+            description_msgid='EasyNewsletter_help_externalDeliveryService',
+            i18n_domain='EasyNewsletter',
+            size = 10,
+        )
+    ),
+
 
     ZPTField('out_template_pt',
         schemata="settings",
@@ -337,6 +368,24 @@ class EasyNewsletter(ATTopic, BaseFolder):
             results = subscriber.filter(results)
         return results.sortedByValue()
 
+    def getNewsletter(self):
+        """ return the (parent) Newsletter instance using Acquisition """
+        return self
+
+    def get_subscriber_sources(self):
+        result = DisplayList()
+        result.add(u'default', _(u'EasyNewsletter_label_noSource', u'no external subscriber source'))
+        for utility in getUtilitiesFor(ISubscriberSource):
+            result.add(utility[0], utility[0])
+        return result
+
+    def get_delivery_services(self):
+        result = DisplayList()
+        result.add(u'mailhost', _(u'EasyNewsletter_label_PloneMailHost', u'Default Plone Mailhost'))
+        for utility in getUtilitiesFor(IMailHost):
+            if utility[0]:
+                result.add(utility[0], utility[0])
+        return result
 
 registerType(EasyNewsletter, PROJECTNAME)
 

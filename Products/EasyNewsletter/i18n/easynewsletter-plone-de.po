@@ -65,3 +65,5 @@ msgstr "Zu gesendet wechseln"
 msgid "sent"
 msgstr "Gesendet"
 
+msgid "External"
+msgstr "Extern"

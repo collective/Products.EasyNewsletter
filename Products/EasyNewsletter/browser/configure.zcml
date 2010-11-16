@@ -4,12 +4,21 @@
     xmlns:cmf="http://namespaces.zope.org/cmf"
     i18n_domain="EasyNewsletter">
 
+    <include package="plone.app.contentmenu" />
+
     <browser:page
         name="send-issue-form"
         for="..interfaces.IENLIssue"
         class=".issue.IssueView"
         template="issue_send_form.pt"
         permission="cmf.ManagePortal" />
+    
+    <browser:page
+        name="get-public-body"
+        for="..interfaces.IENLIssue"
+        class=".issue.IssueView"
+        attribute="get_public_body"
+        permission="zope2.View" />
 
     <browser:page
         name="send-issue"
@@ -24,6 +33,13 @@
         class=".issue.IssueView"
         attribute="refresh_issue"
         permission="cmf.ManagePortal" />
+
+    <browser:page
+        name="enl_public_view"
+        for="..interfaces.IENLIssue"
+        class=".issue.IssueView"
+        template="issue_public_view.pt"
+        permission="zope2.View" />
 
     <browser:page
         name="unsubscribe"
@@ -46,6 +62,22 @@
     	permission="zope.Public"
     	for="*"
     	/>
+
+    <browser:page
+        for="..interfaces.IEasyNewsletter"
+        name="all_issues_view"
+        class=".newsletter.NewsletterView"
+        template="all_issues_view.pt"
+        permission="zope2.View"
+        />
+    
+    <browser:menuItem
+        for="..interfaces.IEasyNewsletter"
+        menu="plone_displayviews"
+        title="Issues full view"
+        action="all_issues_view"
+        description="Display all issues as fulltext"
+        /> 
 
     <browser:page
         for="..interfaces.IEasyNewsletter"

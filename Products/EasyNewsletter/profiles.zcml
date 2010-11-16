@@ -5,7 +5,7 @@
 
   <genericsetup:registerProfile
       name="default"
-      title="EasyNewsLetter"
+      title="EasyNewsletter"
       directory="profiles/default"
       description="An easy to use Newsletter for Plone."
       provides="Products.GenericSetup.interfaces.EXTENSION"
@@ -13,7 +13,7 @@
 
   <genericsetup:registerProfile
       name="uninstall"
-      title="uninstall EasyNewsLetter"
+      title="uninstall EasyNewsletter"
       directory="profiles/uninstall"
       description='Removes the "EasyNewsLetter".'
       provides="Products.GenericSetup.interfaces.EXTENSION"

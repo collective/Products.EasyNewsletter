@@ -36,6 +36,7 @@
 
     <input type="text"
            name="sender_name"
+           size="40"
            tal:attributes="value python:context.REQUEST.get('sender_name', context.aq_parent.getSenderName())" /> 
            
     <br/><br/>           
@@ -53,6 +54,7 @@
 
     <input type="text"
            name="sender_email"
+           size="40"
            tal:attributes="value python:context.REQUEST.get('sender_email', context.aq_parent.getSenderEmail())" /> 
            
     <br/><br/>           
@@ -70,6 +72,7 @@
 
     <input type="text"
            name="subject"
+           size="40"
            tal:attributes="value python:context.REQUEST.get('subject', context.Title())" /> 
            
     <br/><br/>           
@@ -111,6 +114,7 @@
 
     <input type="text"
            name="test_receiver"
+           size="40"
            tal:attributes="value python:context.REQUEST.get('test_receiver', context.aq_parent.getTestEmail())" /> 
            
     <br/><br/>           
@@ -121,12 +125,14 @@
     </div>
     <br/>    
     <input tal:condition="not:sent"
+           class="context"
            type="submit" 
            name="send"
            value="Send Newsletter"
            i18n:attributes="value easynewsletter_send_button;"/>
            
     <input type="submit"
+           class="context"
            name="test"
            value="Test Newsletter"
            i18n:attributes="value easynewsletter_test_button;"/>

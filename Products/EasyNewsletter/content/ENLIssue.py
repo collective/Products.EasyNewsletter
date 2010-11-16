@@ -1,36 +1,37 @@
 # python imports
 import formatter
-import StringIO
+import cStringIO
 from htmllib import HTMLParser
 from urlparse import urlparse
 from email.MIMEText import MIMEText
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEImage import MIMEImage
+from email.Header import Header
 from email import Encoders
 
 # zope imports
 from zope.interface import implements
 from zope.component import queryUtility
+from zope.component import getUtility, ComponentLookupError
 from Acquisition import aq_parent, aq_inner
 
 # Zope / Plone import
 from AccessControl import ClassSecurityInfo
+from Products.MailHost.interfaces import IMailHost
 from Products.Archetypes.atapi import *
-#from Products.ATContentTypes import ATCTMessageFactory as _
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
+from Products.EasyNewsletter.interfaces import ISubscriberSource
 from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
 from Products.Archetypes.public import DisplayList
 from Products.CMFCore.utils import getToolByName
 from Products.PageTemplates.ZopePageTemplate import ZopePageTemplate
 from Products.Archetypes.public import ObjectField
+
 try:
     from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool
     fmp_tool = queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool')
-    if fmp_tool:
-        no_fmp = False
-    else:
-        no_fmp = True
+    no_fmp = not(fmp_tool)
 except:
     no_fmp = True
 
@@ -210,13 +211,84 @@ class ENLIssue(ATTopic, BaseContent):
         url = self.absolute_url()
         self.REQUEST.RESPONSE.redirect(url)
 
-    security.declarePublic('send')
-    def send(self):
-        """Sends the newsletter
+
+    def _send_recipients(self, recipients=[]):
+        """ return list of recipients """
+
+        request = self.REQUEST
+        enl = self.getNewsletter()
+
+        if recipients:
+            receivers = recipients
+
+        elif hasattr(request, "test"):
+            # get test e-mail
+            test_receiver = request.get("test_receiver", "")
+            if test_receiver == "":
+                test_receiver = enl.getTestEmail()
+            receivers = [{'email': test_receiver, 'fullname': ''}]
+
+        else:
+            # get ENLSubscribers
+            enl_receivers = [{
+                'email': subscriber.getEmail(),
+                'fullname': subscriber.getFullname(),
+                'uid': subscriber.UID()} \
+                    for subscriber in enl.objectValues("ENLSubscriber")]
+            # get subscribers over selected plone members and groups
+            plone_receivers = self.get_plone_subscribers()
+
+            # check external subscriber source
+            external_subscribers = []
+            external_source_name = enl.getSubscriberSource()
+            if external_source_name != 'default':
+                log.info('Searching for users in external source "%s"' % external_source_name)
+                try:
+                    external_source = getUtility(ISubscriberSource, name=external_source_name)
+                    external_subscribers = external_source.getSubscribers(enl)
+                    log.info('Found %d external subscriptions' % len(external_subscribers))
+                except ComponentLookupError:
+                    pass
+            receivers = plone_receivers + enl_receivers + external_subscribers
+
+        return receivers
+
+    def _send_body(self):
+        """ Return rendered body of newsletter (text+html) 
+            w/o header and footer.
         """
+
+        enl = self.getNewsletter()
+
+        # get charset
+        props = getToolByName(self, "portal_properties").site_properties
+        charset = props.getProperty("default_charset")
+        # get out_template from ENL object and render it in context of issue
+        out_template_pt_field = enl.getField('out_template_pt')
+        ObjectField.set(out_template_pt_field, self, ZopePageTemplate(out_template_pt_field.getName(), enl.getRawOut_template_pt()))
+        output_html = self.out_template_pt.pt_render().encode(charset)
+        # remove >>PERSOLINE>> marker
+        text = output_html.replace("<p>&gt;&gt;PERSOLINE&gt;&gt;", "")
+        # exchange relative URLs
+        parser_output_zpt = ENLHTMLParser(self)
+        parser_output_zpt.feed(text)
+        text = parser_output_zpt.html
+        text_plain = self.create_plaintext_message(text)
+        image_urls = parser_output_zpt.image_urls
+        return dict(html=text, plain=text_plain, images=image_urls)
+
+    security.declarePublic('send')
+    def send(self, recipients=[]):
+        """Sends the newsletter.
+           An optional list of dicts (keys=fullname|mail) can be passed in 
+           for sending a newsletter out addresses != subscribers.
+        """
+
         # preparations
         request = self.REQUEST
-        enl = self.aq_inner.aq_parent
+
+        # get hold of the parent Newsletter object#       
+        enl = self.getNewsletter()
 
         # get sender name
         sender_name = request.get("sender_name", "")
@@ -228,55 +300,33 @@ class ENLIssue(ATTopic, BaseContent):
         if sender_email == "":
             sender_email = enl.getSenderEmail()
 
-        # get test e-mail
-        test_receiver = request.get("test_receiver", "")
-        if test_receiver == "":
-            test_receiver = enl.getTestEmail()
-
         # get subject
         subject = request.get("subject", "")
         if subject == "":
             subject = self.Title()
 
         # Create from-header
-        if enl.getSenderName():
-            from_header = '"%s" <%s>' % (sender_name, sender_email)
-        else:
-            from_header = sender_email
+        from_header = enl.getSenderName() and '"%s" <%s>' % (sender_name, sender_email) or sender_email
 
-        # get subscribers:
-        if hasattr(request, "test"):
-            receivers = [{'email': test_receiver, 'fullname': ''}]
+        # determine MailHost first (build-in vs. external)
+        deliveryServiceName = enl.getDeliveryService()
+        if deliveryServiceName == 'mailhost':
+            MailHost = getToolByName(enl, 'MailHost')
         else:
-            # get ENLSubscribers
-            enl_receivers = [{
-                'email': subscriber.getEmail(),
-                'fullname': subscriber.getFullname(),
-                'uid': subscriber.UID()} \
-                    for subscriber in self.aq_inner.aq_parent.objectValues("ENLSubscriber")]
-            # get subscribers over selected plone members and groups
-            plone_receivers = self.get_plone_subscribers()
-            receivers = plone_receivers + enl_receivers
-
-        # get charset
-        props = getToolByName(self, "portal_properties").site_properties
-        charset = props.getProperty("default_charset")
-        # get parent ENL object
-        parent = aq_parent(aq_inner(self))
-        # get out_template from ENL object and render it in context of issue
-        out_template_pt_field = parent.getField('out_template_pt')
-        ObjectField.set(out_template_pt_field, self, ZopePageTemplate(out_template_pt_field.getName(), parent.getRawOut_template_pt()))
-        output_html = self.out_template_pt.pt_render().encode(charset)
-        # remove >>PERSOLINE>> marker
-        text = output_html.replace("<p>&gt;&gt;PERSOLINE&gt;&gt;", "")
-        # exchange relative URLs
-        parser_output_zpt = ENLHTMLParser(self)
-        parser_output_zpt.feed(text)
-        text = parser_output_zpt.html
-        text_plain = self.create_plaintext_message(text)
+            MailHost = getUtility(IMailHost, name=deliveryServiceName)
+        log.info('Using mail delivery service "%r"' % MailHost)
 
         send_counter = 0
         send_error_counter = 0
+
+        receivers = self._send_recipients(recipients)
+        send_body = self._send_body()
+        text = send_body['html']
+        text_plain = send_body['plain']
+        image_urls = send_body['images']
+        props = getToolByName(self, "portal_properties").site_properties
+        charset = props.getProperty("default_charset")
+
         for receiver in receivers:
             # create multipart mail
             mail = MIMEMultipart("alternative")
@@ -289,7 +339,7 @@ class ENLIssue(ATTopic, BaseContent):
             else:
                 if receiver.has_key('uid'):
                     try:
-                        unsubscribe_text = parent.getUnsubscribe_string()
+                        unsubscribe_text = enl.getUnsubscribe_string()
                     except AttributeError:
                         unsubscribe_text = "Click here to unsubscribe"
                     unsubscribe_link = enl.absolute_url() + "/unsubscribe?subscriber=" + receiver['uid']
@@ -302,7 +352,7 @@ class ENLIssue(ATTopic, BaseContent):
                 fullname = receiver['fullname']
                 if not fullname:
                     try:
-                        fullname = parent.getFullname_fallback()
+                        fullname = enl.getFullname_fallback()
                     except AttributeError:
                         fullname = "Sir or Madam"
                 mail['To'] = receiver['email']
@@ -311,7 +361,7 @@ class ENLIssue(ATTopic, BaseContent):
             personal_text_plain = personal_text_plain.replace("{% subscriber-fullname %}", fullname)
 
             mail['From']    = from_header
-            mail['Subject'] = subject
+            mail['Subject'] = Header(subject)
             mail.epilogue   = ''
 
             # Attach text part
@@ -325,7 +375,7 @@ class ENLIssue(ATTopic, BaseContent):
 
             # Add images to the message
             image_number = 0
-            for image_url in parser_output_zpt.image_urls:
+            for image_url in image_urls:
                 image_url = urlparse(image_url)[2]
                 o = self.restrictedTraverse(image_url)
                 if hasattr(o, "_data"):                               # file-based
@@ -338,7 +388,7 @@ class ENLIssue(ATTopic, BaseContent):
 
             mail.attach(html_part)
             try:
-                self.MailHost.send(mail.as_string())
+                MailHost.send(mail.as_string())
                 log.info("Send newsletter to \"%s\"" % receiver['email'])
                 send_counter += 1
             except Exception, e:
@@ -346,8 +396,10 @@ class ENLIssue(ATTopic, BaseContent):
                 send_error_counter += 1
 
         log.info("Newsletter was send to (%s) receivers. (%s) errors occurred!" % (send_counter, send_error_counter))
-        # change status
-        if not hasattr(request, "test"):
+
+        # change status only for a 'regular' send operation (not 'test', no
+        # explicit recipients)
+        if not hasattr(request, "test") and not recipients:
             wftool = getToolByName(self, "portal_workflow")
             if wftool.getInfoFor(self, 'review_state') == 'draft':
                 wftool.doActionFor(self, "send")
@@ -456,7 +508,7 @@ class ENLIssue(ATTopic, BaseContent):
             and attaching links as endnotes 
         """
         plain_text_maxcols = 72
-        textout = StringIO.StringIO()
+        textout = cStringIO.StringIO()
         formtext = formatter.AbstractFormatter(formatter.DumbWriter(
                         textout, plain_text_maxcols))
         parser = HTMLParser(formtext)
@@ -475,5 +527,9 @@ class ENLIssue(ATTopic, BaseContent):
         del textout, formtext, parser, anchorlist
         return text
 
+    def getFiles(self):
+        """ Return list of files in subtree """
+        return self.getFolderContents(contentFilter=dict(portal_type=('File',), 
+                                      sort_on='getObjPositionInParent'))
 
 registerType(ENLIssue, PROJECTNAME)

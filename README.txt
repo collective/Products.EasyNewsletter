@@ -53,8 +53,64 @@ Source Code
 
 The source code is within the collective: https://svn.plone.org/svn/collective/Products.EasyNewsletter/
 
+Autors
+======
+
+* Kai Dieffenbach (V 1.X)
+* Maik Derstappen (V 2.0)
+* Andreas Jung (V 2.1)
+
 Changes
 =======
+
+2.1.0 (unreleased)
+------------------
+
+ * added support for Zope utilities providing the ISubscriberSource
+   interface to hook in external subscriber sources (e.g. some sub-system
+   managing subscriptions to newsletters on their own (instead of relying
+   on instances of 'Subscriber' located inside the newsletter folder itself)
+   [ajung]
+
+ * the 'Subscribers' tab of Issue instance now also includes subscribers
+   from an utility providing ISubscriberSource 
+   [ajung]
+
+ * the Newsletter instance now got an new schemata 'External' and a new
+   option to configure an utility providing ISubscriberSource
+   [ajung]
+
+ * it is now possible to configure a dedicated MailHost for newsletter
+   delivery other than the configured Plone MailHost (see External tab
+   of the Newsletter instance). An external delivery service must be   
+   configured as named utility providing IMailHost.
+   [ajung]
+   
+ * major refactoring of the send() method of ENLIssue
+   [ajung]    
+ 
+ * added getFiles() API to ENLIssue for auto-generating a listing 
+   of files attached to the newsletter body upon send time
+   [ajung]    
+
+ * personal information like the salutation {% subscriber-fullname %}
+   must no longer be located inside the newsletter body but should be
+   moved out to the header and footer sections.
+   [ajung]    
+
+ * replace enl_issue_view with a rendered view of the newsletter without
+   header and footer
+   [ajung]    
+
+ * added all types to portal_factory configuration
+   [ajung]
+
+ * added @@all_issues_view to Newsletter implementation
+   [ajung]
+
+ * various cleanup
+   [ajung]
+
 
 2.0.1 (2010-07-31)
 -----------------------
