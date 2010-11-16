@@ -65,6 +65,11 @@ Autors
 Changes
 =======
 
+2.5.0b2 (2010/11/16)
+--------------------
+ * fixed encoding issue with the member vocabulary
+   [ajung]
+
 2.5.0b1 (2010/11/16)
 --------------------
 
