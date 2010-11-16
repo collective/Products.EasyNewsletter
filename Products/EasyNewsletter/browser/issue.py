@@ -28,12 +28,9 @@ class IssueView(BrowserView):
         return self.request.response.redirect(self.context.absolute_url())
 
     def get_public_body(self):
-        """ Return the rendered HTML version of the newsletter """
-
+        """ Return the rendered HTML version (.body-text) 
+            of the newsletter.
+        """
         html = self.context._send_body()['html']
         soup = BeautifulSoup(html)
-        for id in ('header', 'footer'):
-            node = soup.find('div', {'id' : id})
-            if node:
-                node.extract()
-        return soup.renderContents()
+        return soup.find('div', {'class' : 'body-text'}).renderContents()

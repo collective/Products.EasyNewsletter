@@ -34,7 +34,6 @@ class NewsletterView(BrowserView):
 
         result = list()
         catalog = getToolByName(self.context, "portal_catalog")
-
         for brain in catalog(portal_type='ENLIssue',
                              path='/'.join(self.context.getPhysicalPath())):
             issue = brain.getObject()
