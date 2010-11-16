@@ -74,7 +74,7 @@
     <browser:menuItem
         for="..interfaces.IEasyNewsletter"
         menu="plone_displayviews"
-        title="All issues"
+        title="Issues full view"
         action="all_issues_view"
         description="Display all issues as fulltext"
         /> 
