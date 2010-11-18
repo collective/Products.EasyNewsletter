@@ -69,6 +69,11 @@ Autors
 Changes
 =======
 
+2.5.0b3 (2010/11/18)
+--------------------
+ * subcollections view did not work
+   [ajung]
+
 2.5.0b2 (2010/11/16)
 --------------------
  * fixed encoding issue with the member vocabulary
