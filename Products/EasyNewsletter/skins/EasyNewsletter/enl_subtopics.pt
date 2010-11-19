@@ -62,9 +62,8 @@
                                    use_folder_contents site_properties/typesLinkToFolderContentsInFC|nothing;
                                    use_view_action site_properties/typesUseViewActionInListings|python:();
                                    query_path python:path('contentFilter/path|nothing') or request.get('path',None);
-                                   orderable_iface string:OFS.interfaces.IOrderedContainer;
                                    preSorted python:query_path or ((contentFilter and contentFilter.get('sort_on', 'getObjPositionInParent')!='getObjPositionInParent') or (not contentFilter and request.get('sort_on', 'getObjPositionInParent')!='getObjPositionInParent'));
-                                   isOrderable python:ifacetool.objectImplements(here, orderable_iface);
+                                   isOrderable context/enl_isOrderable;
                                    nosortclass python:test(isOrderable, 'nosort', '');
                                    canModifyFolderContent is_editable;">
 
