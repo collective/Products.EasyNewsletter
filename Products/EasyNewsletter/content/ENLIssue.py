@@ -208,7 +208,6 @@ class ENLIssue(ATTopic, BaseContent):
         url = self.absolute_url()
         self.REQUEST.RESPONSE.redirect(url)
 
-
     def _send_recipients(self, recipients=[]):
         """ return list of recipients """
 
