@@ -110,6 +110,14 @@ Autors
 Changes
 =======
 
+2.5.0b4 (2010/11/19)
+--------------------
+ * compatibility fixes with Plone 3/4
+   [ajung]
+
+ * default template mechanism while creating a new issue did not work
+   [ajung]
+
 2.5.0b3 (2010/11/18)
 --------------------
  * subcollections view did not work

@@ -12,6 +12,7 @@
 
     <include package=".browser" />
     <include package=".portlets" />
+    <include package=".content" />
     <include file="profiles.zcml" />
     <i18n:registerTranslations directory="locales" />
 

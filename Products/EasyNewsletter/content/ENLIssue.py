@@ -196,12 +196,9 @@ class ENLIssue(ATTopic, BaseContent):
     implements(IENLIssue)
     security = ClassSecurityInfo()
     schema = schema
-
-    security.declarePublic("initializeArchetype")
-    def initializeArchetype(self, **kwargs):
-        """Overwritten hook
-        """
-        ATTopic.initializeArchetype(self, **kwargs)
+    
+    def at_post_create_script(self):
+        """Overwritten hook """
         self.loadContent()
 
     security.declarePublic("folder_contents")
