@@ -93,7 +93,9 @@ Inside the ``Edit`` view of the instance under the ``External`` tab you should f
 ``MyInfo subscribers`` under the option ``External subscriber source``.
 
 Allowed placeholders
-============
+====================
+
+The following placeholder can be used in the header, body and footer of issues:
 
 * ``{% subscriber-fullname %}`` 
 * ``{% unsubscribe %}``
@@ -103,6 +105,12 @@ Source Code
 ===========
 
 The source code is within the collective: https://svn.plone.org/svn/collective/Products.EasyNewsletter/
+
+
+Bugtracker
+==========
+
+* http://plone.org/products/easynewsletter/issues
 
 Autors
 ======
