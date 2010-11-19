@@ -92,11 +92,11 @@ The utility must be registered using ZCML::
 Inside the ``Edit`` view of the instance under the ``External`` tab you should find
 ``MyInfo subscribers`` under the option ``External subscriber source``.
 
-Placeholders
+Allowed placeholders
 ============
 
 * ``{% subscriber-fullname %}`` 
-* ``{% unsubscriber %}``
+* ``{% unsubscribe %}``
 
 
 Source Code 
