@@ -15,9 +15,6 @@ EasyNewsletterMessageFactory = MessageFactory('EasyNewsletter')
 def initialize(context):
     """Intializer called when used as a Zope 2 product.
     """
-    # allow pdb
-    from AccessControl import allow_module
-    allow_module("pdb")
 
     # imports packages and types for registration
     import content
