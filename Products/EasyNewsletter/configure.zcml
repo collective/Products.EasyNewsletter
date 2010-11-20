@@ -5,8 +5,11 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:zcml="http://namespaces.zope.org/zcml"
+    xmlns:five="http://namespaces.zope.org/five"
     i18n_domain="EasyNewsletter">
     
+    <five:registerPackage package="." initialize=".initialize" />
+
     <include zcml:condition="installed inqbus.plone.fastmemberproperties"
         package="inqbus.plone.fastmemberproperties" />
 
