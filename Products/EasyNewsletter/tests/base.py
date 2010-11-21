@@ -13,8 +13,7 @@ def setup_registration():
     zcml.load_config('configure.zcml', Products.EasyNewsletter)
     fiveconfigure.debug_mode = False
 
-    ztc.installProduct('EasyNewsletter')
-
+ztc.installProduct('EasyNewsletter')
 setup_registration()
 ptc.setupPloneSite(products=['EasyNewsletter'])
 
