@@ -213,7 +213,6 @@ class ENLIssue(ATTopic, BaseContent):
 
         request = self.REQUEST
         enl = self.getNewsletter()
-
         if recipients:
             receivers = recipients
 
@@ -382,8 +381,12 @@ class ENLIssue(ATTopic, BaseContent):
                 image_number += 1
                 outer.attach(image)
 
-            MailHost.send(outer.as_string())
-
+            try:
+                MailHost.send(outer.as_string())
+                log.info("Send newsletter to \"%s\"" % receiver['email'])
+                send_counter += 1
+            except Exception, e:
+                log.info("Sending newsletter to \"%s\" failt, with error \"%s\"!" % (receiver['email'], e))
 
         log.info("Newsletter was send to (%s) receivers. (%s) errors occurred!" % (send_counter, send_error_counter))
 
