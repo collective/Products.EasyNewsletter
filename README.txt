@@ -127,6 +127,9 @@ Changes
  * fixed error handling in send()
    [ajung]
 
+ * made unsubscribe code more robust
+   [ajung]
+
 2.5.0b4 (2010/11/19)
 --------------------
  * compatibility fixes with Plone 3/4

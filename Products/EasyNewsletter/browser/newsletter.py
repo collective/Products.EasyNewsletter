@@ -11,12 +11,13 @@ class NewsletterView(BrowserView):
     def unsubscribe(self):
         """
         """
-        putils = getToolByName(self.context, "plone_utils")
-        catalog = getToolByName(self.context, "portal_catalog")
 
-        try:
-            subscriber = catalog.searchResults(UID = self.request.get("subscriber", ""))[0]
-        except IndexError:
+        putils = getToolByName(self.context, "plone_utils")
+        catalog = getToolByName(self.context, "reference_catalog")
+        uid = self.request.get("subscriber")
+
+        subscriber = catalog.lookupObject(uid)        
+        if subscriber is None:
             putils.addPortalMessage(_("An error occured"), "error")
         else:
             newsletter = self.context
