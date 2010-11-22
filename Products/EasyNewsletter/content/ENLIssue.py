@@ -339,7 +339,7 @@ class ENLIssue(ATTopic, BaseContent):
                         unsubscribe_text = "Click here to unsubscribe"
                     unsubscribe_link = enl.absolute_url() + "/unsubscribe?subscriber=" + receiver['uid']
                     personal_text = text.replace("{% unsubscribe %}", """<a href="%s">%s.</a>""" % (unsubscribe_link, unsubscribe_text))
-                    personal_text_plain = text_plain.replace("{% unsubscribe %}", """%s: %s""" % (unsubscribe_text, unsubscribe_link))
+                    personal_text_plain = text_plain.replace("{% unsubscribe %}", """\n%s: %s""" % (unsubscribe_text, unsubscribe_link))
                 else:
                     personal_text = text.replace("{% unsubscribe %}", "")
                     personal_text_plain = text_plain.replace("{% unsubscribe %}", "")
