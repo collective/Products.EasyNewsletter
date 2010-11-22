@@ -122,6 +122,11 @@ Autors
 Changes
 =======
 
+2.5.0b5 (unreleased)
+--------------------
+ * fixed error handling in send()
+   [ajung]
+
 2.5.0b4 (2010/11/19)
 --------------------
  * compatibility fixes with Plone 3/4
