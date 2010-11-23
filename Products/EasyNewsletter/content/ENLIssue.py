@@ -410,7 +410,6 @@ class ENLIssue(ATTopic, BaseContent):
         """Returns subtopics of the issues.
         """
         topics = self.objectValues("ATTopic")
-
         if self.getAcquireCriteria():
             return self.aq_inner.aq_parent.objectValues("ATTopic")
         else:
