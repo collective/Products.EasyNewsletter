@@ -122,7 +122,14 @@ Autors
 Changes
 =======
 
-2.5.0b5 (unreleased)
+2.5.0b6 (2010/11/24)
+--------------------
+
+ * fixed issue default view (``refresh`` documentation did not work)
+   [ajung]
+
+
+2.5.0b5 (2010/11/23)
 --------------------
  * fixed error handling in send()
    [ajung]
