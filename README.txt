@@ -23,6 +23,7 @@ Features
 
     * Support personalized mails
 
+    * mass import subscribers with csv upload
 
 Requirements
 ============
@@ -48,7 +49,7 @@ Installation
     subscribers will be added).
 
 
-Documentation 
+Documentation
 =============
 
 For more documentation please visit: http://packages.python.org/Products.EasyNewsletter/
@@ -78,7 +79,7 @@ You configure an external subscriber source as Zope 3 utility providing ISubscri
             myinfo = getUtility(IMyInfo)
             subscribers = list()
             for user in myinfo.accounts.find({'data.newsletters' : uid, 'state' : 'active'}):
-                subscribers.append(dict(email=user['email'], 
+                subscribers.append(dict(email=user['email'],
                                         fullname=user['username']))
             return subscribers
 
@@ -97,11 +98,11 @@ Allowed placeholders
 
 The following placeholder can be used in the header, body and footer of issues:
 
-* ``{% subscriber-fullname %}`` 
+* ``{% subscriber-fullname %}``
 * ``{% unsubscribe %}``
 
 
-Source Code 
+Source Code
 ===========
 
 The source code is within the collective: https://svn.plone.org/svn/collective/Products.EasyNewsletter/
@@ -121,6 +122,16 @@ Autors
 
 Changes
 =======
+
+dev/trunk (2010/11/30)
+--------------------
+ * added CSV import (to upload_csv.pt, subscribers.py)
+   you have to append '@@upload_csv' to your newsletter url to call this page.
+   the csv file must look like this (email is required):
+    "fullname","email","organization"
+    "John Doe","john.doe@yahoo.com","ACME Corp."
+    "","admin@plone.org",""
+   [nan]
 
 2.5.0 (2010/11/26)
 --------------------
@@ -170,7 +181,7 @@ Changes
    [ajung]
 
  * the 'Subscribers' tab of Issue instance now also includes subscribers
-   from an utility providing ISubscriberSource 
+   from an utility providing ISubscriberSource
    [ajung]
 
  * the Newsletter instance now got an new schemata 'External' and a new
@@ -179,25 +190,25 @@ Changes
 
  * it is now possible to configure a dedicated MailHost for newsletter
    delivery other than the configured Plone MailHost (see External tab
-   of the Newsletter instance). An external delivery service must be   
+   of the Newsletter instance). An external delivery service must be
    configured as named utility providing IMailHost.
    [ajung]
-   
+
  * major refactoring of the send() method of ENLIssue
-   [ajung]    
- 
- * added getFiles() API to ENLIssue for auto-generating a listing 
+   [ajung]
+
+ * added getFiles() API to ENLIssue for auto-generating a listing
    of files attached to the newsletter body upon send time
-   [ajung]    
+   [ajung]
 
  * personal information like the salutation {% subscriber-fullname %}
    must no longer be located inside the newsletter body but should be
    moved out to the header and footer sections.
-   [ajung]    
+   [ajung]
 
  * replace enl_issue_view with a rendered view of the newsletter without
    header and footer
-   [ajung]    
+   [ajung]
 
  * added all types to portal_factory configuration
    [ajung]
@@ -225,12 +236,12 @@ Changes
 
  * integrate the header and footer field into email text
 
- * add possibility to define a default header and footer in the Newsletter container 
+ * add possibility to define a default header and footer in the Newsletter container
 
  * add fullname attribute to subscriber
 
  * add description and fullname to subscriber portlet
- 
+
  * add usefull path description to subscriber portlet and allow also a path starting with '/'
 
  * add plone members and groups selection to Newsletter and Issue
