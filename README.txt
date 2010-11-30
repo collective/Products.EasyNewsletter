@@ -127,10 +127,12 @@ Changes
 ------------------
  * added CSV import (to upload_csv.pt, subscribers.py)
    you have to append '@@upload_csv' to your newsletter url to call this page.
-   the csv file must look like this (email is required):
+   the csv file must look like this (email is required)::
+
     "fullname","email","organization"
     "John Doe","john.doe@yahoo.com","ACME Corp."
     "","admin@plone.org",""
+
    [nan]
 
 2.5.0 (2010/11/26)
