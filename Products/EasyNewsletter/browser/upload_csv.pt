@@ -21,10 +21,62 @@
                   i18n:translate="easynewsletter_subcribers_label">Subscribers</span>
         </h1>
 
+        <form method="POST" action="#"  enctype="multipart/form-data"
+                tal:attributes="action request/URL0">
+
+           <fieldset>
+              <legend i18n:translate="">
+                Import
+              </legend>
+
+              <div class="field">
+                <label i18n:translate="">Csv file</label>
+                <div class="formHelp" i18n:translate="">
+                  Select your CSV file here.
+                </div>
+                <input type="file" name="csv_upload" />
+              </div>
+              <table class="listing">
+                  <caption>The CSV file must contain the header and follow this format</caption>
+                  <thead>
+                    <tr>
+                      <th>fullname</th>
+                      <th>email</th>
+                      <th>organization</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                      <td>John Doe</td>
+                      <td>jd@domain.com</td>
+                      <td>ACME Corp.</td>
+                  </tr>
+                  </tbody>
+              </table>
+              <div class="formControls"
+                   i18n:domain="plone">
+
+                <input class="destructive"
+                       type="submit"
+                       value="Cancel"
+                       name="form.button.Cancel"
+                       i18n:attributes="value label_cancel;"
+                       />
+                <input class="standalone"
+                       type="submit"
+                       value="Import"
+                       name="form.button.Import"
+                       i18n:attributes="value;"
+                       />
+
+              </div>
+
+            </fieldset>
+        </form>
         <div tal:define="subscribers python:view.create_subscribers('dummy');
                          fail subscribers/fail;
                          success subscribers/success">
-            
+
             <h3 i18n:translate="not_created_subscribers">Not imported subscribers</h3>
             <p tal:repeat="mail fail" tal:content="mail"></p>
             <h3 i18n:translate="sucessfully_created_subscribers">Sucessfully created Subscribers</h3>

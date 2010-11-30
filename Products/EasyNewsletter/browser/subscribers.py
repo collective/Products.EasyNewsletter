@@ -8,16 +8,28 @@ from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.interfaces import ISubscriberSource
+import csv
+import re
+
+regex = r"^[a-zA-Z0-9._%-]+@([a-zA-Z0-9-]+\.)*[a-zA-Z]{2,4}$"
+check_email = re.compile(regex).match
+def validate_email(value):
+    if not check_email(value):
+        return False
+    return True
+
+CSV_HEADER = [
+    'fullname',
+    'email',
+    'organization',
+]
+
 
 
 class IEnl_Subscribers_View(Interface):
     """
     Enl_Subscribers_View interface
     """
-
-    def test():
-        """ test method"""
-
 
 class Enl_Subscribers_View(BrowserView):
     """
@@ -41,14 +53,14 @@ class Enl_Subscribers_View(BrowserView):
         subscribers = list()
 
         # Plone subscribers
-        for brain in self.portal_catalog(portal_type = 'ENLSubscriber', 
-                                         path='/'.join(self.context.getPhysicalPath()), 
+        for brain in self.portal_catalog(portal_type = 'ENLSubscriber',
+                                         path='/'.join(self.context.getPhysicalPath()),
                                          sort_on='email'):
             subscribers.append(dict(source='plone',
                                deletable=True,
-                               email=brain.email, 
+                               email=brain.email,
                                getURL=brain.getURL(),
-                               fullname=brain.fullname, 
+                               fullname=brain.fullname,
                                organization=brain.organization))
 
         # External subscribers
@@ -63,7 +75,7 @@ class Enl_Subscribers_View(BrowserView):
                 subscriber['source'] = external_source_name
                 subscribers.append(subscriber)
 
-        return subscribers                
+        return subscribers
 
 
 class UploadCSV(BrowserView):
@@ -91,8 +103,22 @@ class UploadCSV(BrowserView):
         """ Here you can enter your user. By calling www.mysite.com/mynewsletter/@@upload_csv
             you can import these into your newsletter.
         """
-        data = [("Dummy Name", "dummy@email.com", "Dummy Company"),
-                ("Another Dummy", "dummy2@email.com", "United Nations")]
+        data = []
+        file_upload = self.request.form.get('csv_upload', None)
+        if file_upload is None or not file_upload.filename:
+            return data
+        #data = [("Dummy Name", "dummy@email.com", "Dummy Company"),
+        #        ("Another Dummy", "dummy2@email.com", "United Nations")]
+
+        reader = csv.reader(file_upload)
+        header = reader.next()
+        if header != CSV_HEADER:
+            msg = _('Wrong specification of the CSV file. Please correct it and retry.')
+            type = 'error'
+            IStatusMessage(self.request).addStatusMessage(msg, type=type)
+            return data
+        for row in reader:
+            data.append(row)
         return data
 
     def create_subscribers(self, csv_data):
@@ -108,14 +134,23 @@ class UploadCSV(BrowserView):
             if id in existing:
                 messages.addStatusMessage(_("Your e-mail address is already registered."), "error")
                 fail.append(email)
+            elif not(validate_email(email)):
+                messages.addStatusMessage(_("Invalid e-mail address."), "error")
+                fail.append(email)
             else:
                 fullname = new_subscriber[0]
                 organization = new_subscriber[2]
                 title = email + " - " + fullname
-                self.context.invokeFactory('ENLSubscriber', id=id, title=title, description="", email=email, fullname=fullname, organization=organization)
+                try:
+                    self.context.invokeFactory('ENLSubscriber',
+                        id=id, title=title, description="", email=email,
+                        fullname=fullname, organization=organization)
+                except:
+                    messages.addStatusMessage(_("Error creating subscriber."), "error")
+                    fail.append(email)
                 obj = self.context.get(id, None)
                 obj.reindexObject()
                 success.append(email)
         return {'success' : success, 'fail' : fail}
-        
-        
+
+
