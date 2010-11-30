@@ -123,8 +123,8 @@ Autors
 Changes
 =======
 
-dev/trunk (2010/11/30)
---------------------
+2.5.1 (2010/11/30)
+------------------
  * added CSV import (to upload_csv.pt, subscribers.py)
    you have to append '@@upload_csv' to your newsletter url to call this page.
    the csv file must look like this (email is required):
