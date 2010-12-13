@@ -95,4 +95,9 @@
         permission="cmf.ManagePortal"
         />
 
+    <browser:resource
+        name="Products.EasyNewsletter.enl_edithelper.js"
+	file="javascripts/enl_edithelper.js"
+	/>
+
 </configure>
