@@ -382,6 +382,7 @@ class ENLIssue(ATTopic, BaseContent):
                 # attach images to text and html parts
                 text_part.attach(image)
                 html_part.attach(image)
+            
             outer.attach(text_part)
             outer.attach(html_part)
 
