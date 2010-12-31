@@ -32,10 +32,7 @@ from Products.EasyNewsletter.interfaces import ISubscriberSource
 try:
     from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool
     fmp_tool = queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool')
-    if fmp_tool:
-        no_fmp = False
-    else:
-        no_fmp = True
+    no_fmp = not(fmp_tool)
 except:
     no_fmp = True
 
@@ -47,10 +44,10 @@ from Products.EasyNewsletter.config import *
 schema=Schema((
     StringField('senderEmail',
         widget=StringWidget(
-            label="Sender e-mail",
-            description="Default for the sender address of the newsletters.",
-            label_msgid='EasyNewsletter_label_senderEmail',
-            description_msgid='EasyNewsletter_help_senderEmail',
+            label=_(u"EasyNewsletter_label_senderEmail", 
+                    default=u"Sender e-mail"),
+            description=_(u"EasyNewsletter_help_senderEmail", default=u"Default\
+                          for the sender address of the newsletters."),
             i18n_domain='EasyNewsletter',
         ),
         required=True,
@@ -59,38 +56,22 @@ schema=Schema((
 
     StringField('senderName',
         widget=StringWidget(
-            label="Sender name",
-            description="Default for the sender name of the newsletters.",
-            label_msgid='EasyNewsletter_label_senderName',
-            description_msgid='EasyNewsletter_help_senderName',
+            label=_(u"EasyNewsletter_label_senderName", default=u"Sender name"),
+            description=_(u"EasyNewsletter_help_senderName", default=u"Default \
+                          for the sender name of the newsletters."),
             i18n_domain='EasyNewsletter',
         )
     ),
 
     StringField('testEmail',
         widget=StringWidget(
-            label="Test e-mail",
-            description="Default for the test e-mail address.",
-            label_msgid='EasyNewsletter_label_testEmail',
-            description_msgid='EasyNewsletter_help_testEmail',
+            label=_(u"EasyNewsletter_label_testEmail", default=u"Test e-mail"),
+            description=_(u"EasyNewsletter_help_testEmail", default=u"Default \
+                          for the test e-mail address."),
             i18n_domain='EasyNewsletter',
         ),
         required=True,
         validators=('isEmail',)
-    ),
-
-    TextField('default_header',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        default="Dear {% subscriber-fullname %}",
-        widget=RichWidget(
-            rows=10,
-            label='Header',
-            label_msgid='EasyNewsletter_label_default_header',
-            description=_(u'description_text_header', default=u'The default header text. This is used as a default for new issues.'),
-            description_msgid='EasyNewsletter_help_deault_header',
-            i18n_domain='EasyNewsletter',
-        ),
-        default_output_type='text/html'
     ),
 
     StringField('fullname_fallback',
@@ -105,11 +86,22 @@ schema=Schema((
     StringField('unsubscribe_string',
         default="Click here to unsubscribe",
         widget=StringWidget(
-            label=_(u"Text for the 'unsubscribe' link"),
-            label_msgid='EasyNewsletter_label_unsubscribe_string',
+            label=_(u"EasyNewsletter_label_unsubscribe_string", default=u"Text for the 'unsubscribe' link"),
             description=_(u"EasyNewsletter_help_unsubscribe_string", default=u'This will replace the placeholder {% unsubscribe %}.'),
             i18n_domain='EasyNewsletter',
         ),
+    ),
+
+    TextField('default_header',
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        default="Dear {% subscriber-fullname %}",
+        widget=RichWidget(
+            rows=10,
+            label=_(u"EasyNewsletter_label_default_header", default=u"Header"),
+            description=_(u'description_text_header', default=u'The default header text. This is used as a default for new issues.'),
+            i18n_domain='EasyNewsletter',
+        ),
+        default_output_type='text/html'
     ),
 
     TextField('default_footer',
@@ -117,65 +109,21 @@ schema=Schema((
         default="{% unsubscribe %}",
         widget=RichWidget(
             rows=10,
-            label='Footer',
-            label_msgid='EasyNewsletter_label_default_footer',
+            label=_(u"EasyNewsletter_label_default_footer", default=u"Footer"),
             description=_(u'description_text_footer', default=u'The default footer text. This is used as a default for new issues.'),
-            description_msgid='EasyNewsletter_help_default_footer',
             i18n_domain='EasyNewsletter',
         ),
         default_output_type='text/html'
     ),
 
-    #Overwritten to hide attribute from ATTopic
-    BooleanField('limitNumber',
-        widget=BooleanWidget(
-            visible={'edit':'hidden', 'view':'hidden'},
-            label='Limitnumber',
-            label_msgid='EasyNewsletter_label_limitNumber',
-            description_msgid='EasyNewsletter_help_limitNumber',
-            i18n_domain='EasyNewsletter',
-        )
-    ),
-
-    #Overwritten to hide attribute from ATTopic
-    BooleanField('itemCount',
-        widget=BooleanWidget(
-            visible={'edit':'hidden', 'view':'hidden'},
-            label='Itemcount',
-            label_msgid='EasyNewsletter_label_itemCount',
-            description_msgid='EasyNewsletter_help_itemCount',
-            i18n_domain='EasyNewsletter',
-        )
-    ),
-
-    #Overwritten to hide attribute from ATTopic
-    BooleanField('customView',
-        widget=BooleanWidget(
-            visible={'edit':'hidden', 'view':'hidden'},
-            label='Customview',
-            label_msgid='EasyNewsletter_label_customView',
-            description_msgid='EasyNewsletter_help_customView',
-            i18n_domain='EasyNewsletter',
-        )
-    ),
-
-    #Overwritten to hide attribute from ATTopic
-    BooleanField('customViewFields',
-        widget=BooleanWidget(
-            visible={'edit':'hidden', 'view':'hidden'},
-            label='Customviewfields',
-            label_msgid='EasyNewsletter_label_customViewFields',
-            description_msgid='EasyNewsletter_help_customViewFields',
-            i18n_domain='EasyNewsletter',
-        )
-    ),
-
     LinesField('ploneReceiverMembers',
         vocabulary="get_plone_members",
         widget=MultiSelectionWidget(
-            label='Plone Members to receive the newsletter',
-            label_msgid='EasyNewsletter_label_ploneReceiverMembers',
-            description_msgid='EasyNewsletter_help_ploneReceiverMembers',
+            label=_(u"EasyNewsletter_label_ploneReceiverMembers",
+                    default=u"Plone Members to receive the newsletter"),
+            description=_(u"EasyNewsletter_help_ploneReceiverMembers",
+                          default=u"Choose Plone Members which should \
+                          receive the newsletter."),
             i18n_domain='EasyNewsletter',
             size = 20,
         )
@@ -184,35 +132,43 @@ schema=Schema((
     LinesField('ploneReceiverGroups',
         vocabulary="get_plone_groups",
         widget=MultiSelectionWidget(
-            label='Plone Groups to receive the newsletter',
-            label_msgid='EasyNewsletter_label_ploneReceiverGroups',
-            description_msgid='EasyNewsletter_help_ploneReceiverGroups',
+            label=_(u"EasyNewsletter_label_ploneReceiverGroups", 
+                    default=u"Plone Groups to receive the newsletter"),
+            description=_(u"EasyNewsletter_help_ploneReceiverGroups",
+                          default=u"Choose Plone Groups which members \
+                          should receive the newsletter."),
             i18n_domain='EasyNewsletter',
             size = 10,
         )
     ),
 
     StringField('subscriberSource',
-        schemata='External',
+        schemata='settings',
         vocabulary="get_subscriber_sources",
         default='default',
         widget=SelectionWidget(
-            label='External subscriber source',
-            label_msgid='EasyNewsletter_label_externalSubscriberSource',
-            description_msgid='EasyNewsletter_help_externalSubscriberSource',
+            label=_(u"EasyNewsletter_label_externalSubscriberSource", 
+                    default="External subscriber source"),
+            description=_(u"EasyNewsletter_help_externalSubscriberSource",
+                          default=u"Some packages provide an external \
+                          subscriber source for EasyNewsletter. If one \
+                          is installed you can choose it here."),
             i18n_domain='EasyNewsletter',
             size = 10,
         )
     ),
 
     StringField('deliveryService',
-        schemata='External',
+        schemata='settings',
         vocabulary="get_delivery_services",
         default='mailhost',
         widget=SelectionWidget(
-            label='External delivery service',
-            label_msgid='EasyNewsletter_label_externalDeliveryService',
-            description_msgid='EasyNewsletter_help_externalDeliveryService',
+            label=_(u"EasyNewsletter_label_externalDeliveryService",
+                    default=u"External delivery service"),
+            description=_(u"EasyNewsletter_help_externalDeliveryService",
+                          default=u"Some packages provide an external \
+                          delivery service for EasyNewsletter. If one \
+                          is installed you can choose it here."),
             i18n_domain='EasyNewsletter',
             size = 10,
         )
@@ -222,13 +178,9 @@ schema=Schema((
     ZPTField('out_template_pt',
         schemata="settings",
         default = DEFAULT_OUT_TEMPLATE_PT,
-        widget=TextAreaWidget(description = 'This is a Zope Page Template '
-            'used for rendering of the out going mail. You don\'t need to modify '
-            'it, but if you know TAL (Zope\'s Template Attribute Language) '
-            'you have the full power to customize your outgoing mails.',
-            description_msgid = "help_mailtemplate_body_pt",
-            label = 'Outgoing Mail Template',
-            label_msgid = "label_out_template_pt",
+        widget=TextAreaWidget(
+            description = _(u"help_mailtemplate_body_pt", u"This is a Zope Page Template used for rendering of the out going mail. You don\'t need to modify it, but if you know TAL (Zope\'s Template Attribute Language) you have the full power to customize your outgoing mails."),
+            label = _(u"label_out_template_pt", u"Outgoing Mail Template"),
             i18n_domain = "EasyNewsletter",
             rows = 40,
             ) ,
@@ -240,7 +192,7 @@ schema=Schema((
         schemata="settings",
         default = DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT,
         widget=StringWidget(
-            label= _ (u'EasyNewsletter_label_subscriber_confirmation_mail_subject', default=u'Subscriber confirmation mail subject'),
+            label= _(u'EasyNewsletter_label_subscriber_confirmation_mail_subject', default=u'Subscriber confirmation mail subject'),
             description = _(u'EasyNewsletter_description_subscriber_confirmation_mail_subject', default=u'Text used for confirmation email subject. You can customize the text, but it should include the placeholder: ${portal_url}!'),
             i18n_domain='EasyNewsletter',
         ),
@@ -265,6 +217,65 @@ schema=Schema((
 
 schema = ATTopicSchema + schema
 schema['text'].widget.description = _(u'description_text', default=u'This is used in the frontpage of EasyNewsletter on top of Issue archive list.')
+schema['limitNumber'].widget.visible = {
+    'view': 'invisible',
+    'edit': 'invisible'
+}
+schema['itemCount'].widget.visible = {
+    'view': 'invisible',
+    'edit': 'invisible'
+}
+schema['customView'].widget.visible = {
+    'view': 'invisible',
+    'edit': 'invisible'
+}
+schema['customViewFields'].widget.visible = {
+    'view': 'invisible',
+    'edit': 'invisible'
+}
+schema['allowDiscussion'].widget.visible = {
+    'view': 'invisible',
+    'edit': 'invisible'
+}
+schema['excludeFromNav'].widget.visible = {
+    'view': 'invisible',
+    'edit': 'invisible'
+}
+schema['subject'].widget.visible = {
+    'view': 'invisible',
+    'edit': 'invisible'
+}
+schema['location'].widget.visible = {
+    'view': 'invisible',
+    'edit': 'invisible'
+}
+schema['effectiveDate'].widget.visible = {
+    'view': 'invisible',
+    'edit': 'invisible'
+}
+schema['expirationDate'].widget.visible = {
+    'view': 'invisible',
+    'edit': 'invisible'
+}
+schema['creators'].widget.visible = {
+    'view': 'invisible',
+    'edit': 'invisible'
+}
+schema['contributors'].widget.visible = {
+    'view': 'invisible',
+    'edit': 'invisible'
+}
+schema['rights'].widget.visible = {
+    'view': 'invisible',
+    'edit': 'invisible'
+}
+schema['relatedItems'].schemata = "settings"
+schema['language'].schemata = "settings"
+schema.moveField('deliveryService', pos='bottom')
+schema.moveField('subscriberSource', pos='bottom')
+schema.moveField('relatedItems', pos='bottom')
+schema.moveField('language', pos='bottom')
+
 
 
 
@@ -341,10 +352,13 @@ class EasyNewsletter(ATTopic, BaseFolder):
 
         if not member_properties:
             return []
-        results = DisplayList([(id, property['fullname'] + ' - ' + property['email']) for id, property in member_properties.items() 
-            if EMAIL_RE.findall(property['email'])])
+        try:
+            results = DisplayList([(id, property['fullname'] + ' - ' + property['email']) for id, property in member_properties.items() 
+                if EMAIL_RE.findall(property['email'])])
+        except TypeError, e:
+            log.error(":get_plone_members: error in member_properties %s/ properties:'%s'" % (e, member_properties.items()))
 
-        # run registered member filter subscribers:
+        # run registered member filter:
         for subscriber in subscribers([self], IReceiversMemberFilter):
             results = subscriber.filter(results)
         return results.sortedByValue()
@@ -358,12 +372,12 @@ class EasyNewsletter(ATTopic, BaseFolder):
         for group in groups:
             group_id = group.getId()
             group_properties[group_id] = {
-                'title' : group.getProperty('title'),
+                'title' : group.getGroupTitleOrName(),
                 'email': group.getProperty('email'),
                 }
-        results = DisplayList([(id, id) for id, property in group_properties.items()])
+        results = DisplayList([(id, property['title']) for id, property in group_properties.items()])
         
-        # run registered group filter subscribers:
+        # run registered group filter:
         for subscriber in subscribers([self], IReceiversGroupFilter):
             results = subscriber.filter(results)
         return results.sortedByValue()

@@ -40,10 +40,23 @@ class ISubscriberSource(Interface):
 
 class IReceiversMemberFilter(Interface):
     """ Marker interface for ReceiverMemberFilters subscribers.
+        This filter runs befor the available member selections list is
+        displayed, so you can use it to add or remove member entries
+        from the selection list.
     """
 
 class IReceiversGroupFilter(Interface):
     """ Marker interface for ReceiverGroupFilters subscribers.
+        This filter runs befor the available group selections list is
+        displayed, so you can use it to add or remove group entries for
+        the selection list.
+    """
+
+class IReceiversMemberPostSendingFilter(Interface):
+    """ Marker interface for ReceiverMemberPostsFilters subscribers.
+        This filter runs after selection of members and groups, before
+        sending. So this is the final line, to add or filter out
+        recievers.
     """
 
 class IENLRegistrationTool(Interface):

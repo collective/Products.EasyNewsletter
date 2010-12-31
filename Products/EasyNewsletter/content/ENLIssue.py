@@ -48,21 +48,6 @@ log = logging.getLogger("Products.EasyNewsletter")
 
 
 schema=Schema((
-
-    TextField('header',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        default_method = "get_default_header",
-        widget=RichWidget(
-            rows=10,
-            label='Header',
-            label_msgid='EasyNewsletter_label_header',
-            description=_(u'description_help_header', default=u'The header will included in outgoing mails.'),
-            description_msgid='EasyNewsletter_help_header',
-            i18n_domain='EasyNewsletter',
-        ),
-        default_output_type='text/html'
-    ),
-
     TextField('text',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         widget=RichWidget(
@@ -74,87 +59,6 @@ schema=Schema((
             i18n_domain='EasyNewsletter',
         ),
         default_output_type='text/html'
-    ),
-
-    TextField('footer',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        default_method = "get_default_footer",
-        widget=RichWidget(
-            rows=10,
-            label='Footer',
-            label_msgid='EasyNewsletter_label_footer',
-            description=_(u'description_help_footer', default=u'The footer will included in outgoing mails.'),
-            description_msgid='EasyNewsletter_help_footer',
-            i18n_domain='EasyNewsletter',
-        ),
-        default_output_type='text/html'
-    ),
-
-    BooleanField('acquireCriteria',
-        default="True",
-        widget=BooleanWidget(
-            label=_(u'label_inherit_criteria', default=u'Inherit Criteria'),
-            description_msgid='EasyNewsletter_help_acquireCriteria',
-            i18n_domain='EasyNewsletter',
-        )
-    ),
-
-    # Overwritten to adapt attribute from ATTopic
-    StringField('template',
-        default="default_template",
-        widget=StringWidget(
-            macro="NewsletterTemplateWidget",
-            label="Newsletter Template",
-            description="Template, to generate the newsletter.",
-            label_msgid='EasyNewsletter_label_template',
-            description_msgid='EasyNewsletter_help_template',
-            i18n_domain='EasyNewsletter',
-        ),
-        required=1
-    ),
-
-    # Overwritten to hide attribute from ATTopic
-    BooleanField('limitNumber',
-        widget=BooleanWidget(
-            visible={'edit':'hidden', 'view':'hidden'},
-            label='Limitnumber',
-            label_msgid='EasyNewsletter_label_limitNumber',
-            description_msgid='EasyNewsletter_help_limitNumber',
-            i18n_domain='EasyNewsletter',
-        )
-    ),
-
-    # Overwritten to hide attribute from ATTopic
-    BooleanField('itemCount',
-        widget=BooleanWidget(
-            visible={'edit':'hidden', 'view':'hidden'},
-            label='Itemcount',
-            label_msgid='EasyNewsletter_label_itemCount',
-            description_msgid='EasyNewsletter_help_itemCount',
-            i18n_domain='EasyNewsletter',
-        )
-    ),
-
-    # Overwritten to hide attribute from ATTopic
-    BooleanField('customView',
-        widget=BooleanWidget(
-            visible={'edit':'hidden', 'view':'hidden'},
-            label='Customview',
-            label_msgid='EasyNewsletter_label_customView',
-            description_msgid='EasyNewsletter_help_customView',
-            i18n_domain='EasyNewsletter',
-        )
-    ),
-
-    # Overwritten to hide attribute from ATTopic
-    BooleanField('customViewFields',
-        widget=BooleanWidget(
-            visible={'edit':'hidden', 'view':'hidden'},
-            label='Customviewfields',
-            label_msgid='EasyNewsletter_label_customViewFields',
-            description_msgid='EasyNewsletter_help_customViewFields',
-            i18n_domain='EasyNewsletter',
-        )
     ),
 
     LinesField('ploneReceiverMembers',
@@ -180,14 +84,88 @@ schema=Schema((
             size = 10,
         )
     ),
+
+    TextField('header',
+        schemata="settings",
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        default_method = "get_default_header",
+        widget=RichWidget(
+            rows=10,
+            label='Header',
+            label_msgid='EasyNewsletter_label_header',
+            description=_(u'description_help_header', default=u'The header will included in outgoing mails.'),
+            description_msgid='EasyNewsletter_help_header',
+            i18n_domain='EasyNewsletter',
+        ),
+        default_output_type='text/html'
+    ),
+
+    TextField('footer',
+        schemata="settings",
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        default_method = "get_default_footer",
+        widget=RichWidget(
+            rows=10,
+            label='Footer',
+            label_msgid='EasyNewsletter_label_footer',
+            description=_(u'description_help_footer', default=u'The footer will included in outgoing mails.'),
+            description_msgid='EasyNewsletter_help_footer',
+            i18n_domain='EasyNewsletter',
+        ),
+        default_output_type='text/html'
+    ),
+
+    BooleanField('acquireCriteria',
+        schemata="settings",
+        default="True",
+        widget=BooleanWidget(
+            label=_(u'label_inherit_criteria', default=u'Inherit Criteria'),
+            description_msgid='EasyNewsletter_help_acquireCriteria',
+            i18n_domain='EasyNewsletter',
+        )
+    ),
+
+    # Overwritten to adapt attribute from ATTopic
+    StringField('template',
+        schemata="settings",
+        default="default_template",
+        widget=StringWidget(
+            macro="NewsletterTemplateWidget",
+            label=_(u"EasyNewsletter_label_template", 
+                    default=u"Newsletter Template"),
+            description=_(u"EasyNewsletter_help_template"), 
+                          default=u"Template, to generate the newsletter.",
+            i18n_domain='EasyNewsletter',
+        ),
+        required=1
+    ),
 ),
 )
 
 schema = ATTopicSchema + schema
-schema.moveField('text', after='header')
 schema.moveField('acquireCriteria', before='template')
 # hide id, even if visible_ids is True
 schema['id'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
+schema['limitNumber'].widget.visible = {
+    'view': 'invisible',
+    'edit': 'invisible'
+}
+schema['itemCount'].widget.visible = {
+    'view': 'invisible',
+    'edit': 'invisible'
+}
+schema['customView'].widget.visible = {
+    'view': 'invisible',
+    'edit': 'invisible'
+}
+schema['customViewFields'].widget.visible = {
+    'view': 'invisible',
+    'edit': 'invisible'
+}
+schema.moveField('header', pos='bottom')
+schema.moveField('footer', pos='bottom')
+schema.moveField('relatedItems', pos='bottom')
+schema.moveField('language', pos='bottom')
 
 
 class ENLIssue(ATTopic, BaseContent):
