@@ -1,5 +1,7 @@
 #TODO:
     
+    * hide ENLTemplate from navigation
+    
     * ask before unsubscribe, if a user click on the unsubscribe link. [derstappenit]
 
     * add validator to ENLSubsciber to check if this email already exists, 
