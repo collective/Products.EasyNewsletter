@@ -7,17 +7,19 @@ EasyNewsletter is a simple but powerful newsletter/mailing product for Plone.
 Features
 ========
 
+    * Support Text and HTML Newsletter (including images)
+    
+    * Support manual written Newsletters/Mailings
+    
     * Plonish (can use Plone's Collections to collect content)
 
-    * Support Text and HTML Newsletter (including images)
-
+    * Variable templates to generate newsletter content
+    
     * Subscribing / Unsubscribing and can use Plone Members/Groups as receivers (works also with Membrane)
 
     * support for external subscriber sources (configured through a Zope utility)
 
     * support for external delivery services (other than Plone MailHost)
-
-    * Variable templates to generate newsletter content
 
     * TTW customizeable output Template to generate nice HTML Newsletter
 
@@ -25,12 +27,14 @@ Features
 
     * mass import subscribers with csv upload
 
+    * support external filtering/manipulation (filter out or add more subscribers) plugins
+
 Requirements
 ============
 
-    * inqbus.plone.fastmemberproperties, speed up access of member properties (should automaticly installed)
+    * inqbus.plone.fastmemberproperties, speed up access of member properties (optional, you can installed it with Products.EasyNewsletter[all] in your buidlout eggs list)
     * Plone 3.X (tested)
-    * Plone 4.X (slightly tested)
+    * Plone 4.X (tested)
 
 
 Installation
@@ -44,9 +48,8 @@ Installation
 
     4. Install EasyNewsletter via Plone Management Interface
 
-    5. Add an "Newsletter Subscriber" portlet and enter the path to the
-    EasyNewsletter object, e.g.: /portal/newsletter (To this newsletter the
-    subscribers will be added).
+    5. Add an "Newsletter Subscriber" portlet and select the EasyNewsletter
+       (To this newsletter the subscribers will be added). 
 
 
 Documentation
@@ -98,8 +101,8 @@ Allowed placeholders
 
 The following placeholder can be used in the header, body and footer of issues:
 
-* ``{% subscriber-fullname %}``
-* ``{% unsubscribe %}``
+* ``[[SUBSCRIBER_SALUTATION]]``
+* ``[[UNSUBSCRIBE]]``
 
 
 Source Code
@@ -117,11 +120,34 @@ Autors
 ======
 
 * Kai Dieffenbach (V 1.X)
-* Maik Derstappen (V 2.0)
+* Maik Derstappen (V 2.0/2.5.2)
 * Andreas Jung (V 2.5)
 
 Changes
 =======
+
+2.5.2 (06/01/2011)
+------------------
+ * add salutation to ENLSubscriber [derstappenit]
+
+ * EasyNewsletter and subscriber portlet [derstappenit]
+
+ * make name and salutation optinal in subscriber portlet [derstappenit]
+ 
+ * remove filter in get_public_body, because we want the look of the public view mostly like in the sended mails [derstappenit]
+
+ * optimize issue_send_form to make it more failsave [derstappenit]
+ 
+ * refacturer the handling of placeholders for salutation and unsubscribelink [derstappenit]
+ 
+ * reinclude header and footer in mails [derstappenit]
+ 
+ * fix MultipartMessage-handling, now text and html messages parts have all images includet [derstappenit]
+
+ * cleanup archetypes schematas of EasyNewsletter and ENLIssue [derstappenit]
+
+ * add many german translations [derstappenit]
+
 
 2.5.1 (2010/11/30)
 ------------------
