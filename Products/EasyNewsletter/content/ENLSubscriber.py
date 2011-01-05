@@ -22,8 +22,19 @@ schema=Schema((
         required = False
     ),
 
+    StringField('salutation',
+        vocabulary=SALUTATION,
+        widget=SelectionWidget(
+            label='Salutation',
+            label_msgid='EasyNewsletter_label_salutation',
+            description_msgid='EasyNewsletter_help_salutation',
+            i18n_domain='EasyNewsletter',
+            format='select',
+        ),
+        required = False
+    ),
+
     StringField('fullname',
-        searchable = True,
         widget=StringWidget(
             label='Full Name',
             label_msgid='EasyNewsletter_label_fullname',
@@ -34,7 +45,6 @@ schema=Schema((
     ),
 
     StringField('organization',
-        searchable = True,
         widget=StringWidget(
             label='Company/Organization',
             label_msgid='EasyNewsletter_label_organization',
@@ -45,7 +55,6 @@ schema=Schema((
     ),
 
     StringField('email',
-        searchable = True,
         required = True,
         widget=StringWidget(
             label='Email',

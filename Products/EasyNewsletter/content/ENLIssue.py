@@ -12,7 +12,7 @@ from email.Header import Header
 # zope imports
 from zope.interface import implements
 from zope.component import queryUtility
-from zope.component import getUtility, ComponentLookupError
+from zope.component import getUtility
 from zope.component import subscribers
 
 # Zope / Plone import
@@ -29,9 +29,8 @@ from Products.Archetypes.public import ObjectField
 try:
     from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool
     fmp_tool = queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool')
-    no_fmp = not(fmp_tool)
 except:
-    no_fmp = True
+    fmp_tool = None
 
 
 # EasyNewsletter imports
@@ -199,41 +198,46 @@ class ENLIssue(ATTopic, BaseContent):
             test_receiver = request.get("test_receiver", "")
             if test_receiver == "":
                 test_receiver = enl.getTestEmail()
-            receivers = [{'email': test_receiver, 'fullname': ''}]
+            receivers = [{'email': test_receiver, 'fullname': '', 'salutation': 'Sir or Madam'}]
 
         else:
             # get ENLSubscribers
-            enl_receivers = [{
-                'email': subscriber.getEmail(),
-                'fullname': subscriber.getFullname(),
-                'uid': subscriber.UID()} \
-                    for subscriber in enl.objectValues("ENLSubscriber")]
+            enl_receivers = []
+            salutation_mappings = {}
+            for line in enl.getSalutations():
+                salutation_key, salutation_value = line.split('|')
+                salutation_mappings[salutation_key.strip()] = salutation_value.strip()
+            for subscriber in enl.objectValues("ENLSubscriber"):
+                salutation_key = subscriber.getSalutation()
+                if salutation_key:
+                    salutation = salutation_mappings.get(salutation_key, '')
+                else:
+                    salutation = '' 
+                enl_receivers.append({
+                    'email': subscriber.getEmail(),
+                    'fullname': subscriber.getFullname(),
+                    'salutation': salutation,
+                    'uid': subscriber.UID()
+                })
+                    
             # get subscribers over selected plone members and groups
             plone_receivers = self.get_plone_subscribers()
-
             # check external subscriber source
             external_subscribers = []
             external_source_name = enl.getSubscriberSource()
             if external_source_name != 'default':
                 log.info('Searching for users in external source "%s"' % external_source_name)
-                try:
-                    external_source = getUtility(ISubscriberSource, name=external_source_name)
+                external_source = queryUtility(ISubscriberSource, name=external_source_name)
+                if external_source:
                     external_subscribers = external_source.getSubscribers(enl)
                     log.info('Found %d external subscriptions' % len(external_subscribers))
-                except ComponentLookupError:
-                    pass
             receivers = plone_receivers + enl_receivers + external_subscribers
-
         return receivers
 
-    def _send_body(self):
-        """ Return rendered body of newsletter (text+html) 
-            w/o header and footer.
+    def _render_newsletter(self):
+        """ Return rendered newsletter with header+body+footer (text+html).
         """
-
         enl = self.getNewsletter()
-
-        # get charset
         props = getToolByName(self, "portal_properties").site_properties
         charset = props.getProperty("default_charset")
         # get out_template from ENL object and render it in context of issue
@@ -291,10 +295,10 @@ class ENLIssue(ATTopic, BaseContent):
         send_error_counter = 0
 
         receivers = self._send_recipients(recipients)
-        send_body = self._send_body()
-        text = send_body['html']
-        text_plain = send_body['plain']
-        image_urls = send_body['images']
+        rendered_newsletter = self._render_newsletter()
+        text = rendered_newsletter['html']
+        text_plain = rendered_newsletter['plain']
+        image_urls = rendered_newsletter['images']
         props = getToolByName(self, "portal_properties").site_properties
         charset = props.getProperty("default_charset")
 
@@ -305,8 +309,11 @@ class ENLIssue(ATTopic, BaseContent):
             if hasattr(request, "test"):
                 outer['To'] = receiver['email']
                 fullname = "Test Member"
-                personal_text = text.replace("{% unsubscribe %}", "")
-                personal_text_plain = text_plain.replace("{% unsubscribe %}", "")
+                salutation = ""
+                personal_text = text.replace("[[SUBSCRIBER_SALUTATION]]", "")
+                personal_text_plain = text_plain.replace("[[SUBSCRIBER_SALUTATION]]", "")
+                personal_text = text.replace("[[UNSUBSCRIBE]]", "")
+                personal_text_plain = text_plain.replace("[[UNSUBSCRIBE]]", "")
             else:
                 if receiver.has_key('uid'):
                     try:
@@ -314,12 +321,15 @@ class ENLIssue(ATTopic, BaseContent):
                     except AttributeError:
                         unsubscribe_text = "Click here to unsubscribe"
                     unsubscribe_link = enl.absolute_url() + "/unsubscribe?subscriber=" + receiver['uid']
-                    personal_text = text.replace("{% unsubscribe %}", """<a href="%s">%s.</a>""" % (unsubscribe_link, unsubscribe_text))
-                    personal_text_plain = text_plain.replace("{% unsubscribe %}", """\n%s: %s""" % (unsubscribe_text, unsubscribe_link))
+                    personal_text = text.replace("[[UNSUBSCRIBE]]", """<a href="%s">%s.</a>""" % (unsubscribe_link, unsubscribe_text))
+                    personal_text_plain = text_plain.replace("[[UNSUBSCRIBE]]", """\n%s: %s""" % (unsubscribe_text, unsubscribe_link))
                 else:
-                    personal_text = text.replace("{% unsubscribe %}", "")
-                    personal_text_plain = text_plain.replace("{% unsubscribe %}", "")
-
+                    personal_text = text.replace("[[UNSUBSCRIBE]]", "")
+                    personal_text_plain = text_plain.replace("[[UNSUBSCRIBE]]", "")
+                if receiver.has_key("salutation"):
+                    salutation = receiver["salutation"]
+                else:
+                    salutation = ''
                 fullname = receiver['fullname']
                 if not fullname:
                     try:
@@ -327,9 +337,10 @@ class ENLIssue(ATTopic, BaseContent):
                     except AttributeError:
                         fullname = "Sir or Madam"
                 outer['To'] = receiver['email']
-
-            personal_text = personal_text.replace("{% subscriber-fullname %}", fullname)
-            personal_text_plain = personal_text_plain.replace("{% subscriber-fullname %}", fullname)
+                
+            subscriber_salutation = salutation + ' ' + fullname
+            personal_text = personal_text.replace("[[SUBSCRIBER_SALUTATION]]", subscriber_salutation)
+            personal_text_plain = personal_text_plain.replace("[[SUBSCRIBER_SALUTATION]]", subscriber_salutation)
 
             outer['From']    = from_header
             outer['Subject'] = Header(subject)
@@ -398,13 +409,6 @@ class ENLIssue(ATTopic, BaseContent):
         else:
             return topics
 
-    def get_unpersonalized_body(self):
-        """
-        """
-        personalized_body_lines = self.getRawText().split('\r\n')
-        unpersonalized_body = '\r\n'.join([line for line in personalized_body_lines if not line.startswith("<p>&gt;&gt;PERSOLINE&gt;&gt;")])
-        return unpersonalized_body
-
     def get_default_header(self):
         newsletter_obj = self.getNewsletter()
         return newsletter_obj.getRawDefault_header()
@@ -435,14 +439,14 @@ class ENLIssue(ATTopic, BaseContent):
 
     def get_plone_subscribers(self):
         """ Search for all selected Members and Groups
-            and return a list of subscribers.
+            and return a filtered list of subscribers as dicts.
         """
         newsletter_obj = self.getNewsletter()
         plone_subscribers = []
         receiver_member_list = self.getPloneReceiverMembers()
         receiver_group_list = self.getPloneReceiverGroups()
         gtool = getToolByName(self, 'portal_groups')
-        if not no_fmp:
+        if fmp_tool:
             # use fastmemberproperties to get mememberproperties: 
             member_properties = fmp_tool.get_all_memberproperties()
         else:

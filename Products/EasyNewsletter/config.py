@@ -1,6 +1,16 @@
 import re
+from Products.Archetypes.public import DisplayList
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 
 PROJECTNAME = "EasyNewsletter"
+
+PLACEHOLDERS = ["UNSUBSCRIBE", "SUBSCRIBER_SALUTATION"]
+
+SALUTATION =  DisplayList((
+    ('', _(u"label_choose_saluation", "Choose salutation...")),
+    ("ms", _(u"label_salutation_ms","Ms.")),
+    ("mr", _(u"label_salutation_mr","Mr.")),
+)) 
 
 MESSAGE_CODE = {
     "email_added": "Your email has been registered. A confirmation email was sent to your address. Please check your inbox and click on the link in the email in order to confirm your subscription.",

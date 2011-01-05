@@ -4,5 +4,6 @@
        See add_catalog_indexes in setuphandlers.py instead. -->
  <column value="email"/>
  <column value="fullname"/>
+ <column value="salutation"/>
  <column value="organization"/>
 </object>

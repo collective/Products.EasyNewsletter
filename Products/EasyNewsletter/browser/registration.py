@@ -41,6 +41,7 @@ class SubscriberView(BrowserView):
         """
         subscriber = self.request.get("subscriber")
         fullname = self.request.get("fullname", "")
+        salutation = self.request.get("salutation", "")        
         organization = self.request.get("organization", "")
         path_to_easynewsletter = self.request.get("newsletter")
         # remove leading slash from paths like: /mynewsletter
@@ -62,6 +63,7 @@ class SubscriberView(BrowserView):
         subscriber_data = {}
         subscriber_data["subscriber"] = subscriber
         subscriber_data["fullname"] = fullname
+        subscriber_data["salutation"] = salutation        
         subscriber_data["organization"] = organization
         subscriber_data["path_to_easynewsletter"] = path_to_easynewsletter
 

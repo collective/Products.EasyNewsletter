@@ -15,7 +15,19 @@
                    name="newsletter" 
                    value="newsletter" 
                    tal:attributes="value view/get_newsletter" />
-
+                   
+            <select tal:condition="view/data/query_fullname|nothing"
+              class="easynewsletter_text"
+              id="salutation" 
+              name="salutation">
+                   <option value="" 
+                     i18n:translate="">Choose salutation...</option>
+                   <option value="ms" 
+                     i18n:translate="">Ms.</option>
+                   <option value="mr" 
+                     i18n:translate="">Mr.</option>
+            </select>
+                   
             <input class="easynewsletter_text"
                    onclick="this.value=''"
                    name="fullname" 

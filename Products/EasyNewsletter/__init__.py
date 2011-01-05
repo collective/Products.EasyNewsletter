@@ -6,11 +6,10 @@ from Products.CMFCore import DirectoryView
 from Products.Archetypes.atapi import *
 from Products.Archetypes import listTypes
 
-# drako.knowledgebase imports
-from Products.EasyNewsletter.config import *
-
 from zope.i18nmessageid import MessageFactory
 EasyNewsletterMessageFactory = MessageFactory('EasyNewsletter')
+
+from Products.EasyNewsletter.config import *
         
 def initialize(context):
     """Intializer called when used as a Zope 2 product.

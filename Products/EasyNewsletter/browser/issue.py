@@ -3,6 +3,7 @@ from BeautifulSoup import BeautifulSoup
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
+from Products.EasyNewsletter.config import PLACEHOLDERS
 
 class IssueView(BrowserView):
     """
@@ -17,20 +18,15 @@ class IssueView(BrowserView):
         """
         """
         putils = getToolByName(self.context, "plone_utils")
-
-        try:
-            self.context.send()
-        except Exception, e:
-            putils.addPortalMessage(_("An error occured: %s") % e, "error")
-        else:
-            putils.addPortalMessage(_("The issue has been send."))
-
+        self.context.send()
+        putils.addPortalMessage(_("The issue has been send."))
         return self.request.response.redirect(self.context.absolute_url())
 
     def get_public_body(self):
-        """ Return the rendered HTML version (.body-text) 
-            of the newsletter.
+        """ Return the rendered HTML version without placeholders.
         """
-        html = self.context._send_body()['html']
-        soup = BeautifulSoup(html)
-        return soup.find('div', {'class' : 'body-text'}).renderContents()
+        html = self.context._render_newsletter()['html']
+        for placeholder in PLACEHOLDERS:
+            html = html.replace('[[' + placeholder + ']]', '')
+        return html
+            

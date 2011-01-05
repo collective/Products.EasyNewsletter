@@ -77,31 +77,6 @@
            
     <br/><br/>           
 
-    <!-- <label for="receivers" 
-           i18n:translate="EasyNewsletter_label_receivers"> 
-           Receivers
-    </label> 
-
-    <div i18n:translate="EasyNewsletter_help_receivers" 
-         class="formHelp"> 
-         Selected subscribers will be used as receivers of the newsletter.
-    </div>
-
-    <select multiple="multiple"
-            name="receivers"
-            size="5"
-            tal:define="all_subscribers context/getAllSubscribers;
-                        receivers context/getReceivers">
-                        
-      <option tal:repeat="subscriber all_subscribers"
-              tal:content="subscriber"
-              tal:attributes="value subscriber;
-                              selected python:test(subscriber in receivers, 'selected', '')">
-        E-mail address receiver
-      </option>
-    </select>
-    <br/><br/> -->
-
     <label for="test_receiver" 
            i18n:translate="EasyNewsletter_label_testreceiver"> 
            Test e-mail
@@ -116,27 +91,38 @@
            name="test_receiver"
            size="40"
            tal:attributes="value python:context.REQUEST.get('test_receiver', context.aq_parent.getTestEmail())" /> 
-           
-    <br/><br/>           
+
+    <input type="submit"
+           class="context"
+           name="test"
+           value="Test Newsletter"
+           i18n:attributes="value easynewsletter_test_button;"/><br />
+    <br />
+    <p tal:condition="not:sent">
+      <input class="checkboxType"
+            onclick="document.getElementById('form_send').disabled=!document.getElementById('confirm_send').checked;" 
+            id="confirm_send" 
+            name="confirm_send" 
+            value="off" 
+            type="checkbox"> 
+      <label for="confirm_send">Enable sendbutton</label><br />
     
-    <div tal:condition="sent"
-          i18n:translate="easynewsletter_newslettersent_label">
-      The newsletter was already sent.
-    </div>
-    <br/>    
     <input tal:condition="not:sent"
+           id="form_send"
+           disabled="disabled"
            class="context"
            type="submit" 
            name="send"
            value="Send Newsletter"
            i18n:attributes="value easynewsletter_send_button;"/>
-           
-    <input type="submit"
-           class="context"
-           name="test"
-           value="Test Newsletter"
-           i18n:attributes="value easynewsletter_test_button;"/>
+   </p>
+    <div tal:condition="sent"
+          i18n:translate="easynewsletter_newslettersent_label">
+      The newsletter was already sent.
+    </div>   
   </form>
+
+
     
 </div>
 

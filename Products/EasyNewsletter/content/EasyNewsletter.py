@@ -28,13 +28,11 @@ from AccessControl.User import UnrestrictedUser as BaseUnrestrictedUser
 
 from Products.EasyNewsletter.interfaces import ISubscriberSource
 
-
 try:
     from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool
     fmp_tool = queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool')
-    no_fmp = not(fmp_tool)
 except:
-    no_fmp = True
+    fmp_tool = None
 
 # EasyNewsletter imports
 from Products.EasyNewsletter.interfaces import IENLIssue, IReceiversMemberFilter, IReceiversGroupFilter
@@ -74,31 +72,47 @@ schema=Schema((
         validators=('isEmail',)
     ),
 
+    LinesField('salutations',
+        default=("mr|Dear Mr.","ms|Dear Ms."),
+        widget=LinesWidget(
+            label=_(u'EasyNewsletter_label_salutations', default=u"Subscriber Salutations."),
+            description=_(u"EasyNewsletter_help_salutations", 
+                          default=u'Define here possible salutations for \
+                          subscriber. One salutation per line in the \
+                          form of: \"mr|Dear Mr.\". \
+                          The left hand value "mr" or "ms" is mapped \
+                          to salutation of each subscriber and then the \
+                          right hand value, which you can customize \
+                          is used as salutation.'),
+            i18n_domain='EasyNewsletter',
+        ),
+    ),
+    
     StringField('fullname_fallback',
         default="Sir or Madam",
         widget=StringWidget(
             label=_(u'EasyNewsletter_label_fullname_fallback', default=u"Fallback for subscribers without a name."),
-            description=_(u"EasyNewsletter_help_fullname_fallback", default=u'This will replace the placeholder {% subscriber-fullname %} if the subscriber has no fullname.'),
+            description=_(u"EasyNewsletter_help_fullname_fallback", default=u'This will be used if the subscriber has no fullname.'),
             i18n_domain='EasyNewsletter',
         ),
     ),
-
+    
     StringField('unsubscribe_string',
         default="Click here to unsubscribe",
         widget=StringWidget(
             label=_(u"EasyNewsletter_label_unsubscribe_string", default=u"Text for the 'unsubscribe' link"),
-            description=_(u"EasyNewsletter_help_unsubscribe_string", default=u'This will replace the placeholder {% unsubscribe %}.'),
+            description=_(u"EasyNewsletter_help_unsubscribe_string", default=u'This will replace the placeholder [[UNSUBSCRIBE]].'),
             i18n_domain='EasyNewsletter',
         ),
     ),
 
     TextField('default_header',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        default="Dear {% subscriber-fullname %}",
+        default="[[SUBSCRIBER_SALUTATION]]<br />==================================",
         widget=RichWidget(
             rows=10,
             label=_(u"EasyNewsletter_label_default_header", default=u"Header"),
-            description=_(u'description_text_header', default=u'The default header text. This is used as a default for new issues.'),
+            description=_(u'description_text_header', default=u'The default header text. This is used as a default for new issues. You can use the placeholders [[SUBSCRIBER_SALUTATION]] and [[UNSUBSCRIBE]] here.'),
             i18n_domain='EasyNewsletter',
         ),
         default_output_type='text/html'
@@ -106,11 +120,11 @@ schema=Schema((
 
     TextField('default_footer',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        default="{% unsubscribe %}",
+        default="==================================<br />[[UNSUBSCRIBE]]",
         widget=RichWidget(
             rows=10,
             label=_(u"EasyNewsletter_label_default_footer", default=u"Footer"),
-            description=_(u'description_text_footer', default=u'The default footer text. This is used as a default for new issues.'),
+            description=_(u'description_text_footer', default=u'The default footer text. This is used as a default for new issues. You can use the placeholders [[SUBSCRIBER_SALUTATION]] and [[UNSUBSCRIBE]] here.'),
             i18n_domain='EasyNewsletter',
         ),
         default_output_type='text/html'
@@ -237,10 +251,6 @@ schema['allowDiscussion'].widget.visible = {
     'view': 'invisible',
     'edit': 'invisible'
 }
-schema['excludeFromNav'].widget.visible = {
-    'view': 'invisible',
-    'edit': 'invisible'
-}
 schema['subject'].widget.visible = {
     'view': 'invisible',
     'edit': 'invisible'
@@ -271,13 +281,12 @@ schema['rights'].widget.visible = {
 }
 schema['relatedItems'].schemata = "settings"
 schema['language'].schemata = "settings"
+schema['excludeFromNav'].schemata = "settings"
 schema.moveField('deliveryService', pos='bottom')
 schema.moveField('subscriberSource', pos='bottom')
 schema.moveField('relatedItems', pos='bottom')
 schema.moveField('language', pos='bottom')
-
-
-
+schema.moveField('excludeFromNav', pos='bottom')
 
 
 class EasyNewsletter(ATTopic, BaseFolder):
@@ -332,9 +341,9 @@ class EasyNewsletter(ATTopic, BaseFolder):
         return self.objectValues("ATTopic")
 
     def get_plone_members(self):
+        """ return filtered list of plone members as DisplayList
         """
-        """
-        if not no_fmp:
+        if fmp_tool:
             # use fastmemberproperties to get mememberproperties: 
             member_properties = fmp_tool.get_all_memberproperties()
         else:
@@ -349,7 +358,6 @@ class EasyNewsletter(ATTopic, BaseFolder):
                 probdict['email'] = member.getProperty('email')
                 probdict['fullname'] = unicode(member.getProperty('fullname'), 'utf-8', 'ignore')
                 member_properties[probdict['id']] = probdict
-
         if not member_properties:
             return []
         try:
@@ -357,14 +365,13 @@ class EasyNewsletter(ATTopic, BaseFolder):
                 if EMAIL_RE.findall(property['email'])])
         except TypeError, e:
             log.error(":get_plone_members: error in member_properties %s/ properties:'%s'" % (e, member_properties.items()))
-
         # run registered member filter:
         for subscriber in subscribers([self], IReceiversMemberFilter):
             results = subscriber.filter(results)
         return results.sortedByValue()
 
     def get_plone_groups(self):
-        """
+        """ return filtered list of plone groups as DisplayList
         """
         gtool = getToolByName(self, 'portal_groups')
         groups = gtool.listGroups()
@@ -376,7 +383,6 @@ class EasyNewsletter(ATTopic, BaseFolder):
                 'email': group.getProperty('email'),
                 }
         results = DisplayList([(id, property['title']) for id, property in group_properties.items()])
-        
         # run registered group filter:
         for subscriber in subscribers([self], IReceiversGroupFilter):
             results = subscriber.filter(results)

@@ -7,6 +7,7 @@ from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
+from Products.EasyNewsletter.config import SALUTATION
 from Products.EasyNewsletter.interfaces import ISubscriberSource
 import csv
 import re
@@ -19,6 +20,7 @@ def validate_email(value):
     return True
 
 CSV_HEADER = [
+    'salutation',              
     'fullname',
     'email',
     'organization',
@@ -56,10 +58,12 @@ class Enl_Subscribers_View(BrowserView):
         for brain in self.portal_catalog(portal_type = 'ENLSubscriber',
                                          path='/'.join(self.context.getPhysicalPath()),
                                          sort_on='email'):
+            salutation = SALUTATION.getValue(brain.salutation, '')
             subscribers.append(dict(source='plone',
                                deletable=True,
                                email=brain.email,
                                getURL=brain.getURL(),
+                               salutation=salutation,
                                fullname=brain.fullname,
                                organization=brain.organization))
 

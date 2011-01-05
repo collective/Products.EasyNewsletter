@@ -36,6 +36,7 @@
             <table class="listing" summary="Subscriber Listing">
                 <tr>
                     <th i18n:translate="">E-Mail</th>
+                    <th i18n:translate="">Salutation</th>                    
                     <th i18n:translate="">Name</th>
                     <th i18n:translate="">Company/Organization</th>
                     <th i18n:translate="">Source</th>
@@ -54,9 +55,10 @@
                         </tal:if>                         
                         <span tal:condition="not: isPlone" tal:content="subscriber/email" />
                     </td>
-                    <td tal:content="subscriber/fullname" />
-                    <td tal:content="subscriber/organization|nothing"></td>
-                    <td tal:content="subscriber/source|nothing"></td>
+                    <td i18n:translate="" tal:content="subscriber/salutation" />                    
+                    <td i18n:translate="" tal:content="subscriber/fullname" />
+                    <td i18n:translate="" tal:content="subscriber/organization|nothing"></td>
+                    <td i18n:translate="" tal:content="subscriber/source|nothing"></td>
                     <td>
                         <a href="#" 
                            tal:condition="isPlone" 
