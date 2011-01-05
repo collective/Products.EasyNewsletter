@@ -52,8 +52,8 @@ class IReceiversGroupFilter(Interface):
         the selection list.
     """
 
-class IReceiversMemberPostSendingFilter(Interface):
-    """ Marker interface for ReceiverMemberPostsFilters subscribers.
+class IReceiversPostSendingFilter(Interface):
+    """ Marker interface for ReceiversPostSendingFilter subscribers.
         This filter runs after selection of members and groups, before
         sending. So this is the final line, to add or filter out
         recievers.

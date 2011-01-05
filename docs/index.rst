@@ -75,21 +75,22 @@ Step by step
 
 1. Add a EasyNewsletter instance, fill in the form and save it.
 
-2. If you whant write a simple mannually mailing, you can add an Issue and fill it out with you text.
+2. If you whant write a simple mannually mailing, you can add an Issue and fill it out with your text.
 
 3. Or if you whant use collections to collect you content first, then you can add an Issue, 
    go to criteria tab and add the criteria, which shall be applied to *all* of 
    your Newsletters, e.g. "Items Type".
 
-TODO...
-
-
-3. Add a Newsletter instance, fill in the form and save it.
-
-4. Go to criteria tab and add the criteria, which shall be applied to *this* 
-   Newsletter, e.g. "Creation Date",
+4. You can create more than one sub collections to build categories like news, events and pictures in your newsletter. 
+   Just add some collections to the newsletter it self and define your criterias for all of them. 
+   The issues will combine them into different part in your content area.
 
 5. Go to the view tab and press refresh (see Plone's document actions at the 
    bottom of the page)
 
-6. Go to send tab and push "Test Newsletter".
+6. You can also add subcollections and define criterias on issue level.
+
+7. Go to send tab and push "Test Newsletter".
+
+8. If your Newsletter/Mailing is finished, you can activate the sendbutton by click enable sendbutton. 
+   Then you can click on send newsletter to send the Newsletter to all subscribers or selected groups and users.

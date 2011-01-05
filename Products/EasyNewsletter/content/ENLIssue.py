@@ -37,7 +37,7 @@ except:
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.config import PROJECTNAME, EMAIL_RE
 from Products.EasyNewsletter.interfaces import IENLIssue
-from Products.EasyNewsletter.interfaces import IReceiversMemberPostSendingFilter
+from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter
 from Products.EasyNewsletter.interfaces import ISubscriberSource
 from Products.EasyNewsletter.utils.ENLHTMLParser import ENLHTMLParser
 
@@ -480,9 +480,9 @@ class ENLIssue(ATTopic, BaseContent):
                 })
             else:
                 log.debug("Skip '%s' because \"%s\" is not a real email!" % (receiver_id, member_property['email']))
-        # run registered member post sending filter:
+        # run registered receivers post sending filter:
         for subscriber in subscribers([newsletter_obj],
-                                      IReceiversMemberPostSendingFilter):
+                                      IReceiversPostSendingFilter):
             plone_subscribers = subscriber.filter(plone_subscribers)
         return plone_subscribers
 

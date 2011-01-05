@@ -21,7 +21,8 @@
   <form tal:attributes="action string:${context/absolute_url}/send-issue"
         tal:define="wtool context/@@plone_tools/workflow;
                     sent python:wtool.getInfoFor(context, 'review_state') == 'sent'"
-        method="post">
+        method="post"
+        id="issue_send_form">
 
     <label for="sender name" 
            i18n:translate="EasyNewsletter_label_senderName"> 
@@ -99,7 +100,7 @@
            i18n:attributes="value easynewsletter_test_button;"/><br />
     <br />
     <p tal:condition="not:sent">
-      <input class="checkboxType"
+      <input 
             onclick="document.getElementById('form_send').disabled=!document.getElementById('confirm_send').checked;" 
             id="confirm_send" 
             name="confirm_send" 
@@ -110,7 +111,7 @@
     <input tal:condition="not:sent"
            id="form_send"
            disabled="disabled"
-           class="context"
+           class="send"
            type="submit" 
            name="send"
            value="Send Newsletter"

@@ -58,7 +58,10 @@ class Enl_Subscribers_View(BrowserView):
         for brain in self.portal_catalog(portal_type = 'ENLSubscriber',
                                          path='/'.join(self.context.getPhysicalPath()),
                                          sort_on='email'):
-            salutation = SALUTATION.getValue(brain.salutation, '')
+            if brain.salutation:
+                salutation = SALUTATION.getValue(brain.salutation, '')
+            else:
+                salutation = ''
             subscribers.append(dict(source='plone',
                                deletable=True,
                                email=brain.email,

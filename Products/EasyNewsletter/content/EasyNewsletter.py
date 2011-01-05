@@ -188,7 +188,6 @@ schema=Schema((
         )
     ),
 
-
     ZPTField('out_template_pt',
         schemata="settings",
         default = DEFAULT_OUT_TEMPLATE_PT,
