@@ -234,8 +234,9 @@ class ENLIssue(ATTopic, BaseContent):
             receivers = plone_receivers + enl_receivers + external_subscribers
         return receivers
 
-    def _render_newsletter(self):
-        """ Return rendered newsletter with header+body+footer (text+html).
+    def _render_output_html(self):
+        """ Return rendered newsletter 
+            with header+body+footer (raw html).
         """
         enl = self.getNewsletter()
         props = getToolByName(self, "portal_properties").site_properties
@@ -244,7 +245,12 @@ class ENLIssue(ATTopic, BaseContent):
         out_template_pt_field = enl.getField('out_template_pt')
         ObjectField.set(out_template_pt_field, self, ZopePageTemplate(out_template_pt_field.getName(), enl.getRawOut_template_pt()))
         output_html = self.out_template_pt.pt_render().encode(charset)
-        # exchange relative URLs
+        return output_html
+    
+    def _exchange_relative_urls(self, output_html):
+        """ exchange relative URLs and 
+            return dict with html, plain and images
+        """
         parser_output_zpt = ENLHTMLParser(self)
         parser_output_zpt.feed(output_html)
         text = parser_output_zpt.html
@@ -295,7 +301,8 @@ class ENLIssue(ATTopic, BaseContent):
         send_error_counter = 0
 
         receivers = self._send_recipients(recipients)
-        rendered_newsletter = self._render_newsletter()
+        output_html = self._render_output_html()
+        rendered_newsletter = self._exchange_relative_urls(output_html)
         text = rendered_newsletter['html']
         text_plain = rendered_newsletter['plain']
         image_urls = rendered_newsletter['images']

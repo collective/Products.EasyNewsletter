@@ -25,7 +25,7 @@ class IssueView(BrowserView):
     def get_public_body(self):
         """ Return the rendered HTML version without placeholders.
         """
-        html = self.context._render_newsletter()['html']
+        html = self.context._render_output_html()
         for placeholder in PLACEHOLDERS:
             html = html.replace('[[' + placeholder + ']]', '')
         return html
