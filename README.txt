@@ -120,11 +120,17 @@ Autors
 ======
 
 * Kai Dieffenbach (V 1.X)
-* Maik Derstappen (V 2.0/2.5.2)
+* Maik Derstappen (V 2.0/2.5.3)
 * Andreas Jung (V 2.5)
 
 Changes
 =======
+
+2.5.3 (07/01/2011)
+------------------
+ * fix issue view, now it looks mostly like the html newsletter version
+   in your mail client [derstappenit]
+
 
 2.5.2 (06/01/2011)
 ------------------
