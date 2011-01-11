@@ -126,11 +126,14 @@ Autors
 Changes
 =======
 
+2.5.4 (11/01/2011)
+------------------
+ * fix schema of EasyNewsletter and ENLIssues, use copy to create a schema based on ATTopicSchema [derstappenit]
+
 2.5.3 (07/01/2011)
 ------------------
  * fix issue view, now it looks mostly like the html newsletter version
    in your mail client [derstappenit]
-
 
 2.5.2 (06/01/2011)
 ------------------
