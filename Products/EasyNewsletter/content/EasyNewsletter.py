@@ -228,7 +228,7 @@ schema=Schema((
 
 
 
-schema = ATTopicSchema + schema
+schema = ATTopicSchema.copy() + schema
 schema['text'].widget.description = _(u'description_text', default=u'This is used in the frontpage of EasyNewsletter on top of Issue archive list.')
 schema['limitNumber'].widget.visible = {
     'view': 'invisible',

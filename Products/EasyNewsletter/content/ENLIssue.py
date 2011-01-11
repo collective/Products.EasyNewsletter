@@ -141,7 +141,7 @@ schema=Schema((
 ),
 )
 
-schema = ATTopicSchema + schema
+schema = ATTopicSchema.copy() + schema
 schema.moveField('acquireCriteria', before='template')
 # hide id, even if visible_ids is True
 schema['id'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
