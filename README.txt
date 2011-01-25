@@ -120,11 +120,15 @@ Autors
 ======
 
 * Kai Dieffenbach (V 1.X)
-* Maik Derstappen (V 2.0/2.5.3)
+* Maik Derstappen (V 2.0 / >=2.5.3)
 * Andreas Jung (V 2.5)
 
 Changes
 =======
+
+2.5.5 (26/01/2011)
+------------------
+ * remove unneeded dependency to BeautifulSoup [derstappenit]
 
 2.5.4 (11/01/2011)
 ------------------
