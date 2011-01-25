@@ -25,7 +25,6 @@ setup(name='Products.EasyNewsletter',
     zip_safe=False,
     install_requires=[
         'setuptools',
-        'BeautifulSoup',
         'Products.TemplateFields',
     ],
     extras_require = dict(
