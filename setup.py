@@ -5,8 +5,9 @@ version = '2.5.6dev'
 setup(name='Products.EasyNewsletter',
     version=version,
     description="An easy to use but powerfull newsletter/mailing product for Plone 3+4",
-    long_description=open("README.txt").read(),
-# Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
+    long_description=open("README.txt").read() + "\n" +
+                     open("CHANGES.txt").read(),    
+    # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
         "Framework :: Plone",
         "Programming Language :: Python",
