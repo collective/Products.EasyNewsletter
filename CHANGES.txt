@@ -4,6 +4,8 @@ Changes
 2.5.6 (unreleased)
 ------------------
 
+* Link to subscriber import added.
+  [timo]
 
 
 2.5.5 (26/01/2011)
