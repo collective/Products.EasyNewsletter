@@ -58,12 +58,6 @@
               <div class="formControls"
                    i18n:domain="plone">
 
-                <input class="destructive"
-                       type="submit"
-                       value="Cancel"
-                       name="form.button.Cancel"
-                       i18n:attributes="value label_cancel;"
-                       />
                 <input class="standalone"
                        type="submit"
                        value="Import"
@@ -75,15 +69,60 @@
 
             </fieldset>
         </form>
-        <div tal:define="subscribers python:view.create_subscribers('dummy');
-                         fail subscribers/fail;
-                         success subscribers/success">
+        <div tal:define="subscribers view/create_subscribers;
+                         fail subscribers/fail | nothing;
+                         success subscribers/success | nothing;"
+                         tal:condition="python: fail or success">
 
-            <h3 i18n:translate="not_created_subscribers">Not imported subscribers</h3>
-            <p tal:repeat="mail fail" tal:content="mail"></p>
-            <h3 i18n:translate="sucessfully_created_subscribers">Sucessfully created Subscribers</h3>
-            <p tal:repeat="mail success" tal:content="mail"></p>
-
+            <h3 i18n:translate="not_created_subscribers"
+                tal:condition="fail">Not imported subscribers</h3>
+            <table class="listing" tal:condition="fail">
+                <thead>
+                    <tr>
+                        <th>Salutation</th>
+                        <th>Fullname</th>
+                        <th>Email</th>
+                        <th>Organisation</th>
+                        <th>Reason for failure</th>
+                    </tr>
+                </thead>
+                <tbody tal:repeat="item fail">
+                    <tr>
+                        <td tal:content="item/salutation | nothing" />
+                        <td tal:content="item/fullname | nothing" />
+                        <td tal:content="item/email | nothing" />
+                        <td tal:content="item/organisation | nothing" />
+                        <td tal:content="item/failure" />
+                    </tr>
+                </tbody>
+            </table>
+            <p tal:condition="fail" 
+               tal:define="count python:len(fail)"
+               tal:content="string: ${count} import(s) failed." />
+            
+            <h3 i18n:translate="sucessfully_created_subscribers"
+                tal:condition="success">Sucessfully created Subscribers</h3>
+            <table class="listing" tal:condition="success">
+                <thead>
+                    <tr>
+                        <th>Salutation</th>
+                        <th>Fullname</th>
+                        <th>Email</th>
+                        <th>Organisation</th>
+                    </tr>
+                </thead>
+                <tbody tal:repeat="item success">
+                    <tr>
+                        <td tal:content="item/salutation | nothing" />
+                        <td tal:content="item/fullname | nothing" />
+                        <td tal:content="item/email | nothing" />
+                        <td tal:content="item/organisation | nothing" />
+                    </tr>
+                </tbody>
+            </table>
+            <p tal:condition="success"
+               tal:define="count python:len(success)"            
+               tal:content="string: ${count} import(s) successful." />
         </div>
 
     </tal:main-macro>

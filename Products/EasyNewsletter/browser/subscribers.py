@@ -1,3 +1,10 @@
+import csv
+import re
+
+from types import DictType
+
+from Acquisition import aq_inner, aq_parent
+
 from zope.interface import implements, Interface
 from zope import schema
 from zope.component import getUtility
@@ -9,15 +16,7 @@ from Products.statusmessages.interfaces import IStatusMessage
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.config import SALUTATION
 from Products.EasyNewsletter.interfaces import ISubscriberSource
-import csv
-import re
 
-regex = r"^[a-zA-Z0-9._%-]+@([a-zA-Z0-9-]+\.)*[a-zA-Z]{2,4}$"
-check_email = re.compile(regex).match
-def validate_email(value):
-    if not check_email(value):
-        return False
-    return True
 
 CSV_HEADER = [
     'salutation',              
@@ -86,78 +85,81 @@ class Enl_Subscribers_View(BrowserView):
 
 
 class UploadCSV(BrowserView):
-    """ TODO: build a reald upload-form for cvs-files.
-        creates subscribers from csv-data
-    """
 
     def __init__(self, context, request):
         self.context = context
         self.request = request
 
-    @property
-    def portal_catalog(self):
-        return getToolByName(self.context, 'portal_catalog')
-
-    @property
-    def portal(self):
-        return getToolByName(self.context, 'portal_url').getPortalObject()
-
-    def read_file(self):
-        csv_data = [("Testum Testing", "tester1@mydomain.de"), ("Tester2", "tester2@mydomain.de"),("Tester3", "tester3@mydomain.de")]
-        return csv_data
-
-    def read_data(self):
-        """ Here you can enter your user. By calling www.mysite.com/mynewsletter/@@upload_csv
-            you can import these into your newsletter.
+    def create_subscribers(self, csv_data=None):
+        """Create newsletter subscribers from uploaded CSV file.
         """
-        data = []
-        file_upload = self.request.form.get('csv_upload', None)
-        if file_upload is None or not file_upload.filename:
-            return data
-        #data = [("Dummy Name", "dummy@email.com", "Dummy Company"),
-        #        ("Another Dummy", "dummy2@email.com", "United Nations")]
-
-        reader = csv.reader(file_upload)
-        header = reader.next()
-        if header != CSV_HEADER:
-            msg = _('Wrong specification of the CSV file. Please correct it and retry.')
-            type = 'error'
-            IStatusMessage(self.request).addStatusMessage(msg, type=type)
-            return data
-        for row in reader:
-            data.append(row)
-        return data
-
-    def create_subscribers(self, csv_data):
-        self.portal.plone_log("Creating subscribers")
+        
+        # Do nothing if no submit button was hit
+        if 'form.button.Import' not in self.request.form:
+            return
+        
+        context = aq_inner(self.context)
         plone_utils = getToolByName(self.context, 'plone_utils')
         existing = self.context.objectIds()
         messages = IStatusMessage(self.request)
         success = []
         fail = []
-        for new_subscriber in self.read_data():
-            email = new_subscriber[1]
-            id = plone_utils.normalizeString(email)
-            if id in existing:
-                messages.addStatusMessage(_("Your e-mail address is already registered."), "error")
-                fail.append(email)
-            elif not(validate_email(email)):
-                messages.addStatusMessage(_("Invalid e-mail address."), "error")
-                fail.append(email)
+        data = []
+
+        # Show error if no file was specified
+        filename = self.request.form.get('csv_upload', None)
+        if not filename:
+            msg = _('No file specified.')
+            IStatusMessage(self.request).addStatusMessage(msg, type='error')
+            return self.request.response.redirect(context.absolute_url() + '/@@upload_csv')
+
+        # Show error if no data has been provided in the file
+        reader = csv.reader(filename)
+        header = reader.next()
+        if header != CSV_HEADER:
+            msg = _('Wrong specification of the CSV file. Please correct it and retry.')
+            IStatusMessage(self.request).addStatusMessage(msg, type='error')
+            return self.request.response.redirect(context.absolute_url() + '/@@upload_csv')
+
+        for subscriber in reader:
+            # Check the length of the line
+            if len(subscriber) != 4:
+                fail.append(
+                    {'failure': 'The number of items in the line is not correct. It should be 4. Check your CSV file.'})
             else:
-                fullname = new_subscriber[0]
-                organization = new_subscriber[2]
-                title = email + " - " + fullname
-                try:
-                    self.context.invokeFactory('ENLSubscriber',
-                        id=id, title=title, description="", email=email,
-                        fullname=fullname, organization=organization)
-                except:
-                    messages.addStatusMessage(_("Error creating subscriber."), "error")
-                    fail.append(email)
-                obj = self.context.get(id, None)
-                obj.reindexObject()
-                success.append(email)
+                salutation = subscriber[0]
+                fullname = subscriber[1]
+                email = subscriber[2]
+                organisation = subscriber[3]
+                id = plone_utils.normalizeString(email)
+                if id in existing:
+                    fail.append(
+                        {'salutation': salutation,
+                         'fullname': fullname,
+                         'email': email,
+                         'organisation': organisation,
+                         'failure': 'This email address is already registered.'})
+                else:
+                    fullname = subscriber[0]
+                    organization = subscriber[2]
+                    title = email + " - " + fullname
+                    try:
+                        self.context.invokeFactory('ENLSubscriber',
+                            id=id, title=title, description="", email=email,
+                            fullname=fullname, organization=organization)
+                    except:
+                        fail.append(
+                            {'salutation': salutation,
+                             'fullname': fullname,
+                             'email': email,
+                             'organisation': organisation,
+                             'failure': 'An error occured while creating this subscriber.'})
+                    obj = self.context.get(id, None)
+                    obj.reindexObject()
+                    success.append(
+                            {'salutation': salutation,
+                             'fullname': fullname,
+                             'email': email,
+                             'organisation': organisation})
+
         return {'success' : success, 'fail' : fail}
-
-

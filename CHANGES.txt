@@ -4,6 +4,9 @@ Changes
 2.5.6 (unreleased)
 ------------------
 
+* Fix/refactor/rewrite CSV import.
+  [timo]
+
 * Fix CSV-Import format description.
   [timo]
 
