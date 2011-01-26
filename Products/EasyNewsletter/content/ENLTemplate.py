@@ -16,8 +16,18 @@ from Products.EasyNewsletter.interfaces import IENLTemplate
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 
 schema=Schema((
+    
     ZPTField('body',
-        validators=('zptvalidator',)
+        validators=('zptvalidator',),
+        widget=TextAreaWidget(
+            description = 'This is a Zope Page Template file'
+                    'that is used for rendering the newsletter mail.',
+                    description_msgid = "help_body_zpt",
+                    label = 'Newsletter Template',
+                    label_msgid = "label_body_zpt",
+                    i18n_domain = "plone",
+                    rows = 30,
+                    ) ,
     ),
 
     TextField('description',
