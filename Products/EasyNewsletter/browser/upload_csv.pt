@@ -40,6 +40,7 @@
                   <caption>The CSV file must contain the header and follow this format</caption>
                   <thead>
                     <tr>
+                      <th>salutation</th>
                       <th>fullname</th>
                       <th>email</th>
                       <th>organization</th>
@@ -47,6 +48,7 @@
                   </thead>
                   <tbody>
                   <tr>
+                      <td>Dear Mr.</td>
                       <td>John Doe</td>
                       <td>jd@domain.com</td>
                       <td>ACME Corp.</td>

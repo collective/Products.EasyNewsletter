@@ -4,6 +4,9 @@ Changes
 2.5.6 (unreleased)
 ------------------
 
+* Fix CSV-Import format description.
+  [timo]
+
 * Link to subscriber import added.
   [timo]
 
