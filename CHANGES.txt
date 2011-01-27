@@ -1,6 +1,13 @@
 Changes
 =======
 
+2.5.7 (unreleased)
+------------------
+
+* Fix CSV export with special characters.
+  [timo]
+
+
 2.5.6 (27/01/2011)
 ------------------
 

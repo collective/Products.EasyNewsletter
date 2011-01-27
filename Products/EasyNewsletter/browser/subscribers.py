@@ -189,19 +189,19 @@ class DownloadCSV(BrowserView):
         for subscriber in ctool(portal_type = 'ENLSubscriber',
                                 path='/'.join(self.context.getPhysicalPath()),
                                 sort_on='email'): 
-            obj = subscriber.getObject() 
+            obj = subscriber.getObject()
             csvWriter.writerow([
-                obj.salutation,
-                obj.fullname,
-                obj.email,
-                obj.organization])
+                obj.salutation.encode("utf-8"),
+                obj.fullname.encode("utf-8"),
+                obj.email.encode("utf-8"),
+                obj.organization.encode("utf-8")])
         file.close()
         data = open(self.filename, "r").read()
         
         # Create response
         response = context.REQUEST.response
         response.addHeader('Content-Disposition', "attachment; filename=%s" % self.filename)
-        response.addHeader('Content-Type', "text/csv")
+        response.addHeader('Content-Type', 'text/csv')
         response.addHeader('Content-Length', "%d" % len(data))
         response.addHeader('Pragma', "no-cache")
         response.addHeader('Cache-Control', "must-revalidate, post-check=0, pre-check=0, public")
