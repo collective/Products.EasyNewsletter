@@ -153,6 +153,13 @@ class UploadCSV(BrowserView):
                         sub.fullname = fullname.decode(encoding)
                         sub.organization = organization.decode(encoding)
                         sub.salutation = salutation.decode(encoding)
+                        obj = self.context.get(id, None)
+                        obj.reindexObject()
+                        success.append(
+                                {'salutation': salutation,
+                                 'fullname': fullname,
+                                 'email': email,
+                                 'organization': organization})
                     except:
                         fail.append(
                             {'salutation': salutation,
@@ -160,13 +167,7 @@ class UploadCSV(BrowserView):
                              'email': email,
                              'organization': organization,
                              'failure': 'An error occured while creating this subscriber.'})
-                    obj = self.context.get(id, None)
-                    obj.reindexObject()
-                    success.append(
-                            {'salutation': salutation,
-                             'fullname': fullname,
-                             'email': email,
-                             'organization': organization})
+
 
         return {'success' : success, 'fail' : fail}
 
