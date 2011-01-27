@@ -29,15 +29,8 @@
                 Import
               </legend>
 
-              <div class="field">
-                <label i18n:translate="">Csv file</label>
-                <div class="formHelp" i18n:translate="">
-                  Select your CSV file here.
-                </div>
-                <input type="file" name="csv_upload" />
-              </div>
+              <p>The CSV file must contain the header and follow this format</p>
               <table class="listing">
-                  <caption>The CSV file must contain the header and follow this format</caption>
                   <thead>
                     <tr>
                       <th>salutation</th>
@@ -55,6 +48,15 @@
                   </tr>
                   </tbody>
               </table>
+
+              <div class="field">
+                <label i18n:translate="">Csv file</label>
+                <div class="formHelp" i18n:translate="">
+                  Select your CSV file here.
+                </div>
+                <input type="file" name="csv_upload" />
+              </div>
+              
               <div class="formControls"
                    i18n:domain="plone">
 
