@@ -160,14 +160,13 @@ class UploadCSV(BrowserView):
                                  'fullname': fullname,
                                  'email': email,
                                  'organization': organization})
-                    except:
+                    except Exception, e:
                         fail.append(
                             {'salutation': salutation,
                              'fullname': fullname,
                              'email': email,
                              'organization': organization,
-                             'failure': 'An error occured while creating this subscriber.'})
-
+                             'failure': 'An error occured while creating this subscriber: %s' % str(e)})
 
         return {'success' : success, 'fail' : fail}
 
