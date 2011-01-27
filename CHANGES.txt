@@ -4,6 +4,9 @@ Changes
 2.5.7 (unreleased)
 ------------------
 
+* Fix CSV import with special characters.
+  [timo]
+  
 * Do not create a persistent file when exporting CSV data, use a temp file
   instead.
   [timo]
