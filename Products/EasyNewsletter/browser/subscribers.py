@@ -1,5 +1,6 @@
 import csv
 import re
+import tempfile
 
 from types import DictType
 
@@ -170,8 +171,6 @@ class UploadCSV(BrowserView):
 
 
 class DownloadCSV(BrowserView):
-
-    filename = "easynewsletter-subscribers.csv"
          
     def __call__(self):
         """Returns a CSV file with all newsletter subscribers.
@@ -180,7 +179,8 @@ class DownloadCSV(BrowserView):
         ctool = getToolByName(context, 'portal_catalog')
 
         # Create CSV file
-        file = open(self.filename, 'wb')
+        filename = tempfile.mktemp()
+        file = open(filename, 'wb')
         csvWriter = csv.writer(file, 
                                delimiter=',',
                                quotechar='"', 
@@ -196,11 +196,11 @@ class DownloadCSV(BrowserView):
                 obj.email.encode("utf-8"),
                 obj.organization.encode("utf-8")])
         file.close()
-        data = open(self.filename, "r").read()
+        data = open(filename, "r").read()
         
         # Create response
         response = context.REQUEST.response
-        response.addHeader('Content-Disposition', "attachment; filename=%s" % self.filename)
+        response.addHeader('Content-Disposition', "attachment; filename=easynewsletter-subscribers.csv")
         response.addHeader('Content-Type', 'text/csv')
         response.addHeader('Content-Length', "%d" % len(data))
         response.addHeader('Pragma', "no-cache")
