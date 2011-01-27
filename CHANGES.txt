@@ -4,6 +4,9 @@ Changes
 2.5.6 (27/01/2011)
 ------------------
 
+* Create new Sphinx-based documentation.
+  [timo]
+  
 * Move CSV file format description to the top.
   [timo]
   

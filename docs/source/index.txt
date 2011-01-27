@@ -1,0 +1,115 @@
+.. EasyNewsletter documentation master file, created by
+   sphinx-quickstart on Thu Jan 27 10:47:48 2011.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to EasyNewsletter's documentation!
+==========================================
+
+What is it?
+===========
+
+EasyNewsletter is a simple but powerful newsletter/mailing product for Plone.
+
+Features
+========
+
+    - Plonish (can use Plone's Collections to collect content)
+
+    - Support Text and HTML Newsletter (including images)
+
+    - Subscribing / Unsubscribing and can use Plone Members/Groups as receivers (works also with Membrane)
+
+    - Variable templates to generate newsletter content
+
+    - TTW customizeable output Template to generate nice HTML Newsletter
+
+    - Support personalized mails
+
+Requirements
+============
+
+    - inqbus.plone.fastmemberproperties, speed up access of member properties (should automaticly installed)
+
+
+Installation
+============
+
+    1. Add Products.EasyNewsletter to your buildout
+
+    2. Run your buildout script
+
+    3. Restart zope
+
+    4. Install EasyNewsletter via Plone Management Interface
+
+    5. Add an "Newsletter Subscriber" portlet and enter the path to the
+    EasyNewsletter object, e.g.: /portal/newsletter (To this newsletter the
+    subscribers will be added).
+
+Usage
+=====
+
+General
+-------
+You can use EasyNewslleter to create manually mailings/newsletters 
+or you can use the collection criteria to collect content.
+
+EasyNewsletter is heavily based on Plone's Collections. In fact, the
+Newsletter as well as the Issues are actually specialized Collections.
+
+Hence you can use familiar criteria to decide which content should be part of
+a newsletter.
+
+It's a feature of Collections that sub topics are able to inherit criteria
+from its parent, so all Issue instances are able to inherit criteria from the
+outer Newsletter instance.
+
+Plone's default feature of sub topics is used to create sections within the
+newsletter issue. For example one can create to sections: news and events by
+creating sub topics which collect just this kind of content objects.
+
+Once the content is generated one could edit the text as ususal in Plone.
+
+You can create own templates to structure the selected content. Please refer
+to the provided "default"-template to see how it works.
+
+Step by step
+------------
+
+1. Add a EasyNewsletter instance, fill in the form and save it.
+
+2. If you whant write a simple mannually mailing, you can add an Issue and fill it out with your text.
+
+3. Or if you whant use collections to collect you content first, then you can add an Issue, 
+   go to criteria tab and add the criteria, which shall be applied to *all* of 
+   your Newsletters, e.g. "Items Type".
+
+4. You can create more than one sub collections to build categories like news, events and pictures in your newsletter. 
+   Just add some collections to the newsletter it self and define your criterias for all of them. 
+   The issues will combine them into different part in your content area.
+
+5. Go to the view tab and press refresh (see Plone's document actions at the 
+   bottom of the page)
+
+6. You can also add subcollections and define criterias on issue level.
+
+7. Go to send tab and push "Test Newsletter".
+
+8. If your Newsletter/Mailing is finished, you can activate the sendbutton by click enable sendbutton. 
+   Then you can click on send newsletter to send the Newsletter to all subscribers or selected groups and users.
+
+
+Contents:
+
+.. toctree::
+   :maxdepth: 2
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+
