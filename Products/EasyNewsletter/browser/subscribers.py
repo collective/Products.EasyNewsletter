@@ -101,6 +101,7 @@ class UploadCSV(BrowserView):
         
         context = aq_inner(self.context)
         plone_utils = getToolByName(self.context, 'plone_utils')
+        encoding = plone_utils.getSiteEncoding()
         existing = self.context.objectIds()
         messages = IStatusMessage(self.request)
         success = []
@@ -149,9 +150,9 @@ class UploadCSV(BrowserView):
                             description="")
                         sub = context[id]
                         sub.email = email
-                        sub.fullname = fullname
-                        sub.organization = organization
-                        sub.salutation = salutation
+                        sub.fullname = fullname.decode(encoding)
+                        sub.organization = organization.decode(encoding)
+                        sub.salutation = salutation.decode(encoding)
                     except:
                         fail.append(
                             {'salutation': salutation,
