@@ -39,6 +39,10 @@ from Products.EasyNewsletter.interfaces import IENLIssue, IReceiversMemberFilter
 from Products.EasyNewsletter.interfaces import IEasyNewsletter
 from Products.EasyNewsletter.config import *
 
+import logging
+log = logging.getLogger("Products.EasyNewsletter")
+
+
 schema=Schema((
     StringField('senderEmail',
         widget=StringWidget(
@@ -343,11 +347,10 @@ class EasyNewsletter(ATTopic, BaseFolder):
         """ return filtered list of plone members as DisplayList
         """
         if fmp_tool:
-            # use fastmemberproperties to get mememberproperties: 
+            log.debug("Use fastmemberpropertiestool to get memberproperties!")
             member_properties = fmp_tool.get_all_memberproperties()
         else:
-            # use plone API to get memberproperties, works without fastmemberproperties, 
-            # but is much slower!
+            log.info("We use plone API to get memberproperties, this ist very slow on many members, please install inqbus.plone.fastmemberproperties to make it fast!")
             acl_userfolder = getToolByName(self, 'acl_users')
             member_objs = acl_userfolder.getUsers()
             member_properties = {}
