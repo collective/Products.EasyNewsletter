@@ -20,7 +20,7 @@ schema=Schema((
     ZPTField('body',
         validators=('zptvalidator',),
         widget=TextAreaWidget(
-            description = 'This is a Zope Page Template file'
+            description = 'This is a Zope Page Template file '
                     'that is used for rendering the newsletter mail.',
                     description_msgid = "help_body_zpt",
                     label = 'Newsletter Template',
