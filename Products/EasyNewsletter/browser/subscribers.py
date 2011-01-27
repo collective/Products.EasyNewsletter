@@ -130,29 +130,33 @@ class UploadCSV(BrowserView):
                 salutation = subscriber[0]
                 fullname = subscriber[1]
                 email = subscriber[2]
-                organisation = subscriber[3]
+                organization = subscriber[3]
                 id = plone_utils.normalizeString(email)
                 if id in existing:
                     fail.append(
                         {'salutation': salutation,
                          'fullname': fullname,
                          'email': email,
-                         'organisation': organisation,
+                         'organization': organization,
                          'failure': 'This email address is already registered.'})
                 else:
-                    fullname = subscriber[0]
-                    organization = subscriber[2]
                     title = email + " - " + fullname
                     try:
                         self.context.invokeFactory('ENLSubscriber',
-                            id=id, title=title, description="", email=email,
-                            fullname=fullname, organization=organization)
+                            id=id, 
+                            title=title, 
+                            description="")
+                        sub = context[id]
+                        sub.email = email
+                        sub.fullname = fullname
+                        sub.organization = organization
+                        sub.salutation = salutation
                     except:
                         fail.append(
                             {'salutation': salutation,
                              'fullname': fullname,
                              'email': email,
-                             'organisation': organisation,
+                             'organization': organization,
                              'failure': 'An error occured while creating this subscriber.'})
                     obj = self.context.get(id, None)
                     obj.reindexObject()
@@ -160,6 +164,49 @@ class UploadCSV(BrowserView):
                             {'salutation': salutation,
                              'fullname': fullname,
                              'email': email,
-                             'organisation': organisation})
+                             'organization': organization})
 
         return {'success' : success, 'fail' : fail}
+
+
+class DownloadCSV(BrowserView):
+
+    filename = "easynewsletter-subscribers.csv"
+         
+    def __call__(self):
+        """Returns a CSV file with all newsletter subscribers.
+        """
+        context = aq_inner(self.context)
+        ctool = getToolByName(context, 'portal_catalog')
+
+        # Create CSV file
+        file = open(self.filename, 'wb')
+        csvWriter = csv.writer(file, 
+                               delimiter=',',
+                               quotechar='"', 
+                               quoting=csv.QUOTE_MINIMAL)
+        csvWriter.writerow(CSV_HEADER)
+        for subscriber in ctool(portal_type = 'ENLSubscriber',
+                                path='/'.join(self.context.getPhysicalPath()),
+                                sort_on='email'): 
+            obj = subscriber.getObject() 
+            csvWriter.writerow([
+                obj.salutation,
+                obj.fullname,
+                obj.email,
+                obj.organization])
+        file.close()
+        data = open(self.filename, "r").read()
+        
+        # Create response
+        response = context.REQUEST.response
+        response.addHeader('Content-Disposition', "attachment; filename=%s" % self.filename)
+        response.addHeader('Content-Type', "text/csv")
+        response.addHeader('Content-Length', "%d" % len(data))
+        response.addHeader('Pragma', "no-cache")
+        response.addHeader('Cache-Control', "must-revalidate, post-check=0, pre-check=0, public")
+        response.addHeader('Expires', "0")
+        
+        # Return CSV data
+        return data
+    

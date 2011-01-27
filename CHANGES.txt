@@ -1,9 +1,12 @@
 Changes
 =======
 
-2.5.6 (unreleased)
+2.5.6 (27/01/2011)
 ------------------
 
+* CSV export added.
+  [timo]
+  
 * Use TextAreaWidget for the newsletter template body.
   [timo]
   
@@ -62,6 +65,7 @@ Changes
 
 2.5.1 (2010/11/30)
 ------------------
+
  * added CSV import (to upload_csv.pt, subscribers.py)
    you have to append '@@upload_csv' to your newsletter url to call this page.
    the csv file must look like this (email is required)::
