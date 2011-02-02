@@ -53,6 +53,18 @@ class ENLHTMLParser(HTMLParser.HTMLParser):
         """
         self.html += data
         
+    def handle_charref(self, name):
+        self.html += "&#%s;" % name
+
+    def handle_entityref(self, name):
+        self.html += "&%s;" % name
+
+    def handle_comment(self, data):
+        self.html += "<!--%s-->" % data
+
+    def handle_decl(self, decl):
+        self.html += "<!%s>" % decl
+
     def handle_startendtag(self, tag, attrs):
         """
         """
