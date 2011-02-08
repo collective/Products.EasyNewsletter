@@ -194,7 +194,7 @@ class DownloadCSV(BrowserView):
             csvWriter.writerow([
                 obj.salutation.encode("utf-8"),
                 obj.fullname.encode("utf-8"),
-                obj.email.encode("utf-8"),
+                obj.email,
                 obj.organization.encode("utf-8")])
         file.close()
         data = open(filename, "r").read()

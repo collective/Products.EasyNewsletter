@@ -1,6 +1,13 @@
 Changes
 =======
 
+2.5.8 (unreleased)
+------------------
+
+* Do not encode email addresses when exporting subscribers.
+  [timo]
+
+
 2.5.7 (08/02/2011)
 ------------------
 
