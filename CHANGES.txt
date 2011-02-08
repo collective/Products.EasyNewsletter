@@ -1,7 +1,7 @@
 Changes
 =======
 
-2.5.7 (unreleased)
+2.5.7 (08/02/2011)
 ------------------
 
 * Make sure the url variable is always set in the handle_starttag method of 
