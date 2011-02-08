@@ -31,6 +31,8 @@ class ENLHTMLParser(HTMLParser.HTMLParser):
                         # maybe we got a view instead of an traversal object:
                         if getattr(o, 'context', None):
                             url = o.context.absolute_url()
+                        else:
+                            url = attr[1]
                     if anchor:
                         url += '#' + anchor
                 except:

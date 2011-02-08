@@ -4,6 +4,10 @@ Changes
 2.5.7 (unreleased)
 ------------------
 
+* Make sure the url variable is always set in the handle_starttag method of 
+  the ENLHTMLParser.
+  [timo]
+  
 * Fix CSV import with special characters.
   [timo]
   
