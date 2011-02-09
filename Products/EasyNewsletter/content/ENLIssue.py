@@ -28,9 +28,9 @@ from Products.Archetypes.public import ObjectField
 
 try:
     from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool
-    fmp_tool = queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool')
+    fmp_tool = True
 except:
-    fmp_tool = None
+    fmp_tool = False
 
 
 # EasyNewsletter imports
@@ -448,12 +448,14 @@ class ENLIssue(ATTopic, BaseContent):
         """ Search for all selected Members and Groups
             and return a filtered list of subscribers as dicts.
         """
+        global fmp_tool
         newsletter_obj = self.getNewsletter()
         plone_subscribers = []
         receiver_member_list = self.getPloneReceiverMembers()
         receiver_group_list = self.getPloneReceiverGroups()
         gtool = getToolByName(self, 'portal_groups')
         if fmp_tool:
+            fmp_tool = queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool')
             # use fastmemberproperties to get mememberproperties: 
             member_properties = fmp_tool.get_all_memberproperties()
         else:

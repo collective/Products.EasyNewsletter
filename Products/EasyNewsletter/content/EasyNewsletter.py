@@ -28,11 +28,12 @@ from AccessControl.User import UnrestrictedUser as BaseUnrestrictedUser
 
 from Products.EasyNewsletter.interfaces import ISubscriberSource
 
+
 try:
     from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool
-    fmp_tool = queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool')
+    fmp_tool = True
 except:
-    fmp_tool = None
+    fmp_tool = False
 
 # EasyNewsletter imports
 from Products.EasyNewsletter.interfaces import IENLIssue, IReceiversMemberFilter, IReceiversGroupFilter
@@ -305,9 +306,9 @@ class EasyNewsletter(ATTopic, BaseFolder):
         """Overwritten hook.
         """
         ATTopic.initializeArchetype(self, **kwargs)
-        
         # Add default template
-        self.manage_addProduct["EasyNewsletter"].addENLTemplate(id="default_template", title="Default")
+        if not getattr(self, 'default_template', None):
+            self.manage_addProduct["EasyNewsletter"].addENLTemplate(id="default_template", title="Default")
         tmpl = self.default_template
         self.setExcludeFromNav(False)
 
@@ -346,8 +347,10 @@ class EasyNewsletter(ATTopic, BaseFolder):
     def get_plone_members(self):
         """ return filtered list of plone members as DisplayList
         """
+        global fmp_tool
         if fmp_tool:
             log.debug("Use fastmemberpropertiestool to get memberproperties!")
+            fmp_tool = queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool')
             member_properties = fmp_tool.get_all_memberproperties()
         else:
             log.info("We use plone API to get memberproperties, this ist very slow on many members, please install inqbus.plone.fastmemberproperties to make it fast!")
