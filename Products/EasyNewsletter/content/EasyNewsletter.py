@@ -78,7 +78,7 @@ schema=Schema((
     ),
 
     LinesField('salutations',
-        default=("mr|Dear Mr.","ms|Dear Ms."),
+        default=("mr|Dear Mr.","ms|Dear Ms.","default|Dear"),
         widget=LinesWidget(
             label=_(u'EasyNewsletter_label_salutations', default=u"Subscriber Salutations."),
             description=_(u"EasyNewsletter_help_salutations", 
@@ -133,6 +133,15 @@ schema=Schema((
             i18n_domain='EasyNewsletter',
         ),
         default_output_type='text/html'
+    ),
+
+    BooleanField('sendToAllPloneMembers',
+        default=False,
+        widget=BooleanWidget(
+            label=_(u'label_sendToAllPloneMembers', default=u'Send to all Plone members'),
+            description_msgid=_(u'help_sendToAllPloneMembers', default=u'If checked, the newsletter/mailing is send to all plone members. If there are subscribers inside the newsletter, they get the letter anyway.'),
+            i18n_domain='EasyNewsletter',
+        )
     ),
 
     LinesField('ploneReceiverMembers',

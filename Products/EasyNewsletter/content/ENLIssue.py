@@ -59,7 +59,16 @@ schema=Schema((
         ),
         default_output_type='text/html'
     ),
-
+    
+    BooleanField('sendToAllPloneMembers',
+        default_method="get_sendToAllPloneMembers_defaults",
+        widget=BooleanWidget(
+            label=_(u'label_sendToAllPloneMembers', default=u'Send to all Plone members'),
+            description_msgid=_(u'help_sendToAllPloneMembers', default=u'If checked, the newsletter/mailing is send to all plone members. If there are subscribers inside the newsletter, they get the letter anyway.'),
+            i18n_domain='EasyNewsletter',
+        )
+    ),
+    
     LinesField('ploneReceiverMembers',
         vocabulary="get_plone_members",
         default_method="get_ploneReceiverMembers_defaults",
@@ -116,7 +125,7 @@ schema=Schema((
 
     BooleanField('acquireCriteria',
         schemata="settings",
-        default="True",
+        default=True,
         widget=BooleanWidget(
             label=_(u'label_inherit_criteria', default=u'Inherit Criteria'),
             description_msgid='EasyNewsletter_help_acquireCriteria',
@@ -432,6 +441,10 @@ class ENLIssue(ATTopic, BaseContent):
         newsletter_obj = self.getNewsletter()
         return newsletter_obj.get_plone_groups()
 
+    def get_sendToAllPloneMembers_defaults(self):
+        newsletter_obj = self.getNewsletter()
+        return newsletter_obj.getSendToAllPloneMembers()
+
     def get_ploneReceiverMembers_defaults(self):
         """ return all selected members from parent newsletter object.
         """
@@ -451,8 +464,14 @@ class ENLIssue(ATTopic, BaseContent):
         global fmp_tool
         newsletter_obj = self.getNewsletter()
         plone_subscribers = []
-        receiver_member_list = self.getPloneReceiverMembers()
-        receiver_group_list = self.getPloneReceiverGroups()
+        if self.getSendToAllPloneMembers():
+            log.info("SendToAllPloneMembers is true, so we add all existing members to receiver_member_list!")
+            receiver_member_list = newsletter_obj.get_plone_members()
+            #if all members are receivers we don't need groups relations:
+            receiver_group_list = []
+        else:
+            receiver_member_list = self.getPloneReceiverMembers()
+            receiver_group_list = self.getPloneReceiverGroups()
         gtool = getToolByName(self, 'portal_groups')
         if fmp_tool:
             fmp_tool = queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool')
