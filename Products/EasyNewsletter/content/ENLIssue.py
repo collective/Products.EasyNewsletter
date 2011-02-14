@@ -2,6 +2,7 @@
 import formatter
 import cStringIO
 from htmllib import HTMLParser
+import urllib
 from urlparse import urlparse
 from email.MIMEText import MIMEText
 from email.MIMEMultipart import MIMEMultipart
@@ -377,15 +378,16 @@ class ENLIssue(ATTopic, BaseContent):
             for image_url in image_urls:
                 #XXX: we need to provide zope3 recource image too!
                 image_url = urlparse(image_url)[2]
-                o = self.restrictedTraverse(image_url)
+                o = self.restrictedTraverse(urllib.unquote(image_url))
                 if hasattr(o, "_data"):                               # file-based
                     image = MIMEImage(o._data)
-                else:
+                elif hasattr(o, "data"):
                     image = MIMEImage(o.data)                         # zodb-based
+                else:
+                    image = MIMEImage(o.GET())                        # z3 resource image
                 image["Content-ID"] = "image_%s" % image_number
                 image_number += 1
-                # attach images to text and html parts
-                text_part.attach(image)
+                # attach images only to html parts
                 html_part.attach(image)
             
             outer.attach(text_part)

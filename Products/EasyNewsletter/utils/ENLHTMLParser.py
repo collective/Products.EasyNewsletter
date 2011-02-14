@@ -1,5 +1,6 @@
 import HTMLParser
 import urlparse
+import urllib
 
 class ENLHTMLParser(HTMLParser.HTMLParser):
     """A simple parser which exchange relative URLs with obsolute ones"""
@@ -24,7 +25,7 @@ class ENLHTMLParser(HTMLParser.HTMLParser):
                 try:
                     # split anchor from url
                     baseurl, anchor = urlparse.urldefrag(attr[1])
-                    o = self.context.restrictedTraverse(baseurl)
+                    o = self.context.restrictedTraverse(urllib.unquote(baseurl))
                     if getattr(o, 'absolute_url', None):
                         url = o.absolute_url()
                     else:
@@ -71,7 +72,6 @@ class ENLHTMLParser(HTMLParser.HTMLParser):
         """
         """
         self.html += "<%s" % tag
-           
         for attr in attrs:
             if attr[0] == "src":
                 self.html += ' src="cid:image_%s"' % self.image_number
