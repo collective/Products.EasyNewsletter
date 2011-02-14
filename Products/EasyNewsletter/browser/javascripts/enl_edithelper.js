@@ -15,6 +15,8 @@ jq(document).ready(function(){
 			jq("#archetypes-fieldname-ploneReceiverGroups").removeClass('hidden')			
 		}	
 	})	
+});
+	
 	
 /*	
   jq("#archetypes-fieldname-header").insertAfter("\
@@ -29,7 +31,7 @@ jq(document).ready(function(){
   .append(jq("#archetypes-fieldname-footer"));
   init_enl_tabs();
 */  
-});
+
 
 /*
 function init_enl_tabs(){  
