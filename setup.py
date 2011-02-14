@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '2.5.7'
+version = '2.5.8'
 
 setup(name='Products.EasyNewsletter',
     version=version,
@@ -15,10 +15,10 @@ setup(name='Products.EasyNewsletter',
         "Development Status :: 4 - Beta",
     ],
     keywords='Zope Plone Newsletter Mailing',
-    maintainer='Andreas Jung, Maik Derstappen',
-    author='Kai Diefenbach',
-    author_email='kai.diefenbach@iqpp.de',
-    url='http://plone.org/products/easynewsletter/',
+    maintainer='Maik Derstappen, Timo Stollenwerk, Andreas Jung',
+    author='Maik Derstappen',
+    author_email='maik.derstappen@inqbus.de',
+    url='http://plone.org/products/easynewsletter',
     license='GPL',
     packages=find_packages(exclude=['ez_setup']),
     namespace_packages=['Products'],

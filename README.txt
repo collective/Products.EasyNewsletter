@@ -25,7 +25,7 @@ Features
 
     * Support personalized mails
 
-    * mass import subscribers with csv upload
+    * mass import/export subscribers via csv
 
     * support external filtering/manipulation (filter out or add more subscribers) plugins
 
@@ -119,6 +119,9 @@ Bugtracker
 Autors
 ======
 
-* Kai Dieffenbach (V 1.X)
-* Maik Derstappen (V 2.0 / >=2.5.3)
-* Andreas Jung (V 2.5)
+* initial release Kai Dieffenbach
+* since 2.0 Maik Derstappen
+* since 2.5 Andreas Jung
+* Philip Bauer
+* Timo Stollenwerk
+* Dinu Gherman

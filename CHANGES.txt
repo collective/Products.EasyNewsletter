@@ -1,20 +1,35 @@
 Changes
 =======
 
-2.5.8 (unreleased)
+2.5.9 (unreleased)
+
+
+2.5.8 (14/02/2011)
+------------------
+
+* fix optional use of fmp
+  [derstappenit]
+  
+* only add default_template if doesnt exists, this fix error in archetypes_tool on update schema
+  [derstappenit]
+  
+* add a BooleanField sendToAllPloneMembers, which can be used to address all existing plone members in a newsletter, no need to select all every time new user are available 
+  [derstappenit]
+
+* fix url handlink for links and images if url contains empty spaces, add z3 resource image support, add images only to html part of the email
+  [derstappenit]
+  
+
+2.5.7 (08/02/2011)
 ------------------
 
 * Do not encode email addresses when exporting subscribers.
   [timo]
 
-
-2.5.7 (08/02/2011)
-------------------
-
 * Make sure the url variable is always set in the handle_starttag method of 
   the ENLHTMLParser.
   [timo]
-  
+
 * Fix CSV import with special characters.
   [timo]
   
@@ -24,6 +39,9 @@ Changes
   
 * Fix CSV export with special characters.
   [timo]
+  
+* Added missing methods for HTML parser in order to preserve HTML references and other stuff.
+  [dgherman]
 
 
 2.5.6 (27/01/2011)
@@ -54,21 +72,24 @@ Changes
 2.5.5 (26/01/2011)
 ------------------
 
-* remove unneeded dependency to BeautifulSoup [derstappenit]
+* remove unneeded dependency to BeautifulSoup
+  [derstappenit]
 
 
 2.5.4 (11/01/2011)
 ------------------
 
 * fix schema of EasyNewsletter and ENLIssues, use copy to create a schema based 
-  on ATTopicSchema [derstappenit]
+  on ATTopicSchema 
+  [derstappenit]
 
 
 2.5.3 (07/01/2011)
 ------------------
 
 * fix issue view, now it looks mostly like the html newsletter version
-   in your mail client [derstappenit]
+  in your mail client 
+  [derstappenit]
 
 
 2.5.2 (06/01/2011)
