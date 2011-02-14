@@ -208,7 +208,7 @@ class ENLIssue(ATTopic, BaseContent):
             test_receiver = request.get("test_receiver", "")
             if test_receiver == "":
                 test_receiver = enl.getTestEmail()
-            receivers = [{'email': test_receiver, 'fullname': '', 'salutation': 'Sir or Madam'}]
+            receivers = [{'email': test_receiver, 'fullname': 'Test Member', 'salutation': 'Sir or Madam'}]
 
         else:
             # get ENLSubscribers
@@ -325,8 +325,8 @@ class ENLIssue(ATTopic, BaseContent):
 
             if hasattr(request, "test"):
                 outer['To'] = receiver['email']
-                fullname = "Test Member"
-                salutation = ""
+                fullname = receiver['fullname']
+                salutation = receiver['salutation']
                 personal_text = text.replace("[[SUBSCRIBER_SALUTATION]]", "")
                 personal_text_plain = text_plain.replace("[[SUBSCRIBER_SALUTATION]]", "")
                 personal_text = text.replace("[[UNSUBSCRIBE]]", "")
@@ -378,7 +378,10 @@ class ENLIssue(ATTopic, BaseContent):
             for image_url in image_urls:
                 #XXX: we need to provide zope3 recource image too!
                 image_url = urlparse(image_url)[2]
-                o = self.restrictedTraverse(urllib.unquote(image_url))
+                try:
+                    o = self.restrictedTraverse(urllib.unquote(image_url))
+                except Exception, e:
+                    log.error("Could not resolve the image \"%s\": %s" % (image_url, e))
                 if hasattr(o, "_data"):                               # file-based
                     image = MIMEImage(o._data)
                 elif hasattr(o, "data"):
