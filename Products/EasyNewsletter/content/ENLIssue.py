@@ -200,6 +200,10 @@ class ENLIssue(ATTopic, BaseContent):
 
         request = self.REQUEST
         enl = self.getNewsletter()
+        salutation_mappings = {}
+        for line in enl.getSalutations():
+            salutation_key, salutation_value = line.split('|')
+            salutation_mappings[salutation_key.strip()] = salutation_value.strip()
         if recipients:
             receivers = recipients
 
@@ -208,15 +212,11 @@ class ENLIssue(ATTopic, BaseContent):
             test_receiver = request.get("test_receiver", "")
             if test_receiver == "":
                 test_receiver = enl.getTestEmail()
-            receivers = [{'email': test_receiver, 'fullname': 'Test Member', 'salutation': 'Sir or Madam'}]
-
+            salutation = salutation_mappings.get('default', '')
+            receivers = [{'email': test_receiver, 'fullname': 'Test Member', 'salutation': salutation}]
         else:
             # get ENLSubscribers
             enl_receivers = []
-            salutation_mappings = {}
-            for line in enl.getSalutations():
-                salutation_key, salutation_value = line.split('|')
-                salutation_mappings[salutation_key.strip()] = salutation_value.strip()
             for subscriber in enl.objectValues("ENLSubscriber"):
                 salutation_key = subscriber.getSalutation()
                 if salutation_key:
@@ -354,10 +354,9 @@ class ENLIssue(ATTopic, BaseContent):
                     except AttributeError:
                         fullname = "Sir or Madam"
                 outer['To'] = receiver['email']
-                
-            subscriber_salutation = salutation + ' ' + fullname
-            personal_text = personal_text.replace("[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
-            personal_text_plain = personal_text_plain.replace("[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
+            subscriber_salutation = salutation + ' ' + fullname.encode('utf-8')
+            personal_text = personal_text.replace("[[SUBSCRIBER_SALUTATION]]", subscriber_salutation)
+            personal_text_plain = personal_text_plain.replace("[[SUBSCRIBER_SALUTATION]]", subscriber_salutation)
 
             outer['From']    = from_header
             outer['Subject'] = Header(subject)
@@ -431,47 +430,47 @@ class ENLIssue(ATTopic, BaseContent):
             return topics
 
     def get_default_header(self):
-        newsletter_obj = self.getNewsletter()
-        return newsletter_obj.getRawDefault_header()
+        enl = self.getNewsletter()
+        return enl.getRawDefault_header()
 
     def get_default_footer(self):
-        newsletter_obj = self.getNewsletter()
-        return newsletter_obj.getRawDefault_footer()
+        enl = self.getNewsletter()
+        return enl.getRawDefault_footer()
 
     def get_plone_members(self):
-        newsletter_obj = self.getNewsletter()
-        return newsletter_obj.get_plone_members()
+        enl = self.getNewsletter()
+        return enl.get_plone_members()
 
     def get_plone_groups(self):
-        newsletter_obj = self.getNewsletter()
-        return newsletter_obj.get_plone_groups()
+        enl = self.getNewsletter()
+        return enl.get_plone_groups()
 
     def get_sendToAllPloneMembers_defaults(self):
-        newsletter_obj = self.getNewsletter()
-        return newsletter_obj.getSendToAllPloneMembers()
+        enl = self.getNewsletter()
+        return enl.getSendToAllPloneMembers()
 
     def get_ploneReceiverMembers_defaults(self):
         """ return all selected members from parent newsletter object.
         """
-        newsletter_obj = self.getNewsletter()
-        return newsletter_obj.getPloneReceiverMembers()
+        enl = self.getNewsletter()
+        return enl.getPloneReceiverMembers()
 
     def get_ploneReceiverGroups_defaults(self):
         """ return all selected groups from parent newsletter object.
         """
-        newsletter_obj = self.getNewsletter()
-        return newsletter_obj.getPloneReceiverGroups()
+        enl = self.getNewsletter()
+        return enl.getPloneReceiverGroups()
 
     def get_plone_subscribers(self):
         """ Search for all selected Members and Groups
             and return a filtered list of subscribers as dicts.
         """
         global fmp_tool
-        newsletter_obj = self.getNewsletter()
+        enl = self.getNewsletter()
         plone_subscribers = []
         if self.getSendToAllPloneMembers():
             log.info("SendToAllPloneMembers is true, so we add all existing members to receiver_member_list!")
-            receiver_member_list = newsletter_obj.get_plone_members()
+            receiver_member_list = enl.get_plone_members()
             #if all members are receivers we don't need groups relations:
             receiver_group_list = []
         else:
@@ -500,6 +499,12 @@ class ENLIssue(ATTopic, BaseContent):
         for group in receiver_group_list:
             selected_group_members.extend(gtool.getGroupMembers(group))
         receiver_member_list = receiver_member_list + tuple(selected_group_members)
+        
+        # get salutation mappings
+        salutation_mappings = {}
+        for line in enl.getSalutations():
+            salutation_key, salutation_value = line.split('|')
+            salutation_mappings[salutation_key.strip()] = salutation_value.strip()
         # get all selected member properties
         for receiver_id in set(receiver_member_list):
             if not member_properties.has_key(receiver_id):
@@ -510,11 +515,12 @@ class ENLIssue(ATTopic, BaseContent):
                 plone_subscribers.append({
                     'fullname': member_property['fullname'],
                     'email': member_property['email'],
+                    'salutation': salutation_mappings.get('default', ''),
                 })
             else:
                 log.debug("Skip '%s' because \"%s\" is not a real email!" % (receiver_id, member_property['email']))
         # run registered receivers post sending filter:
-        for subscriber in subscribers([newsletter_obj],
+        for subscriber in subscribers([enl],
                                       IReceiversPostSendingFilter):
             plone_subscribers = subscriber.filter(plone_subscribers)
         return plone_subscribers
