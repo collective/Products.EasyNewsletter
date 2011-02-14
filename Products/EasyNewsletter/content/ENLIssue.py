@@ -356,8 +356,8 @@ class ENLIssue(ATTopic, BaseContent):
                 outer['To'] = receiver['email']
                 
             subscriber_salutation = salutation + ' ' + fullname
-            personal_text = personal_text.replace("[[SUBSCRIBER_SALUTATION]]", subscriber_salutation)
-            personal_text_plain = personal_text_plain.replace("[[SUBSCRIBER_SALUTATION]]", subscriber_salutation)
+            personal_text = personal_text.replace("[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
+            personal_text_plain = personal_text_plain.replace("[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
 
             outer['From']    = from_header
             outer['Subject'] = Header(subject)
