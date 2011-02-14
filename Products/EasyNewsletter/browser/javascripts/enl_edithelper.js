@@ -1,4 +1,11 @@
-jq(document).ready(function(init_enl_tabs){
+jq(document).ready(function(){
+	if (jq("#sendToAllPloneMembers").attr('checked')){
+		jq("#archetypes-fieldname-ploneReceiverMembers").addClass('hidden')
+		jq("#archetypes-fieldname-ploneReceiverGroups").addClass('hidden')
+	}else{
+		jq("#archetypes-fieldname-ploneReceiverMembers").removeClass('hidden')
+		jq("#archetypes-fieldname-ploneReceiverGroups").removeClass('hidden')			
+	};
 	jq("#sendToAllPloneMembers").click(function (){
 		if (jq(this).attr('checked')){
 			jq("#archetypes-fieldname-ploneReceiverMembers").addClass('hidden')
