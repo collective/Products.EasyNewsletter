@@ -41,6 +41,7 @@ from Products.EasyNewsletter.interfaces import IENLIssue
 from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter
 from Products.EasyNewsletter.interfaces import ISubscriberSource
 from Products.EasyNewsletter.utils.ENLHTMLParser import ENLHTMLParser
+from Products.EasyNewsletter.utils import safe_portal_encoding
 
 import logging
 
@@ -254,7 +255,7 @@ class ENLIssue(ATTopic, BaseContent):
         # get out_template from ENL object and render it in context of issue
         out_template_pt_field = enl.getField('out_template_pt')
         ObjectField.set(out_template_pt_field, self, ZopePageTemplate(out_template_pt_field.getName(), enl.getRawOut_template_pt()))
-        output_html = self.out_template_pt.pt_render().encode(charset)
+        output_html = safe_portal_encoding(self.out_template_pt.pt_render())
         return output_html
     
     def _exchange_relative_urls(self, output_html):
@@ -354,9 +355,10 @@ class ENLIssue(ATTopic, BaseContent):
                     except AttributeError:
                         fullname = "Sir or Madam"
                 outer['To'] = receiver['email']
-            subscriber_salutation = salutation + ' ' + fullname.encode('utf-8')
-            personal_text = personal_text.replace("[[SUBSCRIBER_SALUTATION]]", subscriber_salutation)
-            personal_text_plain = personal_text_plain.replace("[[SUBSCRIBER_SALUTATION]]", subscriber_salutation)
+                
+            subscriber_salutation = safe_portal_encoding(salutation) + ' ' + safe_portal_encoding(fullname)
+            personal_text = personal_text.replace("[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
+            personal_text_plain = personal_text_plain.replace("[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
 
             outer['From']    = from_header
             outer['Subject'] = Header(subject)

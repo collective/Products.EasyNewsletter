@@ -12,6 +12,7 @@ from AccessControl import ClassSecurityInfo
 
 from Products.Archetypes.atapi import *
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import safe_unicode
 #from Products.ATContentTypes import ATCTMessageFactory as _
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 
@@ -370,7 +371,7 @@ class EasyNewsletter(ATTopic, BaseFolder):
                 probdict = {}
                 probdict['id'] = member.getUserId()
                 probdict['email'] = member.getProperty('email')
-                probdict['fullname'] = unicode(member.getProperty('fullname'), 'utf-8', 'ignore')
+                probdict['fullname'] = safe_unicode(member.getProperty('fullname'))
                 member_properties[probdict['id']] = probdict
         if not member_properties:
             return []
