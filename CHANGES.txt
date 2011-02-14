@@ -18,7 +18,9 @@ Changes
 
 * fix url handlink for links and images if url contains empty spaces, add z3 resource image support, add images only to html part of the email
   [derstappenit]
-  
+
+* cache exception if broken img tags exist that can't be resolved by restrictedTraverse, but log the error
+  [derstappenit]
 
 2.5.7 (08/02/2011)
 ------------------
