@@ -357,7 +357,7 @@ class EasyNewsletter(ATTopic, BaseFolder):
         """ return filtered list of plone members as DisplayList
         """
         global fmp_tool
-        if fmp_tool:
+        if fmp_tool and queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool'):
             log.debug("Use fastmemberpropertiestool to get memberproperties!")
             fmp_tool = queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool')
             member_properties = fmp_tool.get_all_memberproperties()
