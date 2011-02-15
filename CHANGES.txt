@@ -1,14 +1,8 @@
 Changes
 =======
 
-2.5.10 (unreleased)
--------------------
-
-- Nothing changed yet.
-
-
-2.5.9 (2011-02-15)
-------------------
+2.5.10a1 (2011-02-15)
+---------------------
 
 * plone.app.testing test setup added.
   [timo]
@@ -16,6 +10,12 @@ Changes
 * Do not exclude ENL content types from navigation on a content object level.
   Exclude them on content type level in the GS profile.
   [timo]
+
+* fix UnboundLocalError which comes with the try except statement
+  [derstappenit]
+
+* fix AttributeError get_all_memberproperties if fmp is available but not installed in the quickinstaller
+  [derstappenit]
 
 
 2.5.9 (15/02/2011)
