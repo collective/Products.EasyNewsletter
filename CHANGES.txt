@@ -1,13 +1,17 @@
 Changes
 =======
 
-2.5.9 (unreleased)
+2.5.9 (2011-02-15)
 ------------------
 
-- Nothing changed yet.
+* Nothing changed yet.
 
 
-2.5.8 (2011-02-14)
+2.5.9 (15/02/2011)
+------------------
+
+* fix UnboundLocalError: local variable 'o' referenced before assignment, which come with the try except to cache image handling errors
+  [derstappenit]
 
 
 2.5.8 (14/02/2011)
