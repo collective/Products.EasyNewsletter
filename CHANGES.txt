@@ -4,7 +4,12 @@ Changes
 2.5.9 (2011-02-15)
 ------------------
 
-* Nothing changed yet.
+* plone.app.testing test setup added.
+  [timo]
+  
+* Do not exclude ENL content types from navigation on a content object level.
+  Exclude them on content type level in the GS profile.
+  [timo]
 
 
 2.5.9 (15/02/2011)

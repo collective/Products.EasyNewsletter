@@ -57,7 +57,6 @@ class ENLTemplate(BaseContent):
         """
         BaseContent.initializeArchetype(self, **kwargs)
         self.setBody(DEFAULT_TEMPLATE)
-        self.setExcludeFromNav(True)
 
     security.declarePublic('getSourceCode')
     def getSourceCode(self):

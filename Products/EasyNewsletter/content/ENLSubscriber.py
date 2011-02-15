@@ -80,7 +80,6 @@ class ENLSubscriber(BaseContent):
         """Overwritten hook
         """
         BaseContent.initializeArchetype(self, **kwargs)
-        self.setExcludeFromNav(True)
 
     def setEmail(self, value):
         """
