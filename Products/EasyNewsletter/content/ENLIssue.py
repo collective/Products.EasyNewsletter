@@ -383,16 +383,17 @@ class ENLIssue(ATTopic, BaseContent):
                     o = self.restrictedTraverse(urllib.unquote(image_url))
                 except Exception, e:
                     log.error("Could not resolve the image \"%s\": %s" % (image_url, e))
-                if hasattr(o, "_data"):                               # file-based
-                    image = MIMEImage(o._data)
-                elif hasattr(o, "data"):
-                    image = MIMEImage(o.data)                         # zodb-based
                 else:
-                    image = MIMEImage(o.GET())                        # z3 resource image
-                image["Content-ID"] = "image_%s" % image_number
-                image_number += 1
-                # attach images only to html parts
-                html_part.attach(image)
+                    if hasattr(o, "_data"):                               # file-based
+                        image = MIMEImage(o._data)
+                    elif hasattr(o, "data"):
+                        image = MIMEImage(o.data)                         # zodb-based
+                    else:
+                        image = MIMEImage(o.GET())                        # z3 resource image
+                    image["Content-ID"] = "image_%s" % image_number
+                    image_number += 1
+                    # attach images only to html parts
+                    html_part.attach(image)
             
             outer.attach(text_part)
             outer.attach(html_part)

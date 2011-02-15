@@ -14,7 +14,7 @@ jq(document).ready(function(){
 			jq("#archetypes-fieldname-ploneReceiverMembers").removeClass('hidden')
 			jq("#archetypes-fieldname-ploneReceiverGroups").removeClass('hidden')			
 		}	
-	})	
+	});	
 });
 	
 	
