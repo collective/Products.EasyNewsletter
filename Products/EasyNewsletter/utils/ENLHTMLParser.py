@@ -2,8 +2,11 @@ import HTMLParser
 import urlparse
 import urllib
 
+from Products.CMFCore.utils import getToolByName
+
+
 class ENLHTMLParser(HTMLParser.HTMLParser):
-    """A simple parser which exchange relative URLs with obsolute ones"""
+    """A simple parser which exchange relative URLs with absolute ones"""
     
     def __init__(self, context):
         
@@ -38,7 +41,10 @@ class ENLHTMLParser(HTMLParser.HTMLParser):
                         url += '#' + anchor
                 except:
                     url = attr[1]
-                
+                if isinstance(url, unicode):
+                    plone_utils = getToolByName(self.context, 'plone_utils')
+                    encoding = plone_utils.getSiteEncoding()
+                    url = url.encode(encoding)
                 self.html += ' href="%s"' % url           
             else:
                 self.html += ' %s="%s"' % (attr)
