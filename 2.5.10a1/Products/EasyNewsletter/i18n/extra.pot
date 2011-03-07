@@ -1,0 +1,18 @@
+# ArchGenXML generated POT File
+# Kai Diefenbach - iqplusplus <kai.diefenbach <at> iqpp.de>, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: EasyNewsletter\n"
+"POT-Creation-Date: Tue Apr 25 11:18:19 2006\n"
+"PO-Revision-Date: Tue Apr 25 11:18:19 2006\n"
+"Last-Translator: Kai Diefenbach - iqplusplus <kai.diefenbach <at> iqpp.de>\n"
+"Language-Team: Kai Diefenbach - iqplusplus <kai.diefenbach <at> iqpp.de>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ascii\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: latin1 utf-8\n"
+"Domain: EasyNewsletter\n"
+

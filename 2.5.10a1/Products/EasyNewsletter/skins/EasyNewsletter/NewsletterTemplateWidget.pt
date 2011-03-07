@@ -1,0 +1,42 @@
+<html i18n:domain="EasyNewsletter">
+      
+  <body>
+    <div metal:define-macro="edit">
+
+      <metal:use use-macro="field_macro | here/widgets/field/macros/edit">
+
+          <metal:fill fill-slot="widget_body"
+                      tal:define="vocab python:context.aq_parent.objectValues('ENLTemplate')">
+
+            <select tal:attributes="name fieldName;
+                                    id fieldName;">
+
+                <option tal:repeat="item vocab"
+                        tal:attributes="value python:item.getId();
+                                        selected python:here.checkSelected(item.getId(), value) and 'selected' or None"
+                        tal:content="python:item.Title()"
+                        />
+
+            </select>
+
+            <input type="submit" 
+                   name="form.button.update"
+                   value="Save &amp; Update"
+                   i18n:attributes="value easycms_saveupdate_label;"/>
+
+
+          </metal:fill>
+
+      </metal:use>    
+    </div>
+
+    <div metal:define-macro="view">
+    </div>
+
+    <div metal:define-macro="search">
+      <div metal:use-macro="context/widgets/string/macros/search" />    
+    </div>
+  
+  </body>      
+      
+</html>

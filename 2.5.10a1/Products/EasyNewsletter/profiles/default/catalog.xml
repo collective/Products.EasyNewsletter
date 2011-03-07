@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<object name="portal_catalog" meta_type="Plone Catalog Tool">
+  <!-- Add indexes here on penalty of death or worse.
+       See add_catalog_indexes in setuphandlers.py instead. -->
+ <column value="email"/>
+ <column value="fullname"/>
+ <column value="salutation"/>
+ <column value="organization"/>
+</object>

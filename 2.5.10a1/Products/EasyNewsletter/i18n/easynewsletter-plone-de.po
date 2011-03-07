@@ -1,0 +1,69 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: EasyNewsletter\n"
+"POT-Creation-Date: Tue Apr 25 11:18:19 2006\n"
+"PO-Revision-Date: Tue Apr 25 11:18:19 2006\n"
+"Last-Translator: Kai Diefenbach - iqplusplus <kai.diefenbach <at> iqpp.de>\n"
+"Language-Team: Kai Diefenbach - iqplusplus <kai.diefenbach <at> iqpp.de>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: de\n"
+"Language-Name: Deutsch\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone\n"
+
+msgid "An error occured."
+msgstr "Es ist ein Fehler aufgetreten."
+
+msgid "Archive"
+msgstr "Archiv"
+
+msgid "Drafts"
+msgstr "Entwürfe"
+
+msgid "Please enter a valid e-mail address."
+msgstr "Bitte geben Sie eine gültige E-Mail-Adresse ein."
+
+msgid "Receivers"
+msgstr "Empfänger"
+
+msgid "Send"
+msgstr "Senden"
+
+msgid "Subscriber"
+msgstr "Abonnent"
+
+msgid "Subscribers"
+msgstr "Abonnenten"
+
+msgid "Template"
+msgstr "Schablone"
+
+msgid "Templates"
+msgstr "Schablonen"
+
+msgid "The Newsletter has been send."
+msgstr "Der Newsletter wurde versendet."
+
+msgid "Your e-mail address is already registered."
+msgstr "Ihre E-Mail-Adresse ist bereits registriert."
+
+msgid "Your e-mail has been added. Thanks for your interest."
+msgstr "Ihre E-Mail-Adresse wurde hinzugefügt. Vielen Dank für Ihr Interesse!"
+
+msgid "draft"
+msgstr "Entwurf"
+
+msgid "make draft"
+msgstr "Zu Entwurf wechseln"
+
+msgid "make sent"
+msgstr "Zu gesendet wechseln"
+
+msgid "sent"
+msgstr "Gesendet"
+
+msgid "External"
+msgstr "Extern"

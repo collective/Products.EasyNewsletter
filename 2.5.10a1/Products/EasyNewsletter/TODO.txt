@@ -1,0 +1,14 @@
+#TODO:
+    
+    * hide ENLTemplate from navigation
+
+    * add validator to ENLSubsciber to check if this email already exists, 
+      works now only for the portlet, but not if we use the add item menu. [derstappenit]
+
+    * provide default values for sender_name, sender_address and test_email from portal_properties
+
+    * cleanup of double opt-in tempobjects, don't use PasswordResetTool [derstappenit]
+
+    * move the send method and all other stuff, which is not releated to the ENLIssue it self into a z3 global utility
+
+    * log sending messages "send to max@example.com: OK" into the issue object, provide a view to show the log   

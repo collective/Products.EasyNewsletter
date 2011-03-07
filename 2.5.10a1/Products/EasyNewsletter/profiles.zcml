@@ -1,0 +1,38 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="EasyNewsLetter">
+
+  <genericsetup:registerProfile
+      name="default"
+      title="EasyNewsletter"
+      directory="profiles/default"
+      description="An easy to use Newsletter for Plone."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />	
+
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="uninstall EasyNewsletter"
+      directory="profiles/uninstall"
+      description='Removes the "EasyNewsLetter".'
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <!-- Register the import step -->
+  <genericsetup:importStep
+      name="Products.EasyNewsletter"
+      title="Products.EasyNewsletter special import handlers"
+      description=""
+      handler="Products.EasyNewsletter.setuphandlers.import_various" />
+
+  <!-- Register the upgrade step -->
+  <genericsetup:upgradeStep
+      title="Add catalog indexes"
+      description=""
+      source="1"
+      destination="2"
+      handler="Products.EasyNewsletter.setuphandlers.add_catalog_indexes"
+      profile="Products.EasyNewsletter:default" />
+
+</configure>

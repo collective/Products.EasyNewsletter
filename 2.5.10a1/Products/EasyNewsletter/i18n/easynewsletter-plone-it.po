@@ -1,0 +1,67 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: EasyNewsletter\n"
+"POT-Creation-Date: Tue Apr 25 11:18:19 2006\n"
+"PO-Revision-Date: Tue Apr 25 11:18:19 2006\n"
+"Last-Translator: Luca Fabbri - <luca.fabbri@redturtle.net> \n"
+"Language-Team: Thomas Desvenain - <thomas.desvenain@ingeniweb.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: it\n"
+"Language-Name: Italiano\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone\n"
+
+msgid "An error occured."
+msgstr "Si è provocato un errore."
+
+msgid "Archive"
+msgstr "Archivia"
+
+msgid "Drafts"
+msgstr "Bozza"
+
+msgid "Please enter a valid e-mail address."
+msgstr "Prego, inserire un indirizzo e-mail valido"
+
+msgid "Receivers"
+msgstr "Destinatari"
+
+msgid "Send"
+msgstr "Invia"
+
+msgid "Subscriber"
+msgstr "Iscritto"
+
+msgid "Subscribers"
+msgstr "Iscritti"
+
+msgid "Template"
+msgstr "Modello"
+
+msgid "Templates"
+msgstr "Modelli"
+
+msgid "The Newsletter has been send."
+msgstr "La newsletter è stata inviata."
+
+msgid "Your e-mail address is already registered."
+msgstr "Il tuo indirizzo e-mail è già registrato."
+
+msgid "Your e-mail has been added. Thanks for your interest."
+msgstr "La tua e-mail è stata aggiunta. Grazie per l'interessamento."
+
+msgid "draft"
+msgstr "Bozza"
+
+msgid "make draft"
+msgstr "Rendi bozza"
+
+msgid "make sent"
+msgstr "Rendi inviata"
+
+msgid "sent"
+msgstr "Inviata"
+

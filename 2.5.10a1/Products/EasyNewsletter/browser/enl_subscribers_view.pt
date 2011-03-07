@@ -1,0 +1,92 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="EasyNewsletter">
+<body>
+
+<metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main"
+           tal:define="kssClassesView context/@@kss_field_decorator_view;
+                       getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;
+                       templateId template/getId;
+                       text here/getText;">
+
+        <div tal:replace="structure provider:plone.abovecontenttitle" />
+
+        <h1 class="documentFirstHeading">
+            <span tal:omit-tag=""
+                  i18n:translate="easynewsletter_subcribers_label">Subscribers</span>
+        </h1>
+
+        <div tal:define="subscribers python:view.subscribers();
+                         Batch python:modules['Products.CMFPlone'].Batch;
+                         b_start python:request.get('b_start',0);
+                         batch python:Batch(subscribers, 30, int(b_start), orphan=1)">
+
+            <div tal:condition="not: subscribers"
+                 i18n:translate="easynewsletter_nosubscribers_label">
+                 There are no subscribers.
+            </div>
+
+            <div metal:use-macro="here/batch_macros/macros/navigation" />
+
+            <table class="listing" summary="Subscriber Listing">
+                <tr>
+                    <th i18n:translate="">E-Mail</th>
+                    <th i18n:translate="">Salutation</th>                    
+                    <th i18n:translate="">Name</th>
+                    <th i18n:translate="">Company/Organization</th>
+                    <th i18n:translate="">Source</th>
+                    <th i18n:translate="">Action</th>
+                </tr>
+                <tal:subscriber tal:repeat="subscriber batch">
+                    <tr tal:define="oddrow repeat/subscriber/odd;
+                                    isPlone python: subscriber['source']=='plone'"
+                    tal:attributes="class python:oddrow and 'odd' or 'even'">
+                    <td>
+                        <tal:if condition="isPlone">
+                            <a tal:condition="isPlone"
+                               tal:attributes="href string:${subscriber/getURL|nothing}" 
+                               tal:content="subscriber/email">
+                                 email </a>
+                        </tal:if>                         
+                        <span tal:condition="not: isPlone" tal:content="subscriber/email" />
+                    </td>
+                    <td i18n:translate="" tal:content="subscriber/salutation" />                    
+                    <td i18n:translate="" tal:content="subscriber/fullname" />
+                    <td i18n:translate="" tal:content="subscriber/organization|nothing"></td>
+                    <td i18n:translate="" tal:content="subscriber/source|nothing"></td>
+                    <td>
+                        <a href="#" 
+                           tal:condition="isPlone" 
+                           tal:attributes="href string:${subscriber/getURL|nothing}/delete_confirmation">
+                           <img tal:attributes="alt string:Delete subscriber;
+                                                title string:Delete subscriber;
+                                                src string:delete_icon.gif" />
+                        </a>
+                    </td> 
+                </tr>
+                </tal:subscriber>
+            </table>
+
+        </div>
+        <p>
+            <a href=""
+               tal:attributes="href string:${context/absolute_url}/@@upload_csv"
+               i18n:translate="easynewsletter_label_import_subscribers">Import subscribers</a>
+        </p>
+        
+        <p>
+            <a href=""
+               tal:attributes="href string:${context/absolute_url}/@@download_csv"
+               i18n:translate="easynewsletter_label_export_subscribers">Export subscribers</a>
+        </p>
+                   
+    </tal:main-macro>
+</metal:main>
+
+</body>
+</html>

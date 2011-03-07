@@ -1,0 +1,134 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="EasyNewsletter">
+<body>
+
+<metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main"
+           tal:define="kssClassesView context/@@kss_field_decorator_view;
+                       getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;
+                       templateId template/getId;
+                       text here/getText;">
+
+        <div tal:replace="structure provider:plone.abovecontenttitle" />
+
+        <h1 class="documentFirstHeading">
+            <span tal:omit-tag=""
+                  i18n:translate="easynewsletter_subcribers_label">Subscribers</span>
+        </h1>
+
+        <form method="POST" action="#"  enctype="multipart/form-data"
+                tal:attributes="action request/URL0">
+
+           <fieldset>
+              <legend i18n:translate="">
+                Import
+              </legend>
+
+              <p>The CSV file must contain the header and follow this format</p>
+              <table class="listing">
+                  <thead>
+                    <tr>
+                      <th>salutation</th>
+                      <th>fullname</th>
+                      <th>email</th>
+                      <th>organization</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                      <td>Dear Mr.</td>
+                      <td>John Doe</td>
+                      <td>jd@domain.com</td>
+                      <td>ACME Corp.</td>
+                  </tr>
+                  </tbody>
+              </table>
+
+              <div class="field">
+                <label i18n:translate="">Csv file</label>
+                <div class="formHelp" i18n:translate="">
+                  Select your CSV file here.
+                </div>
+                <input type="file" name="csv_upload" />
+              </div>
+              
+              <div class="formControls"
+                   i18n:domain="plone">
+
+                <input class="standalone"
+                       type="submit"
+                       value="Import"
+                       name="form.button.Import"
+                       i18n:attributes="value;"
+                       />
+
+              </div>
+
+            </fieldset>
+        </form>
+        <div tal:define="subscribers view/create_subscribers;
+                         fail subscribers/fail | nothing;
+                         success subscribers/success | nothing;"
+                         tal:condition="python: fail or success">
+
+            <h3 i18n:translate="not_created_subscribers"
+                tal:condition="fail">Not imported subscribers</h3>
+            <table class="listing" tal:condition="fail">
+                <thead>
+                    <tr>
+                        <th>Salutation</th>
+                        <th>Fullname</th>
+                        <th>Email</th>
+                        <th>Organization</th>
+                        <th>Reason for failure</th>
+                    </tr>
+                </thead>
+                <tbody tal:repeat="item fail">
+                    <tr>
+                        <td tal:content="item/salutation | nothing" />
+                        <td tal:content="item/fullname | nothing" />
+                        <td tal:content="item/email | nothing" />
+                        <td tal:content="item/organization | nothing" />
+                        <td tal:content="item/failure" />
+                    </tr>
+                </tbody>
+            </table>
+            <p tal:condition="fail" 
+               tal:define="count python:len(fail)"
+               tal:content="string: ${count} import(s) failed." />
+            
+            <h3 i18n:translate="sucessfully_created_subscribers"
+                tal:condition="success">Sucessfully created Subscribers</h3>
+            <table class="listing" tal:condition="success">
+                <thead>
+                    <tr>
+                        <th>Salutation</th>
+                        <th>Fullname</th>
+                        <th>Email</th>
+                        <th>Organization</th>
+                    </tr>
+                </thead>
+                <tbody tal:repeat="item success">
+                    <tr>
+                        <td tal:content="item/salutation | nothing" />
+                        <td tal:content="item/fullname | nothing" />
+                        <td tal:content="item/email | nothing" />
+                        <td tal:content="item/organization | nothing" />
+                    </tr>
+                </tbody>
+            </table>
+            <p tal:condition="success"
+               tal:define="count python:len(success)"            
+               tal:content="string: ${count} import(s) successful." />
+        </div>
+
+    </tal:main-macro>
+</metal:main>
+
+</body>
+</html>

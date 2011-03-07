@@ -1,0 +1,60 @@
+<tal:block i18n:domain="EasyNewsletter">
+<dl class="portlet portletNewsletterSubscriber">
+
+    <dt class="portletHeader">        
+        <span class="portletTopLeft"></span>
+        <span tal:content="view/header|nothing">Newsletter</span>
+        <span class="portletTopRight"></span>
+    </dt>
+
+    <dd class="portletItem lastItem">
+	<p tal:content="view/description|nothing">Portlet Description</p> 
+
+        <form action="@@register-subscriber">
+            <input type="hidden" 
+                   name="newsletter" 
+                   value="newsletter" 
+                   tal:attributes="value view/get_newsletter" />
+                   
+            <select tal:condition="view/data/query_fullname|nothing"
+              class="easynewsletter_text"
+              id="salutation" 
+              name="salutation">
+                   <option value="" 
+                     i18n:translate="">Choose salutation...</option>
+                   <option value="ms" 
+                     i18n:translate="">Ms.</option>
+                   <option value="mr" 
+                     i18n:translate="">Mr.</option>
+            </select>
+                   
+            <input class="easynewsletter_text"
+                   onclick="this.value=''"
+                   name="fullname" 
+                   value="Full Name"
+                   i18n:attributes="value easynewsletter_input_value_fullname;" />
+
+            <input tal:condition="view/data/query_organization|nothing"
+                   class="easynewsletter_text"
+                   onclick="this.value=''"
+                   name="organization" 
+                   value="Company/Organization"
+                   i18n:attributes="value easynewsletter_input_value_organization;" />
+
+            <input class="easynewsletter_text"
+                   onclick="this.value=''"
+                   name="subscriber" 
+                   value="Your e-mail"
+                   i18n:attributes="value easynewsletter_input_value;" />
+
+            <input class="standalone easynewsletter_button"
+                   type="submit" 
+                   value="subscribe" 
+                   i18n:attributes="value easynewsletter_button_label;" />
+        </form>
+        
+        <span class="portletBottomLeft"></span>
+        <span class="portletBottomRight"></span>
+    </dd>
+</dl>
+</tal:block>

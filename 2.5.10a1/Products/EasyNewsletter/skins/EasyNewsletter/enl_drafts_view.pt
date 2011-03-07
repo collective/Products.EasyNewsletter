@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="EasyNewsletter">
+<body>
+
+<metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main"
+           tal:define="kssClassesView context/@@kss_field_decorator_view;
+                       getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;
+                       templateId template/getId;
+                       text here/getText;">
+
+        <div tal:replace="structure provider:plone.abovecontenttitle" />
+
+        <h1 class="documentFirstHeading">
+            <span tal:omit-tag=""
+                  i18n:translate="easynewsletter_drafts_label">Drafts</span>
+        </h1>
+        <a class="link-parent"
+           tal:attributes="href context/aq_parent/absolute_url"
+           i18n:translate="easynewsletter_backtonewsletter_label">
+           Back to newsletter
+        </a>  
+
+        <div tal:define="newsletters python:context.portal_catalog(portal_type='ENLIssue', 
+                                                                   review_state='draft',
+                                                                   path='/'.join(context.getPhysicalPath()))">                                                             
+            <div tal:condition="not: newsletters"
+                 i18n:translate="easynewsletter_nondrafts_label">
+                  There are no drafts.
+            </div>    
+                          
+            <ul>                                                                                             
+                <li tal:repeat="newsletter newsletters">                                                       
+                    <a tal:define="date python:context.toLocalizedTime(newsletter.created,long_format=0)"    
+                       tal:content="string:$date ${newsletter/Title}"                                          
+                       tal:attributes="href newsletter/getURL">Newsletter's title and Date</a>           
+                </li>                                                                                           
+            </ul>                                                                                             
+        </div>
+    </tal:main-macro>
+</metal:main>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<portlets>
+
+    <portlet
+        addview="portlets.Subscriber"
+        title="Newsletter Subscriber"
+        description="Portlet to add subscribers." />
+
+</portlets>

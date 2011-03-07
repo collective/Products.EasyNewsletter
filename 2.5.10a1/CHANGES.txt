@@ -1,0 +1,314 @@
+Changes
+=======
+
+2.5.10a1 (2011-02-15)
+---------------------
+
+* plone.app.testing test setup added.
+  [timo]
+  
+* Do not exclude ENL content types from navigation on a content object level.
+  Exclude them on content type level in the GS profile.
+  [timo]
+
+* fix UnboundLocalError which comes with the try except statement
+  [derstappenit]
+
+* fix AttributeError get_all_memberproperties if fmp is available but not installed in the quickinstaller
+  [derstappenit]
+
+
+2.5.9 (15/02/2011)
+------------------
+
+* fix UnboundLocalError: local variable 'o' referenced before assignment, which come with the try except to cache image handling errors
+  [derstappenit]
+
+
+2.5.8 (14/02/2011)
+------------------
+
+* fix optional use of fmp
+  [derstappenit]
+  
+* only add default_template if doesnt exists, this fix error in archetypes_tool on update schema
+  [derstappenit]
+  
+* add a BooleanField sendToAllPloneMembers, which can be used to address all existing plone members in a newsletter, no need to select all every time new user are available 
+  [derstappenit]
+
+* fix url handlink for links and images if url contains empty spaces, add z3 resource image support, add images only to html part of the email
+  [derstappenit]
+
+* cache exception if broken img tags exist that can't be resolved by restrictedTraverse, but log the error
+  [derstappenit]
+
+2.5.7 (08/02/2011)
+------------------
+
+* Do not encode email addresses when exporting subscribers.
+  [timo]
+
+* Make sure the url variable is always set in the handle_starttag method of 
+  the ENLHTMLParser.
+  [timo]
+
+* Fix CSV import with special characters.
+  [timo]
+  
+* Do not create a persistent file when exporting CSV data, use a temp file
+  instead.
+  [timo]
+  
+* Fix CSV export with special characters.
+  [timo]
+  
+* Added missing methods for HTML parser in order to preserve HTML references and other stuff.
+  [dgherman]
+
+
+2.5.6 (27/01/2011)
+------------------
+
+* Create new Sphinx-based documentation.
+  [timo]
+  
+* Move CSV file format description to the top.
+  [timo]
+  
+* CSV export added.
+  [timo]
+  
+* Use TextAreaWidget for the newsletter template body.
+  [timo]
+  
+* Fix/refactor/rewrite CSV import.
+  [timo]
+
+* Fix CSV-Import format description.
+  [timo]
+
+* Link to subscriber import added.
+  [timo]
+
+
+2.5.5 (26/01/2011)
+------------------
+
+* remove unneeded dependency to BeautifulSoup
+  [derstappenit]
+
+
+2.5.4 (11/01/2011)
+------------------
+
+* fix schema of EasyNewsletter and ENLIssues, use copy to create a schema based 
+  on ATTopicSchema 
+  [derstappenit]
+
+
+2.5.3 (07/01/2011)
+------------------
+
+* fix issue view, now it looks mostly like the html newsletter version
+  in your mail client 
+  [derstappenit]
+
+
+2.5.2 (06/01/2011)
+------------------
+
+* add salutation to ENLSubscriber [derstappenit]
+
+* EasyNewsletter and subscriber portlet [derstappenit]
+
+* make name and salutation optinal in subscriber portlet [derstappenit]
+ 
+* remove filter in get_public_body, because we want the look of the public view 
+  mostly like in the sended mails [derstappenit]
+
+* optimize issue_send_form to make it more failsave [derstappenit]
+ 
+* refacturer the handling of placeholders for salutation and unsubscribelink 
+  [derstappenit]
+ 
+* reinclude header and footer in mails [derstappenit]
+ 
+* fix MultipartMessage-handling, now text and html messages parts have all 
+  images includet [derstappenit]
+
+* cleanup archetypes schematas of EasyNewsletter and ENLIssue [derstappenit]
+
+* add many german translations [derstappenit]
+
+
+2.5.1 (2010/11/30)
+------------------
+
+* added CSV import (to upload_csv.pt, subscribers.py)
+  you have to append '@@upload_csv' to your newsletter url to call this page.
+  the csv file must look like this (email is required)::
+
+    "fullname","email","organization"
+    "John Doe","john.doe@yahoo.com","ACME Corp."
+    "","admin@plone.org",""
+
+  [nan]
+
+
+2.5.0 (2010/11/26)
+--------------------
+
+* final release
+
+
+2.5.0b6 (2010/11/24)
+--------------------
+
+* fixed issue default view (``refresh`` documentation did not work)
+   [ajung]
+
+
+2.5.0b5 (2010/11/23)
+--------------------
+* fixed error handling in send()
+   [ajung]
+
+* made unsubscribe code more robust
+   [ajung]
+
+
+2.5.0b4 (2010/11/19)
+--------------------
+* compatibility fixes with Plone 3/4
+   [ajung]
+
+* default template mechanism while creating a new issue did not work
+   [ajung]
+
+
+2.5.0b3 (2010/11/18)
+--------------------
+* subcollections view did not work
+   [ajung]
+
+
+2.5.0b2 (2010/11/16)
+--------------------
+* fixed encoding issue with the member vocabulary
+   [ajung]
+
+
+2.5.0b1 (2010/11/16)
+--------------------
+
+* added support for Zope utilities providing the ISubscriberSource
+   interface to hook in external subscriber sources (e.g. some sub-system
+   managing subscriptions to newsletters on their own (instead of relying
+   on instances of 'Subscriber' located inside the newsletter folder itself)
+   [ajung]
+
+* the 'Subscribers' tab of Issue instance now also includes subscribers
+   from an utility providing ISubscriberSource
+   [ajung]
+
+* the Newsletter instance now got an new schemata 'External' and a new
+   option to configure an utility providing ISubscriberSource
+   [ajung]
+
+* it is now possible to configure a dedicated MailHost for newsletter
+   delivery other than the configured Plone MailHost (see External tab
+   of the Newsletter instance). An external delivery service must be
+   configured as named utility providing IMailHost.
+   [ajung]
+
+* major refactoring of the send() method of ENLIssue
+   [ajung]
+
+* added getFiles() API to ENLIssue for auto-generating a listing
+   of files attached to the newsletter body upon send time
+   [ajung]
+
+* personal information like the salutation {% subscriber-fullname %}
+   must no longer be located inside the newsletter body but should be
+   moved out to the header and footer sections.
+   [ajung]
+
+* replace enl_issue_view with a rendered view of the newsletter without
+   header and footer
+   [ajung]
+
+* added all types to portal_factory configuration
+   [ajung]
+
+* added @@all_issues_view to Newsletter implementation
+   [ajung]
+
+* Plone 4 compatibility fixes
+
+* various cleanup
+   [ajung]
+
+
+2.0.1 (2010-07-31)
+-----------------------
+
+* bugfix: use the Zope MailHost for conformations mails, instead of sendmail.
+   Now you settings in plone sitesetup will respected ;).
+
+
+2.0 (2010-07-16)
+-----------------------
+
+* integrate the header and footer field into email text
+
+* add possibility to define a default header and footer in the Newsletter 
+  container
+
+* add fullname attribute to subscriber
+
+* add description and fullname to subscriber portlet
+
+* add usefull path description to subscriber portlet and allow also a path 
+  starting with '/'
+
+* add plone members and groups selection to Newsletter and Issue
+
+* use inqbus.fastmemberproperties to get all memberproperties fast 
+  (inqbus.fastmemberproperties is now required!)
+
+* add personalization of emails
+
+* add PERSOLINE marker to indicate personalize lines, this lines are removed in 
+  archive view
+
+* add TemplateField to the Newsletter container to cutomize the output format 
+  of the mailing/newsletter
+
+* make sending more robust, catch Exceptions and log it, insted of breaking up 
+  in the middle of sending procedure
+
+* move confirmation mail subject and text out into Newsletter settings to make 
+  it customizeable
+
+* add Double Opt-in to subscribe process
+
+
+1.0 beta 3 (2009-12-24)
+-----------------------
+
+* Removed subscribers and templates from navigation
+
+* Batch subscribers
+
+
+1.0 beta 2 (2009-12-19)
+-----------------------
+
+* Added missing non-python files
+
+
+1.0 beta 1 (2009-12-19)
+-----------------------
+
+* First version for Plone 3

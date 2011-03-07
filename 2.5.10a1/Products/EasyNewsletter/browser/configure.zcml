@@ -1,0 +1,110 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:cmf="http://namespaces.zope.org/cmf"
+    i18n_domain="EasyNewsletter">
+
+    <include package="plone.app.contentmenu" />
+
+    <browser:page
+        name="send-issue-form"
+        for="..interfaces.IENLIssue"
+        class=".issue.IssueView"
+        template="issue_send_form.pt"
+        permission="cmf.ManagePortal" />
+    
+    <browser:page
+        name="get-public-body"
+        for="..interfaces.IENLIssue"
+        class=".issue.IssueView"
+        attribute="get_public_body"
+        permission="zope2.View" />
+
+    <browser:page
+        name="send-issue"
+        for="..interfaces.IENLIssue"
+        class=".issue.IssueView"
+        attribute="send_issue"
+        permission="cmf.ManagePortal" />
+
+    <browser:page
+        name="refresh-issue"
+        for="..interfaces.IENLIssue"
+        class=".issue.IssueView"
+        attribute="refresh_issue"
+        permission="cmf.ManagePortal" />
+
+    <browser:page
+        name="enl_public_view"
+        for="..interfaces.IENLIssue"
+        class=".issue.IssueView"
+        template="issue_public_view.pt"
+        permission="zope2.View" />
+
+    <browser:page
+        name="unsubscribe"
+        for="..interfaces.IEasyNewsletter"
+        class=".newsletter.NewsletterView"
+        attribute="unsubscribe"
+        permission="zope2.Public" />
+
+    <browser:page
+        for="*"
+        name="register-subscriber"
+        class=".registration.SubscriberView"
+        attribute="register_subscriber"
+        permission="zope.Public" />
+
+    <browser:page
+        name="confirm-subscriber"
+    	class=".registration.SubscriberView"
+    	attribute="confirm_subscriber"
+    	permission="zope.Public"
+    	for="*"
+    	/>
+
+    <browser:page
+        for="..interfaces.IEasyNewsletter"
+        name="all_issues_view"
+        class=".newsletter.NewsletterView"
+        template="all_issues_view.pt"
+        permission="zope2.View"
+        />
+    
+    <browser:menuItem
+        for="..interfaces.IEasyNewsletter"
+        menu="plone_displayviews"
+        title="Issues full view"
+        action="all_issues_view"
+        description="Display all issues as fulltext"
+        /> 
+
+    <browser:page
+        for="..interfaces.IEasyNewsletter"
+        name="enl_subscribers_view"
+        class=".subscribers.Enl_Subscribers_View"
+        template="enl_subscribers_view.pt"
+        permission="cmf.ManagePortal"
+        />
+
+    <browser:page
+        for="..interfaces.IEasyNewsletter"
+        name="upload_csv"
+        class=".subscribers.UploadCSV"
+        template="upload_csv.pt"
+        permission="cmf.ManagePortal"
+        />
+
+    <browser:page
+        for="..interfaces.IEasyNewsletter"
+        name="download_csv"
+        class=".subscribers.DownloadCSV"
+        permission="cmf.ManagePortal"
+        />
+		
+    <browser:resource
+        name="Products.EasyNewsletter.enl_edithelper.js"
+	file="javascripts/enl_edithelper.js"
+	/>
+
+</configure>
