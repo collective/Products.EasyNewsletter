@@ -1,6 +1,12 @@
 Changes
 =======
 
+2.5.10a1-unicodefix (2011-03-07)
+--------------------------------
+
+* fix unicode problem when groups contain special characters (eg: àèìòù).
+  [mirco]
+
 2.5.10a1 (2011-02-15)
 ---------------------
 
