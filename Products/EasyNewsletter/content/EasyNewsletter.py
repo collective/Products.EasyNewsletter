@@ -328,7 +328,7 @@ class EasyNewsletter(ATTopic, BaseFolder):
         return False
 
     security.declarePublic('addSubscriber')
-    def addSubscriber(self, subscriber, fullname, organization):
+    def addSubscriber(self, subscriber, fullname, organization, salutation=None):
         """Adds a new subscriber to the newsletter (if valid).
         """
         # we need the subscriber email here as an id, to check for existing entries
@@ -344,6 +344,7 @@ class EasyNewsletter(ATTopic, BaseFolder):
         o.setEmail(subscriber)
         o.setFullname(fullname) 
         o.setOrganization(organization)
+        o.setSalutation(salutation)
         o.reindexObject()
 
         return (True, "subscription_confirmed")

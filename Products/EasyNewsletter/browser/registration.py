@@ -98,7 +98,7 @@ class SubscriberView(BrowserView):
         messages = IStatusMessage(self.request)
         if regdataobj:
             easynewsletter = self.portal.restrictedTraverse(regdataobj.path_to_easynewsletter)
-            valid_email, error_code = easynewsletter.addSubscriber(regdataobj.subscriber, regdataobj.fullname, regdataobj.organization)
+            valid_email, error_code = easynewsletter.addSubscriber(regdataobj.subscriber, regdataobj.fullname, regdataobj.organization, regdataobj.salutation)
             if valid_email:
                 # now delete the regobj
                 del enl_registration_tool[hashkey]

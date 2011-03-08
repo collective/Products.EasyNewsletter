@@ -4,6 +4,9 @@ Changes
 2.5.10a2 (unreleased)
 ---------------------
 
+* Fix confirm_subscriber and addSubscriber to set salutation from subscribe portlet.
+  [numahell]
+
 * Fix ENLHTMLParser for unicode URLs.
   [timo]
   
