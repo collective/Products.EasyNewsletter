@@ -393,10 +393,10 @@ class EasyNewsletter(ATTopic, BaseFolder):
         for group in groups:
             group_id = group.getId()
             group_properties[group_id] = {
-                'title' : group.getGroupTitleOrName(),
+                'title' : group.getGroupTitleOrName().decode('utf-8'),
                 'email': group.getProperty('email'),
                 }
-        results = DisplayList([(id, property['title'].decode('utf-8')) for id, property in group_properties.items()])
+        results = DisplayList([(id, property['title']) for id, property in group_properties.items()])
         # run registered group filter:
         for subscriber in subscribers([self], IReceiversGroupFilter):
             results = subscriber.filter(results)
