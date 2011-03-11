@@ -24,6 +24,7 @@
         <div tal:define="subscribers python:view.subscribers();
                          Batch python:modules['Products.CMFPlone'].Batch;
                          b_start python:request.get('b_start',0);
+                         batch_base_url here/@@plone_context_state/current_base_url;
                          batch python:Batch(subscribers, 30, int(b_start), orphan=1)">
 
             <div tal:condition="not: subscribers"
