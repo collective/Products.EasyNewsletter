@@ -1,7 +1,13 @@
 Changes
 =======
 
-2.5.10a2 (unreleased)
+2.5.10a2 (2011-03-11)
+---------------------
+
+* nothing yet
+
+
+2.5.10a2 (11/03/2011)
 ---------------------
 
 * Fix confirm_subscriber and addSubscriber to set salutation from subscribe portlet.
@@ -12,6 +18,9 @@ Changes
   
 * Order newsletters and drafts by creation date.
   [timo]
+
+* set batch_base_url in enl_subscribers_view, this fix the url of batch navigation 
+  [derstappenit]
 
 
 2.5.10a1 (15/02/2011)
