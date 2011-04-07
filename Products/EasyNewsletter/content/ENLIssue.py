@@ -376,11 +376,20 @@ class ENLIssue(ATTopic, BaseContent):
 
             # Add images to the message
             image_number = 0
+            reference_tool = getToolByName(self, 'reference_catalog')
             for image_url in image_urls:
                 #XXX: we need to provide zope3 recource image too!
-                image_url = urlparse(image_url)[2]
                 try:
-                    o = self.restrictedTraverse(urllib.unquote(image_url))
+                    image_url = urlparse(image_url)[2]
+                    if 'resolveuid' in image_url:
+                        urlparts = image_url.split('/')[1:]
+                        uuid = urlparts.pop(0)
+                        o = reference_tool.lookupObject(uuid)
+                        if o and urlparts:
+                            # get thumb
+                            o = o.restrictedTraverse(urlparts[0])
+                    else:
+                        o = self.restrictedTraverse(urllib.unquote(image_url))
                 except Exception, e:
                     log.error("Could not resolve the image \"%s\": %s" % (image_url, e))
                 else:
@@ -394,7 +403,6 @@ class ENLIssue(ATTopic, BaseContent):
                     image_number += 1
                     # attach images only to html parts
                     html_part.attach(image)
-            
             outer.attach(text_part)
             outer.attach(html_part)
 
