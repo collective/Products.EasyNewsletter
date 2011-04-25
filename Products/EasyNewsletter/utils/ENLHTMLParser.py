@@ -7,22 +7,22 @@ from Products.CMFCore.utils import getToolByName
 
 class ENLHTMLParser(HTMLParser.HTMLParser):
     """A simple parser which exchange relative URLs with absolute ones"""
-    
+
     def __init__(self, context):
-        
+
         self.context = context
         self.html = ""
         self.image_urls = []
         self.image_number = 0
-        
+
         HTMLParser.HTMLParser.__init__(self)
-                 
+
     def handle_starttag(self, tag, attrs):
         """
         """
         self.html += "<%s" % tag
-        
-        
+
+
         for attr in attrs:
             if attr[0] == "href":
                 try:
@@ -45,23 +45,22 @@ class ENLHTMLParser(HTMLParser.HTMLParser):
                     plone_utils = getToolByName(self.context, 'plone_utils')
                     encoding = plone_utils.getSiteEncoding()
                     url = url.encode(encoding)
-                self.html += ' href="%s"' % url           
+                self.html += ' href="%s"' % url
             else:
                 self.html += ' %s="%s"' % (attr)
-                
+
         self.html += ">"
-        
-        
+
     def handle_endtag(self, tag):
         """
         """
         self.html += "</%s>" % tag
-                       
+
     def handle_data(self, data):
         """
         """
         self.html += data
-        
+
     def handle_charref(self, name):
         self.html += "&#%s;" % name
 
@@ -85,6 +84,5 @@ class ENLHTMLParser(HTMLParser.HTMLParser):
                 self.image_urls.append(attr[1])
             else:
                 self.html += ' %s="%s"' % (attr)
-           
+
         self.html += " />"
-        

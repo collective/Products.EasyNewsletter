@@ -6,14 +6,16 @@ PROJECTNAME = "EasyNewsletter"
 
 PLACEHOLDERS = ["UNSUBSCRIBE", "SUBSCRIBER_SALUTATION"]
 
-SALUTATION =  DisplayList((
+SALUTATION = DisplayList((
     ('', _(u"label_choose_saluation", "Choose salutation...")),
-    ("ms", _(u"label_salutation_ms","Ms.")),
-    ("mr", _(u"label_salutation_mr","Mr.")),
-)) 
+    ("ms", _(u"label_salutation_ms", "Ms.")),
+    ("mr", _(u"label_salutation_mr", "Mr.")),
+))
 
 MESSAGE_CODE = {
-    "email_added": "Your email has been registered. A confirmation email was sent to your address. Please check your inbox and click on the link in the email in order to confirm your subscription.",
+    "email_added": "Your email has been registered. A confirmation email was \
+        sent to your address. Please check your inbox and click on the link in \
+        the email in order to confirm your subscription.",
     "invalid_email": "Please enter a valid e-mail address.",
     "email_exists": "Your e-mail address is already registered.",
     "invalid_hashkey": "Please enter a valid e-mail address.",
@@ -21,7 +23,7 @@ MESSAGE_CODE = {
     }
 
 
-EMAIL_RE = re.compile(r"(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,6}(?:\s|$)",re.IGNORECASE)
+EMAIL_RE = re.compile(r"(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,6}(?:\s|$)", re.IGNORECASE)
 
 DEFAULT_TEMPLATE = """
 <tal:block tal:repeat="object context/queryCatalog">
@@ -40,7 +42,7 @@ DEFAULT_TEMPLATE = """
 
     <tal:block tal:repeat="object subtopic/queryCatalog">
         <h2 tal:content="object/Title">Title</h2>
-  
+
         <p>
             <span tal:content="object/Description">Description</span>
         </p>
@@ -73,7 +75,7 @@ DEFAULT_OUT_TEMPLATE_PT = """<html xmlns="http://www.w3.org/1999/xhtml">
                     <dt>
                         <a tal:attributes="href file/getURL" tal:content="file/Title" />
                     </dt>
-                    <dd tal:content="file/Description" />                          
+                    <dd tal:content="file/Description" />
                 </tal:loop>
             </dl>
         </tal:def>

@@ -1,14 +1,14 @@
 import OFS
 import re
 
-from email.MIMEMultipart import MIMEMultipart
+#from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from zope.component import queryUtility
 from zope.component import getMultiAdapter
 from Acquisition import aq_inner
 #from zope.interface import implements
 
-from Products.CMFCore.interfaces import ISiteRoot
+#from Products.CMFCore.interfaces import ISiteRoot
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
@@ -21,7 +21,7 @@ from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 class SubscriberView(BrowserView):
     """
     """
-    
+
     def portal_state(self):
         context = aq_inner(self.context)
         return getMultiAdapter((context, self.request), name=u'plone_portal_state')
@@ -41,7 +41,7 @@ class SubscriberView(BrowserView):
         """
         subscriber = self.request.get("subscriber")
         fullname = self.request.get("fullname", "")
-        salutation = self.request.get("salutation", "")        
+        salutation = self.request.get("salutation", "")
         organization = self.request.get("organization", "")
         path_to_easynewsletter = self.request.get("newsletter")
         # remove leading slash from paths like: /mynewsletter
@@ -54,46 +54,48 @@ class SubscriberView(BrowserView):
         from Products.validation.validators.BaseValidators import EMAIL_RE
         EMAIL_RE = "^" + EMAIL_RE
         mo = re.search(EMAIL_RE, subscriber)
-        if not mo: 
+        if not mo:
             messages.addStatusMessage(_("Please enter a valid e-mail address."), "error")
             return self.request.response.redirect(newsletter_container.absolute_url())
-        if subscriber in newsletter_container.objectIds(): 
+        if subscriber in newsletter_container.objectIds():
             messages.addStatusMessage(_("Your e-mail address is already registered."), "error")
             return self.request.response.redirect(newsletter_container.absolute_url())
         subscriber_data = {}
         subscriber_data["subscriber"] = subscriber
         subscriber_data["fullname"] = fullname
-        subscriber_data["salutation"] = salutation        
+        subscriber_data["salutation"] = salutation
         subscriber_data["organization"] = organization
         subscriber_data["path_to_easynewsletter"] = path_to_easynewsletter
 
         # use password reset tool to create a hash
         pwr_data = self._requestReset(subscriber)
         hashkey = pwr_data['randomstring']
-        enl_registration_tool = queryUtility(IENLRegistrationTool,'enl_registration_tool')
+        enl_registration_tool = queryUtility(IENLRegistrationTool, 'enl_registration_tool')
         if hashkey not in enl_registration_tool.objectIds():
             enl_registration_tool[hashkey] = RegistrationData(hashkey, **subscriber_data)
             msg_subject = newsletter_container.getRawSubscriber_confirmation_mail_subject().replace(
-                "${portal_url}", self.portal_url.strip('http://')
-            )
+                "${portal_url}", self.portal_url.strip('http://'))
             confirmation_url = self.portal_url + '/confirm-subscriber?hkey=' + str(hashkey)
             msg_text = newsletter_container.getRawSubscriber_confirmation_mail_text().replace("${newsletter_title}", newsletter_container.Title())
             msg_text = msg_text.replace("${subscriber_email}", subscriber)
             msg_text = msg_text.replace("${confirmation_url}", confirmation_url)
             msg_sender = self.portal.getProperty('email_from_address')
-            msg_receiver = subscriber 
+            msg_receiver = subscriber
             msg = MIMEText(msg_text)
             msg['To']= msg_receiver
             msg['From'] = msg_sender
             msg['Subject'] = msg_subject
             #msg.epilogue   = ''
             self.portal.MailHost.send(msg.as_string())
-            messages.addStatusMessage(_("Your email has been registered. A confirmation email was sent to your address. Please check your inbox and click on the link in the email in order to confirm your subscription."), "info")
+            messages.addStatusMessage(_("Your email has been registered. \
+                A confirmation email was sent to your address. Please check \
+                your inbox and click on the link in the email in order to \
+                confirm your subscription."), "info")
         self.request.response.redirect(newsletter_container.absolute_url())
 
     def confirm_subscriber(self):
         hashkey = self.request.get('hkey')
-        enl_registration_tool = queryUtility(IENLRegistrationTool,'enl_registration_tool')
+        enl_registration_tool = queryUtility(IENLRegistrationTool, 'enl_registration_tool')
         regdataobj = enl_registration_tool.get(hashkey)
         messages = IStatusMessage(self.request)
         if regdataobj:
@@ -108,7 +110,6 @@ class SubscriberView(BrowserView):
         else:
             messages.addStatusMessage(_("Please enter a valid e-mail address."), "error")
         return self.request.response.redirect(easynewsletter.absolute_url())
-
 
     def _requestReset(self, userid):
         """Ask the system to start the password reset procedure for

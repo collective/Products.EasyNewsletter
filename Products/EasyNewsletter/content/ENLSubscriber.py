@@ -10,10 +10,11 @@ from Products.EasyNewsletter.interfaces import IENLSubscriber
 from Products.EasyNewsletter.config import *
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 
-schema=Schema((
+schema = Schema((
+
     StringField('title',
         widget=StringWidget(
-            visible={'edit':'invisible', 'view':'invisible'},
+            visible={'edit': 'invisible', 'view': 'invisible'},
             label='Title',
             label_msgid='EasyNewsletter_label_title',
             description_msgid='EasyNewsletter_help_title',
@@ -62,19 +63,20 @@ schema=Schema((
             description_msgid='EasyNewsletter_help_email',
             i18n_domain='EasyNewsletter',
         ),
-        validators=('isEmail',)
+        validators=('isEmail', )
     ),
 
 ),
 )
+
 
 class ENLSubscriber(BaseContent):
     """An newsletter subscriber.
     """
     implements(IENLSubscriber)
     security = ClassSecurityInfo()
-    _at_rename_after_creation  = True
-    schema = BaseSchema + schema    
+    _at_rename_after_creation = True
+    schema = BaseSchema + schema
 
     def initializeArchetype(self, **kwargs):
         """Overwritten hook
@@ -97,5 +99,6 @@ class ENLSubscriber(BaseContent):
         if self.getFullname():
             title_str += ' - ' + self.getFullname()
         return title_str
+
 
 registerType(ENLSubscriber, PROJECTNAME)

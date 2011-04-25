@@ -1,15 +1,17 @@
+from zope.component.interfaces import ComponentLookupError
 import csv
-import re
+#import re
 import tempfile
 
-from types import DictType
+#from types import DictType
 
-from Acquisition import aq_inner, aq_parent
+#from Acquisition import aq_parent
+from Acquisition import aq_inner
 
 from zope.interface import implements, Interface
-from zope import schema
+#from zope import schema
 from zope.component import getUtility
-from zope.app.component.hooks import getSite
+#from zope.app.component.hooks import getSite
 
 from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
@@ -20,18 +22,18 @@ from Products.EasyNewsletter.interfaces import ISubscriberSource
 
 
 CSV_HEADER = [
-    'salutation',              
+    'salutation',
     'fullname',
     'email',
     'organization',
 ]
 
 
-
 class IEnl_Subscribers_View(Interface):
     """
     Enl_Subscribers_View interface
     """
+
 
 class Enl_Subscribers_View(BrowserView):
     """
@@ -94,11 +96,11 @@ class UploadCSV(BrowserView):
     def create_subscribers(self, csv_data=None):
         """Create newsletter subscribers from uploaded CSV file.
         """
-        
+
         # Do nothing if no submit button was hit
         if 'form.button.Import' not in self.request.form:
             return
-        
+
         context = aq_inner(self.context)
         plone_utils = getToolByName(self.context, 'plone_utils')
         encoding = plone_utils.getSiteEncoding()
@@ -127,7 +129,8 @@ class UploadCSV(BrowserView):
             # Check the length of the line
             if len(subscriber) != 4:
                 fail.append(
-                    {'failure': 'The number of items in the line is not correct. It should be 4. Check your CSV file.'})
+                    {'failure': 'The number of items in the line is not correct. \
+                        It should be 4. Check your CSV file.'})
             else:
                 salutation = subscriber[0]
                 fullname = subscriber[1]
@@ -145,8 +148,8 @@ class UploadCSV(BrowserView):
                     title = email + " - " + fullname
                     try:
                         self.context.invokeFactory('ENLSubscriber',
-                            id=id, 
-                            title=title, 
+                            id=id,
+                            title=title,
                             description="")
                         sub = context[id]
                         sub.email = email
@@ -168,11 +171,11 @@ class UploadCSV(BrowserView):
                              'organization': organization,
                              'failure': 'An error occured while creating this subscriber: %s' % str(e)})
 
-        return {'success' : success, 'fail' : fail}
+        return {'success': success, 'fail': fail}
 
 
 class DownloadCSV(BrowserView):
-         
+
     def __call__(self):
         """Returns a CSV file with all newsletter subscribers.
         """
@@ -182,14 +185,14 @@ class DownloadCSV(BrowserView):
         # Create CSV file
         filename = tempfile.mktemp()
         file = open(filename, 'wb')
-        csvWriter = csv.writer(file, 
+        csvWriter = csv.writer(file,
                                delimiter=',',
-                               quotechar='"', 
+                               quotechar='"',
                                quoting=csv.QUOTE_MINIMAL)
         csvWriter.writerow(CSV_HEADER)
         for subscriber in ctool(portal_type = 'ENLSubscriber',
                                 path='/'.join(self.context.getPhysicalPath()),
-                                sort_on='email'): 
+                                sort_on='email'):
             obj = subscriber.getObject()
             csvWriter.writerow([
                 obj.salutation.encode("utf-8"),
@@ -198,7 +201,7 @@ class DownloadCSV(BrowserView):
                 obj.organization.encode("utf-8")])
         file.close()
         data = open(filename, "r").read()
-        
+
         # Create response
         response = context.REQUEST.response
         response.addHeader('Content-Disposition', "attachment; filename=easynewsletter-subscribers.csv")
@@ -207,7 +210,6 @@ class DownloadCSV(BrowserView):
         response.addHeader('Pragma', "no-cache")
         response.addHeader('Cache-Control', "must-revalidate, post-check=0, pre-check=0, public")
         response.addHeader('Expires', "0")
-        
+
         # Return CSV data
         return data
-    

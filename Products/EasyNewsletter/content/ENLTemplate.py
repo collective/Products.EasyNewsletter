@@ -16,22 +16,22 @@ from Products.EasyNewsletter.interfaces import IENLTemplate
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 
 schema=Schema((
-    
+
     ZPTField('body',
-        validators=('zptvalidator',),
-        widget=TextAreaWidget(
+        validators = ('zptvalidator', ),
+        widget = TextAreaWidget(
             description = 'This is a Zope Page Template file '
-                    'that is used for rendering the newsletter mail.',
-                    description_msgid = "help_body_zpt",
-                    label = 'Newsletter Template',
-                    label_msgid = "label_body_zpt",
-                    i18n_domain = "plone",
-                    rows = 30,
-                    ) ,
+                'that is used for rendering the newsletter mail.',
+                description_msgid = "help_body_zpt",
+                label = 'Newsletter Template',
+                label_msgid = "label_body_zpt",
+                i18n_domain = "plone",
+                rows = 30,
+                ),
     ),
 
     TextField('description',
-        widget=TextAreaWidget(
+        widget = TextAreaWidget(
             label_msgid="label_description",
             description_msgid="help_description",
             description="Enter a value for description.",
@@ -41,8 +41,8 @@ schema=Schema((
         accessor="Description"
     ),
 
-),
-)
+),)
+
 
 class ENLTemplate(BaseContent):
     """Template used for styling newsletter entries.
@@ -62,7 +62,7 @@ class ENLTemplate(BaseContent):
     def getSourceCode(self):
         """Return body as string
         """
-        html =  self.getField("body").getRaw(self)
+        html = self.getField("body").getRaw(self)
         return html
 
     security.declarePublic('setNewsletter')

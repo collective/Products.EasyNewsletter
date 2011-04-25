@@ -3,9 +3,11 @@ from Products.CMFCore.utils import getToolByName
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.config import PLACEHOLDERS
 
+
 class IssueView(BrowserView):
     """
     """
+
     def refresh_issue(self):
         """
         """
@@ -27,4 +29,3 @@ class IssueView(BrowserView):
         for placeholder in PLACEHOLDERS:
             html = html.replace('[[' + placeholder + ']]', '')
         return html
-            

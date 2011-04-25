@@ -48,66 +48,71 @@ log = logging.getLogger("Products.EasyNewsletter")
 schema=Schema((
     StringField('senderEmail',
         widget=StringWidget(
-            label=_(u"EasyNewsletter_label_senderEmail", 
-                    default=u"Sender e-mail"),
-            description=_(u"EasyNewsletter_help_senderEmail", default=u"Default\
-                          for the sender address of the newsletters."),
+            label=_(u"EasyNewsletter_label_senderEmail",
+                default=u"Sender e-mail"),
+            description=_(u"EasyNewsletter_help_senderEmail",
+                default=u"Default for the sender address of the newsletters."),
             i18n_domain='EasyNewsletter',
         ),
         required=True,
-        validators=('isEmail',)
+        validators=('isEmail', )
     ),
 
     StringField('senderName',
         widget=StringWidget(
-            label=_(u"EasyNewsletter_label_senderName", default=u"Sender name"),
-            description=_(u"EasyNewsletter_help_senderName", default=u"Default \
-                          for the sender name of the newsletters."),
+            label=_(u"EasyNewsletter_label_senderName",
+                default=u"Sender name"),
+            description=_(u"EasyNewsletter_help_senderName",
+                default=u"Default for the sender name of the newsletters."),
             i18n_domain='EasyNewsletter',
         )
     ),
 
     StringField('testEmail',
         widget=StringWidget(
-            label=_(u"EasyNewsletter_label_testEmail", default=u"Test e-mail"),
-            description=_(u"EasyNewsletter_help_testEmail", default=u"Default \
-                          for the test e-mail address."),
+            label=_(u"EasyNewsletter_label_testEmail",
+                default=u"Test e-mail"),
+            description=_(u"EasyNewsletter_help_testEmail",
+                default=u"Default for the test e-mail address."),
             i18n_domain='EasyNewsletter',
         ),
         required=True,
-        validators=('isEmail',)
+        validators=('isEmail', )
     ),
 
     LinesField('salutations',
         default=("mr|Dear Mr.","ms|Dear Ms.","default|Dear"),
         widget=LinesWidget(
-            label=_(u'EasyNewsletter_label_salutations', default=u"Subscriber Salutations."),
-            description=_(u"EasyNewsletter_help_salutations", 
-                          default=u'Define here possible salutations for \
-                          subscriber. One salutation per line in the \
-                          form of: \"mr|Dear Mr.\". \
-                          The left hand value "mr" or "ms" is mapped \
-                          to salutation of each subscriber and then the \
-                          right hand value, which you can customize \
-                          is used as salutation.'),
+            label=_(u'EasyNewsletter_label_salutations',
+                default=u"Subscriber Salutations."),
+            description=_(u"EasyNewsletter_help_salutations",
+                default=u'Define here possible salutations for subscriber. One \
+                    salutation per line in the form of: \"mr|Dear Mr.\". \
+                    The left hand value "mr" or "ms" is mapped to salutation of \
+                    each subscriber and then the right hand value, which you \
+                    can customize is used as salutation.'),
             i18n_domain='EasyNewsletter',
         ),
     ),
-    
+
     StringField('fullname_fallback',
         default="Sir or Madam",
         widget=StringWidget(
-            label=_(u'EasyNewsletter_label_fullname_fallback', default=u"Fallback for subscribers without a name."),
-            description=_(u"EasyNewsletter_help_fullname_fallback", default=u'This will be used if the subscriber has no fullname.'),
+            label=_(u'EasyNewsletter_label_fullname_fallback',
+                default=u"Fallback for subscribers without a name."),
+            description=_(u"EasyNewsletter_help_fullname_fallback",
+                default=u'This will be used if the subscriber has no fullname.'),
             i18n_domain='EasyNewsletter',
         ),
     ),
-    
+
     StringField('unsubscribe_string',
         default="Click here to unsubscribe",
         widget=StringWidget(
-            label=_(u"EasyNewsletter_label_unsubscribe_string", default=u"Text for the 'unsubscribe' link"),
-            description=_(u"EasyNewsletter_help_unsubscribe_string", default=u'This will replace the placeholder [[UNSUBSCRIBE]].'),
+            label=_(u"EasyNewsletter_label_unsubscribe_string",
+                default=u"Text for the 'unsubscribe' link"),
+            description=_(u"EasyNewsletter_help_unsubscribe_string",
+                default=u'This will replace the placeholder [[UNSUBSCRIBE]].'),
             i18n_domain='EasyNewsletter',
         ),
     ),
@@ -118,7 +123,8 @@ schema=Schema((
         widget=RichWidget(
             rows=10,
             label=_(u"EasyNewsletter_label_default_header", default=u"Header"),
-            description=_(u'description_text_header', default=u'The default header text. This is used as a default for new issues. You can use the placeholders [[SUBSCRIBER_SALUTATION]] and [[UNSUBSCRIBE]] here.'),
+            description=_(u'description_text_header',
+                default=u'The default header text. This is used as a default for new issues. You can use the placeholders [[SUBSCRIBER_SALUTATION]] and [[UNSUBSCRIBE]] here.'),
             i18n_domain='EasyNewsletter',
         ),
         default_output_type='text/html'
@@ -130,7 +136,8 @@ schema=Schema((
         widget=RichWidget(
             rows=10,
             label=_(u"EasyNewsletter_label_default_footer", default=u"Footer"),
-            description=_(u'description_text_footer', default=u'The default footer text. This is used as a default for new issues. You can use the placeholders [[SUBSCRIBER_SALUTATION]] and [[UNSUBSCRIBE]] here.'),
+            description=_(u'description_text_footer',
+                default=u'The default footer text. This is used as a default for new issues. You can use the placeholders [[SUBSCRIBER_SALUTATION]] and [[UNSUBSCRIBE]] here.'),
             i18n_domain='EasyNewsletter',
         ),
         default_output_type='text/html'
@@ -140,7 +147,8 @@ schema=Schema((
         default=False,
         widget=BooleanWidget(
             label=_(u'label_sendToAllPloneMembers', default=u'Send to all Plone members'),
-            description_msgid=_(u'help_sendToAllPloneMembers', default=u'If checked, the newsletter/mailing is send to all plone members. If there are subscribers inside the newsletter, they get the letter anyway.'),
+            description_msgid=_(u'help_sendToAllPloneMembers',
+                default=u'If checked, the newsletter/mailing is send to all plone members. If there are subscribers inside the newsletter, they get the letter anyway.'),
             i18n_domain='EasyNewsletter',
         )
     ),
@@ -161,7 +169,7 @@ schema=Schema((
     LinesField('ploneReceiverGroups',
         vocabulary="get_plone_groups",
         widget=MultiSelectionWidget(
-            label=_(u"EasyNewsletter_label_ploneReceiverGroups", 
+            label=_(u"EasyNewsletter_label_ploneReceiverGroups",
                     default=u"Plone Groups to receive the newsletter"),
             description=_(u"EasyNewsletter_help_ploneReceiverGroups",
                           default=u"Choose Plone Groups which members \
@@ -176,7 +184,7 @@ schema=Schema((
         vocabulary="get_subscriber_sources",
         default='default',
         widget=SelectionWidget(
-            label=_(u"EasyNewsletter_label_externalSubscriberSource", 
+            label=_(u"EasyNewsletter_label_externalSubscriberSource",
                     default="External subscriber source"),
             description=_(u"EasyNewsletter_help_externalSubscriberSource",
                           default=u"Some packages provide an external \
@@ -211,11 +219,11 @@ schema=Schema((
             label = _(u"label_out_template_pt", u"Outgoing Mail Template"),
             i18n_domain = "EasyNewsletter",
             rows = 40,
-            ) ,
+            ),
         required=True,
-        validators=('zptvalidator',),
+        validators=('zptvalidator', ),
     ),
-    
+
     StringField('subscriber_confirmation_mail_subject',
         schemata="settings",
         default = DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT,
@@ -242,57 +250,23 @@ schema=Schema((
 )
 
 
-
 schema = ATTopicSchema.copy() + schema
-schema['text'].widget.description = _(u'description_text', default=u'This is used in the frontpage of EasyNewsletter on top of Issue archive list.')
-schema['limitNumber'].widget.visible = {
-    'view': 'invisible',
-    'edit': 'invisible'
-}
-schema['itemCount'].widget.visible = {
-    'view': 'invisible',
-    'edit': 'invisible'
-}
-schema['customView'].widget.visible = {
-    'view': 'invisible',
-    'edit': 'invisible'
-}
-schema['customViewFields'].widget.visible = {
-    'view': 'invisible',
-    'edit': 'invisible'
-}
-schema['allowDiscussion'].widget.visible = {
-    'view': 'invisible',
-    'edit': 'invisible'
-}
-schema['subject'].widget.visible = {
-    'view': 'invisible',
-    'edit': 'invisible'
-}
-schema['location'].widget.visible = {
-    'view': 'invisible',
-    'edit': 'invisible'
-}
-schema['effectiveDate'].widget.visible = {
-    'view': 'invisible',
-    'edit': 'invisible'
-}
-schema['expirationDate'].widget.visible = {
-    'view': 'invisible',
-    'edit': 'invisible'
-}
-schema['creators'].widget.visible = {
-    'view': 'invisible',
-    'edit': 'invisible'
-}
-schema['contributors'].widget.visible = {
-    'view': 'invisible',
-    'edit': 'invisible'
-}
-schema['rights'].widget.visible = {
-    'view': 'invisible',
-    'edit': 'invisible'
-}
+schema['text'].widget.description = _(u'description_text',
+    default=u'This is used in the frontpage of EasyNewsletter on top of Issue archive list.')
+
+schema['limitNumber'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
+schema['itemCount'].widget.visible = {'view': 'invisible', 'edit': 'invisible' }
+schema['customView'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
+schema['customViewFields'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
+schema['allowDiscussion'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
+schema['subject'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
+schema['location'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
+schema['effectiveDate'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
+schema['expirationDate'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
+schema['creators'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
+schema['contributors'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
+schema['rights'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
+
 schema['relatedItems'].schemata = "settings"
 schema['language'].schemata = "settings"
 schema['excludeFromNav'].schemata = "settings"
@@ -306,10 +280,10 @@ schema.moveField('excludeFromNav', pos='bottom')
 class EasyNewsletter(ATTopic, BaseFolder):
     """A folder for managing and archiving newsletters.
     """
-    implements(IEasyNewsletter) 
+    implements(IEasyNewsletter)
     security = ClassSecurityInfo()
     schema = schema
-    _at_rename_after_creation  = True
+    _at_rename_after_creation = True
 
     security.declarePublic("initializeArchetype")
     def initializeArchetype(self, **kwargs):
@@ -342,13 +316,13 @@ class EasyNewsletter(ATTopic, BaseFolder):
             return (False, "email_exists")
         o = getattr(self, subscriber_id)
         o.setEmail(subscriber)
-        o.setFullname(fullname) 
+        o.setFullname(fullname)
         o.setOrganization(organization)
         o.setSalutation(salutation)
         o.reindexObject()
 
         return (True, "subscription_confirmed")
-   
+
     def getSubTopics(self):
         """Returns sub topics.
         """
@@ -363,7 +337,8 @@ class EasyNewsletter(ATTopic, BaseFolder):
             fmp_tool = queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool')
             member_properties = fmp_tool.get_all_memberproperties()
         else:
-            log.info("We use plone API to get memberproperties, this ist very slow on many members, please install inqbus.plone.fastmemberproperties to make it fast!")
+            log.info("We use plone API to get memberproperties, this is very \
+                slow on many members, please install inqbus.plone.fastmemberproperties to make it fast!")
             acl_userfolder = getToolByName(self, 'acl_users')
             member_objs = acl_userfolder.getUsers()
             member_properties = {}
@@ -376,10 +351,11 @@ class EasyNewsletter(ATTopic, BaseFolder):
         if not member_properties:
             return []
         try:
-            results = DisplayList([(id, property['fullname'] + ' - ' + property['email']) for id, property in member_properties.items() 
+            results = DisplayList([(id, property['fullname'] + ' - ' + property['email']) for id, property in member_properties.items()
                 if EMAIL_RE.findall(property['email'])])
         except TypeError, e:
-            log.error(":get_plone_members: error in member_properties %s/ properties:'%s'" % (e, member_properties.items()))
+            log.error(":get_plone_members: error in member_properties %s/ \
+                properties:'%s'" % (e, member_properties.items()))
         # run registered member filter:
         for subscriber in subscribers([self], IReceiversMemberFilter):
             results = subscriber.filter(results)
@@ -394,7 +370,7 @@ class EasyNewsletter(ATTopic, BaseFolder):
         for group in groups:
             group_id = group.getId()
             group_properties[group_id] = {
-                'title' : group.getGroupTitleOrName(),
+                'title': group.getGroupTitleOrName(),
                 'email': group.getProperty('email'),
                 }
         results = DisplayList([(id, property['title']) for id, property in group_properties.items()])
@@ -428,10 +404,12 @@ registerType(EasyNewsletter, PROJECTNAME)
 class UnrestrictedUser(BaseUnrestrictedUser):
     """Unrestricted user that still has an id.
     """
+
     def getId(self):
         """Return the ID of the user.
         """
         return self.getUserName()
+
 
 def execute_under_special_role(portal, role, function, *args, **kwargs):
     """ Execute code under special role priviledges.

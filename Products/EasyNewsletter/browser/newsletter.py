@@ -5,9 +5,11 @@ from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 
+
 class NewsletterView(BrowserView):
     """
     """
+
     def unsubscribe(self):
         """
         """
@@ -16,7 +18,7 @@ class NewsletterView(BrowserView):
         catalog = getToolByName(self.context, "reference_catalog")
         uid = self.request.get("subscriber")
 
-        subscriber = catalog.lookupObject(uid)        
+        subscriber = catalog.lookupObject(uid)
         if subscriber is None:
             putils.addPortalMessage(_("An error occured"), "error")
         else:
@@ -41,5 +43,3 @@ class NewsletterView(BrowserView):
             content = issue.restrictedTraverse('@@get-public-body')()
             result.append(dict(content=content, title=issue.Title()))
         return result
-
-
