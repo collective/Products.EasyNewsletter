@@ -6,6 +6,7 @@ from Testing import ZopeTestCase as ztc
 from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneTestCase.layer import onsetup
 
+
 @onsetup
 def setup_registration():
     fiveconfigure.debug_mode = True
@@ -16,5 +17,3 @@ def setup_registration():
 ztc.installProduct('EasyNewsletter')
 setup_registration()
 ptc.setupPloneSite(products=['EasyNewsletter'])
-
-

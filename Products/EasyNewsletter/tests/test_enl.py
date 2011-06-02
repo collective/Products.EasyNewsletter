@@ -1,20 +1,19 @@
-
-import os
 import base
 import unittest
 
 from Products.PloneTestCase.PloneTestCase import PloneTestCase
 
+
 class EasyNewsletterTests(PloneTestCase):
 
     def afterSetUp(self):
-        self.portal.portal_membership.addMember('admin', 'secret', ('Manager',), None)
+        self.portal.portal_membership.addMember('admin', 'secret', ('Manager', ), None)
 
     def _makeOne(self):
         self.login('admin')
         self.portal.invokeFactory('EasyNewsletter', id='newsletter')
         return self.portal['newsletter']
-             
+
     def testInstallation(self):
         enl = self._makeOne()
         enl.invokeFactory('ENLIssue', id='issue')
@@ -39,8 +38,8 @@ class EasyNewsletterTests(PloneTestCase):
         enl = self._makeOne()
         html = enl.restrictedTraverse('@@enl_subscribers_view')
 
+
 def test_suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(EasyNewsletterTests))
     return suite
-

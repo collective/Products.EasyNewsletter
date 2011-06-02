@@ -5,18 +5,18 @@ from plone.app.testing import IntegrationTesting
 from plone.app.testing import FunctionalTesting
 
 from plone.testing import z2
-
 from zope.configuration import xmlconfig
+
 
 class EasyNewsletter(PloneSandboxLayer):
 
-    defaultBases = (PLONE_FIXTURE,)
+    defaultBases = (PLONE_FIXTURE, )
 
     def setUpZope(self, app, configurationContext):
         # Load ZCML
         import Products.EasyNewsletter
-        xmlconfig.file('configure.zcml', 
-                       Products.EasyNewsletter, 
+        xmlconfig.file('configure.zcml',
+                       Products.EasyNewsletter,
                        context=configurationContext)
 
         # Install product and call its initialize() function
@@ -35,13 +35,14 @@ class EasyNewsletter(PloneSandboxLayer):
         # Uninstall product
         z2.uninstallProduct(app, 'Products.EasyNewsletter')
 
-        # Note: Again, you can skip this if Products.EasyNewsletter is not a Zope 
+        # Note: Again, you can skip this if Products.EasyNewsletter is not a Zope
         # 2-style product
 
+
 EASYNEWSLETTER_FIXTURE = EasyNewsletter()
+
 EASYNEWSLETTER_INTEGRATION_TESTING = IntegrationTesting(
-    bases=(EASYNEWSLETTER_FIXTURE,), 
-    name="EasyNewsletter:Integration")
+    bases=(EASYNEWSLETTER_FIXTURE, ), name="EasyNewsletter:Integration")
+
 EASYNEWSLETTER_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(EASYNEWSLETTER_FIXTURE,), 
-    name="EasyNewsletter:Functional")
+    bases=(EASYNEWSLETTER_FIXTURE, ), name="EasyNewsletter:Functional")

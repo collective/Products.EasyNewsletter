@@ -1,13 +1,14 @@
 import unittest2 as unittest
 
-from zope.component import createObject
-from zope.component import getMultiAdapter
-from zope.component import queryUtility
+#from zope.component import createObject
+#from zope.component import getMultiAdapter
+#from zope.component import queryUtility
 
 from Products.EasyNewsletter.testing import \
     EASYNEWSLETTER_INTEGRATION_TESTING
 
-from plone.app.testing import TEST_USER_ID, TEST_USER_NAME, setRoles, login
+from plone.app.testing import TEST_USER_ID, setRoles
+#from plone.app.testing import TEST_USER_NAME, login
 
 
 class EasyNewsletterTests(unittest.TestCase):
@@ -21,7 +22,7 @@ class EasyNewsletterTests(unittest.TestCase):
         self.folder = self.portal['test-folder']
 
         self.properties = self.portal.portal_properties
-                        
+
     def test_newsletter_factory(self):
         #self.folder.invokeFactory("EasyNewsletter", "newsletter")
         #enl = self._makeOne()
@@ -43,17 +44,17 @@ class EasyNewsletterTests(unittest.TestCase):
         self.failUnless('ENLIssue' in self.properties.navtree_properties.metaTypesNotToList)
         self.failUnless('ENLSubscriber' in self.properties.navtree_properties.metaTypesNotToList)
         self.failUnless('ENLTemplate' in self.properties.navtree_properties.metaTypesNotToList)
-        
+
     def test_newsletter_view(self):
         #self.folder.invokeFactory("EasyNewsletter", "newsletter")
-        #view = getMultiAdapter((self.folder.newsletter, self.portal.REQUEST), 
+        #view = getMultiAdapter((self.folder.newsletter, self.portal.REQUEST),
         #                       name="view")
         # Put view to acquisition chain
         #view = view.__of__(self.portal)
         # Call view
-        #self.failUnless(view())        
+        #self.failUnless(view())
         pass
+
 
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)
-
