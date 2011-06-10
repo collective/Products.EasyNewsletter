@@ -378,12 +378,24 @@ class ENLIssue(ATTopic, BaseContent):
             image_number = 0
             for image_url in image_urls:
                 #XXX: we need to provide zope3 recource image too!
+                error = False
                 image_url = urlparse(image_url)[2]
-                try:
-                    o = self.restrictedTraverse(urllib.unquote(image_url))
-                except Exception, e:
-                    log.error("Could not resolve the image \"%s\": %s" % (image_url, e))
+                if image_url.startswith('resolveuid'):
+                    uuid = image_url.split('/')[1]
+                    catalog = getToolByName(self, 'portal_catalog')
+                    brains = catalog(UID=uuid)
+                    if len(brains) == 0:
+                        log.error("Image not found: %s" % (image_url, e))
+                        error = True
+                    else:
+                        o = brains[0].getObject()
                 else:
+                    try:
+                        o = self.restrictedTraverse(urllib.unquote(image_url))
+                    except Exception, e:
+                        log.error("Could not resolve the image \"%s\": %s" % (image_url, e))
+                        error = True
+                if not error:
                     if hasattr(o, "_data"):                               # file-based
                         image = MIMEImage(o._data)
                     elif hasattr(o, "data"):

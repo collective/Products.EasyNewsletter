@@ -6,6 +6,8 @@ Changes
 
 * fix unicode problem when groups contain special characters (eg: àèìòù).
   [mirco]
+* fixed the send of images that not works properly when resolveUID is activated
+  [mirco]
 
 2.5.10a1 (2011-02-15)
 ---------------------
