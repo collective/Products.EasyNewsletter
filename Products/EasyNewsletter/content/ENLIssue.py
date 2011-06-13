@@ -296,6 +296,8 @@ class ENLIssue(ATTopic, BaseContent):
         subject = request.get("subject", "")
         if subject == "":
             subject = self.Title()
+        if not isinstance(subject,unicode):
+            subject = subject.decode('utf-8')
 
         # Create from-header
         from_header = enl.getSenderName() and '"%s" <%s>' % (sender_name, sender_email) or sender_email
@@ -323,7 +325,6 @@ class ENLIssue(ATTopic, BaseContent):
         for receiver in receivers:
             # create multipart mail
             outer = MIMEMultipart('alternative')
-
             if hasattr(request, "test"):
                 outer['To'] = receiver['email']
                 fullname = receiver['fullname']
