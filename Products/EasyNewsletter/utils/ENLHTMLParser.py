@@ -2,6 +2,8 @@ import HTMLParser
 import urlparse
 import urllib
 
+from Products.CMFCore.utils import getToolByName
+
 class ENLHTMLParser(HTMLParser.HTMLParser):
     """A simple parser which exchange relative URLs with obsolute ones"""
     
@@ -19,13 +21,21 @@ class ENLHTMLParser(HTMLParser.HTMLParser):
         """
         self.html += "<%s" % tag
         
-        
         for attr in attrs:
             if attr[0] == "href":
                 try:
                     # split anchor from url
                     baseurl, anchor = urlparse.urldefrag(attr[1])
-                    o = self.context.restrictedTraverse(urllib.unquote(baseurl))
+                    if baseurl.startswith('resolveuid'):
+                        uuid = baseurl.split('/')[1]
+                        catalog = getToolByName(self.context, 'portal_catalog')
+                        brains = catalog(UID=uuid)
+                        if len(brains) == 0:
+                            url = attr[1]
+                        else:
+                            o = brains[0].getObject()
+                    else:
+                        o = self.context.restrictedTraverse(urllib.unquote(baseurl))
                     if getattr(o, 'absolute_url', None):
                         url = o.absolute_url()
                     else:

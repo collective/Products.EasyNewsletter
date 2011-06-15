@@ -10,6 +10,8 @@ Changes
   [mirco]
 * fix unicode problem when title of issues contain special characters (eg: àèìòù).
   [mirco]
+* fixed the send of internal link that not works properly when resolveUID is activated
+  [mirco]
 
 2.5.10a1 (2011-02-15)
 ---------------------
