@@ -5,7 +5,8 @@ Changelog
 2.5.10a3 (unreleased)
 ---------------------
 
-- Nothing changed yet.
+- Don't overwrite the metaTypesNotToList-property, but just append our own types.
+  [WouterVH]
 
 
 2.5.10a2 (2011-03-11)
