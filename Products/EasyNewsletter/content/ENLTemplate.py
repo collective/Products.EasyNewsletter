@@ -51,6 +51,8 @@ class ENLTemplate(BaseContent):
 
     security = ClassSecurityInfo()
     schema = BaseSchema + schema
+    _at_rename_after_creation = True
+
 
     def initializeArchetype(self, **kwargs):
         """overwritten hook
@@ -93,5 +95,6 @@ class ENLTemplate(BaseContent):
         else:
             newsletter = brain.getObject()
             return newsletter.getSubTopics()
+
 
 registerType(ENLTemplate, PROJECTNAME)
