@@ -5,6 +5,10 @@ Changelog
 2.5.10a3 (unreleased)
 ---------------------
 
+- Avoid duplicate listing in portal_quickinstaller.
+  Fixes http://plone.org/products/easynewsletter/issues/6
+  [WouterVH]
+
 - Don't overwrite the metaTypesNotToList-property, but just append our own types.
   [WouterVH]
 
