@@ -1,6 +1,5 @@
-# python imports
-import formatter
 import cStringIO
+import formatter
 import urllib
 
 from htmllib import HTMLParser
@@ -11,22 +10,19 @@ from email.MIMEImage import MIMEImage
 from email.Header import Header
 #from email import Encoders
 
-# zope imports
-from zope.interface import implements
+from AccessControl import ClassSecurityInfo
+from Products.Archetypes import atapi
+from Products.Archetypes.public import ObjectField
+from Products.ATContentTypes.content.topic import ATTopic
+from Products.ATContentTypes.content.topic import ATTopicSchema
+from Products.CMFCore.utils import getToolByName
+from Products.MailHost.interfaces import IMailHost
+from Products.PageTemplates.ZopePageTemplate import ZopePageTemplate
+
 from zope.component import queryUtility
 from zope.component import getUtility
 from zope.component import subscribers
-
-# Zope / Plone import
-from AccessControl import ClassSecurityInfo
-from Products.MailHost.interfaces import IMailHost
-from Products.Archetypes.atapi import *
-from Products.ATContentTypes.content.topic import ATTopic
-from Products.ATContentTypes.content.topic import ATTopicSchema
-#from Products.Archetypes.public import DisplayList
-from Products.CMFCore.utils import getToolByName
-from Products.PageTemplates.ZopePageTemplate import ZopePageTemplate
-from Products.Archetypes.public import ObjectField
+from zope.interface import implements
 
 try:
     from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool
@@ -34,8 +30,6 @@ try:
 except:
     fmp_tool = False
 
-
-# EasyNewsletter imports
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.config import PROJECTNAME, EMAIL_RE
 from Products.EasyNewsletter.interfaces import IENLIssue
@@ -45,118 +39,116 @@ from Products.EasyNewsletter.utils.ENLHTMLParser import ENLHTMLParser
 from Products.EasyNewsletter.utils import safe_portal_encoding
 
 import logging
-
 log = logging.getLogger("Products.EasyNewsletter")
 
 
-schema=Schema((
-    TextField('text',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword'),
-        widget=RichWidget(
-            rows=30,
-            label='Text',
-            label_msgid='EasyNewsletter_label_text',
-            description=_(u'description_text_issue',
+schema = atapi.Schema((
+    atapi.TextField('text',
+        allowable_content_types = ('text/plain', 'text/structured', 'text/html', 'application/msword'),
+        default_output_type = 'text/html',
+        widget = atapi.RichWidget(
+            rows = 30,
+            label = _('EasyNewsletter_label_text', default=u'Text'),
+            description = _(u'description_text_issue',
                 default=u'The main content of the mailing. You can use the topic \
                     criteria to collect content or put manual content in. \
                     This will included in outgoing mails.'),
-            description_msgid='EasyNewsletter_help_text',
-            i18n_domain='EasyNewsletter',
+            i18n_domain = 'EasyNewsletter',
         ),
-        default_output_type='text/html'
     ),
 
-    BooleanField('sendToAllPloneMembers',
-        default_method="get_sendToAllPloneMembers_defaults",
-        widget=BooleanWidget(
-            label=_(u'label_sendToAllPloneMembers', default=u'Send to all Plone members'),
-            description_msgid=_(u'help_sendToAllPloneMembers',
+    atapi.BooleanField('sendToAllPloneMembers',
+        default_method = "get_sendToAllPloneMembers_defaults",
+        widget = atapi.BooleanWidget(
+            label = _(u'label_sendToAllPloneMembers',
+                default=u'Send to all Plone members'),
+            description = _(u'help_sendToAllPloneMembers',
                 default=u'If checked, the newsletter/mailing is send to all \
                     plone members. If there are subscribers inside the \
                     newsletter, they get the letter anyway.'),
-            i18n_domain='EasyNewsletter',
+            i18n_domain = 'EasyNewsletter',
         )
     ),
 
-    LinesField('ploneReceiverMembers',
-        vocabulary="get_plone_members",
-        default_method="get_ploneReceiverMembers_defaults",
-        widget=MultiSelectionWidget(
-            label='Plone Members to receive',
-            label_msgid='EasyNewsletter_label_ploneReceiverMembers',
-            description_msgid='EasyNewsletter_help_ploneReceiverMembers',
-            i18n_domain='EasyNewsletter',
+    atapi.LinesField('ploneReceiverMembers',
+        vocabulary = "get_plone_members",
+        default_method = "get_ploneReceiverMembers_defaults",
+        widget = atapi.MultiSelectionWidget(
+            label = _(u'EasyNewsletter_label_ploneReceiverMembers',
+                default=u'Plone Members to receive'),
+            description = _(u'EasyNewsletter_help_ploneReceiverMembers',
+                default=u''),
+            i18n_domain = 'EasyNewsletter',
             size = 20,
         )
     ),
 
-    LinesField('ploneReceiverGroups',
-        vocabulary="get_plone_groups",
-        default_method="get_ploneReceiverGroups_defaults",
-        widget=MultiSelectionWidget(
-            label='Plone Groups to receive',
-            label_msgid='EasyNewsletter_label_ploneReceiverGroups',
-            description_msgid='EasyNewsletter_help_ploneReceiverGroups',
-            i18n_domain='EasyNewsletter',
+    atapi.LinesField('ploneReceiverGroups',
+        vocabulary = "get_plone_groups",
+        default_method = "get_ploneReceiverGroups_defaults",
+        widget = atapi.MultiSelectionWidget(
+            label = _(u'EasyNewsletter_label_ploneReceiverGroups',
+                default=u'Plone Groups to receive'),
+            description = _(u'EasyNewsletter_help_ploneReceiverGroups',
+                default=u''),
+            i18n_domain = 'EasyNewsletter',
             size = 10,
         )
     ),
 
-    TextField('header',
-        schemata="settings",
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword'),
+    atapi.TextField('header',
+        schemata = "settings",
+        allowable_content_types = ('text/plain', 'text/structured', 'text/html', 'application/msword'),
         default_method = "get_default_header",
-        widget=RichWidget(
-            rows=10,
-            label='Header',
-            label_msgid='EasyNewsletter_label_header',
+        default_output_type = 'text/html',
+        widget = atapi.RichWidget(
+            rows = 10,
+            label = _(u'EasyNewsletter_label_header',
+                default=u"Header"),
             description=_(u'description_help_header',
                 default=u'The header will included in outgoing mails.'),
-            description_msgid='EasyNewsletter_help_header',
             i18n_domain='EasyNewsletter',
         ),
-        default_output_type='text/html'
     ),
 
-    TextField('footer',
-        schemata="settings",
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword'),
+    atapi.TextField('footer',
+        schemata = "settings",
+        allowable_content_types = ('text/plain', 'text/structured', 'text/html', 'application/msword'),
         default_method = "get_default_footer",
-        widget=RichWidget(
-            rows=10,
-            label='Footer',
-            label_msgid='EasyNewsletter_label_footer',
-            description=_(u'description_help_footer',
+        default_output_type = 'text/html',
+        widget = atapi.RichWidget(
+            rows = 10,
+            label = _(u'EasyNewsletter_label_footer', default=u'Footer'),
+            description = _(u'description_help_footer',
                 default=u'The footer will included in outgoing mails.'),
-            description_msgid='EasyNewsletter_help_footer',
-            i18n_domain='EasyNewsletter',
+            i18n_domain = 'EasyNewsletter',
         ),
-        default_output_type='text/html'
     ),
 
-    BooleanField('acquireCriteria',
-        schemata="settings",
-        default=True,
-        widget=BooleanWidget(
-            label=_(u'label_inherit_criteria', default=u'Inherit Criteria'),
-            description_msgid='EasyNewsletter_help_acquireCriteria',
-            i18n_domain='EasyNewsletter',
+    atapi.BooleanField('acquireCriteria',
+        schemata = "settings",
+        default = True,
+        widget = atapi.BooleanWidget(
+            label = _(u'label_inherit_criteria', default=u'Inherit Criteria'),
+            description = _(u'EasyNewsletter_help_acquireCriteria',
+                default=u""),
+            i18n_domain = 'EasyNewsletter',
         )
     ),
 
     # Overwritten to adapt attribute from ATTopic
-    StringField('template',
-        schemata="settings",
-        default="default_template",
-        widget=StringWidget(
-            macro="NewsletterTemplateWidget",
-            label=_(u"EasyNewsletter_label_template",
+    atapi.StringField('template',
+        schemata = "settings",
+        default = "default_template",
+        required = 1,
+        widget = atapi.StringWidget(
+            macro = "NewsletterTemplateWidget",
+            label = _(u"EasyNewsletter_label_template",
                 default=u"Newsletter Template"),
-            description=_(u"EasyNewsletter_help_template"),
+            description = _(u"EasyNewsletter_help_template"),
                 default=u"Template, to generate the newsletter.",
-            i18n_domain='EasyNewsletter',
+            i18n_domain = 'EasyNewsletter',
         ),
-        required=1
     ),
 ),
 )
@@ -177,7 +169,7 @@ schema.moveField('relatedItems', pos='bottom')
 schema.moveField('language', pos='bottom')
 
 
-class ENLIssue(ATTopic, BaseContent):
+class ENLIssue(ATTopic, atapi.BaseContent):
     """A newsletter which can be send to subscribers.
     """
     implements(IENLIssue)
@@ -518,7 +510,7 @@ class ENLIssue(ATTopic, BaseContent):
             salutation_mappings[salutation_key.strip()] = salutation_value.strip()
         # get all selected member properties
         for receiver_id in set(receiver_member_list):
-            if not member_properties.has_key(receiver_id):
+            if receiver_id not in member_properties:
                 log.debug("Ignore reveiver \"%s\", because we have no properties for this member!" % receiver_id)
                 continue
             member_property = member_properties[receiver_id]
@@ -565,4 +557,4 @@ class ENLIssue(ATTopic, BaseContent):
         return self.getFolderContents(contentFilter=dict(portal_type=('File'),
                                       sort_on='getObjPositionInParent'))
 
-registerType(ENLIssue, PROJECTNAME)
+atapi.registerType(ENLIssue, PROJECTNAME)

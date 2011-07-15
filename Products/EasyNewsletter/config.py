@@ -1,5 +1,5 @@
 import re
-from Products.Archetypes.public import DisplayList
+from Products.Archetypes.atapi import DisplayList
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 
 

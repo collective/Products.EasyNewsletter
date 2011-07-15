@@ -1,83 +1,83 @@
 from AccessControl import ClassSecurityInfo
-from Products.Archetypes.atapi import *
+from Products.Archetypes import atapi
 from zope.interface import implements
 
-from Products.EasyNewsletter.config import *
+from Products.EasyNewsletter import config
 from Products.EasyNewsletter.interfaces import IENLSubscriber
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 
-schema = Schema((
 
-    StringField('title',
-        widget=StringWidget(
-            visible={'edit': 'invisible', 'view': 'invisible'},
-            label='Title',
-            label_msgid='EasyNewsletter_label_title',
-            description_msgid='EasyNewsletter_help_title',
-            i18n_domain='EasyNewsletter',
+schema = atapi.BaseSchema + atapi.Schema((
+
+    atapi.StringField('title',
+        required = False,
+        widget = atapi.StringWidget(
+            visible = {'edit': 'invisible', 'view': 'invisible'},
+            label = _(u'EasyNewsletter_label_title', default=u'Title'),
+            description = _(u'EasyNewsletter_help_title', default=u''),
+            i18n_domain = 'EasyNewsletter',
         ),
-        required = False
     ),
 
-    StringField('salutation',
-        vocabulary=SALUTATION,
-        widget=SelectionWidget(
-            label='Salutation',
-            label_msgid='EasyNewsletter_label_salutation',
-            description_msgid='EasyNewsletter_help_salutation',
-            i18n_domain='EasyNewsletter',
-            format='select',
+     atapi.StringField('salutation',
+        required = False,
+        vocabulary = config.SALUTATION,
+        widget = atapi.SelectionWidget(
+            label = _(u'EasyNewsletter_label_salutation',
+                default='Salutation'),
+            description = _('EasyNewsletter_help_salutation', default=u''),
+            i18n_domain = 'EasyNewsletter',
+            format = 'select',
         ),
-        required = False
     ),
 
-    StringField('fullname',
-        widget=StringWidget(
-            label='Full Name',
-            label_msgid='EasyNewsletter_label_fullname',
-            description_msgid='EasyNewsletter_help_fullname',
-            i18n_domain='EasyNewsletter',
+    atapi.StringField('fullname',
+        required = False,
+        widget = atapi.StringWidget(
+            label = _(u'EasyNewsletter_label_fullname', default=u'Full Name'),
+            description = _('EasyNewsletter_help_fullname', default=u''),
+            i18n_domain = 'EasyNewsletter',
         ),
-        required = False
     ),
 
-    StringField('organization',
-        widget=StringWidget(
-            label='Company/Organization',
-            label_msgid='EasyNewsletter_label_organization',
-            description_msgid='EasyNewsletter_help_organization',
-            i18n_domain='EasyNewsletter',
+    atapi.StringField('organization',
+        required = False,
+        widget = atapi.StringWidget(
+            label = _(u'EasyNewsletter_label_organization',
+                default=u'Company/Organization'),
+            description = _('EasyNewsletter_help_organization',
+                default=u''),
+            i18n_domain = 'EasyNewsletter',
         ),
-        required = False
     ),
 
-    StringField('email',
+    atapi.StringField('email',
         required = True,
-        widget=StringWidget(
-            label='Email',
-            label_msgid='EasyNewsletter_label_email',
-            description_msgid='EasyNewsletter_help_email',
-            i18n_domain='EasyNewsletter',
+        validators = ('isEmail', ),
+        widget = atapi.StringWidget(
+            label = _(u'EasyNewsletter_label_email',
+                default=u'Email'),
+            description = _(u'EasyNewsletter_help_email',
+                default=u''),
+            i18n_domain = 'EasyNewsletter',
         ),
-        validators=('isEmail', )
     ),
 
-),
-)
+), )
 
 
-class ENLSubscriber(BaseContent):
+class ENLSubscriber(atapi.BaseContent):
     """An newsletter subscriber.
     """
     implements(IENLSubscriber)
     security = ClassSecurityInfo()
+    schema = schema
     _at_rename_after_creation = True
-    schema = BaseSchema + schema
 
     def initializeArchetype(self, **kwargs):
         """Overwritten hook
         """
-        BaseContent.initializeArchetype(self, **kwargs)
+        atapi.BaseContent.initializeArchetype(self, **kwargs)
 
     def setEmail(self, value):
         """
@@ -97,4 +97,4 @@ class ENLSubscriber(BaseContent):
         return title_str
 
 
-registerType(ENLSubscriber, PROJECTNAME)
+atapi.registerType(ENLSubscriber, config.PROJECTNAME)

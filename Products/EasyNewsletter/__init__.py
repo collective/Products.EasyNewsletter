@@ -1,10 +1,10 @@
 from Products.Archetypes import atapi
 from Products.CMFCore import utils as cmfutils
 from zope.i18nmessageid import MessageFactory
-
-from Products.EasyNewsletter import config
-
 EasyNewsletterMessageFactory = MessageFactory('EasyNewsletter')
+
+# avoid circular import
+from Products.EasyNewsletter import config
 
 
 def initialize(context):

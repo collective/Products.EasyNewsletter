@@ -1,34 +1,21 @@
-# python imports
+from AccessControl import ClassSecurityInfo
+from AccessControl import getSecurityManager
+from AccessControl.SecurityManagement import newSecurityManager, setSecurityManager
+from AccessControl.User import UnrestrictedUser as BaseUnrestrictedUser
 
-# zope imports
-from zope.interface import implements
+from Products.Archetypes import atapi
+from Products.ATContentTypes.content.topic import ATTopic
+from Products.ATContentTypes.content.topic import ATTopicSchema
+from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import safe_unicode
+from Products.MailHost.interfaces import IMailHost
+from Products.TemplateFields import ZPTField
+
+from zExceptions import BadRequest
 from zope.component import queryUtility
 from zope.component import getUtilitiesFor
 from zope.component import subscribers
-
-# Zope / Plone imports
-from zExceptions import BadRequest
-from AccessControl import ClassSecurityInfo
-
-from Products.Archetypes.atapi import *
-from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.utils import safe_unicode
-#from Products.ATContentTypes import ATCTMessageFactory as _
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
-
-from Products.ATContentTypes.content.topic import ATTopic
-from Products.ATContentTypes.content.topic import ATTopicSchema
-from Products.TemplateFields import ZPTField
-from Products.MailHost.interfaces import IMailHost
-
-# Stuff for security workaround
-from AccessControl import ClassSecurityInfo, getSecurityManager
-from AccessControl.SecurityManagement import newSecurityManager, setSecurityManager
-from AccessControl.User import nobody
-from AccessControl.User import UnrestrictedUser as BaseUnrestrictedUser
-
-from Products.EasyNewsletter.interfaces import ISubscriberSource
-
+from zope.interface import implements
 
 try:
     from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool
@@ -37,214 +24,230 @@ except:
     fmp_tool = False
 
 # EasyNewsletter imports
-from Products.EasyNewsletter.interfaces import IENLIssue, IReceiversMemberFilter, IReceiversGroupFilter
+from Products.EasyNewsletter.interfaces import IReceiversMemberFilter, IReceiversGroupFilter
 from Products.EasyNewsletter.interfaces import IEasyNewsletter
-from Products.EasyNewsletter.config import *
+from Products.EasyNewsletter.interfaces import ISubscriberSource
+from Products.EasyNewsletter import config
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 
 import logging
 log = logging.getLogger("Products.EasyNewsletter")
 
 
-schema=Schema((
-    StringField('senderEmail',
-        widget=StringWidget(
-            label=_(u"EasyNewsletter_label_senderEmail",
+schema = atapi.Schema((
+    atapi.StringField('senderEmail',
+        required = True,
+        validators = ('isEmail', ),
+        widget = atapi.StringWidget(
+            label = _(u"EasyNewsletter_label_senderEmail",
                 default=u"Sender e-mail"),
-            description=_(u"EasyNewsletter_help_senderEmail",
+            description = _(u"EasyNewsletter_help_senderEmail",
                 default=u"Default for the sender address of the newsletters."),
-            i18n_domain='EasyNewsletter',
+            i18n_domain = 'EasyNewsletter',
         ),
-        required=True,
-        validators=('isEmail', )
     ),
 
-    StringField('senderName',
-        widget=StringWidget(
-            label=_(u"EasyNewsletter_label_senderName",
+    atapi.StringField('senderName',
+        widget = atapi.StringWidget(
+            label = _(u"EasyNewsletter_label_senderName",
                 default=u"Sender name"),
-            description=_(u"EasyNewsletter_help_senderName",
+            description = _(u"EasyNewsletter_help_senderName",
                 default=u"Default for the sender name of the newsletters."),
-            i18n_domain='EasyNewsletter',
+            i18n_domain = 'EasyNewsletter',
         )
     ),
 
-    StringField('testEmail',
-        widget=StringWidget(
-            label=_(u"EasyNewsletter_label_testEmail",
+    atapi.StringField('testEmail',
+        required = True,
+        validators = ('isEmail', ),
+        widget = atapi.StringWidget(
+            label = _(u"EasyNewsletter_label_testEmail",
                 default=u"Test e-mail"),
-            description=_(u"EasyNewsletter_help_testEmail",
+            description = _(u"EasyNewsletter_help_testEmail",
                 default=u"Default for the test e-mail address."),
             i18n_domain='EasyNewsletter',
         ),
-        required=True,
-        validators=('isEmail', )
     ),
 
-    LinesField('salutations',
-        default=("mr|Dear Mr.","ms|Dear Ms.","default|Dear"),
-        widget=LinesWidget(
-            label=_(u'EasyNewsletter_label_salutations',
+    atapi.LinesField('salutations',
+        default = ("mr|Dear Mr.", "ms|Dear Ms.", "default|Dear"),
+        widget = atapi.LinesWidget(
+            label = _(u'EasyNewsletter_label_salutations',
                 default=u"Subscriber Salutations."),
-            description=_(u"EasyNewsletter_help_salutations",
+            description = _(u"EasyNewsletter_help_salutations",
                 default=u'Define here possible salutations for subscriber. One \
                     salutation per line in the form of: \"mr|Dear Mr.\". \
                     The left hand value "mr" or "ms" is mapped to salutation of \
                     each subscriber and then the right hand value, which you \
                     can customize is used as salutation.'),
-            i18n_domain='EasyNewsletter',
+            i18n_domain = 'EasyNewsletter',
         ),
     ),
 
-    StringField('fullname_fallback',
-        default="Sir or Madam",
-        widget=StringWidget(
-            label=_(u'EasyNewsletter_label_fullname_fallback',
+    atapi.StringField('fullname_fallback',
+        default = "Sir or Madam",
+        widget = atapi.StringWidget(
+            label = _(u'EasyNewsletter_label_fullname_fallback',
                 default=u"Fallback for subscribers without a name."),
-            description=_(u"EasyNewsletter_help_fullname_fallback",
+            description = _(u"EasyNewsletter_help_fullname_fallback",
                 default=u'This will be used if the subscriber has no fullname.'),
-            i18n_domain='EasyNewsletter',
+            i18n_domain = 'EasyNewsletter',
         ),
     ),
 
-    StringField('unsubscribe_string',
-        default="Click here to unsubscribe",
-        widget=StringWidget(
-            label=_(u"EasyNewsletter_label_unsubscribe_string",
+    atapi.StringField('unsubscribe_string',
+        default = "Click here to unsubscribe",
+        widget = atapi.StringWidget(
+            label = _(u"EasyNewsletter_label_unsubscribe_string",
                 default=u"Text for the 'unsubscribe' link"),
-            description=_(u"EasyNewsletter_help_unsubscribe_string",
+            description = _(u"EasyNewsletter_help_unsubscribe_string",
                 default=u'This will replace the placeholder [[UNSUBSCRIBE]].'),
-            i18n_domain='EasyNewsletter',
+            i18n_domain = 'EasyNewsletter',
         ),
     ),
 
-    TextField('default_header',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        default="[[SUBSCRIBER_SALUTATION]]<br />==================================",
-        widget=RichWidget(
-            rows=10,
-            label=_(u"EasyNewsletter_label_default_header", default=u"Header"),
-            description=_(u'description_text_header',
-                default=u'The default header text. This is used as a default for new issues. You can use the placeholders [[SUBSCRIBER_SALUTATION]] and [[UNSUBSCRIBE]] here.'),
-            i18n_domain='EasyNewsletter',
+    atapi.TextField('default_header',
+        default = "[[SUBSCRIBER_SALUTATION]]<br />==================================",
+        allowable_content_types = ('text/plain', 'text/structured', 'text/html', 'application/msword'),
+        default_output_type='text/html',
+        widget = atapi.RichWidget(
+            rows = 10,
+            label = _(u"EasyNewsletter_label_default_header",
+                default=u"Header"),
+            description = _(u'description_text_header',
+                default=u'The default header text. This is used as a default \
+                    for new issues. You can use the placeholders [[SUBSCRIBER_SALUTATION]] and [[UNSUBSCRIBE]] here.'),
+            i18n_domain = 'EasyNewsletter',
         ),
-        default_output_type='text/html'
     ),
 
-    TextField('default_footer',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        default="==================================<br />[[UNSUBSCRIBE]]",
-        widget=RichWidget(
-            rows=10,
-            label=_(u"EasyNewsletter_label_default_footer", default=u"Footer"),
-            description=_(u'description_text_footer',
-                default=u'The default footer text. This is used as a default for new issues. You can use the placeholders [[SUBSCRIBER_SALUTATION]] and [[UNSUBSCRIBE]] here.'),
-            i18n_domain='EasyNewsletter',
+    atapi.TextField('default_footer',
+        allowable_content_types = ('text/plain', 'text/structured', 'text/html', 'application/msword'),
+        default = "==================================<br />[[UNSUBSCRIBE]]",
+        default_output_type = 'text/html',
+        widget = atapi.RichWidget(
+            rows = 10,
+            label = _(u"EasyNewsletter_label_default_footer", default=u"Footer"),
+            description = _(u'description_text_footer',
+                default=u'The default footer text. This is used as a default \
+                    for new issues. You can use the placeholders \
+                    [[SUBSCRIBER_SALUTATION]] and [[UNSUBSCRIBE]] here.'),
+            i18n_domain = 'EasyNewsletter',
         ),
-        default_output_type='text/html'
     ),
 
-    BooleanField('sendToAllPloneMembers',
-        default=False,
-        widget=BooleanWidget(
-            label=_(u'label_sendToAllPloneMembers', default=u'Send to all Plone members'),
-            description_msgid=_(u'help_sendToAllPloneMembers',
-                default=u'If checked, the newsletter/mailing is send to all plone members. If there are subscribers inside the newsletter, they get the letter anyway.'),
-            i18n_domain='EasyNewsletter',
+    atapi.BooleanField('sendToAllPloneMembers',
+        default = False,
+        widget = atapi.BooleanWidget(
+            label = _(u'label_sendToAllPloneMembers',
+                default=u'Send to all Plone members'),
+            description = _(u'help_sendToAllPloneMembers',
+                default=u'If checked, the newsletter/mailing is send to all \
+                    plone members. If there are subscribers inside the \
+                    newsletter, they get the letter anyway.'),
+            i18n_domain = 'EasyNewsletter',
         )
     ),
 
-    LinesField('ploneReceiverMembers',
-        vocabulary="get_plone_members",
-        widget=MultiSelectionWidget(
-            label=_(u"EasyNewsletter_label_ploneReceiverMembers",
-                    default=u"Plone Members to receive the newsletter"),
-            description=_(u"EasyNewsletter_help_ploneReceiverMembers",
-                          default=u"Choose Plone Members which should \
-                          receive the newsletter."),
-            i18n_domain='EasyNewsletter',
+    atapi.LinesField('ploneReceiverMembers',
+        vocabulary = "get_plone_members",
+        widget = atapi.MultiSelectionWidget(
+            label = _(u"EasyNewsletter_label_ploneReceiverMembers",
+                default=u"Plone Members to receive the newsletter"),
+            description = _(u"EasyNewsletter_help_ploneReceiverMembers",
+                default=u"Choose Plone Members which should receive the newsletter."),
+            i18n_domain = 'EasyNewsletter',
             size = 20,
         )
     ),
 
-    LinesField('ploneReceiverGroups',
-        vocabulary="get_plone_groups",
-        widget=MultiSelectionWidget(
-            label=_(u"EasyNewsletter_label_ploneReceiverGroups",
-                    default=u"Plone Groups to receive the newsletter"),
-            description=_(u"EasyNewsletter_help_ploneReceiverGroups",
-                          default=u"Choose Plone Groups which members \
-                          should receive the newsletter."),
-            i18n_domain='EasyNewsletter',
+    atapi.LinesField('ploneReceiverGroups',
+        vocabulary = "get_plone_groups",
+        widget = atapi.MultiSelectionWidget(
+            label = _(u"EasyNewsletter_label_ploneReceiverGroups",
+                default=u"Plone Groups to receive the newsletter"),
+            description = _(u"EasyNewsletter_help_ploneReceiverGroups",
+                default=u"Choose Plone Groups which members should receive the newsletter."),
+            i18n_domain = 'EasyNewsletter',
             size = 10,
         )
     ),
 
-    StringField('subscriberSource',
-        schemata='settings',
-        vocabulary="get_subscriber_sources",
-        default='default',
-        widget=SelectionWidget(
-            label=_(u"EasyNewsletter_label_externalSubscriberSource",
-                    default="External subscriber source"),
-            description=_(u"EasyNewsletter_help_externalSubscriberSource",
-                          default=u"Some packages provide an external \
-                          subscriber source for EasyNewsletter. If one \
-                          is installed you can choose it here."),
-            i18n_domain='EasyNewsletter',
+    atapi.StringField('subscriberSource',
+        schemata = 'settings',
+        vocabulary = "get_subscriber_sources",
+        default = 'default',
+        widget = atapi.SelectionWidget(
+            label = _(u"EasyNewsletter_label_externalSubscriberSource",
+                default="External subscriber source"),
+            description = _(u"EasyNewsletter_help_externalSubscriberSource",
+                default=u"Some packages provide an external subscriber source \
+                    for EasyNewsletter. If one is installed you can choose it here."),
+            i18n_domain = 'EasyNewsletter',
             size = 10,
         )
     ),
 
-    StringField('deliveryService',
-        schemata='settings',
-        vocabulary="get_delivery_services",
-        default='mailhost',
-        widget=SelectionWidget(
-            label=_(u"EasyNewsletter_label_externalDeliveryService",
-                    default=u"External delivery service"),
-            description=_(u"EasyNewsletter_help_externalDeliveryService",
-                          default=u"Some packages provide an external \
-                          delivery service for EasyNewsletter. If one \
-                          is installed you can choose it here."),
-            i18n_domain='EasyNewsletter',
+    atapi.StringField('deliveryService',
+        schemata = 'settings',
+        vocabulary = "get_delivery_services",
+        default = 'mailhost',
+        widget = atapi.SelectionWidget(
+            label = _(u"EasyNewsletter_label_externalDeliveryService",
+                default=u"External delivery service"),
+            description = _(u"EasyNewsletter_help_externalDeliveryService",
+                default=u"Some packages provide an external delivery service \
+                    for EasyNewsletter. If one is installed you can choose it here."),
+            i18n_domain = 'EasyNewsletter',
             size = 10,
         )
     ),
 
     ZPTField('out_template_pt',
-        schemata="settings",
-        default = DEFAULT_OUT_TEMPLATE_PT,
-        widget=TextAreaWidget(
-            description = _(u"help_mailtemplate_body_pt", u"This is a Zope Page Template used for rendering of the out going mail. You don\'t need to modify it, but if you know TAL (Zope\'s Template Attribute Language) you have the full power to customize your outgoing mails."),
-            label = _(u"label_out_template_pt", u"Outgoing Mail Template"),
+        schemata = 'settings',
+        required = True,
+        default = config.DEFAULT_OUT_TEMPLATE_PT,
+        validators = ('zptvalidator', ),
+        widget = atapi.TextAreaWidget(
+            label = _(u"label_out_template_pt",
+                default=u"Outgoing Mail Template"),
+            description = _(u"help_mailtemplate_body_pt",
+                default=u"This is a Zope Page Template used for rendering of the out going mail. \
+                You don\'t need to modify it, but if you know TAL (Zope\'s Template \
+                Attribute Language) you have the full power to customize your outgoing mails."),
             i18n_domain = "EasyNewsletter",
             rows = 40,
             ),
-        required=True,
-        validators=('zptvalidator', ),
     ),
 
-    StringField('subscriber_confirmation_mail_subject',
-        schemata="settings",
-        default = DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT,
-        widget=StringWidget(
-            label= _(u'EasyNewsletter_label_subscriber_confirmation_mail_subject', default=u'Subscriber confirmation mail subject'),
-            description = _(u'EasyNewsletter_description_subscriber_confirmation_mail_subject', default=u'Text used for confirmation email subject. You can customize the text, but it should include the placeholder: ${portal_url}!'),
-            i18n_domain='EasyNewsletter',
+    atapi.StringField('subscriber_confirmation_mail_subject',
+        schemata = "settings",
+        required = True,
+        default = config.DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT,
+        widget = atapi.StringWidget(
+            label = _(u'EasyNewsletter_label_subscriber_confirmation_mail_subject',
+                default=u'Subscriber confirmation mail subject'),
+            description = _(u'EasyNewsletter_description_subscriber_confirmation_mail_subject',
+                default=u'Text used for confirmation email subject. You can \
+                    customize the text, but it should include the placeholder: ${portal_url}!'),
+            i18n_domain = 'EasyNewsletter',
         ),
-        required=True,
     ),
 
-    TextField('subscriber_confirmation_mail_text',
-        schemata="settings",
-        default = DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_TEXT,
-        widget=TextAreaWidget(
-            rows=8,
-            label=_(u'EasyNewsletter_label_subscriber_confirmation_mail_text', default=u'Subscriber confirmation mail text'),
-            description=_(u'description_subscriber_confirmation_mail_text', default=u'Text used for confirmation email. You can customize the text, but it should include the placeholders: ${portal_url}, ${subscriber_email} and ${confirmation_url}!'),
-            i18n_domain='EasyNewsletter',
+    atapi.TextField('subscriber_confirmation_mail_text',
+        schemata = "settings",
+        required = True,
+        default = config.DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_TEXT,
+        widget = atapi.TextAreaWidget(
+            rows = 8,
+            label = _(u'EasyNewsletter_label_subscriber_confirmation_mail_text',
+                default=u'Subscriber confirmation mail text'),
+            description = _(u'description_subscriber_confirmation_mail_text',
+                default=u'Text used for confirmation email. You can customize \
+                    the text, but it should include the placeholders: \
+                    ${portal_url}, ${subscriber_email} and ${confirmation_url}!'),
+            i18n_domain = 'EasyNewsletter',
         ),
-        required=True,
     ),
 ),
 )
@@ -255,7 +258,7 @@ schema['text'].widget.description = _(u'description_text',
     default=u'This is used in the frontpage of EasyNewsletter on top of Issue archive list.')
 
 schema['limitNumber'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
-schema['itemCount'].widget.visible = {'view': 'invisible', 'edit': 'invisible' }
+schema['itemCount'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
 schema['customView'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
 schema['customViewFields'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
 schema['allowDiscussion'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
@@ -277,7 +280,7 @@ schema.moveField('language', pos='bottom')
 schema.moveField('excludeFromNav', pos='bottom')
 
 
-class EasyNewsletter(ATTopic, BaseFolder):
+class EasyNewsletter(ATTopic, atapi.BaseFolder):
     """A folder for managing and archiving newsletters.
     """
     implements(IEasyNewsletter)
@@ -351,8 +354,9 @@ class EasyNewsletter(ATTopic, BaseFolder):
         if not member_properties:
             return []
         try:
-            results = DisplayList([(id, property['fullname'] + ' - ' + property['email']) for id, property in member_properties.items()
-                if EMAIL_RE.findall(property['email'])])
+            results = atapi.DisplayList([(id, property['fullname'] + ' - ' + property['email'])
+                                   for id, property in member_properties.items()
+                if config.EMAIL_RE.findall(property['email'])])
         except TypeError, e:
             log.error(":get_plone_members: error in member_properties %s/ \
                 properties:'%s'" % (e, member_properties.items()))
@@ -373,7 +377,7 @@ class EasyNewsletter(ATTopic, BaseFolder):
                 'title': group.getGroupTitleOrName(),
                 'email': group.getProperty('email'),
                 }
-        results = DisplayList([(id, property['title']) for id, property in group_properties.items()])
+        results = atapi.DisplayList([(id, property['title']) for id, property in group_properties.items()])
         # run registered group filter:
         for subscriber in subscribers([self], IReceiversGroupFilter):
             results = subscriber.filter(results)
@@ -384,21 +388,22 @@ class EasyNewsletter(ATTopic, BaseFolder):
         return self
 
     def get_subscriber_sources(self):
-        result = DisplayList()
+        result = atapi.DisplayList()
         result.add(u'default', _(u'EasyNewsletter_label_noSource', u'no external subscriber source'))
         for utility in getUtilitiesFor(ISubscriberSource):
             result.add(utility[0], utility[0])
         return result
 
     def get_delivery_services(self):
-        result = DisplayList()
+        result = atapi.DisplayList()
         result.add(u'mailhost', _(u'EasyNewsletter_label_PloneMailHost', u'Default Plone Mailhost'))
         for utility in getUtilitiesFor(IMailHost):
             if utility[0]:
                 result.add(utility[0], utility[0])
         return result
 
-registerType(EasyNewsletter, PROJECTNAME)
+
+atapi.registerType(EasyNewsletter, config.PROJECTNAME)
 
 
 class UnrestrictedUser(BaseUnrestrictedUser):
@@ -420,7 +425,8 @@ def execute_under_special_role(portal, role, function, *args, **kwargs):
 
     @param portal: Reference to ISiteRoot object whose access controls we are using
     @param function: Method to be called with special priviledges
-    @param role: User role we are using for the security context when calling the priviledged code. For example, use "Manager".
+    @param role: User role we are using for the security context when calling \
+                 the priviledged code. For example, use "Manager".
     @param args: Passed to the function
     @param kwargs: Passed to the function
     """
@@ -434,8 +440,7 @@ def execute_under_special_role(portal, role, function, *args, **kwargs):
             tmp_user = UnrestrictedUser(
               sm.getUser().getId(),
                '', [role],
-               ''
-               )
+               '')
 
             # Act as user of the portal
             tmp_user = tmp_user.__of__(portal.acl_users)

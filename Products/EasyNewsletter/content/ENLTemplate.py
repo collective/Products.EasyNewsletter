@@ -1,58 +1,54 @@
-import re
-
 from AccessControl import ClassSecurityInfo
-from Products.Archetypes.atapi import *
+from Products.Archetypes import atapi
 from Products.TemplateFields import ZPTField
 from Products.CMFCore.utils import getToolByName
 from zope.interface import implements
 
-from Products.EasyNewsletter.config import *
+from Products.EasyNewsletter import config
 from Products.EasyNewsletter.interfaces import IENLTemplate
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 
 
-schema=Schema((
+schema = atapi.BaseSchema + atapi.Schema((
 
     ZPTField('body',
         validators = ('zptvalidator', ),
-        widget = TextAreaWidget(
-            description = 'This is a Zope Page Template file '
-                'that is used for rendering the newsletter mail.',
-                description_msgid = "help_body_zpt",
-                label = 'Newsletter Template',
-                label_msgid = "label_body_zpt",
-                i18n_domain = "plone",
-                rows = 30,
-                ),
+        widget = atapi.TextAreaWidget(
+            label = _(u'label_body_zpt', default=u'Newsletter Template'),
+            description = _('help_body_zpt',
+                default=u'This is a Zope Page Template file that is used for \
+                     rendering the newsletter mail.'),
+            i18n_domain = "plone",
+            rows = 30,
+        ),
     ),
 
-    TextField('description',
-        widget = TextAreaWidget(
-            label_msgid="label_description",
-            description_msgid="help_description",
-            description="Enter a value for description.",
-            i18n_domain="plone",
-            label='Description',
+    atapi.TextField('description',
+        accessor = "Description",
+        widget = atapi.TextAreaWidget(
+            label = _(u"label_description", default=u'Description'),
+            description = _(u"help_description",
+                default=u"Enter a value for description."),
+            i18n_domain = "plone",
         ),
-        accessor="Description"
     ),
 
 ), )
 
 
-class ENLTemplate(BaseContent):
+class ENLTemplate(atapi.BaseContent):
     """Template used for styling newsletter entries.
     """
     implements(IENLTemplate)
     security = ClassSecurityInfo()
-    schema = BaseSchema + schema
+    schema = schema
     _at_rename_after_creation = True
 
     def initializeArchetype(self, **kwargs):
         """overwritten hook
         """
-        BaseContent.initializeArchetype(self, **kwargs)
-        self.setBody(DEFAULT_TEMPLATE)
+        atapi.BaseContent.initializeArchetype(self, **kwargs)
+        self.setBody(config.DEFAULT_TEMPLATE)
 
     security.declarePublic('getSourceCode')
     def getSourceCode(self):
@@ -91,4 +87,4 @@ class ENLTemplate(BaseContent):
             return newsletter.getSubTopics()
 
 
-registerType(ENLTemplate, PROJECTNAME)
+atapi.registerType(ENLTemplate, config.PROJECTNAME)
