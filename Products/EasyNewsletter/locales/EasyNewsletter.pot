@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-07-15 19:34+0000\n"
+"POT-Creation-Date: 2011-07-15 20:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,25 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: EasyNewsletter\n"
 
+#: ./profiles/default/types/ENLSubscriber.xml
+#: ./profiles/default/types/ENLTemplate.xml
+msgid "A page in the site. Can contain rich text."
+msgstr ""
+
 #: ./browser/enl_subscribers_view.pt:44
 msgid "Action"
 msgstr ""
 
+#: ./profiles/default/types/EasyNewsletter.xml
+msgid "An easy to use Newsletter"
+msgstr ""
+
 #: ./browser/newsletter.py:22
 msgid "An error occured"
+msgstr ""
+
+#: ./profiles/default/types/ENLIssue.xml
+msgid "An issue of a newsleter"
 msgstr ""
 
 #: ./portlets/subscriber.pt:23
@@ -33,12 +46,25 @@ msgstr ""
 msgid "Company/Organization"
 msgstr ""
 
+#: ./profiles/default/types/ENLIssue.xml
+#: ./profiles/default/types/EasyNewsletter.xml
+msgid "Criteria"
+msgstr ""
+
 #: ./browser/upload_csv.pt:53
 msgid "Csv file"
 msgstr ""
 
+#: ./profiles/default/types/EasyNewsletter.xml
+msgid "Drafts"
+msgstr ""
+
 #: ./browser/enl_subscribers_view.pt:39
 msgid "E-Mail"
+msgstr ""
+
+#: ./profiles/default/types/EasyNewsletter.xml
+msgid "EasyNewsletter"
 msgstr ""
 
 #. Default: "Text used for confirmation email subject. You can                     customize the text, but it should include the placeholder: ${portal_url}!"
@@ -285,12 +311,32 @@ msgstr ""
 msgid "EasyNewsletter_label_unsubscribe_string"
 msgstr ""
 
+#: ./profiles/default/types/ENLIssue.xml
+#: ./profiles/default/types/ENLSubscriber.xml
+#: ./profiles/default/types/ENLTemplate.xml
+msgid "Edit"
+msgstr ""
+
 #: ./portlets/subscriber.py:124
 msgid "Edit Newsletter portlet"
 msgstr ""
 
+#: ./profiles/default/types/ENLSubscriber.xml
+#: ./profiles/default/types/ENLTemplate.xml
+msgid "External Edit"
+msgstr ""
+
+#: ./profiles/default/types/ENLSubscriber.xml
+#: ./profiles/default/types/ENLTemplate.xml
+msgid "History"
+msgstr ""
+
 #: ./browser/upload_csv.pt:28
 msgid "Import"
+msgstr ""
+
+#: ./profiles/default/types/ENLIssue.xml
+msgid "Issue"
 msgstr ""
 
 #: ./portlets/subscriber.pt:27
@@ -317,6 +363,16 @@ msgstr ""
 msgid "Please enter a valid e-mail address."
 msgstr ""
 
+#: ./profiles/default/types/ENLIssue.xml
+#: ./profiles/default/types/ENLSubscriber.xml
+#: ./profiles/default/types/ENLTemplate.xml
+msgid "References"
+msgstr ""
+
+#: ./profiles/default/types/ENLIssue.xml
+msgid "Refresh"
+msgstr ""
+
 #: ./browser/enl_subscribers_view.pt:40
 msgid "Salutation"
 msgstr ""
@@ -325,8 +381,33 @@ msgstr ""
 msgid "Select your CSV file here."
 msgstr ""
 
+#: ./profiles/default/types/ENLIssue.xml
+msgid "Send"
+msgstr ""
+
 #: ./browser/enl_subscribers_view.pt:43
 msgid "Source"
+msgstr ""
+
+#: ./profiles/default/types/ENLIssue.xml
+#: ./profiles/default/types/EasyNewsletter.xml
+msgid "Subfolders"
+msgstr ""
+
+#: ./profiles/default/types/ENLSubscriber.xml
+msgid "Subscriber"
+msgstr ""
+
+#: ./profiles/default/types/EasyNewsletter.xml
+msgid "Subscribers"
+msgstr ""
+
+#: ./profiles/default/types/ENLTemplate.xml
+msgid "Template"
+msgstr ""
+
+#: ./profiles/default/types/EasyNewsletter.xml
+msgid "Templates"
 msgstr ""
 
 #: ./browser/issue.py:23
@@ -339,6 +420,12 @@ msgstr ""
 
 #: ./portlets/subscriber.py:17
 msgid "Title for the portlet."
+msgstr ""
+
+#: ./profiles/default/types/ENLIssue.xml
+#: ./profiles/default/types/ENLSubscriber.xml
+#: ./profiles/default/types/ENLTemplate.xml
+msgid "View"
 msgstr ""
 
 #: ./browser/subscribers.py:112

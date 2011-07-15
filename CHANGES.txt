@@ -5,7 +5,11 @@ Changelog
 2.6dev (unreleased)
 ---------------------
 
+
 - Add Dutch translation.
+  [WouterVH]
+
+- Fix i18n-domain for GS-profiles files.
   [WouterVH]
 
 - Avoid duplicate listing in portal_quickinstaller.
