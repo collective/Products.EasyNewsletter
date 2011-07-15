@@ -1,4 +1,3 @@
-# zope imports
 from zope.interface import Interface
 
 

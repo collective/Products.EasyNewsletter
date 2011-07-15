@@ -1,32 +1,20 @@
-from zope.component.interfaces import ComponentLookupError
 import csv
-#import re
 import tempfile
 
-#from types import DictType
-
-#from Acquisition import aq_parent
 from Acquisition import aq_inner
-
-from zope.interface import implements, Interface
-#from zope import schema
-from zope.component import getUtility
-#from zope.app.component.hooks import getSite
-
-from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
+from Products.Five import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
+from zope.component import getUtility
+from zope.component.interfaces import ComponentLookupError
+from zope.interface import implements, Interface
+
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.config import SALUTATION
 from Products.EasyNewsletter.interfaces import ISubscriberSource
 
 
-CSV_HEADER = [
-    'salutation',
-    'fullname',
-    'email',
-    'organization',
-]
+CSV_HEADER = ['salutation', 'fullname', 'email', 'organization', ]
 
 
 class IEnl_Subscribers_View(Interface):

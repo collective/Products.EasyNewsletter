@@ -1,15 +1,10 @@
-# CMFCore imports
+from Products.Archetypes import atapi
 from Products.CMFCore import utils as cmfutils
-from Products.CMFCore import DirectoryView
-
-# Archetypes imports
-from Products.Archetypes.atapi import *
-from Products.Archetypes import listTypes
-
 from zope.i18nmessageid import MessageFactory
-EasyNewsletterMessageFactory = MessageFactory('EasyNewsletter')
 
-from Products.EasyNewsletter.config import *
+from Products.EasyNewsletter import config
+
+EasyNewsletterMessageFactory = MessageFactory('EasyNewsletter')
 
 
 def initialize(context):
@@ -20,14 +15,14 @@ def initialize(context):
     import content
 
     # initialize portal content
-    content_types, constructors, ftis = process_types(
-        listTypes(PROJECTNAME),
-        PROJECTNAME)
+    content_types, constructors, ftis = atapi.process_types(
+        atapi.listTypes(config.PROJECTNAME),
+        config.PROJECTNAME)
 
     cmfutils.ContentInit(
-        PROJECTNAME + ' Content',
+        config.PROJECTNAME + ' Content',
         content_types = content_types,
-        permission  = "Add portal content",
+        permission = "Add portal content",
         extra_constructors = constructors,
         fti = ftis,
         ).initialize(context)

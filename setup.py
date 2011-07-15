@@ -12,8 +12,7 @@ setup(name='Products.EasyNewsletter',
         "Framework :: Plone",
         "Programming Language :: Python",
         "Topic :: Software Development :: Libraries :: Python Modules",
-        "Development Status :: 4 - Beta",
-    ],
+        "Development Status :: 4 - Beta", ],
     keywords='Zope Plone Newsletter Mailing',
     maintainer='Maik Derstappen, Timo Stollenwerk, Andreas Jung',
     author='Maik Derstappen',
@@ -26,13 +25,9 @@ setup(name='Products.EasyNewsletter',
     zip_safe=False,
     install_requires=[
         'setuptools',
-        'Products.TemplateFields',
-    ],
+        'Products.TemplateFields', ],
     extras_require = dict(
-        tests=[
-            'inqbus.plone.fastmemberproperties',
-        ],
+        tests=['inqbus.plone.fastmemberproperties', ],
         fmp=['inqbus.plone.fastmemberproperties'],
-        all=['inqbus.plone.fastmemberproperties', ]
-    ),
+        all=['inqbus.plone.fastmemberproperties', ]),
 )

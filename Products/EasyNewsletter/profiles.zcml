@@ -15,13 +15,13 @@
       name="uninstall"
       title="uninstall EasyNewsletter"
       directory="profiles/uninstall"
-      description='Removes the "EasyNewsLetter".'
+      description='Removes the EasyNewsLetter.'
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
   <!-- Register the import step -->
   <genericsetup:importStep
-      name="Products.EasyNewsletter"
+      name="Products.EasyNewsletter-setuphandlers"
       title="Products.EasyNewsletter special import handlers"
       description=""
       handler="Products.EasyNewsletter.setuphandlers.import_various" />

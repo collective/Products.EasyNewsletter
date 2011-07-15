@@ -1,7 +1,11 @@
 <?xml version="1.0"?>
+
 <metadata>
+
   <version>2.0</version>
+  
   <dependencies>
-      <!--    <dependency>profile-inqbus.plone.fastmemberproperties:default</dependency> -->
+      <!-- <dependency>profile-inqbus.plone.fastmemberproperties:default</dependency> -->
   </dependencies>
+
 </metadata>

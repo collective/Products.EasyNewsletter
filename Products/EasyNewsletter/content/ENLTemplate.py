@@ -1,19 +1,15 @@
-# python imports
 import re
 
-# zope imports
-from zope.interface import implements
-
-# Zope / Plone import
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes.atapi import *
 from Products.TemplateFields import ZPTField
 from Products.CMFCore.utils import getToolByName
+from zope.interface import implements
 
-# EasyNewsletter imports
 from Products.EasyNewsletter.config import *
 from Products.EasyNewsletter.interfaces import IENLTemplate
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
+
 
 schema=Schema((
 
@@ -41,18 +37,16 @@ schema=Schema((
         accessor="Description"
     ),
 
-),)
+), )
 
 
 class ENLTemplate(BaseContent):
     """Template used for styling newsletter entries.
     """
     implements(IENLTemplate)
-
     security = ClassSecurityInfo()
     schema = BaseSchema + schema
     _at_rename_after_creation = True
-
 
     def initializeArchetype(self, **kwargs):
         """overwritten hook

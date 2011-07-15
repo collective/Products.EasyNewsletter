@@ -2,15 +2,19 @@ import re
 from Products.Archetypes.public import DisplayList
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 
+
 PROJECTNAME = "EasyNewsletter"
 
+
 PLACEHOLDERS = ["UNSUBSCRIBE", "SUBSCRIBER_SALUTATION"]
+
 
 SALUTATION = DisplayList((
     ('', _(u"label_choose_saluation", "Choose salutation...")),
     ("ms", _(u"label_salutation_ms", "Ms.")),
     ("mr", _(u"label_salutation_mr", "Mr.")),
 ))
+
 
 MESSAGE_CODE = {
     "email_added": "Your email has been registered. A confirmation email was \
@@ -24,6 +28,7 @@ MESSAGE_CODE = {
 
 
 EMAIL_RE = re.compile(r"(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,6}(?:\s|$)", re.IGNORECASE)
+
 
 DEFAULT_TEMPLATE = """
 <tal:block tal:repeat="object context/queryCatalog">
@@ -52,6 +57,7 @@ DEFAULT_TEMPLATE = """
     </tal:block>
 </tal:block>
 """
+
 
 DEFAULT_OUT_TEMPLATE_PT = """<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -88,7 +94,9 @@ DEFAULT_OUT_TEMPLATE_PT = """<html xmlns="http://www.w3.org/1999/xhtml">
 </body>
 </html>"""
 
+
 DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT = """Confirm your subscription on ${portal_url}"""
+
 
 DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_TEXT = """You subscribe to the ${newsletter_title} Newsletter.\n\n
 Your registered email is: ${subscriber_email}\n

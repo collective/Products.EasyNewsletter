@@ -1,14 +1,11 @@
 import OFS
 import re
 
-#from email.MIMEMultipart import MIMEMultipart
+from Acquisition import aq_inner
 from email.MIMEText import MIMEText
 from zope.component import queryUtility
 from zope.component import getMultiAdapter
-from Acquisition import aq_inner
-#from zope.interface import implements
 
-#from Products.CMFCore.interfaces import ISiteRoot
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage

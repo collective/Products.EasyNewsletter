@@ -1,4 +1,3 @@
-import base
 import unittest
 
 from Products.PloneTestCase.PloneTestCase import PloneTestCase

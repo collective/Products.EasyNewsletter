@@ -1,8 +1,9 @@
 # python imports
 import formatter
 import cStringIO
-from htmllib import HTMLParser
 import urllib
+
+from htmllib import HTMLParser
 from urlparse import urlparse
 from email.MIMEText import MIMEText
 from email.MIMEMultipart import MIMEMultipart
@@ -50,27 +51,33 @@ log = logging.getLogger("Products.EasyNewsletter")
 
 schema=Schema((
     TextField('text',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword'),
         widget=RichWidget(
             rows=30,
             label='Text',
             label_msgid='EasyNewsletter_label_text',
-            description=_(u'description_text_issue', default=u'The main content of the mailing. You can use the topic criteria to collect content or put manual content in. This will included in outgoing mails.'),
+            description=_(u'description_text_issue',
+                default=u'The main content of the mailing. You can use the topic \
+                    criteria to collect content or put manual content in. \
+                    This will included in outgoing mails.'),
             description_msgid='EasyNewsletter_help_text',
             i18n_domain='EasyNewsletter',
         ),
         default_output_type='text/html'
     ),
-    
+
     BooleanField('sendToAllPloneMembers',
         default_method="get_sendToAllPloneMembers_defaults",
         widget=BooleanWidget(
             label=_(u'label_sendToAllPloneMembers', default=u'Send to all Plone members'),
-            description_msgid=_(u'help_sendToAllPloneMembers', default=u'If checked, the newsletter/mailing is send to all plone members. If there are subscribers inside the newsletter, they get the letter anyway.'),
+            description_msgid=_(u'help_sendToAllPloneMembers',
+                default=u'If checked, the newsletter/mailing is send to all \
+                    plone members. If there are subscribers inside the \
+                    newsletter, they get the letter anyway.'),
             i18n_domain='EasyNewsletter',
         )
     ),
-    
+
     LinesField('ploneReceiverMembers',
         vocabulary="get_plone_members",
         default_method="get_ploneReceiverMembers_defaults",
@@ -97,13 +104,14 @@ schema=Schema((
 
     TextField('header',
         schemata="settings",
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword'),
         default_method = "get_default_header",
         widget=RichWidget(
             rows=10,
             label='Header',
             label_msgid='EasyNewsletter_label_header',
-            description=_(u'description_help_header', default=u'The header will included in outgoing mails.'),
+            description=_(u'description_help_header',
+                default=u'The header will included in outgoing mails.'),
             description_msgid='EasyNewsletter_help_header',
             i18n_domain='EasyNewsletter',
         ),
@@ -112,13 +120,14 @@ schema=Schema((
 
     TextField('footer',
         schemata="settings",
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword'),
         default_method = "get_default_footer",
         widget=RichWidget(
             rows=10,
             label='Footer',
             label_msgid='EasyNewsletter_label_footer',
-            description=_(u'description_help_footer', default=u'The footer will included in outgoing mails.'),
+            description=_(u'description_help_footer',
+                default=u'The footer will included in outgoing mails.'),
             description_msgid='EasyNewsletter_help_footer',
             i18n_domain='EasyNewsletter',
         ),
@@ -141,10 +150,10 @@ schema=Schema((
         default="default_template",
         widget=StringWidget(
             macro="NewsletterTemplateWidget",
-            label=_(u"EasyNewsletter_label_template", 
-                    default=u"Newsletter Template"),
-            description=_(u"EasyNewsletter_help_template"), 
-                          default=u"Template, to generate the newsletter.",
+            label=_(u"EasyNewsletter_label_template",
+                default=u"Newsletter Template"),
+            description=_(u"EasyNewsletter_help_template"),
+                default=u"Template, to generate the newsletter.",
             i18n_domain='EasyNewsletter',
         ),
         required=1
@@ -154,24 +163,14 @@ schema=Schema((
 
 schema = ATTopicSchema.copy() + schema
 schema.moveField('acquireCriteria', before='template')
+
 # hide id, even if visible_ids is True
 schema['id'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
-schema['limitNumber'].widget.visible = {
-    'view': 'invisible',
-    'edit': 'invisible'
-}
-schema['itemCount'].widget.visible = {
-    'view': 'invisible',
-    'edit': 'invisible'
-}
-schema['customView'].widget.visible = {
-    'view': 'invisible',
-    'edit': 'invisible'
-}
-schema['customViewFields'].widget.visible = {
-    'view': 'invisible',
-    'edit': 'invisible'
-}
+schema['limitNumber'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
+schema['itemCount'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
+schema['customView'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
+schema['customViewFields'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
+
 schema.moveField('header', pos='bottom')
 schema.moveField('footer', pos='bottom')
 schema.moveField('relatedItems', pos='bottom')
@@ -184,7 +183,7 @@ class ENLIssue(ATTopic, BaseContent):
     implements(IENLIssue)
     security = ClassSecurityInfo()
     schema = schema
-    
+
     def at_post_create_script(self):
         """Overwritten hook """
         self.loadContent()
@@ -223,14 +222,13 @@ class ENLIssue(ATTopic, BaseContent):
                 if salutation_key:
                     salutation = salutation_mappings.get(salutation_key, '')
                 else:
-                    salutation = '' 
+                    salutation = ''
                 enl_receivers.append({
                     'email': subscriber.getEmail(),
                     'fullname': subscriber.getFullname(),
                     'salutation': salutation,
-                    'uid': subscriber.UID()
-                })
-                    
+                    'uid': subscriber.UID()})
+
             # get subscribers over selected plone members and groups
             plone_receivers = self.get_plone_subscribers()
             # check external subscriber source
@@ -246,7 +244,7 @@ class ENLIssue(ATTopic, BaseContent):
         return receivers
 
     def _render_output_html(self):
-        """ Return rendered newsletter 
+        """ Return rendered newsletter
             with header+body+footer (raw html).
         """
         enl = self.getNewsletter()
@@ -254,12 +252,14 @@ class ENLIssue(ATTopic, BaseContent):
         charset = props.getProperty("default_charset")
         # get out_template from ENL object and render it in context of issue
         out_template_pt_field = enl.getField('out_template_pt')
-        ObjectField.set(out_template_pt_field, self, ZopePageTemplate(out_template_pt_field.getName(), enl.getRawOut_template_pt()))
+        ObjectField.set(out_template_pt_field, self, ZopePageTemplate(
+            out_template_pt_field.getName(),
+            enl.getRawOut_template_pt()))
         output_html = safe_portal_encoding(self.out_template_pt.pt_render())
         return output_html
-    
+
     def _exchange_relative_urls(self, output_html):
-        """ exchange relative URLs and 
+        """ exchange relative URLs and
             return dict with html, plain and images
         """
         parser_output_zpt = ENLHTMLParser(self)
@@ -279,7 +279,7 @@ class ENLIssue(ATTopic, BaseContent):
         # preparations
         request = self.REQUEST
 
-        # get hold of the parent Newsletter object#       
+        # get hold of the parent Newsletter object#
         enl = self.getNewsletter()
 
         # get sender name
@@ -333,7 +333,7 @@ class ENLIssue(ATTopic, BaseContent):
                 personal_text = text.replace("[[UNSUBSCRIBE]]", "")
                 personal_text_plain = text_plain.replace("[[UNSUBSCRIBE]]", "")
             else:
-                if receiver.has_key('uid'):
+                if 'uid' in receiver:
                     try:
                         unsubscribe_text = enl.getUnsubscribe_string()
                     except AttributeError:
@@ -344,7 +344,7 @@ class ENLIssue(ATTopic, BaseContent):
                 else:
                     personal_text = text.replace("[[UNSUBSCRIBE]]", "")
                     personal_text_plain = text_plain.replace("[[UNSUBSCRIBE]]", "")
-                if receiver.has_key("salutation"):
+                if 'salutation' in receiver:
                     salutation = receiver["salutation"]
                 else:
                     salutation = ''
@@ -355,14 +355,14 @@ class ENLIssue(ATTopic, BaseContent):
                     except AttributeError:
                         fullname = "Sir or Madam"
                 outer['To'] = receiver['email']
-                
+
             subscriber_salutation = safe_portal_encoding(salutation) + ' ' + safe_portal_encoding(fullname)
             personal_text = personal_text.replace("[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
             personal_text_plain = personal_text_plain.replace("[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
 
-            outer['From']    = from_header
+            outer['From'] = from_header
             outer['Subject'] = Header(subject)
-            outer.epilogue   = ''
+            outer.epilogue = ''
 
             # Attach text part
             text_part = MIMEMultipart("related")
@@ -490,10 +490,10 @@ class ENLIssue(ATTopic, BaseContent):
         gtool = getToolByName(self, 'portal_groups')
         if fmp_tool:
             fmp_tool = queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool')
-            # use fastmemberproperties to get mememberproperties: 
+            # use fastmemberproperties to get mememberproperties:
             member_properties = fmp_tool.get_all_memberproperties()
         else:
-            # use plone API to get memberproperties, works without fastmemberproperties, 
+            # use plone API to get memberproperties, works without fastmemberproperties,
             # but is much slower!
             acl_userfolder = getToolByName(self, 'acl_users')
             member_objs = acl_userfolder.getUsers()
@@ -510,7 +510,7 @@ class ENLIssue(ATTopic, BaseContent):
         for group in receiver_group_list:
             selected_group_members.extend(gtool.getGroupMembers(group))
         receiver_member_list = receiver_member_list + tuple(selected_group_members)
-        
+
         # get salutation mappings
         salutation_mappings = {}
         for line in enl.getSalutations():
@@ -538,7 +538,7 @@ class ENLIssue(ATTopic, BaseContent):
 
     def create_plaintext_message(self, text):
         """ Create a plain-text-message by parsing the html
-            and attaching links as endnotes 
+            and attaching links as endnotes
         """
         plain_text_maxcols = 72
         textout = cStringIO.StringIO()
@@ -551,7 +551,7 @@ class ENLIssue(ATTopic, BaseContent):
         # append the anchorlist at the bottom of a message
         # to keep the message readable.
         counter = 0
-        anchorlist  = "\n\n" + ("-" * plain_text_maxcols) + "\n\n"
+        anchorlist = "\n\n" + ("-" * plain_text_maxcols) + "\n\n"
         for item in parser.anchorlist:
             counter += 1
             anchorlist += "[%d] %s\n" % (counter, item)
@@ -562,7 +562,7 @@ class ENLIssue(ATTopic, BaseContent):
 
     def getFiles(self):
         """ Return list of files in subtree """
-        return self.getFolderContents(contentFilter=dict(portal_type=('File',), 
+        return self.getFolderContents(contentFilter=dict(portal_type=('File'),
                                       sort_on='getObjPositionInParent'))
 
 registerType(ENLIssue, PROJECTNAME)

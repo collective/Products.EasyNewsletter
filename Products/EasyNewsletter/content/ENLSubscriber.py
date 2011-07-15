@@ -1,13 +1,9 @@
-# zope imports
-from zope.interface import implements
-
-# Zope / Plone import
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes.atapi import *
+from zope.interface import implements
 
-# EasyNewsletter imports
-from Products.EasyNewsletter.interfaces import IENLSubscriber
 from Products.EasyNewsletter.config import *
+from Products.EasyNewsletter.interfaces import IENLSubscriber
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 
 schema = Schema((

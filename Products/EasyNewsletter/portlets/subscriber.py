@@ -1,15 +1,13 @@
-# zope imports
 from zope import schema
 from zope.formlib import form
 from zope.interface import implements
 
-# plone imports
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.portlets.portlets import base
-from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.vocabularies.catalog import SearchableTextSourceBinder
-#from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
+from plone.portlets.interfaces import IPortletDataProvider
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 
 
 class INewsletterSubscriberPortlet(IPortletDataProvider):
