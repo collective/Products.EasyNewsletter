@@ -5,6 +5,9 @@ Changelog
 2.5.10a3 (unreleased)
 ---------------------
 
+- Add Dutch translation.
+  [WouterVH]
+
 - Avoid duplicate listing in portal_quickinstaller.
   Fixes http://plone.org/products/easynewsletter/issues/6
   [WouterVH]
