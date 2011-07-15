@@ -25,7 +25,7 @@ msgstr "Actie"
 
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "An easy to use Newsletter"
-msgstr ""
+msgstr "Een gebruiksvriendelijke nieuwsbrief"
 
 #: ./browser/newsletter.py:22
 msgid "An error occured"
@@ -33,7 +33,7 @@ msgstr "Er is een fout opgetreden."
 
 #: ./profiles/default/types/ENLIssue.xml
 msgid "An issue of a newsleter"
-msgstr ""
+msgstr "Een nummer van een niewsbrief"
 
 #: ./portlets/subscriber.pt:23
 msgid "Choose salutation..."
@@ -46,7 +46,7 @@ msgstr "Bedrijf / Organisatie"
 #: ./profiles/default/types/ENLIssue.xml
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "Criteria"
-msgstr ""
+msgstr "Selectie-Criteria"
 
 #: ./browser/upload_csv.pt:53
 msgid "Csv file"
@@ -94,7 +94,7 @@ msgstr ""
 #. Default: "This will be used if the subscriber has no fullname."
 #: ./content/EasyNewsletter.py:92
 msgid "EasyNewsletter_help_fullname_fallback"
-msgstr ""
+msgstr "Dit zal gebruikt worden als voor de abonnee geen volledige naam beschikbaar is"
 
 #: ./content/ENLSubscriber.py:48
 msgid "EasyNewsletter_help_organization"
@@ -246,12 +246,12 @@ msgstr ""
 #. Default: "Salutation"
 #: ./content/ENLSubscriber.py:26
 msgid "EasyNewsletter_label_salutation"
-msgstr ""
+msgstr "Aanspreking"
 
 #. Default: "Subscriber Salutations."
 #: ./content/EasyNewsletter.py:75
 msgid "EasyNewsletter_label_salutations"
-msgstr ""
+msgstr "Aansprekingen voor abonnees"
 
 #. Default: "Sender e-mail"
 #: ./browser/issue_send_form.pt:45
@@ -298,12 +298,12 @@ msgstr "Test email"
 #. Default: "Text"
 #: ./content/ENLIssue.py:51
 msgid "EasyNewsletter_label_text"
-msgstr ""
+msgstr "Tekst"
 
 #. Default: "Title"
 #: ./content/ENLSubscriber.py:16
 msgid "EasyNewsletter_label_title"
-msgstr ""
+msgstr "Titel"
 
 #. Default: "Text for the 'unsubscribe' link"
 #: ./content/EasyNewsletter.py:101
@@ -328,7 +328,7 @@ msgstr ""
 #: ./profiles/default/types/ENLSubscriber.xml
 #: ./profiles/default/types/ENLTemplate.xml
 msgid "History"
-msgstr ""
+msgstr "Geschiedenis"
 
 #: ./browser/upload_csv.pt:28
 msgid "Import"
@@ -336,7 +336,7 @@ msgstr "Importeren"
 
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Issue"
-msgstr ""
+msgstr "Nummer"
 
 #: ./portlets/subscriber.pt:27
 msgid "Mr."
@@ -370,7 +370,7 @@ msgstr ""
 
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Refresh"
-msgstr ""
+msgstr "Verversen"
 
 #: ./browser/enl_subscribers_view.pt:40
 msgid "Salutation"
@@ -382,7 +382,7 @@ msgstr "Selecteer het CSV-bestand."
 
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Send"
-msgstr ""
+msgstr "Verzenden"
 
 #: ./browser/enl_subscribers_view.pt:43
 msgid "Source"
@@ -391,23 +391,23 @@ msgstr "Bron"
 #: ./profiles/default/types/ENLIssue.xml
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "Subfolders"
-msgstr ""
+msgstr "Submappen"
 
 #: ./profiles/default/types/ENLSubscriber.xml
 msgid "Subscriber"
-msgstr ""
+msgstr "Abonnee"
 
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "Subscribers"
-msgstr ""
+msgstr "Abonnees"
 
 #: ./profiles/default/types/ENLTemplate.xml
 msgid "Template"
-msgstr ""
+msgstr "sjabloon"
 
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "Templates"
-msgstr ""
+msgstr "Sjablonen"
 
 #: ./browser/issue.py:23
 msgid "The issue has been send."
@@ -425,11 +425,11 @@ msgstr "Titel portlet"
 #: ./profiles/default/types/ENLSubscriber.xml
 #: ./profiles/default/types/ENLTemplate.xml
 msgid "View"
-msgstr ""
+msgstr "Bekijken"
 
 #: ./browser/subscribers.py:112
 msgid "Wrong specification of the CSV file. Please correct it and retry."
-msgstr "Het CDV-bestand bevat fouten. Corrigeer en probeer opnieuw."
+msgstr "Het CSV-bestand bevat fouten. Corrigeer en probeer opnieuw."
 
 #: ./browser/newsletter.py:30
 msgid "You have been unsubscribed."
@@ -579,7 +579,7 @@ msgstr "Test nieuwsbrief"
 #. Default: "This is a Zope Page Template file that is used for                      rendering the newsletter mail."
 #: ./content/ENLTemplate.py:18
 msgid "help_body_zpt"
-msgstr ""
+msgstr "Dit is een Zope Page Template die gebruikt wordt om de mailinhoud vorm te geven."
 
 #. Default: "Enter a value for description."
 #: ./content/ENLTemplate.py:30
@@ -605,7 +605,8 @@ msgstr "Absoluut pad naar de nieuwsbrief"
 #: ./content/ENLIssue.py:65
 #: ./content/EasyNewsletter.py:144
 msgid "help_sendToAllPloneMembers"
-msgstr ""
+msgstr "Indien aangevinkt zal de nieuwsbrief verstuurd worden naar alle gebruikers. Indien de nieuwsbrief
+abonnees heeft dan zullen deze sowieso de nieuwsbrief ontvangen."
 
 #. Default: "Issues"
 #: ./skins/EasyNewsletter/easynewsletter_view.pt:46
