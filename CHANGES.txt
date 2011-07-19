@@ -5,6 +5,8 @@ Changelog
 2.6dev (unreleased)
 ---------------------
 
+- Add Brazilian translation.
+  [davilima6]
 
 - Add Dutch translation.
   [WouterVH]
