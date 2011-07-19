@@ -54,7 +54,7 @@ msgstr "CSV-bestand"
 
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "Drafts"
-msgstr ""
+msgstr "Kladversies"
 
 #: ./browser/enl_subscribers_view.pt:39
 msgid "E-Mail"
@@ -62,7 +62,7 @@ msgstr "Email"
 
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "EasyNewsletter"
-msgstr ""
+msgstr "EasyNewsletter"
 
 #. Default: "Text used for confirmation email subject. You can                     customize the text, but it should include the placeholder: ${portal_url}!"
 #: ./content/EasyNewsletter.py:230
@@ -126,27 +126,27 @@ msgstr ""
 #. Default: "Default for the sender address of the newsletters."
 #: ./content/EasyNewsletter.py:44
 msgid "EasyNewsletter_help_senderEmail"
-msgstr ""
+msgstr "Standaard email van de afzender van de nieuwsbrief"
 
 #. Default: "Sender address of the newsletter e-mail. If you let this field empty, the default sender e-mail address will be used."
 #: ./browser/issue_send_form.pt:50
 msgid "EasyNewsletter_help_senderEmailForm"
-msgstr ""
+msgstr "Emailadres waarmee de nieuwsbrief verstuurd wordt. Indien leeg, dan wordt de standaard website-instelling gebruikt."
 
 #. Default: "Default for the sender name of the newsletters."
 #: ./content/EasyNewsletter.py:54
 msgid "EasyNewsletter_help_senderName"
-msgstr ""
+msgstr "Standaard afzendernaam van de nieuwsbrief"
 
 #. Default: "Sender name of the newsletter e-mail. If you let this field empty, the default sender name will be used."
 #: ./browser/issue_send_form.pt:32
 msgid "EasyNewsletter_help_senderNameForm"
-msgstr ""
+msgstr "Afzendernaam van deze nieuwsbrief. Indien leeg, dan wordt de standaard afzendernaam gebruikt."
 
 #. Default: "Subject of the newsletter e-mail. If you let this field empty, the title of the newsletter will be used."
 #: ./browser/issue_send_form.pt:68
 msgid "EasyNewsletter_help_subject"
-msgstr ""
+msgstr "onderwerp van de nieuwsbrief. Indien leeg, dan wordt de standaard titel van de website gebruikt."
 
 #: ./content/ENLIssue.py:148
 msgid "EasyNewsletter_help_template"
@@ -155,12 +155,12 @@ msgstr ""
 #. Default: "Default for the test e-mail address."
 #: ./content/EasyNewsletter.py:66
 msgid "EasyNewsletter_help_testEmail"
-msgstr ""
+msgstr "Standaard test-emailadres."
 
 #. Default: "Test e-mail. If you let this field empty, the default test e-mail address will be used."
 #: ./browser/issue_send_form.pt:86
 msgid "EasyNewsletter_help_testreceiverForm"
-msgstr ""
+msgstr "Test-email. Indien leeg, dan wordt de standaard test-emailadres gebruikt."
 
 #: ./content/ENLSubscriber.py:17
 msgid "EasyNewsletter_help_title"
@@ -169,7 +169,7 @@ msgstr ""
 #. Default: "This will replace the placeholder [[UNSUBSCRIBE]]."
 #: ./content/EasyNewsletter.py:103
 msgid "EasyNewsletter_help_unsubscribe_string"
-msgstr ""
+msgstr "Dit zal de plaatshouder [[UNSUBSCRIBE]] vervangen."
 
 #. Default: "Default Plone Mailhost"
 #: ./content/EasyNewsletter.py:399
@@ -189,59 +189,59 @@ msgstr "Hoofding"
 #. Default: "Email"
 #: ./content/ENLSubscriber.py:58
 msgid "EasyNewsletter_label_email"
-msgstr ""
+msgstr "Email"
 
 #. Default: "External delivery service"
 #: ./content/EasyNewsletter.py:196
 msgid "EasyNewsletter_label_externalDeliveryService"
-msgstr ""
+msgstr "Externe email-verzendingsdienst."
 
 #. Default: "External subscriber source"
 #: ./content/EasyNewsletter.py:181
 msgid "EasyNewsletter_label_externalSubscriberSource"
-msgstr ""
+msgstr "Externe abonneelijst."
 
 #. Default: "Footer"
 #: ./content/ENLIssue.py:121
 msgid "EasyNewsletter_label_footer"
-msgstr ""
+msgstr "Voettekst"
 
 #. Default: "Full Name"
 #: ./content/ENLSubscriber.py:37
 msgid "EasyNewsletter_label_fullname"
-msgstr ""
+msgstr "Volledige naam"
 
 #. Default: "Fallback for subscribers without a name."
 #: ./content/EasyNewsletter.py:90
 msgid "EasyNewsletter_label_fullname_fallback"
-msgstr ""
+msgstr "Standaard voor abonnees zonder naam"
 
 #. Default: "Header"
 #: ./content/ENLIssue.py:106
 msgid "EasyNewsletter_label_header"
-msgstr ""
+msgstr "Hoofding"
 
 #. Default: "no external subscriber source"
 #: ./content/EasyNewsletter.py:392
 msgid "EasyNewsletter_label_noSource"
-msgstr ""
+msgstr "Geen externe email-verzendingsdienst."
 
 #. Default: "Company/Organization"
 #: ./content/ENLSubscriber.py:46
 msgid "EasyNewsletter_label_organization"
-msgstr ""
+msgstr "Bedrijf / Organisatie"
 
 #. Default: "Plone Groups to receive the newsletter"
 #: ./content/ENLIssue.py:90
 #: ./content/EasyNewsletter.py:167
 msgid "EasyNewsletter_label_ploneReceiverGroups"
-msgstr ""
+msgstr "Groepen die de nieuwsbrief ontvangen."
 
 #. Default: "Plone Members to receive the newsletter"
 #: ./content/ENLIssue.py:77
 #: ./content/EasyNewsletter.py:155
 msgid "EasyNewsletter_label_ploneReceiverMembers"
-msgstr ""
+msgstr "Gebruikers die de nieuwsbrief ontvangen."
 
 #. Default: "Salutation"
 #: ./content/ENLSubscriber.py:26
@@ -356,7 +356,7 @@ msgstr "Nieuwsbrief abonnee"
 
 #: ./browser/subscribers.py:104
 msgid "No file specified."
-msgstr ""
+msgstr "Geen bestand opgegeven."
 
 #: ./browser/registration.py:49
 msgid "Please enter a valid e-mail address."
@@ -366,7 +366,7 @@ msgstr "Gelieve een geldig emailadres in te geven."
 #: ./profiles/default/types/ENLSubscriber.xml
 #: ./profiles/default/types/ENLTemplate.xml
 msgid "References"
-msgstr ""
+msgstr "Referenties"
 
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Refresh"
@@ -518,12 +518,12 @@ msgstr "Bedrijf/Organisatie"
 #. Default: "Export subscribers"
 #: ./browser/enl_subscribers_view.pt:84
 msgid "easynewsletter_label_export_subscribers"
-msgstr ""
+msgstr "Abonnees exporteren"
 
 #. Default: "Import subscribers"
 #: ./browser/enl_subscribers_view.pt:78
 msgid "easynewsletter_label_import_subscribers"
-msgstr ""
+msgstr "Abonnees importeren"
 
 #. Default: "The newsletter was already sent."
 #: ./browser/issue_send_form.pt:120
@@ -611,12 +611,12 @@ abonnees heeft dan zullen deze sowieso de nieuwsbrief ontvangen."
 #. Default: "Issues"
 #: ./skins/EasyNewsletter/easynewsletter_view.pt:46
 msgid "issues_label"
-msgstr "Nummer"
+msgstr "Nummers"
 
 #. Default: "Newsletter Template"
 #: ./content/ENLTemplate.py:17
 msgid "label_body_zpt"
-msgstr ""
+msgstr "Nieuwsbrief Sjabloon"
 
 #. Default: "Choose salutation..."
 #: ./config.py:13
@@ -626,7 +626,7 @@ msgstr "Kies aanspreking."
 #. Default: "Description"
 #: ./content/ENLTemplate.py:29
 msgid "label_description"
-msgstr ""
+msgstr "Beschrijving"
 
 #. Default: "Inherit Criteria"
 #: ./content/ENLIssue.py:132
