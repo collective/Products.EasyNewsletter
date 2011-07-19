@@ -232,7 +232,17 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                 if external_source:
                     external_subscribers = external_source.getSubscribers(enl)
                     log.info('Found %d external subscriptions' % len(external_subscribers))
-            receivers = plone_receivers + enl_receivers + external_subscribers
+
+            receivers_raw = plone_receivers + enl_receivers + external_subscribers
+            
+            # Avoid double emails
+            receivers = []
+            mails = []            
+            for receiver in receivers_raw:
+                if receiver['email'] not in mails:
+                    mails.append(receiver['email'])
+                    receivers.append(receiver)
+            
         return receivers
 
     def _render_output_html(self):

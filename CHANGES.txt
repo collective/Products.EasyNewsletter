@@ -5,6 +5,9 @@ Changelog
 2.6dev (unreleased)
 ---------------------
 
+- Fix ENLIssue to avoid issue to be sent twice to same recipient.
+  [numahell]
+
 - Add Brazilian translation.
   [davilima6]
 
