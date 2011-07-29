@@ -145,7 +145,7 @@ msgstr "Afzendernaam van deze nieuwsbrief. Indien leeg, dan wordt de standaard a
 #. Default: "Subject of the newsletter e-mail. If you let this field empty, the title of the newsletter will be used."
 #: ./browser/issue_send_form.pt:68
 msgid "EasyNewsletter_help_subject"
-msgstr "onderwerp van de nieuwsbrief. Indien leeg, dan wordt de standaard titel van de website gebruikt."
+msgstr "Onderwerp van de nieuwsbrief. Indien leeg, dan wordt de standaard titel van de website gebruikt."
 
 #: ./content/ENLIssue.py:148
 msgid "EasyNewsletter_help_template"
@@ -402,7 +402,7 @@ msgstr "Abonnees"
 
 #: ./profiles/default/types/ENLTemplate.xml
 msgid "Template"
-msgstr "sjabloon"
+msgstr "Sjabloon"
 
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "Templates"
