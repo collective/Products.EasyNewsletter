@@ -1,0 +1,756 @@
+# ArchGenXML generated POT File
+# Kai Diefenbach - iqplusplus <kai.diefenbach <at> iqpp.de>, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: EasyNewsletter\n"
+"POT-Creation-Date: 2011-07-29 15:54+0000\n"
+"PO-Revision-Date: Thu May  4 12:51:56 2006\n"
+"Last-Translator: Wim Boucquaert - wimbou <wim.boucquaert@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ascii\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: nl\n"
+"Language-Name: Dutch\n"
+"Preferred-Encodings: latin1 utf-8\n"
+"Domain: EasyNewsletter\n"
+"X-Is-Fallback-For: nl-be nl-nl\n"
+
+#: ../profiles/default/types/ENLSubscriber.xml
+#: ../profiles/default/types/ENLTemplate.xml
+msgid "A page in the site. Can contain rich text."
+msgstr "Een pagina in de site. Kan rich text bevatten."
+
+#: ../browser/enl_subscribers_view.pt:44
+msgid "Action"
+msgstr "Actie"
+
+#: ../profiles/default/types/EasyNewsletter.xml
+msgid "An easy to use Newsletter"
+msgstr "Een gebruiksvriendelijke nieuwsbrief"
+
+#: ../browser/newsletter.py:22
+msgid "An error occured"
+msgstr "Er is een fout opgetreden."
+
+#: ../profiles/default/types/ENLIssue.xml
+msgid "An issue of a newsleter"
+msgstr "Een nummer van een niewsbrief"
+
+#: ../portlets/subscriber.pt:23
+msgid "Choose salutation..."
+msgstr "Kies aanspreking"
+
+#: ../browser/enl_subscribers_view.pt:42
+msgid "Company/Organization"
+msgstr "Bedrijf/Organisatie"
+
+#: ../profiles/default/types/ENLIssue.xml
+#: ../profiles/default/types/EasyNewsletter.xml
+msgid "Criteria"
+msgstr ""
+
+#: ../browser/upload_csv.pt:53
+msgid "Csv file"
+msgstr "CSV-bestand"
+
+#: ../profiles/default/types/EasyNewsletter.xml
+msgid "Drafts"
+msgstr "Kladversies"
+
+#: ../browser/enl_subscribers_view.pt:39
+msgid "E-Mail"
+msgstr "E-mail"
+
+#: ../profiles/default/types/EasyNewsletter.xml
+msgid "EasyNewsletter"
+msgstr "EasyNewsletter"
+
+#. Default: "Text used for confirmation email subject. You can                     customize the text, but it should include the placeholder: ${portal_url}!"
+#: ../content/EasyNewsletter.py:230
+msgid "EasyNewsletter_description_subscriber_confirmation_mail_subject"
+msgstr ""
+
+#: ../content/ENLIssue.py:133
+msgid "EasyNewsletter_help_acquireCriteria"
+msgstr ""
+
+#. Default: "TextAreaWidget"
+#: content/ENLTemplate.py
+msgid "EasyNewsletter_help_body"
+msgstr ""
+
+#. Default: "customView"
+#: content/ENLBase.py
+msgid "EasyNewsletter_help_customView"
+msgstr ""
+
+#. Default: "customViewFields"
+#: content/ENLBase.py
+msgid "EasyNewsletter_help_customViewFields"
+msgstr ""
+
+#: ../content/ENLSubscriber.py:60
+msgid "EasyNewsletter_help_email"
+msgstr ""
+
+#. Default: "Some packages provide an external delivery service                     for EasyNewsletter. If one is installed you can choose it here."
+#: ../content/EasyNewsletter.py:198
+msgid "EasyNewsletter_help_externalDeliveryService"
+msgstr ""
+
+#. Default: "Some packages provide an external subscriber source                     for EasyNewsletter. If one is installed you can choose it here."
+#: ../content/EasyNewsletter.py:183
+msgid "EasyNewsletter_help_externalSubscriberSource"
+msgstr ""
+
+#: ../content/ENLSubscriber.py:38
+msgid "EasyNewsletter_help_fullname"
+msgstr ""
+
+#. Default: "This will be used if the subscriber has no fullname."
+#: ../content/EasyNewsletter.py:92
+msgid "EasyNewsletter_help_fullname_fallback"
+msgstr "Dit zal gebruikt worden als voor de abonnee geen volledige naam beschikbaar is"
+
+#. Default: "itemCount"
+#: content/ENLBase.py
+msgid "EasyNewsletter_help_itemCount"
+msgstr ""
+
+#. Default: "limitNumber"
+#: content/ENLBase.py
+msgid "EasyNewsletter_help_limitNumber"
+msgstr ""
+
+#: ../content/ENLSubscriber.py:48
+msgid "EasyNewsletter_help_organization"
+msgstr ""
+
+#. Default: "Choose Plone Groups which members should receive the newsletter."
+#: ../content/ENLIssue.py:92
+#: ../content/EasyNewsletter.py:169
+msgid "EasyNewsletter_help_ploneReceiverGroups"
+msgstr "Kies de groepen die deze nieuwsbrief opgestuurd krijgen."
+
+#. Default: "Choose Plone Members which should receive the newsletter."
+#: ../content/ENLIssue.py:79
+#: ../content/EasyNewsletter.py:157
+msgid "EasyNewsletter_help_ploneReceiverMembers"
+msgstr "Kies de gebruikers die deze nieuwsbrief opgestuurd krijgen. "
+
+#. Default: "Selected subscribers will be used as receivers of the newsletter."
+#: content/ENLNewsletter.py
+msgid "EasyNewsletter_help_receivers"
+msgstr ""
+
+#: ../content/ENLSubscriber.py:28
+msgid "EasyNewsletter_help_salutation"
+msgstr ""
+
+#. Default: "Define here possible salutations for subscriber. One                     salutation per line in the form of: \"mr|Dear Mr.\".                     The left hand value \"mr\" or \"ms\" is mapped to salutation of                     each subscriber and then the right hand value, which you                     can customize is used as salutation."
+#: ../content/EasyNewsletter.py:77
+msgid "EasyNewsletter_help_salutations"
+msgstr ""
+
+#. Default: "Default for the sender address of the newsletters."
+#: ../content/EasyNewsletter.py:44
+msgid "EasyNewsletter_help_senderEmail"
+msgstr "Standaard e-mail van de afzender van de nieuwsbrief"
+
+#. Default: "Sender address of the newsletter e-mail. If you let this field empty, the default sender e-mail address will be used."
+#: ../browser/issue_send_form.pt:50
+msgid "EasyNewsletter_help_senderEmailForm"
+msgstr "E-mailadres waarmee de nieuwsbrief verstuurd wordt. Indien leeg, dan wordt de standaard website-instelling gebruikt."
+
+#. Default: "Default for the sender name of the newsletters."
+#: ../content/EasyNewsletter.py:54
+msgid "EasyNewsletter_help_senderName"
+msgstr "Standaard afzendernaam van de nieuwsbrief"
+
+#. Default: "Sender name of the newsletter e-mail. If you let this field empty, the default sender name will be used."
+#: ../browser/issue_send_form.pt:32
+msgid "EasyNewsletter_help_senderNameForm"
+msgstr "Afzendernaam van deze nieuwsbrief. Indien leeg, dan wordt de standaard afzendernaam gebruikt."
+
+#. Default: "Subject of the newsletter e-mail. If you let this field empty, the title of the newsletter will be used."
+#: ../browser/issue_send_form.pt:68
+msgid "EasyNewsletter_help_subject"
+msgstr "Onderwerp van de nieuwsbrief. Indien leeg, dan wordt de standaard titel van de website gebruikt."
+
+#: ../content/ENLIssue.py:148
+msgid "EasyNewsletter_help_template"
+msgstr ""
+
+#. Default: "Default for the test e-mail address."
+#: ../content/EasyNewsletter.py:66
+msgid "EasyNewsletter_help_testEmail"
+msgstr "Standaard test-e-mailadres."
+
+#. Default: "Test e-mail. If you let this field empty, the default test e-mail address will be used."
+#: ../browser/issue_send_form.pt:86
+msgid "EasyNewsletter_help_testreceiverForm"
+msgstr "Test-e-mail. Indien leeg, dan wordt de standaard test-e-mailadres gebruikt."
+
+#. Default: "text"
+#: content/ENLNewsletter.py
+msgid "EasyNewsletter_help_text"
+msgstr ""
+
+#: ../content/ENLSubscriber.py:17
+msgid "EasyNewsletter_help_title"
+msgstr ""
+
+#. Default: "This will replace the placeholder [[UNSUBSCRIBE]]."
+#: ../content/EasyNewsletter.py:103
+msgid "EasyNewsletter_help_unsubscribe_string"
+msgstr "Dit zal de plaatshouder [[UNSUBSCRIBE]] vervangen."
+
+#. Default: "Default Plone Mailhost"
+#: ../content/EasyNewsletter.py:399
+msgid "EasyNewsletter_label_PloneMailHost"
+msgstr "Standaard Plone Mailhost"
+
+#. Default: "Inherit Criteria"
+#: content/ENLBase.py
+msgid "EasyNewsletter_label_acquireCriteria"
+msgstr ""
+
+#. Default: "Body"
+#: content/ENLTemplate.py
+msgid "EasyNewsletter_label_body"
+msgstr ""
+
+#. Default: "Customview"
+#: content/ENLBase.py
+msgid "EasyNewsletter_label_customView"
+msgstr ""
+
+#. Default: "Customviewfields"
+#: content/ENLBase.py
+msgid "EasyNewsletter_label_customViewFields"
+msgstr ""
+
+#. Default: "Footer"
+#: ../content/EasyNewsletter.py:130
+msgid "EasyNewsletter_label_default_footer"
+msgstr "Voettekst"
+
+#. Default: "Header"
+#: ../content/EasyNewsletter.py:115
+msgid "EasyNewsletter_label_default_header"
+msgstr "Hoofding"
+
+#. Default: "Email"
+#: ../content/ENLSubscriber.py:58
+msgid "EasyNewsletter_label_email"
+msgstr "E-mail"
+
+#. Default: "External delivery service"
+#: ../content/EasyNewsletter.py:196
+msgid "EasyNewsletter_label_externalDeliveryService"
+msgstr "Externe e-mail-verzendingsdienst."
+
+#. Default: "External subscriber source"
+#: ../content/EasyNewsletter.py:181
+msgid "EasyNewsletter_label_externalSubscriberSource"
+msgstr "Externe abonneelijst."
+
+#. Default: "Footer"
+#: ../content/ENLIssue.py:121
+msgid "EasyNewsletter_label_footer"
+msgstr "Voettekst"
+
+#. Default: "Full Name"
+#: ../content/ENLSubscriber.py:37
+msgid "EasyNewsletter_label_fullname"
+msgstr "Volledige naam"
+
+#. Default: "Fallback for subscribers without a name."
+#: ../content/EasyNewsletter.py:90
+msgid "EasyNewsletter_label_fullname_fallback"
+msgstr "Standaard voor abonnees zonder naam"
+
+#. Default: "Header"
+#: ../content/ENLIssue.py:106
+msgid "EasyNewsletter_label_header"
+msgstr "Hoofding"
+
+#. Default: "Itemcount"
+#: content/ENLBase.py
+msgid "EasyNewsletter_label_itemCount"
+msgstr ""
+
+#. Default: "Limitnumber"
+#: content/ENLBase.py
+msgid "EasyNewsletter_label_limitNumber"
+msgstr ""
+
+#. Default: "no external subscriber source"
+#: ../content/EasyNewsletter.py:392
+msgid "EasyNewsletter_label_noSource"
+msgstr "Geen externe e-mail-verzendingsdienst."
+
+#. Default: "Company/Organization"
+#: ../content/ENLSubscriber.py:46
+msgid "EasyNewsletter_label_organization"
+msgstr "Bedrijf/Organisatie"
+
+#. Default: "Plone Groups to receive the newsletter"
+#: ../content/ENLIssue.py:90
+#: ../content/EasyNewsletter.py:167
+msgid "EasyNewsletter_label_ploneReceiverGroups"
+msgstr "Groepen die de nieuwsbrief ontvangen."
+
+#. Default: "Plone Members to receive the newsletter"
+#: ../content/ENLIssue.py:77
+#: ../content/EasyNewsletter.py:155
+msgid "EasyNewsletter_label_ploneReceiverMembers"
+msgstr "Gebruikers die de nieuwsbrief ontvangen."
+
+#. Default: "Receivers"
+#: content/ENLNewsletter.py
+msgid "EasyNewsletter_label_receivers"
+msgstr ""
+
+#. Default: "Salutation"
+#: ../content/ENLSubscriber.py:26
+msgid "EasyNewsletter_label_salutation"
+msgstr "Aanspreking"
+
+#. Default: "Subscriber Salutations."
+#: ../content/EasyNewsletter.py:75
+msgid "EasyNewsletter_label_salutations"
+msgstr "Aansprekingen voor abonnees"
+
+#. Default: "Sender e-mail"
+#: ../browser/issue_send_form.pt:45
+#: ../content/EasyNewsletter.py:42
+msgid "EasyNewsletter_label_senderEmail"
+msgstr "E-mail afzender"
+
+#. Default: "Sender name"
+#: ../browser/issue_send_form.pt:27
+#: ../content/EasyNewsletter.py:52
+msgid "EasyNewsletter_label_senderName"
+msgstr "Naam afzender"
+
+#. Default: "Subject"
+#: ../browser/issue_send_form.pt:63
+msgid "EasyNewsletter_label_subject"
+msgstr "Onderwerp"
+
+#. Default: "Subscriber confirmation mail subject"
+#: ../content/EasyNewsletter.py:228
+msgid "EasyNewsletter_label_subscriber_confirmation_mail_subject"
+msgstr "E-mail onderwerp voor de bevestigingsse-mail"
+
+#. Default: "Subscriber confirmation mail text"
+#: ../content/EasyNewsletter.py:243
+msgid "EasyNewsletter_label_subscriber_confirmation_mail_text"
+msgstr "Bevestigingtekst voor nieuwe abonnees."
+
+#. Default: "Newsletter Template"
+#: ../content/ENLIssue.py:146
+msgid "EasyNewsletter_label_template"
+msgstr "Sjabloon voor de nieuwsbrief"
+
+#. Default: "Test e-mail"
+#: ../content/EasyNewsletter.py:64
+msgid "EasyNewsletter_label_testEmail"
+msgstr "Test e-mail"
+
+#. Default: "Test e-mail"
+#: ../browser/issue_send_form.pt:81
+msgid "EasyNewsletter_label_testreceiver"
+msgstr "Test e-mail"
+
+#. Default: "Text"
+#: ../content/ENLIssue.py:51
+msgid "EasyNewsletter_label_text"
+msgstr "Tekst"
+
+#. Default: "Title"
+#: ../content/ENLSubscriber.py:16
+msgid "EasyNewsletter_label_title"
+msgstr "Titel"
+
+#. Default: "Text for the 'unsubscribe' link"
+#: ../content/EasyNewsletter.py:101
+msgid "EasyNewsletter_label_unsubscribe_string"
+msgstr "Teskt voor de uitschrijven-link"
+
+#: ../profiles/default/types/ENLIssue.xml
+#: ../profiles/default/types/ENLSubscriber.xml
+#: ../profiles/default/types/ENLTemplate.xml
+msgid "Edit"
+msgstr "Bewerken"
+
+#: ../portlets/subscriber.py:124
+msgid "Edit Newsletter portlet"
+msgstr "Wijzigen nieuwsbrief-portlet"
+
+#: ../profiles/default/types/ENLSubscriber.xml
+#: ../profiles/default/types/ENLTemplate.xml
+msgid "External Edit"
+msgstr "Extern editeren"
+
+#: ../profiles/default/types/ENLSubscriber.xml
+#: ../profiles/default/types/ENLTemplate.xml
+msgid "History"
+msgstr "Geschiedenis"
+
+#: ../browser/upload_csv.pt:28
+msgid "Import"
+msgstr "Importeren"
+
+#: ../profiles/default/types/ENLIssue.xml
+msgid "Issue"
+msgstr "Nummer"
+
+#: ../portlets/subscriber.pt:27
+msgid "Mr."
+msgstr "Mr."
+
+#: ../portlets/subscriber.pt:25
+msgid "Ms."
+msgstr "Mevr."
+
+#: ../browser/enl_subscribers_view.pt:41
+msgid "Name"
+msgstr "Naam"
+
+#: ../portlets/subscriber.py:79
+msgid "Newsletter Subscriber"
+msgstr "Nieuwsbrief abonnee"
+
+#: ../browser/subscribers.py:104
+msgid "No file specified."
+msgstr "Geen bestand opgegeven."
+
+#: ../browser/registration.py:49
+msgid "Please enter a valid e-mail address."
+msgstr "Gelieve een geldig e-mailadres in te geven."
+
+#: ../profiles/default/types/ENLIssue.xml
+#: ../profiles/default/types/ENLSubscriber.xml
+#: ../profiles/default/types/ENLTemplate.xml
+msgid "References"
+msgstr "Referenties"
+
+#: ../profiles/default/types/ENLIssue.xml
+msgid "Refresh"
+msgstr "Verversen"
+
+#: ../browser/enl_subscribers_view.pt:40
+msgid "Salutation"
+msgstr "Aanspreking"
+
+#: ../browser/upload_csv.pt:54
+msgid "Select your CSV file here."
+msgstr "Selecteer het CSV-bestand."
+
+#: ../profiles/default/types/ENLIssue.xml
+msgid "Send"
+msgstr "Verzenden"
+
+#: ../browser/enl_subscribers_view.pt:43
+msgid "Source"
+msgstr "Bron"
+
+#: ../profiles/default/types/ENLIssue.xml
+#: ../profiles/default/types/EasyNewsletter.xml
+msgid "Subfolders"
+msgstr "Submappen"
+
+#: ../profiles/default/types/ENLSubscriber.xml
+msgid "Subscriber"
+msgstr "Abonnee"
+
+#: ../profiles/default/types/EasyNewsletter.xml
+msgid "Subscribers"
+msgstr "Abonnees"
+
+#: ../profiles/default/types/ENLTemplate.xml
+msgid "Template"
+msgstr "Sjabloon"
+
+#: ../profiles/default/types/EasyNewsletter.xml
+msgid "Templates"
+msgstr "Sjablonen"
+
+#: ../browser/issue.py:23
+msgid "The issue has been send."
+msgstr "Het nummer is verstuurd."
+
+#: ../portlets/subscriber.py:125
+msgid "This portlet displays the subscriber add form of a newsletter."
+msgstr "Deze portlet toont een inschrijvingsformulier voor een nieuwsbrief."
+
+#: ../portlets/subscriber.py:17
+msgid "Title for the portlet."
+msgstr "Titel voor de portlet."
+
+#: ../profiles/default/types/ENLIssue.xml
+#: ../profiles/default/types/ENLSubscriber.xml
+#: ../profiles/default/types/ENLTemplate.xml
+msgid "View"
+msgstr "Bekijken"
+
+#: ../browser/subscribers.py:112
+msgid "Wrong specification of the CSV file. Please correct it and retry."
+msgstr "Het CSV-bestand bevat fouten. Corrigeer en probeer opnieuw."
+
+#: ../browser/newsletter.py:30
+msgid "You have been unsubscribed."
+msgstr "U bent uitgeschreven."
+
+#: ../browser/registration.py:58
+msgid "Your e-mail address is already registered."
+msgstr "Dit e-mailadres is reeds geregisteerd."
+
+#: ../browser/registration.py:87
+msgid "Your email has been registered.                 A confirmation email was sent to your address. Please check                 your inbox and click on the link in the email in order to                 confirm your subscription."
+msgstr "Je e-mail werd geregistre≈erd. Een bevestigings-e-mail werd verzonden naar je e-mailadres. Gelieve je inbox te controleren en te klikken op de link in de e-mail om je registratie te bevstigen."
+
+#. Default: "The footer will included in outgoing mails."
+#: ../content/ENLIssue.py:122
+msgid "description_help_footer"
+msgstr "Deze voettekst wordt in de e-mail opgenomen."
+
+#. Default: "The header will included in outgoing mails."
+#: ../content/ENLIssue.py:108
+msgid "description_help_header"
+msgstr "Deze hoofding wordt in de e-mail opgenomen."
+
+#. Default: "Text used for confirmation email. You can customize                     the text, but it should include the placeholders:                     ${portal_url}, ${subscriber_email} and ${confirmation_url}!"
+#: ../content/EasyNewsletter.py:245
+msgid "description_subscriber_confirmation_mail_text"
+msgstr "Tekst voor de bevestigings-e-mail. U kan deze tekst aanpassen, maar moet volgende plaatshouders bevatten: ${portal_url}, ${subscriber_email} and ${confirmation_url}."
+
+#. Default: "This is used in the frontpage of EasyNewsletter on top of Issue archive list."
+#: ../content/EasyNewsletter.py:257
+msgid "description_text"
+msgstr "Deze tekst wordt getoond bovenaan de lijst van verstuurde nieuwsbrief-nummers."
+
+#. Default: "The default footer text. This is used as a default                     for new issues. You can use the placeholders                     [[SUBSCRIBER_SALUTATION]] and [[UNSUBSCRIBE]] here."
+#: ../content/EasyNewsletter.py:131
+msgid "description_text_footer"
+msgstr "Standaard voettekst. Dit wordt gebruikt voor nieuwe nummers. U kan volgende plaatshouders gebruiken: [[ABONNEE_AANSPREKING]] and [[UITSCHRIJVEN]]"
+
+#. Default: "The default header text. This is used as a default                     for new issues. You can use the placeholders [[SUBSCRIBER_SALUTATION]] and [[UNSUBSCRIBE]] here."
+#: ../content/EasyNewsletter.py:117
+msgid "description_text_header"
+msgstr "Standaard hoofdingtekst. Dit wirdt beruikt als standaard voor de nieuwsbrief-nummers. U kan plaatshouders de [[ABONNEE_AANSPREKING]] en [[UITSCHRIJVEN]] gebruiken."
+
+#. Default: "The main content of the mailing. You can use the topic                     criteria to collect content or put manual content in.                     This will included in outgoing mails."
+#: ../content/ENLIssue.py:52
+msgid "description_text_issue"
+msgstr "De hoofdinhoud van de nieuwsbrief."
+
+#. Default: "Save & Update"
+#: ../skins/EasyNewsletter/NewsletterTemplateWidget.pt:22
+msgid "easycms_saveupdate_label"
+msgstr "Opslaan & bijwerken"
+
+#. Default: "Back to newsletter"
+#: ../browser/issue_send_form.pt:14
+#: ../skins/EasyNewsletter/enl_drafts_view.pt:23
+#: ../skins/EasyNewsletter/enl_template_view.pt:25
+msgid "easynewsletter_backtonewsletter_label"
+msgstr "Terug naar de nieuwsbrief"
+
+#. Default: "subscribe"
+#: ../portlets/subscriber.pt:50
+msgid "easynewsletter_button_label"
+msgstr "Inschrijven"
+
+#. Default: "Drafts"
+#: ../skins/EasyNewsletter/enl_drafts_view.pt:20
+msgid "easynewsletter_drafts_label"
+msgstr "Kladnummers"
+
+#. Default: "Your e-mail"
+#: ../portlets/subscriber.pt:44
+msgid "easynewsletter_input_value"
+msgstr "Uw e-mailadres"
+
+#. Default: "Full Name"
+#: ../portlets/subscriber.pt:31
+msgid "easynewsletter_input_value_fullname"
+msgstr "Volledige naam"
+
+#. Default: "Company/Organization"
+#: ../portlets/subscriber.pt:37
+msgid "easynewsletter_input_value_organization"
+msgstr "Bedrijf/Organisatie"
+
+#. Default: "Export subscribers"
+#: ../browser/enl_subscribers_view.pt:84
+msgid "easynewsletter_label_export_subscribers"
+msgstr "Abonnees exporteren"
+
+#. Default: "Import subscribers"
+#: ../browser/enl_subscribers_view.pt:78
+msgid "easynewsletter_label_import_subscribers"
+msgstr "Abonnees importeren"
+
+#. Default: "The newsletter was already sent."
+#: ../browser/issue_send_form.pt:120
+msgid "easynewsletter_newslettersent_label"
+msgstr "De nieuwsbrief is reeds verstuurd."
+
+#. Default: "There are no issues."
+#: ../skins/EasyNewsletter/easynewsletter_view.pt:53
+msgid "easynewsletter_non_issues_label"
+msgstr "Er zijn geen nummers"
+
+#. Default: "There are no drafts."
+#: ../skins/EasyNewsletter/enl_drafts_view.pt:34
+msgid "easynewsletter_nondrafts_label"
+msgstr "Er zijn geen kladnummers."
+
+#. Default: "There are no subscribers."
+#: ../browser/enl_subscribers_view.pt:30
+msgid "easynewsletter_nosubscribers_label"
+msgstr "Er zijn geen abonnees."
+
+#. Default: "There are no templates."
+#: ../skins/EasyNewsletter/enl_templates_view.pt:28
+msgid "easynewsletter_notemplates_label"
+msgstr "Er zijn geen sjablonen."
+
+#. Default: "Send Newsletter"
+#: ../browser/issue_send_form.pt:111
+msgid "easynewsletter_send_button"
+msgstr "Verstuur nieuwsbrief"
+
+#. Default: "Send Issue"
+#: ../browser/issue_send_form.pt:9
+msgid "easynewsletter_sendnewsletter_label"
+msgstr "Verstuur nummer"
+
+#. Default: "Subscribers"
+#: ../browser/enl_subscribers_view.pt:20
+#: ../browser/upload_csv.pt:20
+msgid "easynewsletter_subcribers_label"
+msgstr "Abonnees"
+
+#. Default: "Templates"
+#: ../skins/EasyNewsletter/enl_templates_view.pt:21
+msgid "easynewsletter_templates_label"
+msgstr "Sjablonen"
+
+#. Default: "Test Newsletter"
+#: ../browser/issue_send_form.pt:96
+msgid "easynewsletter_test_button"
+msgstr "Test nieuwsbrief"
+
+#. Default: "This is a Zope Page Template file that is used for                      rendering the newsletter mail."
+#: ../content/ENLTemplate.py:18
+msgid "help_body_zpt"
+msgstr "Dit is een Zope Page Template die gebruikt wordt om de mailinhoud vorm te geven."
+
+#. Default: "Enter a value for description."
+#: ../content/ENLTemplate.py:30
+msgid "help_description"
+msgstr "Vul een waarde in voor de beschrijving."
+
+#. Default: "This is a Zope Page Template used for rendering of the out going mail.                 You don't need to modify it, but if you know TAL (Zope's Template                 Attribute Language) you have the full power to customize your outgoing mails."
+#: ../content/EasyNewsletter.py:214
+msgid "help_mailtemplate_body_pt"
+msgstr ""
+
+#. Default: "Subscribe here to our newsletter."
+#: ../portlets/subscriber.py:25
+msgid "help_newsletter_description"
+msgstr "Schrijf hier in op onze nieuwsbrief."
+
+#. Default: "The absolute path from portal_root to the newsletter"
+#: ../portlets/subscriber.py:33
+msgid "help_newsletter_title"
+msgstr "Absoluut pad naar de nieuwsbrief"
+
+#. Default: "If checked, the newsletter/mailing is send to all                     plone members. If there are subscribers inside the                     newsletter, they get the letter anyway."
+#: ../content/ENLIssue.py:65
+#: ../content/EasyNewsletter.py:144
+msgid "help_sendToAllPloneMembers"
+msgstr ""
+
+#. Default: "Issues"
+#: ../skins/EasyNewsletter/easynewsletter_view.pt:46
+msgid "issues_label"
+msgstr "Nummers"
+
+#. Default: "Newsletter Template"
+#: ../content/ENLTemplate.py:17
+msgid "label_body_zpt"
+msgstr "Nieuwsbrief Sjabloon"
+
+#. Default: "Choose salutation..."
+#: ../config.py:13
+msgid "label_choose_saluation"
+msgstr "Kies aanspreking..."
+
+#. Default: "Description"
+#: ../content/ENLTemplate.py:29
+msgid "label_description"
+msgstr "Beschrijving"
+
+#. Default: "Inherit Criteria"
+#: ../content/ENLIssue.py:132
+msgid "label_inherit_criteria"
+msgstr "Overerving van criteria"
+
+#. Default: "Ask for the salutation and fullname of the subscriber"
+#: ../portlets/subscriber.py:41
+msgid "label_newletter_show_fullname"
+msgstr "Vraag naar de aansprekingen en volledige naam van de abonnee."
+
+#. Default: "Display field to enter company/organization of subscriber"
+#: ../portlets/subscriber.py:47
+msgid "label_newletter_show_organization"
+msgstr "Invulveld om bedrijf/organisatie in te geven"
+
+#. Default: "Description"
+#: ../portlets/subscriber.py:23
+msgid "label_newsletter_description"
+msgstr "Beschrijving"
+
+#. Default: "Path to Newsletter"
+#: ../portlets/subscriber.py:31
+msgid "label_newsletter_title"
+msgstr "Pad naar nieuwsbrief"
+
+#. Default: "Outgoing Mail Template"
+#: ../content/EasyNewsletter.py:212
+msgid "label_out_template_pt"
+msgstr "Uitgaande mail-template"
+
+#. Default: "Mr."
+#: ../config.py:15
+msgid "label_salutation_mr"
+msgstr "Mr."
+
+#. Default: "Ms."
+#: ../config.py:14
+msgid "label_salutation_ms"
+msgstr "Mevr."
+
+#. Default: "Send to all Plone members"
+#: ../content/ENLIssue.py:63
+#: ../content/EasyNewsletter.py:142
+msgid "label_sendToAllPloneMembers"
+msgstr "Verstuur naar alle Plone leden"
+
+#. Default: "Not imported subscribers"
+#: ../browser/upload_csv.pt:79
+msgid "not_created_subscribers"
+msgstr "Niet geïmporteerde abonnees"
+
+#. Default: "Sucessfully created Subscribers"
+#: ../browser/upload_csv.pt:105
+msgid "sucessfully_created_subscribers"
+msgstr "Abonnees met succes aangemaakt"
+
