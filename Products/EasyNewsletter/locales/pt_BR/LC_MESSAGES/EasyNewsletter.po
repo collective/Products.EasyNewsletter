@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2011-07-15 20:46+0000\n"
+"POT-Creation-Date: 2011-07-29 15:42+0000\n"
 "PO-Revision-Date: 2011-07-17 09:05-0000\n"
 "Last-Translator: Davi Lima <davi@simplesconsultoria.com.br>\n"
 "Language-Team: Simples Consultoria <contato@simplesconsultoria.com.br>\n"
@@ -350,25 +350,25 @@ msgid "Name"
 msgstr ""
 
 #: ./portlets/subscriber.py:79
-msgid "Assinantes da newsletter"
+msgid "Newsletter Subscriber"
 msgstr ""
 
 #: ./browser/subscribers.py:104
-msgid "Nenhum arquivo especificado."
+msgid "No file specified."
 msgstr ""
 
 #: ./browser/registration.py:49
-msgid "Por favor insira um endereço de email válido."
+msgid "Please enter a valid e-mail address."
 msgstr ""
 
 #: ./profiles/default/types/ENLIssue.xml
 #: ./profiles/default/types/ENLSubscriber.xml
 #: ./profiles/default/types/ENLTemplate.xml
-msgid "Referências"
+msgid "References"
 msgstr ""
 
 #: ./profiles/default/types/ENLIssue.xml
-msgid "Atualizar"
+msgid "Refresh"
 msgstr ""
 
 #: ./browser/enl_subscribers_view.pt:40
@@ -409,15 +409,15 @@ msgid "Templates"
 msgstr "Templates"
 
 #: ./browser/issue.py:23
-msgid "Esta edição já foi enviada."
+msgid "The issue has been send."
 msgstr ""
 
 #: ./portlets/subscriber.py:125
-msgid "Este portlet exibe o formulário de adição de assinante de uma newsletter."
+msgid "This portlet displays the subscriber add form of a newsletter."
 msgstr ""
 
 #: ./portlets/subscriber.py:17
-msgid "Título para o portlet."
+msgid "Title for the portlet."
 msgstr ""
 
 #: ./profiles/default/types/ENLIssue.xml
@@ -427,7 +427,7 @@ msgid "View"
 msgstr ""
 
 #: ./browser/subscribers.py:112
-msgid "Arquivo CSV possui uma especificação incorreta. Por favor corrija e tente novamente."
+msgid "Wrong specification of the CSV file. Please correct it and retry."
 msgstr ""
 
 #: ./browser/newsletter.py:30
@@ -681,3 +681,4 @@ msgstr "Não importou assinantes"
 #: ./browser/upload_csv.pt:105
 msgid "sucessfully_created_subscribers"
 msgstr "Assinantes criados com sucesso"
+

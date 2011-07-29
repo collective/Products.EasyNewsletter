@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Products.EasyNewsletter\n"
-"POT-Creation-Date: 2011-07-19 09:22+0000\n"
+"POT-Creation-Date: 2011-07-29 15:42+0000\n"
 "PO-Revision-Date: 2011-07-29 17:27+0100\n"
 "Last-Translator: Wim Boucquaert <wim@infrae.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,13 +11,9 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "Language-Code: nl\n"
 "Language-Name: Dutch\n"
-"X-Is-Fallback-For: nl-be nl-nl\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: EasyNewsletter\n"
-
-#: ./content/EasyNewsletter.py:126
-msgid "==================================<br />[[UNSUBSCRIBE]]"
-msgstr "==================================<br />[[UITSCHRIJVEN]]"
+"X-Is-Fallback-For: nl-be nl-nl\n"
 
 #: ./profiles/default/types/ENLSubscriber.xml
 #: ./profiles/default/types/ENLTemplate.xml
@@ -44,16 +40,15 @@ msgstr "Een nummer van een niewsbrief"
 msgid "Choose salutation..."
 msgstr "Kies aanspreking"
 
-#: ./content/EasyNewsletter.py:99
-msgid "Click here to unsubscribe"
-msgstr "Klik hier om uit te schrijven"
-
 #: ./browser/enl_subscribers_view.pt:42
 msgid "Company/Organization"
 msgstr "Bedrijf/Organisatie"
 
 #: ./profiles/default/types/ENLIssue.xml
 #: ./profiles/default/types/EasyNewsletter.xml
+msgid "Criteria"
+msgstr ""
+
 #: ./browser/upload_csv.pt:53
 msgid "Csv file"
 msgstr "CSV-bestand"
@@ -388,10 +383,6 @@ msgstr "Selecteer het CSV-bestand."
 msgid "Send"
 msgstr "Verzenden"
 
-#: ./content/EasyNewsletter.py:88
-msgid "Sir or Madam"
-msgstr "Mijnheer of mevrouw"
-
 #: ./browser/enl_subscribers_view.pt:43
 msgid "Source"
 msgstr "Bron"
@@ -450,10 +441,6 @@ msgstr "Dit e-mailadres is reeds geregisteerd."
 #: ./browser/registration.py:87
 msgid "Your email has been registered.                 A confirmation email was sent to your address. Please check                 your inbox and click on the link in the email in order to                 confirm your subscription."
 msgstr "Je e-mail werd geregistre≈erd. Een bevestigings-e-mail werd verzonden naar je e-mailadres. Gelieve je inbox te controleren en te klikken op de link in de e-mail om je registratie te bevstigen."
-
-#: ./content/EasyNewsletter.py:110
-msgid "[[SUBSCRIBER_SALUTATION]]<br />=================================="
-msgstr "[[ABONNEE_AANSPREKING]]<br />=================================="
 
 #. Default: "The footer will included in outgoing mails."
 #: ./content/ENLIssue.py:122
@@ -684,11 +671,6 @@ msgstr "Mevr."
 #: ./content/EasyNewsletter.py:142
 msgid "label_sendToAllPloneMembers"
 msgstr "Verstuur naar alle Plone leden"
-
-#. Default: "ms|Dear Ms."
-#: ./content/EasyNewsletter.py:73
-msgid "mr|Dear Mr."
-msgstr "mr|Beste Mr."
 
 #. Default: "Not imported subscribers"
 #: ./browser/upload_csv.pt:79
