@@ -16,7 +16,7 @@
 CATALOGNAME="EasyNewsletter"
 
 # List of languages
-LANGUAGES="en de fr it"
+LANGUAGES="en de fr it nl pt_BR"
 
 # Create locales folder structure for languages
 install -d locales
