@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Products.EasyNewsletter\n"
 "POT-Creation-Date: 2011-07-19 09:22+0000\n"
-"PO-Revision-Date: 2011-07-15 12:00+0000\n"
-"Last-Translator: Wim Boucquaert <wim.boucquaert@gmail.com>\n"
+"PO-Revision-Date: 2011-07-29 17:27+0100\n"
+"Last-Translator: Wim Boucquaert <wim@infrae.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -50,13 +50,10 @@ msgstr "Klik hier om uit te schrijven"
 
 #: ./browser/enl_subscribers_view.pt:42
 msgid "Company/Organization"
-msgstr "Bedrijf / Organisatie"
+msgstr "Bedrijf/Organisatie"
 
 #: ./profiles/default/types/ENLIssue.xml
 #: ./profiles/default/types/EasyNewsletter.xml
-msgid "Criteria"
-sgstr "Selectie-Criteria"
-
 #: ./browser/upload_csv.pt:53
 msgid "Csv file"
 msgstr "CSV-bestand"
@@ -702,3 +699,4 @@ msgstr "Niet geïmporteerde abonnees"
 #: ./browser/upload_csv.pt:105
 msgid "sucessfully_created_subscribers"
 msgstr "Abonnees met succes aangemaakt"
+
