@@ -12,7 +12,7 @@ Changelog
   [davilima6]
 
 - Add Dutch translation.
-  [WouterVH]
+  [WouterVH, wimbou]
 
 - Fix i18n-domain for GS-profiles files.
   [WouterVH]
