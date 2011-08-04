@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EasyNewsletter\n"
 "POT-Creation-Date: 2011-07-29 15:54+0000\n"
-"PO-Revision-Date: Thu May  4 12:51:56 2006\n"
+"PO-Revision-Date: 2011-08-04 16:21+0200\n"
 "Last-Translator: Wim Boucquaert - wimbou <wim.boucquaert@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -143,7 +143,7 @@ msgstr "Kies de gebruikers die deze nieuwsbrief opgestuurd krijgen. "
 #. Default: "Selected subscribers will be used as receivers of the newsletter."
 #: content/ENLNewsletter.py
 msgid "EasyNewsletter_help_receivers"
-msgstr ""
+msgstr "Geselecteerde abonnees zullen gebruikt worden als ontvangers van de nieuwsbrief."
 
 #: ../content/ENLSubscriber.py:28
 msgid "EasyNewsletter_help_salutation"
@@ -312,7 +312,7 @@ msgstr "Gebruikers die de nieuwsbrief ontvangen."
 #. Default: "Receivers"
 #: content/ENLNewsletter.py
 msgid "EasyNewsletter_label_receivers"
-msgstr ""
+msgstr "Ontvangers"
 
 #. Default: "Salutation"
 #: ../content/ENLSubscriber.py:26
@@ -537,12 +537,12 @@ msgstr "Deze tekst wordt getoond bovenaan de lijst van verstuurde nieuwsbrief-nu
 #. Default: "The default footer text. This is used as a default                     for new issues. You can use the placeholders                     [[SUBSCRIBER_SALUTATION]] and [[UNSUBSCRIBE]] here."
 #: ../content/EasyNewsletter.py:131
 msgid "description_text_footer"
-msgstr "Standaard voettekst. Dit wordt gebruikt voor nieuwe nummers. U kan volgende plaatshouders gebruiken: [[ABONNEE_AANSPREKING]] and [[UITSCHRIJVEN]]"
+msgstr "Standaard voettekst. Dit wordt gebruikt voor nieuwe nummers. U kan volgende plaatshouders gebruiken: [[SUBSCRIBER_SALUTATION]] and [[UNSUBSCRIBE]]"
 
 #. Default: "The default header text. This is used as a default                     for new issues. You can use the placeholders [[SUBSCRIBER_SALUTATION]] and [[UNSUBSCRIBE]] here."
 #: ../content/EasyNewsletter.py:117
 msgid "description_text_header"
-msgstr "Standaard hoofdingtekst. Dit wirdt beruikt als standaard voor de nieuwsbrief-nummers. U kan plaatshouders de [[ABONNEE_AANSPREKING]] en [[UITSCHRIJVEN]] gebruiken."
+msgstr "Standaard hoofdingtekst. Dit wirdt beruikt als standaard voor de nieuwsbrief-nummers. U kan plaatshouders de [[SUBSCRIBER_SALUTATION]] en [[UNSUBSCRIBE]] gebruiken."
 
 #. Default: "The main content of the mailing. You can use the topic                     criteria to collect content or put manual content in.                     This will included in outgoing mails."
 #: ../content/ENLIssue.py:52
@@ -676,7 +676,7 @@ msgstr "Absoluut pad naar de nieuwsbrief"
 #: ../content/ENLIssue.py:65
 #: ../content/EasyNewsletter.py:144
 msgid "help_sendToAllPloneMembers"
-msgstr ""
+msgstr "Indien aangevinkt zal de nieuwsbrief naar alle Plone leden verstuurd worden. Indien er abonnees zijn op de nieuwsbrief zullen deze sowieso de nieuwsbrief ontvangen."
 
 #. Default: "Issues"
 #: ../skins/EasyNewsletter/easynewsletter_view.pt:46
