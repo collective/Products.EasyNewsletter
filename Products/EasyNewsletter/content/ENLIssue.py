@@ -77,7 +77,7 @@ schema = atapi.Schema((
             label = _(u'EasyNewsletter_label_ploneReceiverMembers',
                 default=u'Plone Members to receive'),
             description = _(u'EasyNewsletter_help_ploneReceiverMembers',
-                default=u''),
+                default=u'Choose Plone Members which should receive the newsletter.'),
             i18n_domain = 'EasyNewsletter',
             size = 20,
         )
@@ -88,9 +88,9 @@ schema = atapi.Schema((
         default_method = "get_ploneReceiverGroups_defaults",
         widget = atapi.MultiSelectionWidget(
             label = _(u'EasyNewsletter_label_ploneReceiverGroups',
-                default=u'Plone Groups to receive'),
+                default=u'Plone Groups to receive the newsletter'),
             description = _(u'EasyNewsletter_help_ploneReceiverGroups',
-                default=u''),
+                default=u'Choose Plone Groups which members should receive the newsletter.'),
             i18n_domain = 'EasyNewsletter',
             size = 10,
         )

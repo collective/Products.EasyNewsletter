@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2011-07-29 15:42+0000\n"
+"POT-Creation-Date: 2011-08-08 11:49+0000\n"
 "PO-Revision-Date: 2011-07-17 09:05-0000\n"
 "Last-Translator: Davi Lima <davi@simplesconsultoria.com.br>\n"
 "Language-Team: Simples Consultoria <contato@simplesconsultoria.com.br>\n"
