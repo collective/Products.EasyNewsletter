@@ -29,14 +29,14 @@
                 Import
               </legend>
 
-              <p>The CSV file must contain the header and follow this format</p>
+              <p i18n:translate="">The CSV file must contain the header and follow this format</p>
               <table class="listing">
                   <thead>
                     <tr>
-                      <th>salutation</th>
-                      <th>fullname</th>
-                      <th>email</th>
-                      <th>organization</th>
+                      <th i18n:translate="">salutation</th>
+                      <th i18n:translate="">fullname</th>
+                      <th i18n:translate="">email</th>
+                      <th i18n:translate="">organization</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -81,11 +81,11 @@
             <table class="listing" tal:condition="fail">
                 <thead>
                     <tr>
-                        <th>Salutation</th>
-                        <th>Fullname</th>
-                        <th>Email</th>
-                        <th>Organization</th>
-                        <th>Reason for failure</th>
+                        <th i18n:translate="">Salutation</th>
+                        <th i18n:translate="">Fullname</th>
+                        <th i18n:translate="">Email</th>
+                        <th i18n:translate="">Organization</th>
+                        <th i18n:translate="">Reason for failure</th>
                     </tr>
                 </thead>
                 <tbody tal:repeat="item fail">
@@ -107,10 +107,10 @@
             <table class="listing" tal:condition="success">
                 <thead>
                     <tr>
-                        <th>Salutation</th>
-                        <th>Fullname</th>
-                        <th>Email</th>
-                        <th>Organization</th>
+                        <th i18n:translate="">Salutation</th>
+                        <th i18n:translate="">Fullname</th>
+                        <th i18n:translate="">Email</th>
+                        <th i18n:translate="">Organization</th>
                     </tr>
                 </thead>
                 <tbody tal:repeat="item success">

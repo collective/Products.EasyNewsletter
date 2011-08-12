@@ -40,7 +40,7 @@ schema = atapi.Schema((
         validators = ('isEmail', ),
         widget = atapi.StringWidget(
             label = _(u"EasyNewsletter_label_senderEmail",
-                default=u"Sender e-mail"),
+                default=u"Sender email"),
             description = _(u"EasyNewsletter_help_senderEmail",
                 default=u"Default for the sender address of the newsletters."),
             i18n_domain = 'EasyNewsletter',
@@ -62,9 +62,9 @@ schema = atapi.Schema((
         validators = ('isEmail', ),
         widget = atapi.StringWidget(
             label = _(u"EasyNewsletter_label_testEmail",
-                default=u"Test e-mail"),
+                default=u"Test email"),
             description = _(u"EasyNewsletter_help_testEmail",
-                default=u"Default for the test e-mail address."),
+                default=u"Default for the test email address."),
             i18n_domain='EasyNewsletter',
         ),
     ),

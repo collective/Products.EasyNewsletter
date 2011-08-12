@@ -36,8 +36,8 @@
 
             <table class="listing" summary="Subscriber Listing">
                 <tr>
-                    <th i18n:translate="">E-Mail</th>
-                    <th i18n:translate="">Salutation</th>                    
+                    <th i18n:translate="">Email</th>
+                    <th i18n:translate="">Salutation</th>
                     <th i18n:translate="">Name</th>
                     <th i18n:translate="">Company/Organization</th>
                     <th i18n:translate="">Source</th>
@@ -50,25 +50,25 @@
                     <td>
                         <tal:if condition="isPlone">
                             <a tal:condition="isPlone"
-                               tal:attributes="href string:${subscriber/getURL|nothing}" 
+                               tal:attributes="href string:${subscriber/getURL|nothing}"
                                tal:content="subscriber/email">
                                  email </a>
-                        </tal:if>                         
+                        </tal:if>
                         <span tal:condition="not: isPlone" tal:content="subscriber/email" />
                     </td>
-                    <td i18n:translate="" tal:content="subscriber/salutation" />                    
+                    <td i18n:translate="" tal:content="subscriber/salutation" />
                     <td i18n:translate="" tal:content="subscriber/fullname" />
                     <td i18n:translate="" tal:content="subscriber/organization|nothing"></td>
                     <td i18n:translate="" tal:content="subscriber/source|nothing"></td>
                     <td>
-                        <a href="#" 
-                           tal:condition="isPlone" 
+                        <a href="#"
+                           tal:condition="isPlone"
                            tal:attributes="href string:${subscriber/getURL|nothing}/delete_confirmation">
                            <img tal:attributes="alt string:Delete subscriber;
                                                 title string:Delete subscriber;
                                                 src string:delete_icon.gif" />
                         </a>
-                    </td> 
+                    </td>
                 </tr>
                 </tal:subscriber>
             </table>
@@ -79,13 +79,13 @@
                tal:attributes="href string:${context/absolute_url}/@@upload_csv"
                i18n:translate="easynewsletter_label_import_subscribers">Import subscribers</a>
         </p>
-        
+
         <p>
             <a href=""
                tal:attributes="href string:${context/absolute_url}/@@download_csv"
                i18n:translate="easynewsletter_label_export_subscribers">Export subscribers</a>
         </p>
-                   
+
     </tal:main-macro>
 </metal:main>
 

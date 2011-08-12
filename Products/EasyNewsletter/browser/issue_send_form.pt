@@ -15,7 +15,7 @@
      tal:attributes="href context/aq_parent/absolute_url"
      i18n:translate="easynewsletter_backtonewsletter_label">
   Back to newsletter
-  </a>  
+  </a>
 
   <br/>
   <form tal:attributes="action string:${context/absolute_url}/send-issue"
@@ -24,74 +24,74 @@
         method="post"
         id="issue_send_form">
 
-    <label for="sender name" 
-           i18n:translate="EasyNewsletter_label_senderName"> 
+    <label for="sender name"
+           i18n:translate="EasyNewsletter_label_senderName">
            Sender name
-    </label> 
+    </label>
 
-    <div i18n:translate="EasyNewsletter_help_senderNameForm" 
+    <div i18n:translate="EasyNewsletter_help_senderNameForm"
          class="formHelp">
-         Sender name of the newsletter e-mail.
+         Sender name of the newsletter email.
          If you let this field empty, the default sender name will be used.
     </div>
 
     <input type="text"
            name="sender_name"
            size="40"
-           tal:attributes="value python:context.REQUEST.get('sender_name', context.aq_parent.getSenderName())" /> 
-           
-    <br/><br/>           
+           tal:attributes="value python:context.REQUEST.get('sender_name', context.aq_parent.getSenderName())" />
 
-    <label for="sender_email" 
-           i18n:translate="EasyNewsletter_label_senderEmail"> 
-           Sender e-mail
-    </label> 
+    <br/><br/>
 
-    <div i18n:translate="EasyNewsletter_help_senderEmailForm" 
-         class="formHelp"> 
-         Sender address of the newsletter e-mail. 
-         If you let this field empty, the default sender e-mail address will be used.
+    <label for="sender_email"
+           i18n:translate="EasyNewsletter_label_senderEmail">
+           Sender email
+    </label>
+
+    <div i18n:translate="EasyNewsletter_help_senderEmailForm"
+         class="formHelp">
+         Sender address of the newsletter email.
+         If you let this field empty, the default sender email address will be used.
     </div>
 
     <input type="text"
            name="sender_email"
            size="40"
-           tal:attributes="value python:context.REQUEST.get('sender_email', context.aq_parent.getSenderEmail())" /> 
-           
-    <br/><br/>           
+           tal:attributes="value python:context.REQUEST.get('sender_email', context.aq_parent.getSenderEmail())" />
 
-    <label for="subject" 
-           i18n:translate="EasyNewsletter_label_subject"> 
+    <br/><br/>
+
+    <label for="subject"
+           i18n:translate="EasyNewsletter_label_subject">
            Subject
-    </label> 
+    </label>
 
-    <div i18n:translate="EasyNewsletter_help_subject" 
-         class="formHelp"> 
-         Subject of the newsletter e-mail.
-         If you let this field empty, the title of the newsletter will be used. 
+    <div i18n:translate="EasyNewsletter_help_subject"
+         class="formHelp">
+         Subject of the newsletter email.
+         If you let this field empty, the title of the newsletter will be used.
     </div>
 
     <input type="text"
            name="subject"
            size="40"
-           tal:attributes="value python:context.REQUEST.get('subject', context.Title())" /> 
-           
-    <br/><br/>           
+           tal:attributes="value python:context.REQUEST.get('subject', context.Title())" />
 
-    <label for="test_receiver" 
-           i18n:translate="EasyNewsletter_label_testreceiver"> 
-           Test e-mail
-    </label> 
+    <br/><br/>
 
-    <div i18n:translate="EasyNewsletter_help_testreceiverForm" 
-         class="formHelp"> 
-         Test e-mail. If you let this field empty, the default test e-mail address will be used. 
+    <label for="test_receiver"
+           i18n:translate="EasyNewsletter_label_testreceiver">
+           Test email
+    </label>
+
+    <div i18n:translate="EasyNewsletter_help_testreceiverForm"
+         class="formHelp">
+         Test email. If you let this field empty, the default test email address will be used.
     </div>
 
     <input type="text"
            name="test_receiver"
            size="40"
-           tal:attributes="value python:context.REQUEST.get('test_receiver', context.aq_parent.getTestEmail())" /> 
+           tal:attributes="value python:context.REQUEST.get('test_receiver', context.aq_parent.getTestEmail())" />
 
     <input type="submit"
            class="context"
@@ -100,19 +100,19 @@
            i18n:attributes="value easynewsletter_test_button;"/><br />
     <br />
     <p tal:condition="not:sent">
-      <input 
-            onclick="document.getElementById('form_send').disabled=!document.getElementById('confirm_send').checked;" 
-            id="confirm_send" 
-            name="confirm_send" 
-            value="off" 
-            type="checkbox"> 
-      <label for="confirm_send">Enable sendbutton</label><br />
-    
+      <input
+            onclick="document.getElementById('form_send').disabled=!document.getElementById('confirm_send').checked;"
+            id="confirm_send"
+            name="confirm_send"
+            value="off"
+            type="checkbox">
+      <label for="confirm_send" i18n:translate="EasyNewsletter_enablesendbutton_label">Enable sendbutton</label><br />
+
     <input tal:condition="not:sent"
            id="form_send"
            disabled="disabled"
            class="send"
-           type="submit" 
+           type="submit"
            name="send"
            value="Send Newsletter"
            i18n:attributes="value easynewsletter_send_button;"/>
@@ -120,11 +120,11 @@
     <div tal:condition="sent"
           i18n:translate="easynewsletter_newslettersent_label">
       The newsletter was already sent.
-    </div>   
+    </div>
   </form>
 
 
-    
+
 </div>
 
 </body>

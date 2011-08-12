@@ -20,9 +20,9 @@ MESSAGE_CODE = {
     "email_added": "Your email has been registered. A confirmation email was \
         sent to your address. Please check your inbox and click on the link in \
         the email in order to confirm your subscription.",
-    "invalid_email": "Please enter a valid e-mail address.",
-    "email_exists": "Your e-mail address is already registered.",
-    "invalid_hashkey": "Please enter a valid e-mail address.",
+    "invalid_email": "Please enter a valid email address.",
+    "email_exists": "Your email address is already registered.",
+    "invalid_hashkey": "Please enter a valid email address.",
     "subscription_confirmed": "Your subscription was successfully confirmed.",
     }
 
