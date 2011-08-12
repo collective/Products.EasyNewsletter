@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Products.EasyNewsletter\n"
-"POT-Creation-Date: 2011-08-12 13:04+0000\n"
+"POT-Creation-Date: 2011-08-12 14:29+0000\n"
 "PO-Revision-Date: 2011-08-10 15:41+0100\n"
 "Last-Translator: Wim Boucquaert - wimbou <wim.boucquaert@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -372,8 +372,8 @@ msgid "Name"
 msgstr "Naam"
 
 #: ./portlets/subscriber.py:79
-msgid "Newsletter Subscriber"
-msgstr "Nieuwsbrief abonnee"
+msgid "Newsletter subscriber portlet"
+msgstr "Nieuwsbrief abonneren portlet"
 
 #: ./browser/subscribers.py:104
 msgid "No file specified."
@@ -442,6 +442,14 @@ msgstr "Het CSV bestand dient deze hoofding te bevatten en dient de structuur te
 #: ./browser/issue.py:23
 msgid "The issue has been send."
 msgstr "Het nummer is verzonden."
+
+#: ./browser/subscribers.py:119
+msgid "The number of items in the line is not correct.                         It should be 4. Check your CSV file."
+msgstr "Het aantal kolommen per regel is niet correct. Controleer het CSV bestand op 4 kolommen."
+
+#: ./browser/subscribers.py:130
+msgid "This email address is already registered."
+msgstr "Dit e-mailadres is reeds geregistreerd."
 
 #: ./portlets/subscriber.py:125
 msgid "This portlet displays the subscriber add form of a newsletter."

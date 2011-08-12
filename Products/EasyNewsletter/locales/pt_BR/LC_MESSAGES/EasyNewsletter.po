@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2011-08-12 13:04+0000\n"
+"POT-Creation-Date: 2011-08-12 14:29+0000\n"
 "PO-Revision-Date: 2011-07-17 09:05-0000\n"
 "Last-Translator: Davi Lima <davi@simplesconsultoria.com.br>\n"
 "Language-Team: Simples Consultoria <contato@simplesconsultoria.com.br>\n"
@@ -372,7 +372,7 @@ msgid "Name"
 msgstr ""
 
 #: ./portlets/subscriber.py:79
-msgid "Newsletter Subscriber"
+msgid "Newsletter subscriber portlet"
 msgstr ""
 
 #: ./browser/subscribers.py:104
@@ -441,6 +441,14 @@ msgstr ""
 
 #: ./browser/issue.py:23
 msgid "The issue has been send."
+msgstr ""
+
+#: ./browser/subscribers.py:119
+msgid "The number of items in the line is not correct.                         It should be 4. Check your CSV file."
+msgstr ""
+
+#: ./browser/subscribers.py:130
+msgid "This email address is already registered."
 msgstr ""
 
 #: ./portlets/subscriber.py:125
