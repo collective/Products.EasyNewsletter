@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Products.EasyNewsletter\n"
-"POT-Creation-Date: 2011-08-10 17:30+0000\n"
+"POT-Creation-Date: 2011-08-12 08:59+0000\n"
 "PO-Revision-Date: 2011-08-10 15:41+0100\n"
 "Last-Translator: Wim Boucquaert - wimbou <wim.boucquaert@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -65,6 +65,11 @@ msgstr "EasyNewsletter"
 #: ./content/EasyNewsletter.py:230
 msgid "EasyNewsletter_description_subscriber_confirmation_mail_subject"
 msgstr "Tekst gebruikt voor het bestigings-e-mail onderwerp. Je kan deze text aanpassen maar deze zou de plaatshouder ${portal_url} moeten bevatten!"
+
+#. Default: "Enable sendbutton"
+#: ./browser/issue_send_form.pt:109
+msgid "EasyNewsletter_enablesendbutton_label"
+msgstr ""
 
 #: ./content/ENLIssue.py:133
 msgid "EasyNewsletter_help_acquireCriteria"
@@ -316,6 +321,7 @@ msgid "Edit Newsletter portlet"
 msgstr "Wijzigen nieuwsbrief-portlet"
 
 #: ./browser/enl_subscribers_view.pt:39
+#: ./browser/upload_csv.pt:86
 msgid "Email"
 msgstr "E-mail"
 
@@ -323,6 +329,10 @@ msgstr "E-mail"
 #: ./profiles/default/types/ENLTemplate.xml
 msgid "External Edit"
 msgstr "Extern editeren"
+
+#: ./browser/upload_csv.pt:85
+msgid "Fullname"
+msgstr ""
 
 #: ./profiles/default/types/ENLSubscriber.xml
 #: ./profiles/default/types/ENLTemplate.xml
@@ -357,9 +367,17 @@ msgstr "Nieuwsbrief abonnee"
 msgid "No file specified."
 msgstr "Geen bestand opgegeven."
 
+#: ./browser/upload_csv.pt:87
+msgid "Organization"
+msgstr ""
+
 #: ./browser/registration.py:49
 msgid "Please enter a valid email address."
 msgstr "Gelieve een geldig e-mailadres in te vullen of schrijf je opnieuw in om een nieuwe bevestigings-e-mail te ontvangen."
+
+#: ./browser/upload_csv.pt:88
+msgid "Reason for failure"
+msgstr ""
 
 #: ./profiles/default/types/ENLIssue.xml
 #: ./profiles/default/types/ENLSubscriber.xml
@@ -372,6 +390,7 @@ msgid "Refresh"
 msgstr "Verversen"
 
 #: ./browser/enl_subscribers_view.pt:40
+#: ./browser/upload_csv.pt:84
 msgid "Salutation"
 msgstr "Aanspreking"
 
@@ -408,6 +427,10 @@ msgstr "Sjabloon"
 msgid "Templates"
 msgstr "Sjablonen"
 
+#: ./browser/upload_csv.pt:32
+msgid "The CSV file must contain the header and follow this format"
+msgstr ""
+
 #: ./browser/issue.py:23
 msgid "The issue has been send."
 msgstr "Het nummer is verstuurd."
@@ -442,9 +465,6 @@ msgstr "Je e-mailadres is reeds geregistreerd."
 msgid "Your email has been registered.                 A confirmation email was sent to your address. Please check                 your inbox and click on the link in the email in order to                 confirm your subscription."
 msgstr "Je e-mail werd geregistreerd. Een bevestigings-e-mail werd verzonden naar je e-mailadres. Gelieve je inbox te controleren en te klikken op de link in de e-mail om je registratie te bevestigen."
 
-msgid "Your subscription was successfully confirmed."
-msgstr "Je inschrijving werd met succes bevestigd."
-
 #. Default: "The footer will included in outgoing mails."
 #: ./content/ENLIssue.py:122
 msgid "description_help_footer"
@@ -454,6 +474,11 @@ msgstr "Deze voettekst wordt in de e-mail opgenomen."
 #: ./content/ENLIssue.py:108
 msgid "description_help_header"
 msgstr "Deze hoofding wordt in de e-mail opgenomen."
+
+#. Default: "This folder has no visible items. To add content, press the add button, or paste content from another location."
+#: ./skins/EasyNewsletter/enl_subtopics.pt:57
+msgid "description_no_visible_items_add_paste"
+msgstr ""
 
 #. Default: "Text used for confirmation email. You can customize                     the text, but it should include the placeholders:                     ${portal_url}, ${subscriber_email} and ${confirmation_url}!"
 #: ./content/EasyNewsletter.py:245
@@ -578,6 +603,19 @@ msgstr "Sjablonen"
 msgid "easynewsletter_test_button"
 msgstr "Test nieuwsbrief"
 
+#: ./browser/upload_csv.pt:38
+msgid "email"
+msgstr ""
+
+#: ./browser/upload_csv.pt:37
+msgid "fullname"
+msgstr ""
+
+#. Default: "Up one level"
+#: ./skins/EasyNewsletter/enl_subtopics.pt:40
+msgid "go_to_parent_url"
+msgstr ""
+
 #. Default: "This is a Zope Page Template file that is used for                      rendering the newsletter mail."
 #: ./content/ENLTemplate.py:18
 msgid "help_body_zpt"
@@ -669,22 +707,82 @@ msgstr "Mr."
 msgid "label_salutation_ms"
 msgstr "Mevr."
 
+#. Default: "Select all items"
+#: ./skins/EasyNewsletter/enl_subtopics.pt:86
+msgid "label_select_all_items"
+msgstr ""
+
 #. Default: "Send to all Plone members"
 #: ./content/ENLIssue.py:63
 #: ./content/EasyNewsletter.py:142
 msgid "label_sendToAllPloneMembers"
 msgstr "Verstuur naar alle Plone leden"
 
+#. Default: "Modified"
+#: ./skins/EasyNewsletter/enl_subtopics.pt:105
+msgid "listingheader_modified"
+msgstr ""
+
+#. Default: "Order"
+#: ./skins/EasyNewsletter/enl_subtopics.pt:112
+msgid "listingheader_order"
+msgstr ""
+
+#. Default: "Size"
+#: ./skins/EasyNewsletter/enl_subtopics.pt:102
+msgid "listingheader_size"
+msgstr ""
+
+#. Default: "State"
+#: ./skins/EasyNewsletter/enl_subtopics.pt:108
+msgid "listingheader_status"
+msgstr ""
+
+#. Default: "Title"
+#: ./skins/EasyNewsletter/enl_subtopics.pt:98
+msgid "listingheader_title"
+msgstr ""
+
 #. Default: "Not imported subscribers"
 #: ./browser/upload_csv.pt:79
 msgid "not_created_subscribers"
 msgstr "Niet geïmporteerde abonnees"
 
-msgid "subscription_confirmed"
-msgstr "Je inschrijving werd met succes bevestigd."
+#: ./browser/upload_csv.pt:39
+msgid "organization"
+msgstr ""
+
+#: ./browser/upload_csv.pt:36
+msgid "salutation"
+msgstr ""
+
+#. Default: "Subtopics"
+#: ./skins/EasyNewsletter/enl_subtopics.pt:34
+msgid "sub_topics_label"
+msgstr ""
 
 #. Default: "Sucessfully created Subscribers"
 #: ./browser/upload_csv.pt:105
 msgid "sucessfully_created_subscribers"
 msgstr "Abonnees met succes aangemaakt"
+
+#. Default: "Content listing"
+#: ./skins/EasyNewsletter/enl_subtopics.pt:78
+msgid "summary_content_listing"
+msgstr ""
+
+#. Default: "expired"
+#: ./skins/EasyNewsletter/enl_subtopics.pt:188
+msgid "time_expired"
+msgstr ""
+
+#. Default: "Move item down"
+#: ./skins/EasyNewsletter/enl_subtopics.pt:221
+msgid "title_move_item_down"
+msgstr ""
+
+#. Default: "Move item up"
+#: ./skins/EasyNewsletter/enl_subtopics.pt:214
+msgid "title_move_item_up"
+msgstr ""
 
