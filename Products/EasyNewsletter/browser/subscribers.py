@@ -116,9 +116,10 @@ class UploadCSV(BrowserView):
         for subscriber in reader:
             # Check the length of the line
             if len(subscriber) != 4:
+                msg = _('The number of items in the line is not correct. \
+                        It should be 4. Check your CSV file.')
                 fail.append(
-                    {'failure': 'The number of items in the line is not correct. \
-                        It should be 4. Check your CSV file.'})
+                    {'failure': msg})
             else:
                 salutation = subscriber[0]
                 fullname = subscriber[1]
@@ -126,12 +127,13 @@ class UploadCSV(BrowserView):
                 organization = subscriber[3]
                 id = plone_utils.normalizeString(email)
                 if id in existing:
+                    msg = _('This email address is already registered.')
                     fail.append(
                         {'salutation': salutation,
                          'fullname': fullname,
                          'email': email,
                          'organization': organization,
-                         'failure': 'This email address is already registered.'})
+                         'failure': msg})
                 else:
                     title = email + " - " + fullname
                     try:
