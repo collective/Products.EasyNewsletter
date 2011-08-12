@@ -46,16 +46,16 @@ class SubscriberView(BrowserView):
         newsletter_container = self.portal.restrictedTraverse(path_to_easynewsletter)
         messages = IStatusMessage(self.request)
         if not subscriber:
-            messages.addStatusMessage(_("Please enter a valid e-mail address."), "error")
+            messages.addStatusMessage(_("Please enter a valid email address."), "error")
             return self.request.response.redirect(newsletter_container.absolute_url())
         from Products.validation.validators.BaseValidators import EMAIL_RE
         EMAIL_RE = "^" + EMAIL_RE
         mo = re.search(EMAIL_RE, subscriber)
         if not mo:
-            messages.addStatusMessage(_("Please enter a valid e-mail address."), "error")
+            messages.addStatusMessage(_("Please enter a valid email address."), "error")
             return self.request.response.redirect(newsletter_container.absolute_url())
         if subscriber in newsletter_container.objectIds():
-            messages.addStatusMessage(_("Your e-mail address is already registered."), "error")
+            messages.addStatusMessage(_("Your email address is already registered."), "error")
             return self.request.response.redirect(newsletter_container.absolute_url())
         subscriber_data = {}
         subscriber_data["subscriber"] = subscriber
@@ -104,9 +104,10 @@ class SubscriberView(BrowserView):
                 messages.addStatusMessage(MESSAGE_CODE[error_code])
             else:
                 messages.addStatusMessage(MESSAGE_CODE[error_code], "error")
+            return self.request.response.redirect(easynewsletter.absolute_url())
         else:
-            messages.addStatusMessage(_("Please enter a valid e-mail address."), "error")
-        return self.request.response.redirect(easynewsletter.absolute_url())
+            messages.addStatusMessage(_("Please enter a valid email address."), "error")
+        return self.request.response.redirect(self.portal.absolute_url())
 
     def _requestReset(self, userid):
         """Ask the system to start the password reset procedure for
