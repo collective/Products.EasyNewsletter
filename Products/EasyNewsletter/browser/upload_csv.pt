@@ -123,8 +123,11 @@
                 </tbody>
             </table>
             <p tal:condition="success"
-               tal:define="count python:len(success)"            
-               tal:content="string: ${count} import(s) successful." />
+               i18n:translate="">            
+               <span tal:define="count python:len(success)"
+                     tal:content="string: ${count}"
+                     i18n:name="count">Number</span> import(s) successful. 
+            </p>
         </div>
 
     </tal:main-macro>

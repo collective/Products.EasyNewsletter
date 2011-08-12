@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2011-08-12 08:59+0000\n"
+"POT-Creation-Date: 2011-08-12 12:38+0000\n"
 "PO-Revision-Date: 2011-07-17 09:05-0000\n"
 "Last-Translator: Davi Lima <davi@simplesconsultoria.com.br>\n"
 "Language-Team: Simples Consultoria <contato@simplesconsultoria.com.br>\n"
@@ -14,6 +14,10 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: EasyNewsletter\n"
 "X-Poedit-Country: BRAZIL\n"
+
+#: ./browser/upload_csv.pt:127
+msgid "${count} import(s) successful."
+msgstr ""
 
 #: ./profiles/default/types/ENLSubscriber.xml
 #: ./profiles/default/types/ENLTemplate.xml
@@ -51,7 +55,7 @@ msgstr "Critérios"
 
 #: ./browser/upload_csv.pt:53
 msgid "Csv file"
-msgstr "Arquivo CSV"
+msgstr ""
 
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "Drafts"
@@ -347,6 +351,10 @@ msgstr ""
 msgid "Issue"
 msgstr ""
 
+#: ./profiles/default/types/ENLIssue.xml
+msgid "Make sent"
+msgstr ""
+
 #: ./portlets/subscriber.pt:27
 msgid "Mr."
 msgstr ""
@@ -396,11 +404,7 @@ msgstr "Saudação"
 
 #: ./browser/upload_csv.pt:54
 msgid "Select your CSV file here."
-msgstr "Escolha seu arquivo CSV aqui."
-
-#: ./profiles/default/types/ENLIssue.xml
-msgid "Send"
-msgstr "Enviar"
+msgstr ""
 
 #: ./browser/enl_subscribers_view.pt:43
 msgid "Source"
@@ -746,7 +750,7 @@ msgstr ""
 #. Default: "Not imported subscribers"
 #: ./browser/upload_csv.pt:79
 msgid "not_created_subscribers"
-msgstr "Não importou assinantes"
+msgstr ""
 
 #: ./browser/upload_csv.pt:39
 msgid "organization"
@@ -764,7 +768,7 @@ msgstr ""
 #. Default: "Sucessfully created Subscribers"
 #: ./browser/upload_csv.pt:105
 msgid "sucessfully_created_subscribers"
-msgstr "Assinantes criados com sucesso"
+msgstr ""
 
 #. Default: "Content listing"
 #: ./skins/EasyNewsletter/enl_subtopics.pt:78

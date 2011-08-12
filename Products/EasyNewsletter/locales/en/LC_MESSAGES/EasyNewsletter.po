@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-08-12 08:59+0000\n"
+"POT-Creation-Date: 2011-08-12 12:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,6 +13,10 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
+
+#: ./browser/upload_csv.pt:127
+msgid "${count} import(s) successful."
+msgstr ""
 
 #: ./profiles/default/types/ENLSubscriber.xml
 #: ./profiles/default/types/ENLTemplate.xml
@@ -346,6 +350,10 @@ msgstr ""
 msgid "Issue"
 msgstr ""
 
+#: ./profiles/default/types/ENLIssue.xml
+msgid "Make sent"
+msgstr ""
+
 #: ./portlets/subscriber.pt:27
 msgid "Mr."
 msgstr ""
@@ -395,10 +403,6 @@ msgstr ""
 
 #: ./browser/upload_csv.pt:54
 msgid "Select your CSV file here."
-msgstr ""
-
-#: ./profiles/default/types/ENLIssue.xml
-msgid "Send"
 msgstr ""
 
 #: ./browser/enl_subscribers_view.pt:43
