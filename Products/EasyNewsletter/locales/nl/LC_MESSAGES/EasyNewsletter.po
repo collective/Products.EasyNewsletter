@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Products.EasyNewsletter\n"
-"POT-Creation-Date: 2011-08-12 12:38+0000\n"
+"POT-Creation-Date: 2011-08-12 12:53+0000\n"
 "PO-Revision-Date: 2011-08-10 15:41+0100\n"
 "Last-Translator: Wim Boucquaert - wimbou <wim.boucquaert@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -73,7 +73,7 @@ msgstr "Tekst gebruikt voor het bestigings-e-mail onderwerp. Je kan deze text aa
 #. Default: "Enable sendbutton"
 #: ./browser/issue_send_form.pt:109
 msgid "EasyNewsletter_enablesendbutton_label"
-msgstr "Verstuur knop activeren"
+msgstr "Verzend knop activeren"
 
 #: ./content/ENLIssue.py:133
 msgid "EasyNewsletter_help_acquireCriteria"
@@ -135,7 +135,7 @@ msgstr "Standaard e-mailadres van de afzender van de nieuwsbrief"
 #. Default: "Sender address of the newsletter email. If you let this field empty, the default sender email address will be used."
 #: ./browser/issue_send_form.pt:50
 msgid "EasyNewsletter_help_senderEmailForm"
-msgstr "E-mailadres waarmee de nieuwsbrief verstuurd wordt. Indien leeg, dan wordt de standaard website-instelling gebruikt."
+msgstr "E-mailadres waarmee de nieuwsbrief verzonden wordt. Indien leeg, dan wordt de standaard website-instelling gebruikt."
 
 #. Default: "Default for the sender name of the newsletters."
 #: ./content/EasyNewsletter.py:54
@@ -437,7 +437,7 @@ msgstr "Het CSV bestand dient deze hoofding te bevatten en dient de structuur te
 
 #: ./browser/issue.py:23
 msgid "The issue has been send."
-msgstr "Het nummer is verstuurd."
+msgstr "Het nummer is verzonden."
 
 #: ./portlets/subscriber.py:125
 msgid "This portlet displays the subscriber add form of a newsletter."
@@ -492,7 +492,7 @@ msgstr "Tekst voor de bevestigings-e-mail. U kan deze tekst aanpassen, maar moet
 #. Default: "This is used in the frontpage of EasyNewsletter on top of Issue archive list."
 #: ./content/EasyNewsletter.py:257
 msgid "description_text"
-msgstr "Deze tekst wordt getoond bovenaan de lijst van verstuurde nieuwsbrief-nummers."
+msgstr "Deze tekst wordt getoond bovenaan de lijst van verzonden nieuwsbrief-nummers."
 
 #. Default: "The default footer text. This is used as a default                     for new issues. You can use the placeholders                     [[SUBSCRIBER_SALUTATION]] and [[UNSUBSCRIBE]] here."
 #: ./content/EasyNewsletter.py:131
@@ -559,7 +559,7 @@ msgstr "Abonnees importeren"
 #. Default: "The newsletter was already sent."
 #: ./browser/issue_send_form.pt:120
 msgid "easynewsletter_newslettersent_label"
-msgstr "De nieuwsbrief is reeds verstuurd."
+msgstr "De nieuwsbrief is reeds verzonden."
 
 #. Default: "There are no issues."
 #: ./skins/EasyNewsletter/easynewsletter_view.pt:53
@@ -584,12 +584,12 @@ msgstr "Er zijn geen sjablonen."
 #. Default: "Send Newsletter"
 #: ./browser/issue_send_form.pt:111
 msgid "easynewsletter_send_button"
-msgstr "Verstuur nieuwsbrief"
+msgstr "Verzend nieuwsbrief"
 
 #. Default: "Send Issue"
 #: ./browser/issue_send_form.pt:9
 msgid "easynewsletter_sendnewsletter_label"
-msgstr "Verstuur nummer"
+msgstr "Verzend nummer"
 
 #. Default: "Subscribers"
 #: ./browser/enl_subscribers_view.pt:20
@@ -649,7 +649,7 @@ msgstr "Absoluut pad naar de nieuwsbrief"
 #: ./content/ENLIssue.py:65
 #: ./content/EasyNewsletter.py:144
 msgid "help_sendToAllPloneMembers"
-msgstr "Indien aangevinkt zal de nieuwsbrief naar alle Plone leden verstuurd worden. Indien er abonnees zijn op de nieuwsbrief zullen deze sowieso de nieuwsbrief ontvangen."
+msgstr "Indien aangevinkt zal de nieuwsbrief naar alle Plone leden verzonden worden. Indien er abonnees zijn op de nieuwsbrief zullen deze sowieso de nieuwsbrief ontvangen."
 
 #. Default: "Issues"
 #: ./skins/EasyNewsletter/easynewsletter_view.pt:46
@@ -720,7 +720,7 @@ msgstr "Selecteer alle items"
 #: ./content/ENLIssue.py:63
 #: ./content/EasyNewsletter.py:142
 msgid "label_sendToAllPloneMembers"
-msgstr "Verstuur naar alle Plone leden"
+msgstr "Verzend naar alle Plone leden"
 
 #. Default: "Modified"
 #: ./skins/EasyNewsletter/enl_subtopics.pt:105
