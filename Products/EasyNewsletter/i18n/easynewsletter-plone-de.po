@@ -23,7 +23,7 @@ msgstr "Archiv"
 msgid "Drafts"
 msgstr "Entwürfe"
 
-msgid "Please enter a valid e-mail address."
+msgid "Please enter a valid email address."
 msgstr "Bitte geben Sie eine gültige E-Mail-Adresse ein."
 
 msgid "Receivers"
@@ -47,10 +47,10 @@ msgstr "Schablonen"
 msgid "The Newsletter has been send."
 msgstr "Der Newsletter wurde versendet."
 
-msgid "Your e-mail address is already registered."
+msgid "Your email address is already registered."
 msgstr "Ihre E-Mail-Adresse ist bereits registriert."
 
-msgid "Your e-mail has been added. Thanks for your interest."
+msgid "Your email has been added. Thanks for your interest."
 msgstr "Ihre E-Mail-Adresse wurde hinzugefügt. Vielen Dank für Ihr Interesse!"
 
 msgid "draft"

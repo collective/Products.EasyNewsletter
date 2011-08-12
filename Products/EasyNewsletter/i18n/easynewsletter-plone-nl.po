@@ -17,6 +17,45 @@ msgstr ""
 "Domain: plone\n"
 "X-Is-Fallback-For: nl-be nl-nl\n"
 
+msgid "The Newsletter has been send."
+msgstr "De nieuwsbrief werd verzonden."
+
+msgid "Your email has been added. Thanks for your interest."
+msgstr "Je e-mailadres werd toegevoegd. Bedankt voor je interesse."
+
+msgid "Please enter a valid email address."
+msgstr "Gelieve een geldig e-mailadres in te vullen"
+
+msgid "Subscriber"
+msgstr "Abonnee"
+
+msgid "Receivers"
+msgstr "Ontvangers"
+
+msgid "Templates"
+msgstr ""
+
+msgid "Template"
+msgstr ""
+
+msgid "Drafts"
+msgstr "Kladversies"
+
+msgid "make sent"
+msgstr "verzonden maken"
+
+msgid "make draft"
+msgstr "klad maken"
+
+msgid "sent"
+msgstr "verzonden"
+
+msgid "draft"
+msgstr "klad"
+
+msgid "Archive"
+msgstr "Archief"
+
 #: ../browser/newsletter.py:22
 msgid "An error occured"
 msgstr "Er is een fout opgetreden."
@@ -50,7 +89,7 @@ msgstr "Verzenden"
 
 #: ../browser/enl_subscribers_view.pt:43
 msgid "Source"
-msgstr "i18n folder Bron"
+msgstr "Bron"
 
 #: ../profiles/default/types/EasyNewsletter.xml
 msgid "Subscribers"

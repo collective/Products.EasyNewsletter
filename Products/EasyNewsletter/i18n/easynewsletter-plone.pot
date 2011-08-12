@@ -13,7 +13,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "Language-Code: en\n"
 "Language-Name: English\n"
-"Preferred-Encodings: latin1 utf-8\n"
+"Preferred-Encodings: utf-8 latin1\n"
 "Domain: plone\n"
 
 msgid "The Newsletter has been send."
@@ -22,13 +22,13 @@ msgstr ""
 msgid "An error occured."
 msgstr ""
 
-msgid "Your e-mail has been added. Thanks for your interest."
+msgid "Your email has been added. Thanks for your interest."
 msgstr ""
 
-msgid "Please enter a valid e-mail address."
+msgid "Please enter a valid email address."
 msgstr ""
 
-msgid "Your e-mail address is already registered."
+msgid "Your email address is already registered."
 msgstr ""
 
 msgid "Subscriber"
