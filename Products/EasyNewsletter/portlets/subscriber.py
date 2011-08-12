@@ -76,7 +76,7 @@ class Assignment(base.Assignment):
     def title(self):
         """
         """
-        return _(u"Newsletter Subscriber")
+        return _(u"Newsletter subscriber portlet")
 
 
 class Renderer(base.Renderer):

@@ -4,7 +4,7 @@
 
   <portlet 
     addview="portlets.Subscriber"
-    title="Newsletter Subscriber"
+    title="Newsletter subscriber portlet"
     description="Portlet to add subscribers." />
 
 </portlets>
