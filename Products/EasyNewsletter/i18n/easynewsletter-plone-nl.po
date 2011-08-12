@@ -53,6 +53,12 @@ msgstr "verzonden"
 msgid "draft"
 msgstr "klad"
 
+msgid "Sent"
+msgstr "Verzonden"
+
+msgid "Draft"
+msgstr "Kladversie"
+
 msgid "Archive"
 msgstr "Archief"
 
