@@ -41,11 +41,11 @@ msgstr ""
 msgid "Drafts"
 msgstr "Kladversies"
 
-msgid "make sent"
-msgstr "verzonden maken"
+msgid "Make sent"
+msgstr "Verzonden maken"
 
-msgid "make draft"
-msgstr "klad maken"
+msgid "Make draft"
+msgstr "Klad maken"
 
 msgid "sent"
 msgstr "verzonden"

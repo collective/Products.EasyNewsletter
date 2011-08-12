@@ -47,7 +47,7 @@
     visible="True" i18n:attributes="title">
   <permission value="Change portal topics"/>
  </action>
- <action title="Send" action_id="send" category="object"
+ <action title="Make sent" action_id="make_sent" category="object"
     condition_expr="" url_expr="string:${folder_url}/send-issue-form"
     visible="True" i18n:attributes="title">
   <permission value="Modify portal content"/>

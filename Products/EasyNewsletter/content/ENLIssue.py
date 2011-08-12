@@ -415,14 +415,14 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             except Exception, e:
                 log.info("Sending newsletter to \"%s\" failed, with error \"%s\"!" % (receiver['email'], e))
 
-        log.info("Newsletter was send to (%s) receivers. (%s) errors occurred!" % (send_counter, send_error_counter))
+        log.info("Newsletter was sent to (%s) receivers. (%s) errors occurred!" % (send_counter, send_error_counter))
 
         # change status only for a 'regular' send operation (not 'test', no
         # explicit recipients)
         if not hasattr(request, "test") and not recipients:
             wftool = getToolByName(self, "portal_workflow")
             if wftool.getInfoFor(self, 'review_state') == 'draft':
-                wftool.doActionFor(self, "send")
+                wftool.doActionFor(self, "make_sent")
 
     security.declareProtected("Manage portal", "loadContent")
     def loadContent(self):
