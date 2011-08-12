@@ -97,11 +97,13 @@
                         <td tal:content="item/failure" />
                     </tr>
                 </tbody>
-            </table>
-            <p tal:condition="fail" 
-               tal:define="count python:len(fail)"
-               tal:content="string: ${count} import(s) failed." />
-            
+            </table>             
+            <p tal:condition="fail"
+               i18n:translate="">            
+               <span tal:define="count python:len(fail)"
+                     tal:content="string: ${count}"
+                     i18n:name="count">Number</span> import(s) failed. 
+            </p>            
             <h3 i18n:translate="sucessfully_created_subscribers"
                 tal:condition="success">Sucessfully created Subscribers</h3>
             <table class="listing" tal:condition="success">

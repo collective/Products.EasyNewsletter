@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Products.EasyNewsletter\n"
-"POT-Creation-Date: 2011-08-12 12:53+0000\n"
+"POT-Creation-Date: 2011-08-12 13:04+0000\n"
 "PO-Revision-Date: 2011-08-10 15:41+0100\n"
 "Last-Translator: Wim Boucquaert - wimbou <wim.boucquaert@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,7 +15,11 @@ msgstr ""
 "Domain: EasyNewsletter\n"
 "X-Is-Fallback-For: nl-be nl-nl\n"
 
-#: ./browser/upload_csv.pt:127
+#: ./browser/upload_csv.pt:103
+msgid "${count} import(s) failed."
+msgstr "${count} import(s) mislukt."
+
+#: ./browser/upload_csv.pt:129
 msgid "${count} import(s) successful."
 msgstr "${count} import(s) succesvol."
 
@@ -766,7 +770,7 @@ msgid "sub_topics_label"
 msgstr ""
 
 #. Default: "Sucessfully created Subscribers"
-#: ./browser/upload_csv.pt:105
+#: ./browser/upload_csv.pt:107
 msgid "sucessfully_created_subscribers"
 msgstr "Abonnees met succes aangemaakt"
 

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-08-12 12:53+0000\n"
+"POT-Creation-Date: 2011-08-12 13:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,11 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: EasyNewsletter\n"
 
-#: ./browser/upload_csv.pt:127
+#: ./browser/upload_csv.pt:103
+msgid "${count} import(s) failed."
+msgstr ""
+
+#: ./browser/upload_csv.pt:129
 msgid "${count} import(s) successful."
 msgstr ""
 
@@ -768,7 +772,7 @@ msgid "sub_topics_label"
 msgstr ""
 
 #. Default: "Sucessfully created Subscribers"
-#: ./browser/upload_csv.pt:105
+#: ./browser/upload_csv.pt:107
 msgid "sucessfully_created_subscribers"
 msgstr ""
 

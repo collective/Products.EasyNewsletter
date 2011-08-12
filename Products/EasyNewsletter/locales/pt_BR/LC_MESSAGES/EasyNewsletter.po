@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2011-08-12 12:53+0000\n"
+"POT-Creation-Date: 2011-08-12 13:04+0000\n"
 "PO-Revision-Date: 2011-07-17 09:05-0000\n"
 "Last-Translator: Davi Lima <davi@simplesconsultoria.com.br>\n"
 "Language-Team: Simples Consultoria <contato@simplesconsultoria.com.br>\n"
@@ -15,7 +15,11 @@ msgstr ""
 "Domain: EasyNewsletter\n"
 "X-Poedit-Country: BRAZIL\n"
 
-#: ./browser/upload_csv.pt:127
+#: ./browser/upload_csv.pt:103
+msgid "${count} import(s) failed."
+msgstr ""
+
+#: ./browser/upload_csv.pt:129
 msgid "${count} import(s) successful."
 msgstr ""
 
@@ -766,7 +770,7 @@ msgid "sub_topics_label"
 msgstr ""
 
 #. Default: "Sucessfully created Subscribers"
-#: ./browser/upload_csv.pt:105
+#: ./browser/upload_csv.pt:107
 msgid "sucessfully_created_subscribers"
 msgstr ""
 
