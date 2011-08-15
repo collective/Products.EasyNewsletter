@@ -124,3 +124,6 @@ msgstr "Je inschrijving werd met succes bevestigd."
 
 msgid "Issues summary view"
 msgstr "Nummers samenvatting weergave"
+
+msgid "Newsletter subscriber portlet"
+msgstr "Nieuwsbrief abonneren portlet"
