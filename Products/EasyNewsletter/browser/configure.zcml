@@ -12,7 +12,7 @@
     class=".issue.IssueView"
     template="issue_send_form.pt"
     permission="cmf.ManagePortal" />
-    
+
   <browser:page
     name="get-public-body"
     for="..interfaces.IENLIssue"
@@ -68,13 +68,13 @@
     class=".newsletter.NewsletterView"
     template="all_issues_view.pt"
     permission="zope2.View" />
-    
+
   <browser:menuItem
     for="..interfaces.IEasyNewsletter"
     menu="plone_displayviews"
     title="Issues full view"
     action="all_issues_view"
-    description="Display all issues as fulltext" /> 
+    description="Display all issues as fulltext" />
 
   <browser:page
     for="..interfaces.IEasyNewsletter"
@@ -95,7 +95,7 @@
     name="download_csv"
     class=".subscribers.DownloadCSV"
     permission="cmf.ManagePortal" />
-		
+
   <browser:resource
     name="Products.EasyNewsletter.enl_edithelper.js"
 	  file="javascripts/enl_edithelper.js" />

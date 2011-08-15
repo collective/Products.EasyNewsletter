@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2011-08-12 14:29+0000\n"
+"POT-Creation-Date: 2011-08-15 14:06+0000\n"
 "PO-Revision-Date: 2011-07-17 09:05-0000\n"
 "Last-Translator: Davi Lima <davi@simplesconsultoria.com.br>\n"
 "Language-Team: Simples Consultoria <contato@simplesconsultoria.com.br>\n"
@@ -353,6 +353,9 @@ msgstr ""
 
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Issue"
+msgstr ""
+
+msgid "Issues full view"
 msgstr ""
 
 #: ./profiles/default/types/ENLIssue.xml

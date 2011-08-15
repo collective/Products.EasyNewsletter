@@ -25,7 +25,7 @@ for lang in $LANGUAGES; do
 done
 
 # Rebuild .pot
-i18ndude rebuild-pot --pot locales/$CATALOGNAME.pot --create $CATALOGNAME .
+i18ndude rebuild-pot --pot locales/$CATALOGNAME.pot --merge locales/manual.pot --create $CATALOGNAME .
 
 # Compile po files
 for lang in $(find locales -mindepth 1 -maxdepth 1 -type d); do

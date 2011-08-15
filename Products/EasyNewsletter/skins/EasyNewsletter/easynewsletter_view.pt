@@ -16,14 +16,14 @@
 
         <div tal:replace="structure provider:plone.abovecontenttitle" />
 
-        <h1 class="documentFirstHeading"> 
+        <h1 class="documentFirstHeading">
             <metal:field use-macro="python:here.widget('title', mode='view')">
             Title
             </metal:field>
         </h1>
 
         <div tal:replace="structure provider:plone.belowcontenttitle" />
-        
+
 	<p class="documentDescription">
             <metal:field use-macro="python:here.widget('description', mode='view')">
             Description
@@ -31,7 +31,7 @@
         </p>
 
         <div tal:replace="structure provider:plone.abovecontentbody" />
-        
+
         <div metal:define-macro="text-field-view"
              id="parent-fieldname-text" class="stx"
              tal:define="kss_class python:getKssClasses('text',
@@ -45,7 +45,7 @@
 
         <h2 i18n:translate="issues_label">Issues</h2>
         <tal:block metal:define-macro="folderlisting"
-                   tal:define="newsletters python:context.portal_catalog(portal_type='ENLIssue', 
+                   tal:define="newsletters python:context.portal_catalog(portal_type='ENLIssue',
                                                                          review_state='sent',
                                                                          sort_on='Date',
                                                                          sort_order='reverse',
@@ -53,17 +53,17 @@
              <div tal:condition="not: newsletters"
                   i18n:translate="easynewsletter_non_issues_label">
                There are no issues.
-             </div>    
-                                     
+             </div>
+
               <ul>
-                <li tal:repeat="newsletter newsletters">                               
+                <li tal:repeat="newsletter newsletters">
                     <a tal:define="date python:context.toLocalizedTime(newsletter.created,long_format=0)"
                        tal:content="string:$date: ${newsletter/Title}"
                        tal:attributes="href newsletter/getURL">Newsletter's title and Date</a>
                </li>
              </ul>
         </tal:block>
-       
+
         <div tal:replace="structure provider:plone.belowcontentbody" />
 
     </tal:main-macro>
