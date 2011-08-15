@@ -316,7 +316,7 @@ msgstr "Titel"
 #. Default: "Text for the 'unsubscribe' link"
 #: ./content/EasyNewsletter.py:101
 msgid "EasyNewsletter_label_unsubscribe_string"
-msgstr "Teskt voor de uitschrijven-link"
+msgstr "Tekst voor de uitschrijven-link"
 
 #: ./profiles/default/types/ENLIssue.xml
 #: ./profiles/default/types/ENLSubscriber.xml

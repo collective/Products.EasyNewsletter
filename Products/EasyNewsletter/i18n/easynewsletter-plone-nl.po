@@ -24,7 +24,7 @@ msgid "Your email has been added. Thanks for your interest."
 msgstr "Je e-mailadres werd toegevoegd. Bedankt voor je interesse."
 
 msgid "Please enter a valid email address."
-msgstr "Gelieve een geldig e-mailadres in te vullen"
+msgstr "Gelieve een geldig e-mailadres in te vullen."
 
 msgid "Subscriber"
 msgstr "Abonnee"
