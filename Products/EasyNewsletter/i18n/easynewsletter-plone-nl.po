@@ -127,3 +127,6 @@ msgstr "Nummers samenvatting weergave"
 
 msgid "Newsletter subscriber portlet"
 msgstr "Nieuwsbrief abonneren portlet"
+
+msgid "Apply"
+msgstr "Toepassen"
