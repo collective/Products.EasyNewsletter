@@ -52,7 +52,7 @@
     visible="True" i18n:attributes="title">
   <permission value="Modify portal content"/>
  </action>
- <action title="Refresh" action_id="refresh" category="document_actions"
+ <action title="Refresh aggregate body" action_id="refresh" category="document_actions"
     condition_expr="python: portal.portal_workflow.getInfoFor(object, 'review_state') == 'draft'" url_expr="string:${folder_url}/refresh-issue"
     visible="True" i18n:attributes="title">
   <permission value="Modify portal content"/>

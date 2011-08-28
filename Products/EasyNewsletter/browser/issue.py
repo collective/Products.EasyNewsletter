@@ -10,10 +10,11 @@ class IssueView(BrowserView):
     """
 
     def refresh_issue(self):
+        """Refresh the aggregate body when using collections.
         """
-        """
-        self.context.loadContent()
-        self.request.response.redirect(self.context.absolute_url())
+        if self.context.getAcquireCriteria():
+            self.context.loadContent()
+            self.request.response.redirect(self.context.absolute_url())
 
     def send_issue(self):
         """

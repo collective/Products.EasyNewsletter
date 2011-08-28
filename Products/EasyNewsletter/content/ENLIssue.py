@@ -428,10 +428,11 @@ class ENLIssue(ATTopic, atapi.BaseContent):
     def loadContent(self):
         """Loads text dependend on criteria into text attribute.
         """
-        issue_template = self.restrictedTraverse(self.getTemplate())
-        issue_template.setIssue(self.UID())
-        text = issue_template.body()
-        self.setText(text)
+        if self.getAcquireCriteria():
+            issue_template = self.restrictedTraverse(self.getTemplate())
+            issue_template.setIssue(self.UID())
+            text = issue_template.body()
+            self.setText(text)
 
     def getSubTopics(self):
         """Returns subtopics of the issues.
