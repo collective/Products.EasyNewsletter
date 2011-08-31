@@ -356,7 +356,7 @@ msgid "Issue"
 msgstr "Nummer"
 
 msgid "Issues full view"
-msgstr "Nummers volledige weergave"
+msgstr "Edities volledige weergave"
 
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Make sent"
@@ -507,17 +507,17 @@ msgstr "Tekst voor de bevestigings-e-mail. U kan deze tekst aanpassen, maar moet
 #. Default: "This is used in the frontpage of EasyNewsletter on top of Issue archive list."
 #: ./content/EasyNewsletter.py:257
 msgid "description_text"
-msgstr "Deze tekst wordt getoond bovenaan de lijst van verzonden nieuwsbrief-nummers."
+msgstr "Deze tekst wordt getoond bovenaan de lijst van verzonden nieuwsbrief-edities."
 
 #. Default: "The default footer text. This is used as a default                     for new issues. You can use the placeholders                     [[SUBSCRIBER_SALUTATION]] and [[UNSUBSCRIBE]] here."
 #: ./content/EasyNewsletter.py:131
 msgid "description_text_footer"
-msgstr "Standaard voettekst. Dit wordt gebruikt voor nieuwe nummers. U kan volgende plaatshouders gebruiken: [[ABONNEE_AANSPREKING]] and [[UITSCHRIJVEN]]"
+msgstr "Standaard voettekst. Dit wordt gebruikt voor nieuwe edities. U kan volgende plaatshouders gebruiken: [[ABONNEE_AANSPREKING]] and [[UITSCHRIJVEN]]"
 
 #. Default: "The default header text. This is used as a default                     for new issues. You can use the placeholders [[SUBSCRIBER_SALUTATION]] and [[UNSUBSCRIBE]] here."
 #: ./content/EasyNewsletter.py:117
 msgid "description_text_header"
-msgstr "Standaard hoofdingtekst. Dit wirdt beruikt als standaard voor de nieuwsbrief-nummers. U kan plaatshouders de [[ABONNEE_AANSPREKING]] en [[UITSCHRIJVEN]] gebruiken."
+msgstr "Standaard hoofdingtekst. Dit wirdt beruikt als standaard voor de nieuwsbrief-edities. U kan plaatshouders de [[ABONNEE_AANSPREKING]] en [[UITSCHRIJVEN]] gebruiken."
 
 #. Default: "The main content of the mailing. You can use the topic                     criteria to collect content or put manual content in.                     This will included in outgoing mails."
 #: ./content/ENLIssue.py:52
@@ -544,7 +544,7 @@ msgstr "Inschrijven"
 #. Default: "Drafts"
 #: ./skins/EasyNewsletter/enl_drafts_view.pt:20
 msgid "easynewsletter_drafts_label"
-msgstr "Kladnummers"
+msgstr "Klad edities"
 
 #. Default: "Your email"
 #: ./portlets/subscriber.pt:44
@@ -579,12 +579,12 @@ msgstr "De nieuwsbrief is reeds verzonden."
 #. Default: "There are no issues."
 #: ./skins/EasyNewsletter/easynewsletter_view.pt:53
 msgid "easynewsletter_non_issues_label"
-msgstr "Er zijn geen nummers"
+msgstr "Er zijn geen edities"
 
 #. Default: "There are no drafts."
 #: ./skins/EasyNewsletter/enl_drafts_view.pt:34
 msgid "easynewsletter_nondrafts_label"
-msgstr "Er zijn geen kladnummers."
+msgstr "Er zijn geen klad edities."
 
 #. Default: "There are no subscribers."
 #: ./browser/enl_subscribers_view.pt:30
@@ -669,7 +669,7 @@ msgstr "Indien aangevinkt zal de nieuwsbrief naar alle Plone leden verzonden wor
 #. Default: "Issues"
 #: ./skins/EasyNewsletter/easynewsletter_view.pt:46
 msgid "issues_label"
-msgstr "Nummers"
+msgstr "Edities"
 
 #. Default: "Newsletter Template"
 #: ./content/ENLTemplate.py:17
