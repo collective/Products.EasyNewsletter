@@ -10,7 +10,7 @@
  <permission>Modify portal content</permission>
  <permission>View</permission>
  <state state_id="draft" title="Draft">
-  <exit-transition transition_id="make_sent"/>
+  <exit-transition transition_id="send"/>
   <permission-map name="Access contents information"
                   acquired="False">
    <permission-role>Manager</permission-role>
@@ -48,11 +48,11 @@
    <guard-permission>Manage portal content</guard-permission>
   </guard>
  </transition>
- <transition transition_id="make_sent" title="Make sent"
+ <transition transition_id="send" title="Send"
              new_state="sent" trigger="USER"
              before_script="" after_script="">
-  <action url="%(content_url)s/content_status_modify?workflow_action=make_sent"
-          category="workflow">Make sent</action>
+  <action url="%(content_url)s/content_status_modify?workflow_action=send"
+          category="workflow">Send</action>
   <guard>
    <guard-permission>Modify portal content</guard-permission>
   </guard>
