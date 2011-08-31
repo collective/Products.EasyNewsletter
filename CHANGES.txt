@@ -14,6 +14,9 @@ Changelog
   Cfr. http://plone.org/products/easynewsletter/issues/4
   [WouterVH]
 
+- Improve translatable content.
+  [wimbou]
+
 - Fix ENLIssue to avoid issue to be sent twice to same recipient.
   [numahell]
 
