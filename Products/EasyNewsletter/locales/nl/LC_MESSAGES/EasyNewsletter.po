@@ -517,7 +517,7 @@ msgstr "Standaard voettekst. Dit wordt gebruikt voor nieuwe edities. U kan volge
 #. Default: "The default header text. This is used as a default                     for new issues. You can use the placeholders [[SUBSCRIBER_SALUTATION]] and [[UNSUBSCRIBE]] here."
 #: ./content/EasyNewsletter.py:117
 msgid "description_text_header"
-msgstr "Standaard hoofdingtekst. Dit wirdt beruikt als standaard voor de nieuwsbrief-edities. U kan plaatshouders de [[ABONNEE_AANSPREKING]] en [[UITSCHRIJVEN]] gebruiken."
+msgstr "Standaard hoofdingtekst. Dit wordt beruikt als standaard voor de nieuwsbrief-edities. U kan plaatshouders de [[ABONNEE_AANSPREKING]] en [[UITSCHRIJVEN]] gebruiken."
 
 #. Default: "The main content of the mailing. You can use the topic                     criteria to collect content or put manual content in.                     This will included in outgoing mails."
 #: ./content/ENLIssue.py:52
