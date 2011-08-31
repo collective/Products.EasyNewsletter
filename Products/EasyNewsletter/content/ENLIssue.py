@@ -422,7 +422,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         if not hasattr(request, "test") and not recipients:
             wftool = getToolByName(self, "portal_workflow")
             if wftool.getInfoFor(self, 'review_state') == 'draft':
-                wftool.doActionFor(self, "make_sent")
+                wftool.doActionFor(self, "send")
 
     security.declareProtected("Manage portal", "loadContent")
     def loadContent(self):
