@@ -42,7 +42,7 @@ msgstr "Er is een fout opgetreden."
 
 #: ./profiles/default/types/ENLIssue.xml
 msgid "An issue of a newsleter"
-msgstr "Een nummer van een niewsbrief"
+msgstr "Een editie van een niewsbrief"
 
 #: ./portlets/subscriber.pt:23
 msgid "Choose salutation..."
@@ -353,7 +353,7 @@ msgstr "Importeren"
 
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Issue"
-msgstr "Nummer"
+msgstr "Editie"
 
 msgid "Issues full view"
 msgstr "Edities volledige weergave"
@@ -444,7 +444,7 @@ msgstr "Het CSV bestand dient deze hoofding te bevatten en dient de structuur te
 
 #: ./browser/issue.py:23
 msgid "The issue has been send."
-msgstr "Het nummer is verzonden."
+msgstr "De editie is verzonden."
 
 #: ./browser/subscribers.py:119
 msgid "The number of items in the line is not correct.                         It should be 4. Check your CSV file."
@@ -604,7 +604,7 @@ msgstr "Verzend nieuwsbrief"
 #. Default: "Send Issue"
 #: ./browser/issue_send_form.pt:9
 msgid "easynewsletter_sendnewsletter_label"
-msgstr "Verzend nummer"
+msgstr "Verzend editie"
 
 #. Default: "Subscribers"
 #: ./browser/enl_subscribers_view.pt:20
