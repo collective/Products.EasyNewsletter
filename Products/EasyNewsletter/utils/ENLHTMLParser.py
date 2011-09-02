@@ -38,7 +38,7 @@ class ENLHTMLParser(HTMLParser.HTMLParser):
                         else:
                             url = attr[1]
                     if anchor:
-                        url += '#' + anchor
+                        url = '#' + anchor
                 except:
                     url = attr[1]
                 if isinstance(url, unicode):
