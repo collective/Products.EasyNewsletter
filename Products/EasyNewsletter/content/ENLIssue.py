@@ -414,6 +414,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                 send_counter += 1
             except Exception, e:
                 log.info("Sending newsletter to \"%s\" failed, with error \"%s\"!" % (receiver['email'], e))
+                send_error_counter += 1
 
         log.info("Newsletter was sent to (%s) receivers. (%s) errors occurred!" % (send_counter, send_error_counter))
 
