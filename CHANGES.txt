@@ -5,6 +5,10 @@ Changelog
 2.6dev (unreleased)
 ---------------------
 
+- Fix external images url by inserting url directly in html when 'http' is encountered.
+  This fixes http://plone.org/products/easynewsletter/issues/15
+  [numahel]
+
 - loadContent only when AcquireCriteria is set True.
   Do not override the text when it's False.
   This fixes http://plone.org/products/easynewsletter/issues/4

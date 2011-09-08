@@ -79,9 +79,14 @@ class ENLHTMLParser(HTMLParser.HTMLParser):
         self.html += "<%s" % tag
         for attr in attrs:
             if attr[0] == "src":
-                self.html += ' src="cid:image_%s"' % self.image_number
-                self.image_number += 1
-                self.image_urls.append(attr[1])
+                image_url = urlparse.urlparse(attr[1])
+                if 'http' in attr[1]:
+                    url = attr[1]
+                    self.html += ' src="%s"' % url
+                else:
+                    self.html += ' src="cid:image_%s"' % self.image_number
+                    self.image_number += 1
+                    self.image_urls.append(attr[1])
             else:
                 self.html += ' %s="%s"' % (attr)
 
