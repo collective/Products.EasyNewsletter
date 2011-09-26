@@ -5,6 +5,64 @@ Changelog
 2.6dev (unreleased)
 ---------------------
 
+- non portlet subscription/unsubscription form
+  This fixes http://plone.org/products/easynewsletter/issues/3
+  [regisrouet]
+
+- better feedback on send
+  [regisrouet]
+
+- remove title property in types.xml
+  [regisrouet]
+
+- use mail icon for newsletter item
+  [regisrouet]
+
+- external delivery service with local utility
+  This fixes http://plone.org/products/easynewsletter/issues/31
+  *** BREAKING COMPATIBILITY CHANGE ***
+  [regisrouet]
+
+- choice for confirmation from & mailhost, test mailhost
+  This fixes http://plone.org/products/easynewsletter/issues/33
+  [regisrouet]
+
+- remove "please install inqbus.plone.fastmemberproperties" from logs
+  This fixes http://plone.org/products/easynewsletter/issues/34
+  [regisrouet]
+
+- inappropriate error message on confirmation page
+  This fixes http://plone.org/products/easynewsletter/issues/36
+  [regisrouet]
+
+- confirmation encoding header
+  This fixes http://plone.org/products/easynewsletter/issues/37
+  [regisrouet]
+
+- untranslated message
+  This fixes http://plone.org/products/easynewsletter/issues/38
+  [regisrouet]
+
+- better feedback when already registered subscriber tries to confirm a subscription
+  This fixes http://plone.org/products/easynewsletter/issues/39
+  [regisrouet]
+
+- can save multiple test emails
+  This fixes http://plone.org/products/easynewsletter/issues/40
+  [regisrouet]
+
+- remove test() function in easynewsletter_view.pt
+  This fixes http://plone.org/products/easynewsletter/issues/42
+  [regisrouet]
+
+- improve subscriber id calculation & use
+  This fixes http://plone.org/products/easynewsletter/issues/43
+  [regisrouet]
+
+- display std message when submiting registration
+  This fixes http://plone.org/products/easynewsletter/issues/44
+  [regisrouet]
+
 - Fix external images url by inserting url directly in html when 'http' is encountered.
   This fixes http://plone.org/products/easynewsletter/issues/15
   [numahel]
