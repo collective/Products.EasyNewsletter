@@ -19,7 +19,7 @@ class NewsletterView(BrowserView):
 
         subscriber = catalog.lookupObject(uid)
         if subscriber is None:
-            putils.addPortalMessage(_("An error occured"), "error")
+            putils.addPortalMessage(_("No registration found. The link you used may be too old."), "error")
         else:
             newsletter = self.context
             # We do the deletion as the owner of the newsletter object

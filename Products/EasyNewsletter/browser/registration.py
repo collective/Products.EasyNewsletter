@@ -11,8 +11,10 @@ from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 
 from Products.EasyNewsletter.interfaces import IENLRegistrationTool
-from Products.EasyNewsletter.config import MESSAGE_CODE
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
+
+import logging
+logger = logging.getLogger("Products.EasyNewsletter.registration")
 
 
 class SubscriberView(BrowserView):
@@ -40,6 +42,7 @@ class SubscriberView(BrowserView):
         fullname = self.request.get("fullname", "")
         salutation = self.request.get("salutation", "")
         organization = self.request.get("organization", "")
+        subscription = self.request.get("subscription", "")
         path_to_easynewsletter = self.request.get("newsletter")
         # remove leading slash from paths like: /mynewsletter
         path_to_easynewsletter = path_to_easynewsletter.strip('/')
@@ -54,40 +57,65 @@ class SubscriberView(BrowserView):
         if not mo:
             messages.addStatusMessage(_("Please enter a valid email address."), "error")
             return self.request.response.redirect(newsletter_container.absolute_url())
-        if subscriber in newsletter_container.objectIds():
-            messages.addStatusMessage(_("Your email address is already registered."), "error")
-            return self.request.response.redirect(newsletter_container.absolute_url())
-        subscriber_data = {}
-        subscriber_data["subscriber"] = subscriber
-        subscriber_data["fullname"] = fullname
-        subscriber_data["salutation"] = salutation
-        subscriber_data["organization"] = organization
-        subscriber_data["path_to_easynewsletter"] = path_to_easynewsletter
 
-        # use password reset tool to create a hash
-        pwr_data = self._requestReset(subscriber)
-        hashkey = pwr_data['randomstring']
-        enl_registration_tool = queryUtility(IENLRegistrationTool, 'enl_registration_tool')
-        if hashkey not in enl_registration_tool.objectIds():
-            enl_registration_tool[hashkey] = RegistrationData(hashkey, **subscriber_data)
-            msg_subject = newsletter_container.getRawSubscriber_confirmation_mail_subject().replace(
-                "${portal_url}", self.portal_url.strip('http://'))
-            confirmation_url = self.portal_url + '/confirm-subscriber?hkey=' + str(hashkey)
-            msg_text = newsletter_container.getRawSubscriber_confirmation_mail_text().replace("${newsletter_title}", newsletter_container.Title())
-            msg_text = msg_text.replace("${subscriber_email}", subscriber)
+        subscriber_info = newsletter_container.getSubscriberInfo(subscriber)
+        subscribed = subscriber_info is not None
+        if subscription == "unsubscription" and subscribed:
+            msg_subject = newsletter_container.getRawUnsubscriber_confirmation_mail_subject()
+            msg_text = newsletter_container.getRawUnsubscriber_confirmation_mail_text()
+            confirmation_url = newsletter_container.absolute_url() + "/unsubscribe?subscriber=" + subscriber_info['UID']
             msg_text = msg_text.replace("${confirmation_url}", confirmation_url)
-            msg_sender = self.portal.getProperty('email_from_address')
-            msg_receiver = subscriber
-            msg = MIMEText(msg_text)
-            msg['To']= msg_receiver
-            msg['From'] = msg_sender
-            msg['Subject'] = msg_subject
-            #msg.epilogue   = ''
-            self.portal.MailHost.send(msg.as_string())
-            messages.addStatusMessage(_("Your email has been registered. \
-                A confirmation email was sent to your address. Please check \
-                your inbox and click on the link in the email in order to \
-                confirm your subscription."), "info")
+        elif subscription == "unsubscription":
+            msg_subject = newsletter_container.getRawUnsubscriber_not_mail_subject()
+            msg_text = newsletter_container.getRawUnsubscriber_not_mail_text()
+        elif subscribed:
+            msg_subject = newsletter_container.getRawSubscriber_already_mail_subject()
+            msg_text = newsletter_container.getRawSubscriber_already_mail_text()
+        else:
+            msg_subject = newsletter_container.getRawSubscriber_confirmation_mail_subject()
+            msg_text = newsletter_container.getRawSubscriber_confirmation_mail_text()
+            subscriber_data = {}
+            subscriber_data["subscriber"] = subscriber
+            subscriber_data["fullname"] = fullname
+            subscriber_data["salutation"] = salutation
+            subscriber_data["organization"] = organization
+            subscriber_data["path_to_easynewsletter"] = path_to_easynewsletter
+            # use password reset tool to create a hash
+            pwr_data = self._requestReset(subscriber)
+            hashkey = pwr_data['randomstring']
+            enl_registration_tool = queryUtility(IENLRegistrationTool, 'enl_registration_tool')
+            if hashkey in enl_registration_tool.objectIds():
+                logger.warning(u"hashkey [%s] in ids", hashkey)
+                messages.addStatusMessage(_("Sorry... An error has happend during operation."), "error")
+                return self.request.response.redirect(newsletter_container.absolute_url())
+            enl_registration_tool[hashkey] = RegistrationData(hashkey, **subscriber_data)
+            confirmation_url = self.portal_url + '/confirm-subscriber?hkey=' + str(hashkey)
+            msg_text = msg_text.replace("${confirmation_url}", confirmation_url)
+
+        msg_subject = msg_subject.replace("${portal_url}", self.portal_url.strip('http://'))
+        msg_text = msg_text.replace("${newsletter_title}", newsletter_container.Title())
+        msg_text = msg_text.replace("${subscriber_email}", subscriber)
+        msg_sender = newsletter_container.getRegistrationSender()
+        msg_receiver = subscriber
+
+        props = getToolByName(self, "portal_properties").site_properties
+        charset = props.getProperty("default_charset")
+        msg = MIMEText(msg_text, _charset=charset)
+        msg['To']= msg_receiver
+        msg['From'] = msg_sender
+        msg['Subject'] = msg_subject
+        try:
+            MailHost = newsletter_container.getMailHost(mode = 'subscription')
+        except Exception, e:
+            messages.addStatusMessage(_("Sorry... An error has happend during operation."), "error")
+            return self.request.response.redirect(newsletter_container.absolute_url())
+        MailHost.send(msg.as_string())
+        messages.addStatusMessage(_("Your email has been registered. \
+            A confirmation email was sent to your address. Please check \
+            your inbox and click on the link in the email in order to \
+            confirm your subscription."), "info")
+        messages.addStatusMessage(_("Your request has been registered. An email was sent to you. It contains a link to confirm your request."), "info")
+
         self.request.response.redirect(newsletter_container.absolute_url())
 
     def confirm_subscriber(self):
@@ -97,16 +125,19 @@ class SubscriberView(BrowserView):
         messages = IStatusMessage(self.request)
         if regdataobj:
             easynewsletter = self.portal.restrictedTraverse(regdataobj.path_to_easynewsletter)
-            valid_email, error_code = easynewsletter.addSubscriber(regdataobj.subscriber, regdataobj.fullname, regdataobj.organization, regdataobj.salutation)
-            if valid_email:
-                # now delete the regobj
+            if easynewsletter.getSubscriberInfo(regdataobj.subscriber) is not None:
                 del enl_registration_tool[hashkey]
-                messages.addStatusMessage(MESSAGE_CODE[error_code])
+                messages.addStatusMessage(_('This email address is already registered.'))
             else:
-                messages.addStatusMessage(MESSAGE_CODE[error_code], "error")
+                result_add = easynewsletter.addSubscriber(regdataobj.subscriber, regdataobj.fullname, regdataobj.organization, regdataobj.salutation)
+                if result_add:
+                    del enl_registration_tool[hashkey]
+                    messages.addStatusMessage(_("Your subscription was successfully confirmed."))
+                else:
+                    messages.addStatusMessage(_("Sorry... An error has happend during operation."), "error")
             return self.request.response.redirect(easynewsletter.absolute_url())
         else:
-            messages.addStatusMessage(_("Please enter a valid email address."), "error")
+            messages.addStatusMessage(_("No registration found. The link you used may be too old."), "error")
         return self.request.response.redirect(self.portal.absolute_url())
 
     def _requestReset(self, userid):

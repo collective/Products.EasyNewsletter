@@ -16,17 +16,6 @@ SALUTATION = DisplayList((
 ))
 
 
-MESSAGE_CODE = {
-    "email_added": "Your email has been registered. A confirmation email was \
-        sent to your address. Please check your inbox and click on the link in \
-        the email in order to confirm your subscription.",
-    "invalid_email": "Please enter a valid email address.",
-    "email_exists": "Your email address is already registered.",
-    "invalid_hashkey": "Please enter a valid email address.",
-    "subscription_confirmed": "Your subscription was successfully confirmed.",
-    }
-
-
 EMAIL_RE = re.compile(r"(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,6}(?:\s|$)", re.IGNORECASE)
 
 
@@ -97,8 +86,29 @@ DEFAULT_OUT_TEMPLATE_PT = """<html xmlns="http://www.w3.org/1999/xhtml">
 
 DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT = """Confirm your subscription on ${portal_url}"""
 
-
-DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_TEXT = """You subscribe to the ${newsletter_title} Newsletter.\n\n
-Your registered email is: ${subscriber_email}\n
-Please click on the link to confirm your subscription: \n
+DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_TEXT = """You asked to subscribe to ${newsletter_title}.\n\n
+Your email is: ${subscriber_email}\n\n
+Please click on the link to confirm your subscription: \n\n
 ${confirmation_url}"""
+
+
+DEFAULT_SUBSCRIBER_ALREADY_MAIL_SUBJECT = """You are already subscribed on ${portal_url}"""
+
+DEFAULT_SUBSCRIBER_ALREADY_MAIL_TEXT = """You asked to subscribe to ${newsletter_title}.\n\n
+Your email is: ${subscriber_email}\n\n
+You are already subscribed."""
+
+
+DEFAULT_UNSUBSCRIBER_CONFIRMATION_MAIL_SUBJECT = """Confirm your unsubscription on ${portal_url}"""
+
+DEFAULT_UNSUBSCRIBER_CONFIRMATION_MAIL_TEXT = """You asked to unsubscribe to ${newsletter_title}.\n\n
+Your email is: ${subscriber_email}\n\n
+Please click on the link to confirm your unsubscription: \n\n
+${confirmation_url}"""
+
+
+DEFAULT_UNSUBSCRIBER_NOT_MAIL_SUBJECT = """You are not subscribed on ${portal_url}"""
+
+DEFAULT_UNSUBSCRIBER_NOT_MAIL_TEXT = """You asked to unsubscribe to ${newsletter_title}.\n\n
+Your email is: ${subscriber_email}\n\n
+You are not subscribed."""

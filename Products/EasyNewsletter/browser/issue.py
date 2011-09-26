@@ -1,7 +1,5 @@
-from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.config import PLACEHOLDERS
 
 
@@ -19,9 +17,7 @@ class IssueView(BrowserView):
     def send_issue(self):
         """
         """
-        putils = getToolByName(self.context, "plone_utils")
         self.context.send()
-        putils.addPortalMessage(_("The issue has been send."))
         return self.request.response.redirect(self.context.absolute_url())
 
     def get_public_body(self):

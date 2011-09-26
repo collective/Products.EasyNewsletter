@@ -24,7 +24,7 @@
 
         <div tal:replace="structure provider:plone.belowcontenttitle" />
 
-	<p class="documentDescription">
+	   <p class="documentDescription">
             <metal:field use-macro="python:here.widget('description', mode='view')">
             Description
             </metal:field>
@@ -42,13 +42,39 @@
             <div metal:define-slot="inside" tal:replace="structure text">The body</div>
         </div>
 
-        <h2 i18n:translate="issues_label">Issues</h2>
+
+        <form id='newsletter' method='get' action='@@register-subscriber'>
+            <div>
+                <input type="hidden" name="newsletter" value="newsletter"
+                        tal:attributes="value python: '/'.join(request.physicalPathToVirtualPath(context.getPhysicalPath()))" />
+
+                <input class="texte" onclick="this.value=''" name="subscriber" value="Your email" i18n:attributes="value easynewsletter_input_value;" />
+
+                <input class="texte submit"  id='w_submit' type="submit" value="ok" i18n:attributes="value easynewsletter_button_label;" />
+
+                <div class="spacer"></div>
+
+                <label for='w_sub' i18n:translate="">easynewsletter_label_subscription</label>
+                <input type='radio' value='subscription' class="radio"  id='w_sub' name='subscription' checked="checked" />
+                <span tal:omit-tag="" i18n:translate="easynewsletter_label_subscription">Subscription</span>
+                <br />
+
+                <label for='w_unsub' i18n:translate="">easynewsletter_label_unsubscription</label>
+                <input type='radio' value='unsubscription' class="radio" id='w_unsub' name='subscription' />
+                <span tal:omit-tag="" i18n:translate="easynewsletter_label_unsubscription">Unsubscription</span>
+
+            </div>
+        </form>
+
+
+        <h2 i18n:translate="last_issues_label">Last issues</h2>
         <tal:block metal:define-macro="folderlisting"
                    tal:define="newsletters python:context.portal_catalog(portal_type='ENLIssue',
                                                                          review_state='sent',
                                                                          sort_on='Date',
                                                                          sort_order='reverse',
-                                                                         path='/'.join(context.getPhysicalPath()))">
+                                                                         sort_limit='99',
+                                                                         path='/'.join(context.getPhysicalPath()))[:5]">
              <div tal:condition="not: newsletters"
                   i18n:translate="easynewsletter_non_issues_label">
                There are no issues.
@@ -62,6 +88,10 @@
                </li>
              </ul>
         </tal:block>
+
+        <h2>
+            <a tal:attributes="href python:context.absolute_url() + '/easynewsletter_view'" class="summary url" i18n:translate="archives">Archives</a>
+        </h2>
 
         <div tal:replace="structure provider:plone.belowcontentbody" />
 

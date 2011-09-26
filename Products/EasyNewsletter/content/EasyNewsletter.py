@@ -1,3 +1,5 @@
+import re
+
 from AccessControl import ClassSecurityInfo
 from AccessControl import getSecurityManager
 from AccessControl.SecurityManagement import newSecurityManager, setSecurityManager
@@ -13,6 +15,7 @@ from Products.TemplateFields import ZPTField
 
 from zExceptions import BadRequest
 from zope.component import queryUtility
+from zope.component import getUtility
 from zope.component import getUtilitiesFor
 from zope.component import subscribers
 from zope.interface import implements
@@ -30,8 +33,13 @@ from Products.EasyNewsletter.interfaces import ISubscriberSource
 from Products.EasyNewsletter import config
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 
+DOT_RE = re.compile(r"\.")
+DASH_RE = re.compile(r"-")
+UNDERSCORE_RE = re.compile(r"_")
+AT_RE = re.compile(r"@")
+
 import logging
-log = logging.getLogger("Products.EasyNewsletter")
+logger = logging.getLogger("Products.EasyNewsletter.ENL")
 
 
 schema = atapi.Schema((
@@ -57,9 +65,17 @@ schema = atapi.Schema((
         )
     ),
 
+    atapi.BooleanField('useSiteSenderForRegistration',
+        default = True,
+        widget = atapi.BooleanWidget(
+            label = _(u'label_useSiteSenderForRegistration',
+                default=u'Use Site Email Sender for registration sending'),
+            i18n_domain = 'EasyNewsletter',
+        )
+    ),
+
     atapi.StringField('testEmail',
         required = True,
-        validators = ('isEmail', ),
         widget = atapi.StringWidget(
             label = _(u"EasyNewsletter_label_testEmail",
                 default=u"Test email"),
@@ -191,7 +207,7 @@ schema = atapi.Schema((
     atapi.StringField('deliveryService',
         schemata = 'settings',
         vocabulary = "get_delivery_services",
-        default = 'mailhost',
+        default = 'default',
         widget = atapi.SelectionWidget(
             label = _(u"EasyNewsletter_label_externalDeliveryService",
                 default=u"External delivery service"),
@@ -200,6 +216,26 @@ schema = atapi.Schema((
                     for EasyNewsletter. If one is installed you can choose it here."),
             i18n_domain = 'EasyNewsletter',
             size = 10,
+        )
+    ),
+
+    atapi.BooleanField('usePloneMailHostForTest',
+        schemata = 'settings',
+        default = False,
+        widget = atapi.BooleanWidget(
+            label = _(u'label_usePloneMailHostForTest',
+                default=u'Use Default Plone MailHost for test sending'),
+            i18n_domain = 'EasyNewsletter',
+        )
+    ),
+
+    atapi.BooleanField('usePloneMailHostForRegistration',
+        schemata = 'settings',
+        default = True,
+        widget = atapi.BooleanWidget(
+            label = _(u'label_usePloneMailHostForRegistration',
+                default=u'Use Default Plone MailHost for registration sending'),
+            i18n_domain = 'EasyNewsletter',
         )
     ),
 
@@ -245,7 +281,97 @@ schema = atapi.Schema((
             description = _(u'description_subscriber_confirmation_mail_text',
                 default=u'Text used for confirmation email. You can customize \
                     the text, but it should include the placeholders: \
-                    ${portal_url}, ${subscriber_email} and ${confirmation_url}!'),
+                    ${newsletter_title}, ${subscriber_email} and ${confirmation_url}!'),
+            i18n_domain = 'EasyNewsletter',
+        ),
+    ),
+
+    atapi.StringField('subscriber_already_mail_subject',
+        schemata = "settings",
+        required = True,
+        default = config.DEFAULT_SUBSCRIBER_ALREADY_MAIL_SUBJECT,
+        widget = atapi.StringWidget(
+            label = _(u'EasyNewsletter_label_subscriber_already_mail_subject',
+                default=u'Subscriber already subscribed mail subject'),
+            description = _(u'EasyNewsletter_description_subscriber_already_mail_subject',
+                default=u'Text used for already subscribed email subject. You can \
+                    customize the text, but it should include the placeholder: ${portal_url}!'),
+            i18n_domain = 'EasyNewsletter',
+        ),
+    ),
+
+    atapi.TextField('subscriber_already_mail_text',
+        schemata = "settings",
+        required = True,
+        default = config.DEFAULT_SUBSCRIBER_ALREADY_MAIL_TEXT,
+        widget = atapi.TextAreaWidget(
+            rows = 8,
+            label = _(u'EasyNewsletter_label_subscriber_already_mail_text',
+                default=u'Subscriber already subscribed mail text'),
+            description = _(u'description_subscriber_already_mail_text',
+                default=u'Text used for already subscribed email. You can customize \
+                    the text, but it should include the placeholders: \
+                    ${newsletter_title}, ${subscriber_email} !'),
+            i18n_domain = 'EasyNewsletter',
+        ),
+    ),
+
+    atapi.StringField('unsubscriber_confirmation_mail_subject',
+        schemata = "settings",
+        required = True,
+        default = config.DEFAULT_UNSUBSCRIBER_CONFIRMATION_MAIL_SUBJECT,
+        widget = atapi.StringWidget(
+            label = _(u'EasyNewsletter_label_unsubscriber_confirmation_mail_subject',
+                default=u'Unsubscriber confirmation mail subject'),
+            description = _(u'EasyNewsletter_description_unsubscriber_confirmation_mail_subject',
+                default=u'Text used for confirmation email subject. You can \
+                    customize the text, but it should include the placeholder: ${portal_url}!'),
+            i18n_domain = 'EasyNewsletter',
+        ),
+    ),
+
+    atapi.TextField('unsubscriber_confirmation_mail_text',
+        schemata = "settings",
+        required = True,
+        default = config.DEFAULT_UNSUBSCRIBER_CONFIRMATION_MAIL_TEXT,
+        widget = atapi.TextAreaWidget(
+            rows = 8,
+            label = _(u'EasyNewsletter_label_unsubscriber_confirmation_mail_text',
+                default=u'Unsubscriber confirmation mail text'),
+            description = _(u'description_unsubscriber_confirmation_mail_text',
+                default=u'Text used for confirmation email. You can customize \
+                    the text, but it should include the placeholders: \
+                    ${newsletter_title}, ${subscriber_email} and ${confirmation_url}!'),
+            i18n_domain = 'EasyNewsletter',
+        ),
+    ),
+
+    atapi.StringField('unsubscriber_not_mail_subject',
+        schemata = "settings",
+        required = True,
+        default = config.DEFAULT_UNSUBSCRIBER_NOT_MAIL_SUBJECT,
+        widget = atapi.StringWidget(
+            label = _(u'EasyNewsletter_label_unsubscriber_not_mail_subject',
+                default=u'Unsubscriber not subscribed mail subject'),
+            description = _(u'EasyNewsletter_description_subscriber_not_mail_subject',
+                default=u'Text used for not subscribed email subject. You can \
+                    customize the text, but it should include the placeholder: ${portal_url}!'),
+            i18n_domain = 'EasyNewsletter',
+        ),
+    ),
+
+    atapi.TextField('unsubscriber_not_mail_text',
+        schemata = "settings",
+        required = True,
+        default = config.DEFAULT_UNSUBSCRIBER_NOT_MAIL_TEXT,
+        widget = atapi.TextAreaWidget(
+            rows = 8,
+            label = _(u'EasyNewsletter_label_unsubscriber_not_mail_text',
+                default=u'Unsubscriber not subscribed mail text'),
+            description = _(u'description_subscriber_not_mail_text',
+                default=u'Text used for not subscribed email. You can customize \
+                    the text, but it should include the placeholders: \
+                    ${newsletter_title}, ${subscriber_email} !'),
             i18n_domain = 'EasyNewsletter',
         ),
     ),
@@ -274,6 +400,8 @@ schema['relatedItems'].schemata = "settings"
 schema['language'].schemata = "settings"
 schema['excludeFromNav'].schemata = "settings"
 schema.moveField('deliveryService', pos='bottom')
+schema.moveField('usePloneMailHostForTest', pos='bottom')
+schema.moveField('usePloneMailHostForRegistration', pos='bottom')
 schema.moveField('subscriberSource', pos='bottom')
 schema.moveField('relatedItems', pos='bottom')
 schema.moveField('language', pos='bottom')
@@ -305,26 +433,26 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
         return False
 
     security.declarePublic('addSubscriber')
-    def addSubscriber(self, subscriber, fullname, organization, salutation=None):
+    def addSubscriber(self, email, fullname, organization, salutation=None):
         """Adds a new subscriber to the newsletter (if valid).
         """
-        # we need the subscriber email here as an id, to check for existing entries
-        email = subscriber
-        plone_utils = getToolByName(self, 'plone_utils')
-        subscriber_id = plone_utils.normalizeString(email)
+        subscriber_id = self.getNewSubscriberId(email)
+        if subscriber_id is None:
+            logger.warning("subscriber_id is None when adding subscriber [%s]", email)
+            return False
         portal = getToolByName(self, 'portal_url').getPortalObject()
         try:
             execute_under_special_role(portal, "Contributor", self.invokeFactory, "ENLSubscriber", id=subscriber_id)
-        except BadRequest:
-            return (False, "email_exists")
+        except BadRequest, e:
+            logger.warning("Error [%s] when adding subscriber [%s]", e, email)
+            return False
         o = getattr(self, subscriber_id)
-        o.setEmail(subscriber)
+        o.setEmail(email)
         o.setFullname(fullname)
         o.setOrganization(organization)
         o.setSalutation(salutation)
         o.reindexObject()
-
-        return (True, "subscription_confirmed")
+        return True
 
     def getSubTopics(self):
         """Returns sub topics.
@@ -336,12 +464,10 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
         """
         global fmp_tool
         if fmp_tool and queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool'):
-            log.debug("Use fastmemberpropertiestool to get memberproperties!")
+            logger.debug("Use fastmemberpropertiestool to get memberproperties!")
             fmp_tool = queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool')
             member_properties = fmp_tool.get_all_memberproperties()
         else:
-            log.info("We use plone API to get memberproperties, this is very \
-                slow on many members, please install inqbus.plone.fastmemberproperties to make it fast!")
             acl_userfolder = getToolByName(self, 'acl_users')
             member_objs = acl_userfolder.getUsers()
             member_properties = {}
@@ -358,7 +484,7 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
                                    for id, property in member_properties.items()
                 if config.EMAIL_RE.findall(property['email'])])
         except TypeError, e:
-            log.error(":get_plone_members: error in member_properties %s/ \
+            logger.error(":get_plone_members: error in member_properties %s/ \
                 properties:'%s'" % (e, member_properties.items()))
         # run registered member filter:
         for subscriber in subscribers([self], IReceiversMemberFilter):
@@ -396,11 +522,52 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
 
     def get_delivery_services(self):
         result = atapi.DisplayList()
-        result.add(u'mailhost', _(u'EasyNewsletter_label_PloneMailHost', u'Default Plone Mailhost'))
         for utility in getUtilitiesFor(IMailHost):
             if utility[0]:
                 result.add(utility[0], utility[0])
+            else:
+                result.add('default', _(u'EasyNewsletter_label_PloneMailHost', u'Default Plone Mailhost'))
         return result
+
+    def getMailHost(self, mode=''):
+        deliveryServiceName = self.getDeliveryService() # str
+        if deliveryServiceName == 'default' \
+             or (mode == 'test' and self.getUsePloneMailHostForTest()) \
+             or (mode == 'subscription' and self.getUsePloneMailHostForRegistration()):
+            deliveryServiceName = u''
+        MailHost = getUtility(IMailHost, name=deliveryServiceName)
+        logger.debug('Using mail delivery service "%r"' % MailHost)
+        return MailHost
+
+    def getRegistrationSender(self):
+        if self.getUseSiteSenderForRegistration():
+            portal = getToolByName(self, 'portal_url').getPortalObject()
+            result = str('%s <%s>' % (portal.getProperty('email_from_name'), portal.getProperty('email_from_address')))
+        else:
+            result = '%s <%s>' % (self.getSenderName(), self.getSenderEmail())
+        return result
+
+    def getNewSubscriberId(self, email=u''):
+        plone_utils = getToolByName(self, 'plone_utils')
+        id = email
+        id = DASH_RE.sub(u"-dash-", id) # first
+        id = DOT_RE.sub(u"-dot-", id)
+        id = UNDERSCORE_RE.sub(u"-udsr-", id)
+        id = AT_RE.sub(u"--at--", id)
+        id = plone_utils.normalizeString(id)
+        if id in self.objectIds():
+            if email != self[id].getEmail():
+                logger.warning("id collision [%s] [%s] [%s]", id, email, self.l[id].getEmail())
+            return None
+        return id
+    
+    def getSubscriberInfo(self, email=u''):
+        catalog = getToolByName(self, 'portal_catalog')
+        for brain in catalog.unrestrictedSearchResults(portal_type = 'ENLSubscriber',
+                                         path='/'.join(self.getPhysicalPath()),
+                                         email=email):
+            return dict(UID=brain.UID)
+        return None
 
 
 atapi.registerType(EasyNewsletter, config.PROJECTNAME)

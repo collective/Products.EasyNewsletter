@@ -16,11 +16,10 @@ from Products.Archetypes.public import ObjectField
 from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
 from Products.CMFCore.utils import getToolByName
-from Products.MailHost.interfaces import IMailHost
 from Products.PageTemplates.ZopePageTemplate import ZopePageTemplate
+from Products.statusmessages.interfaces import IStatusMessage
 
 from zope.component import queryUtility
-from zope.component import getUtility
 from zope.component import subscribers
 from zope.interface import implements
 
@@ -39,7 +38,7 @@ from Products.EasyNewsletter.utils.ENLHTMLParser import ENLHTMLParser
 from Products.EasyNewsletter.utils import safe_portal_encoding
 
 import logging
-log = logging.getLogger("Products.EasyNewsletter")
+logger = logging.getLogger("Products.EasyNewsletter.Issue")
 
 
 schema = atapi.Schema((
@@ -227,21 +226,24 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             external_subscribers = []
             external_source_name = enl.getSubscriberSource()
             if external_source_name != 'default':
-                log.info('Searching for users in external source "%s"' % external_source_name)
+                logger.info('Searching for users in external source "%s"' % external_source_name)
                 external_source = queryUtility(ISubscriberSource, name=external_source_name)
                 if external_source:
                     external_subscribers = external_source.getSubscribers(enl)
-                    log.info('Found %d external subscriptions' % len(external_subscribers))
+                    logger.info('Found %d external subscriptions' % len(external_subscribers))
 
             receivers_raw = plone_receivers + enl_receivers + external_subscribers
             
             # Avoid double emails
+            # TODO verif duree
+            logger.info("dedoublonnage emails : Debut")
             receivers = []
             mails = []            
             for receiver in receivers_raw:
                 if receiver['email'] not in mails:
                     mails.append(receiver['email'])
                     receivers.append(receiver)
+            logger.info("dedoublonnage emails : Fin")
             
         return receivers
 
@@ -280,6 +282,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
 
         # preparations
         request = self.REQUEST
+        messages = IStatusMessage(request)
 
         # get hold of the parent Newsletter object#
         enl = self.getNewsletter()
@@ -300,15 +303,14 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             subject = self.Title()
 
         # Create from-header
-        from_header = enl.getSenderName() and '"%s" <%s>' % (sender_name, sender_email) or sender_email
+        from_header = '%s <%s>' % (sender_name, sender_email)
 
-        # determine MailHost first (build-in vs. external)
-        deliveryServiceName = enl.getDeliveryService()
-        if deliveryServiceName == 'mailhost':
-            MailHost = getToolByName(enl, 'MailHost')
-        else:
-            MailHost = getUtility(IMailHost, name=deliveryServiceName)
-        log.info('Using mail delivery service "%r"' % MailHost)
+        try:
+            MailHost = enl.getMailHost(mode = 'test' if hasattr(request, "test") else None)
+        except Exception, e:
+            logger.exception(e)
+            messages.addStatusMessage(_("Delivery Service not found - Please update your newsletter."), "error")
+            return
 
         send_counter = 0
         send_error_counter = 0
@@ -393,7 +395,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                     else:
                         o = self.restrictedTraverse(urllib.unquote(image_url))
                 except Exception, e:
-                    log.error("Could not resolve the image \"%s\": %s" % (image_url, e))
+                    logger.error("Could not resolve the image \"%s\": %s" % (image_url, e))
                 else:
                     if hasattr(o, "_data"):                               # file-based
                         image = MIMEImage(o._data)
@@ -401,7 +403,9 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                         image = MIMEImage(o.data)                         # zodb-based
                     else:
                         image = MIMEImage(o.GET())                        # z3 resource image
-                    image["Content-ID"] = "image_%s" % image_number
+                    # TODO http://plone.org/products/easynewsletter/issues/22 the content id should be something more random -- so that it is unique even if many newsletters are forwarded in multiple attachements of a single mail.
+                    image["Content-ID"] = "<image_%s>" % image_number
+                    # image["Content-ID"] = "image_%s" % image_number
                     image_number += 1
                     # attach images only to html parts
                     html_part.attach(image)
@@ -410,13 +414,13 @@ class ENLIssue(ATTopic, atapi.BaseContent):
 
             try:
                 MailHost.send(outer.as_string())
-                log.info("Send newsletter to \"%s\"" % receiver['email'])
+                logger.info("Send newsletter to \"%s\"" % receiver['email'])
                 send_counter += 1
             except Exception, e:
-                log.info("Sending newsletter to \"%s\" failed, with error \"%s\"!" % (receiver['email'], e))
+                logger.info("Sending newsletter to \"%s\" failed, with error \"%s\"!" % (receiver['email'], e))
                 send_error_counter += 1
 
-        log.info("Newsletter was sent to (%s) receivers. (%s) errors occurred!" % (send_counter, send_error_counter))
+        logger.info("Newsletter was sent to (%s) receivers. (%s) errors occurred!" % (send_counter, send_error_counter))
 
         # change status only for a 'regular' send operation (not 'test', no
         # explicit recipients)
@@ -424,6 +428,10 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             wftool = getToolByName(self, "portal_workflow")
             if wftool.getInfoFor(self, 'review_state') == 'draft':
                 wftool.doActionFor(self, "send")
+
+        messages.addStatusMessage(_("The issue has been send."))
+        if send_counter == 0 or send_error_counter > 0:
+            messages.addStatusMessage("(%s) ok, (%s) errors" % (send_counter, send_error_counter), "warning")
 
     security.declareProtected("Manage portal", "loadContent")
     def loadContent(self):
@@ -484,7 +492,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         enl = self.getNewsletter()
         plone_subscribers = []
         if self.getSendToAllPloneMembers():
-            log.info("SendToAllPloneMembers is true, so we add all existing members to receiver_member_list!")
+            logger.info("SendToAllPloneMembers is true, so we add all existing members to receiver_member_list!")
             receiver_member_list = enl.get_plone_members()
             #if all members are receivers we don't need groups relations:
             receiver_group_list = []
@@ -523,7 +531,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         # get all selected member properties
         for receiver_id in set(receiver_member_list):
             if receiver_id not in member_properties:
-                log.debug("Ignore reveiver \"%s\", because we have no properties for this member!" % receiver_id)
+                logger.debug("Ignore reveiver \"%s\", because we have no properties for this member!" % receiver_id)
                 continue
             member_property = member_properties[receiver_id]
             if EMAIL_RE.findall(member_property['email']):
@@ -533,7 +541,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                     'salutation': salutation_mappings.get('default', ''),
                 })
             else:
-                log.debug("Skip '%s' because \"%s\" is not a real email!" % (receiver_id, member_property['email']))
+                logger.debug("Skip '%s' because \"%s\" is not a real email!" % (receiver_id, member_property['email']))
         # run registered receivers post sending filter:
         for subscriber in subscribers([enl],
                                       IReceiversPostSendingFilter):

@@ -92,11 +92,8 @@ class UploadCSV(BrowserView):
         context = aq_inner(self.context)
         plone_utils = getToolByName(self.context, 'plone_utils')
         encoding = plone_utils.getSiteEncoding()
-        existing = self.context.objectIds()
-        messages = IStatusMessage(self.request)
         success = []
         fail = []
-        data = []
 
         # Show error if no file was specified
         filename = self.request.form.get('csv_upload', None)
@@ -125,9 +122,17 @@ class UploadCSV(BrowserView):
                 fullname = subscriber[1]
                 email = subscriber[2]
                 organization = subscriber[3]
-                id = plone_utils.normalizeString(email)
-                if id in existing:
+                id = context.getNewSubscriberId(email)
+                if context.getSubscriberInfo(email) is not None:
                     msg = _('This email address is already registered.')
+                    fail.append(
+                        {'salutation': salutation,
+                         'fullname': fullname,
+                         'email': email,
+                         'organization': organization,
+                         'failure': msg})
+                elif id is None:
+                    msg = _('This email address is in collision with a registered one.')
                     fail.append(
                         {'salutation': salutation,
                          'fullname': fullname,

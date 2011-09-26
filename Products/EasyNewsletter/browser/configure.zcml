@@ -78,6 +78,20 @@
 
   <browser:page
     for="..interfaces.IEasyNewsletter"
+    name="subscription_form"
+    class=".newsletter.NewsletterView"
+    template="subscription_form.pt"
+    permission="zope2.View" />
+
+  <browser:menuItem
+    for="..interfaces.IEasyNewsletter"
+    menu="plone_displayviews"
+    title="Subscription form"
+    action="subscription_form"
+    description="Display subscription form" />
+
+  <browser:page
+    for="..interfaces.IEasyNewsletter"
     name="enl_subscribers_view"
     class=".subscribers.Enl_Subscribers_View"
     template="enl_subscribers_view.pt"
