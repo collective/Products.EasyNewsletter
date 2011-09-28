@@ -235,15 +235,12 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             receivers_raw = plone_receivers + enl_receivers + external_subscribers
             
             # Avoid double emails
-            # TODO verif duree
-            logger.info("dedoublonnage emails : Debut")
             receivers = []
             mails = []            
             for receiver in receivers_raw:
                 if receiver['email'] not in mails:
                     mails.append(receiver['email'])
                     receivers.append(receiver)
-            logger.info("dedoublonnage emails : Fin")
             
         return receivers
 
