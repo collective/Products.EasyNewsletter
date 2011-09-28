@@ -86,29 +86,29 @@ DEFAULT_OUT_TEMPLATE_PT = """<html xmlns="http://www.w3.org/1999/xhtml">
 
 DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT = """Confirm your subscription on ${portal_url}"""
 
-DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_TEXT = """You asked to subscribe to ${newsletter_title}.\n\n
-Your email is: ${subscriber_email}\n\n
-Please click on the link to confirm your subscription: \n\n
+DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_TEXT = """You asked to subscribe to ${newsletter_title}.\n
+Your email is: ${subscriber_email}\n
+Please click on the link to confirm your subscription: \n
 ${confirmation_url}"""
 
 
 DEFAULT_SUBSCRIBER_ALREADY_MAIL_SUBJECT = """You are already subscribed on ${portal_url}"""
 
-DEFAULT_SUBSCRIBER_ALREADY_MAIL_TEXT = """You asked to subscribe to ${newsletter_title}.\n\n
-Your email is: ${subscriber_email}\n\n
+DEFAULT_SUBSCRIBER_ALREADY_MAIL_TEXT = """You asked to subscribe to ${newsletter_title}.\n
+Your email is: ${subscriber_email}\n
 You are already subscribed."""
 
 
 DEFAULT_UNSUBSCRIBER_CONFIRMATION_MAIL_SUBJECT = """Confirm your unsubscription on ${portal_url}"""
 
-DEFAULT_UNSUBSCRIBER_CONFIRMATION_MAIL_TEXT = """You asked to unsubscribe to ${newsletter_title}.\n\n
-Your email is: ${subscriber_email}\n\n
-Please click on the link to confirm your unsubscription: \n\n
+DEFAULT_UNSUBSCRIBER_CONFIRMATION_MAIL_TEXT = """You asked to unsubscribe to ${newsletter_title}.\n
+Your email is: ${subscriber_email}\n
+Please click on the link to confirm your unsubscription: \n
 ${confirmation_url}"""
 
 
 DEFAULT_UNSUBSCRIBER_NOT_MAIL_SUBJECT = """You are not subscribed on ${portal_url}"""
 
-DEFAULT_UNSUBSCRIBER_NOT_MAIL_TEXT = """You asked to unsubscribe to ${newsletter_title}.\n\n
-Your email is: ${subscriber_email}\n\n
+DEFAULT_UNSUBSCRIBER_NOT_MAIL_TEXT = """You asked to unsubscribe to ${newsletter_title}.\n
+Your email is: ${subscriber_email}\n
 You are not subscribed."""
