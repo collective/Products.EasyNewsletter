@@ -73,7 +73,7 @@
                                                                          review_state='sent',
                                                                          sort_on='Date',
                                                                          sort_order='reverse',
-                                                                         sort_limit='99',
+                                                                         sort_limit=5,
                                                                          path='/'.join(context.getPhysicalPath()))[:5]">
              <div tal:condition="not: newsletters"
                   i18n:translate="easynewsletter_non_issues_label">
