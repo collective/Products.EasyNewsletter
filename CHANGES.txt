@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-2.6dev (unreleased)
----------------------
+2.6 (2011-10-01)
+----------------
 
 - Fix external images url by inserting url directly in html when 'http' is encountered.
   This fixes http://plone.org/products/easynewsletter/issues/15
