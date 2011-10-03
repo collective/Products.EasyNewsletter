@@ -5,11 +5,6 @@ Changelog
 2.6dev (unreleased)
 ---------------------
 
-- mime disposition change : alternative part inside related part, images attached to related part
-  Lotus Notes displays html part now
-  *** untested with embeded images ***
-  [regisrouet]
-
 - parser changes : don't try to traverse absolute href links, don't try to embed images
   *** THIS MAY NOT WHAT YOU WANT ***
   [regisrouet]
@@ -78,6 +73,10 @@ Changelog
 
 - display std message when submiting registration
   This fixes http://plone.org/products/easynewsletter/issues/44
+  [regisrouet]
+
+- don't create fullname and organization indexes
+  This fixes http://plone.org/products/easynewsletter/issues/46
   [regisrouet]
 
 - Fix external images url by inserting url directly in html when 'http' is encountered.
