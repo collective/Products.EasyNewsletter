@@ -5,6 +5,10 @@ Changelog
 2.6dev (unreleased)
 ---------------------
 
+- parser changes : don't try to traverse absolute href links, don't try to embed images
+  *** THIS MAY NOT WHAT YOU WANT ***
+  [regisrouet]
+
 - non portlet subscription/unsubscription form
   This fixes http://plone.org/products/easynewsletter/issues/3
   [regisrouet]
