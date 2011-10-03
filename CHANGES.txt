@@ -5,6 +5,12 @@ Changelog
 2.6dev (unreleased)
 ---------------------
 
+- mime disposition change : alternative part inside related part, images attached to related part
+  Lotus Notes displays html part now
+  *** UNTESTED WITH EMBEDDED IMAGES ***
+  This fixes http://plone.org/products/easynewsletter/issues/47
+  [regisrouet]
+
 - parser changes : don't try to traverse absolute href links, don't try to embed images
   *** THIS MAY NOT WHAT YOU WANT ***
   [regisrouet]
