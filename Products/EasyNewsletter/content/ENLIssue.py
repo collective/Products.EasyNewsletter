@@ -438,7 +438,8 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             issue_template = self.restrictedTraverse(self.getTemplate())
             issue_template.setIssue(self.UID())
             text = issue_template.body()
-            self.setText(text)
+            mimetype = self['text'].mimetype
+            self.setText(text, mimetype=mimetype)
 
     def getSubTopics(self):
         """Returns subtopics of the issues.

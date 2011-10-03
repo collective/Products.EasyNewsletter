@@ -23,6 +23,10 @@ Changelog
   *** BREAKING COMPATIBILITY CHANGE ***
   [regisrouet]
 
+- keep issue's format text after refresh
+  This fixes http://plone.org/products/easynewsletter/issues/32
+  [regisrouet]
+
 - choice for confirmation from & mailhost, test mailhost
   This fixes http://plone.org/products/easynewsletter/issues/33
   [regisrouet]
@@ -57,6 +61,10 @@ Changelog
 
 - improve subscriber id calculation & use
   This fixes http://plone.org/products/easynewsletter/issues/43
+  [regisrouet]
+
+- display std message when submiting registration
+  This fixes http://plone.org/products/easynewsletter/issues/44
   [regisrouet]
 
 - display std message when submiting registration
