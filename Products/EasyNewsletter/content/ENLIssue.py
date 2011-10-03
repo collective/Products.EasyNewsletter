@@ -323,7 +323,8 @@ class ENLIssue(ATTopic, atapi.BaseContent):
 
         for receiver in receivers:
             # create multipart mail
-            outer = MIMEMultipart('alternative')
+            message_part = MIMEMultipart('alternative')
+            outer = MIMEMultipart('related')
 
             if hasattr(request, "test"):
                 outer['To'] = receiver['email']
@@ -365,15 +366,9 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             outer['Subject'] = Header(subject)
             outer.epilogue = ''
 
-            # Attach text part
-            text_part = MIMEMultipart("related")
-            text_part.attach(MIMEText(personal_text_plain, "plain",
-                                      charset))
-
-            # Attach html part with images
-            html_part = MIMEMultipart("related")
-            html_text = MIMEText(personal_text, "html", charset)
-            html_part.attach(html_text)
+            message_part.attach(MIMEText(personal_text_plain, "plain", charset))
+            message_part.attach(MIMEText(personal_text, "html", charset))
+            outer.attach(message_part)
 
             # Add images to the message
             image_number = 0
@@ -404,10 +399,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                     image["Content-ID"] = "<image_%s>" % image_number
                     # image["Content-ID"] = "image_%s" % image_number
                     image_number += 1
-                    # attach images only to html parts
-                    html_part.attach(image)
-            outer.attach(text_part)
-            outer.attach(html_part)
+                    outer.attach(image)
 
             try:
                 MailHost.send(outer.as_string())
