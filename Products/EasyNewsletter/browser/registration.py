@@ -100,15 +100,18 @@ class SubscriberView(BrowserView):
         props = getToolByName(self, "portal_properties").site_properties
         charset = props.getProperty("default_charset")
         msg = MIMEText(msg_text, "plain", charset)
-        msg['To']= Header(subscriber)
+        # don't use Header() charset arg, even if it is correct, mail server may not support encoded email address
+        msg['To']= Header('<%s>' % unicode(subscriber, charset))
         msg['From'] = newsletter_container.getRegistrationSender()
         msg['Subject'] = Header(msg_subject)
+        # it costs nothing to catch exception on send(), even if Products.MailHost doesn't seem to throw some
         try:
             MailHost = newsletter_container.getMailHost(mode = 'subscription')
+            MailHost.send(msg.as_string())
         except Exception, e:
             messages.addStatusMessage(_("Sorry... An error has happend during operation."), "error")
+            logger.warning(e)
             return self.request.response.redirect(newsletter_container.absolute_url())
-        MailHost.send(msg.as_string())
         messages.addStatusMessage(_("Your request has been registered. An email was sent to you. It contains a link to confirm your request."), "info")
         self.request.response.redirect(newsletter_container.absolute_url())
 
