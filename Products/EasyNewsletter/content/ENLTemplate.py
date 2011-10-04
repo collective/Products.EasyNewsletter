@@ -8,6 +8,9 @@ from Products.EasyNewsletter import config
 from Products.EasyNewsletter.interfaces import IENLTemplate
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 
+import logging
+logger = logging.getLogger("Products.EasyNewsletter.Template")
+
 
 schema = atapi.BaseSchema + atapi.Schema((
 
@@ -71,7 +74,8 @@ class ENLTemplate(atapi.BaseContent):
             brain = portal_catalog(UID = self.issue_uid)[0]
             issue = brain.getObject()
             return issue.queryCatalog()
-        except (AttributeError, IndexError, TypeError):
+        except (AttributeError, IndexError, TypeError), e:
+            logger.warning(e)
             return []
 
     def getSubTopics(self):
@@ -80,7 +84,8 @@ class ENLTemplate(atapi.BaseContent):
         portal_catalog = getToolByName(self, "portal_catalog")
         try:
             brain = portal_catalog(UID = self.issue_uid)[0]
-        except (AttributeError, IndexError):
+        except (AttributeError, IndexError), e:
+            logger.warning(e)
             return []
         else:
             newsletter = brain.getObject()
