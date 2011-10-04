@@ -34,6 +34,10 @@ Changelog
 - use mail icon for newsletter item
   [regisrouet]
 
+- fix non-ascii chars in headers
+  This fixes http://plone.org/products/easynewsletter/issues/17 & 19
+  [regisrouet]
+
 - external delivery service with local utility
   This fixes http://plone.org/products/easynewsletter/issues/31
   *** BREAKING COMPATIBILITY CHANGE ***

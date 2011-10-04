@@ -280,27 +280,28 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         # preparations
         request = self.REQUEST
         messages = IStatusMessage(request)
+        props = getToolByName(self, "portal_properties").site_properties
+        charset = props.getProperty("default_charset")
 
         # get hold of the parent Newsletter object#
         enl = self.getNewsletter()
 
-        # get sender name
         sender_name = request.get("sender_name", "")
         if sender_name == "":
             sender_name = enl.getSenderName()
+        # don't use Header() with a str and a charset arg, even if it is correct
+        # this would generate a encoded header and mail server may not support utf-8 encoded header
+        from_header = Header(unicode(sender_name, charset))
 
-        # get sender e-mail
         sender_email = request.get("sender_email", "")
         if sender_email == "":
             sender_email = enl.getSenderEmail()
+        from_header.append('<%s>' % unicode(sender_email, charset))
 
-        # get subject
         subject = request.get("subject", "")
         if subject == "":
             subject = self.Title()
-
-        # Create from-header
-        from_header = '%s <%s>' % (sender_name, sender_email)
+        subject_header = Header(unicode(subject, charset))
 
         try:
             MailHost = enl.getMailHost(mode = 'test' if hasattr(request, "test") else None)
@@ -318,8 +319,6 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         text = rendered_newsletter['html']
         text_plain = rendered_newsletter['plain']
         image_urls = rendered_newsletter['images']
-        props = getToolByName(self, "portal_properties").site_properties
-        charset = props.getProperty("default_charset")
 
         for receiver in receivers:
             # create multipart mail
@@ -327,7 +326,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             outer = MIMEMultipart('related')
 
             if hasattr(request, "test"):
-                outer['To'] = receiver['email']
+                outer['To'] = Header('<%s>' % unicode(receiver['email'], charset))
                 fullname = receiver['fullname']
                 salutation = receiver['salutation']
                 personal_text = text.replace("[[SUBSCRIBER_SALUTATION]]", "")
@@ -356,14 +355,14 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                         fullname = enl.getFullname_fallback()
                     except AttributeError:
                         fullname = "Sir or Madam"
-                outer['To'] = receiver['email']
+                outer['To'] = Header('<%s>' % unicode(receiver['email'], charset))
 
             subscriber_salutation = safe_portal_encoding(salutation) + ' ' + safe_portal_encoding(fullname)
             personal_text = personal_text.replace("[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
             personal_text_plain = personal_text_plain.replace("[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
 
             outer['From'] = from_header
-            outer['Subject'] = Header(subject)
+            outer['Subject'] = subject_header
             outer.epilogue = ''
 
             message_part.attach(MIMEText(personal_text_plain, "plain", charset))
