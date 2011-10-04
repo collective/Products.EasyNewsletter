@@ -100,7 +100,8 @@ class SubscriberView(BrowserView):
         props = getToolByName(self, "portal_properties").site_properties
         charset = props.getProperty("default_charset")
         msg = MIMEText(msg_text, "plain", charset)
-        # don't use Header() charset arg, even if it is correct, mail server may not support encoded email address
+        # don't use Header() with a str and a charset arg, even if it is correct
+        # this would generate a encoded header and mail server may not support utf-8 encoded email address
         msg['To']= Header('<%s>' % unicode(subscriber, charset))
         msg['From'] = newsletter_container.getRegistrationSender()
         msg['Subject'] = Header(msg_subject)
