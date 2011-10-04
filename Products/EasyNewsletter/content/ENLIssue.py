@@ -395,9 +395,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                         image = MIMEImage(o.data)                         # zodb-based
                     else:
                         image = MIMEImage(o.GET())                        # z3 resource image
-                    # TODO http://plone.org/products/easynewsletter/issues/22 the content id should be something more random -- so that it is unique even if many newsletters are forwarded in multiple attachements of a single mail.
                     image["Content-ID"] = "<image_%s>" % image_number
-                    # image["Content-ID"] = "image_%s" % image_number
                     image_number += 1
                     outer.attach(image)
 

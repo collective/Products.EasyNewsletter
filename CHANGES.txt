@@ -19,6 +19,12 @@ Changelog
   This fixes http://plone.org/products/easynewsletter/issues/3
   [regisrouet]
 
+- put Content-ID header of image between <> as suggested by hansemann in issue 22
+  [regisrouet]
+
+- don't put sender name beetween quotes
+  [regisrouet]
+
 - better feedback on send
   [regisrouet]
 
