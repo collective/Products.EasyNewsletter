@@ -3,6 +3,7 @@ import re
 
 from Acquisition import aq_inner
 from email.MIMEText import MIMEText
+from email.Header import Header
 from zope.component import queryUtility
 from zope.component import getMultiAdapter
 
@@ -61,18 +62,18 @@ class SubscriberView(BrowserView):
         subscriber_info = newsletter_container.getSubscriberInfo(subscriber)
         subscribed = subscriber_info is not None
         if subscription == "unsubscription" and subscribed:
-            msg_subject = newsletter_container.getRawUnsubscriber_confirmation_mail_subject()
+            msg_subject = newsletter_container.unsubscriber_confirmation_mail_subject
             msg_text = newsletter_container.getRawUnsubscriber_confirmation_mail_text()
             confirmation_url = newsletter_container.absolute_url() + "/unsubscribe?subscriber=" + subscriber_info['UID']
             msg_text = msg_text.replace("${confirmation_url}", confirmation_url)
         elif subscription == "unsubscription":
-            msg_subject = newsletter_container.getRawUnsubscriber_not_mail_subject()
+            msg_subject = newsletter_container.unsubscriber_not_mail_subject
             msg_text = newsletter_container.getRawUnsubscriber_not_mail_text()
         elif subscribed:
-            msg_subject = newsletter_container.getRawSubscriber_already_mail_subject()
+            msg_subject = newsletter_container.subscriber_already_mail_subject
             msg_text = newsletter_container.getRawSubscriber_already_mail_text()
         else:
-            msg_subject = newsletter_container.getRawSubscriber_confirmation_mail_subject()
+            msg_subject = newsletter_container.subscriber_confirmation_mail_subject
             msg_text = newsletter_container.getRawSubscriber_confirmation_mail_text()
             subscriber_data = {}
             subscriber_data["subscriber"] = subscriber
@@ -95,27 +96,20 @@ class SubscriberView(BrowserView):
         msg_subject = msg_subject.replace("${portal_url}", self.portal_url.strip('http://'))
         msg_text = msg_text.replace("${newsletter_title}", newsletter_container.Title())
         msg_text = msg_text.replace("${subscriber_email}", subscriber)
-        msg_sender = newsletter_container.getRegistrationSender()
-        msg_receiver = subscriber
 
         props = getToolByName(self, "portal_properties").site_properties
         charset = props.getProperty("default_charset")
-        msg = MIMEText(msg_text, _charset=charset)
-        msg['To']= msg_receiver
-        msg['From'] = msg_sender
-        msg['Subject'] = msg_subject
+        msg = MIMEText(msg_text, "plain", charset)
+        msg['To']= Header(subscriber)
+        msg['From'] = newsletter_container.getRegistrationSender()
+        msg['Subject'] = Header(msg_subject)
         try:
             MailHost = newsletter_container.getMailHost(mode = 'subscription')
         except Exception, e:
             messages.addStatusMessage(_("Sorry... An error has happend during operation."), "error")
             return self.request.response.redirect(newsletter_container.absolute_url())
         MailHost.send(msg.as_string())
-        messages.addStatusMessage(_("Your email has been registered. \
-            A confirmation email was sent to your address. Please check \
-            your inbox and click on the link in the email in order to \
-            confirm your subscription."), "info")
         messages.addStatusMessage(_("Your request has been registered. An email was sent to you. It contains a link to confirm your request."), "info")
-
         self.request.response.redirect(newsletter_container.absolute_url())
 
     def confirm_subscriber(self):

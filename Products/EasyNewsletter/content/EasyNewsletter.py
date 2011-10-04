@@ -5,6 +5,7 @@ from AccessControl import getSecurityManager
 from AccessControl.SecurityManagement import newSecurityManager, setSecurityManager
 from AccessControl.User import UnrestrictedUser as BaseUnrestrictedUser
 
+from email.Header import Header
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
@@ -542,9 +543,11 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
     def getRegistrationSender(self):
         if self.getUseSiteSenderForRegistration():
             portal = getToolByName(self, 'portal_url').getPortalObject()
-            result = str('%s <%s>' % (portal.getProperty('email_from_name'), portal.getProperty('email_from_address')))
+            result = Header(portal.email_from_name)
+            result.append('<%s>' % portal.email_from_address)
         else:
-            result = '%s <%s>' % (self.getSenderName(), self.getSenderEmail())
+            result = Header(self.senderName)
+            result.append('<%s>' % self.senderEmail)
         return result
 
     def getNewSubscriberId(self, email=u''):
