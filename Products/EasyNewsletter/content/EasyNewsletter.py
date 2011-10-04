@@ -22,7 +22,7 @@ from zope.component import subscribers
 from zope.interface import implements
 
 try:
-    from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool
+    from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool #@UnresolvedImport
     fmp_tool = True
 except:
     fmp_tool = False
@@ -380,7 +380,7 @@ schema = atapi.Schema((
 )
 
 
-schema = ATTopicSchema.copy() + schema
+schema = ATTopicSchema.copy() + schema #@UndefinedVariable
 schema['text'].widget.description = _(u'description_text',
     default=u'This is used in the frontpage of EasyNewsletter on top of Issue archive list.')
 
@@ -483,7 +483,7 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
         try:
             results = atapi.DisplayList([(id, property['fullname'] + ' - ' + property['email'])
                                    for id, property in member_properties.items()
-                if config.EMAIL_RE.findall(property['email'])])
+                if config.EMAIL_RE.findall(property['email'])]) #@UndefinedVariable
         except TypeError, e:
             logger.error(":get_plone_members: error in member_properties %s/ \
                 properties:'%s'" % (e, member_properties.items()))
