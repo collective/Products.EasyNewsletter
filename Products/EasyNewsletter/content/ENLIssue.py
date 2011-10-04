@@ -204,7 +204,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             if test_receiver == "":
                 test_receiver = enl.getTestEmail()
             salutation = salutation_mappings.get('default', '')
-            receivers = [{'email': test_receiver, 'fullname': 'Test Member', 'salutation': salutation}]
+            receivers = [{'email': r, 'fullname': 'Test Member', 'salutation': salutation} for r in test_receiver.split(';')]
         else:
             # get ENLSubscribers
             enl_receivers = []
