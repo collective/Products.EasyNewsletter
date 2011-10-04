@@ -24,7 +24,7 @@ from zope.component import subscribers
 from zope.interface import implements
 
 try:
-    from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool
+    from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool #@UnresolvedImport
     fmp_tool = True
 except:
     fmp_tool = False
@@ -152,7 +152,7 @@ schema = atapi.Schema((
 ),
 )
 
-schema = ATTopicSchema.copy() + schema
+schema = ATTopicSchema.copy() + schema #@UndefinedVariable
 schema.moveField('acquireCriteria', before='template')
 
 # hide id, even if visible_ids is True
