@@ -97,6 +97,7 @@ class UploadCSV(BrowserView):
         encoding = plone_utils.getSiteEncoding()
         success = []
         fail = []
+        count = 0
 
         # Show error if no file was specified
         filename = self.request.form.get('csv_upload', None)
@@ -168,7 +169,11 @@ class UploadCSV(BrowserView):
                              'email': email,
                              'organization': organization,
                              'failure': 'An error occured while creating this subscriber: %s' % str(e)})
+            count += 1
+            if count%100 == 0:
+                logger.info("done %5d lines", count)
 
+        logger.info("Import of %d lines completed", count)
         return {'success': success, 'fail': fail}
 
 
