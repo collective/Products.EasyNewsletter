@@ -13,6 +13,7 @@ from email.Header import Header
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes import atapi
 from Products.Archetypes.public import ObjectField
+from Products.ATContentTypes.content.base import ATCTFolder
 from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
 from Products.CMFCore.utils import getToolByName
@@ -174,6 +175,13 @@ class ENLIssue(ATTopic, atapi.BaseContent):
     implements(IENLIssue)
     security = ClassSecurityInfo()
     schema = schema
+
+    security.declarePublic("initializeArchetype")
+    def initializeArchetype(self, **kwargs):
+        """Overwritten hook.
+        """
+        # Don't use ATTopic which enables topic syndication by default
+        ATCTFolder.initializeArchetype(self, **kwargs)
 
     def at_post_create_script(self):
         """Overwritten hook """

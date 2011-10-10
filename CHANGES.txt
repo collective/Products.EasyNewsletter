@@ -55,6 +55,10 @@ Changelog
   This fixes http://plone.org/products/easynewsletter/issues/34
   [regisrouet]
 
+- don't enable syndication for newsletter and issues because it only shows site RSS
+  This fixes http://plone.org/products/easynewsletter/issues/35
+  [regisrouet]
+
 - inappropriate error message on confirmation page
   This fixes http://plone.org/products/easynewsletter/issues/36
   [regisrouet]

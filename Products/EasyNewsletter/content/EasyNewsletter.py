@@ -7,6 +7,7 @@ from AccessControl.User import UnrestrictedUser as BaseUnrestrictedUser
 
 from email.Header import Header
 from Products.Archetypes import atapi
+from Products.ATContentTypes.content.base import ATCTFolder
 from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
 from Products.CMFCore.utils import getToolByName
@@ -421,7 +422,8 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
     def initializeArchetype(self, **kwargs):
         """Overwritten hook.
         """
-        ATTopic.initializeArchetype(self, **kwargs)
+        # Don't use ATTopic which enables topic syndication by default
+        ATCTFolder.initializeArchetype(self, **kwargs)
         # Add default template
         if not getattr(self, 'default_template', None):
             self.manage_addProduct["EasyNewsletter"].addENLTemplate(id="default_template", title="Default")
