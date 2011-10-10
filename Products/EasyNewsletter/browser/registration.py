@@ -105,7 +105,7 @@ class SubscriberView(BrowserView):
         msg['To']= Header('<%s>' % unicode(subscriber, charset))
         msg['From'] = newsletter_container.getRegistrationSender()
         msg['Subject'] = Header(msg_subject)
-        # it costs nothing to catch exception on send(), even if Products.MailHost doesn't seem to throw some
+        # it costs nothing to catch exception on send(), even if Products.MailHost doesn't throw some in general
         try:
             MailHost = newsletter_container.getMailHost(mode = 'subscription')
             MailHost.send(msg.as_string())
