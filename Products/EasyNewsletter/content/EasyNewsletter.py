@@ -565,8 +565,8 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
         id = AT_RE.sub(u"-at-", id)
         id = plone_utils.normalizeString(id)
         if id in self.objectIds():
-            if email != self[id].getEmail():
-                logger.warning("id collision [%s] [%s] [%s]", id, email, self.l[id].getEmail())
+            if email != self[id].email:
+                logger.warning("id collision [%s] [%s] [%s]", id, email, self[id].getEmail())
             return None
         return id
     
