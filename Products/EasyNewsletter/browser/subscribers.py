@@ -16,6 +16,9 @@ from Products.EasyNewsletter.interfaces import ISubscriberSource
 
 CSV_HEADER = ['salutation', 'fullname', 'email', 'organization', ]
 
+import logging
+logger = logging.getLogger("Products.EasyNewsletter.subscribers")
+
 
 class IEnl_Subscribers_View(Interface):
     """
@@ -122,8 +125,8 @@ class UploadCSV(BrowserView):
                 fullname = subscriber[1]
                 email = subscriber[2]
                 organization = subscriber[3]
-                id = context.getNewSubscriberId(email)
-                if context.getSubscriberInfo(email) is not None:
+                id = context.getNewSubscriberId(email.decode(encoding))
+                if context.getSubscriberInfo(email.decode(encoding)) is not None:
                     msg = _('This email address is already registered.')
                     fail.append(
                         {'salutation': salutation,
@@ -147,7 +150,7 @@ class UploadCSV(BrowserView):
                             title=title,
                             description="")
                         sub = context[id]
-                        sub.email = email
+                        sub.email = email.decode(encoding)
                         sub.fullname = fullname.decode(encoding)
                         sub.organization = organization.decode(encoding)
                         sub.salutation = salutation.decode(encoding)

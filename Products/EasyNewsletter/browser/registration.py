@@ -44,6 +44,8 @@ class SubscriberView(BrowserView):
         salutation = self.request.get("salutation", "")
         organization = self.request.get("organization", "")
         subscription = self.request.get("subscription", "")
+        props = getToolByName(self, "portal_properties").site_properties
+        charset = props.getProperty("default_charset")
         path_to_easynewsletter = self.request.get("newsletter")
         # remove leading slash from paths like: /mynewsletter
         path_to_easynewsletter = path_to_easynewsletter.strip('/')
@@ -59,7 +61,7 @@ class SubscriberView(BrowserView):
             messages.addStatusMessage(_("Please enter a valid email address."), "error")
             return self.request.response.redirect(newsletter_container.absolute_url())
 
-        subscriber_info = newsletter_container.getSubscriberInfo(subscriber)
+        subscriber_info = newsletter_container.getSubscriberInfo(unicode(subscriber, charset))
         subscribed = subscriber_info is not None
         if subscription == "unsubscription" and subscribed:
             msg_subject = newsletter_container.unsubscriber_confirmation_mail_subject
@@ -97,8 +99,6 @@ class SubscriberView(BrowserView):
         msg_text = msg_text.replace("${newsletter_title}", newsletter_container.Title())
         msg_text = msg_text.replace("${subscriber_email}", subscriber)
 
-        props = getToolByName(self, "portal_properties").site_properties
-        charset = props.getProperty("default_charset")
         msg = MIMEText(msg_text, "plain", charset)
         # don't use Header() with a str and a charset arg, even if it is correct
         # this would generate a encoded header and mail server may not support utf-8 encoded email address
@@ -118,12 +118,14 @@ class SubscriberView(BrowserView):
 
     def confirm_subscriber(self):
         hashkey = self.request.get('hkey')
+        props = getToolByName(self, "portal_properties").site_properties
+        charset = props.getProperty("default_charset")
         enl_registration_tool = queryUtility(IENLRegistrationTool, 'enl_registration_tool')
         regdataobj = enl_registration_tool.get(hashkey)
         messages = IStatusMessage(self.request)
         if regdataobj:
             easynewsletter = self.portal.restrictedTraverse(regdataobj.path_to_easynewsletter)
-            if easynewsletter.getSubscriberInfo(regdataobj.subscriber) is not None:
+            if easynewsletter.getSubscriberInfo(unicode(regdataobj.subscriber, charset)) is not None:
                 del enl_registration_tool[hashkey]
                 messages.addStatusMessage(_('This email address is already registered.'))
             else:

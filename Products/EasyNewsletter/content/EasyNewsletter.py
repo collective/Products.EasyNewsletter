@@ -439,7 +439,9 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
     def addSubscriber(self, email, fullname, organization, salutation=None):
         """Adds a new subscriber to the newsletter (if valid).
         """
-        subscriber_id = self.getNewSubscriberId(email)
+        props = getToolByName(self, "portal_properties").site_properties
+        charset = props.getProperty("default_charset")
+        subscriber_id = self.getNewSubscriberId(email.decode(charset))
         if subscriber_id is None:
             logger.warning("subscriber_id is None when adding subscriber [%s]", email)
             return False
@@ -552,13 +554,15 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
             result.append('<%s>' % self.senderEmail)
         return result
 
-    def getNewSubscriberId(self, email=u''):
+    def getNewSubscriberId(self, email):
+        """compute id from email (unicode)
+        """
         plone_utils = getToolByName(self, 'plone_utils')
         id = email
         id = DASH_RE.sub(u"-dash-", id) # first
         id = DOT_RE.sub(u"-dot-", id)
         id = UNDERSCORE_RE.sub(u"-udsr-", id)
-        id = AT_RE.sub(u"--at--", id)
+        id = AT_RE.sub(u"-at-", id)
         id = plone_utils.normalizeString(id)
         if id in self.objectIds():
             if email != self[id].getEmail():
@@ -566,7 +570,9 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
             return None
         return id
     
-    def getSubscriberInfo(self, email=u''):
+    def getSubscriberInfo(self, email):
+        """get subscriber info from email (unicode)
+        """
         catalog = getToolByName(self, 'portal_catalog')
         for brain in catalog.unrestrictedSearchResults(portal_type = 'ENLSubscriber',
                                          path='/'.join(self.getPhysicalPath()),
