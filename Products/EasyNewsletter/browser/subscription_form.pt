@@ -48,7 +48,7 @@
                 <input type="hidden" name="newsletter" value="newsletter"
                         tal:attributes="value python: '/'.join(request.physicalPathToVirtualPath(context.getPhysicalPath()))" />
 
-                <input class="texte" onclick="this.value=''" name="subscriber" value="Your email" i18n:attributes="value easynewsletter_input_value;" />
+                <input class="texte" type="email" onclick="this.value=''" name="subscriber" value="Your email" i18n:attributes="value easynewsletter_input_value;" />
 
                 <input class="texte submit"  id='w_submit' type="submit" value="ok" i18n:attributes="value easynewsletter_button_label;" />
 
