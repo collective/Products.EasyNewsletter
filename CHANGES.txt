@@ -55,7 +55,7 @@ Changelog
   This fixes http://plone.org/products/easynewsletter/issues/34
   [regisrouet]
 
-- don't enable syndication for newsletter and issues because it only shows site RSS
+- don't enable syndication for newly created newsletters and issues (it was showing site RSS)
   This fixes http://plone.org/products/easynewsletter/issues/35
   [regisrouet]
 
