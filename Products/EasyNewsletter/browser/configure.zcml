@@ -11,7 +11,7 @@
     for="..interfaces.IENLIssue"
     class=".issue.IssueView"
     template="issue_send_form.pt"
-    permission="cmf.ManagePortal" />
+    permission="cmf.ReviewPortalContent" />
 
   <browser:page
     name="get-public-body"
@@ -25,14 +25,14 @@
     for="..interfaces.IENLIssue"
     class=".issue.IssueView"
     attribute="send_issue"
-    permission="cmf.ManagePortal" />
+    permission="cmf.ReviewPortalContent" />
 
   <browser:page
     name="refresh-issue"
     for="..interfaces.IENLIssue"
     class=".issue.IssueView"
     attribute="refresh_issue"
-    permission="cmf.ManagePortal" />
+    permission="cmf.ModifyPortalContent" />
 
   <browser:page
     name="enl_public_view"
@@ -46,20 +46,20 @@
     for="..interfaces.IEasyNewsletter"
     class=".newsletter.NewsletterView"
     attribute="unsubscribe"
-    permission="zope2.Public" />
+    permission="zope2.View" />
 
   <browser:page
     for="*"
     name="register-subscriber"
     class=".registration.SubscriberView"
     attribute="register_subscriber"
-    permission="zope.Public" />
+    permission="zope2.View" />
 
   <browser:page
     name="confirm-subscriber"
    	class=".registration.SubscriberView"
    	attribute="confirm_subscriber"
-   	permission="zope.Public"
+   	permission="zope2.View"
   	for="*" />
 
   <browser:page
@@ -95,20 +95,20 @@
     name="enl_subscribers_view"
     class=".subscribers.Enl_Subscribers_View"
     template="enl_subscribers_view.pt"
-    permission="cmf.ManagePortal" />
+    permission="cmf.ReviewPortalContent" />
 
   <browser:page
     for="..interfaces.IEasyNewsletter"
     name="upload_csv"
     class=".subscribers.UploadCSV"
     template="upload_csv.pt"
-    permission="cmf.ManagePortal" />
+    permission="cmf.ReviewPortalContent" />
 
   <browser:page
     for="..interfaces.IEasyNewsletter"
     name="download_csv"
     class=".subscribers.DownloadCSV"
-    permission="cmf.ManagePortal" />
+    permission="cmf.ReviewPortalContent" />
 
   <browser:resource
     name="Products.EasyNewsletter.enl_edithelper.js"

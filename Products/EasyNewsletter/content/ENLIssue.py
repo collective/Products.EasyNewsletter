@@ -427,7 +427,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         if send_counter == 0 or send_error_counter > 0:
             messages.addStatusMessage("(%s) ok, (%s) errors" % (send_counter, send_error_counter), "warning")
 
-    security.declareProtected("Manage portal", "loadContent")
+    security.declareProtected("Modify portal content", "loadContent")
     def loadContent(self):
         """Loads text dependend on criteria into text attribute.
         """

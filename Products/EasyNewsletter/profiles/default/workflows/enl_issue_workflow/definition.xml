@@ -6,34 +6,40 @@
              initial_state="draft">
  <permission>Access contents information</permission>
  <permission>Change portal events</permission>
- <permission>List folder contents</permission>
  <permission>Modify portal content</permission>
  <permission>View</permission>
  <state state_id="draft" title="Draft">
   <exit-transition transition_id="send"/>
   <permission-map name="Access contents information"
                   acquired="False">
+   <permission-role>Contributor</permission-role>
+   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Change portal events"
                   acquired="False">
+   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
-  </permission-map>
-  <permission-map name="List folder contents"
-                  acquired="False">
-   <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Modify portal content"
                   acquired="False">
+   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
+   <permission-role>Contributor</permission-role>
+   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
  </state>
  <state state_id="sent" title="Sent">
@@ -45,7 +51,7 @@
   <action url="%(content_url)s/content_status_modify?workflow_action=make_draft"
           category="workflow">Make draft</action>
   <guard>
-   <guard-permission>Manage portal content</guard-permission>
+   <guard-permission>Review portal content</guard-permission>
   </guard>
  </transition>
  <transition transition_id="send" title="Send"
@@ -54,7 +60,7 @@
   <action url="%(content_url)s/content_status_modify?workflow_action=send"
           category="workflow">Send</action>
   <guard>
-   <guard-permission>Modify portal content</guard-permission>
+   <guard-permission>Review portal content</guard-permission>
   </guard>
  </transition>
  <variable variable_id="action" for_catalog="False"
