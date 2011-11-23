@@ -5,14 +5,18 @@ Changelog
 2.7 (unreleased)
 ----------------
 
+- Fix mail rendering in Thunderbird 8.
+  [timo]
+
 - Fix German translation for registration notification.
+  [timo]
 
 
 2.6 (2011-10-01)
 ----------------
 
-- Fix external images url by inserting url directly in html when 'http' is encountered.
-  This fixes http://plone.org/products/easynewsletter/issues/15
+- Fix external images url by inserting url directly in html when 'http' is 
+  encountered. This fixes http://plone.org/products/easynewsletter/issues/15
   [numahel]
 
 - loadContent only when AcquireCriteria is set True.
@@ -20,8 +24,8 @@ Changelog
   This fixes http://plone.org/products/easynewsletter/issues/4
   [WouterVH]
 
-- Rename "refresh" into "Refresh aggregate body" to make more clear what it does.
-  Cfr. http://plone.org/products/easynewsletter/issues/4
+- Rename "refresh" into "Refresh aggregate body" to make more clear what it 
+  does. Cfr. http://plone.org/products/easynewsletter/issues/4
   [WouterVH]
 
 - Improve translatable content.
@@ -43,7 +47,8 @@ Changelog
   Fixes http://plone.org/products/easynewsletter/issues/6
   [WouterVH]
 
-- Don't overwrite the metaTypesNotToList-property, but just append our own types.
+- Don't overwrite the metaTypesNotToList-property, but just append our own 
+  types.
   [WouterVH]
 
 
@@ -56,7 +61,8 @@ Changelog
 2.5.10a2 (11/03/2011)
 ---------------------
 
-- Fix confirm_subscriber and addSubscriber to set salutation from subscribe portlet.
+- Fix confirm_subscriber and addSubscriber to set salutation from subscribe 
+  portlet.
   [numahell]
 
 - Fix ENLHTMLParser for unicode URLs.
@@ -65,7 +71,8 @@ Changelog
 - Order newsletters and drafts by creation date.
   [timo]
 
-- Set batch_base_url in enl_subscribers_view, this fix the url of batch navigation.
+- Set batch_base_url in enl_subscribers_view, this fix the url of batch 
+  navigation.
   [derstappenit]
 
 
@@ -82,8 +89,8 @@ Changelog
 - Fix UnboundLocalError which comes with the try except statement.
   [derstappenit]
 
-- Fix AttributeError get_all_memberproperties if fmp is available but not installed
-  in the quickinstaller.
+- Fix AttributeError get_all_memberproperties if fmp is available but not 
+  installed in the quickinstaller.
   [derstappenit]
 
 
@@ -139,7 +146,8 @@ Changelog
 - Fix CSV export with special characters.
   [timo]
 
-- Added missing methods for HTML parser in order to preserve HTML references and other stuff.
+- Added missing methods for HTML parser in order to preserve HTML references 
+  and other stuff.
   [dgherman]
 
 
