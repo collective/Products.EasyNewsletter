@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-2.7 (unreleased)
-----------------
+2.6.1 (2011-11-23)
+------------------
 
 - Fix mail rendering in Thunderbird 8.
   [timo]
