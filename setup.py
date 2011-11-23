@@ -27,7 +27,7 @@ setup(name='Products.EasyNewsletter',
         'setuptools',
         'Products.TemplateFields', ],
     extras_require = dict(
-        tests=['inqbus.plone.fastmemberproperties', ],
+        test=['inqbus.plone.fastmemberproperties', 'plone.app.testing'],
         fmp=['inqbus.plone.fastmemberproperties'],
         all=['inqbus.plone.fastmemberproperties', ]),
 )

@@ -10,6 +10,9 @@ Changelog
 
 - Fix German translation for registration notification.
   [timo]
+  
+- Use test instead of tests in extras_require to comply with Plone standards.
+  [timo]
 
 
 2.6 (2011-10-01)
