@@ -14,6 +14,9 @@ Changelog
 - Use test instead of tests in extras_require to comply with Plone standards.
   [timo]
 
+- Remove test_enl.py tests since it does not test anything that is not covered
+  by test_setup.py.
+  [timo]
 
 2.6 (2011-10-01)
 ----------------
