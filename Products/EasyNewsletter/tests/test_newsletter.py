@@ -2,7 +2,7 @@
 import unittest2 as unittest
 
 #from zope.component import createObject
-#from zope.component import getMultiAdapter
+from zope.component import getMultiAdapter
 #from zope.component import queryUtility
 
 from Products.EasyNewsletter.testing import \
@@ -11,6 +11,7 @@ from Products.EasyNewsletter.testing import \
 from plone.app.testing import TEST_USER_ID, setRoles
 from plone.app.testing import TEST_USER_NAME, login
 
+from Products.EasyNewsletter.interfaces import IEasyNewsletter, IENLIssue
 
 class EasyNewsletterTests(unittest.TestCase):
 
@@ -25,12 +26,31 @@ class EasyNewsletterTests(unittest.TestCase):
         self.portal = self.layer['portal']
         self.folder.invokeFactory("EasyNewsletter", "newsletter")
         self.newsletter = self.folder.newsletter
+        self.newsletter.senderEmail = "john@acme.com"
+        self.newsletter.senderName = "John Doe"
+        self.newsletter.testEmail = "test@acme.com"
+
+    def test_create_newsletter(self):
+        self.failUnless(IEasyNewsletter.providedBy(self.newsletter))
+    
+    def test_create_issue(self):
+        self.newsletter.invokeFactory(
+            "ENLIssue", 
+            id="issue",
+            title="Issue 1")
+        self.failUnless(IENLIssue.providedBy(self.newsletter.issue))
 
     def test_send_issue(self):
         self.newsletter.invokeFactory(
             "ENLIssue", 
             id="issue")
         self.newsletter.issue.title=u"This is a very long newsletter issue title with special characters such as äüö. Will this really work?"
+
+        view = getMultiAdapter(
+            (self.newsletter.issue, self.portal.REQUEST),
+            name="send-issue")
+        view = view.__of__(self.portal)
+        self.failUnless(view())
 
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)

@@ -11,7 +11,7 @@ from plone.app.testing import TEST_USER_ID, setRoles
 #from plone.app.testing import TEST_USER_NAME, login
 
 
-class EasyNewsletterTests(unittest.TestCase):
+class EasyNewsletterSetupTests(unittest.TestCase):
 
     layer = EASYNEWSLETTER_INTEGRATION_TESTING
 
