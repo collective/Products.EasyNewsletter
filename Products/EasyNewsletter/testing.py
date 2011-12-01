@@ -20,7 +20,7 @@ class EasyNewsletter(PloneSandboxLayer):
                        context=configurationContext)
 
         # Install product and call its initialize() function
-        #z2.installProduct(app, 'Products.EasyNewsletter')
+        z2.installProduct(app, 'Products.EasyNewsletter')
 
         # Note: you can skip this if Products.EasyNewsletter is not a Zope 2-style
         # product, i.e. it is not in the Products.* namespace and it
