@@ -1,6 +1,13 @@
 Changelog
 =========
 
+2.6.2 (unreleased)
+------------------
+
+- Fix unicode decode error when sending newsletter issues with special 
+  characters in the title.
+  [timo]
+
 
 2.6.1 (2011-11-23)
 ------------------
@@ -17,6 +24,7 @@ Changelog
 - Remove test_enl.py tests since it does not test anything that is not covered
   by test_setup.py.
   [timo]
+
 
 2.6 (2011-10-01)
 ----------------

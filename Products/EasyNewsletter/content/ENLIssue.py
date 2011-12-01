@@ -363,6 +363,8 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             personal_text_plain = personal_text_plain.replace("[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
 
             outer['From'] = from_header
+            if isinstance(subject, str):
+                subject = subject.decode("utf-8")
             outer['Subject'] = Header(subject)
             outer.epilogue = ''
 
@@ -376,7 +378,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             image_number = 0
             reference_tool = getToolByName(self, 'reference_catalog')
             for image_url in image_urls:
-                #XXX: we need to provide zope3 recource image too!
+                #XXX: we need to provide zope3 resource image too!
                 try:
                     image_url = urlparse(image_url)[2]
                     if 'resolveuid' in image_url:
