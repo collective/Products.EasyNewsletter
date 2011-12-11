@@ -7,6 +7,13 @@ Changelog
 - Fix unicode decode error when sending newsletter issues with special 
   characters in the title.
   [timo]
+ 
+- Remove broken image attachment code from issue sending routine.
+  [timo]
+
+- Replace the issue sending routine with code that was shamelessly stolen from
+  collective.singing.
+  [timo]
 
 
 2.6.1 (2011-11-23)

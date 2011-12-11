@@ -36,6 +36,7 @@ from Products.EasyNewsletter.interfaces import IENLIssue
 from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter
 from Products.EasyNewsletter.interfaces import ISubscriberSource
 from Products.EasyNewsletter.utils.ENLHTMLParser import ENLHTMLParser
+from Products.EasyNewsletter.utils.mail import create_html_mail
 from Products.EasyNewsletter.utils import safe_portal_encoding
 
 import logging
@@ -356,58 +357,21 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                         fullname = enl.getFullname_fallback()
                     except AttributeError:
                         fullname = "Sir or Madam"
-                outer['To'] = receiver['email']
 
             subscriber_salutation = safe_portal_encoding(salutation) + ' ' + safe_portal_encoding(fullname)
             personal_text = personal_text.replace("[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
             personal_text_plain = personal_text_plain.replace("[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
 
-            outer['From'] = from_header
-            if isinstance(subject, str):
-                subject = subject.decode("utf-8")
-            outer['Subject'] = Header(subject)
-            outer.epilogue = ''
-
-            # Attach text part
-            text_part = MIMEText(personal_text_plain, "plain", charset)
-
-            # Attach html part with images
-            html_part =  MIMEText(personal_text, "html", charset)
-
-            # Add images to the message
-            image_number = 0
-            reference_tool = getToolByName(self, 'reference_catalog')
-            for image_url in image_urls:
-                #XXX: we need to provide zope3 resource image too!
-                try:
-                    image_url = urlparse(image_url)[2]
-                    if 'resolveuid' in image_url:
-                        urlparts = image_url.split('/')[1:]
-                        uuid = urlparts.pop(0)
-                        o = reference_tool.lookupObject(uuid)
-                        if o and urlparts:
-                            # get thumb
-                            o = o.restrictedTraverse(urlparts[0])
-                    else:
-                        o = self.restrictedTraverse(urllib.unquote(image_url))
-                except Exception, e:
-                    log.error("Could not resolve the image \"%s\": %s" % (image_url, e))
-                else:
-                    if hasattr(o, "_data"):                               # file-based
-                        image = MIMEImage(o._data)
-                    elif hasattr(o, "data"):
-                        image = MIMEImage(o.data)                         # zodb-based
-                    else:
-                        image = MIMEImage(o.GET())                        # z3 resource image
-                    image["Content-ID"] = "image_%s" % image_number
-                    image_number += 1
-                    # attach images only to html parts
-                    html_part.attach(image)
-            outer.attach(text_part)
-            outer.attach(html_part)
-
+            msg = create_html_mail(subject, 
+                                   personal_text.decode("utf-8"), 
+                                   text=personal_text_plain.decode("utf-8"), 
+                                   from_addr=sender_email,
+                                   to_addr=receiver['email'],
+                                   headers=None, 
+                                   encoding='UTF-8')
+            
             try:
-                MailHost.send(outer.as_string())
+                MailHost.send(msg)
                 log.info("Send newsletter to \"%s\"" % receiver['email'])
                 send_counter += 1
             except Exception, e:

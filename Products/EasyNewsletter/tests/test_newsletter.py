@@ -77,7 +77,7 @@ class EasyNewsletterTests(unittest.TestCase):
         self.assertTrue(self.mailhost.messages[0])
         msg = str(self.mailhost.messages[0])
         self.assertTrue('To: test@acme.com' in msg)
-        self.assertTrue('From: "ACME newsletter" <newsletter@acme.com>' in msg)
+        self.assertTrue('From: newsletter@acme.com' in msg)
 
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)
