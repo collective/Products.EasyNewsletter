@@ -235,15 +235,15 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                     log.info('Found %d external subscriptions' % len(external_subscribers))
 
             receivers_raw = plone_receivers + enl_receivers + external_subscribers
-            
+
             # Avoid double emails
             receivers = []
-            mails = []            
+            mails = []
             for receiver in receivers_raw:
                 if receiver['email'] not in mails:
                     mails.append(receiver['email'])
                     receivers.append(receiver)
-            
+
         return receivers
 
     def _render_output_html(self):
@@ -362,14 +362,14 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             personal_text = personal_text.replace("[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
             personal_text_plain = personal_text_plain.replace("[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
 
-            msg = create_html_mail(subject, 
-                                   personal_text.decode("utf-8"), 
-                                   text=personal_text_plain.decode("utf-8"), 
+            msg = create_html_mail(subject,
+                                   personal_text.decode("utf-8"),
+                                   text=personal_text_plain.decode("utf-8"),
                                    from_addr=sender_email,
                                    to_addr=receiver['email'],
-                                   headers=None, 
+                                   headers=None,
                                    encoding='UTF-8')
-            
+
             try:
                 MailHost.send(msg)
                 log.info("Send newsletter to \"%s\"" % receiver['email'])
@@ -387,7 +387,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             if wftool.getInfoFor(self, 'review_state') == 'draft':
                 wftool.doActionFor(self, "send")
 
-    security.declareProtected("Manage portal", "loadContent")
+    security.declareProtected("Modify portal content", "loadContent")
     def loadContent(self):
         """Loads text dependend on criteria into text attribute.
         """
