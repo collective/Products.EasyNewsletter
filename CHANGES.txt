@@ -4,6 +4,10 @@ Changelog
 2.6.2 (unreleased)
 ------------------
 
+- A regular Editor can now edit and refresh drafts, without needing 
+  full Manager-permissions.
+  [WouterVH]
+
 - Fix unicode decode error when sending newsletter issues with special 
   characters in the title.
   [timo]
