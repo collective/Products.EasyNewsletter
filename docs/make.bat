@@ -3,8 +3,8 @@
 REM Command file for Sphinx documentation
 
 set SPHINXBUILD=sphinx-build
-set BUILDDIR=/home/timo/workspace/plone/Products.EasyNewsletter/docs
-set ALLSPHINXOPTS=-d %BUILDDIR%/doctrees %SPHINXOPTS% /home/timo/workspace/plone/Products.EasyNewsletter/docs/source
+set BUILDDIR=/opt/zope/Products.EasyNewsletter/docs
+set ALLSPHINXOPTS=-d %BUILDDIR%/doctrees %SPHINXOPTS% /opt/zope/Products.EasyNewsletter/docs/source
 if NOT "%PAPER%" == "" (
 	set ALLSPHINXOPTS=-D latex_paper_size=%PAPER% %ALLSPHINXOPTS%
 )
