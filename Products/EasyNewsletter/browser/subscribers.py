@@ -108,7 +108,8 @@ class UploadCSV(BrowserView):
         # Show error if no data has been provided in the file
         reader = csv.reader(filename)
         header = reader.next()
-        if header != CSV_HEADER:
+        CSV_HEADER_I18N = [self.context.translate(_(x)) for x in CSV_HEADER]
+        if header != CSV_HEADER_I18N:
             msg = _('Wrong specification of the CSV file. Please correct it and retry.')
             IStatusMessage(self.request).addStatusMessage(msg, type='error')
             return self.request.response.redirect(context.absolute_url() + '/@@upload_csv')
@@ -179,7 +180,8 @@ class DownloadCSV(BrowserView):
                                delimiter=',',
                                quotechar='"',
                                quoting=csv.QUOTE_MINIMAL)
-        csvWriter.writerow(CSV_HEADER)
+        CSV_HEADER_I18N = [self.context.translate(_(x)) for x in CSV_HEADER]
+        csvWriter.writerow(CSV_HEADER_I18N)
         for subscriber in ctool(portal_type = 'ENLSubscriber',
                                 path='/'.join(self.context.getPhysicalPath()),
                                 sort_on='email'):
