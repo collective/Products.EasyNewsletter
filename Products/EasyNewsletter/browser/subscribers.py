@@ -14,7 +14,7 @@ from Products.EasyNewsletter.config import SALUTATION
 from Products.EasyNewsletter.interfaces import ISubscriberSource
 
 
-CSV_HEADER = ['salutation', 'fullname', 'email', 'organization', ]
+CSV_HEADER = [_(u"salutation"), _(u"fullname"), _(u"email"), _(u"organization"), ]
 
 
 class IEnl_Subscribers_View(Interface):

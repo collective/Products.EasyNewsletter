@@ -1,11 +1,12 @@
-# Manual added translations for EasyNewsletter. .
-# Wim Boucquaert - wimbou <wim.boucquaert@gmail.com>, 2011.
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-08-15 14:06+0000\n"
+"POT-Creation-Date: 2012-01-04 02:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: Wim Boucquaert - wimbou <wim.boucquaert@gmail.com>\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -80,7 +81,7 @@ msgstr ""
 msgid "EasyNewsletter_enablesendbutton_label"
 msgstr ""
 
-#: ./content/ENLIssue.py:133
+#: ./content/ENLIssue.py:134
 msgid "EasyNewsletter_help_acquireCriteria"
 msgstr ""
 
@@ -112,13 +113,13 @@ msgid "EasyNewsletter_help_organization"
 msgstr ""
 
 #. Default: "Choose Plone Groups which members should receive the newsletter."
-#: ./content/ENLIssue.py:92
+#: ./content/ENLIssue.py:93
 #: ./content/EasyNewsletter.py:169
 msgid "EasyNewsletter_help_ploneReceiverGroups"
 msgstr ""
 
 #. Default: "Choose Plone Members which should receive the newsletter."
-#: ./content/ENLIssue.py:79
+#: ./content/ENLIssue.py:80
 #: ./content/EasyNewsletter.py:157
 msgid "EasyNewsletter_help_ploneReceiverMembers"
 msgstr ""
@@ -157,7 +158,7 @@ msgstr ""
 msgid "EasyNewsletter_help_subject"
 msgstr ""
 
-#: ./content/ENLIssue.py:148
+#: ./content/ENLIssue.py:149
 msgid "EasyNewsletter_help_template"
 msgstr ""
 
@@ -211,7 +212,7 @@ msgid "EasyNewsletter_label_externalSubscriberSource"
 msgstr ""
 
 #. Default: "Footer"
-#: ./content/ENLIssue.py:121
+#: ./content/ENLIssue.py:122
 msgid "EasyNewsletter_label_footer"
 msgstr ""
 
@@ -226,7 +227,7 @@ msgid "EasyNewsletter_label_fullname_fallback"
 msgstr ""
 
 #. Default: "Header"
-#: ./content/ENLIssue.py:106
+#: ./content/ENLIssue.py:107
 msgid "EasyNewsletter_label_header"
 msgstr ""
 
@@ -241,13 +242,13 @@ msgid "EasyNewsletter_label_organization"
 msgstr ""
 
 #. Default: "Plone Groups to receive the newsletter"
-#: ./content/ENLIssue.py:90
+#: ./content/ENLIssue.py:91
 #: ./content/EasyNewsletter.py:167
 msgid "EasyNewsletter_label_ploneReceiverGroups"
 msgstr ""
 
 #. Default: "Plone Members to receive the newsletter"
-#: ./content/ENLIssue.py:77
+#: ./content/ENLIssue.py:78
 #: ./content/EasyNewsletter.py:155
 msgid "EasyNewsletter_label_ploneReceiverMembers"
 msgstr ""
@@ -290,7 +291,7 @@ msgid "EasyNewsletter_label_subscriber_confirmation_mail_text"
 msgstr ""
 
 #. Default: "Newsletter Template"
-#: ./content/ENLIssue.py:146
+#: ./content/ENLIssue.py:147
 msgid "EasyNewsletter_label_template"
 msgstr ""
 
@@ -305,7 +306,7 @@ msgid "EasyNewsletter_label_testreceiver"
 msgstr ""
 
 #. Default: "Text"
-#: ./content/ENLIssue.py:51
+#: ./content/ENLIssue.py:52
 msgid "EasyNewsletter_label_text"
 msgstr ""
 
@@ -356,13 +357,6 @@ msgstr ""
 msgid "Issue"
 msgstr ""
 
-msgid "Issues full view"
-msgstr ""
-
-#: ./profiles/default/types/ENLIssue.xml
-msgid "Make sent"
-msgstr ""
-
 #: ./portlets/subscriber.pt:27
 msgid "Mr."
 msgstr ""
@@ -402,7 +396,7 @@ msgid "References"
 msgstr ""
 
 #: ./profiles/default/types/ENLIssue.xml
-msgid "Refresh"
+msgid "Refresh aggregate body"
 msgstr ""
 
 #: ./browser/enl_subscribers_view.pt:40
@@ -412,6 +406,10 @@ msgstr ""
 
 #: ./browser/upload_csv.pt:54
 msgid "Select your CSV file here."
+msgstr ""
+
+#: ./profiles/default/types/ENLIssue.xml
+msgid "Send"
 msgstr ""
 
 #: ./browser/enl_subscribers_view.pt:43
@@ -443,7 +441,7 @@ msgstr ""
 msgid "The CSV file must contain the header and follow this format"
 msgstr ""
 
-#: ./browser/issue.py:23
+#: ./browser/issue.py:24
 msgid "The issue has been send."
 msgstr ""
 
@@ -486,12 +484,12 @@ msgid "Your email has been registered.                 A confirmation email was 
 msgstr ""
 
 #. Default: "The footer will included in outgoing mails."
-#: ./content/ENLIssue.py:122
+#: ./content/ENLIssue.py:123
 msgid "description_help_footer"
 msgstr ""
 
 #. Default: "The header will included in outgoing mails."
-#: ./content/ENLIssue.py:108
+#: ./content/ENLIssue.py:109
 msgid "description_help_header"
 msgstr ""
 
@@ -521,7 +519,7 @@ msgid "description_text_header"
 msgstr ""
 
 #. Default: "The main content of the mailing. You can use the topic                     criteria to collect content or put manual content in.                     This will included in outgoing mails."
-#: ./content/ENLIssue.py:52
+#: ./content/ENLIssue.py:53
 msgid "description_text_issue"
 msgstr ""
 
@@ -623,10 +621,12 @@ msgstr ""
 msgid "easynewsletter_test_button"
 msgstr ""
 
+#: ./browser/subscribers.py:17
 #: ./browser/upload_csv.pt:38
 msgid "email"
 msgstr ""
 
+#: ./browser/subscribers.py:17
 #: ./browser/upload_csv.pt:37
 msgid "fullname"
 msgstr ""
@@ -662,7 +662,7 @@ msgid "help_newsletter_title"
 msgstr ""
 
 #. Default: "If checked, the newsletter/mailing is send to all                     plone members. If there are subscribers inside the                     newsletter, they get the letter anyway."
-#: ./content/ENLIssue.py:65
+#: ./content/ENLIssue.py:66
 #: ./content/EasyNewsletter.py:144
 msgid "help_sendToAllPloneMembers"
 msgstr ""
@@ -688,7 +688,7 @@ msgid "label_description"
 msgstr ""
 
 #. Default: "Inherit Criteria"
-#: ./content/ENLIssue.py:132
+#: ./content/ENLIssue.py:133
 msgid "label_inherit_criteria"
 msgstr ""
 
@@ -733,7 +733,7 @@ msgid "label_select_all_items"
 msgstr ""
 
 #. Default: "Send to all Plone members"
-#: ./content/ENLIssue.py:63
+#: ./content/ENLIssue.py:64
 #: ./content/EasyNewsletter.py:142
 msgid "label_sendToAllPloneMembers"
 msgstr ""
@@ -768,10 +768,12 @@ msgstr ""
 msgid "not_created_subscribers"
 msgstr ""
 
+#: ./browser/subscribers.py:17
 #: ./browser/upload_csv.pt:39
 msgid "organization"
 msgstr ""
 
+#: ./browser/subscribers.py:17
 #: ./browser/upload_csv.pt:36
 msgid "salutation"
 msgstr ""

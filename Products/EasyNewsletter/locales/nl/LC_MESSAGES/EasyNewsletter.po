@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Products.EasyNewsletter\n"
-"POT-Creation-Date: 2011-08-15 14:06+0000\n"
+"POT-Creation-Date: 2012-01-04 02:13+0000\n"
 "PO-Revision-Date: 2011-08-10 15:41+0100\n"
 "Last-Translator: Wim Boucquaert - wimbou <wim.boucquaert@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -72,14 +72,14 @@ msgstr "EasyNewsletter"
 #. Default: "Text used for confirmation email subject. You can                     customize the text, but it should include the placeholder: ${portal_url}!"
 #: ./content/EasyNewsletter.py:230
 msgid "EasyNewsletter_description_subscriber_confirmation_mail_subject"
-msgstr "Tekst gebruikt voor het bestigings-e-mail onderwerp. Je kan deze text aanpassen maar deze zou de plaatshouder ${portal_url} moeten bevatten!"
+msgstr "Tekst gebruikt voor het bevestigings-e-mail onderwerp. Je kan deze tekst aanpassen maar deze zou de plaatshouder ${portal_url} moeten bevatten!"
 
 #. Default: "Enable sendbutton"
 #: ./browser/issue_send_form.pt:109
 msgid "EasyNewsletter_enablesendbutton_label"
 msgstr "Verzend knop activeren"
 
-#: ./content/ENLIssue.py:133
+#: ./content/ENLIssue.py:134
 msgid "EasyNewsletter_help_acquireCriteria"
 msgstr ""
 
@@ -111,13 +111,13 @@ msgid "EasyNewsletter_help_organization"
 msgstr "Naam van de organisatie."
 
 #. Default: "Choose Plone Groups which members should receive the newsletter."
-#: ./content/ENLIssue.py:92
+#: ./content/ENLIssue.py:93
 #: ./content/EasyNewsletter.py:169
 msgid "EasyNewsletter_help_ploneReceiverGroups"
 msgstr "Kies de groepen die deze nieuwsbrief opgestuurd krijgen."
 
 #. Default: "Choose Plone Members which should receive the newsletter."
-#: ./content/ENLIssue.py:79
+#: ./content/ENLIssue.py:80
 #: ./content/EasyNewsletter.py:157
 msgid "EasyNewsletter_help_ploneReceiverMembers"
 msgstr "Kies de gebruikers die deze nieuwsbrief opgestuurd krijgen. "
@@ -156,7 +156,7 @@ msgstr "Afzendernaam van deze nieuwsbrief. Indien leeg, dan wordt de standaard a
 msgid "EasyNewsletter_help_subject"
 msgstr "Onderwerp van de nieuwsbrief. Indien leeg, dan wordt de standaard titel van de website gebruikt."
 
-#: ./content/ENLIssue.py:148
+#: ./content/ENLIssue.py:149
 msgid "EasyNewsletter_help_template"
 msgstr ""
 
@@ -210,7 +210,7 @@ msgid "EasyNewsletter_label_externalSubscriberSource"
 msgstr "Externe abonneelijst."
 
 #. Default: "Footer"
-#: ./content/ENLIssue.py:121
+#: ./content/ENLIssue.py:122
 msgid "EasyNewsletter_label_footer"
 msgstr "Voettekst"
 
@@ -225,7 +225,7 @@ msgid "EasyNewsletter_label_fullname_fallback"
 msgstr "Standaard voor abonnees zonder naam"
 
 #. Default: "Header"
-#: ./content/ENLIssue.py:106
+#: ./content/ENLIssue.py:107
 msgid "EasyNewsletter_label_header"
 msgstr "Hoofding"
 
@@ -240,13 +240,13 @@ msgid "EasyNewsletter_label_organization"
 msgstr "Bedrijf/Organisatie"
 
 #. Default: "Plone Groups to receive the newsletter"
-#: ./content/ENLIssue.py:90
+#: ./content/ENLIssue.py:91
 #: ./content/EasyNewsletter.py:167
 msgid "EasyNewsletter_label_ploneReceiverGroups"
 msgstr "Groepen die de nieuwsbrief ontvangen."
 
 #. Default: "Plone Members to receive the newsletter"
-#: ./content/ENLIssue.py:77
+#: ./content/ENLIssue.py:78
 #: ./content/EasyNewsletter.py:155
 msgid "EasyNewsletter_label_ploneReceiverMembers"
 msgstr "Gebruikers die de nieuwsbrief ontvangen."
@@ -289,7 +289,7 @@ msgid "EasyNewsletter_label_subscriber_confirmation_mail_text"
 msgstr "Bevestigingtekst voor nieuwe abonnees."
 
 #. Default: "Newsletter Template"
-#: ./content/ENLIssue.py:146
+#: ./content/ENLIssue.py:147
 msgid "EasyNewsletter_label_template"
 msgstr "Sjabloon voor de nieuwsbrief"
 
@@ -304,7 +304,7 @@ msgid "EasyNewsletter_label_testreceiver"
 msgstr "Test e-mail"
 
 #. Default: "Text"
-#: ./content/ENLIssue.py:51
+#: ./content/ENLIssue.py:52
 msgid "EasyNewsletter_label_text"
 msgstr "Tekst"
 
@@ -355,13 +355,6 @@ msgstr "Importeren"
 msgid "Issue"
 msgstr "Editie"
 
-msgid "Issues full view"
-msgstr "Edities volledige weergave"
-
-#: ./profiles/default/types/ENLIssue.xml
-msgid "Make sent"
-msgstr "Maak verzonden"
-
 #: ./portlets/subscriber.pt:27
 msgid "Mr."
 msgstr "Mr."
@@ -401,8 +394,8 @@ msgid "References"
 msgstr "Referenties"
 
 #: ./profiles/default/types/ENLIssue.xml
-msgid "Refresh"
-msgstr "Verversen"
+msgid "Refresh aggregate body"
+msgstr ""
 
 #: ./browser/enl_subscribers_view.pt:40
 #: ./browser/upload_csv.pt:84
@@ -412,6 +405,10 @@ msgstr "Aanspreking"
 #: ./browser/upload_csv.pt:54
 msgid "Select your CSV file here."
 msgstr "Selecteer het CSV-bestand."
+
+#: ./profiles/default/types/ENLIssue.xml
+msgid "Send"
+msgstr ""
 
 #: ./browser/enl_subscribers_view.pt:43
 msgid "Source"
@@ -442,7 +439,7 @@ msgstr "Sjablonen"
 msgid "The CSV file must contain the header and follow this format"
 msgstr "Het CSV bestand dient deze hoofding te bevatten en dient de structuur te respecteren"
 
-#: ./browser/issue.py:23
+#: ./browser/issue.py:24
 msgid "The issue has been send."
 msgstr "De editie is verzonden."
 
@@ -485,12 +482,12 @@ msgid "Your email has been registered.                 A confirmation email was 
 msgstr "Je e-mail werd geregistreerd. Een bevestigings-e-mail werd verzonden naar je e-mailadres. Gelieve je inbox te controleren en te klikken op de link in de e-mail om je registratie te bevestigen."
 
 #. Default: "The footer will included in outgoing mails."
-#: ./content/ENLIssue.py:122
+#: ./content/ENLIssue.py:123
 msgid "description_help_footer"
 msgstr "Deze voettekst wordt in de e-mail opgenomen."
 
 #. Default: "The header will included in outgoing mails."
-#: ./content/ENLIssue.py:108
+#: ./content/ENLIssue.py:109
 msgid "description_help_header"
 msgstr "Deze hoofding wordt in de e-mail opgenomen."
 
@@ -520,7 +517,7 @@ msgid "description_text_header"
 msgstr "Standaard hoofdingtekst. Dit wordt beruikt als standaard voor de nieuwsbrief-edities. U kan plaatshouders de [[ABONNEE_AANSPREKING]] en [[UITSCHRIJVEN]] gebruiken."
 
 #. Default: "The main content of the mailing. You can use the topic                     criteria to collect content or put manual content in.                     This will included in outgoing mails."
-#: ./content/ENLIssue.py:52
+#: ./content/ENLIssue.py:53
 msgid "description_text_issue"
 msgstr "De hoofdinhoud van de nieuwsbrief."
 
@@ -622,10 +619,12 @@ msgstr "Sjablonen"
 msgid "easynewsletter_test_button"
 msgstr "Test nieuwsbrief"
 
+#: ./browser/subscribers.py:17
 #: ./browser/upload_csv.pt:38
 msgid "email"
 msgstr "E-mail"
 
+#: ./browser/subscribers.py:17
 #: ./browser/upload_csv.pt:37
 msgid "fullname"
 msgstr "Volledige naam"
@@ -661,7 +660,7 @@ msgid "help_newsletter_title"
 msgstr "Absoluut pad naar de nieuwsbrief"
 
 #. Default: "If checked, the newsletter/mailing is send to all                     plone members. If there are subscribers inside the                     newsletter, they get the letter anyway."
-#: ./content/ENLIssue.py:65
+#: ./content/ENLIssue.py:66
 #: ./content/EasyNewsletter.py:144
 msgid "help_sendToAllPloneMembers"
 msgstr "Indien aangevinkt zal de nieuwsbrief naar alle Plone leden verzonden worden. Indien er abonnees zijn op de nieuwsbrief zullen deze sowieso de nieuwsbrief ontvangen."
@@ -687,7 +686,7 @@ msgid "label_description"
 msgstr "Beschrijving"
 
 #. Default: "Inherit Criteria"
-#: ./content/ENLIssue.py:132
+#: ./content/ENLIssue.py:133
 msgid "label_inherit_criteria"
 msgstr "Overerving van criteria"
 
@@ -732,7 +731,7 @@ msgid "label_select_all_items"
 msgstr "Selecteer alle items"
 
 #. Default: "Send to all Plone members"
-#: ./content/ENLIssue.py:63
+#: ./content/ENLIssue.py:64
 #: ./content/EasyNewsletter.py:142
 msgid "label_sendToAllPloneMembers"
 msgstr "Verzend naar alle Plone leden"
@@ -767,10 +766,12 @@ msgstr "Titel"
 msgid "not_created_subscribers"
 msgstr "Niet geïmporteerde abonnees"
 
+#: ./browser/subscribers.py:17
 #: ./browser/upload_csv.pt:39
 msgid "organization"
 msgstr "Organisatie"
 
+#: ./browser/subscribers.py:17
 #: ./browser/upload_csv.pt:36
 msgid "salutation"
 msgstr "Aanspreektitel"
