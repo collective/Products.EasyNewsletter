@@ -374,6 +374,10 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                 MailHost.send(msg)
                 log.info("Send newsletter to \"%s\"" % receiver['email'])
                 send_counter += 1
+            except AttributeError:  # Plone3.3.x
+                MailHost.send(msg.as_string())
+                log.info("Send newsletter to \"%s\"" % receiver['email'])
+                send_counter += 1
             except Exception, e:
                 log.info("Sending newsletter to \"%s\" failed, with error \"%s\"!" % (receiver['email'], e))
                 send_error_counter += 1

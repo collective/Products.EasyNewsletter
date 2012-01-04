@@ -4,14 +4,17 @@ Changelog
 2.6.2 (unreleased)
 ------------------
 
-- A regular Editor can now edit and refresh drafts, without needing 
+- Fix Plone3-compatibility when sending MIMEMultipart-messages.
+  [WouterVH]
+
+- A regular Editor can now edit and refresh drafts, without needing
   full Manager-permissions.
   [WouterVH]
 
-- Fix unicode decode error when sending newsletter issues with special 
+- Fix unicode decode error when sending newsletter issues with special
   characters in the title.
   [timo]
- 
+
 - Remove broken image attachment code from issue sending routine.
   [timo]
 
@@ -28,7 +31,7 @@ Changelog
 
 - Fix German translation for registration notification.
   [timo]
-  
+
 - Use test instead of tests in extras_require to comply with Plone standards.
   [timo]
 
@@ -40,7 +43,7 @@ Changelog
 2.6 (2011-10-01)
 ----------------
 
-- Fix external images url by inserting url directly in html when 'http' is 
+- Fix external images url by inserting url directly in html when 'http' is
   encountered. This fixes http://plone.org/products/easynewsletter/issues/15
   [numahel]
 
@@ -49,7 +52,7 @@ Changelog
   This fixes http://plone.org/products/easynewsletter/issues/4
   [WouterVH]
 
-- Rename "refresh" into "Refresh aggregate body" to make more clear what it 
+- Rename "refresh" into "Refresh aggregate body" to make more clear what it
   does. Cfr. http://plone.org/products/easynewsletter/issues/4
   [WouterVH]
 
@@ -72,7 +75,7 @@ Changelog
   Fixes http://plone.org/products/easynewsletter/issues/6
   [WouterVH]
 
-- Don't overwrite the metaTypesNotToList-property, but just append our own 
+- Don't overwrite the metaTypesNotToList-property, but just append our own
   types.
   [WouterVH]
 
@@ -86,7 +89,7 @@ Changelog
 2.5.10a2 (11/03/2011)
 ---------------------
 
-- Fix confirm_subscriber and addSubscriber to set salutation from subscribe 
+- Fix confirm_subscriber and addSubscriber to set salutation from subscribe
   portlet.
   [numahell]
 
@@ -96,7 +99,7 @@ Changelog
 - Order newsletters and drafts by creation date.
   [timo]
 
-- Set batch_base_url in enl_subscribers_view, this fix the url of batch 
+- Set batch_base_url in enl_subscribers_view, this fix the url of batch
   navigation.
   [derstappenit]
 
@@ -114,7 +117,7 @@ Changelog
 - Fix UnboundLocalError which comes with the try except statement.
   [derstappenit]
 
-- Fix AttributeError get_all_memberproperties if fmp is available but not 
+- Fix AttributeError get_all_memberproperties if fmp is available but not
   installed in the quickinstaller.
   [derstappenit]
 
@@ -171,7 +174,7 @@ Changelog
 - Fix CSV export with special characters.
   [timo]
 
-- Added missing methods for HTML parser in order to preserve HTML references 
+- Added missing methods for HTML parser in order to preserve HTML references
   and other stuff.
   [dgherman]
 
