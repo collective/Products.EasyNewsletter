@@ -314,7 +314,7 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
         subscriber_id = plone_utils.normalizeString(email)
         portal = getToolByName(self, 'portal_url').getPortalObject()
         try:
-            execute_under_special_role(portal, "Contributor", self.invokeFactory, "ENLSubscriber", id=subscriber_id)
+            execute_under_special_role(portal, "Contributor", self.invokeFactory, "ENLSubscriber", id=subscriber_id, language=self.Language())
         except BadRequest:
             return (False, "email_exists")
         o = getattr(self, subscriber_id)

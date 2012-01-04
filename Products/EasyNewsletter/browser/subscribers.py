@@ -90,6 +90,7 @@ class UploadCSV(BrowserView):
             return
 
         context = aq_inner(self.context)
+        lang = context.Language()
         plone_utils = getToolByName(self.context, 'plone_utils')
         encoding = plone_utils.getSiteEncoding()
         existing = self.context.objectIds()
@@ -141,7 +142,8 @@ class UploadCSV(BrowserView):
                         self.context.invokeFactory('ENLSubscriber',
                             id=id,
                             title=title,
-                            description="")
+                            description="",
+                            language=lang)
                         sub = context[id]
                         sub.email = email
                         sub.fullname = fullname.decode(encoding)

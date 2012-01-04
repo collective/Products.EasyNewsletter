@@ -300,6 +300,9 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         if subject == "":
             subject = self.Title()
 
+        if not isinstance(subject, unicode):
+            subject = subject.decode('utf-8')
+
         # Create from-header
         from_header = enl.getSenderName() and '"%s" <%s>' % (sender_name, sender_email) or sender_email
 
