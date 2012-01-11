@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2012-01-04 02:13+0000\n"
+"POT-Creation-Date: 2012-01-11 12:14+0000\n"
 "PO-Revision-Date: 2011-07-17 09:05-0000\n"
 "Last-Translator: Érico Andrei <erico@simplesconsultoria.com.br>\n"
 "Language-Team: Simples Consultoria <contato@simplesconsultoria.com.br>\n"
@@ -355,6 +355,9 @@ msgstr "Importar"
 msgid "Issue"
 msgstr "Edição"
 
+msgid "Issues full view"
+msgstr ""
+
 #: ./portlets/subscriber.pt:27
 msgid "Mr."
 msgstr "Sr."
@@ -371,7 +374,7 @@ msgstr "Nome"
 msgid "Newsletter subscriber portlet"
 msgstr "Portlet de assinatura de Boletim"
 
-#: ./browser/subscribers.py:104
+#: ./browser/subscribers.py:105
 msgid "No file specified."
 msgstr "Nenhum arquivo informado."
 
@@ -443,11 +446,11 @@ msgstr "O arquivo CSV deve conter um cabeçalho com o seguinte formato"
 msgid "The issue has been send."
 msgstr "A edição foi enviada."
 
-#: ./browser/subscribers.py:119
+#: ./browser/subscribers.py:121
 msgid "The number of items in the line is not correct.                         It should be 4. Check your CSV file."
 msgstr "O número de itens na linha não está correto. Deveria ser 4. Verifique o formato do arquivo CSV."
 
-#: ./browser/subscribers.py:130
+#: ./browser/subscribers.py:132
 msgid "This email address is already registered."
 msgstr "Este endereço de email já está cadastrado."
 
@@ -465,7 +468,7 @@ msgstr "Título do portlet"
 msgid "View"
 msgstr "Visão"
 
-#: ./browser/subscribers.py:112
+#: ./browser/subscribers.py:114
 msgid "Wrong specification of the CSV file. Please correct it and retry."
 msgstr "Especificação inválida do arquivo CSV. Por favor corrija e tente novamente."
 

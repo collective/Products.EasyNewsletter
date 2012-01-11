@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Products.EasyNewsletter\n"
-"POT-Creation-Date: 2012-01-04 02:13+0000\n"
+"POT-Creation-Date: 2012-01-11 12:14+0000\n"
 "PO-Revision-Date: 2011-08-10 15:41+0100\n"
 "Last-Translator: Wim Boucquaert - wimbou <wim.boucquaert@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -355,6 +355,9 @@ msgstr "Importeren"
 msgid "Issue"
 msgstr "Editie"
 
+msgid "Issues full view"
+msgstr ""
+
 #: ./portlets/subscriber.pt:27
 msgid "Mr."
 msgstr "Mr."
@@ -371,7 +374,7 @@ msgstr "Naam"
 msgid "Newsletter subscriber portlet"
 msgstr "Nieuwsbrief abonneren portlet"
 
-#: ./browser/subscribers.py:104
+#: ./browser/subscribers.py:105
 msgid "No file specified."
 msgstr "Geen bestand opgegeven."
 
@@ -443,11 +446,11 @@ msgstr "Het CSV bestand dient deze hoofding te bevatten en dient de structuur te
 msgid "The issue has been send."
 msgstr "De editie is verzonden."
 
-#: ./browser/subscribers.py:119
+#: ./browser/subscribers.py:121
 msgid "The number of items in the line is not correct.                         It should be 4. Check your CSV file."
 msgstr "Het aantal kolommen per regel is niet correct. Controleer het CSV bestand op 4 kolommen."
 
-#: ./browser/subscribers.py:130
+#: ./browser/subscribers.py:132
 msgid "This email address is already registered."
 msgstr "Dit e-mailadres is reeds geregistreerd."
 
@@ -465,7 +468,7 @@ msgstr "Titel voor de portlet."
 msgid "View"
 msgstr "Bekijken"
 
-#: ./browser/subscribers.py:112
+#: ./browser/subscribers.py:114
 msgid "Wrong specification of the CSV file. Please correct it and retry."
 msgstr "Het CSV-bestand bevat fouten. Corrigeer en probeer opnieuw."
 

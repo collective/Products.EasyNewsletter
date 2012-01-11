@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-01-04 02:13+0000\n"
+"POT-Creation-Date: 2012-01-11 12:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Luca Fabbri <luca.fabbri@redturtle.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -354,6 +354,9 @@ msgstr ""
 msgid "Issue"
 msgstr ""
 
+msgid "Issues full view"
+msgstr ""
+
 #: ./portlets/subscriber.pt:27
 msgid "Mr."
 msgstr ""
@@ -370,7 +373,7 @@ msgstr "Nome"
 msgid "Newsletter subscriber portlet"
 msgstr ""
 
-#: ./browser/subscribers.py:104
+#: ./browser/subscribers.py:105
 msgid "No file specified."
 msgstr ""
 
@@ -442,11 +445,11 @@ msgstr ""
 msgid "The issue has been send."
 msgstr "Il messaggio è stato spedito."
 
-#: ./browser/subscribers.py:119
+#: ./browser/subscribers.py:121
 msgid "The number of items in the line is not correct.                         It should be 4. Check your CSV file."
 msgstr ""
 
-#: ./browser/subscribers.py:130
+#: ./browser/subscribers.py:132
 msgid "This email address is already registered."
 msgstr ""
 
@@ -464,7 +467,7 @@ msgstr "Titolo del riquadro."
 msgid "View"
 msgstr ""
 
-#: ./browser/subscribers.py:112
+#: ./browser/subscribers.py:114
 msgid "Wrong specification of the CSV file. Please correct it and retry."
 msgstr ""
 
