@@ -40,6 +40,9 @@ Changelog
   collective.singing.
   [timo]
 
+- Update Brazilian Portuguese translation
+  [ericof]
+
 
 2.6.1 (2011-11-23)
 ------------------
