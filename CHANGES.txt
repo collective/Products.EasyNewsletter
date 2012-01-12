@@ -4,6 +4,21 @@ Changelog
 2.6.2 (unreleased)
 ------------------
 
+- Fix breaking dexteriby by checking on portal_type instead of meta_type.
+  [WouterVH]
+
+- When a subscriber is created via addSubscriber, set language same as newsletter.
+  (merged from branch-bpi-rouet-2011-9)
+  [regisrouet, WouterVH]
+
+- When importing, set subscriber language same as newsletter.
+  (merged from branch-bpi-rouet-2011-9)
+  [regisrouet, WouterVH]
+
+- Fix unicode characters in title of issue.
+  (merged from branch-unicodefix)
+  [mircoangelini, WouterVH]
+
 - i18n for the uploaded/downloaded CSV-file.
   [WouterVH]
 
