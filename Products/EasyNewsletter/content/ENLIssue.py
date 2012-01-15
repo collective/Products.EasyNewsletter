@@ -38,6 +38,7 @@ from Products.EasyNewsletter.interfaces import ISubscriberSource
 from Products.EasyNewsletter.utils.ENLHTMLParser import ENLHTMLParser
 #from Products.EasyNewsletter.utils.mail import create_html_mail
 from Products.EasyNewsletter.utils import safe_portal_encoding
+from Products.CMFPlone.utils import safe_unicode
 
 import logging
 log = logging.getLogger("Products.EasyNewsletter")
@@ -289,22 +290,25 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         sender_name = request.get("sender_name", "")
         if sender_name == "":
             sender_name = enl.getSenderName()
+        # don't use Header() with a str and a charset arg, even if it is correct
+        # this would generate a encoded header and mail server may not support utf-8 encoded header
+        from_header = Header(safe_unicode(sender_name))
 
         # get sender e-mail
         sender_email = request.get("sender_email", "")
         if sender_email == "":
             sender_email = enl.getSenderEmail()
+        from_header.append('<%s>' % safe_unicode(sender_email))
 
         # get subject
         subject = request.get("subject", "")
         if subject == "":
             subject = self.Title()
-
-        if not isinstance(subject, unicode):
-            subject = subject.decode('utf-8')
+        subject_header = Header(safe_unicode(subject))
 
         # Create from-header
-        from_header = enl.getSenderName() and '"%s" <%s>' % (sender_name, sender_email) or sender_email
+        #from_header = enl.getSenderName() and '"%s" <%s>' % (sender_name, sender_email) or sender_email
+        #from_header = safe_unicode(from_header)
 
         # determine MailHost first (build-in vs. external)
         deliveryServiceName = enl.getDeliveryService()
@@ -331,7 +335,8 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             outer = MIMEMultipart('alternative')
 
             if hasattr(request, "test"):
-                outer['To'] = receiver['email']
+                outer['To'] = Header('<%s>' % safe_unicode(receiver['email']))
+
                 fullname = receiver['fullname']
                 salutation = receiver['salutation']
                 personal_text = text.replace("[[SUBSCRIBER_SALUTATION]]", "")
@@ -360,25 +365,14 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                         fullname = enl.getFullname_fallback()
                     except AttributeError:
                         fullname = "Sir or Madam"
-                outer['To'] = receiver['email']
-
+                outer['To'] = Header('<%s>' % safe_unicode(receiver['email']))
 
             subscriber_salutation = safe_portal_encoding(salutation) + ' ' + safe_portal_encoding(fullname)
             personal_text = personal_text.replace("[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
             personal_text_plain = personal_text_plain.replace("[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
 
-            #msg = create_html_mail(subject,
-                                   #personal_text.decode("utf-8"),
-                                   #text=personal_text_plain.decode("utf-8"),
-                                   #from_addr=sender_email,
-                                   #to_addr=receiver['email'],
-                                   #headers=None,
-                                   #encoding='UTF-8')
-
             outer['From'] = from_header
-            if isinstance(subject, str):
-                subject = subject.decode("utf-8")
-            outer['Subject'] = Header(subject)
+            outer['Subject'] = subject_header
             outer.epilogue = ''
 
             # Attach text part
