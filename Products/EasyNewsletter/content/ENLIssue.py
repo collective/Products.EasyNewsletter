@@ -376,10 +376,19 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             outer.epilogue = ''
 
             # Attach text part
-            text_part = MIMEText(personal_text_plain, "plain", charset)
+            #text_part = MIMEText(personal_text_plain, "plain", charset)
 
             # Attach html part with images
-            html_part =  MIMEText(personal_text, "html", charset)
+            #html_part =  MIMEText(personal_text, "html", charset)
+
+            # Attach text part
+            text_part = MIMEMultipart("related")
+            text_part.attach(MIMEText(personal_text_plain, "plain", charset))
+
+            # Attach html part with images
+            html_part = MIMEMultipart("related")
+            html_text = MIMEText(personal_text, "html", charset)
+            html_part.attach(html_text)
 
             # Add images to the message
             image_number = 0
