@@ -8,13 +8,13 @@ Features
 ========
 
     * Support Text and HTML Newsletter (including images)
-    
+
     * Support manual written Newsletters/Mailings
-    
+
     * Plonish (can use Plone's Collections to collect content)
 
     * Variable templates to generate newsletter content
-    
+
     * Subscribing / Unsubscribing and can use Plone Members/Groups as receivers (works also with Membrane)
 
     * support for external subscriber sources (configured through a Zope utility)
@@ -49,13 +49,14 @@ Installation
     4. Install EasyNewsletter via Plone Management Interface
 
     5. Add an "Newsletter Subscriber" portlet and select the EasyNewsletter
-       (To this newsletter the subscribers will be added). 
+       (To this newsletter the subscribers will be added).
 
 
 Documentation
 =============
 
 For more documentation please visit: http://packages.python.org/Products.EasyNewsletter/
+
 
 Configuring external subscriber sources
 =======================================
@@ -96,6 +97,7 @@ The utility must be registered using ZCML::
 Inside the ``Edit`` view of the instance under the ``External`` tab you should find
 ``MyInfo subscribers`` under the option ``External subscriber source``.
 
+
 Allowed placeholders
 ====================
 
@@ -108,16 +110,21 @@ The following placeholder can be used in the header, body and footer of issues:
 Source Code
 ===========
 
-The source code is within the collective: https://svn.plone.org/svn/collective/Products.EasyNewsletter/
+In dec 2011 the source code repository was moved from svn-collective to github.
+
+* Old repository: https://svn.plone.org/svn/collective/Products.EasyNewsletter/
+* New repository: https://github.com/collective/Products.EasyNewsletter
 
 
 Bugtracker
 ==========
 
-* http://plone.org/products/easynewsletter/issues
+* Old: http://plone.org/products/easynewsletter/issues
+* New: https://github.com/collective/Products.EasyNewsletter/issues
 
-Autors
-======
+
+Authors
+=======
 
 * initial release Kai Dieffenbach
 * since 2.0 Maik Derstappen
