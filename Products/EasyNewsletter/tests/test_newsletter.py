@@ -27,7 +27,7 @@ class EasyNewsletterTests(unittest.TestCase):
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         login(self.portal, TEST_USER_NAME)
         self.portal.invokeFactory('Folder', 'test-folder')
-        self.folder = self.portal['test-folder']        
+        self.folder = self.portal['test-folder']
         self.portal = self.layer['portal']
         self.folder.invokeFactory("EasyNewsletter", "newsletter")
         self.newsletter = self.folder.newsletter
@@ -43,20 +43,20 @@ class EasyNewsletterTests(unittest.TestCase):
         # We need to fake a valid mail setup
         self.portal.email_from_address = "portal@plone.test"
         self.mailhost = self.portal.MailHost
-        
+
     def test_create_newsletter(self):
         self.failUnless(IEasyNewsletter.providedBy(self.newsletter))
-    
+
     def test_create_issue(self):
         self.newsletter.invokeFactory(
-            "ENLIssue", 
+            "ENLIssue",
             id="issue",
             title="Issue 1")
         self.failUnless(IENLIssue.providedBy(self.newsletter.issue))
 
     def test_send_test_issue(self):
         self.newsletter.invokeFactory(
-            "ENLIssue", 
+            "ENLIssue",
             id="issue")
         self.newsletter.issue.title="This is a very long newsletter issue title with special characters such as äüö. Will this really work?"
         self.portal.REQUEST.form.update({
@@ -72,12 +72,13 @@ class EasyNewsletterTests(unittest.TestCase):
         view = view.__of__(self.portal)
 
         view.send_issue()
-        
+
         self.assertEqual(len(self.mailhost.messages), 1)
         self.assertTrue(self.mailhost.messages[0])
         msg = str(self.mailhost.messages[0])
-        self.assertTrue('To: test@acme.com' in msg)
-        self.assertTrue('From: newsletter@acme.com' in msg)
+        self.assertTrue('To: <test@acme.com>' in msg)
+        self.assertTrue('From: ACME newsletter <newsletter@acme.com>' in msg)
+
 
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)

@@ -36,8 +36,9 @@ from Products.EasyNewsletter.interfaces import IENLIssue
 from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter
 from Products.EasyNewsletter.interfaces import ISubscriberSource
 from Products.EasyNewsletter.utils.ENLHTMLParser import ENLHTMLParser
-from Products.EasyNewsletter.utils.mail import create_html_mail
+#from Products.EasyNewsletter.utils.mail import create_html_mail
 from Products.EasyNewsletter.utils import safe_portal_encoding
+from Products.CMFPlone.utils import safe_unicode
 
 import logging
 log = logging.getLogger("Products.EasyNewsletter")
@@ -289,22 +290,25 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         sender_name = request.get("sender_name", "")
         if sender_name == "":
             sender_name = enl.getSenderName()
+        # don't use Header() with a str and a charset arg, even if it is correct
+        # this would generate a encoded header and mail server may not support utf-8 encoded header
+        from_header = Header(safe_unicode(sender_name))
 
         # get sender e-mail
         sender_email = request.get("sender_email", "")
         if sender_email == "":
             sender_email = enl.getSenderEmail()
+        from_header.append('<%s>' % safe_unicode(sender_email))
 
         # get subject
         subject = request.get("subject", "")
         if subject == "":
             subject = self.Title()
-
-        if not isinstance(subject, unicode):
-            subject = subject.decode('utf-8')
+        subject_header = Header(safe_unicode(subject))
 
         # Create from-header
-        from_header = enl.getSenderName() and '"%s" <%s>' % (sender_name, sender_email) or sender_email
+        #from_header = enl.getSenderName() and '"%s" <%s>' % (sender_name, sender_email) or sender_email
+        #from_header = safe_unicode(from_header)
 
         # determine MailHost first (build-in vs. external)
         deliveryServiceName = enl.getDeliveryService()
@@ -331,7 +335,8 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             outer = MIMEMultipart('alternative')
 
             if hasattr(request, "test"):
-                outer['To'] = receiver['email']
+                outer['To'] = Header('<%s>' % safe_unicode(receiver['email']))
+
                 fullname = receiver['fullname']
                 salutation = receiver['salutation']
                 personal_text = text.replace("[[SUBSCRIBER_SALUTATION]]", "")
@@ -360,21 +365,66 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                         fullname = enl.getFullname_fallback()
                     except AttributeError:
                         fullname = "Sir or Madam"
+                outer['To'] = Header('<%s>' % safe_unicode(receiver['email']))
 
             subscriber_salutation = safe_portal_encoding(salutation) + ' ' + safe_portal_encoding(fullname)
             personal_text = personal_text.replace("[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
             personal_text_plain = personal_text_plain.replace("[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
 
-            msg = create_html_mail(subject,
-                                   personal_text.decode("utf-8"),
-                                   text=personal_text_plain.decode("utf-8"),
-                                   from_addr=sender_email,
-                                   to_addr=receiver['email'],
-                                   headers=None,
-                                   encoding='UTF-8')
+            outer['From'] = from_header
+            outer['Subject'] = subject_header
+            outer.epilogue = ''
+
+            # Attach text part
+            #text_part = MIMEText(personal_text_plain, "plain", charset)
+
+            # Attach html part with images
+            #html_part =  MIMEText(personal_text, "html", charset)
+
+            # Attach text part
+            text_part = MIMEMultipart("related")
+            text_part.attach(MIMEText(personal_text_plain, "plain", charset))
+
+            # Attach html part with images
+            html_part = MIMEMultipart("related")
+            html_text = MIMEText(personal_text, "html", charset)
+            html_part.attach(html_text)
+
+            # Add images to the message
+            image_number = 0
+            reference_tool = getToolByName(self, 'reference_catalog')
+            for image_url in image_urls:
+                #XXX: we need to provide zope3 resource image too!
+                try:
+                    image_url = urlparse(image_url)[2]
+                    if 'resolveuid' in image_url:
+                        urlparts = image_url.split('/')[1:]
+                        uuid = urlparts.pop(0)
+                        o = reference_tool.lookupObject(uuid)
+                        if o and urlparts:
+                            # get thumb
+                            o = o.restrictedTraverse(urlparts[0])
+                    else:
+                        o = self.restrictedTraverse(urllib.unquote(image_url))
+                except Exception, e:
+                    log.error("Could not resolve the image \"%s\": %s" % (image_url, e))
+                else:
+                    if hasattr(o, "_data"):                               # file-based
+                        image = MIMEImage(o._data)
+                    elif hasattr(o, "data"):
+                        image = MIMEImage(o.data)                         # zodb-based
+                    else:
+                        image = MIMEImage(o.GET())                        # z3 resource image
+                    image["Content-ID"] = "image_%s" % image_number
+                    image_number += 1
+                    # attach images only to html parts
+                    html_part.attach(image)
+            outer.attach(text_part)
+            outer.attach(html_part)
 
             try:
-                MailHost.send(msg)
+                #MailHost.send(msg)
+                MailHost.send(outer.as_string())
                 log.info("Send newsletter to \"%s\"" % receiver['email'])
                 send_counter += 1
             except AttributeError:  # Plone3.3.x
