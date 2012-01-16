@@ -8,6 +8,10 @@
   xmlns:five="http://namespaces.zope.org/five"
   i18n_domain="EasyNewsletter">
 
+  <include package="Products.CMFCore"
+           file="permissions.zcml"
+    zcml:condition="have plone-41" />
+
   <include zcml:condition="installed inqbus.plone.fastmemberproperties"
       package="inqbus.plone.fastmemberproperties" />
 
