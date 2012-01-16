@@ -432,11 +432,11 @@ msgstr "Assinantes"
 
 #: ./profiles/default/types/ENLTemplate.xml
 msgid "Template"
-msgstr "Template"
+msgstr "Modelo"
 
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "Templates"
-msgstr "Templates"
+msgstr "Modelos"
 
 #: ./browser/upload_csv.pt:32
 msgid "The CSV file must contain the header and follow this format"
@@ -594,7 +594,7 @@ msgstr "Não há assinantes"
 #. Default: "There are no templates."
 #: ./skins/EasyNewsletter/enl_templates_view.pt:28
 msgid "easynewsletter_notemplates_label"
-msgstr "Não há templates"
+msgstr "Não há modelos"
 
 #. Default: "Send Newsletter"
 #: ./browser/issue_send_form.pt:111
