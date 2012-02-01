@@ -415,7 +415,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                         image = MIMEImage(o.data)                         # zodb-based
                     else:
                         image = MIMEImage(o.GET())                        # z3 resource image
-                    image["Content-ID"] = "image_%s" % image_number
+                    image["Content-ID"] = "<image_%s>" % image_number
                     image_number += 1
                     # attach images only to html parts
                     html_part.attach(image)
