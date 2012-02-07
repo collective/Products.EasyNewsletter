@@ -2,6 +2,7 @@ import csv
 import tempfile
 
 from Acquisition import aq_inner
+from Acquisition import aq_parent
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
@@ -37,6 +38,11 @@ class Enl_Subscribers_View(BrowserView):
         self.context = context
         self.request = request
 
+    def __call__(self):
+        if self.can_delete():
+            self.delete()
+        return super(Enl_Subscribers_View,self).__call__()
+
     @property
     def portal_catalog(self):
         return getToolByName(self.context, 'portal_catalog')
@@ -67,7 +73,9 @@ class Enl_Subscribers_View(BrowserView):
                 salutation = SALUTATION.getValue(brain.salutation, '')
             else:
                 salutation = ''
+
             subscribers.append(dict(
+                id=brain.getId,
                 source='plone',
                 deletable=True,
                 email=brain.email,
@@ -90,6 +98,28 @@ class Enl_Subscribers_View(BrowserView):
                 subscribers.append(subscriber)
 
         return subscribers
+
+    def can_delete(self):
+        meth = self.request.get('REQUEST_METHOD')
+        delete_button = self.request.get('delete')
+        return meth.lower()=='post' and delete_button
+
+    def delete(self):
+        """ delete all the selected subscribers
+        """
+        messenger = IStatusMessage(self.request)
+        ids = self.request.get('subscriber_ids',[])
+        if not ids:
+            msg = _(u"No subscriber selected!")
+            messenger.addStatusMessage(msg, type='error')
+            return False
+        existing = self.context.objectIds()
+        # avoid wrong id to be submitted
+        to_remove = [i for i in ids if i in existing] 
+        self.context.manage_delObjects(to_remove)
+        msg = _(u"subscriber/s deleted successfully")
+        messenger.addStatusMessage(msg, type="info")
+        return True
 
 
 class UploadCSV(BrowserView):
