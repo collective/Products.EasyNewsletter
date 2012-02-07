@@ -117,11 +117,13 @@
               <div metal:use-macro="here/batch_macros/macros/navigation" />
 
               <div class="formControls">
-                <input type="submit"
-                       class="destructive"
-                       name="delete"
-                       value="Delete"
-                       i18n:attributes="value" />
+                <tal:if condition="subscribers">
+                  <input type="submit"
+                         class="destructive"
+                         name="delete"
+                         value="Delete"
+                         i18n:attributes="value" />
+                </tal:if>
               </div>
             </form>
 
