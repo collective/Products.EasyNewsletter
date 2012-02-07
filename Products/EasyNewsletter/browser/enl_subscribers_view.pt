@@ -27,6 +27,28 @@
                          batch_base_url here/@@plone_context_state/current_base_url;
                          batch python:Batch(subscribers, 30, int(b_start), orphan=1)">
 
+            <div class="search">
+              <h4 i18n:translate="">Filters</h4>
+              <p class="discreet" i18n:translate="">
+                NOTE: this filters effect only imported subscribers.
+              </p>
+              <form tal:attributes="action view/__name__">
+                <span class="label" i18n:translate="">Email:</span>
+                <input type="text" name="email"
+                       tal:attributes="value request/email|nothing" />
+                <span class="label" i18n:translate="">Fullname:</span>
+                <input type="text" name="fullname"
+                       tal:attributes="value request/fullname|nothing" />
+                <span class="label" i18n:translate="">Company/Organization:</span>
+                <input type="text" name="organization"
+                       tal:attributes="value request/organization|nothing" />
+                <input type="submit" class="standalone"
+                       name="submit"
+                       value="Filter"
+                       i18n:attributes="value" />
+              </form>
+            </div>
+
             <div tal:condition="not: subscribers"
                  i18n:translate="easynewsletter_nosubscribers_label">
                  There are no subscribers.

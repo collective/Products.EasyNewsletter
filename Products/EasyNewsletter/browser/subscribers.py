@@ -29,6 +29,10 @@ class Enl_Subscribers_View(BrowserView):
     """
     implements(IEnl_Subscribers_View)
 
+    # TODO: we should move these indexes from FieldIndex to ZCTextIndex
+    # see setuphandlers.py for indexes creation
+    searchable_params = ('email','fullname','organization')
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -41,24 +45,37 @@ class Enl_Subscribers_View(BrowserView):
     def portal(self):
         return getToolByName(self.context, 'portal_url').getPortalObject()
 
+    @property
+    def query(self):
+        query = dict(
+            portal_type = 'ENLSubscriber',
+            path='/'.join(self.context.getPhysicalPath()),
+            sort_on='email'
+        )
+        form = self.request.form
+        for k in self.searchable_params:
+            if form.get(k):
+                query[k] = form.get(k)
+        return query
+
     def subscribers(self):
         subscribers = list()
 
         # Plone subscribers
-        for brain in self.portal_catalog(portal_type = 'ENLSubscriber',
-                                         path='/'.join(self.context.getPhysicalPath()),
-                                         sort_on='email'):
+        for brain in self.portal_catalog(self.query):
             if brain.salutation:
                 salutation = SALUTATION.getValue(brain.salutation, '')
             else:
                 salutation = ''
-            subscribers.append(dict(source='plone',
-                               deletable=True,
-                               email=brain.email,
-                               getURL=brain.getURL(),
-                               salutation=salutation,
-                               fullname=brain.fullname,
-                               organization=brain.organization))
+            subscribers.append(dict(
+                source='plone',
+                deletable=True,
+                email=brain.email,
+                getURL=brain.getURL(),
+                salutation=salutation,
+                fullname=brain.fullname,
+                organization=brain.organization
+            ))
 
         # External subscribers
         external_source_name = self.context.getSubscriberSource()
