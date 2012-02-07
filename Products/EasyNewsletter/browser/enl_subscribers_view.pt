@@ -24,8 +24,9 @@
         <div tal:define="subscribers python:view.subscribers();
                          Batch python:modules['Products.CMFPlone'].Batch;
                          b_start python:request.get('b_start',0);
+                         b_size request/b_size|python:30;
                          batch_base_url here/@@plone_context_state/current_base_url;
-                         batch python:Batch(subscribers, 30, int(b_start), orphan=1)">
+                         batch python:Batch(subscribers, b_size, int(b_start), orphan=1)">
 
             <div class="search">
               <h4 i18n:translate="">Filters</h4>
@@ -39,9 +40,16 @@
                 <span class="label" i18n:translate="">Fullname:</span>
                 <input type="text" name="fullname"
                        tal:attributes="value request/fullname|nothing" />
-                <span class="label" i18n:translate="">Company/Organization:</span>
+                <span class="label" i18n:translate="">Organization:</span>
                 <input type="text" name="organization"
                        tal:attributes="value request/organization|nothing" />
+                <span class="label" i18n:translate="">Items per page:</span>
+                <select name="b_size:int">
+                  <option tal:repeat="opt python:range(10,110,10)"
+                          tal:attributes="value opt;
+                                          selected python:request.get('b_size',10)==opt and 'selected' or None"
+                          tal:content="opt" />
+                </select>
                 <input type="submit" class="standalone"
                        name="submit"
                        value="Filter"
@@ -105,6 +113,9 @@
                   </tr>
                   </tal:subscriber>
               </table>
+
+              <div metal:use-macro="here/batch_macros/macros/navigation" />
+
               <div class="formControls">
                 <input type="submit"
                        class="destructive"
@@ -114,7 +125,10 @@
               </div>
             </form>
 
+            
+
         </div>
+
         <p>
             <a href=""
                tal:attributes="href string:${context/absolute_url}/@@upload_csv"
