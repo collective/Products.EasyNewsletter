@@ -3,16 +3,25 @@ import tempfile
 
 from Acquisition import aq_inner
 from Acquisition import aq_parent
-from Products.CMFCore.utils import getToolByName
-from Products.Five import BrowserView
-from Products.statusmessages.interfaces import IStatusMessage
+
+
 from zope.component import getUtility
 from zope.component.interfaces import ComponentLookupError
 from zope.interface import implements, Interface
 
+from plone.i18n.normalizer.interfaces import IIDNormalizer
+
+from Products.CMFCore.utils import getToolByName
+from Products.Five import BrowserView
+from Products.statusmessages.interfaces import IStatusMessage
+
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.config import SALUTATION
 from Products.EasyNewsletter.interfaces import ISubscriberSource
+
+
+def normalize_id(astring):
+    return getUtility(IIDNormalizer).normalize(astring)
 
 
 CSV_HEADER = [_(u"salutation"), _(u"fullname"), _(u"email"), _(u"organization"), ]
@@ -174,7 +183,7 @@ class UploadCSV(BrowserView):
                 fullname = subscriber[1]
                 email = subscriber[2]
                 organization = subscriber[3]
-                id = plone_utils.normalizeString(email)
+                id = normalize_id(email)
                 if id in existing:
                     msg = _('This email address is already registered.')
                     fail.append(
