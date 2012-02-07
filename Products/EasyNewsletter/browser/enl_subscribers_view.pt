@@ -105,8 +105,9 @@
                   </tr>
                   </tal:subscriber>
               </table>
-              <div class="actions">
-                <input type="submit" class="destructive"
+              <div class="formControls">
+                <input type="submit"
+                       class="destructive"
                        name="delete"
                        value="Delete"
                        i18n:attributes="value" />
@@ -127,9 +128,9 @@
         </p>
 
         <script type="text/javascript">
+          // select/unselect all subscribers
           jQuery('#selectall').click(function(){
-            
-            var checked = jQuery(this).is(':checked') ? true:false;
+            var checked = jQuery(this).is(':checked') ? true : false;
             jQuery('table.listing :checkbox').attr('checked',checked);
           })
         </script>
