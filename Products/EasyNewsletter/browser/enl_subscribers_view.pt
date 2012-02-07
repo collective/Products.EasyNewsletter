@@ -30,7 +30,7 @@
             <div class="search">
               <h4 i18n:translate="">Filters</h4>
               <p class="discreet" i18n:translate="">
-                NOTE: this filters effect only imported subscribers.
+                NOTE: this filters affect only imported subscribers, not those coming from external sources.
               </p>
               <form tal:attributes="action view/__name__">
                 <span class="label" i18n:translate="">Email:</span>
