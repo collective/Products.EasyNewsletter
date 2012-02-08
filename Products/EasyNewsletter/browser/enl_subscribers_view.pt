@@ -22,6 +22,7 @@
         </h1>
 
         <div tal:define="subscribers python:view.subscribers();
+                         subscribers_number python:len(subscribers);
                          Batch python:modules['Products.CMFPlone'].Batch;
                          b_start python:request.get('b_start',0);
                          b_size request/b_size|python:30;
@@ -67,6 +68,16 @@
             <form method="post" tal:attributes="action view/__name__">
 
               <table class="listing" summary="Subscriber Listing">
+                  <tr>
+                    <th colspan="7">
+                      <span class="total" i18n:translate="">
+                        There are
+                        <span i18n:name="subscribers_number"
+                              tal:content="subscribers_number" />
+                        subscribers
+                      </span>
+                    </th>
+                  </tr>
                   <tr>
                       <th>
                         <input id="selectall" type="checkbox" name="selectall" />
