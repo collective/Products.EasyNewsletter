@@ -116,18 +116,18 @@ class Enl_Subscribers_View(BrowserView):
     def delete(self):
         """ delete all the selected subscribers
         """
-        messenger = IStatusMessage(self.request)
+        msg_manager = IStatusMessage(self.request)
         ids = self.request.get('subscriber_ids',[])
         if not ids:
             msg = _(u"No subscriber selected!")
-            messenger.addStatusMessage(msg, type='error')
+            msg_manager.addStatusMessage(msg, type='error')
             return False
         existing = self.context.objectIds()
         # avoid wrong id to be submitted
         to_remove = [i for i in ids if i in existing] 
         self.context.manage_delObjects(to_remove)
         msg = _(u"subscriber/s deleted successfully")
-        messenger.addStatusMessage(msg, type="info")
+        msg_manager.addStatusMessage(msg, type="info")
         return True
 
 
