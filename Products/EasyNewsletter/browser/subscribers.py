@@ -207,6 +207,8 @@ class UploadCSV(BrowserView):
                         sub.salutation = salutation.decode(encoding)
                         obj = self.context.get(id, None)
                         obj.reindexObject()
+                        # update existing
+                        existing.append(id)
                         success.append(
                                 {'salutation': salutation,
                                  'fullname': fullname,
