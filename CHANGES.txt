@@ -4,6 +4,9 @@ Changelog
 2.6.2 (unreleased)
 ------------------
 
+- Added Spanish translation.
+  [nueces]
+
 - Fix rendering of images in email-clients.
   [wimbou, WouterVH]
 
