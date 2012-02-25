@@ -2,16 +2,26 @@ import csv
 import tempfile
 
 from Acquisition import aq_inner
-from Products.CMFCore.utils import getToolByName
-from Products.Five import BrowserView
-from Products.statusmessages.interfaces import IStatusMessage
+from Acquisition import aq_parent
+
+
 from zope.component import getUtility
 from zope.component.interfaces import ComponentLookupError
 from zope.interface import implements, Interface
 
+from plone.i18n.normalizer.interfaces import IIDNormalizer
+
+from Products.CMFCore.utils import getToolByName
+from Products.Five import BrowserView
+from Products.statusmessages.interfaces import IStatusMessage
+
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.config import SALUTATION
 from Products.EasyNewsletter.interfaces import ISubscriberSource
+
+
+def normalize_id(astring):
+    return getUtility(IIDNormalizer).normalize(astring)
 
 
 CSV_HEADER = [_(u"salutation"), _(u"fullname"), _(u"email"), _(u"organization"), ]
@@ -29,9 +39,18 @@ class Enl_Subscribers_View(BrowserView):
     """
     implements(IEnl_Subscribers_View)
 
+    # TODO: we should move these indexes from FieldIndex to ZCTextIndex
+    # see setuphandlers.py for indexes creation
+    searchable_params = ('email','fullname','organization')
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
+
+    def __call__(self):
+        if self.can_delete():
+            self.delete()
+        return super(Enl_Subscribers_View,self).__call__()
 
     @property
     def portal_catalog(self):
@@ -41,24 +60,39 @@ class Enl_Subscribers_View(BrowserView):
     def portal(self):
         return getToolByName(self.context, 'portal_url').getPortalObject()
 
+    @property
+    def query(self):
+        query = dict(
+            portal_type = 'ENLSubscriber',
+            path='/'.join(self.context.getPhysicalPath()),
+            sort_on='email'
+        )
+        form = self.request.form
+        for k in self.searchable_params:
+            if form.get(k):
+                query[k] = form.get(k)
+        return query
+
     def subscribers(self):
         subscribers = list()
 
         # Plone subscribers
-        for brain in self.portal_catalog(portal_type = 'ENLSubscriber',
-                                         path='/'.join(self.context.getPhysicalPath()),
-                                         sort_on='email'):
+        for brain in self.portal_catalog(self.query):
             if brain.salutation:
                 salutation = SALUTATION.getValue(brain.salutation, '')
             else:
                 salutation = ''
-            subscribers.append(dict(source='plone',
-                               deletable=True,
-                               email=brain.email,
-                               getURL=brain.getURL(),
-                               salutation=salutation,
-                               fullname=brain.fullname,
-                               organization=brain.organization))
+
+            subscribers.append(dict(
+                id=brain.getId,
+                source='plone',
+                deletable=True,
+                email=brain.email,
+                getURL=brain.getURL(),
+                salutation=salutation,
+                fullname=brain.fullname,
+                organization=brain.organization
+            ))
 
         # External subscribers
         external_source_name = self.context.getSubscriberSource()
@@ -73,6 +107,28 @@ class Enl_Subscribers_View(BrowserView):
                 subscribers.append(subscriber)
 
         return subscribers
+
+    def can_delete(self):
+        meth = self.request.get('REQUEST_METHOD')
+        delete_button = self.request.get('delete')
+        return meth.lower()=='post' and delete_button
+
+    def delete(self):
+        """ delete all the selected subscribers
+        """
+        msg_manager = IStatusMessage(self.request)
+        ids = self.request.get('subscriber_ids',[])
+        if not ids:
+            msg = _(u"No subscriber selected!")
+            msg_manager.addStatusMessage(msg, type='error')
+            return False
+        existing = self.context.objectIds()
+        # avoid wrong id to be submitted
+        to_remove = [i for i in ids if i in existing] 
+        self.context.manage_delObjects(to_remove)
+        msg = _(u"subscriber/s deleted successfully")
+        msg_manager.addStatusMessage(msg, type="info")
+        return True
 
 
 class UploadCSV(BrowserView):
@@ -127,7 +183,7 @@ class UploadCSV(BrowserView):
                 fullname = subscriber[1]
                 email = subscriber[2]
                 organization = subscriber[3]
-                id = plone_utils.normalizeString(email)
+                id = normalize_id(email)
                 if id in existing:
                     msg = _('This email address is already registered.')
                     fail.append(
@@ -151,6 +207,8 @@ class UploadCSV(BrowserView):
                         sub.salutation = salutation.decode(encoding)
                         obj = self.context.get(id, None)
                         obj.reindexObject()
+                        # update existing
+                        existing.append(id)
                         success.append(
                                 {'salutation': salutation,
                                  'fullname': fullname,
