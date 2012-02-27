@@ -22,10 +22,41 @@
         </h1>
 
         <div tal:define="subscribers python:view.subscribers();
+                         subscribers_number python:len(subscribers) ;
                          Batch python:modules['Products.CMFPlone'].Batch;
                          b_start python:request.get('b_start',0);
+                         b_size request/b_size|python:30;
                          batch_base_url here/@@plone_context_state/current_base_url;
-                         batch python:Batch(subscribers, 30, int(b_start), orphan=1)">
+                         batch python:Batch(subscribers, b_size, int(b_start), orphan=1)">
+
+            <div class="search">
+              <h4 i18n:translate="">Filters</h4>
+              <p class="discreet" i18n:translate="">
+                NOTE: this filters affect only imported subscribers, not those coming from external sources.
+              </p>
+              <form tal:attributes="action view/__name__">
+                <span class="label" i18n:translate="">Email:</span>
+                <input type="text" name="email"
+                       tal:attributes="value request/email|nothing" />
+                <span class="label" i18n:translate="">Fullname:</span>
+                <input type="text" name="fullname"
+                       tal:attributes="value request/fullname|nothing" />
+                <span class="label" i18n:translate="">Organization:</span>
+                <input type="text" name="organization"
+                       tal:attributes="value request/organization|nothing" />
+                <span class="label" i18n:translate="">Items per page:</span>
+                <select name="b_size:int">
+                  <option tal:repeat="opt python:range(10,110,10)"
+                          tal:attributes="value opt;
+                                          selected python:request.get('b_size',10)==opt and 'selected' or None"
+                          tal:content="opt" />
+                </select>
+                <input type="submit" class="standalone"
+                       name="submit"
+                       value="Filter"
+                       i18n:attributes="value" />
+              </form>
+            </div>
 
             <div tal:condition="not: subscribers"
                  i18n:translate="easynewsletter_nosubscribers_label">
@@ -34,46 +65,83 @@
 
             <div metal:use-macro="here/batch_macros/macros/navigation" />
 
-            <table class="listing" summary="Subscriber Listing">
-                <tr>
-                    <th i18n:translate="">Email</th>
-                    <th i18n:translate="">Salutation</th>
-                    <th i18n:translate="">Name</th>
-                    <th i18n:translate="">Company/Organization</th>
-                    <th i18n:translate="">Source</th>
-                    <th i18n:translate="">Action</th>
-                </tr>
-                <tal:subscriber tal:repeat="subscriber batch">
-                    <tr tal:define="oddrow repeat/subscriber/odd;
-                                    isPlone python: subscriber['source']=='plone'"
-                    tal:attributes="class python:oddrow and 'odd' or 'even'">
-                    <td>
-                        <tal:if condition="isPlone">
-                            <a tal:condition="isPlone"
-                               tal:attributes="href string:${subscriber/getURL|nothing}"
-                               tal:content="subscriber/email">
-                                 email </a>
-                        </tal:if>
-                        <span tal:condition="not: isPlone" tal:content="subscriber/email" />
-                    </td>
-                    <td i18n:translate="" tal:content="subscriber/salutation" />
-                    <td i18n:translate="" tal:content="subscriber/fullname" />
-                    <td i18n:translate="" tal:content="subscriber/organization|nothing"></td>
-                    <td i18n:translate="" tal:content="subscriber/source|nothing"></td>
-                    <td>
-                        <a href="#"
-                           tal:condition="isPlone"
-                           tal:attributes="href string:${subscriber/getURL|nothing}/delete_confirmation">
-                           <img tal:attributes="alt string:Delete subscriber;
-                                                title string:Delete subscriber;
-                                                src string:delete_icon.gif" />
-                        </a>
-                    </td>
-                </tr>
-                </tal:subscriber>
-            </table>
+            <form method="post" tal:attributes="action view/__name__">
+
+              <table class="listing" summary="Subscriber Listing">
+                  <tr>
+                    <th colspan="7">
+                      <span class="total" i18n:translate="">
+                        There are
+                        <span i18n:name="subscribers_count"
+                              tal:replace="subscribers_number" />
+                        subscribers
+                      </span>
+                    </th>
+                  </tr>
+                  <tr>
+                      <th>
+                        <input id="selectall" type="checkbox" name="selectall" />
+                      </th>
+                      <th i18n:translate="">Email</th>
+                      <th i18n:translate="">Salutation</th>
+                      <th i18n:translate="">Name</th>
+                      <th i18n:translate="">Company/Organization</th>
+                      <th i18n:translate="">Source</th>
+                      <th i18n:translate="">Action</th>
+                  </tr>
+                  <tal:subscriber tal:repeat="subscriber batch">
+                      <tr tal:define="oddrow repeat/subscriber/odd;
+                                      isPlone python: subscriber['source']=='plone'"
+                      tal:attributes="class python:oddrow and 'odd' or 'even'">
+                      <td>
+                          <tal:if condition="isPlone">
+                            <input type="checkbox"
+                                   name="subscriber_ids:list"
+                                   tal:attributes="value subscriber/id" />
+                          </tal:if>
+                      </td>
+                      <td>
+                          <tal:if condition="isPlone">
+                              <a tal:attributes="href string:${subscriber/getURL|nothing}"
+                                 tal:content="subscriber/email">
+                                   email </a>
+                          </tal:if>
+                          <span tal:condition="not: isPlone" tal:content="subscriber/email" />
+                      </td>
+                      <td i18n:translate="" tal:content="subscriber/salutation" />
+                      <td i18n:translate="" tal:content="subscriber/fullname" />
+                      <td i18n:translate="" tal:content="subscriber/organization|nothing"></td>
+                      <td i18n:translate="" tal:content="subscriber/source|nothing"></td>
+                      <td>
+                          <a href="#"
+                             tal:condition="isPlone"
+                             tal:attributes="href string:${subscriber/getURL|nothing}/delete_confirmation">
+                             <img tal:attributes="alt string:Delete subscriber;
+                                                  title string:Delete subscriber;
+                                                  src string:delete_icon.gif" />
+                          </a>
+                      </td>
+                  </tr>
+                  </tal:subscriber>
+              </table>
+
+              <div metal:use-macro="here/batch_macros/macros/navigation" />
+
+              <div class="formControls">
+                <tal:if condition="subscribers">
+                  <input type="submit"
+                         class="destructive"
+                         name="delete"
+                         value="Delete"
+                         i18n:attributes="value" />
+                </tal:if>
+              </div>
+            </form>
+
+            
 
         </div>
+
         <p>
             <a href=""
                tal:attributes="href string:${context/absolute_url}/@@upload_csv"
@@ -85,6 +153,14 @@
                tal:attributes="href string:${context/absolute_url}/@@download_csv"
                i18n:translate="easynewsletter_label_export_subscribers">Export subscribers</a>
         </p>
+
+        <script type="text/javascript">
+          // select/unselect all subscribers
+          jQuery('#selectall').click(function(){
+            var checked = jQuery(this).is(':checked') ? true : false;
+            jQuery('table.listing :checkbox').attr('checked',checked);
+          })
+        </script>
 
     </tal:main-macro>
 </metal:main>
