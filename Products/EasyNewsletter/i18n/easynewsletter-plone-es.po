@@ -1,0 +1,70 @@
+#
+# Juan A. Diaz <juan@linux.org.ar>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: EasyNewsletter\n"
+"POT-Creation-Date: Tue Apr 25 11:18:19 2006\n"
+"PO-Revision-Date: 2012-02-29 18:42-0300\n"
+"Last-Translator: Juan A. Diaz <juan@linux.org.ar>\n"
+"Language-Team: Spanish; Castilian <>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Language-Code: es\n"
+"Language-Name: Spanish; Castilian\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone\n"
+
+msgid "An error occured."
+msgstr "Ocurrió un error."
+
+msgid "Archive"
+msgstr "Archivo"
+
+msgid "Drafts"
+msgstr "Borradores"
+
+msgid "Please enter a valid email address."
+msgstr "Por favor ingrese una dirección de correo electrónico valida."
+
+msgid "Receivers"
+msgstr "Destinatarios"
+
+msgid "Send"
+msgstr "Enviar"
+
+msgid "Subscriber"
+msgstr "Suscriptor"
+
+msgid "Subscribers"
+msgstr "Suscriptores"
+
+msgid "Template"
+msgstr "Plantilla"
+
+msgid "Templates"
+msgstr "Plantillas"
+
+msgid "The Newsletter has been send."
+msgstr "El boletín de noticias fue enviado."
+
+msgid "Your email address is already registered."
+msgstr "Su dirección de correo electrónico ya se encuentra registrada."
+
+msgid "Your email has been added. Thanks for your interest."
+msgstr ""
+"Se ha agregado su dirección de correo electrónico. Gracias por su interés."
+
+msgid "draft"
+msgstr "borrador"
+
+msgid "make draft"
+msgstr "crear un borrador"
+
+msgid "make sent"
+msgstr "realizar un envio"
+
+msgid "sent"
+msgstr "enviar"
