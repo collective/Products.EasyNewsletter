@@ -9,6 +9,7 @@ from email.MIMEMultipart import MIMEMultipart
 from email.MIMEImage import MIMEImage
 from email.Header import Header
 #from email import Encoders
+from stoneagehtml import compactify
 
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes import atapi
@@ -260,6 +261,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             out_template_pt_field.getName(),
             enl.getRawOut_template_pt()))
         output_html = safe_portal_encoding(self.out_template_pt.pt_render())
+        output_html = compactify(output_html, filter_tags=False)
         return output_html
 
     def _exchange_relative_urls(self, output_html):

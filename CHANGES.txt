@@ -4,6 +4,12 @@ Changelog
 2.6.2 (unreleased)
 ------------------
 
+- Added stoneagehtml package for processing the newsletter's html before
+  sending it by mail. This add support for css declararions that will be
+  written directly into the html tags to improve rendering results in
+  email clients.
+  [nueces]
+
 - Added Spanish translation.
   [nueces]
 
