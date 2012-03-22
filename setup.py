@@ -25,6 +25,7 @@ setup(name='Products.EasyNewsletter',
     zip_safe=False,
     install_requires=[
         'setuptools',
+        'stoneagehtml',
         'Products.TemplateFields',
     ],
     extras_require = dict(
