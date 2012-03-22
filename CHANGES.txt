@@ -4,6 +4,9 @@ Changelog
 2.6.2 (unreleased)
 ------------------
 
+- Improved handling utf-8 strings for the import and export for members
+  [frapell]
+
 - Added stoneagehtml package for processing the newsletter's html before
   sending it by mail. This add support for css declararions that will be
   written directly into the html tags to improve rendering results in
