@@ -278,7 +278,6 @@ class UploadCSV(BrowserView):
                                  'email': email,
                                  'organization': organization})
                     except Exception, e:
-                        import pdb;pdb.set_trace()
                         fail.append(
                             {'salutation': salutation,
                              'fullname': fullname,
