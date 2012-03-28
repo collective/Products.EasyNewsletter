@@ -8,7 +8,8 @@
     </dt>
 
     <dd class="portletItem lastItem">
-	<p tal:content="view/description|nothing">Portlet Description</p> 
+  	    <p tal:content="view/description|nothing" 
+            tal:omit-tag="not:view/description"/> 
 
         <form action="@@register-subscriber">
             <input type="hidden" 
@@ -16,17 +17,22 @@
                    value="newsletter" 
                    tal:attributes="value view/get_newsletter" />
                    
-            <select tal:condition="view/data/query_fullname|nothing"
-              class="easynewsletter_text"
+            <div id="salutation" 
+              tal:condition="view/data/query_fullname|nothing"
               id="salutation" 
               name="salutation">
-                   <option value="" 
-                     i18n:translate="">Choose salutation...</option>
-                   <option value="ms" 
-                     i18n:translate="">Ms.</option>
-                   <option value="mr" 
-                     i18n:translate="">Mr.</option>
-            </select>
+              <input 
+                  type="radio" 
+                  name="salutation" 
+                  value="ms" 
+                  checked="checked"
+                  i18n:translate=""> Ms. 
+              <input 
+                  type="radio"
+                  name="salutation"
+                  value="mr" 
+                  i18n:translate=""> Mr.
+            </div>
                    
             <input class="easynewsletter_text"
                    onclick="this.value=''"

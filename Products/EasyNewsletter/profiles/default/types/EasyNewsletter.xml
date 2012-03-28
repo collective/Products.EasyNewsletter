@@ -2,7 +2,7 @@
 <object name="EasyNewsletter"
    meta_type="Factory-based Type Information with dynamic views"
    i18n:domain="EasyNewsletter" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
- <property name="title" i18n:translate="">EasyNewsletter</property>
+ <property name="title" i18n:translate="">Newsletter</property>
  <property name="description"
      i18n:translate="">An easy to use Newsletter</property>
  <property name="content_icon">document_icon.gif</property>

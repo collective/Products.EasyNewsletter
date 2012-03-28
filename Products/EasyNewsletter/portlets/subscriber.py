@@ -111,8 +111,8 @@ class AddForm(base.AddForm):
         """
         """
         return Assignment(
-            portlet_title = data.get("portlet_title", ""),
-            portlet_description = data.get("portlet_description", ""),
+            portlet_title = data.get("portlet_title", u""),
+            portlet_description = data.get("portlet_description", u""),
             newsletter = data.get("newsletter", ""),
         )
 
