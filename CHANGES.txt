@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.6.2 (unreleased)
+2.6.2 (2012-04-20)
 ------------------
 
 - Improved handling utf-8 strings for the import and export for members
