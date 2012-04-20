@@ -18,3 +18,6 @@ msgstr ""
 
 msgid "Issues full view"
 msgstr ""
+
+msgid "Sent"
+msgstr ""

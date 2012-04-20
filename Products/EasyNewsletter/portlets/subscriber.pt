@@ -26,12 +26,12 @@
                   name="salutation" 
                   value="ms" 
                   checked="checked"
-                  i18n:translate=""> Ms. 
+                  i18n:translate="ms">
               <input 
                   type="radio"
                   name="salutation"
                   value="mr" 
-                  i18n:translate=""> Mr.
+                  i18n:translate="mr">
             </div>
                    
             <input class="easynewsletter_text"

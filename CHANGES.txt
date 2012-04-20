@@ -56,6 +56,11 @@ Changelog
 - Update Brazilian Portuguese translation
   [ericof]
 
+- fix subscriber tempatlae, to remove the the empty p tag if no description is provided
+  [derstappenit]
+
+- use radio buttons instead of selection for salutation selection in subscriber template
+  [derstappenit]
 
 2.6.1 (2011-11-23)
 ------------------
