@@ -1,5 +1,5 @@
 recursive-include Products *
 recursive-include docs *
-README.rst
+include README.rst
 
 global-exclude *pyc
