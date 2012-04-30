@@ -1,16 +1,20 @@
 Changelog
 =========
 
-2.6.3 (unreleased)
+2.6.4 (unreleased)
 ------------------
 
 - Nothing changed yet.
 
 
-2.6.2 (2012-04-20)
+2.6.3 (2012-04-30)
 ------------------
 
-- Nothing changed yet.
+- don't override the issue content after first saving
+  [derstappenit]
+
+- rename aggregate action and move this action to object_buttons (actions menu)
+  [derstappenit]
 
 
 2.6.2 (2012-04-20)
