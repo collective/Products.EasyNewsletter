@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.6.4 (unreleased)
+2.6.3 (2012-04-30)
 ------------------
 
 - Nothing changed yet.
