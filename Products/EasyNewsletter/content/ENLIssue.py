@@ -179,9 +179,9 @@ class ENLIssue(ATTopic, atapi.BaseContent):
     security = ClassSecurityInfo()
     schema = schema
 
-    def at_post_create_script(self):
-        """Overwritten hook """
-        self.loadContent()
+    #def at_post_create_script(self):
+    #    """Overwritten hook """
+    #    self.loadContent()
 
     security.declarePublic("folder_contents")
     def folder_contents(self):
