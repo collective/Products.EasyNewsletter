@@ -101,7 +101,7 @@ class SubscriberView(BrowserView):
             if valid_email:
                 # now delete the regobj
                 del enl_registration_tool[hashkey]
-                messages.addStatusMessage(MESSAGE_CODE[error_code])
+                messages.addStatusMessage(_("Your subscription was successfully confirmed."), "info")
             else:
                 messages.addStatusMessage(MESSAGE_CODE[error_code], "error")
             return self.request.response.redirect(easynewsletter.absolute_url())

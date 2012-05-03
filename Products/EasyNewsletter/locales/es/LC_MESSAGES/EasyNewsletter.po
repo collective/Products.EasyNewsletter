@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.6.2dev\n"
-"POT-Creation-Date: 2012-04-20 13:16+0000\n"
+"POT-Creation-Date: 2012-05-03 11:08+0000\n"
 "PO-Revision-Date: 2012-02-24 15:22-0300\n"
 "Last-Translator: Juan A. Diaz <juan@linux.org.ar>\n"
 "Language-Team: Spanish; Castilian <>\n"
@@ -25,10 +25,18 @@ msgstr "Fallo la importación de ${count} registros."
 msgid "${count} import(s) successful."
 msgstr "Se importaron ${count} registros."
 
+#: ./browser/registration.py:104
+msgid "), "
+msgstr ""
+
 #: ./profiles/default/types/ENLSubscriber.xml
 #: ./profiles/default/types/ENLTemplate.xml
 msgid "A page in the site. Can contain rich text."
 msgstr "Una página en el sitio. Puede contener texto enriquecido."
+
+#: ./profiles/default/types/ENLIssue.xml
+msgid "Aggregate body content"
+msgstr ""
 
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "An easy to use Newsletter"
@@ -352,6 +360,9 @@ msgstr "Importar"
 msgid "Issue"
 msgstr "Edición"
 
+msgid "Issues full view"
+msgstr ""
+
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "Newsletter"
 msgstr ""
@@ -386,10 +397,6 @@ msgstr "Razón de la falla"
 msgid "References"
 msgstr "Referencias"
 
-#: ./profiles/default/types/ENLIssue.xml
-msgid "Refresh aggregate body"
-msgstr "Actualizar el contenido dinámico"
-
 #: ./browser/upload_csv.pt:84
 msgid "Salutation"
 msgstr "Saludo"
@@ -401,6 +408,9 @@ msgstr "Seleccione su archivo CSV."
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Send"
 msgstr "Enviar"
+
+msgid "Sent"
+msgstr ""
 
 #: ./profiles/default/types/ENLIssue.xml
 #: ./profiles/default/types/EasyNewsletter.xml
@@ -472,6 +482,9 @@ msgstr "Su dirección de correo electrónico ya se encuentra registrada."
 #: ./browser/registration.py:87
 msgid "Your email has been registered.                 A confirmation email was sent to your address. Please check                 your inbox and click on the link in the email in order to                 confirm your subscription."
 msgstr "Su dirección de correo electrónico ha sido registrada. Un correo electrónico de confirmación fue enviado a esta dirección. Por favor verifique su correspondencia y presione sobre el enlace que contiene el correo para confirmar su suscripción."
+
+msgid "Your subscription was successfully confirmed."
+msgstr ""
 
 #. Default: "Action"
 #: ./browser/enl_subscribers_view.pt:93

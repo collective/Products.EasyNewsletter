@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Products.EasyNewsletter\n"
-"POT-Creation-Date: 2012-04-20 13:16+0000\n"
+"POT-Creation-Date: 2012-05-03 11:08+0000\n"
 "PO-Revision-Date: 2011-08-10 15:41+0100\n"
 "Last-Translator: Wim Boucquaert - wimbou <wim.boucquaert@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,10 +23,18 @@ msgstr "${count} import(s) mislukt."
 msgid "${count} import(s) successful."
 msgstr "${count} import(s) succesvol."
 
+#: ./browser/registration.py:104
+msgid "), "
+msgstr ""
+
 #: ./profiles/default/types/ENLSubscriber.xml
 #: ./profiles/default/types/ENLTemplate.xml
 msgid "A page in the site. Can contain rich text."
 msgstr "Een pagina in de site. Kan rich text bevatten."
+
+#: ./profiles/default/types/ENLIssue.xml
+msgid "Aggregate body content"
+msgstr ""
 
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "An easy to use Newsletter"
@@ -350,6 +358,9 @@ msgstr "Importeren"
 msgid "Issue"
 msgstr "Editie"
 
+msgid "Issues full view"
+msgstr ""
+
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "Newsletter"
 msgstr ""
@@ -384,10 +395,6 @@ msgstr "Reden van de fout"
 msgid "References"
 msgstr "Referenties"
 
-#: ./profiles/default/types/ENLIssue.xml
-msgid "Refresh aggregate body"
-msgstr ""
-
 #: ./browser/upload_csv.pt:84
 msgid "Salutation"
 msgstr "Aanspreking"
@@ -398,6 +405,9 @@ msgstr "Selecteer het CSV-bestand."
 
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Send"
+msgstr ""
+
+msgid "Sent"
 msgstr ""
 
 #: ./profiles/default/types/ENLIssue.xml
@@ -470,6 +480,9 @@ msgstr "Je e-mailadres is reeds geregistreerd."
 #: ./browser/registration.py:87
 msgid "Your email has been registered.                 A confirmation email was sent to your address. Please check                 your inbox and click on the link in the email in order to                 confirm your subscription."
 msgstr "Je e-mail werd geregistreerd. Een bevestigings-e-mail werd verzonden naar je e-mailadres. Gelieve je inbox te controleren en te klikken op de link in de e-mail om je registratie te bevestigen."
+
+msgid "Your subscription was successfully confirmed."
+msgstr ""
 
 #. Default: "Action"
 #: ./browser/enl_subscribers_view.pt:93

@@ -21,3 +21,6 @@ msgstr ""
 
 msgid "Sent"
 msgstr ""
+
+msgid "Your subscription was successfully confirmed."
+msgstr ""
