@@ -4,13 +4,14 @@ Changelog
 2.6.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- nothing yet
 
 
-2.6.3 (2012-04-30)
+2.6.4 (2012-05-03)
 ------------------
 
-- Nothing changed yet.
+- add german translations
+  [derstappenit]
 
 
 2.6.3 (2012-04-30)
