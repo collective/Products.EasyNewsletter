@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.6.2dev\n"
-"POT-Creation-Date: 2012-05-03 11:08+0000\n"
+"POT-Creation-Date: 2012-05-14 21:43+0000\n"
 "PO-Revision-Date: 2012-02-24 15:22-0300\n"
 "Last-Translator: Juan A. Diaz <juan@linux.org.ar>\n"
 "Language-Team: Spanish; Castilian <>\n"
@@ -25,10 +25,6 @@ msgstr "Fallo la importación de ${count} registros."
 msgid "${count} import(s) successful."
 msgstr "Se importaron ${count} registros."
 
-#: ./browser/registration.py:104
-msgid "), "
-msgstr ""
-
 #: ./profiles/default/types/ENLSubscriber.xml
 #: ./profiles/default/types/ENLTemplate.xml
 msgid "A page in the site. Can contain rich text."
@@ -36,7 +32,7 @@ msgstr "Una página en el sitio. Puede contener texto enriquecido."
 
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Aggregate body content"
-msgstr ""
+msgstr "Actualizar contenido"
 
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "An easy to use Newsletter"
@@ -61,7 +57,7 @@ msgstr "Archivo CSV"
 
 #: ./browser/enl_subscribers_view.pt:135
 msgid "Delete"
-msgstr ""
+msgstr "Borrar"
 
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "Drafts"
@@ -156,7 +152,7 @@ msgstr "Asunto por defecto para el envío del boletín de noticias. Si deja este
 
 #: ./content/ENLIssue.py:151
 msgid "EasyNewsletter_help_template"
-msgstr ""
+msgstr "Plantilla que se utilizara para generar el cuerpo de la edición del boletín actual."
 
 #. Default: "Default for the test email address."
 #: ./content/EasyNewsletter.py:66
@@ -337,11 +333,11 @@ msgstr "Editor externo"
 
 #: ./browser/enl_subscribers_view.pt:56
 msgid "Filter"
-msgstr ""
+msgstr "Filtro"
 
 #: ./browser/enl_subscribers_view.pt:35
 msgid "Filters"
-msgstr ""
+msgstr "Filtros"
 
 #: ./browser/upload_csv.pt:85
 msgid "Fullname"
@@ -361,11 +357,11 @@ msgid "Issue"
 msgstr "Edición"
 
 msgid "Issues full view"
-msgstr ""
+msgstr "Vista completa de Ediciones"
 
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "Newsletter"
-msgstr ""
+msgstr "Boletin de noticias"
 
 #: ./portlets/subscriber.py:79
 msgid "Newsletter subscriber portlet"
@@ -377,7 +373,7 @@ msgstr "No se indico un archivo."
 
 #: ./browser/subscribers.py:184
 msgid "No subscriber selected!"
-msgstr ""
+msgstr "No hay suscriptores seleccionados!"
 
 #: ./browser/upload_csv.pt:87
 msgid "Organization"
@@ -410,7 +406,7 @@ msgid "Send"
 msgstr "Enviar"
 
 msgid "Sent"
-msgstr ""
+msgstr "Enviado"
 
 #: ./profiles/default/types/ENLIssue.xml
 #: ./profiles/default/types/EasyNewsletter.xml
@@ -447,7 +443,7 @@ msgstr "El número de elementos en la fila no es correcta. Este debe ser 4. Revi
 
 #: ./browser/enl_subscribers_view.pt:78
 msgid "There are ${subscribers_count} subscribers"
-msgstr ""
+msgstr "Hay ${subscribers_count} suscriptores"
 
 #: ./browser/subscribers.py:251
 msgid "This email address is already registered."
@@ -483,18 +479,19 @@ msgstr "Su dirección de correo electrónico ya se encuentra registrada."
 msgid "Your email has been registered.                 A confirmation email was sent to your address. Please check                 your inbox and click on the link in the email in order to                 confirm your subscription."
 msgstr "Su dirección de correo electrónico ha sido registrada. Un correo electrónico de confirmación fue enviado a esta dirección. Por favor verifique su correspondencia y presione sobre el enlace que contiene el correo para confirmar su suscripción."
 
+#: ./browser/registration.py:104
 msgid "Your subscription was successfully confirmed."
-msgstr ""
+msgstr "Su suscripción fue confirmada."
 
 #. Default: "Action"
 #: ./browser/enl_subscribers_view.pt:93
 msgid "action"
-msgstr ""
+msgstr "Acción"
 
 #. Default: "Add subscriber"
 #: ./browser/enl_subscribers_view.pt:32
 msgid "add_subscriber"
-msgstr ""
+msgstr "Agregar suscriptor"
 
 #. Default: "The footer will included in outgoing mails."
 #: ./content/ENLIssue.py:125
@@ -685,7 +682,7 @@ msgstr "Si es seleccionado, el boletín de noticias es enviado a todos los miemb
 #. Default: "Import / Export"
 #: ./browser/enl_subscribers_view.pt:149
 msgid "import_export"
-msgstr ""
+msgstr "Importar / Exportar"
 
 #. Default: "Issues"
 #: ./skins/EasyNewsletter/easynewsletter_view.pt:46
@@ -695,7 +692,7 @@ msgstr "Ediciones"
 #. Default: "Items per page:"
 #: ./browser/enl_subscribers_view.pt:49
 msgid "items_per_page"
-msgstr ""
+msgstr "Items por página:"
 
 #. Default: "Newsletter Template"
 #: ./content/ENLTemplate.py:17
@@ -715,7 +712,7 @@ msgstr "Descripción"
 #. Default: "Inherit Criteria"
 #: ./content/ENLIssue.py:135
 msgid "label_inherit_criteria"
-msgstr "Criterio heredado"
+msgstr "Heredar criterios de búsqueda"
 
 #. Default: "Ask for the salutation and fullname of the subscriber"
 #: ./portlets/subscriber.py:41
@@ -791,20 +788,20 @@ msgstr "Titulo"
 #. Default: "Email:"
 #: ./browser/enl_subscribers_view.pt:40
 msgid "mail"
-msgstr ""
+msgstr "correo electrónico"
 
 #: ./portlets/subscriber.pt:30
 msgid "mr"
-msgstr ""
+msgstr "sr"
 
 #: ./portlets/subscriber.pt:24
 msgid "ms"
-msgstr ""
+msgstr "stra"
 
 #. Default: "Name"
 #: ./browser/enl_subscribers_view.pt:90
 msgid "name"
-msgstr ""
+msgstr "Nombre"
 
 #. Default: "Not imported subscribers"
 #: ./browser/upload_csv.pt:79
@@ -828,7 +825,7 @@ msgstr "saludo"
 #. Default: "Source"
 #: ./browser/enl_subscribers_view.pt:92
 msgid "source"
-msgstr ""
+msgstr "fuente"
 
 #. Default: "Subtopics"
 #: ./skins/EasyNewsletter/enl_subtopics.pt:34
@@ -837,12 +834,12 @@ msgstr "sub temas"
 
 #: ./browser/subscribers.py:191
 msgid "subscriber/s deleted successfully"
-msgstr ""
+msgstr "suscriptores borrados"
 
 #. Default: "This filters affect only imported subscribers, not those coming from external sources."
 #: ./browser/enl_subscribers_view.pt:36
 msgid "subscribers_filter_note"
-msgstr ""
+msgstr "Este filtro afecta unicamente suscriptores importados, pero no los que proviene de fuetes externas."
 
 #. Default: "Sucessfully created Subscribers"
 #: ./browser/upload_csv.pt:107

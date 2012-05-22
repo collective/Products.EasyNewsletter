@@ -68,3 +68,6 @@ msgstr "realizar un envio"
 
 msgid "sent"
 msgstr "enviar"
+
+msgid "Aggregate body content"
+msgstr "Actualizar contenido"

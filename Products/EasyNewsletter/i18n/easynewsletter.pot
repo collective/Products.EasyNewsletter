@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: EasyNewsletter\n"
-"POT-Creation-Date: 2012-04-20 12:17+0000\n"
+"POT-Creation-Date: 2012-05-16 03:36+0000\n"
 "PO-Revision-Date: Thu May  4 12:51:56 2006\n"
 "Last-Translator: Kai Diefenbach - iqplusplus <kai.diefenbach <at> iqpp.de>\n"
 "Language-Team: Kai Diefenbach - iqplusplus <kai.diefenbach <at> iqpp.de>\n"
@@ -29,8 +29,8 @@ msgstr ""
 msgid "A page in the site. Can contain rich text."
 msgstr ""
 
-#: ../browser/enl_subscribers_view.pt:90
-msgid "Action"
+#: ../profiles/default/types/ENLIssue.xml
+msgid "Aggregate body content"
 msgstr ""
 
 #: ../profiles/default/types/EasyNewsletter.xml
@@ -45,10 +45,6 @@ msgstr ""
 msgid "An issue of a newsleter"
 msgstr ""
 
-#: ../browser/enl_subscribers_view.pt:88
-msgid "Company/Organization"
-msgstr ""
-
 #: ../profiles/default/types/ENLIssue.xml
 #: ../profiles/default/types/EasyNewsletter.xml
 msgid "Criteria"
@@ -58,7 +54,7 @@ msgstr ""
 msgid "Csv file"
 msgstr ""
 
-#: ../browser/enl_subscribers_view.pt:132
+#: ../browser/enl_subscribers_view.pt:135
 msgid "Delete"
 msgstr ""
 
@@ -395,13 +391,8 @@ msgstr ""
 msgid "Edit Newsletter portlet"
 msgstr ""
 
-#: ../browser/enl_subscribers_view.pt:85
 #: ../browser/upload_csv.pt:86
 msgid "Email"
-msgstr ""
-
-#: ../browser/enl_subscribers_view.pt:38
-msgid "Email:"
 msgstr ""
 
 #: ../profiles/default/types/ENLSubscriber.xml
@@ -409,20 +400,16 @@ msgstr ""
 msgid "External Edit"
 msgstr ""
 
-#: ../browser/enl_subscribers_view.pt:54
+#: ../browser/enl_subscribers_view.pt:56
 msgid "Filter"
 msgstr ""
 
-#: ../browser/enl_subscribers_view.pt:33
+#: ../browser/enl_subscribers_view.pt:35
 msgid "Filters"
 msgstr ""
 
 #: ../browser/upload_csv.pt:85
 msgid "Fullname"
-msgstr ""
-
-#: ../browser/enl_subscribers_view.pt:41
-msgid "Fullname:"
 msgstr ""
 
 #: ../profiles/default/types/ENLSubscriber.xml
@@ -436,18 +423,6 @@ msgstr ""
 
 #: ../profiles/default/types/ENLIssue.xml
 msgid "Issue"
-msgstr ""
-
-#: ../browser/enl_subscribers_view.pt:47
-msgid "Items per page:"
-msgstr ""
-
-#: ../browser/enl_subscribers_view.pt:34
-msgid "NOTE: this filters affect only imported subscribers, not those coming from external sources."
-msgstr ""
-
-#: ../browser/enl_subscribers_view.pt:87
-msgid "Name"
 msgstr ""
 
 #: ../profiles/default/types/EasyNewsletter.xml
@@ -470,10 +445,6 @@ msgstr ""
 msgid "Organization"
 msgstr ""
 
-#: ../browser/enl_subscribers_view.pt:44
-msgid "Organization:"
-msgstr ""
-
 #: ../browser/registration.py:49
 msgid "Please enter a valid email address."
 msgstr ""
@@ -488,11 +459,6 @@ msgstr ""
 msgid "References"
 msgstr ""
 
-#: ../profiles/default/types/ENLIssue.xml
-msgid "Refresh aggregate body"
-msgstr ""
-
-#: ../browser/enl_subscribers_view.pt:86
 #: ../browser/upload_csv.pt:84
 msgid "Salutation"
 msgstr ""
@@ -503,10 +469,6 @@ msgstr ""
 
 #: ../profiles/default/types/ENLIssue.xml
 msgid "Send"
-msgstr ""
-
-#: ../browser/enl_subscribers_view.pt:89
-msgid "Source"
 msgstr ""
 
 #: ../profiles/default/types/ENLIssue.xml
@@ -542,7 +504,7 @@ msgstr ""
 msgid "The number of items in the line is not correct.                         It should be 4. Check your CSV file."
 msgstr ""
 
-#: ../browser/enl_subscribers_view.pt:75
+#: ../browser/enl_subscribers_view.pt:78
 msgid "There are ${subscribers_count} subscribers"
 msgstr ""
 
@@ -578,6 +540,20 @@ msgstr ""
 
 #: ../browser/registration.py:87
 msgid "Your email has been registered.                 A confirmation email was sent to your address. Please check                 your inbox and click on the link in the email in order to                 confirm your subscription."
+msgstr ""
+
+#: ../browser/registration.py:104
+msgid "Your subscription was successfully confirmed."
+msgstr ""
+
+#. Default: "Action"
+#: ../browser/enl_subscribers_view.pt:93
+msgid "action"
+msgstr ""
+
+#. Default: "Add subscriber"
+#: ../browser/enl_subscribers_view.pt:32
+msgid "add_subscriber"
 msgstr ""
 
 #. Default: "The footer will included in outgoing mails."
@@ -658,12 +634,12 @@ msgid "easynewsletter_input_value_organization"
 msgstr ""
 
 #. Default: "Export subscribers"
-#: ../browser/enl_subscribers_view.pt:152
+#: ../browser/enl_subscribers_view.pt:154
 msgid "easynewsletter_label_export_subscribers"
 msgstr ""
 
 #. Default: "Import subscribers"
-#: ../browser/enl_subscribers_view.pt:146
+#: ../browser/enl_subscribers_view.pt:151
 msgid "easynewsletter_label_import_subscribers"
 msgstr ""
 
@@ -683,7 +659,7 @@ msgid "easynewsletter_nondrafts_label"
 msgstr ""
 
 #. Default: "There are no subscribers."
-#: ../browser/enl_subscribers_view.pt:61
+#: ../browser/enl_subscribers_view.pt:64
 msgid "easynewsletter_nosubscribers_label"
 msgstr ""
 
@@ -723,6 +699,7 @@ msgstr ""
 msgid "email"
 msgstr ""
 
+#: ../browser/enl_subscribers_view.pt:43
 #: ../browser/subscribers.py:89
 #: ../browser/upload_csv.pt:37
 msgid "fullname"
@@ -764,9 +741,19 @@ msgstr ""
 msgid "help_sendToAllPloneMembers"
 msgstr ""
 
+#. Default: "Import / Export"
+#: ../browser/enl_subscribers_view.pt:149
+msgid "import_export"
+msgstr ""
+
 #. Default: "Issues"
 #: ../skins/EasyNewsletter/easynewsletter_view.pt:46
 msgid "issues_label"
+msgstr ""
+
+#. Default: "Items per page:"
+#: ../browser/enl_subscribers_view.pt:49
+msgid "items_per_page"
 msgstr ""
 
 #. Default: "Newsletter Template"
@@ -860,6 +847,11 @@ msgstr ""
 msgid "listingheader_title"
 msgstr ""
 
+#. Default: "Email:"
+#: ../browser/enl_subscribers_view.pt:40
+msgid "mail"
+msgstr ""
+
 #: ../portlets/subscriber.pt:30
 msgid "mr"
 msgstr ""
@@ -868,19 +860,31 @@ msgstr ""
 msgid "ms"
 msgstr ""
 
+#. Default: "Name"
+#: ../browser/enl_subscribers_view.pt:90
+msgid "name"
+msgstr ""
+
 #. Default: "Not imported subscribers"
 #: ../browser/upload_csv.pt:79
 msgid "not_created_subscribers"
 msgstr ""
 
+#: ../browser/enl_subscribers_view.pt:46
 #: ../browser/subscribers.py:89
 #: ../browser/upload_csv.pt:39
 msgid "organization"
 msgstr ""
 
+#: ../browser/enl_subscribers_view.pt:89
 #: ../browser/subscribers.py:89
 #: ../browser/upload_csv.pt:36
 msgid "salutation"
+msgstr ""
+
+#. Default: "Source"
+#: ../browser/enl_subscribers_view.pt:92
+msgid "source"
 msgstr ""
 
 #. Default: "Subtopics"
@@ -890,6 +894,11 @@ msgstr ""
 
 #: ../browser/subscribers.py:191
 msgid "subscriber/s deleted successfully"
+msgstr ""
+
+#. Default: "This filters affect only imported subscribers, not those coming from external sources."
+#: ../browser/enl_subscribers_view.pt:36
+msgid "subscribers_filter_note"
 msgstr ""
 
 #. Default: "Sucessfully created Subscribers"
