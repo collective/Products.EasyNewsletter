@@ -1,29 +1,24 @@
 Changelog
 =========
 
-2.6.6 (unreleased)
+2.6.7 (unreleased)
 ------------------
 
 - Nothing changed yet.
 
 
-2.6.5 (2012-05-04)
+2.6.6 (2012-05-22)
 ------------------
 
-- Nothing changed yet.
+- Add support for @@images view in image urls
+  [derstappenit]
 
 
 2.6.5 (2012-05-04)
 ------------------
 
 - include mo files in MANIFEST, so that they are included in the package
-
-
-2.6.4 (2012-05-03)
-------------------
-
-- nothing yet
-
+  [derstappenit]
 
 2.6.4 (2012-05-03)
 ------------------
