@@ -378,12 +378,6 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             outer.epilogue = ''
 
             # Attach text part
-            #text_part = MIMEText(personal_text_plain, "plain", charset)
-
-            # Attach html part with images
-            #html_part =  MIMEText(personal_text, "html", charset)
-
-            # Attach text part
             text_part = MIMEMultipart("related")
             text_part.attach(MIMEText(personal_text_plain, "plain", charset))
 
@@ -396,7 +390,6 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             image_number = 0
             reference_tool = getToolByName(self, 'reference_catalog')
             for image_url in image_urls:
-                #XXX: we need to provide zope3 resource image too!
                 try:
                     image_url = urlparse(image_url)[2]
                     if 'resolveuid' in image_url:
@@ -406,6 +399,12 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                         if o and urlparts:
                             # get thumb
                             o = o.restrictedTraverse(urlparts[0])
+                    elif "@@images" in image_url:
+                        image_url_base, image_scale_params = image_url.split("@@images")
+                        image_scale = image_scale_params.split("/")[-1]
+                        scales = self.restrictedTraverse(
+                                urllib.unquote(image_url_base + '@@images'))
+                        o = scales.scale('image', scale=image_scale)
                     else:
                         o = self.restrictedTraverse(urllib.unquote(image_url))
                 except Exception, e:

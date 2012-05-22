@@ -80,19 +80,7 @@ class EasyNewsletterTests(unittest.TestCase):
         self.assertTrue('From: ACME newsletter <newsletter@acme.com>' in msg)
 
 
+
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)
 
-#raceback (innermost last):
-#  Module ZPublisher.Publish, line 127, in publish
-#  Module ZPublisher.mapply, line 77, in mapply
-#  Module Products.PDBDebugMode.runcall, line 70, in pdb_runcall
-#  Module ZPublisher.Publish, line 47, in call_object
-#  Module Products.EasyNewsletter.browser.issue, line 23, in send_issue
-#  Module Products.EasyNewsletter.content.ENLIssue, line 366, in send
-#  Module email.header, line 176, in __init__
-#  Module email.header, line 260, in append
-#UnicodeDecodeError: 'ascii' codec can't decode byte 0xc3 in position 75: ordinal not in range(128)
-#*** SyntaxError: invalid syntax (<stdin>, line 1)
-#> /usr/lib/python2.6/email/header.py(260)append()
-#-> ustr = unicode(s, incodec, errors)
