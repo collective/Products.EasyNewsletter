@@ -152,7 +152,7 @@ msgstr "Asunto por defecto para el envío del boletín de noticias. Si deja este
 
 #: ./content/ENLIssue.py:151
 msgid "EasyNewsletter_help_template"
-msgstr ""
+msgstr "Plantilla que se utilizara para generar el cuerpo de la edición del boletín actual."
 
 #. Default: "Default for the test email address."
 #: ./content/EasyNewsletter.py:66
@@ -712,7 +712,7 @@ msgstr "Descripción"
 #. Default: "Inherit Criteria"
 #: ./content/ENLIssue.py:135
 msgid "label_inherit_criteria"
-msgstr "Heredar criterios"
+msgstr "Heredar criterios de búsqueda"
 
 #. Default: "Ask for the salutation and fullname of the subscriber"
 #: ./portlets/subscriber.py:41
