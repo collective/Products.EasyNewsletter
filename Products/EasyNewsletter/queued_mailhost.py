@@ -39,6 +39,9 @@ def synchronized(lock):
 
 
 class QueuedMailHost(object):
+    """ almost bare c/p of Products.MailHost.MailHost.MailBase
+    which is only available on plone 4
+    """
 
     interface.implements(IMailHost)
 
