@@ -43,7 +43,7 @@ class QueuedMailHost(object):
     which is only available on plone 4
     """
 
-    interface.implements(IMailHost)
+    implements(IMailHost)
 
     security = ClassSecurityInfo()
     smtp_uid = '' # Class attributes for smooth upgrades
