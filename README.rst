@@ -35,6 +35,7 @@ Requirements
     * inqbus.plone.fastmemberproperties, speed up access of member properties (optional, you can installed it with Products.EasyNewsletter[all] in your buidlout eggs list)
     * Plone 3.X (tested)
     * Plone 4.X (tested)
+    * with Plone 3.X you'll need to pin cssutils==0.9.7
 
 
 Installation
