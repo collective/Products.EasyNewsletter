@@ -1,4 +1,5 @@
 import logging
+import socket
 from threading import Lock
 from os.path import realpath
 
@@ -9,7 +10,7 @@ from zope.app.component.hooks import getSite
 
 from zope.interface import implements
 
-from zope.sendmail.mailer import SMTPMailer
+from zope.sendmail.mailer import SMTPMailer as BaseSMTPMailer
 from zope.sendmail.maildir import Maildir
 from zope.sendmail.delivery import DirectMailDelivery
 from zope.sendmail.delivery import QueuedMailDelivery
@@ -19,9 +20,50 @@ from Products.CMFCore.utils import getToolByName
 from Products.MailHost.interfaces import IMailHost
 
 
+ssl_support = False
+if hasattr(socket, 'ssl'):
+    ssl_support = True
+
 LOG = logging.getLogger('QueuedMailHost')
 
 queue_threads = {}  # maps MailHost path -> queue processor threada
+
+
+class SMTPMailer(BaseSMTPMailer):
+
+    def __init__(self, hostname='localhost', port=25,
+                 username=None, password=None, **kw):
+        self.hostname = hostname
+        self.port = port
+        self.username = username
+        self.password = password
+        self.forceTLS = kw.get('forceTLS', False)
+        self.noTLS =  kw.get('noTLS', False)
+
+    def send(self, fromaddr, toaddrs, message):
+        connection = self.smtp(self.hostname, str(self.port))
+
+        # avoid "SMTPException: SMTP AUTH extension not supported by server."
+        # probably this stuff should go into zope.sendmail itself
+        if not (200 <= connection.ehlo()[0] <= 299):
+            (code, resp) = connection.helo()
+            if not (200 <= code <= 299):
+                raise MailHostError('Host refused to talk to us: %s' % resp)
+
+        if connection.has_extn('starttls') and ssl_support and not self.noTLS:
+            connection.starttls()
+            connection.ehlo()
+        elif self.forceTLS:
+            if self.noTLS:
+                raise MailHostError('Configured not to try TLS '
+                    'but it is required')
+            else:
+                raise MailHostError('Host does NOT support StartTLS '
+                    'but it is required')
+        if connection.does_esmtp and self.username:
+            connection.login(self.username, self.password)
+        connection.sendmail(fromaddr, toaddrs, message)
+        connection.quit()
 
 
 def synchronized(lock):
@@ -50,7 +92,8 @@ class QueuedMailHost(object):
     smtp_pwd = ''
     smtp_queue = True
     smtp_queue_directory = '/tmp'
-    force_tls = False
+    forceTLS = False
+    noTLS = False
     lock = Lock()
 
     def _makeMailer(self, context=None):
@@ -63,10 +106,14 @@ class QueuedMailHost(object):
             self.smtp_port = mailhost.smtp_port
             self.smtp_uid = mailhost._smtp_userid
             self.smtp_pwd = mailhost._smtp_pass
-        return SMTPMailer(hostname=self.smtp_host,
+            self.noTLS = mailhost.smtp_notls
+        mailer = SMTPMailer(hostname=self.smtp_host,
                           port=int(self.smtp_port),
                           username=self.smtp_uid or None,
-                          password=self.smtp_pwd or None)
+                          password=self.smtp_pwd or None,
+                          noTLS = self.noTLS,
+                          )
+        return mailer
 
     security.declarePrivate('_getThreadKey')
     def _getThreadKey(self):
