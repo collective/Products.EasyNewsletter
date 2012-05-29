@@ -1,0 +1,72 @@
+#
+# Malthe Borch <mborch@gmail.com>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: EasyNewsletter\n"
+"POT-Creation-Date: Tue Apr 25 11:18:19 2006\n"
+"PO-Revision-Date: 2012-02-29 18:42-0300\n"
+"Last-Translator: Malthe Borch <mborch@gmail.com>\n"
+"Language-Team: Danish <>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Language-Code: da\n"
+"Language-Name: Danish\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone\n"
+
+msgid "An error occured."
+msgstr "Der er sket en fejl."
+
+msgid "Archive"
+msgstr "Arkiv"
+
+msgid "Drafts"
+msgstr "Kladder"
+
+msgid "Please enter a valid email address."
+msgstr "Indtast venligst en gyldig e-mail adresse."
+
+msgid "Receivers"
+msgstr "Modtagere"
+
+msgid "Send"
+msgstr "Send"
+
+msgid "Subscriber"
+msgstr "Tilmeldt"
+
+msgid "Subscribers"
+msgstr "Tilmeldte"
+
+msgid "Template"
+msgstr "Skabelon"
+
+msgid "Templates"
+msgstr "Skabeloner"
+
+msgid "The Newsletter has been send."
+msgstr "Nyhedsbrevet er blevet sendt."
+
+msgid "Your email address is already registered."
+msgstr "Din e-mail adresse er allerede registreret."
+
+msgid "Your email has been added. Thanks for your interest."
+msgstr "Din e-mail adresse er blevet registreret. Tak for din interesse."
+
+msgid "draft"
+msgstr "kladde"
+
+msgid "make draft"
+msgstr "gør til kladde"
+
+msgid "make sent"
+msgstr "sæt til sendt"
+
+msgid "sent"
+msgstr "sendt"
+
+msgid "Aggregate body content"
+msgstr "Saml tekstindhold"
