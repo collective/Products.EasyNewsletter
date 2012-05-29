@@ -4,7 +4,8 @@ Changelog
 2.6.7 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Added Danish translation.
+  [malthe]
 
 
 2.6.6 (2012-05-22)
