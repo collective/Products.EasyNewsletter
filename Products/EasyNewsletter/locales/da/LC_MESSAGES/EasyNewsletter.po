@@ -866,5 +866,5 @@ msgstr "Flyt indhold ned"
 msgid "title_move_item_up"
 msgstr "Flyt indhold op"
 
-msgid "EasyNewsletter"
+msgid "Newsletter"
 msgstr "Nyhedsbrev"
