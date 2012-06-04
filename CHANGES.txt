@@ -1,11 +1,18 @@
 Changelog
 =========
 
-2.6.7 (unreleased)
+2.6.8 (unreleased)
+------------------
+
+
+2.6.7 (2012-06-04)
 ------------------
 
 - Added Danish translation.
   [malthe]
+
+- Add mailonly filter, to allow elements only in mails but not in public view
+  [derstappenit]
 
 
 2.6.6 (2012-05-22)
