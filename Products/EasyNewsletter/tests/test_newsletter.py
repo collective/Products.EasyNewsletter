@@ -80,6 +80,19 @@ class EasyNewsletterTests(unittest.TestCase):
         self.assertTrue('From: ACME newsletter <newsletter@acme.com>' in msg)
 
 
+    def test_mailonly_filter_in_issue_public_view(self):
+        self.newsletter.invokeFactory(
+            "ENLIssue",
+            id="issue")
+        self.newsletter.issue.title="Test Newsletter Issue"
+        self.newsletter.issue.setText("<h1>This is the newsletter body!</h2><div class=\"mailonly\">This test should only visible in mails not in public view!</div>")
+        view = getMultiAdapter(
+            (self.newsletter.issue, self.portal.REQUEST),
+            name="get-public-body")
+        view = view.__of__(self.portal)
+        view_result = view()
+
+        self.assertTrue('mailonly' not in view_result, 'get-public-body view contains mailonly elements, this should filtert out!')
 
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)

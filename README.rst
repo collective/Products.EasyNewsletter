@@ -58,54 +58,6 @@ Documentation
 For more documentation please visit: http://packages.python.org/Products.EasyNewsletter/
 
 
-Configuring external subscriber sources
-=======================================
-
-An external subscriber sources provides (additional) subscriber to a newsletter instance.
-
-You configure an external subscriber source as Zope 3 utility providing ISubscriberSource
-(here an example where subscriptions are managed external through MongoDB)::
-
-
-    class NewsletterSource(object):
-
-        implements(ISubscriberSource)
-
-        def getSubscribers(self, newsletter):
-            """ return all subscribers for the given newsletter
-                from the MyInfo user database. Newsletter subscriptions
-                are referenced inside MyInfo through UIDs.
-            """
-
-            uid = newsletter.UID()
-
-            # find MyInfo subscribers
-            myinfo = getUtility(IMyInfo)
-            subscribers = list()
-            for user in myinfo.accounts.find({'data.newsletters' : uid, 'state' : 'active'}):
-                subscribers.append(dict(email=user['email'],
-                                        fullname=user['username']))
-            return subscribers
-
-
-The utility must be registered using ZCML::
-
-    <utility zcml:condition="installed Products.EasyNewsletter"
-        name="MyInfo subscribers"
-        factory=".newsletter.NewsletterSource" />
-
-Inside the ``Edit`` view of the instance under the ``External`` tab you should find
-``MyInfo subscribers`` under the option ``External subscriber source``.
-
-
-Allowed placeholders
-====================
-
-The following placeholder can be used in the header, body and footer of issues:
-
-* ``[[SUBSCRIBER_SALUTATION]]``
-* ``[[UNSUBSCRIBE]]``
-
 
 Source Code
 ===========

@@ -89,8 +89,7 @@ Step by step
    Just add some collections to the newsletter it self and define your criterias for all of them. 
    The issues will combine them into different part in your content area.
 
-5. Go to the view tab and press refresh (see Plone's document actions at the 
-   bottom of the page)
+5. Go to the view tab and call "Aggregate body content" from the action menu.
 
 6. You can also add subcollections and define criterias on issue level.
 
@@ -99,6 +98,60 @@ Step by step
 8. If your Newsletter/Mailing is finished, you can activate the sendbutton by click enable sendbutton. 
    Then you can click on send newsletter to send the Newsletter to all subscribers or selected groups and users.
 
+
+Elements for mails only
+-----------------------
+
+If you want some elements, lets say a logo only in the mails but not in the public view. You can put it inside a div tag with a class "mailonly". All div elements with class "mailonly" are filtert out in the public view.
+
+
+Configuring external subscriber sources
+---------------------------------------
+
+An external subscriber sources provides (additional) subscriber to a newsletter instance.
+
+You configure an external subscriber source as Zope 3 utility providing ISubscriberSource
+(here an example where subscriptions are managed external through MongoDB)::
+
+
+    class NewsletterSource(object):
+
+        implements(ISubscriberSource)
+
+        def getSubscribers(self, newsletter):
+            """ return all subscribers for the given newsletter
+                from the MyInfo user database. Newsletter subscriptions
+                are referenced inside MyInfo through UIDs.
+            """
+
+            uid = newsletter.UID()
+
+            # find MyInfo subscribers
+            myinfo = getUtility(IMyInfo)
+            subscribers = list()
+            for user in myinfo.accounts.find({'data.newsletters' : uid, 'state' : 'active'}):
+                subscribers.append(dict(email=user['email'],
+                                        fullname=user['username']))
+            return subscribers
+
+
+The utility must be registered using ZCML::
+
+    <utility zcml:condition="installed Products.EasyNewsletter"
+        name="MyInfo subscribers"
+        factory=".newsletter.NewsletterSource" />
+
+Inside the ``Edit`` view of the instance under the ``External`` tab you should find
+``MyInfo subscribers`` under the option ``External subscriber source``.
+
+
+Allowed placeholders
+====================
+
+The following placeholder can be used in the header, body and footer of issues:
+
+* ``[[SUBSCRIBER_SALUTATION]]``
+* ``[[UNSUBSCRIBE]]``
 
 Contents:
 

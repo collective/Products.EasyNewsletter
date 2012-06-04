@@ -1,3 +1,4 @@
+from BeautifulSoup import BeautifulSoup
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 
@@ -30,4 +31,7 @@ class IssueView(BrowserView):
         html = self.context._render_output_html()
         for placeholder in PLACEHOLDERS:
             html = html.replace('[[' + placeholder + ']]', '')
-        return html
+        soup = BeautifulSoup(html)
+        for node in soup.findAll('div', {'class': 'mailonly'}):
+            node.extract()
+        return soup.renderContents()

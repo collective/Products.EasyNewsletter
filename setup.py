@@ -27,6 +27,7 @@ setup(name='Products.EasyNewsletter',
         'setuptools',
         'stoneagehtml',
         'Products.TemplateFields',
+        'BeautifulSoup',
     ],
     extras_require = dict(
         test=['plone.app.testing'],

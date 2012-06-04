@@ -308,10 +308,6 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             subject = self.Title()
         subject_header = Header(safe_unicode(subject))
 
-        # Create from-header
-        #from_header = enl.getSenderName() and '"%s" <%s>' % (sender_name, sender_email) or sender_email
-        #from_header = safe_unicode(from_header)
-
         # determine MailHost first (build-in vs. external)
         deliveryServiceName = enl.getDeliveryService()
         if deliveryServiceName == 'mailhost':
