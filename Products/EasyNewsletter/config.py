@@ -32,29 +32,50 @@ EMAIL_RE = re.compile(r"(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,6}(?:\s|$)
 
 DEFAULT_TEMPLATE = """
 <tal:block tal:repeat="object context/queryCatalog">
-    <h1 tal:content="object/Title">Title</h1>
+<div class="tileItem visualIEFloatFix">
+  <tal:image_obj tal:define="item_object object/getObject;">
+    <tal:block condition="exists:item_object/image_tile|nothing">
+    <a tal:attributes="href object/getURL">
+      <img tal:replace="structure python:path('nocall:item_object/tag')(scale='thumb', css_class='tileImage')" />
+    </a>
+    </tal:block>
+  </tal:image_obj>
 
-    <p>
-        <span tal:content="object/Description">Description</span>
-    </p>
-    <p>
-        <a tal:attributes="href object/getURL">Please read on.</a>
-    </p>
+  <h2 class="tileHeadline"><a tal:attributes="href object/getURL" tal:content="object/Title">Title</a></h2>
+  <p class="tileBody">
+    <span tal:content="object/Description">Description</span>
+  </p>
+  <p class="tileFooter">
+    <a tal:attributes="href object/getURL">Beitrag lesen...</a>
+  </p>
+  <div class="visualClear"><!-- --></div>
+</div>
 </tal:block>
 
 <tal:block tal:repeat="subtopic context/getSubTopics">
-    <h1 tal:content="subtopic/Title">Title</h1>
+  <h1 tal:content="subtopic/Title">Title</h1>
 
-    <tal:block tal:repeat="object subtopic/queryCatalog">
-        <h2 tal:content="object/Title">Title</h2>
+  <tal:block tal:repeat="object subtopic/queryCatalog"
+>
+  <div class="tileItem visualIEFloatFix">
+    <tal:image_obj tal:define="item_object object/getObject;">
+      <tal:block condition="exists:item_object/image_tile|nothing">
+      <a tal:attributes="href object/getURL">
+        <img tal:replace="structure python:path('nocall:item_object/tag')(scale='tile', css_class='tileImage')" />
+      </a>
+      </tal:block>
+    </tal:image_obj>
+    <h2 class="tileHeadline"><a tal:attributes="href object/getURL" tal:content="object/Title">Title</a></h2>
 
-        <p>
-            <span tal:content="object/Description">Description</span>
-        </p>
-        <p>
-            <a tal:attributes="href object/getURL">Please read on.</a>
-        </p>
-    </tal:block>
+    <p class="tileBody">
+      <span tal:content="object/Description">Description</span>
+    </p>
+    <p class="tileFooter">
+      <a tal:attributes="href object/getURL">Beitrag lesen...</a>
+    </p>
+    <div class="visualClear"><!-- --></div>
+  </div>
+  </tal:block>
 </tal:block>
 """
 

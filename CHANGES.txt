@@ -1,14 +1,18 @@
 Changelog
 =========
 
-2.6.7 (unreleased)
+2.6.8 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Improve the default template for content aggregation
+  [derstappenit]
 
 
-2.6.6 (2012-06-04)
+2.6.7 (2012.06.11)
 ------------------
+
+- Fix translations
+  [derstappenit]
 
 
 2.6.6 (2012-06-04)

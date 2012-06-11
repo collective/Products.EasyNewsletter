@@ -3,5 +3,6 @@ recursive-include docs *
 include README.rst
 include CHANGES.txt
 
+recursive-include *.mo
 global-include *.mo
 global-exclude *pyc
