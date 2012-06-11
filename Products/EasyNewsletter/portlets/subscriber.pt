@@ -25,7 +25,6 @@
                   type="radio" 
                   name="salutation" 
                   value="ms" 
-                  checked="checked"
                   i18n:translate="ms">
               <input 
                   type="radio"
