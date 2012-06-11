@@ -34,7 +34,7 @@ DEFAULT_TEMPLATE = """
 <tal:block tal:repeat="object context/queryCatalog">
 <div class="tileItem visualIEFloatFix">
   <tal:image_obj tal:define="item_object object/getObject;">
-    <tal:block condition="exists:item_object/image_tile|nothing">
+    <tal:block condition="python:hasattr(item_object,'tag')">
     <a tal:attributes="href object/getURL">
       <img tal:replace="structure python:path('nocall:item_object/tag')(scale='thumb', css_class='tileImage')" />
     </a>
@@ -59,9 +59,9 @@ DEFAULT_TEMPLATE = """
 >
   <div class="tileItem visualIEFloatFix">
     <tal:image_obj tal:define="item_object object/getObject;">
-      <tal:block condition="exists:item_object/image_tile|nothing">
+      <tal:block condition="python:hasattr(item_object,'tag')">
       <a tal:attributes="href object/getURL">
-        <img tal:replace="structure python:path('nocall:item_object/tag')(scale='tile', css_class='tileImage')" />
+        <img tal:replace="structure python:path('nocall:item_object/tag')(scale='thumb', css_class='tileImage')" />
       </a>
       </tal:block>
     </tal:image_obj>

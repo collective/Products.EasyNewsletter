@@ -182,7 +182,13 @@
                                   Item Title
                                 </label>
                                 </strong>
-                            </a>
+                            </a> 
+                            <a href="#"
+                                title="Edit collection criteria" 
+                                tal:attributes="href  string:${item_url}/criterion_edit_form;"><img src="edit.png" /></a>
+                            <a href="#"
+                                title="Delete sub-collection" 
+                                tal:attributes="href  string:${item_url}/delete_confirmation;"><img src="delete_icon.gif" /></a>
                         </span>
 
                         <span class="state-expired"
