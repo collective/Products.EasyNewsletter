@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-05-03 11:08+0000\n"
+"POT-Creation-Date: 2012-06-11 13:34+0000\n"
 "PO-Revision-Date: 2011-01-04 22:46+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,10 +22,6 @@ msgstr "${count} import(s) fehlgeschlagen."
 msgid "${count} import(s) successful."
 msgstr "${count} import(s) erfolgreich."
 
-#: ./browser/registration.py:104
-msgid "), "
-msgstr ""
-
 #: ./profiles/default/types/ENLSubscriber.xml
 #: ./profiles/default/types/ENLTemplate.xml
 msgid "A page in the site. Can contain rich text."
@@ -33,7 +29,7 @@ msgstr ""
 
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Aggregate body content"
-msgstr ""
+msgstr "Automatisch Newsletter-Inhalte laden"
 
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "An easy to use Newsletter"
@@ -434,7 +430,7 @@ msgstr ""
 msgid "The CSV file must contain the header and follow this format"
 msgstr "Die CSV-Datei muss Kopfzeilen im folgenden Format enthalten!"
 
-#: ./browser/issue.py:24
+#: ./browser/issue.py:25
 msgid "The issue has been send."
 msgstr "Die Ausgabe wurde verschickt."
 
@@ -480,6 +476,7 @@ msgstr "Ihre Email-Adresse wurde bereits registriert."
 msgid "Your email has been registered.                 A confirmation email was sent to your address. Please check                 your inbox and click on the link in the email in order to                 confirm your subscription."
 msgstr "Ihre E-Mail-Adresse wurde eingetragen. Sie erhalten eine Bestätigungs-E-Mail. Bitte aktivieren Sie Ihr Abonnenment, in dem Sie auf den Link in der Bestätigungs-E-Mail klicken."
 
+#: ./browser/registration.py:104
 msgid "Your subscription was successfully confirmed."
 msgstr "Ihr Newsletter-Abonnement wurde erfolgreich bestätigt."
 
@@ -546,7 +543,7 @@ msgid "easynewsletter_backtonewsletter_label"
 msgstr "Zurück zum Newsletter"
 
 #. Default: "subscribe"
-#: ./portlets/subscriber.pt:56
+#: ./portlets/subscriber.pt:55
 msgid "easynewsletter_button_label"
 msgstr "Abonnieren"
 
@@ -556,17 +553,17 @@ msgid "easynewsletter_drafts_label"
 msgstr "Entwürfe"
 
 #. Default: "Your email"
-#: ./portlets/subscriber.pt:50
+#: ./portlets/subscriber.pt:49
 msgid "easynewsletter_input_value"
 msgstr "Ihre E-Mail"
 
 #. Default: "Full Name"
-#: ./portlets/subscriber.pt:37
+#: ./portlets/subscriber.pt:36
 msgid "easynewsletter_input_value_fullname"
 msgstr "Vorname Nachname"
 
 #. Default: "Company/Organization"
-#: ./portlets/subscriber.pt:43
+#: ./portlets/subscriber.pt:42
 msgid "easynewsletter_input_value_organization"
 msgstr "Firma/Organisation"
 
@@ -790,7 +787,7 @@ msgstr ""
 msgid "mail"
 msgstr "E-Mail"
 
-#: ./portlets/subscriber.pt:30
+#: ./portlets/subscriber.pt:29
 msgid "mr"
 msgstr "Herr"
 

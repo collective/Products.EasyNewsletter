@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.6.2dev\n"
-"POT-Creation-Date: 2012-05-14 21:43+0000\n"
+"POT-Creation-Date: 2012-06-11 13:34+0000\n"
 "PO-Revision-Date: 2012-02-24 15:22-0300\n"
 "Last-Translator: Malthe Borch <mborch@gmail.com>\n"
 "Language-Team: Danish <>\n"
@@ -333,11 +333,11 @@ msgstr "Ekstern redigering"
 
 #: ./browser/enl_subscribers_view.pt:56
 msgid "Filter"
-
+msgstr ""
 
 #: ./browser/enl_subscribers_view.pt:35
 msgid "Filters"
-msgstr "Filtre"
+msgstr ""
 
 #: ./browser/upload_csv.pt:85
 msgid "Fullname"
@@ -433,7 +433,7 @@ msgstr "Skabeloner"
 msgid "The CSV file must contain the header and follow this format"
 msgstr "CSV-filen til import skal indeholde en header og følge dette format"
 
-#: ./browser/issue.py:24
+#: ./browser/issue.py:25
 msgid "The issue has been send."
 msgstr "Udgaven blev sendt."
 
@@ -546,7 +546,7 @@ msgid "easynewsletter_backtonewsletter_label"
 msgstr "Tilbage til nyhedsbrev"
 
 #. Default: "subscribe"
-#: ./portlets/subscriber.pt:56
+#: ./portlets/subscriber.pt:55
 msgid "easynewsletter_button_label"
 msgstr "tilmeld"
 
@@ -556,17 +556,17 @@ msgid "easynewsletter_drafts_label"
 msgstr "Kladder"
 
 #. Default: "Your email"
-#: ./portlets/subscriber.pt:50
+#: ./portlets/subscriber.pt:49
 msgid "easynewsletter_input_value"
 msgstr "Din e-mail"
 
 #. Default: "Full Name"
-#: ./portlets/subscriber.pt:37
+#: ./portlets/subscriber.pt:36
 msgid "easynewsletter_input_value_fullname"
 msgstr "Fuldt navn"
 
 #. Default: "Company/Organization"
-#: ./portlets/subscriber.pt:43
+#: ./portlets/subscriber.pt:42
 msgid "easynewsletter_input_value_organization"
 msgstr "Firma/organisation"
 
@@ -790,7 +790,7 @@ msgstr "Titel"
 msgid "mail"
 msgstr "E-mail:"
 
-#: ./portlets/subscriber.pt:30
+#: ./portlets/subscriber.pt:29
 msgid "mr"
 msgstr "hr"
 
@@ -866,5 +866,3 @@ msgstr "Flyt indhold ned"
 msgid "title_move_item_up"
 msgstr "Flyt indhold op"
 
-msgid "Newsletter"
-msgstr "Nyhedsbrev"

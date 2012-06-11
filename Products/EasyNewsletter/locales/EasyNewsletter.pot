@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-05-14 21:43+0000\n"
+"POT-Creation-Date: 2012-06-11 13:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Wim Boucquaert - wimbou <wim.boucquaert@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -432,7 +432,7 @@ msgstr ""
 msgid "The CSV file must contain the header and follow this format"
 msgstr ""
 
-#: ./browser/issue.py:24
+#: ./browser/issue.py:25
 msgid "The issue has been send."
 msgstr ""
 
@@ -545,7 +545,7 @@ msgid "easynewsletter_backtonewsletter_label"
 msgstr ""
 
 #. Default: "subscribe"
-#: ./portlets/subscriber.pt:56
+#: ./portlets/subscriber.pt:55
 msgid "easynewsletter_button_label"
 msgstr ""
 
@@ -555,17 +555,17 @@ msgid "easynewsletter_drafts_label"
 msgstr ""
 
 #. Default: "Your email"
-#: ./portlets/subscriber.pt:50
+#: ./portlets/subscriber.pt:49
 msgid "easynewsletter_input_value"
 msgstr ""
 
 #. Default: "Full Name"
-#: ./portlets/subscriber.pt:37
+#: ./portlets/subscriber.pt:36
 msgid "easynewsletter_input_value_fullname"
 msgstr ""
 
 #. Default: "Company/Organization"
-#: ./portlets/subscriber.pt:43
+#: ./portlets/subscriber.pt:42
 msgid "easynewsletter_input_value_organization"
 msgstr ""
 
@@ -635,6 +635,7 @@ msgstr ""
 msgid "email"
 msgstr ""
 
+#. Default: "Fullname:"
 #: ./browser/enl_subscribers_view.pt:43
 #: ./browser/subscribers.py:89
 #: ./browser/upload_csv.pt:37
@@ -788,7 +789,7 @@ msgstr ""
 msgid "mail"
 msgstr ""
 
-#: ./portlets/subscriber.pt:30
+#: ./portlets/subscriber.pt:29
 msgid "mr"
 msgstr ""
 
@@ -806,12 +807,14 @@ msgstr ""
 msgid "not_created_subscribers"
 msgstr ""
 
+#. Default: "Organization:"
 #: ./browser/enl_subscribers_view.pt:46
 #: ./browser/subscribers.py:89
 #: ./browser/upload_csv.pt:39
 msgid "organization"
 msgstr ""
 
+#. Default: "Salutation"
 #: ./browser/enl_subscribers_view.pt:89
 #: ./browser/subscribers.py:89
 #: ./browser/upload_csv.pt:36

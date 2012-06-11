@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.6.2dev\n"
-"POT-Creation-Date: 2012-05-14 21:43+0000\n"
+"POT-Creation-Date: 2012-06-11 13:34+0000\n"
 "PO-Revision-Date: 2012-02-24 15:22-0300\n"
 "Last-Translator: Juan A. Diaz <juan@linux.org.ar>\n"
 "Language-Team: Spanish; Castilian <>\n"
@@ -433,7 +433,7 @@ msgstr "Plantillas"
 msgid "The CSV file must contain the header and follow this format"
 msgstr "El archivo CSV debe contener un encabezado que cumpla el siguiente formato"
 
-#: ./browser/issue.py:24
+#: ./browser/issue.py:25
 msgid "The issue has been send."
 msgstr "La edición fue enviada."
 
@@ -546,7 +546,7 @@ msgid "easynewsletter_backtonewsletter_label"
 msgstr "Volver al boletín de noticias"
 
 #. Default: "subscribe"
-#: ./portlets/subscriber.pt:56
+#: ./portlets/subscriber.pt:55
 msgid "easynewsletter_button_label"
 msgstr "suscribirse"
 
@@ -556,17 +556,17 @@ msgid "easynewsletter_drafts_label"
 msgstr "Borradores"
 
 #. Default: "Your email"
-#: ./portlets/subscriber.pt:50
+#: ./portlets/subscriber.pt:49
 msgid "easynewsletter_input_value"
 msgstr "Su dirección de correo electrónico"
 
 #. Default: "Full Name"
-#: ./portlets/subscriber.pt:37
+#: ./portlets/subscriber.pt:36
 msgid "easynewsletter_input_value_fullname"
 msgstr "Nombre completo"
 
 #. Default: "Company/Organization"
-#: ./portlets/subscriber.pt:43
+#: ./portlets/subscriber.pt:42
 msgid "easynewsletter_input_value_organization"
 msgstr "Compañía/Organización"
 
@@ -790,7 +790,7 @@ msgstr "Titulo"
 msgid "mail"
 msgstr "correo electrónico"
 
-#: ./portlets/subscriber.pt:30
+#: ./portlets/subscriber.pt:29
 msgid "mr"
 msgstr "sr"
 

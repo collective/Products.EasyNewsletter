@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Products.EasyNewsletter\n"
-"POT-Creation-Date: 2012-05-03 11:08+0000\n"
+"POT-Creation-Date: 2012-06-11 13:34+0000\n"
 "PO-Revision-Date: 2011-08-10 15:41+0100\n"
 "Last-Translator: Wim Boucquaert - wimbou <wim.boucquaert@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,10 +22,6 @@ msgstr "${count} import(s) mislukt."
 #: ./browser/upload_csv.pt:129
 msgid "${count} import(s) successful."
 msgstr "${count} import(s) succesvol."
-
-#: ./browser/registration.py:104
-msgid "), "
-msgstr ""
 
 #: ./profiles/default/types/ENLSubscriber.xml
 #: ./profiles/default/types/ENLTemplate.xml
@@ -435,7 +431,7 @@ msgstr "Sjablonen"
 msgid "The CSV file must contain the header and follow this format"
 msgstr "Het CSV bestand dient deze hoofding te bevatten en dient de structuur te respecteren"
 
-#: ./browser/issue.py:24
+#: ./browser/issue.py:25
 msgid "The issue has been send."
 msgstr "De editie is verzonden."
 
@@ -481,6 +477,7 @@ msgstr "Je e-mailadres is reeds geregistreerd."
 msgid "Your email has been registered.                 A confirmation email was sent to your address. Please check                 your inbox and click on the link in the email in order to                 confirm your subscription."
 msgstr "Je e-mail werd geregistreerd. Een bevestigings-e-mail werd verzonden naar je e-mailadres. Gelieve je inbox te controleren en te klikken op de link in de e-mail om je registratie te bevestigen."
 
+#: ./browser/registration.py:104
 msgid "Your subscription was successfully confirmed."
 msgstr ""
 
@@ -547,7 +544,7 @@ msgid "easynewsletter_backtonewsletter_label"
 msgstr "Terug naar de nieuwsbrief"
 
 #. Default: "subscribe"
-#: ./portlets/subscriber.pt:56
+#: ./portlets/subscriber.pt:55
 msgid "easynewsletter_button_label"
 msgstr "Inschrijven"
 
@@ -557,17 +554,17 @@ msgid "easynewsletter_drafts_label"
 msgstr "Klad edities"
 
 #. Default: "Your email"
-#: ./portlets/subscriber.pt:50
+#: ./portlets/subscriber.pt:49
 msgid "easynewsletter_input_value"
 msgstr "Uw e-mailadres"
 
 #. Default: "Full Name"
-#: ./portlets/subscriber.pt:37
+#: ./portlets/subscriber.pt:36
 msgid "easynewsletter_input_value_fullname"
 msgstr "Volledige naam"
 
 #. Default: "Company/Organization"
-#: ./portlets/subscriber.pt:43
+#: ./portlets/subscriber.pt:42
 msgid "easynewsletter_input_value_organization"
 msgstr "Bedrijf/Organisatie"
 
@@ -791,7 +788,7 @@ msgstr "Titel"
 msgid "mail"
 msgstr ""
 
-#: ./portlets/subscriber.pt:30
+#: ./portlets/subscriber.pt:29
 msgid "mr"
 msgstr ""
 
