@@ -101,13 +101,13 @@ Step by step
 Images in HTML mails
 --------------------
 
-- All images with relative urls in src attribute, like the once add by TinyMCE are included and attached to the mail.
+- All images with relative urls in src attribute, like the once added by TinyMCE are included and attached to the mail.
 - All images with absolute urls in src attribute are not attached but included in HTML with the original src url.
 
 Elements for mails only
 -----------------------
 
-If you want some elements, lets say a logo only in the mails but not in the public view. You can put it inside a div tag with a class "mailonly". All div elements with class "mailonly" are filtert out in the public view.
+If you want some elements, lets say a logo only in mails but not in the public view. You can put it inside a div tag with a class "mailonly". All div elements with class "mailonly" are filtert out in the public view.
 
 
 Configuring external subscriber sources
