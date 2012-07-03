@@ -4,8 +4,13 @@ Changelog
 2.6.8 (unreleased)
 ------------------
 
-- Improve the default template for content aggregation
+- Improve the default template for content aggregation, we use tabled based layout now
   [derstappenit]
+
+- Improve the output template, we use tabled based layout now
+  [derstappenit]
+
+- improve support for @@images view in image urls
 
 
 2.6.7 (2012.06.11)
