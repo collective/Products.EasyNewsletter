@@ -30,8 +30,7 @@ MESSAGE_CODE = {
 EMAIL_RE = re.compile(r"(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,6}(?:\s|$)", re.IGNORECASE)
 
 
-DEFAULT_TEMPLATE = """
-<table border="0" cellpadding="0" cellspacing="0" width="100%">
+DEFAULT_TEMPLATE = """<table border="0" cellpadding="10" cellspacing="10" width="100%">
 <tal:block tal:repeat="object context/queryCatalog">
   <tr>
     <td>
@@ -43,11 +42,11 @@ DEFAULT_TEMPLATE = """
         <a tal:attributes="href object/getURL">Beitrag lesen...</a>
       </p>
     </td>
-    <td width="154px">
+    <td width="164px" align="right">
       <tal:image_obj tal:define="item_object object/getObject;">
         <tal:block condition="python:object.portal_type in ['Image', 'News Item']">
           <a tal:attributes="href object/getURL">
-            <img tal:attributes="src python:object.getURL(relative=1)+'/image_thumb'" class="tileImage" style="float:right;margin:10px 0 10px 10px;"/>
+            <img tal:attributes="src python:object.getURL(relative=1)+'/@@images/image/thumb'" class="tileImage" />
           </a>
         </tal:block>
       </tal:image_obj>
@@ -58,7 +57,7 @@ DEFAULT_TEMPLATE = """
 
 
 <tal:block tal:repeat="subtopic context/getSubTopics">
-<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<table border="0" cellpadding="10" cellspacing="10" width="100%">
   <tr>
     <th>
       <h1 tal:content="subtopic/Title">Title</h1>
@@ -77,38 +76,91 @@ DEFAULT_TEMPLATE = """
     </td>
   </tr>
   <tr>
-    <td width="154px">
+    <td width="164px" align="right">
       <tal:image_obj tal:define="item_object object/getObject;">
         <tal:block condition="python:object.portal_type in ['Image', 'News Item']">
         <a tal:attributes="href object/getURL">
-          <img tal:attributes="src python:object.getURL(relative=1)+'/image_thumb'"
+          <img tal:attributes="src python:object.getURL(relative=1)+'/@@images/image/thumb'"
               tall:condition="python:hasattr(item_object,'tag')"
-              class="tileImage" style="float:right;margin:10px 0 10px 10px;" />
+              class="tileImage" />
         </a>
         </tal:block>
       </tal:image_obj>
     </td>
    </tr>
 </tal:blockitems>
-</tal:block>
-"""
+</tal:block>"""
 
 
 DEFAULT_OUT_TEMPLATE_PT = """<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title><tal:title content="context/Title" /></title>
 <style type="text/css">
+body{
+  color:#333!important;
+}
+h1,h2,h3,h1 a,h2 a,h3 a,{
+  color:#979799!important;
+}
+th,td{
+  padding: 0;
+}
+tileItem{
+  display:block;
+}
+img.tileImage{
+  float:right;
+  margin:10px 0 10px 10px!important;
+}
 
+.visualClear {
+display: block;
+clear: both;
+}
 </style>
 </head>
 <body>
-    <!-- this is the header of the newsletter -->
-    <div class="header">
+  <table width="100%" cellpadding="0" cellspaceing="0">
+    <tr>
+      <td>
+        <div class="mailonlyy"
+          tal:define="portal_url context/@@plone_portal_state/portal_url">
+          <img src="logo.png" />
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td height="10px">
+        <!-- -->
+      </td>
+    </tr>
+    <tr>
+      <td height="1px" style="background-color:#284d7b;height:1px;"><!-- --></td>
+    </tr>
+    <tr>
+      <td height="20px">
+        <!-- -->
+      </td>
+    </tr>
+    <tr>
+      <td class="newsletter_link">
+        <div class="mailonly">
+          <p><a tal:attributes="href context/absolute_url">Diesen Newsletter im Browser anzeigen</a></p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="header">
+        <!-- this is the header of the newsletter -->
         <span tal:replace="structure context/getHeader" />
-    </div>
-
-    <!-- this is the main text of the newsletter -->
-    <div class="body-text">
+      </td>
+    </tr>
+    <tr>
+      <td class="body">
+        <!-- this is the main text of the newsletter -->
+        <div class="mailonly">
+          <p><span tal:replace="structure context/Description" /></p>
+        </div>
         <span tal:replace="structure context/getText" />
         <tal:def tal:define="files context/getFiles">
             <dl id="file-attachments" tal:condition="files">
@@ -120,12 +172,15 @@ DEFAULT_OUT_TEMPLATE_PT = """<html xmlns="http://www.w3.org/1999/xhtml">
                 </tal:loop>
             </dl>
         </tal:def>
-    </div>
-
-    <!-- this is the footer of the newsletter -->
-    <div class="footer">
+      </td>
+    </tr>
+    <tr>
+      <td class="footer">
+        <!-- this is the footer of the newsletter -->
         <span tal:replace="structure context/getFooter" />
-    </div>
+      </td>
+    </tr>
+  </table>
 </body>
 </html>"""
 
