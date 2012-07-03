@@ -98,6 +98,11 @@ Step by step
 8. If your Newsletter/Mailing is finished, you can activate the sendbutton by click enable sendbutton. 
    Then you can click on send newsletter to send the Newsletter to all subscribers or selected groups and users.
 
+Images in HTML mails
+--------------------
+
+- All images with relative urls in src attribute, like the once add by TinyMCE are included and attached to the mail.
+- All images with absolute urls in src attribute are not attached but included in HTML with the original src url.
 
 Elements for mails only
 -----------------------
