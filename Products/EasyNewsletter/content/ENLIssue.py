@@ -24,6 +24,7 @@ from zope.component import queryUtility
 from zope.component import getUtility
 from zope.component import subscribers
 from zope.interface import implements
+from zope.site.hooks import getSite
 
 try:
     from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool
@@ -253,8 +254,6 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             with header+body+footer (raw html).
         """
         enl = self.getNewsletter()
-        props = getToolByName(self, "portal_properties").site_properties
-        charset = props.getProperty("default_charset")
         # get out_template from ENL object and render it in context of issue
         out_template_pt_field = enl.getField('out_template_pt')
         ObjectField.set(out_template_pt_field, self, ZopePageTemplate(
@@ -327,7 +326,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         image_urls = rendered_newsletter['images']
         props = getToolByName(self, "portal_properties").site_properties
         charset = props.getProperty("default_charset")
-
+        portal = getSite()
         for receiver in receivers:
             # create multipart mail
             outer = MIMEMultipart('alternative')
@@ -399,7 +398,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                         image_url_base, image_scale_params = image_url.split("@@images")
                         image_scale = image_scale_params.split("/")[-1]
                         scales = self.restrictedTraverse(
-                                urllib.unquote(image_url_base + '@@images'))
+                                urllib.unquote(image_url_base.strip('/') + '/@@images'))
                         o = scales.scale('image', scale=image_scale)
                     else:
                         o = self.restrictedTraverse(urllib.unquote(image_url))
@@ -410,8 +409,10 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                         image = MIMEImage(o._data)
                     elif hasattr(o, "data"):
                         image = MIMEImage(o.data)                         # zodb-based
-                    else:
+                    elif hasattr(o, "GET"):
                         image = MIMEImage(o.GET())                        # z3 resource image
+                    else:
+                        log.error("Could not get the image data from image object!")
                     image["Content-ID"] = "<image_%s>" % image_number
                     image_number += 1
                     # attach images only to html parts

@@ -79,7 +79,6 @@ class ENLHTMLParser(HTMLParser.HTMLParser):
         self.html += "<%s" % tag
         for attr in attrs:
             if attr[0] == "src":
-                image_url = urlparse.urlparse(attr[1])
                 if 'http' in attr[1]:
                     url = attr[1]
                     self.html += ' src="%s"' % url
