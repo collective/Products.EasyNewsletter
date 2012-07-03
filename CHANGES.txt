@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.6.8 (unreleased)
+2.6.8 (2012-07-03)
 ------------------
 
 - Improve the default template for content aggregation, we use tabled based layout now
