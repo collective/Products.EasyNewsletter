@@ -31,51 +31,65 @@ EMAIL_RE = re.compile(r"(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,6}(?:\s|$)
 
 
 DEFAULT_TEMPLATE = """
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
 <tal:block tal:repeat="object context/queryCatalog">
-<div class="tileItem visualIEFloatFix">
-  <tal:image_obj tal:define="item_object object/getObject;">
-    <tal:block condition="python:hasattr(item_object,'tag')">
-    <a tal:attributes="href object/getURL">
-      <img tal:replace="structure python:path('nocall:item_object/tag')(scale='thumb', css_class='tileImage')" />
-    </a>
-    </tal:block>
-  </tal:image_obj>
-
-  <h2 class="tileHeadline"><a tal:attributes="href object/getURL" tal:content="object/Title">Title</a></h2>
-  <p class="tileBody">
-    <span tal:content="object/Description">Description</span>
-  </p>
-  <p class="tileFooter">
-    <a tal:attributes="href object/getURL">Beitrag lesen...</a>
-  </p>
-  <div class="visualClear"><!-- --></div>
-</div>
+  <tr>
+    <td>
+      <h2 class="tileHeadline"><a tal:attributes="href object/getURL" tal:content="object/Title">Title</a></h2>
+      <p class="tileBody">
+        <span tal:content="object/Description">Description</span>
+      </p>
+      <p class="tileFooter">
+        <a tal:attributes="href object/getURL">Beitrag lesen...</a>
+      </p>
+    </td>
+    <td width="154px">
+      <tal:image_obj tal:define="item_object object/getObject;">
+        <tal:block condition="python:object.portal_type in ['Image', 'News Item']">
+          <a tal:attributes="href object/getURL">
+            <img tal:attributes="src python:object.getURL(relative=1)+'/image_thumb'" class="tileImage" style="float:right;margin:10px 0 10px 10px;"/>
+          </a>
+        </tal:block>
+      </tal:image_obj>
+    </td>
+  </tr>
 </tal:block>
+</table>
+
 
 <tal:block tal:repeat="subtopic context/getSubTopics">
-  <h1 tal:content="subtopic/Title">Title</h1>
-
-  <tal:block tal:repeat="object subtopic/queryCatalog"
->
-  <div class="tileItem visualIEFloatFix">
-    <tal:image_obj tal:define="item_object object/getObject;">
-      <tal:block condition="python:hasattr(item_object,'tag')">
-      <a tal:attributes="href object/getURL">
-        <img tal:replace="structure python:path('nocall:item_object/tag')(scale='thumb', css_class='tileImage')" />
-      </a>
-      </tal:block>
-    </tal:image_obj>
-    <h2 class="tileHeadline"><a tal:attributes="href object/getURL" tal:content="object/Title">Title</a></h2>
-
-    <p class="tileBody">
-      <span tal:content="object/Description">Description</span>
-    </p>
-    <p class="tileFooter">
-      <a tal:attributes="href object/getURL">Beitrag lesen...</a>
-    </p>
-    <div class="visualClear"><!-- --></div>
-  </div>
-  </tal:block>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <th>
+      <h1 tal:content="subtopic/Title">Title</h1>
+    </th>
+  </tr>
+<tal:blockitems tal:repeat="object subtopic/queryCatalog">
+  <tr>
+    <td>
+      <h2 class="tileHeadline"><a tal:attributes="href object/getURL" tal:content="object/Title">Title</a></h2>
+      <p class="tileBody">
+        <span tal:content="object/Description">Description</span>
+      </p>
+      <p class="tileFooter">
+        <a tal:attributes="href object/getURL">Beitrag lesen...</a>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td width="154px">
+      <tal:image_obj tal:define="item_object object/getObject;">
+        <tal:block condition="python:object.portal_type in ['Image', 'News Item']">
+        <a tal:attributes="href object/getURL">
+          <img tal:attributes="src python:object.getURL(relative=1)+'/image_thumb'"
+              tall:condition="python:hasattr(item_object,'tag')"
+              class="tileImage" style="float:right;margin:10px 0 10px 10px;" />
+        </a>
+        </tal:block>
+      </tal:image_obj>
+    </td>
+   </tr>
+</tal:blockitems>
 </tal:block>
 """
 
