@@ -2,7 +2,6 @@ recursive-include Products *
 recursive-include docs *
 include README.rst
 include CHANGES.txt
-
-recursive-include *.mo
+recursive-include Products *.mo
 global-include *.mo
 global-exclude *pyc
