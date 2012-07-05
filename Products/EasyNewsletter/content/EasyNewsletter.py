@@ -404,23 +404,25 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
 
     def get_send_issues(self):
         """ return sended issues brains"""
+        enl = self.getNewsletter()
         issues = self.portal_catalog(
             portal_type='ENLIssue',
             review_state='sent',
             sort_on='modified',
             sort_order='reverse',
-            path='/'.join(self.getPhysicalPath())
+            path='/'.join(enl.getPhysicalPath())
         )
         return issues
 
     def get_draft_issues(self):
         """ return draft issues brains"""
+        enl = self.getNewsletter()
         issues = self.portal_catalog(
             portal_type='ENLIssue',
-            review_state='draf',
+            review_state='draft',
             sort_on='modified',
             sort_order='reverse',
-            path='/'.join(self.getPhysicalPath())
+            path='/'.join(enl.getPhysicalPath())
         )
         return issues
 
