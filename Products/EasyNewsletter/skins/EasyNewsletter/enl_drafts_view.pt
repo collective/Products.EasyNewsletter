@@ -26,11 +26,7 @@
            Back to newsletter
         </a>  
 
-        <div tal:define="newsletters python:context.portal_catalog(portal_type='ENLIssue', 
-                                                                   review_state='draft',
-                                                                   sort_on='modified',
-                                                                   sort_order='reverse',																   
-                                                                   path='/'.join(context.getPhysicalPath()))">                                                             
+        <div tal:define="newsletters context/get_draft_issues">                                                             
             <div tal:condition="not: newsletters"
                  i18n:translate="easynewsletter_nondrafts_label">
                   There are no drafts.

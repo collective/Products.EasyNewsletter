@@ -4,7 +4,11 @@ Changelog
 2.6.9 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- we now use the modification date in Archive and Drafts view
+  [derstappenit]
+
+- ENLIssue now only editable if status is not Send
+  [derstappenit]
 
 
 2.6.8 (2012-07-03)

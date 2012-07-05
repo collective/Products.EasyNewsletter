@@ -45,11 +45,7 @@
 
         <h2 i18n:translate="issues_label">Issues</h2>
         <tal:block metal:define-macro="folderlisting"
-                   tal:define="newsletters python:context.portal_catalog(portal_type='ENLIssue',
-                                                                         review_state='sent',
-                                                                         sort_on='modified',
-                                                                         sort_order='reverse',
-                                                                         path='/'.join(context.getPhysicalPath()))">
+                   tal:define="newsletters context/get_send_issues">
              <div tal:condition="not: newsletters"
                   i18n:translate="easynewsletter_non_issues_label">
                There are no issues.
