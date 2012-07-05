@@ -96,8 +96,18 @@
     class=".subscribers.DownloadCSV"
     permission="cmf.ManagePortal" />
 
+  <browser:viewlet
+    name="enl.newsletter_actions"
+    for="Products.EasyNewsletter.interfaces.IEasyNewsletter"
+    manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+    class=".viewlets.ENLActionsViewlet"
+    template="templates/enl_actions_viewlet.pt"
+    permission="zope2.View"
+    />
+
   <browser:resource
     name="Products.EasyNewsletter.enl_edithelper.js"
 	  file="javascripts/enl_edithelper.js" />
+
 
 </configure>

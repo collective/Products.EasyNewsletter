@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.6.2dev\n"
-"POT-Creation-Date: 2012-06-11 13:34+0000\n"
+"POT-Creation-Date: 2012-07-05 18:12+0000\n"
 "PO-Revision-Date: 2012-02-24 15:22-0300\n"
 "Last-Translator: Juan A. Diaz <juan@linux.org.ar>\n"
 "Language-Team: Spanish; Castilian <>\n"
@@ -46,7 +46,10 @@ msgstr "Ocurrió un error"
 msgid "An issue of a newsleter"
 msgstr "Una edición del boletín de noticias"
 
-#: ./profiles/default/types/ENLIssue.xml
+#: ./browser/templates/enl_actions_viewlet.pt:3
+msgid "Archive"
+msgstr ""
+
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "Criteria"
 msgstr "Criterio"
@@ -59,7 +62,7 @@ msgstr "Archivo CSV"
 msgid "Delete"
 msgstr "Borrar"
 
-#: ./profiles/default/types/EasyNewsletter.xml
+#: ./browser/templates/enl_actions_viewlet.pt:7
 msgid "Drafts"
 msgstr "Borradores"
 
@@ -73,7 +76,7 @@ msgstr "Texto utilizado para el asunto del correo de confirmación. Usted puede 
 msgid "EasyNewsletter_enablesendbutton_label"
 msgstr "Habilitar en botón de envío"
 
-#: ./content/ENLIssue.py:136
+#: ./content/ENLIssue.py:137
 msgid "EasyNewsletter_help_acquireCriteria"
 msgstr ""
 
@@ -105,13 +108,13 @@ msgid "EasyNewsletter_help_organization"
 msgstr ""
 
 #. Default: "Choose Plone Groups which members should receive the newsletter."
-#: ./content/ENLIssue.py:95
+#: ./content/ENLIssue.py:96
 #: ./content/EasyNewsletter.py:169
 msgid "EasyNewsletter_help_ploneReceiverGroups"
 msgstr "Seleccione los grupos de miembros del sitio que deben recibir el boletín de noticias."
 
 #. Default: "Choose Plone Members which should receive the newsletter."
-#: ./content/ENLIssue.py:82
+#: ./content/ENLIssue.py:83
 #: ./content/EasyNewsletter.py:157
 msgid "EasyNewsletter_help_ploneReceiverMembers"
 msgstr "Seleccione los miembros del sitio que deben recibir el boletín de noticias."
@@ -150,7 +153,7 @@ msgstr "Nombre del remitente por defecto para el envío del boletín de noticias
 msgid "EasyNewsletter_help_subject"
 msgstr "Asunto por defecto para el envío del boletín de noticias. Si deja este campo vacío, se utilizara el titulo del boletín de noticias."
 
-#: ./content/ENLIssue.py:151
+#: ./content/ENLIssue.py:152
 msgid "EasyNewsletter_help_template"
 msgstr "Plantilla que se utilizara para generar el cuerpo de la edición del boletín actual."
 
@@ -204,7 +207,7 @@ msgid "EasyNewsletter_label_externalSubscriberSource"
 msgstr "Origen de suscriptores externo"
 
 #. Default: "Footer"
-#: ./content/ENLIssue.py:124
+#: ./content/ENLIssue.py:125
 msgid "EasyNewsletter_label_footer"
 msgstr "Pie de página"
 
@@ -219,7 +222,7 @@ msgid "EasyNewsletter_label_fullname_fallback"
 msgstr "Valor por defecto para suscriptores sin nombre."
 
 #. Default: "Header"
-#: ./content/ENLIssue.py:109
+#: ./content/ENLIssue.py:110
 msgid "EasyNewsletter_label_header"
 msgstr "Encabezado"
 
@@ -234,13 +237,13 @@ msgid "EasyNewsletter_label_organization"
 msgstr "Compañía/Organización"
 
 #. Default: "Plone Groups to receive the newsletter"
-#: ./content/ENLIssue.py:93
+#: ./content/ENLIssue.py:94
 #: ./content/EasyNewsletter.py:167
 msgid "EasyNewsletter_label_ploneReceiverGroups"
 msgstr "Grupos de miembros del sitio que recibirán el boletín de noticias"
 
 #. Default: "Plone Members to receive the newsletter"
-#: ./content/ENLIssue.py:80
+#: ./content/ENLIssue.py:81
 #: ./content/EasyNewsletter.py:155
 msgid "EasyNewsletter_label_ploneReceiverMembers"
 msgstr "Miembros del sitio que recibirán el boletín de noticias"
@@ -283,7 +286,7 @@ msgid "EasyNewsletter_label_subscriber_confirmation_mail_text"
 msgstr "Texto para el correo de confirmación de suscripción"
 
 #. Default: "Newsletter Template"
-#: ./content/ENLIssue.py:149
+#: ./content/ENLIssue.py:150
 msgid "EasyNewsletter_label_template"
 msgstr "Plantilla del boletín de noticias"
 
@@ -298,7 +301,7 @@ msgid "EasyNewsletter_label_testreceiver"
 msgstr "Correo de prueba"
 
 #. Default: "Text"
-#: ./content/ENLIssue.py:54
+#: ./content/ENLIssue.py:55
 msgid "EasyNewsletter_label_text"
 msgstr "Texto"
 
@@ -321,6 +324,10 @@ msgstr "Editar"
 #: ./portlets/subscriber.py:124
 msgid "Edit Newsletter portlet"
 msgstr "Editar el portlet del boletín de noticias"
+
+#: ./profiles/default/types/ENLIssue.xml
+msgid "Edit criteria"
+msgstr ""
 
 #: ./browser/upload_csv.pt:86
 msgid "Email"
@@ -356,8 +363,20 @@ msgstr "Importar"
 msgid "Issue"
 msgstr "Edición"
 
+#: ./browser/templates/enl_actions_viewlet.pt:3
+msgid "Issue archive"
+msgstr ""
+
+#: ./browser/templates/enl_actions_viewlet.pt:7
+msgid "Issue drafts"
+msgstr ""
+
 msgid "Issues full view"
 msgstr "Vista completa de Ediciones"
+
+#: ./profiles/default/types/ENLIssue.xml
+msgid "Manage subcollections"
+msgstr ""
 
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "Newsletter"
@@ -380,6 +399,10 @@ msgid "Organization"
 msgstr "Organización"
 
 #: ./browser/registration.py:49
+msgid "Please choose a salutation."
+msgstr ""
+
+#: ./browser/registration.py:52
 msgid "Please enter a valid email address."
 msgstr "Por favor ingrese una dirección de correo electrónico valida."
 
@@ -387,7 +410,6 @@ msgstr "Por favor ingrese una dirección de correo electrónico valida."
 msgid "Reason for failure"
 msgstr "Razón de la falla"
 
-#: ./profiles/default/types/ENLIssue.xml
 #: ./profiles/default/types/ENLSubscriber.xml
 #: ./profiles/default/types/ENLTemplate.xml
 msgid "References"
@@ -408,7 +430,6 @@ msgstr "Enviar"
 msgid "Sent"
 msgstr "Enviado"
 
-#: ./profiles/default/types/ENLIssue.xml
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "Subfolders"
 msgstr "Subcarpetas"
@@ -417,7 +438,11 @@ msgstr "Subcarpetas"
 msgid "Subscriber"
 msgstr "Suscriptor"
 
-#: ./profiles/default/types/EasyNewsletter.xml
+#: ./browser/templates/enl_actions_viewlet.pt:11
+msgid "Subscriberlist"
+msgstr ""
+
+#: ./browser/templates/enl_actions_viewlet.pt:11
 msgid "Subscribers"
 msgstr "Suscriptores"
 
@@ -471,15 +496,15 @@ msgstr "La especificación del archivo CSV no es correcta. Por favor corrija est
 msgid "You have been unsubscribed."
 msgstr "Su suscripción ha sido dada de baja."
 
-#: ./browser/registration.py:58
+#: ./browser/registration.py:61
 msgid "Your email address is already registered."
 msgstr "Su dirección de correo electrónico ya se encuentra registrada."
 
-#: ./browser/registration.py:87
+#: ./browser/registration.py:90
 msgid "Your email has been registered.                 A confirmation email was sent to your address. Please check                 your inbox and click on the link in the email in order to                 confirm your subscription."
 msgstr "Su dirección de correo electrónico ha sido registrada. Un correo electrónico de confirmación fue enviado a esta dirección. Por favor verifique su correspondencia y presione sobre el enlace que contiene el correo para confirmar su suscripción."
 
-#: ./browser/registration.py:104
+#: ./browser/registration.py:107
 msgid "Your subscription was successfully confirmed."
 msgstr "Su suscripción fue confirmada."
 
@@ -494,12 +519,12 @@ msgid "add_subscriber"
 msgstr "Agregar suscriptor"
 
 #. Default: "The footer will included in outgoing mails."
-#: ./content/ENLIssue.py:125
+#: ./content/ENLIssue.py:126
 msgid "description_help_footer"
 msgstr "El pie de página sera incluido en los correos salientes"
 
 #. Default: "The header will included in outgoing mails."
-#: ./content/ENLIssue.py:111
+#: ./content/ENLIssue.py:112
 msgid "description_help_header"
 msgstr "El encabezado sera incluido en los correos salientes."
 
@@ -529,7 +554,7 @@ msgid "description_text_header"
 msgstr "El texto pode defecto del encabezado. Este es usado por omisión para las nuevas ediciones. Usted puede utilizar aquí los marcadores [[SUBSCRIBER_SALUTATION]] y [[UNSUBSCRIBE]]."
 
 #. Default: "The main content of the mailing. You can use the topic                     criteria to collect content or put manual content in.                     This will included in outgoing mails."
-#: ./content/ENLIssue.py:55
+#: ./content/ENLIssue.py:56
 msgid "description_text_issue"
 msgstr "El contenido principal del envío. Usted puede utilizar criterios de colecciones para seleccionar contenido en dinámicamente o colocar contenido en forma manual. Este sera incluido en los correos salientes."
 
@@ -586,12 +611,12 @@ msgid "easynewsletter_newslettersent_label"
 msgstr "El boletín de noticias ya ha sido enviado."
 
 #. Default: "There are no issues."
-#: ./skins/EasyNewsletter/easynewsletter_view.pt:53
+#: ./skins/EasyNewsletter/easynewsletter_view.pt:49
 msgid "easynewsletter_non_issues_label"
 msgstr "No hay ediciones."
 
 #. Default: "There are no drafts."
-#: ./skins/EasyNewsletter/enl_drafts_view.pt:34
+#: ./skins/EasyNewsletter/enl_drafts_view.pt:30
 msgid "easynewsletter_nondrafts_label"
 msgstr "No hay borradores."
 
@@ -636,6 +661,10 @@ msgstr "Probar el envío del boletín de noticias"
 msgid "email"
 msgstr "correo electronico"
 
+#. Default: "Abonnenten"
+msgid "enl_action_subscribers"
+msgstr ""
+
 #. Default: "Fullname:"
 #: ./browser/enl_subscribers_view.pt:43
 #: ./browser/subscribers.py:89
@@ -674,7 +703,7 @@ msgid "help_newsletter_title"
 msgstr "El camino completo a la raíz (portal_root) del boletín de noticias"
 
 #. Default: "If checked, the newsletter/mailing is send to all                     plone members. If there are subscribers inside the                     newsletter, they get the letter anyway."
-#: ./content/ENLIssue.py:68
+#: ./content/ENLIssue.py:69
 #: ./content/EasyNewsletter.py:144
 msgid "help_sendToAllPloneMembers"
 msgstr "Si es seleccionado, el boletín de noticias es enviado a todos los miembros del sitio. Si hay suscriptores en el boletín de noticias estos también recibirán el envío."
@@ -710,7 +739,7 @@ msgid "label_description"
 msgstr "Descripción"
 
 #. Default: "Inherit Criteria"
-#: ./content/ENLIssue.py:135
+#: ./content/ENLIssue.py:136
 msgid "label_inherit_criteria"
 msgstr "Heredar criterios de búsqueda"
 
@@ -755,7 +784,7 @@ msgid "label_select_all_items"
 msgstr "Seleccionar todos los items"
 
 #. Default: "Send to all Plone members"
-#: ./content/ENLIssue.py:66
+#: ./content/ENLIssue.py:67
 #: ./content/EasyNewsletter.py:142
 msgid "label_sendToAllPloneMembers"
 msgstr "Enviar a todos los miembros del sitio"
@@ -852,17 +881,17 @@ msgid "summary_content_listing"
 msgstr "Listado de contenido"
 
 #. Default: "expired"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:188
+#: ./skins/EasyNewsletter/enl_subtopics.pt:194
 msgid "time_expired"
 msgstr "expirado"
 
 #. Default: "Move item down"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:221
+#: ./skins/EasyNewsletter/enl_subtopics.pt:227
 msgid "title_move_item_down"
 msgstr "Mover un elemento hacia abajo"
 
 #. Default: "Move item up"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:214
+#: ./skins/EasyNewsletter/enl_subtopics.pt:220
 msgid "title_move_item_up"
 msgstr "Mover un elemento hacia arriba"
 

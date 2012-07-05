@@ -12,13 +12,22 @@
 /* <dtml-call "REQUEST.set('portal_url', portal_url())"> (not this either :) */
 
 input.easynewsletter_text {
-    width:98%;
+  width:98%;
 }
 
 input.easynewsletter_button {
-     width:100%;
-     text-align:left;
-     padding-left:20px
+  width:100%;
+  text-align:left;
+  padding-left:20px
 }
 
+#enl_actions{
+  margin: 1em 0 2em 0;
+  padding:0.5em;
+  border-bottom: 1px solid #75AD0A;
+}
+#enl_actions li{
+  display: inline;
+  margin: 0 1em 0 0;
+}
 /* </dtml-with> */

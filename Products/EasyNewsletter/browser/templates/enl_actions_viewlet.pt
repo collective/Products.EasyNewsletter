@@ -1,0 +1,16 @@
+<ul id="enl_actions" 
+    i18n:domain="EasyNewsletter">
+  <li><a tal:attributes="href string:${view/enl_url}/easynewsletter_view;"
+      title="Issue archive"
+      i18n:attributes="title"
+      i18n:translate="">Archive</a></li>
+  <li><a tal:attributes="href string:${view/enl_url}/enl_drafts_view;"
+      title="Issue drafts" 
+      i18n:attributes="title"
+      i18n:translate="">Drafts</a></li>
+  <li><a tal:attributes="href string:${view/enl_url}/enl_subscribers_view;"
+      title="Subscriberlist"
+      i18n:attributes="title"
+      i18n:translate="">Subscribers</a></li>
+</ul> 
+

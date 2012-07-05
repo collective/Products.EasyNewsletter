@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: EasyNewsletter\n"
-"POT-Creation-Date: 2012-05-16 03:36+0000\n"
+"POT-Creation-Date: 2012-07-05 17:05+0000\n"
 "PO-Revision-Date: Thu May  4 12:51:56 2006\n"
 "Last-Translator: Kai Diefenbach - iqplusplus <kai.diefenbach <at> iqpp.de>\n"
 "Language-Team: Kai Diefenbach - iqplusplus <kai.diefenbach <at> iqpp.de>\n"
@@ -72,7 +72,7 @@ msgstr ""
 msgid "EasyNewsletter_enablesendbutton_label"
 msgstr ""
 
-#: ../content/ENLIssue.py:136
+#: ../content/ENLIssue.py:137
 msgid "EasyNewsletter_help_acquireCriteria"
 msgstr ""
 
@@ -129,13 +129,13 @@ msgid "EasyNewsletter_help_organization"
 msgstr ""
 
 #. Default: "Choose Plone Groups which members should receive the newsletter."
-#: ../content/ENLIssue.py:95
+#: ../content/ENLIssue.py:96
 #: ../content/EasyNewsletter.py:169
 msgid "EasyNewsletter_help_ploneReceiverGroups"
 msgstr ""
 
 #. Default: "Choose Plone Members which should receive the newsletter."
-#: ../content/ENLIssue.py:82
+#: ../content/ENLIssue.py:83
 #: ../content/EasyNewsletter.py:157
 msgid "EasyNewsletter_help_ploneReceiverMembers"
 msgstr ""
@@ -179,7 +179,7 @@ msgstr ""
 msgid "EasyNewsletter_help_subject"
 msgstr ""
 
-#: ../content/ENLIssue.py:151
+#: ../content/ENLIssue.py:152
 msgid "EasyNewsletter_help_template"
 msgstr ""
 
@@ -258,7 +258,7 @@ msgid "EasyNewsletter_label_externalSubscriberSource"
 msgstr ""
 
 #. Default: "Footer"
-#: ../content/ENLIssue.py:124
+#: ../content/ENLIssue.py:125
 msgid "EasyNewsletter_label_footer"
 msgstr ""
 
@@ -273,7 +273,7 @@ msgid "EasyNewsletter_label_fullname_fallback"
 msgstr ""
 
 #. Default: "Header"
-#: ../content/ENLIssue.py:109
+#: ../content/ENLIssue.py:110
 msgid "EasyNewsletter_label_header"
 msgstr ""
 
@@ -298,13 +298,13 @@ msgid "EasyNewsletter_label_organization"
 msgstr ""
 
 #. Default: "Plone Groups to receive the newsletter"
-#: ../content/ENLIssue.py:93
+#: ../content/ENLIssue.py:94
 #: ../content/EasyNewsletter.py:167
 msgid "EasyNewsletter_label_ploneReceiverGroups"
 msgstr ""
 
 #. Default: "Plone Members to receive the newsletter"
-#: ../content/ENLIssue.py:80
+#: ../content/ENLIssue.py:81
 #: ../content/EasyNewsletter.py:155
 msgid "EasyNewsletter_label_ploneReceiverMembers"
 msgstr ""
@@ -352,7 +352,7 @@ msgid "EasyNewsletter_label_subscriber_confirmation_mail_text"
 msgstr ""
 
 #. Default: "Newsletter Template"
-#: ../content/ENLIssue.py:149
+#: ../content/ENLIssue.py:150
 msgid "EasyNewsletter_label_template"
 msgstr ""
 
@@ -367,7 +367,7 @@ msgid "EasyNewsletter_label_testreceiver"
 msgstr ""
 
 #. Default: "Text"
-#: ../content/ENLIssue.py:54
+#: ../content/ENLIssue.py:55
 msgid "EasyNewsletter_label_text"
 msgstr ""
 
@@ -446,6 +446,10 @@ msgid "Organization"
 msgstr ""
 
 #: ../browser/registration.py:49
+msgid "Please choose a salutation."
+msgstr ""
+
+#: ../browser/registration.py:52
 msgid "Please enter a valid email address."
 msgstr ""
 
@@ -453,7 +457,6 @@ msgstr ""
 msgid "Reason for failure"
 msgstr ""
 
-#: ../profiles/default/types/ENLIssue.xml
 #: ../profiles/default/types/ENLSubscriber.xml
 #: ../profiles/default/types/ENLTemplate.xml
 msgid "References"
@@ -496,7 +499,7 @@ msgstr ""
 msgid "The CSV file must contain the header and follow this format"
 msgstr ""
 
-#: ../browser/issue.py:24
+#: ../browser/issue.py:25
 msgid "The issue has been send."
 msgstr ""
 
@@ -534,15 +537,15 @@ msgstr ""
 msgid "You have been unsubscribed."
 msgstr ""
 
-#: ../browser/registration.py:58
+#: ../browser/registration.py:61
 msgid "Your email address is already registered."
 msgstr ""
 
-#: ../browser/registration.py:87
+#: ../browser/registration.py:90
 msgid "Your email has been registered.                 A confirmation email was sent to your address. Please check                 your inbox and click on the link in the email in order to                 confirm your subscription."
 msgstr ""
 
-#: ../browser/registration.py:104
+#: ../browser/registration.py:107
 msgid "Your subscription was successfully confirmed."
 msgstr ""
 
@@ -557,12 +560,12 @@ msgid "add_subscriber"
 msgstr ""
 
 #. Default: "The footer will included in outgoing mails."
-#: ../content/ENLIssue.py:125
+#: ../content/ENLIssue.py:126
 msgid "description_help_footer"
 msgstr ""
 
 #. Default: "The header will included in outgoing mails."
-#: ../content/ENLIssue.py:111
+#: ../content/ENLIssue.py:112
 msgid "description_help_header"
 msgstr ""
 
@@ -592,7 +595,7 @@ msgid "description_text_header"
 msgstr ""
 
 #. Default: "The main content of the mailing. You can use the topic                     criteria to collect content or put manual content in.                     This will included in outgoing mails."
-#: ../content/ENLIssue.py:55
+#: ../content/ENLIssue.py:56
 msgid "description_text_issue"
 msgstr ""
 
@@ -609,7 +612,7 @@ msgid "easynewsletter_backtonewsletter_label"
 msgstr ""
 
 #. Default: "subscribe"
-#: ../portlets/subscriber.pt:56
+#: ../portlets/subscriber.pt:55
 msgid "easynewsletter_button_label"
 msgstr ""
 
@@ -619,17 +622,17 @@ msgid "easynewsletter_drafts_label"
 msgstr ""
 
 #. Default: "Your email"
-#: ../portlets/subscriber.pt:50
+#: ../portlets/subscriber.pt:49
 msgid "easynewsletter_input_value"
 msgstr ""
 
 #. Default: "Full Name"
-#: ../portlets/subscriber.pt:37
+#: ../portlets/subscriber.pt:36
 msgid "easynewsletter_input_value_fullname"
 msgstr ""
 
 #. Default: "Company/Organization"
-#: ../portlets/subscriber.pt:43
+#: ../portlets/subscriber.pt:42
 msgid "easynewsletter_input_value_organization"
 msgstr ""
 
@@ -649,12 +652,12 @@ msgid "easynewsletter_newslettersent_label"
 msgstr ""
 
 #. Default: "There are no issues."
-#: ../skins/EasyNewsletter/easynewsletter_view.pt:53
+#: ../skins/EasyNewsletter/easynewsletter_view.pt:49
 msgid "easynewsletter_non_issues_label"
 msgstr ""
 
 #. Default: "There are no drafts."
-#: ../skins/EasyNewsletter/enl_drafts_view.pt:34
+#: ../skins/EasyNewsletter/enl_drafts_view.pt:30
 msgid "easynewsletter_nondrafts_label"
 msgstr ""
 
@@ -699,6 +702,7 @@ msgstr ""
 msgid "email"
 msgstr ""
 
+#. Default: "Fullname:"
 #: ../browser/enl_subscribers_view.pt:43
 #: ../browser/subscribers.py:89
 #: ../browser/upload_csv.pt:37
@@ -736,7 +740,7 @@ msgid "help_newsletter_title"
 msgstr ""
 
 #. Default: "If checked, the newsletter/mailing is send to all                     plone members. If there are subscribers inside the                     newsletter, they get the letter anyway."
-#: ../content/ENLIssue.py:68
+#: ../content/ENLIssue.py:69
 #: ../content/EasyNewsletter.py:144
 msgid "help_sendToAllPloneMembers"
 msgstr ""
@@ -772,7 +776,7 @@ msgid "label_description"
 msgstr ""
 
 #. Default: "Inherit Criteria"
-#: ../content/ENLIssue.py:135
+#: ../content/ENLIssue.py:136
 msgid "label_inherit_criteria"
 msgstr ""
 
@@ -817,7 +821,7 @@ msgid "label_select_all_items"
 msgstr ""
 
 #. Default: "Send to all Plone members"
-#: ../content/ENLIssue.py:66
+#: ../content/ENLIssue.py:67
 #: ../content/EasyNewsletter.py:142
 msgid "label_sendToAllPloneMembers"
 msgstr ""
@@ -852,7 +856,7 @@ msgstr ""
 msgid "mail"
 msgstr ""
 
-#: ../portlets/subscriber.pt:30
+#: ../portlets/subscriber.pt:29
 msgid "mr"
 msgstr ""
 
@@ -870,12 +874,14 @@ msgstr ""
 msgid "not_created_subscribers"
 msgstr ""
 
+#. Default: "Organization:"
 #: ../browser/enl_subscribers_view.pt:46
 #: ../browser/subscribers.py:89
 #: ../browser/upload_csv.pt:39
 msgid "organization"
 msgstr ""
 
+#. Default: "Salutation"
 #: ../browser/enl_subscribers_view.pt:89
 #: ../browser/subscribers.py:89
 #: ../browser/upload_csv.pt:36
@@ -912,17 +918,17 @@ msgid "summary_content_listing"
 msgstr ""
 
 #. Default: "expired"
-#: ../skins/EasyNewsletter/enl_subtopics.pt:188
+#: ../skins/EasyNewsletter/enl_subtopics.pt:194
 msgid "time_expired"
 msgstr ""
 
 #. Default: "Move item down"
-#: ../skins/EasyNewsletter/enl_subtopics.pt:221
+#: ../skins/EasyNewsletter/enl_subtopics.pt:227
 msgid "title_move_item_down"
 msgstr ""
 
 #. Default: "Move item up"
-#: ../skins/EasyNewsletter/enl_subtopics.pt:214
+#: ../skins/EasyNewsletter/enl_subtopics.pt:220
 msgid "title_move_item_up"
 msgstr ""
 

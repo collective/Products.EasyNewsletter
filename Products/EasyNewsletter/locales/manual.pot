@@ -24,3 +24,9 @@ msgstr ""
 
 msgid "Your subscription was successfully confirmed."
 msgstr ""
+
+msgid "Subscribers"
+msgstr ""
+
+msgid "enl_action_subscribers"
+msgstr ""
