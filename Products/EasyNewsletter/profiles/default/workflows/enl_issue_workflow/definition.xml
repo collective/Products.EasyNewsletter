@@ -38,6 +38,9 @@
  </state>
  <state state_id="sent" title="Sent">
   <exit-transition transition_id="make_draft"/>
+  <permission-map name="Modify portal content"
+                  acquired="False">
+  </permission-map>
  </state>
  <transition transition_id="make_draft" title="Make draft"
              new_state="draft" trigger="USER"
