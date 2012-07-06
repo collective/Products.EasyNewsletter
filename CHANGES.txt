@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.6.9 (unreleased)
+2.6.9 (2012-07-06)
 ------------------
 
 - we now use the modification date in Archive and Drafts view
