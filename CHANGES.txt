@@ -4,7 +4,8 @@ Changelog
 2.6.10 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- fix the email format, we don't use MIMEMultipart for the plain text part of the email, this fix problems with thunderbird
+  [derstappenit]
 
 
 2.6.9 (2012-07-06)
