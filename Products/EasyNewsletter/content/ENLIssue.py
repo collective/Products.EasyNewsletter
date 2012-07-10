@@ -373,8 +373,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             outer.epilogue = ''
 
             # Attach text part
-            text_part = MIMEMultipart("related")
-            text_part.attach(MIMEText(personal_text_plain, "plain", charset))
+            text_part = MIMEText(personal_text_plain, "plain", charset)
 
             # Attach html part with images
             html_part = MIMEMultipart("related")
