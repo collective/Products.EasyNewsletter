@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-07-05 18:12+0000\n"
+"POT-Creation-Date: 2012-07-11 12:24+0000\n"
 "PO-Revision-Date: 2011-01-04 22:46+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,8 +28,8 @@ msgid "A page in the site. Can contain rich text."
 msgstr ""
 
 #: ./profiles/default/types/ENLIssue.xml
-msgid "Aggregate body content"
-msgstr "Automatisch Newsletter-Inhalte laden"
+msgid "Aggregate content"
+msgstr "Aggregiere Inhalte"
 
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "An easy to use Newsletter"
@@ -371,6 +371,10 @@ msgstr "Newsletter Entwürfe"
 msgid "Issues full view"
 msgstr "Alle Ausgaben als Blog-Darstellung"
 
+#: ./profiles/default/types/EasyNewsletter.xml
+msgid "Manage aggregation templates"
+msgstr "Aggregierungstemplates verwalten"
+
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Manage subcollections"
 msgstr "Unterkollektionen verwalten"
@@ -397,7 +401,7 @@ msgstr "Organisation"
 
 #: ./browser/registration.py:49
 msgid "Please choose a salutation."
-msgstr ""
+msgstr "Bitte wählen Sie eine Anrede aus!"
 
 #: ./browser/registration.py:52
 msgid "Please enter a valid email address."
@@ -429,7 +433,7 @@ msgstr ""
 
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "Subfolders"
-msgstr ""
+msgstr "Unterkollektionen"
 
 #: ./profiles/default/types/ENLSubscriber.xml
 msgid "Subscriber"
@@ -445,11 +449,7 @@ msgstr "Abonnenten"
 
 #: ./profiles/default/types/ENLTemplate.xml
 msgid "Template"
-msgstr ""
-
-#: ./profiles/default/types/EasyNewsletter.xml
-msgid "Templates"
-msgstr ""
+msgstr "Vorlage"
 
 #: ./browser/upload_csv.pt:32
 msgid "The CSV file must contain the header and follow this format"

@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-07-05 18:12+0000\n"
+"POT-Creation-Date: 2012-07-11 12:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Wim Boucquaert - wimbou <wim.boucquaert@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,7 +30,7 @@ msgid "A page in the site. Can contain rich text."
 msgstr ""
 
 #: ./profiles/default/types/ENLIssue.xml
-msgid "Aggregate body content"
+msgid "Aggregate content"
 msgstr ""
 
 #: ./profiles/default/types/EasyNewsletter.xml
@@ -373,6 +373,10 @@ msgstr ""
 msgid "Issues full view"
 msgstr ""
 
+#: ./profiles/default/types/EasyNewsletter.xml
+msgid "Manage aggregation templates"
+msgstr ""
+
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Manage subcollections"
 msgstr ""
@@ -447,10 +451,6 @@ msgstr ""
 
 #: ./profiles/default/types/ENLTemplate.xml
 msgid "Template"
-msgstr ""
-
-#: ./profiles/default/types/EasyNewsletter.xml
-msgid "Templates"
 msgstr ""
 
 #: ./browser/upload_csv.pt:32

@@ -60,7 +60,7 @@
     visible="True" i18n:attributes="title">
   <permission value="Change portal topics"/>
  </action>
- <action title="Templates" action_id="templates" category="object"
+ <action title="Manage aggregation templates" action_id="templates" category="object_buttons"
     condition_expr="" url_expr="string:${folder_url}/enl_templates_view"
     visible="True" i18n:attributes="title">
   <permission value="Modify portal content"/>

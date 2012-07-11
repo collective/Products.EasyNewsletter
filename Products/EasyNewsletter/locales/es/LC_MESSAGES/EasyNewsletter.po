@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.6.2dev\n"
-"POT-Creation-Date: 2012-07-05 18:12+0000\n"
+"POT-Creation-Date: 2012-07-11 12:24+0000\n"
 "PO-Revision-Date: 2012-02-24 15:22-0300\n"
 "Last-Translator: Juan A. Diaz <juan@linux.org.ar>\n"
 "Language-Team: Spanish; Castilian <>\n"
@@ -31,8 +31,8 @@ msgid "A page in the site. Can contain rich text."
 msgstr "Una página en el sitio. Puede contener texto enriquecido."
 
 #: ./profiles/default/types/ENLIssue.xml
-msgid "Aggregate body content"
-msgstr "Actualizar contenido"
+msgid "Aggregate content"
+msgstr ""
 
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "An easy to use Newsletter"
@@ -374,6 +374,10 @@ msgstr ""
 msgid "Issues full view"
 msgstr "Vista completa de Ediciones"
 
+#: ./profiles/default/types/EasyNewsletter.xml
+msgid "Manage aggregation templates"
+msgstr ""
+
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Manage subcollections"
 msgstr ""
@@ -449,10 +453,6 @@ msgstr "Suscriptores"
 #: ./profiles/default/types/ENLTemplate.xml
 msgid "Template"
 msgstr "Plantilla"
-
-#: ./profiles/default/types/EasyNewsletter.xml
-msgid "Templates"
-msgstr "Plantillas"
 
 #: ./browser/upload_csv.pt:32
 msgid "The CSV file must contain the header and follow this format"

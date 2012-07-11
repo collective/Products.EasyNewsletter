@@ -40,7 +40,7 @@
     visible="True" i18n:attributes="title">
   <permission value="Modify portal content"/>
  </action>
- <action title="Aggregate body content" action_id="refresh" category="object_buttons"
+ <action title="Aggregate content" action_id="refresh" category="object_buttons"
     condition_expr="python: portal.portal_workflow.getInfoFor(object, 'review_state') == 'draft'" url_expr="string:${folder_url}/refresh-issue"
     visible="True" i18n:attributes="title">
   <permission value="Modify portal content"/>

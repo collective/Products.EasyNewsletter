@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2012-07-05 18:12+0000\n"
+"POT-Creation-Date: 2012-07-11 12:24+0000\n"
 "PO-Revision-Date: 2011-07-17 09:05-0000\n"
 "Last-Translator: Érico Andrei <erico@simplesconsultoria.com.br>\n"
 "Language-Team: Simples Consultoria <contato@simplesconsultoria.com.br>\n"
@@ -29,7 +29,7 @@ msgid "A page in the site. Can contain rich text."
 msgstr "Uma página no site. Pode conter texto rico."
 
 #: ./profiles/default/types/ENLIssue.xml
-msgid "Aggregate body content"
+msgid "Aggregate content"
 msgstr ""
 
 #: ./profiles/default/types/EasyNewsletter.xml
@@ -372,6 +372,10 @@ msgstr ""
 msgid "Issues full view"
 msgstr ""
 
+#: ./profiles/default/types/EasyNewsletter.xml
+msgid "Manage aggregation templates"
+msgstr ""
+
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Manage subcollections"
 msgstr ""
@@ -447,10 +451,6 @@ msgstr "Assinantes"
 #: ./profiles/default/types/ENLTemplate.xml
 msgid "Template"
 msgstr "Modelo"
-
-#: ./profiles/default/types/EasyNewsletter.xml
-msgid "Templates"
-msgstr "Modelos"
 
 #: ./browser/upload_csv.pt:32
 msgid "The CSV file must contain the header and follow this format"

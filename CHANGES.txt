@@ -4,7 +4,11 @@ Changelog
 2.6.11 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix translations
+  [derstappenit]
+
+- Move Manage aggregation templates action into object_button aka actions menu
+  [derstappenit]
 
 
 2.6.10 (2012-07-10)
