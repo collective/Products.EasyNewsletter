@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.6.11 (unreleased)
+2.6.11 (2012-07-11)
 -------------------
 
 - Fix translations
