@@ -99,7 +99,7 @@ DEFAULT_OUT_TEMPLATE_PT = """<html xmlns="http://www.w3.org/1999/xhtml">
 body{
   color:#333!important;
 }
-h1,h2,h3,h1 a,h2 a,h3 a,{
+h1,h2,h3,h1 a,h2 a,h3 a{
   color:#979799!important;
 }
 th,td{
