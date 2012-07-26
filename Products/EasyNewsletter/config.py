@@ -39,7 +39,7 @@ DEFAULT_TEMPLATE = """<table border="0" cellpadding="10" cellspacing="10" width=
         <span tal:content="object/Description">Description</span>
       </p>
       <p class="tileFooter">
-        <a tal:attributes="href object/getURL">Beitrag lesen...</a>
+        <a tal:attributes="href object/getURL">Read more...</a>
       </p>
     </td>
     <td width="164px" align="right">
@@ -71,7 +71,7 @@ DEFAULT_TEMPLATE = """<table border="0" cellpadding="10" cellspacing="10" width=
         <span tal:content="object/Description">Description</span>
       </p>
       <p class="tileFooter">
-        <a tal:attributes="href object/getURL">Beitrag lesen...</a>
+        <a tal:attributes="href object/getURL">Read more...</a>
       </p>
     </td>
   </tr>
@@ -81,7 +81,7 @@ DEFAULT_TEMPLATE = """<table border="0" cellpadding="10" cellspacing="10" width=
         <tal:block condition="python:object.portal_type in ['Image', 'News Item']">
         <a tal:attributes="href object/getURL">
           <img tal:attributes="src python:object.getURL(relative=1)+'/@@images/image/thumb'"
-              tall:condition="python:hasattr(item_object,'tag')"
+              tal:condition="python:hasattr(item_object,'tag')"
               class="tileImage" />
         </a>
         </tal:block>
@@ -99,7 +99,7 @@ DEFAULT_OUT_TEMPLATE_PT = """<html xmlns="http://www.w3.org/1999/xhtml">
 body{
   color:#333!important;
 }
-h1,h2,h3,h1 a,h2 a,h3 a,{
+h1,h2,h3,h1 a,h2 a,h3 a{
   color:#979799!important;
 }
 th,td{
@@ -120,10 +120,10 @@ clear: both;
 </style>
 </head>
 <body>
-  <table width="100%" cellpadding="0" cellspaceing="0">
+  <table width="100%" cellpadding="0" cellspacing="0">
     <tr>
       <td>
-        <div class="mailonlyy"
+        <div class="mailonly"
           tal:define="portal_url context/@@plone_portal_state/portal_url">
           <img src="logo.png" />
         </div>
@@ -145,7 +145,7 @@ clear: both;
     <tr>
       <td class="newsletter_link">
         <div class="mailonly">
-          <p><a tal:attributes="href context/absolute_url">Diesen Newsletter im Browser anzeigen</a></p>
+          <p><a tal:attributes="href context/absolute_url">View Newsletter in Web-browser</a></p>
         </div>
       </td>
     </tr>
@@ -153,7 +153,7 @@ clear: both;
       <td class="header">
         <!-- this is the header of the newsletter -->
         <span tal:replace="structure context/getHeader" />
-        <span tal:replace="structure python:toLocalizedTime(context.modified(), long_format=0)" />
+        <span tal:replace="structure python:context.toLocalizedTime(context.modified(), long_format=0)" />
       </td>
     </tr>
     <tr>
