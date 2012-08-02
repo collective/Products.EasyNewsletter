@@ -24,21 +24,22 @@
            tal:attributes="href context/aq_parent/absolute_url"
            i18n:translate="easynewsletter_backtonewsletter_label">
            Back to newsletter
-        </a>  
+        </a>
 
-        <div tal:define="newsletters context/get_draft_issues">                                                             
+        <div tal:define="newsletters context/get_draft_issues">
             <div tal:condition="not: newsletters"
                  i18n:translate="easynewsletter_nondrafts_label">
                   There are no drafts.
-            </div>    
-                          
-            <ul>                                                                                             
-                <li tal:repeat="newsletter newsletters">                                                       
-                    <a tal:define="date python:context.toLocalizedTime(newsletter.modified,long_format=0)"    
-                       tal:content="string:$date ${newsletter/Title}"                                          
-                       tal:attributes="href newsletter/getURL">Newsletter's title and Date</a>           
-                </li>                                                                                           
-            </ul>                                                                                             
+            </div>
+
+            <ul>
+                <li tal:repeat="newsletter newsletters">
+                    <a tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime;
+                                   date python:toLocalizedTime(newsletter.modified, long_format=0)"
+                       tal:content="string:$date ${newsletter/Title}"
+                       tal:attributes="href newsletter/getURL">Newsletter's title and Date</a>
+                </li>
+            </ul>
         </div>
     </tal:main-macro>
 </metal:main>

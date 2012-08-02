@@ -153,7 +153,7 @@ clear: both;
       <td class="header">
         <!-- this is the header of the newsletter -->
         <span tal:replace="structure context/getHeader" />
-        <span tal:replace="structure python:toLocalizedTime(context.modified(), long_format=0)" />
+        <span tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime" tal:replace="structure python:toLocalizedTime(context.modified(), long_format=0)" />
       </td>
     </tr>
     <tr>
