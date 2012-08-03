@@ -726,12 +726,12 @@ msgstr ""
 msgid "label_body_zpt"
 msgstr "Modelo do boletim"
 
-#. Default: "Read more"
+#. Default: "Choose salutation..."
 #: ./config.py:13
 msgid "label_choose_saluation"
 msgstr "Escolha a saudação..."
 
-#. Default: "Choose salutation..."
+#. Default: "Read more"
 #: ./config.py:42
 msgid "read_more"
 msgstr "Leia mais"

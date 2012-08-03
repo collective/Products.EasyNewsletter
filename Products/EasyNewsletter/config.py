@@ -39,13 +39,24 @@ DEFAULT_TEMPLATE = """<table border="0" cellpadding="10" cellspacing="10" width=
         <span tal:content="object/Description">Description</span>
       </p>
       <p class="tileFooter">
-        <a tal:attributes="href object/getURL" i18n:translate="read_more">Read more</a>
+        <a tal:attributes="href object/getURL" i18n:translate="read_more">Read more</a>&hellip;
       </p>
+    </td>
+    <td width="164" align="right">
+      <tal:image_obj tal:define="item_object object/getObject;">
+        <tal:block condition="python:object.portal_type in ['Image', 'News Item']">
+          <a tal:attributes="href object/getURL">
+            <img class="tileImage"
+                tal:condition="python:hasattr(item_object, 'tag')"
+                tal:attributes="src python:object.getURL(relative=1) + '/@@images/image/thumb'"
+                />
+          </a>
+        </tal:block>
+      </tal:image_obj>
     </td>
   </tr>
 </tal:block>
 </table>
-
 
 <tal:block tal:repeat="subtopic context/getSubTopics">
 <table border="0" cellpadding="10" cellspacing="10" width="100%">
@@ -71,14 +82,15 @@ DEFAULT_TEMPLATE = """<table border="0" cellpadding="10" cellspacing="10" width=
       <tal:image_obj tal:define="item_object object/getObject;">
         <tal:block condition="python:object.portal_type in ['Image', 'News Item']">
         <a tal:attributes="href object/getURL">
-          <img tal:attributes="src python:object.getURL(relative=1)+'/@@images/image/thumb'"
-              tall:condition="python:hasattr(item_object,'tag')"
-              class="tileImage" />
+          <img class="tileImage"
+              tal:condition="python:hasattr(item_object, 'tag')"
+              tal:attributes="src python:object.getURL(relative=1) + '/@@images/image/thumb'"
+              />
         </a>
         </tal:block>
       </tal:image_obj>
     </td>
-   </tr>
+  </tr>
 </tal:blockitems>
 </tal:block>"""
 
@@ -114,7 +126,7 @@ img.tileImage {
     <tr>
       <td>
         <div class="mailonlyy"
-          tal:define="portal_url context/@@plone_portal_state/portal_url">
+            tal:define="portal_url context/@@plone_portal_state/portal_url">
           <img src="logo.png" />
         </div>
       </td>
