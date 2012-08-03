@@ -31,7 +31,7 @@ EMAIL_RE = re.compile(r"(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,6}(?:\s|$)
 
 
 DEFAULT_TEMPLATE = """<table border="0" cellpadding="10" cellspacing="10" width="100%">
-<tal:block tal:repeat="object context/queryCatalog">
+<tal:block tal:repeat="object context/queryCatalog" i18n:domain="EasyNewsletter">
   <tr>
     <td>
       <h2 class="tileHeadline"><a tal:attributes="href object/getURL" tal:content="object/Title">Title</a></h2>
@@ -39,17 +39,8 @@ DEFAULT_TEMPLATE = """<table border="0" cellpadding="10" cellspacing="10" width=
         <span tal:content="object/Description">Description</span>
       </p>
       <p class="tileFooter">
-        <a tal:attributes="href object/getURL">Beitrag lesen...</a>
+        <a tal:attributes="href object/getURL" i18n:translate="read_more">Read more</a>
       </p>
-    </td>
-    <td width="164px" align="right">
-      <tal:image_obj tal:define="item_object object/getObject;">
-        <tal:block condition="python:object.portal_type in ['Image', 'News Item']">
-          <a tal:attributes="href object/getURL">
-            <img tal:attributes="src python:object.getURL(relative=1)+'/@@images/image/thumb'" class="tileImage" />
-          </a>
-        </tal:block>
-      </tal:image_obj>
     </td>
   </tr>
 </tal:block>

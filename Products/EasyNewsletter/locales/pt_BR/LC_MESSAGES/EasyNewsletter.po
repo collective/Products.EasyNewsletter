@@ -731,6 +731,11 @@ msgstr "Modelo do boletim"
 msgid "label_choose_saluation"
 msgstr "Escolha a saudação..."
 
+#. Default: "Choose salutation..."
+#: ./config.py:42
+msgid "read_more"
+msgstr "Leia mais"
+
 #. Default: "Description"
 #: ./content/ENLTemplate.py:29
 msgid "label_description"
