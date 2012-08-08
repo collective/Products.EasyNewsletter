@@ -21,6 +21,8 @@ from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.config import SALUTATION
 from Products.EasyNewsletter.interfaces import ISubscriberSource
 
+import types
+
 
 class UTF8Recoder:
     """
@@ -34,6 +36,7 @@ class UTF8Recoder:
 
     def next(self):
         return self.reader.next().encode("utf-8")
+
 
 class UnicodeReader:
     """
@@ -52,6 +55,7 @@ class UnicodeReader:
     def __iter__(self):
         return self
 
+
 class UnicodeWriter:
     """
     A CSV writer which will write rows to CSV file "f",
@@ -61,9 +65,20 @@ class UnicodeWriter:
     def __init__(self, f, dialect=csv.excel, encoding="utf-8", **kwds):
         # Redirect output to a queue
         self.queue = cStringIO.StringIO()
+
+        # Plone 3 Fix
+        if not type(dialect) is types.InstanceType:
+            dialect = csv.excel()
+
         self.writer = csv.writer(self.queue, dialect=dialect, **kwds)
         self.stream = f
-        self.encoder = codecs.getincrementalencoder(encoding)()
+
+        # codecs.getincrementalencoder(encoding)() # New in version 2.5.
+        # codecs.getincrementalencoder not available in python 2.4
+        try:
+                self.encoder = codecs.getincrementalencoder(encoding)()
+        except AttributeError:
+                self.encoder = codecs.getencoder(encoding)
 
     def writerow(self, row):
         self.writer.writerow([s.encode("utf-8") for s in row])
@@ -71,7 +86,10 @@ class UnicodeWriter:
         data = self.queue.getvalue()
         data = data.decode("utf-8")
         # ... and reencode it into the target encoding
-        data = self.encoder.encode(data)
+        try:
+                data = self.encoder.encode(data)
+        except AttributeError:
+                data = self.encoder(data)
         # write to the target stream
         self.stream.write(data)
         # empty queue
@@ -103,7 +121,7 @@ class Enl_Subscribers_View(BrowserView):
 
     # TODO: we should move these indexes from FieldIndex to ZCTextIndex
     # see setuphandlers.py for indexes creation
-    searchable_params = ('email','fullname','organization')
+    searchable_params = ('email', 'fullname', 'organization')
 
     def __init__(self, context, request):
         self.context = context
@@ -112,7 +130,7 @@ class Enl_Subscribers_View(BrowserView):
     def __call__(self):
         if self.can_delete():
             self.delete()
-        return super(Enl_Subscribers_View,self).__call__()
+        return super(Enl_Subscribers_View, self).__call__()
 
     @property
     def portal_catalog(self):
@@ -125,7 +143,7 @@ class Enl_Subscribers_View(BrowserView):
     @property
     def query(self):
         query = dict(
-            portal_type = 'ENLSubscriber',
+            portal_type='ENLSubscriber',
             path='/'.join(self.context.getPhysicalPath()),
             sort_on='email'
         )
@@ -173,13 +191,13 @@ class Enl_Subscribers_View(BrowserView):
     def can_delete(self):
         meth = self.request.get('REQUEST_METHOD')
         delete_button = self.request.get('delete')
-        return meth.lower()=='post' and delete_button
+        return meth.lower() == 'post' and delete_button
 
     def delete(self):
         """ delete all the selected subscribers
         """
         msg_manager = IStatusMessage(self.request)
-        ids = self.request.get('subscriber_ids',[])
+        ids = self.request.get('subscriber_ids', [])
         if not ids:
             msg = _(u"No subscriber selected!")
             msg_manager.addStatusMessage(msg, type='error')
@@ -300,12 +318,12 @@ class DownloadCSV(BrowserView):
         filename = tempfile.mktemp()
         file = open(filename, 'wb')
         csvWriter = UnicodeWriter(file,
-                                  {'delimiter':',',
-                                   'quotechar':'"',
-                                   'quoting':csv.QUOTE_MINIMAL})
+                                  {'delimiter' : ',',
+                                   'quotechar' : '"',
+                                   'quoting' : csv.QUOTE_MINIMAL})
         CSV_HEADER_I18N = [self.context.translate(_(x)) for x in CSV_HEADER]
         csvWriter.writerow(CSV_HEADER_I18N)
-        for subscriber in ctool(portal_type = 'ENLSubscriber',
+        for subscriber in ctool(portal_type='ENLSubscriber',
                                 path='/'.join(self.context.getPhysicalPath()),
                                 sort_on='email'):
             obj = subscriber.getObject()
