@@ -45,9 +45,6 @@ class SubscriberView(BrowserView):
         path_to_easynewsletter = path_to_easynewsletter.strip('/')
         newsletter_container = self.portal.restrictedTraverse(path_to_easynewsletter)
         messages = IStatusMessage(self.request)
-        if not salutation:
-            messages.addStatusMessage(_("Please choose a salutation."), "error")
-            return self.request.response.redirect(newsletter_container.absolute_url())
         if not subscriber:
             messages.addStatusMessage(_("Please enter a valid email address."), "error")
             return self.request.response.redirect(newsletter_container.absolute_url())
