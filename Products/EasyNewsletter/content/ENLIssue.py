@@ -419,13 +419,13 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             outer.attach(text_part)
             outer.attach(html_part)
 
+            msg = outer.as_string()
             try:
-                #MailHost.send(msg)
-                MailHost.send(outer.as_string())
+                MailHost.send(msg, mfrom=sender_email, mto=receiver['email'])
                 log.info("Send newsletter to \"%s\"" % receiver['email'])
                 send_counter += 1
             except AttributeError:  # Plone3.3.x
-                MailHost.send(msg.as_string())
+                MailHost.send(msg, mfrom=sender_email, mto=receiver['email'])
                 log.info("Send newsletter to \"%s\"" % receiver['email'])
                 send_counter += 1
             except Exception, e:
@@ -433,7 +433,6 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                 send_error_counter += 1
 
         log.info("Newsletter was sent to (%s) receivers. (%s) errors occurred!" % (send_counter, send_error_counter))
-
         # change status only for a 'regular' send operation (not 'test', no
         # explicit recipients)
         if not hasattr(request, "test") and not recipients:

@@ -25,4 +25,41 @@
   <!-- File System Directory Views registration -->
   <cmf:registerDirectory name="EasyNewsletter" directory="skins/EasyNewsletter" />
 
+  <configure
+    zcml:condition="not-have plone-4"
+    xmlns:mail="http://namespaces.zope.org/mail">
+    <include package="zope.sendmail" file="meta.zcml" />
+    <include package="zope.sendmail"/>
+
+    <!-- 
+      THIS IS ALREADY REGISTERED BY zope.sendmail
+      <mail:smtpMailer name="smtp" hostname="localhost" port="25" />
+    -->
+    <!-- 
+      YOU CAN REGISTER YOURS LIKE THIS
+
+    <mail:smtpMailer
+      name="mycompany_smtp"
+      hostname="mail.mycompany.com"
+      username="me@mycompany.com"
+      password="secret"
+      port="25"
+      />
+
+    <mail:queuedDelivery
+      permission="zope.SendMail"
+      queuePath="/tmp"
+      mailer="mycompany_smtp"
+      />
+
+    -->
+
+    <utility
+      name="queued_mailer"
+      provides="Products.MailHost.interfaces.IMailHost"
+      factory=".queued_mailhost.QueuedMailHost"
+      />
+      
+  </configure>
+
 </configure>
