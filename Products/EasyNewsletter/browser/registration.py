@@ -13,6 +13,7 @@ from Products.statusmessages.interfaces import IStatusMessage
 from Products.EasyNewsletter.interfaces import IENLRegistrationTool
 from Products.EasyNewsletter.config import MESSAGE_CODE
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
+from plone.i18n.normalizer.interfaces import IIDNormalizer
 
 
 class SubscriberView(BrowserView):
@@ -54,7 +55,9 @@ class SubscriberView(BrowserView):
         if not mo:
             messages.addStatusMessage(_("Please enter a valid email address."), "error")
             return self.request.response.redirect(newsletter_container.absolute_url())
-        if subscriber in newsletter_container.objectIds():
+        norm = queryUtility(IIDNormalizer)
+        normalized_subscriber = norm.normalize(subscriber)
+        if normalized_subscriber in newsletter_container.objectIds():
             messages.addStatusMessage(_("Your email address is already registered."), "error")
             return self.request.response.redirect(newsletter_container.absolute_url())
         subscriber_data = {}
