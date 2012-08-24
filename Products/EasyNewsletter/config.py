@@ -31,7 +31,7 @@ EMAIL_RE = re.compile(r"(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,6}(?:\s|$)
 
 
 DEFAULT_TEMPLATE = """<table border="0" cellpadding="10" cellspacing="10" width="100%">
-<tal:block tal:repeat="object context/queryCatalog">
+<tal:block tal:repeat="object context/queryCatalog" i18n:domain="EasyNewsletter">
   <tr>
     <td>
       <h2 class="tileHeadline"><a tal:attributes="href object/getURL" tal:content="object/Title">Title</a></h2>
@@ -39,14 +39,17 @@ DEFAULT_TEMPLATE = """<table border="0" cellpadding="10" cellspacing="10" width=
         <span tal:content="object/Description">Description</span>
       </p>
       <p class="tileFooter">
-        <a tal:attributes="href object/getURL">Beitrag lesen...</a>
+        <a tal:attributes="href object/getURL" i18n:translate="read_more">Read more</a>&hellip;
       </p>
     </td>
-    <td width="164px" align="right">
+    <td width="164" align="right">
       <tal:image_obj tal:define="item_object object/getObject;">
         <tal:block condition="python:object.portal_type in ['Image', 'News Item']">
           <a tal:attributes="href object/getURL">
-            <img tal:attributes="src python:object.getURL(relative=1)+'/@@images/image/thumb'" class="tileImage" />
+            <img class="tileImage"
+                tal:condition="python:hasattr(item_object, 'tag')"
+                tal:attributes="src python:object.getURL(relative=1) + '/@@images/image/thumb'"
+                />
           </a>
         </tal:block>
       </tal:image_obj>
@@ -55,7 +58,6 @@ DEFAULT_TEMPLATE = """<table border="0" cellpadding="10" cellspacing="10" width=
 </tal:block>
 </table>
 
-
 <tal:block tal:repeat="subtopic context/getSubTopics">
 <table border="0" cellpadding="10" cellspacing="10" width="100%">
   <tr>
@@ -63,7 +65,7 @@ DEFAULT_TEMPLATE = """<table border="0" cellpadding="10" cellspacing="10" width=
       <h1 tal:content="subtopic/Title">Title</h1>
     </th>
   </tr>
-<tal:blockitems tal:repeat="object subtopic/queryCatalog">
+<tal:blockitems tal:repeat="object subtopic/queryCatalog" i18n:domain="EasyNewsletter">
   <tr>
     <td>
       <h2 class="tileHeadline"><a tal:attributes="href object/getURL" tal:content="object/Title">Title</a></h2>
@@ -71,23 +73,24 @@ DEFAULT_TEMPLATE = """<table border="0" cellpadding="10" cellspacing="10" width=
         <span tal:content="object/Description">Description</span>
       </p>
       <p class="tileFooter">
-        <a tal:attributes="href object/getURL">Beitrag lesen...</a>
+        <a tal:attributes="href object/getURL" i18n:translate="read_more">Read more</a>&hellip;
       </p>
     </td>
   </tr>
   <tr>
-    <td width="164px" align="right">
+    <td width="164" align="right">
       <tal:image_obj tal:define="item_object object/getObject;">
         <tal:block condition="python:object.portal_type in ['Image', 'News Item']">
         <a tal:attributes="href object/getURL">
-          <img tal:attributes="src python:object.getURL(relative=1)+'/@@images/image/thumb'"
-              tall:condition="python:hasattr(item_object,'tag')"
-              class="tileImage" />
+          <img class="tileImage"
+              tal:condition="python:hasattr(item_object, 'tag')"
+              tal:attributes="src python:object.getURL(relative=1) + '/@@images/image/thumb'"
+              />
         </a>
         </tal:block>
       </tal:image_obj>
     </td>
-   </tr>
+  </tr>
 </tal:blockitems>
 </tal:block>"""
 
@@ -96,26 +99,25 @@ DEFAULT_OUT_TEMPLATE_PT = """<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title><tal:title content="context/Title" /></title>
 <style type="text/css">
-body{
-  color:#333!important;
+body {
+  color: #333 !important;
 }
-h1,h2,h3,h1 a,h2 a,h3 a,{
-  color:#979799!important;
+h1, h2, h3, h1 a, h2 a, h3 a {
+  color: #979799! important;
 }
-th,td{
+th, td {
   padding: 0;
 }
-tileItem{
-  display:block;
+tileItem {
+  display: block;
 }
-img.tileImage{
-  float:right;
-  margin:10px 0 10px 10px!important;
+img.tileImage {
+  float: right;
+  margin: 10px 0 10px 10px !important;
 }
-
 .visualClear {
-display: block;
-clear: both;
+  clear: both;
+  display: block;
 }
 </style>
 </head>
@@ -124,7 +126,7 @@ clear: both;
     <tr>
       <td>
         <div class="mailonlyy"
-          tal:define="portal_url context/@@plone_portal_state/portal_url">
+            tal:define="portal_url context/@@plone_portal_state/portal_url">
           <img src="logo.png" />
         </div>
       </td>
@@ -135,10 +137,10 @@ clear: both;
       </td>
     </tr>
     <tr>
-      <td height="1px" style="background-color:#284d7b;height:1px;"><!-- --></td>
+      <td height="1" style="background-color: #284d7b; height: 1px;"><!-- --></td>
     </tr>
     <tr>
-      <td height="20px">
+      <td height="20">
         <!-- -->
       </td>
     </tr>
@@ -153,7 +155,7 @@ clear: both;
       <td class="header">
         <!-- this is the header of the newsletter -->
         <span tal:replace="structure context/getHeader" />
-        <span tal:replace="structure python:toLocalizedTime(context.modified(), long_format=0)" />
+        <span tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime" tal:replace="structure python:toLocalizedTime(context.modified(), long_format=0)" />
       </td>
     </tr>
     <tr>

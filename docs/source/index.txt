@@ -18,7 +18,7 @@ Features
 
     - Support Text and HTML Newsletter (including images)
 
-    - Subscribing / Unsubscribing and can use Plone Members/Groups as receivers (works also with Membrane)
+    - Subscribing / Unsubscribing and can use Plone Members/Groups as receivers (also works with Membrane)
 
     - Variable templates to generate newsletter content
 
@@ -29,7 +29,7 @@ Features
 Requirements
 ============
 
-    - inqbus.plone.fastmemberproperties, speed up access of member properties (should automaticly installed)
+    - inqbus.plone.fastmemberproperties, speed up access of member properties (should be automatically installed)
 
 
 Installation
@@ -39,20 +39,20 @@ Installation
 
     2. Run your buildout script
 
-    3. Restart zope
+    3. Restart Zope
 
     4. Install EasyNewsletter via Plone Management Interface
 
-    5. Add an "Newsletter Subscriber" portlet and enter the path to the
+    5. Add a "Newsletter Subscriber" portlet and enter the path to the
     EasyNewsletter object, e.g.: /portal/newsletter (To this newsletter the
-    subscribers will be added).
+    subscribers will be added)
 
 Usage
 =====
 
 General
 -------
-You can use EasyNewslleter to create manually mailings/newsletters 
+You can use EasyNewsletter to manually create mailings/newsletters 
 or you can use the collection criteria to collect content.
 
 EasyNewsletter is heavily based on Plone's Collections. In fact, the
@@ -61,62 +61,61 @@ Newsletter as well as the Issues are actually specialized Collections.
 Hence you can use familiar criteria to decide which content should be part of
 a newsletter.
 
-It's a feature of Collections that sub topics are able to inherit criteria
+It's a feature of Collections that subtopics are able to inherit criteria
 from its parent, so all Issue instances are able to inherit criteria from the
 outer Newsletter instance.
 
-Plone's default feature of sub topics is used to create sections within the
-newsletter issue. For example one can create to sections: news and events by
-creating sub topics which collect just this kind of content objects.
+Plone's default feature of subtopics is used to create sections within the
+newsletter issue. For example one can create two sections - news and events - by
+creating subtopics which collect just this kind of content objects.
 
-Once the content is generated one could edit the text as ususal in Plone.
+Once the content is generated one can edit the text as usual in Plone.
 
-You can create own templates to structure the selected content. Please refer
-to the provided "default"-template to see how it works.
+You can create your own templates to structure the selected content. Please refer
+to the provided "default" template to see how it works.
 
 Step by step
 ------------
 
 1. Add a EasyNewsletter instance, fill in the form and save it.
 
-2. If you whant write a simple mannually mailing, you can add an Issue and fill it out with your text.
+2. If you want to write a simple manual mailing, you can add an Issue and fill it out with your text.
 
-3. Or if you whant use collections to collect you content first, then you can add an Issue, 
-   go to criteria tab and add the criteria, which shall be applied to *all* of 
+3. Or if you want to use collections to collect you content first, then you can add an Issue,
+   go to Criteria tab and add the criteria, which shall be applied to *all* of 
    your Newsletters, e.g. "Items Type".
 
-4. You can create more than one sub collections to build categories like news, events and pictures in your newsletter. 
-   Just add some collections to the newsletter it self and define your criterias for all of them. 
+4. You can create more than one subcollection to build categories like news, events and pictures in your newsletter. 
+   Just add some collections to the newsletter itself and define your criteria for all of them. 
    The issues will combine them into different part in your content area.
 
-5. Go to the view tab and call "Aggregate body content" from the action menu.
+5. Go to the view tab and call ``Aggregate body content`` from the action menu.
 
-6. You can also add subcollections and define criterias on issue level.
+6. You can also add subcollections and define criteria on Issue level.
 
-7. Go to send tab and push "Test Newsletter".
+7. Go to Send tab and push ``Test Newsletter``.
 
-8. If your Newsletter/Mailing is finished, you can activate the sendbutton by click enable sendbutton. 
-   Then you can click on send newsletter to send the Newsletter to all subscribers or selected groups and users.
+8. If your Newsletter/Mailing is finished, you can activate the send button by clicking on ``Enable send button``. 
+   Then you can click on ``Send newsletter`` to send the Newsletter to all subscribers or selected groups and users.
 
 Images in HTML mails
 --------------------
 
-- All images with relative urls in src attribute, like the once added by TinyMCE are included and attached to the mail.
-- All images with absolute urls in src attribute are not attached but included in HTML with the original src url.
+- All images with relative urls in ``src`` attribute, like the ones added by TinyMCE, are included and attached to the mail.
+- All images with absolute urls in ``src`` attribute are not attached but included in HTML with the original ``src`` url.
 
 Elements for mails only
 -----------------------
 
-If you want some elements, lets say a logo only in mails but not in the public view. You can put it inside a div tag with a class "mailonly". All div elements with class "mailonly" are filtert out in the public view.
-
+If you want some elements, let's say a logo only in mails but not in the public view, you can put it inside a div tag with a class "mailonly". All div elements with class "mailonly" are filtered out in the public view.
 
 Configuring external subscriber sources
 ---------------------------------------
 
 An external subscriber sources provides (additional) subscriber to a newsletter instance.
 
-You configure an external subscriber source as Zope 3 utility providing ISubscriberSource
-(here an example where subscriptions are managed external through MongoDB)::
+You configure an external subscriber source as a Zope 3 utility providing ISubscriberSource
+(here's an example where subscriptions are managed externally through MongoDB)::
 
 
     class NewsletterSource(object):
@@ -134,9 +133,8 @@ You configure an external subscriber source as Zope 3 utility providing ISubscri
             # find MyInfo subscribers
             myinfo = getUtility(IMyInfo)
             subscribers = list()
-            for user in myinfo.accounts.find({'data.newsletters' : uid, 'state' : 'active'}):
-                subscribers.append(dict(email=user['email'],
-                                        fullname=user['username']))
+            for user in myinfo.accounts.find({'data.newsletters': uid, 'state': 'active'}):
+                subscribers.append(dict(email=user['email'], fullname=user['username']))
             return subscribers
 
 
@@ -144,7 +142,8 @@ The utility must be registered using ZCML::
 
     <utility zcml:condition="installed Products.EasyNewsletter"
         name="MyInfo subscribers"
-        factory=".newsletter.NewsletterSource" />
+        factory=".newsletter.NewsletterSource"
+        />
 
 Inside the ``Edit`` view of the instance under the ``External`` tab you should find
 ``MyInfo subscribers`` under the option ``External subscriber source``.
@@ -153,7 +152,7 @@ Inside the ``Edit`` view of the instance under the ``External`` tab you should f
 Allowed placeholders
 ====================
 
-The following placeholder can be used in the header, body and footer of issues:
+The following placeholder can be used in the header, body and footer of Issues:
 
 * ``[[SUBSCRIBER_SALUTATION]]``
 * ``[[UNSUBSCRIBE]]``

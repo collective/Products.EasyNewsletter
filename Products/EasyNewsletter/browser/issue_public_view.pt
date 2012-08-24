@@ -5,23 +5,23 @@
     <body>
         <div metal:fill-slot="main">
 
-            <h1 class="documentFirstHeading"> 
-                <metal:field use-macro="python:here.widget('title', mode='view')">
+            <h1 class="documentFirstHeading">
+                <metal:field use-macro="python:context.widget('title', mode='view')">
                 Title
                 </metal:field>
             </h1>
 
             <p class="documentDescription">
-                <metal:field use-macro="python:here.widget('description', mode='view')">
+                <metal:field use-macro="python:context.widget('description', mode='view')">
                 Description
                 </metal:field>
             </p>
 
             <div tal:replace="structure provider:plone.abovecontentbody" />
 
-            <div id="newsletter-content" 
-                 tal:content="structure view/get_public_body" 
-                 />    
+            <div id="newsletter-content"
+                tal:content="structure view/get_public_body"
+                />
 
             <div tal:replace="structure provider:plone.belowcontentbody" />
         </div>

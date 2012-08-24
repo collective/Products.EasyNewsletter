@@ -57,10 +57,10 @@
 
   <browser:page
     name="confirm-subscriber"
-   	class=".registration.SubscriberView"
-   	attribute="confirm_subscriber"
-   	permission="zope.Public"
-  	for="*" />
+       class=".registration.SubscriberView"
+       attribute="confirm_subscriber"
+       permission="zope.Public"
+      for="*" />
 
   <browser:page
     for="..interfaces.IEasyNewsletter"
@@ -102,12 +102,12 @@
     manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
     class=".viewlets.ENLActionsViewlet"
     template="templates/enl_actions_viewlet.pt"
-    permission="zope2.View"
+    permission="cmf.ManagePortal"
     />
 
   <browser:resource
     name="Products.EasyNewsletter.enl_edithelper.js"
-	  file="javascripts/enl_edithelper.js" />
+      file="javascripts/enl_edithelper.js" />
 
 
 </configure>
