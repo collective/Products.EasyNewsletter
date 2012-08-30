@@ -41,6 +41,12 @@
     template="issue_public_view.pt"
     permission="zope2.View" />
 
+ <browser:page
+    name="daily-issue"
+    for="..interfaces.IEasyNewsletter"
+    class=".daily_issue.DailyIssueView"
+    permission="cmf.ModifyPortalContent" />
+
   <browser:page
     name="unsubscribe"
     for="..interfaces.IEasyNewsletter"
