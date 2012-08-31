@@ -71,27 +71,34 @@ class DailyIssueTestCase(unittest.TestCase):
         self.assertEqual(self.view.issue.Title(), "Daily News")
 
     def test_empty_issue(self):
+        self.assertTrue(self.view.has_content())
         self.folder.manage_delObjects(["news01"])
-        self.view.create_issue()
+        self.assertFalse(self.view.has_content())
+
+    def test_do_not_create_or_send_an_empty_issue(self):
+        self.folder.manage_delObjects(["news01"])
+        self.view()
         issues = self.catalog(object_provides=IENLIssue.__identifier__,
                               path="/".join(self.newsletter.getPhysicalPath()))
         self.assertFalse(issues)
 
+        self.assertEqual(len(self.portal.MailHost.messages), 0)
+        self.assertEqual(self.view.request.response.getStatus(), 403)
+
     def test_send_issue(self):
         self.assertTrue(self.view.create_issue())
-        self.view.send()
+        self.assertTrue(self.view.send())
         self.assertEqual(len(self.portal.MailHost.messages), 1)
 
-    def test_do_not_send_a_empty_issue(self):
-        self.folder.manage_delObjects(["news01"])
-        self.view.create_issue()
-        self.view.send()
-        self.assertEqual(len(self.portal.MailHost.messages), 0)
+    def test_send_issue_and_check_http_status(self):
+        self.view()
+        self.assertEqual(len(self.portal.MailHost.messages), 1)
+        self.assertEqual(self.view.request.response.getStatus(), 200)
 
     def test_do_not_send_same_issue_twice(self):
-        self.view.render()
-        self.assertFalse(self.view.create_issue())
-        self.assertFalse(self.view.send())
+        self.view()  # 200 OK
+        self.view()  # 403 Already Sent
+        self.assertEqual(self.view.request.response.getStatus(), 403)
 
 
 def test_suite():
