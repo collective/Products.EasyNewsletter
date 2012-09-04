@@ -45,7 +45,7 @@
     name="daily-issue"
     for="..interfaces.IEasyNewsletter"
     class=".daily_issue.DailyIssueView"
-    permission="cmf.ModifyPortalContent" />
+    permission="cmf.ManagePortal" />
 
   <browser:page
     name="unsubscribe"
