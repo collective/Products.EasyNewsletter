@@ -125,7 +125,7 @@ img.tileImage {
   <table width="100%" cellpadding="0" cellspaceing="0">
     <tr>
       <td>
-        <div class="mailonlyy"
+        <div class="mailonly"
             tal:define="portal_url context/@@plone_portal_state/portal_url">
           <img src="logo.png" />
         </div>

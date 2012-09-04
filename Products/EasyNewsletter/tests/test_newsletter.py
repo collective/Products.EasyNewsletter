@@ -85,7 +85,7 @@ class EasyNewsletterTests(unittest.TestCase):
             "ENLIssue",
             id="issue")
         self.newsletter.issue.title="Test Newsletter Issue"
-        self.newsletter.issue.setText("<h1>This is the newsletter body!</h2><div class=\"mailonly\">This test should only visible in mails not in public view!</div>")
+        self.newsletter.issue.setText("<h1>This is the newsletter body!</h1><div class=\"mailonly\">This test should only visible in mails not in public view!</div>")
         view = getMultiAdapter(
             (self.newsletter.issue, self.portal.REQUEST),
             name="get-public-body")
