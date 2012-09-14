@@ -12,6 +12,8 @@ from zope.component import getSiteManager
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.MailHost.interfaces import IMailHost
 
+from zExceptions import BadRequest
+
 from Acquisition import aq_base
 
 
@@ -63,7 +65,11 @@ class DailyIssueTestCase(unittest.TestCase):
                               path="/".join(self.newsletter.getPhysicalPath()))
         self.assertEqual(len(issues), 0)
 
-        self.view.create_issue()
+        try:
+            self.view.create_issue()
+        except Exception:
+            self.fail("Couldn't create issue!")
+
         issues = self.catalog(object_provides=IENLIssue.__identifier__,
                               path="/".join(self.newsletter.getPhysicalPath()))
 
@@ -83,11 +89,15 @@ class DailyIssueTestCase(unittest.TestCase):
         self.assertFalse(issues)
 
         self.assertEqual(len(self.portal.MailHost.messages), 0)
-        self.assertEqual(self.view.request.response.getStatus(), 403)
+        self.assertEqual(self.view.request.response.getStatus(), 204)
 
     def test_send_issue(self):
-        self.assertTrue(self.view.create_issue())
-        self.assertTrue(self.view.send())
+        try:
+            self.view.create_issue()
+        except Exception:
+            self.fail("Couldn't create issue!")
+
+        self.view.send()
         self.assertEqual(len(self.portal.MailHost.messages), 1)
 
     def test_send_issue_and_check_http_status(self):
@@ -97,6 +107,8 @@ class DailyIssueTestCase(unittest.TestCase):
 
     def test_do_not_send_same_issue_twice(self):
         self.view()  # 200 OK
+        self.assertEqual(self.view.request.response.getStatus(), 200)
+        self.assertRaises(BadRequest, self.view.create_issue)
         self.view()  # 403 Already Sent
         self.assertEqual(self.view.request.response.getStatus(), 403)
 
