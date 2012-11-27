@@ -358,6 +358,7 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
                                    for id, property in member_properties.items()
                 if config.EMAIL_RE.findall(property['email'])])
         except TypeError, e:
+            results = atapi.DisplayList()
             log.error(":get_plone_members: error in member_properties %s/ \
                 properties:'%s'" % (e, member_properties.items()))
         # run registered member filter:
