@@ -79,9 +79,9 @@ Bugtracker
 Authors
 =======
 
-* initial release Kai Dieffenbach
-* since 2.0 Maik Derstappen
-* since 2.5 Andreas Jung
+* initial release: Kai Dieffenbach
+* Maik Derstappen
+* Andreas Jung
 * Philip Bauer
 * Timo Stollenwerk
 * Dinu Gherman
