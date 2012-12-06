@@ -361,6 +361,7 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
                 else:
                     log.error("Property email: \"%s\" is not an email!" % property['email'])
         except TypeError, e:
+            results = atapi.DisplayList()
             log.error(":get_plone_members: error in member_properties %s/ \
                 properties:'%s'" % (e, member_properties.items()))
         # run registered member filter:
