@@ -24,7 +24,10 @@ from zope.component import queryUtility
 from zope.component import getUtility
 from zope.component import subscribers
 from zope.interface import implements
-from zope.site.hooks import getSite
+try:
+    from zope.site.hooks import getSite
+except ImportError:
+    from zope.app.component.hooks import getSite
 
 try:
     from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool

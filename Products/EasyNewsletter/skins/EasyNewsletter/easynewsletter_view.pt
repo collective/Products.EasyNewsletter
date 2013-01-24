@@ -53,7 +53,8 @@
 
               <ul>
                 <li tal:repeat="newsletter newsletters">
-                    <a tal:define="date python:context.toLocalizedTime(newsletter.modified,long_format=0)"
+                    <a tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime;
+                                   date python:toLocalizedTime(newsletter.modified, long_format=0)"
                        tal:content="string:$date: ${newsletter/Title}"
                        tal:attributes="href newsletter/getURL">Newsletter's title and Date</a>
                </li>

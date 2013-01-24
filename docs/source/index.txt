@@ -14,22 +14,37 @@ EasyNewsletter is a simple but powerful newsletter/mailing product for Plone.
 Features
 ========
 
-    - Plonish (can use Plone's Collections to collect content)
-
     - Support Text and HTML Newsletter (including images)
-
-    - Subscribing / Unsubscribing and can use Plone Members/Groups as receivers (works also with Membrane)
-
+    
+    - Support manual written Newsletters/Mailings
+    
+    - Plonish (can use Plone's Collections to collect content)
+    
     - Variable templates to generate newsletter content
-
+    
+    - Subscribing / Unsubscribing and can use Plone Members/Groups as receivers
+    (works also with Membrane)
+    
+    - support for external subscriber sources (configured through a Zope utility)
+    
+    - support for external delivery services (other than Plone MailHost)
+    
     - TTW customizeable output Template to generate nice HTML Newsletter
-
+    
     - Support personalized mails
+    
+    - mass import/export subscribers via csv
+    
+    - support external filtering/manipulation (filter out or add more subscribers) plugins
 
 Requirements
 ============
 
-    - inqbus.plone.fastmemberproperties, speed up access of member properties (should automaticly installed)
+    - [inqbus.plone.fastmemberproperties] speed up access of member properties
+      (optional, you can installed it with Products.EasyNewsletter[all] in your
+      buidlout eggs list)
+
+ Plone 3.X (tested) or 4.X (tested)
 
 
 Installation
@@ -39,20 +54,19 @@ Installation
 
     2. Run your buildout script
 
-    3. Restart zope
+    3. Restart Zope
 
     4. Install EasyNewsletter via Plone Management Interface
 
-    5. Add an "Newsletter Subscriber" portlet and enter the path to the
-    EasyNewsletter object, e.g.: /portal/newsletter (To this newsletter the
-    subscribers will be added).
+    5. Add an "Newsletter Subscriber" portlet and select the EasyNewsletter
+       (To this newsletter the subscribers will be added).
 
 Usage
 =====
 
 General
 -------
-You can use EasyNewslleter to create manually mailings/newsletters 
+You can use EasyNewsletter to manually create mailings/newsletters 
 or you can use the collection criteria to collect content.
 
 EasyNewsletter is heavily based on Plone's Collections. In fact, the
@@ -61,53 +75,173 @@ Newsletter as well as the Issues are actually specialized Collections.
 Hence you can use familiar criteria to decide which content should be part of
 a newsletter.
 
-It's a feature of Collections that sub topics are able to inherit criteria
+It's a feature of Collections that subtopics are able to inherit criteria
 from its parent, so all Issue instances are able to inherit criteria from the
 outer Newsletter instance.
 
-Plone's default feature of sub topics is used to create sections within the
-newsletter issue. For example one can create to sections: news and events by
-creating sub topics which collect just this kind of content objects.
+Plone's default feature of subtopics is used to create sections within the
+newsletter issue. For example one can create two sections - news and events - by
+creating subtopics which collect just this kind of content objects.
 
-Once the content is generated one could edit the text as ususal in Plone.
+Once the content is generated one can edit the text as usual in Plone.
 
-You can create own templates to structure the selected content. Please refer
-to the provided "default"-template to see how it works.
+You can create your own templates to structure the selected content. Please refer
+to the provided "default" template to see how it works.
 
 Step by step
 ------------
 
 1. Add a EasyNewsletter instance, fill in the form and save it.
 
-2. If you whant write a simple mannually mailing, you can add an Issue and fill it out with your text.
+2. If you want to write a simple manual mailing, you can add an Issue and fill it out with your text.
 
-3. Or if you whant use collections to collect you content first, then you can add an Issue, 
-   go to criteria tab and add the criteria, which shall be applied to *all* of 
+3. Or if you want to use collections to collect you content first, then you can add an Issue,
+   go to Criteria tab and add the criteria, which shall be applied to *all* of 
    your Newsletters, e.g. "Items Type".
 
-4. You can create more than one sub collections to build categories like news, events and pictures in your newsletter. 
-   Just add some collections to the newsletter it self and define your criterias for all of them. 
+4. You can create more than one subcollection to build categories like news, events and pictures in your newsletter. 
+   Just add some collections to the newsletter itself and define your criteria for all of them. 
    The issues will combine them into different part in your content area.
 
-5. Go to the view tab and call "Aggregate body content" from the action menu.
+5. Go to the view tab and call ``Aggregate body content`` from the action menu.
 
-6. You can also add subcollections and define criterias on issue level.
+6. You can also add subcollections and define criteria on Issue level.
 
-7. Go to send tab and push "Test Newsletter".
+7. Go to Send tab and push ``Test Newsletter``.
 
-8. If your Newsletter/Mailing is finished, you can activate the sendbutton by click enable sendbutton. 
-   Then you can click on send newsletter to send the Newsletter to all subscribers or selected groups and users.
+8. If your Newsletter/Mailing is finished, you can activate the send button by clicking on ``Enable send button``. 
+   Then you can click on ``Send newsletter`` to send the Newsletter to all subscribers or selected groups and users.
 
 Images in HTML mails
 --------------------
 
-- All images with relative urls in src attribute, like the once added by TinyMCE are included and attached to the mail.
-- All images with absolute urls in src attribute are not attached but included in HTML with the original src url.
+- All images with relative urls in ``src`` attribute, like the ones added by TinyMCE, are included and attached to the mail.
+- All images with absolute urls in ``src`` attribute are not attached but included in HTML with the original ``src`` url.
 
 Elements for mails only
 -----------------------
 
-If you want some elements, lets say a logo only in mails but not in the public view. You can put it inside a div tag with a class "mailonly". All div elements with class "mailonly" are filtert out in the public view.
+If you want some elements, let's say a logo only in mails but not in the public view, you can put it inside a div tag with a class "mailonly". All div elements with class "mailonly" are filtered out in the public view.
+
+Filtering Users, Groups and Receivers
+-------------------------------------
+
+EasyNewsletter provide a felxible way to filter the Plone members, Plone groups and the recivers list. You can provide smal funktion in you application and register it as IReceiversMemberFilter, IReceiversGroupFilter or IReceiversPostSendingFilter.
+
+IReceiversMemberFilter filters
+""""""""""""""""""""""""""""""
+``Interface: Products.EasyNewsletter.interfaces.IReceiversMemberFilter``
+
+The IReceiversMemberFilter filters can be used to filter the list of Plone members which a user can select in newsletters and issues.
+
+.. 
+
+   class ReceiversMemberFilterNoPloneMember(object):
+       """ filters all members out of newsletter receivers selection list,
+           which are default plone members. This is usefull if you whant 
+           only membrane members but not the default plone user as receivers.
+           receivers: [(id, {'email': 'info@example.com',...})]
+       """
+   
+       def __init__(self, context):
+           self.context = context
+   
+       def filter(self, receivers):
+           portal = getSite()
+           query = {}
+           query['portal_type'] = ['Contact',]
+           contacts = portal.membrane_tool.search(query)
+           whitelist = [contact.getUserId for contact in contacts]
+           receivers = [receiver for receiver in receivers
+                   if receiver[0] in whitelist]
+           return receivers
+
+**This filter should be registered as follow:**
+
+..
+
+    <subscriber zcml:condition="installed my.package"
+        for="Products.EasyNewsletter.interfaces.IEasyNewsletter"
+        factory="my.package.newsletter.ReceiversMemberFilterNoPloneMember"
+        provides="Products.EasyNewsletter.interfaces.IReceiversMemberFilter" />
+
+
+IReceiversGroupFilter filters
+"""""""""""""""""""""""""""""
+``Interface: Products.EasyNewsletter.interfaces.IReceiversGroupFilter``
+
+The IReceiversGroupFilter filters can be used to filter the list of Plone groups which a user can select in newsletters and issues.
+
+..
+
+   class ReceiversGroupFilterInactiveOrganizations(object):
+       """ Filter all inactive organizations, out of the group selection list.
+           receivers: [(id, {'email': 'info@example.com',...})]
+       """
+   
+       def __init__(self, context):
+           self.context = context
+   
+       def filter(self, receivers):
+           portal = getSite()
+           query = {}
+           query['portal_type'] = ['Organization']
+           query['review_state'] = ['inactive', 'internal', 'pending', 'former_member']
+           inactive_groups = portal.membrane_tool.search(query)
+           blacklist = [black.getGroupId for black in inactive_groups]
+           receivers = [receiver for receiver in receivers
+                   if receiver[0] not in blacklist]
+           return receivers
+
+**This filter should be registered as follow:**
+
+..
+
+    <subscriber zcml:condition="installed my.package"
+        for="Products.EasyNewsletter.interfaces.IEasyNewsletter"
+        factory="my.package.newsletter.ReceiversGroupFilterInactiveOrganizations"
+        provides="Products.EasyNewsletter.interfaces.IReceiversGroupFilter" />
+
+
+IReceiversPostSendingFilter filters
+"""""""""""""""""""""""""""""""""""
+``Interface: Products.EasyNewsletter.interfaces.IReceiversMemberFilter``
+
+The IReceiversPostSendingFilter can be used to filter the list of reveivers before sending emails to all receivers.
+
+..
+
+   class ReceiversPostSendingFilterNoNewsletter(object):
+       """ Filter all contacts that has not set the receive_newsletter
+       flag, out of receivers email list. But only if the Newsletter provide
+       IReceiversMemberFilterNoNewsletter.
+       receivers: [{'email': 'info@example.com',...}]
+       """
+   
+       def __init__(self, context):
+           self.context = context
+   
+       def filter(self, receivers):
+           newsletter_object = self.context
+           if IReceiversMemberFilterNoNewsletter.providedBy(newsletter_object):
+               portal = getSite()
+               query = {}
+               query['portal_type'] = ['Contact']
+               query['getReceive_newsletter'] = False
+               no_enl_contacts = portal.membrane_tool.search(query)
+               blacklist = [black.getUserId for black in no_enl_contacts]
+               receivers = [receiver for receiver in receivers
+                       if receiver['email'] not in blacklist]
+           return receivers
+
+**This filter should be registered as follow:**
+
+..
+
+    <subscriber zcml:condition="installed my.package"
+        for="Products.EasyNewsletter.interfaces.IEasyNewsletter"
+        factory="my.package.newsletter.ReceiversPostSendingFilterNoNewsletter"
+        provides="Products.EasyNewsletter.interfaces.IReceiversPostSendingFilter" />
 
 
 Configuring external subscriber sources
@@ -115,8 +249,8 @@ Configuring external subscriber sources
 
 An external subscriber sources provides (additional) subscriber to a newsletter instance.
 
-You configure an external subscriber source as Zope 3 utility providing ISubscriberSource
-(here an example where subscriptions are managed external through MongoDB)::
+You configure an external subscriber source as a Zope 3 utility providing ISubscriberSource
+(here's an example where subscriptions are managed externally through MongoDB)::
 
 
     class NewsletterSource(object):
@@ -134,9 +268,8 @@ You configure an external subscriber source as Zope 3 utility providing ISubscri
             # find MyInfo subscribers
             myinfo = getUtility(IMyInfo)
             subscribers = list()
-            for user in myinfo.accounts.find({'data.newsletters' : uid, 'state' : 'active'}):
-                subscribers.append(dict(email=user['email'],
-                                        fullname=user['username']))
+            for user in myinfo.accounts.find({'data.newsletters': uid, 'state': 'active'}):
+                subscribers.append(dict(email=user['email'], fullname=user['username']))
             return subscribers
 
 
@@ -144,7 +277,8 @@ The utility must be registered using ZCML::
 
     <utility zcml:condition="installed Products.EasyNewsletter"
         name="MyInfo subscribers"
-        factory=".newsletter.NewsletterSource" />
+        factory=".newsletter.NewsletterSource"
+        />
 
 Inside the ``Edit`` view of the instance under the ``External`` tab you should find
 ``MyInfo subscribers`` under the option ``External subscriber source``.
@@ -153,10 +287,44 @@ Inside the ``Edit`` view of the instance under the ``External`` tab you should f
 Allowed placeholders
 ====================
 
-The following placeholder can be used in the header, body and footer of issues:
+The following placeholder can be used in the header, body and footer of Issues:
 
 * ``[[SUBSCRIBER_SALUTATION]]``
 * ``[[UNSUBSCRIBE]]``
+
+
+Documentation
+=============
+
+For more documentation please visit: http://packages.python.org/Products.EasyNewsletter/
+
+
+Source Code
+===========
+
+In dec 2011 the source code repository was moved from svn-collective to github.
+
+* Old repository: https://svn.plone.org/svn/collective/Products.EasyNewsletter/
+* New repository: https://github.com/collective/Products.EasyNewsletter
+
+
+Bugtracker
+==========
+
+* Old: http://plone.org/products/easynewsletter/issues
+* New: https://github.com/collective/Products.EasyNewsletter/issues
+
+
+Authors
+=======
+
+* initial release: Kai Dieffenbach
+* Maik Derstappen
+* Andreas Jung
+* Philip Bauer
+* Timo Stollenwerk
+* Dinu Gherman
+
 
 Contents:
 

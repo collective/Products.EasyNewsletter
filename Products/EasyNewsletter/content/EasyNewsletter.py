@@ -354,15 +354,21 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
         if not member_properties:
             return []
         try:
-            results = atapi.DisplayList([(id, property['fullname'] + ' - ' + property['email'])
-                                   for id, property in member_properties.items()
-                if config.EMAIL_RE.findall(property['email'])])
+            results=[]
+            for id, property in member_properties.items():
+                if config.EMAIL_RE.findall(property['email']):
+                    results.append((id, property['fullname'] + ' - ' + property['email']))
+                else:
+                    log.error("Property email: \"%s\" is not an email!" % property['email'])
         except TypeError, e:
+            results = atapi.DisplayList()
             log.error(":get_plone_members: error in member_properties %s/ \
                 properties:'%s'" % (e, member_properties.items()))
         # run registered member filter:
         for subscriber in subscribers([self], IReceiversMemberFilter):
             results = subscriber.filter(results)
+
+        results = atapi.DisplayList(results)
         return results.sortedByValue()
 
     def get_plone_groups(self):
@@ -377,10 +383,12 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
                 'title': group.getGroupTitleOrName(),
                 'email': group.getProperty('email'),
                 }
-        results = atapi.DisplayList([(id, property['title']) for id, property in group_properties.items()])
+        results = [(id, property['title']) 
+                for id, property in group_properties.items()]
         # run registered group filter:
         for subscriber in subscribers([self], IReceiversGroupFilter):
             results = subscriber.filter(results)
+        results = atapi.DisplayList(results)
         return results.sortedByValue()
 
     def getNewsletter(self):
