@@ -553,7 +553,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                 })
             else:
                 log.debug("Skip '%s' because \"%s\" is not a real email!" % (receiver_id, member_property['email']))
-        # run registered receivers post sending filter:
+        # run registered receivers post sending filters:
         for subscriber in subscribers([enl],
                                       IReceiversPostSendingFilter):
             plone_subscribers = subscriber.filter(plone_subscribers)
