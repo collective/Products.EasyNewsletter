@@ -1,4 +1,10 @@
-from zope.app.component.hooks import getSite
+try:
+    from zope.site.hooks import getSite
+except ImportError:
+    try:
+        from zope.app.component.hooks import getSite
+    except ImportError:
+        from zope.component.hooks import getSite
 from Products.CMFPlone.utils import safe_unicode
 
 
