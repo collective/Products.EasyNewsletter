@@ -27,7 +27,10 @@ from zope.interface import implements
 try:
     from zope.site.hooks import getSite
 except ImportError:
-    from zope.app.component.hooks import getSite
+    try:
+        from zope.app.component.hooks import getSite
+    except ImportError:
+        from zope.component.hooks import getSite
 
 try:
     from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool

@@ -4,6 +4,9 @@ Changelog
 2.6.12 (unreleased)
 -------------------
 
+- Plone 4.3
+  [ksuess rohberg]
+
 
 2.6.11 (2012-07-11)
 -------------------
