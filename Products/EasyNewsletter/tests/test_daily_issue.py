@@ -1,23 +1,19 @@
 # -*- coding: utf-8 -*-
-import unittest2 as unittest
-from Products.CMFCore.utils import getToolByName
+from Acquisition import aq_base
 from plone.app.testing import TEST_USER_ID, setRoles
-
+from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.tests.utils import MockMailHost
 from Products.EasyNewsletter.interfaces import IENLIssue
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
-
-from zope.component import getMultiAdapter
-
-from zope.component import getSiteManager
-from Products.CMFPlone.tests.utils import MockMailHost
 from Products.MailHost.interfaces import IMailHost
-
 from zExceptions import BadRequest
+from zope.component import getMultiAdapter
+from zope.component import getSiteManager
 
-from Acquisition import aq_base
+import unittest2 as unittest
 
 
-class DailyIssueTestCase(unittest.TestCase):
+class DailyIssueBaseTestCase(unittest.TestCase):
     """Test case sending a daily Newsletter issue"""
 
     layer = EASYNEWSLETTER_INTEGRATION_TESTING
@@ -36,13 +32,17 @@ class DailyIssueTestCase(unittest.TestCase):
         self.newsletter = self.folder["daily-news"]
         self.newsletter.setTitle("Daily News")
 
-        criteria = self.newsletter.addCriterion("portal_type",
-                                                "ATSimpleStringCriterion")
+        criteria = self.newsletter.addCriterion(
+            "portal_type",
+            "ATSimpleStringCriterion"
+        )
         criteria.setValue("News Item")
 
         self.newsletter.invokeFactory("ENLSubscriber", "subscriber01")
-        self.view = getMultiAdapter((self.newsletter, self.layer["request"]),
-                                    name="daily-issue")
+        self.view = getMultiAdapter(
+            (self.newsletter, self.layer["request"]),
+            name="daily-issue"
+        )
 
         #setting a Mock mailhost
         self.portal._original_MailHost = self.portal.MailHost
@@ -57,22 +57,31 @@ class DailyIssueTestCase(unittest.TestCase):
         self.portal.MailHost = self.portal._original_MailHost
         sm = getSiteManager(context=self.portal)
         sm.unregisterUtility(provided=IMailHost)
-        sm.registerUtility(aq_base(self.portal._original_MailHost),
-                           provided=IMailHost)
+        sm.registerUtility(
+            aq_base(self.portal._original_MailHost),
+            provided=IMailHost
+        )
 
+
+class DailyIssueContent(DailyIssueBaseTestCase):
     def test_create_new_issue(self):
-        issues = self.catalog(object_provides=IENLIssue.__identifier__,
-                              path="/".join(self.newsletter.getPhysicalPath()))
+        issues = self.catalog(
+            object_provides=IENLIssue.__identifier__,
+            path="/".join(self.newsletter.getPhysicalPath())
+        )
         self.assertEqual(len(issues), 0)
-
+        self.assertFalse(self.view.already_sent())
         try:
             self.view.create_issue()
         except Exception:
-            self.fail("Couldn't create issue!")
+            self.fail("Couldn't create an issue!")
 
-        issues = self.catalog(object_provides=IENLIssue.__identifier__,
-                              path="/".join(self.newsletter.getPhysicalPath()))
+        issues = self.catalog(
+            object_provides=IENLIssue.__identifier__,
+            path="/".join(self.newsletter.getPhysicalPath())
+        )
 
+        self.assertTrue(self.view.already_sent())
         self.assertEqual(len(issues), 1)
         self.assertEqual(self.view.issue.Title(), "Daily News")
 
@@ -80,16 +89,6 @@ class DailyIssueTestCase(unittest.TestCase):
         self.assertTrue(self.view.has_content())
         self.folder.manage_delObjects(["news01"])
         self.assertFalse(self.view.has_content())
-
-    def test_do_not_create_or_send_an_empty_issue(self):
-        self.folder.manage_delObjects(["news01"])
-        self.view()
-        issues = self.catalog(object_provides=IENLIssue.__identifier__,
-                              path="/".join(self.newsletter.getPhysicalPath()))
-        self.assertFalse(issues)
-
-        self.assertEqual(len(self.portal.MailHost.messages), 0)
-        self.assertEqual(self.view.request.response.getStatus(), 204)
 
     def test_send_issue(self):
         try:
@@ -100,17 +99,71 @@ class DailyIssueTestCase(unittest.TestCase):
         self.view.send()
         self.assertEqual(len(self.portal.MailHost.messages), 1)
 
+
+class DailyIssueMethodGET(DailyIssueBaseTestCase):
+
+    def setUp(self):
+        self.layer["request"]["REQUEST_METHOD"] = "GET"
+        DailyIssueBaseTestCase.setUp(self)
+
+    def test_get_with_an_empty_issue(self):
+        self.folder.manage_delObjects(["news01"])
+        self.view()
+        self.assertEqual(self.view.request.response.getStatus(), 204)
+
+    def test_get_with_a_non_empty_issue(self):
+        self.view()
+        self.assertEqual(self.view.request.response.getStatus(), 100)
+
+    def test_get_an_alredy_sent_issue(self):
+        self.view.create_issue()
+        self.view()
+        self.assertEqual(self.view.request.response.getStatus(), 200)
+
+
+class DailyIssueMethodPOST(DailyIssueBaseTestCase):
+
+    def setUp(self):
+        self.layer["request"]["REQUEST_METHOD"] = "POST"
+        DailyIssueBaseTestCase.setUp(self)
+
+    def test_do_not_create_or_send_an_empty_issue(self):
+        self.folder.manage_delObjects(["news01"])
+        self.view()
+        issues = self.catalog(
+            object_provides=IENLIssue.__identifier__,
+            path="/".join(self.newsletter.getPhysicalPath())
+        )
+        self.assertFalse(issues)
+        self.assertEqual(self.view.request.response.getStatus(), 204)
+        self.assertEqual(len(self.portal.MailHost.messages), 0)
+
     def test_send_issue_and_check_http_status(self):
         self.view()
-        self.assertEqual(len(self.portal.MailHost.messages), 1)
         self.assertEqual(self.view.request.response.getStatus(), 200)
+        self.assertEqual(len(self.portal.MailHost.messages), 1)
 
     def test_do_not_send_same_issue_twice(self):
         self.view()  # 200 OK
         self.assertEqual(self.view.request.response.getStatus(), 200)
         self.assertRaises(BadRequest, self.view.create_issue)
-        self.view()  # 403 Already Sent
-        self.assertEqual(self.view.request.response.getStatus(), 403)
+        self.view()  # 409 Already Sent
+        self.assertEqual(self.view.request.response.getStatus(), 409)
+
+
+class DailyIssueMethodOtherThanGETorPOST(DailyIssueBaseTestCase):
+
+    def setUp(self):
+        self.layer["request"]["REQUEST_METHOD"] = "FOOBAR"
+        DailyIssueBaseTestCase.setUp(self)
+
+    def test_trying_another_method_on_view(self):
+        self.view()
+        self.assertEqual(self.view.request.response.getStatus(), 405)
+        self.assertEqual(
+            self.view.request.response.getHeader("Allow"),
+            "GET, POST"
+        )
 
 
 def test_suite():
