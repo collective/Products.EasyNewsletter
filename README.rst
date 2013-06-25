@@ -1,4 +1,4 @@
-EasyNewsletter
+/EasyNewsletter
 ==============
 
 EasyNewsletter is a simple but powerful newsletter/mailing product for Plone.
@@ -25,6 +25,9 @@ Features
 * TTW customizeable output Template to generate nice HTML Newsletter
 
 * Support personalized mails
+
+* Support for sending daily issues automatically, based on collections
+  (by cron or clock-server)
 
 * mass import/export subscribers via csv
 
