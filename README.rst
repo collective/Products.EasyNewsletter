@@ -1,4 +1,4 @@
-/EasyNewsletter
+EasyNewsletter
 ==============
 
 EasyNewsletter is a simple but powerful newsletter/mailing product for Plone.
