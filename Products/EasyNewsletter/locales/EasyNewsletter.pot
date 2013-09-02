@@ -34,6 +34,9 @@ msgid "Aggregate content"
 msgstr ""
 
 #: ./profiles/default/types/EasyNewsletter.xml
+msgid "Newsletter"
+msgstr ""
+
 msgid "An easy to use Newsletter"
 msgstr ""
 
