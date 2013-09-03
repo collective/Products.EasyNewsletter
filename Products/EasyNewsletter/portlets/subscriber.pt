@@ -16,7 +16,7 @@
                    name="newsletter" 
                    value="newsletter" 
                    tal:attributes="value view/get_newsletter" />
-                   
+            
             <div id="salutation" 
               tal:condition="view/data/query_fullname|nothing"
               id="salutation" 
@@ -31,14 +31,14 @@
                   name="salutation"
                   value="mr" 
                   i18n:translate="mr">
-            </div>
+            
                    
             <input class="easynewsletter_text"
                    onclick="this.value=''"
                    name="fullname" 
                    value="Full Name"
                    i18n:attributes="value easynewsletter_input_value_fullname;" />
-
+            </div>
             <input tal:condition="view/data/query_organization|nothing"
                    class="easynewsletter_text"
                    onclick="this.value=''"
