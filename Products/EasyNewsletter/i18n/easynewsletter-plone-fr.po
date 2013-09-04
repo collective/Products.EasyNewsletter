@@ -65,3 +65,8 @@ msgstr "Envoyer"
 msgid "sent"
 msgstr "Envoyé"
 
+#: ./portlets/subscriber.py:79
+msgid "Newsletter subscriber portlet"
+msgstr "Abonnement aux lettres d'informations"
+
+

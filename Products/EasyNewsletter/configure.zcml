@@ -22,6 +22,16 @@
   
   <i18n:registerTranslations directory="locales" />
 
+
+
+  <genericsetup:registerProfile
+      name="default"
+      title="EasyNewsletter"
+      directory="profiles/default"
+      description="An easy to use Newsletter for Plone."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
   <!-- File System Directory Views registration -->
   <cmf:registerDirectory name="EasyNewsletter" directory="skins/EasyNewsletter" />
 

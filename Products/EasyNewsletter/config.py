@@ -1,7 +1,7 @@
 import re
 from Products.Archetypes.atapi import DisplayList
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
-
+from zope.i18n import translate
 
 PROJECTNAME = "EasyNewsletter"
 
@@ -17,13 +17,13 @@ SALUTATION = DisplayList((
 
 
 MESSAGE_CODE = {
-    "email_added": "Your email has been registered. A confirmation email was \
+    "email_added": _(u"email_added", default=u"Your email has been registered. A confirmation email was \
         sent to your address. Please check your inbox and click on the link in \
-        the email in order to confirm your subscription.",
-    "invalid_email": "Please enter a valid email address.",
-    "email_exists": "Your email address is already registered.",
-    "invalid_hashkey": "Please enter a valid email address.",
-    "subscription_confirmed": "Your subscription was successfully confirmed.",
+        the email in order to confirm your subscription."),
+    "invalid_email": _(u"invalid_email", default=u"Please enter a valid email address."),
+    "email_exists": _(u"email_exists", default=u"Your email address is already registered."),
+    "invalid_hashkey": _(u"invalid_hashkey", default=u"Please enter a valid email address."),
+    "subscription_confirmed": _(u"subscription_confirmed", default=u"Your subscription was successfully confirmed."),
     }
 
 
@@ -188,7 +188,15 @@ img.tileImage {
 </html>"""
 
 
-DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT = """Confirm your subscription on ${portal_url}"""
+#DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT = _(u'DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT', default=u"""Confirm your subscription on ${portal_url}""")
+#
+#
+#DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_TEXT = _(u'DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_TEXT', default=u"""GPE You subscribe to the ${newsletter_title} Newsletter.\n\n
+#Your registered email is: ${subscriber_email}\n
+#Please click on the link to confirm your subscription: \n
+#${confirmation_url}""")
+
+DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT = _(u"Confirm your subscription on ${portal_url}")
 
 
 DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_TEXT = """You subscribe to the ${newsletter_title} Newsletter.\n\n
