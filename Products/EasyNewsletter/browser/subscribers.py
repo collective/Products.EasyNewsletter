@@ -20,7 +20,8 @@ from Products.statusmessages.interfaces import IStatusMessage
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.config import SALUTATION
 from Products.EasyNewsletter.interfaces import ISubscriberSource
-
+from logging import getLogger
+logger = getLogger('Subscribers')
 
 class UTF8Recoder:
     """
@@ -229,6 +230,7 @@ class UploadCSV(BrowserView):
         header = reader.next()
         CSV_HEADER_I18N = [self.context.translate(_(x)) for x in CSV_HEADER]
         if header != CSV_HEADER_I18N:
+            logger.info("Got header %s\n Expected:%s" % (header, CSV_HEADER_I18N))
             msg = _('Wrong specification of the CSV file. Please correct it and retry.')
             IStatusMessage(self.request).addStatusMessage(msg, type='error')
             return self.request.response.redirect(context.absolute_url() + '/@@upload_csv')

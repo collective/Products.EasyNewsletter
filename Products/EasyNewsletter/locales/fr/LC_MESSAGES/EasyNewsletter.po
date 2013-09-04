@@ -840,7 +840,7 @@ msgstr "Enregistrements non importés"
 #: ./browser/subscribers.py:89
 #: ./browser/upload_csv.pt:39
 msgid "organization"
-msgstr "Organisation:"
+msgstr "Organisation"
 
 #. Default: "Salutation"
 #: ./browser/enl_subscribers_view.pt:89
