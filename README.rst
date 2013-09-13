@@ -26,6 +26,9 @@ Features
 
 * Support personalized mails
 
+* Support for sending daily issues automatically, based on collections
+  (by cron or clock-server)
+
 * mass import/export subscribers via csv
 
 * support external filtering/manipulation (filter out or add more subscribers) plugins
