@@ -504,7 +504,7 @@ msgstr "Votre email a été enregistré. Un message de confirmation vous a été
 
 #: ./browser/registration.py:107
 msgid "Your subscription was successfully confirmed."
-msgstr "Votre inscription a été réalisée."
+msgstr "Votre inscription est confirmée. Merci!"
 
 #. Default: "Action"
 #: ./browser/enl_subscribers_view.pt:93
