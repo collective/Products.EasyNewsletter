@@ -56,6 +56,10 @@ msgstr "Votre adresse email a été ajoutée. Merci !"
 msgid "draft"
 msgstr "Brouillon"
 
+msgid "Draft"
+msgstr "Brouillon"
+
+
 msgid "make draft"
 msgstr "Cacher"
 
@@ -76,3 +80,13 @@ msgstr "Vue résumée des lettres"
 
 msgid "Manage aggregation templates"
 msgstr "Gérer les modèles"
+
+msgid "Edit criteria"
+msgstr "Editer les crières"
+
+msgid "Manage subcollections"
+msgstr "Gérer les sous-collections"
+
+msgid "Aggregate content"
+msgstr "Agréger le contenu"
+
