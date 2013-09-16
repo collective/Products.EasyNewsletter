@@ -382,7 +382,7 @@ msgstr "Vue complète des lettres"
 
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "Manage aggregation templates"
-msgstr ""
+msgstr "Gérer les modèles"
 
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Manage subcollections"

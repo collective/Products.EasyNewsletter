@@ -70,3 +70,9 @@ msgid "Newsletter subscriber portlet"
 msgstr "Abonnement aux lettres d'informations"
 
 
+
+msgid "Issues summary view"
+msgstr "Vue résumée des lettres"
+
+msgid "Manage aggregation templates"
+msgstr "Gérer les modèles"
