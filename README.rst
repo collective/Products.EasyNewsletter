@@ -1,6 +1,12 @@
 EasyNewsletter
 ==============
 
+.. image:: https://secure.travis-ci.org/collective/Products.EasyNewsletter.png?branch=master
+    :target: http://travis-ci.org/collective/Products.EasyNewsletter
+
+.. image:: https://coveralls.io/repos/collective/Products.EasyNewsletter/badge.png?branch=master
+    :target: https://coveralls.io/r/collective/Products.EasyNewsletter
+
 EasyNewsletter is a simple but powerful newsletter/mailing product for Plone.
 
 
@@ -16,7 +22,7 @@ Features
 * Variable templates to generate newsletter content
 
 * Subscribing / Unsubscribing and can use Plone Members/Groups as receivers
-(works also with Membrane)
+  (works also with Membrane)
 
 * support for external subscriber sources (configured through a Zope utility)
 
