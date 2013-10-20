@@ -1,0 +1,22 @@
+language: python
+python: 2.7
+env:
+  - PLONE_VERSION=4.2
+  - PLONE_VERSION=4.3 QA=true
+matrix:
+  include:
+    - python: 2.6
+      env: PLONE_VERSION=4.0
+    - python: 2.6
+      env: PLONE_VERSION=4.1
+install:
+  - sed -ie "s#travis-4.x.cfg#travis-$PLONE_VERSION.x.cfg#" travis.cfg
+  - mkdir -p buildout-cache/downloads
+  - python bootstrap.py -c travis.cfg
+  - bin/buildout -c travis.cfg -N -q
+script: bin/test
+after_success:
+  - test -v QA && bin/coverage.sh && pip install -q coveralls && coveralls || true
+  - test -v QA && bin/code-analysis || true
+after_failure:
+  - bin/buildout annotate -c travis.cfg
