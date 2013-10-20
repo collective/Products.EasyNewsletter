@@ -1,18 +1,31 @@
-from setuptools import setup, find_packages
+# -*- coding:utf-8 -*-
+
+from setuptools import find_packages
+from setuptools import setup
 
 version = '2.6.11'
+long_description = (
+    open('README.rst').read() + '\n' +
+    open('CHANGES.rst').read()
+)
 
-setup(name='Products.EasyNewsletter',
+setup(
+    name='Products.EasyNewsletter',
     version=version,
     description="An easy to use but powerfull newsletter/mailing product for Plone 3+4",
-    long_description=open("README.rst").read() + "\n\n" +
-                     open("CHANGES.txt").read(),
-    # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
+    long_description=long_description,
     classifiers=[
-        "Framework :: Plone",
-        "Programming Language :: Python",
-        "Topic :: Software Development :: Libraries :: Python Modules",
-        "Development Status :: 4 - Beta", ],
+        'Development Status :: 4 - Beta',
+        'Framework :: Plone',
+        'Framework :: Plone :: 4.0',
+        'Framework :: Plone :: 4.1',
+        'Framework :: Plone :: 4.2',
+        'Framework :: Plone :: 4.3',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2.6',
+        'Programming Language :: Python :: 2.7',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+    ],
     keywords='Zope Plone Newsletter Mailing',
     maintainer='Maik Derstappen, Timo Stollenwerk, Andreas Jung',
     author='Maik Derstappen',
@@ -24,12 +37,12 @@ setup(name='Products.EasyNewsletter',
     include_package_data=True,
     zip_safe=False,
     install_requires=[
+        'BeautifulSoup',
+        'Products.TemplateFields',
         'setuptools',
         'stoneagehtml',
-        'Products.TemplateFields',
-        'BeautifulSoup',
     ],
-    extras_require = dict(
+    extras_require=dict(
         test=['plone.app.testing'],
         fmp=['inqbus.plone.fastmemberproperties'],
         all=['inqbus.plone.fastmemberproperties', ]),
