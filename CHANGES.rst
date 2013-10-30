@@ -4,6 +4,14 @@ Changelog
 2.6.12 (unreleased)
 -------------------
 
+- Update french translation by adding missing labels
+  [mordicusetcubitus]
+  
+- Now use site_properties default charset for email subscription confirmation
+  Before this was done using us-ascii preventing from displaying properly 
+  non ascii letters like éàù...
+  [mordicusetcubitus]
+  
 - Plone 4.3
   [ksuess rohberg]
 
