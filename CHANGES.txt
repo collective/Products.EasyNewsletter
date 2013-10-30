@@ -6,6 +6,12 @@ Changelog
 
 - Plone 4.3
   [ksuess rohberg]
+  
+- Update french translation by adding missing labels
+- Now use site_properties default charset for email subscription confirmation
+  Before this was done using us-ascii preventing from displaying properly 
+  non ascii letters like éàù...
+  
 
 
 2.6.11 (2012-07-11)
