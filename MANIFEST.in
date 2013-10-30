@@ -1,7 +1,6 @@
-recursive-include Products *
-recursive-include docs *
-include README.rst
-include CHANGES.txt
-recursive-include Products *.mo
-global-include *.mo
-global-exclude *pyc
+include *.rst
+
+graft Products
+graft docs
+
+global-exclude *.pyc

@@ -13,6 +13,8 @@ Changelog
   non ascii letters like éàù...
   
 
+- add @@daily-issue view, in order to send issues with cron or clock-server
+  [tcurvelo]
 
 2.6.11 (2012-07-11)
 -------------------
