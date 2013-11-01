@@ -4,11 +4,62 @@ Changelog
 2.6.12 (unreleased)
 -------------------
 
-- Plone 4.3
-  [ksuess rohberg]
+- Correct non user fullname show/hide parameter usage: was always showed.
+  [MordicusEtCubitus]
 
-- add @@daily-issue view, in order to send issues with cron or clock-server
+- Add French translation.
+  [toutpt, MordicusEtCubitus]
+
+- Add @@daily-issue view, in order to send issues with cron or clock-server.
   [tcurvelo]
+
+- Change permission to send daily issue to ManagePortal.
+  [tcurvelo]
+
+- Improve responses and tests for daily issues.
+  [tcurvelo]
+
+- Adapted to Plone 4.3.
+  [ksuess, rohberg]
+
+- Fix exception handling in get_plone_members.
+  [derstappenit]
+
+- Fix description for Newsletter Template field in ENLIssue.
+  [djowett]
+
+- Add documentation for how to use filter to filter newsletter receivers. 
+  [MrTango]
+
+- Optimize get_plone_member.
+  [MrTango]
+
+- Update Products/EasyNewsletter/content/EasyNewsletter.py 'results' not
+  initialized properly in case of an error.
+  [zopyx]
+
+- Fix import of getSite for plone3.
+  [MrTango]
+
+- Update pt_BR translation.
+  [tcurvelo]
+
+- Fix check for already existing subscriber when registering. Hide
+  enl_actions viewlet from public audience.
+  [petschki]
+
+- Allow registration without chosing a gender.
+  [pbauer]
+
+- i18n for default template.
+  [davilima6]
+
+- No more global definitions in templates.
+  [davilima6]
+
+- Corrections and Anglicization of Default newsletter templates.
+  [djowett]
+
 
 2.6.11 (2012-07-11)
 -------------------
