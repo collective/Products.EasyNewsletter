@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.6.12 (unreleased)
+2.6.12 (2013-11-01)
 -------------------
 
 - Correct non user fullname show/hide parameter usage: was always showed.
