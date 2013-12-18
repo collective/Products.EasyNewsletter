@@ -159,6 +159,32 @@ class EasyNewsletterTests(unittest.TestCase):
 
         self.assertTrue('mailonly' not in view_result, 'get-public-body view contains mailonly elements, this should filtert out!')
 
+
+    def test_permission(self):
+        setRoles(self.portal, TEST_USER_ID, ['Editor'])
+        self.portal.REQUEST.set('ACTUAL_URL','http://nohost')
+        self.newsletter.invokeFactory(
+            "ENLIssue",
+            id="issue")
+        self.newsletter.issue.title="Test Newsletter Issue"
+        self.newsletter.issue.setText("<h1>This is the newsletter body!")
+
+        view = self.newsletter.restrictedTraverse("enl_drafts_view")
+        view_result = view()
+        self.assertIn('test-folder/newsletter/issue', view_result)
+
+        view = self.newsletter.restrictedTraverse("issue/send-issue-form")
+        view_result = view()
+
+        self.assertIn('Test Newsletter', view_result)
+
+        view = self.newsletter.restrictedTraverse("issue/send-issue")
+        view_result = view()
+
+        self.assertIn('issue', view_result)
+
+
+
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)
 
