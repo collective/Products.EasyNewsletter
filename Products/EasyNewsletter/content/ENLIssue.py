@@ -273,8 +273,16 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         """ exchange relative URLs and
             return dict with html, plain and images
         """
+        try:
+         resolved_html = str(self.portal_transforms.convertTo('text/x-html-safe',
+           output_html, mimetype='text/html', context=self))
+        except UnicodeDecodeError:
+            #HACK: Above doesn't seem to handle utf-8 chars.
+            log.error('Error doing text/x-html-safe transform during send. Some images may be dropped')
+            resolved_html = output_html
+
         parser_output_zpt = ENLHTMLParser(self)
-        parser_output_zpt.feed(output_html)
+        parser_output_zpt.feed(resolved_html)
         text = parser_output_zpt.html
         text_plain = self.create_plaintext_message(text)
         image_urls = parser_output_zpt.image_urls
@@ -326,6 +334,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
 
         receivers = self._send_recipients(recipients)
         output_html = self._render_output_html()
+        # This will resolve 'resolveuid' links for us
         rendered_newsletter = self._exchange_relative_urls(output_html)
         text = rendered_newsletter['html']
         text_plain = rendered_newsletter['plain']
@@ -344,8 +353,8 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                 salutation = receiver['salutation']
                 personal_text = text.replace("[[SUBSCRIBER_SALUTATION]]", "")
                 personal_text_plain = text_plain.replace("[[SUBSCRIBER_SALUTATION]]", "")
-                personal_text = text.replace("[[UNSUBSCRIBE]]", "")
-                personal_text_plain = text_plain.replace("[[UNSUBSCRIBE]]", "")
+                personal_text = personal_text.replace("[[UNSUBSCRIBE]]", "")
+                personal_text_plain = personal_text_plain.replace("[[UNSUBSCRIBE]]", "")
             else:
                 if 'uid' in receiver:
                     try:
@@ -388,23 +397,27 @@ class ENLIssue(ATTopic, atapi.BaseContent):
 
             # Add images to the message
             image_number = 0
-            reference_tool = getToolByName(self, 'reference_catalog')
+            #reference_tool = getToolByName(self, 'reference_catalog')
             for image_url in image_urls:
                 try:
                     image_url = urlparse(image_url)[2]
-                    if 'resolveuid' in image_url:
-                        urlparts = image_url.split('/')[1:]
-                        uuid = urlparts.pop(0)
-                        o = reference_tool.lookupObject(uuid)
-                        if o and urlparts:
-                            # get thumb
-                            o = o.restrictedTraverse(urlparts[0])
-                    elif "@@images" in image_url:
+                    #if 'resolveuid' in image_url:
+                    #    urlparts = image_url.split('/')[1:]
+                    #    uuid = urlparts.pop(0)
+                    #    o = reference_tool.lookupObject(uuid)
+                    #    if o and urlparts:
+                    #        # get thumb
+                    #        o = o.restrictedTraverse(urlparts[0])
+                    #el
+                    if "@@images" in image_url:
+                        # HACK to get around restrictedTraverse not honoring ITraversable
+                        # see http://developer.plone.org/serving/traversing.html#traversing-by-full-path
                         image_url_base, image_scale_params = image_url.split("@@images")
                         image_scale = image_scale_params.split("/")[-1]
                         scales = self.restrictedTraverse(
                                 urllib.unquote(image_url_base.strip('/') + '/@@images'))
-                        o = scales.scale('image', scale=image_scale)
+                        dummy_request = {}
+                        o = scales.publishTraverse(dummy_request, image_scale)
                     else:
                         o = self.restrictedTraverse(urllib.unquote(image_url))
                 except Exception, e:
@@ -418,10 +431,13 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                         image = MIMEImage(o.GET())                        # z3 resource image
                     else:
                         log.error("Could not get the image data from image object!")
-                    image["Content-ID"] = "<image_%s>" % image_number
-                    image_number += 1
-                    # attach images only to html parts
-                    html_part.attach(image)
+                        image = None
+                    if image is not None:
+                        image["Content-ID"] = "<image_%s>" % image_number
+                        # attach images only to html parts
+                        html_part.attach(image)
+                # Numbers have to match what we replaced in html
+                image_number += 1
             outer.attach(text_part)
             outer.attach(html_part)
 

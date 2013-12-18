@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from App.Common import package_home
 import unittest2 as unittest
 
 #from zope.component import createObject
@@ -16,7 +17,10 @@ from plone.app.testing import TEST_USER_ID, setRoles
 from plone.app.testing import TEST_USER_NAME, login
 
 from Products.EasyNewsletter.interfaces import IEasyNewsletter, IENLIssue
+import os
 
+GLOBALS = globals()
+TESTS_HOME = package_home(GLOBALS)
 
 class EasyNewsletterTests(unittest.TestCase):
 
@@ -43,6 +47,36 @@ class EasyNewsletterTests(unittest.TestCase):
         # We need to fake a valid mail setup
         self.portal.email_from_address = "portal@plone.test"
         self.mailhost = self.portal.MailHost
+        #image for image testing
+        self.folder.invokeFactory("Image", "image")
+        self.image = self.folder.image
+        img1 = open(os.path.join(TESTS_HOME, 'img1.png'), 'rb').read()
+        self.image.edit(image=img1)
+
+    def sendSampleMessage(self, body):
+        self.assertSequenceEqual(self.mailhost.messages, [])
+        self.newsletter.invokeFactory(
+            "ENLIssue",
+            id="issue")
+        self.newsletter.issue.title="with image"
+        self.portal.REQUEST.form.update({
+            'sender_name': self.newsletter.senderName,
+            'sender_email': self.newsletter.senderEmail,
+            'test_receiver': self.newsletter.testEmail,
+            'subject': self.newsletter.issue.title,
+            'test': 'submit',
+        })
+        self.newsletter.issue.setText(body, mimetype='text/html')
+        view = getMultiAdapter(
+            (self.newsletter.issue, self.portal.REQUEST),
+            name="send-issue")
+        view = view.__of__(self.portal)
+
+        view.send_issue()
+
+        self.assertEqual(len(self.mailhost.messages), 1)
+        self.assertTrue(self.mailhost.messages[0])
+        return str(self.mailhost.messages[0])
 
     def test_create_newsletter(self):
         self.failUnless(IEasyNewsletter.providedBy(self.newsletter))
@@ -76,9 +110,40 @@ class EasyNewsletterTests(unittest.TestCase):
         self.assertEqual(len(self.mailhost.messages), 1)
         self.assertTrue(self.mailhost.messages[0])
         msg = str(self.mailhost.messages[0])
-        self.assertTrue('To: <test@acme.com>' in msg)
-        self.assertTrue('From: ACME newsletter <newsletter@acme.com>' in msg)
+        self.assertIn('To: <test@acme.com>', msg)
+        self.assertIn('From: ACME newsletter <newsletter@acme.com>', msg)
 
+    def test_send_test_issue_with_image(self):
+        body = '<img src="../../image"/>'
+        msg = self.sendSampleMessage(body)
+
+        self.assertIn('<img src=3D"cid:image_1"', msg)
+        self.assertIn('Content-ID: <image_1>\nContent-Type: image/png;', msg)
+
+    def test_send_test_issue_with_scale_image(self):
+        body = '<img src="../../image/@@images/image/tile"/>'
+        msg = self.sendSampleMessage(body)
+
+        self.assertIn('<img src=3D"cid:image_1"', msg)
+        self.assertIn('Content-ID: <image_1>\nContent-Type: image/png;', msg)
+
+    def test_send_test_issue_with_resolveuid_image(self):
+
+        body = '<img src="../../resolveuid/%s"/>' % self.image.UID()
+        msg = self.sendSampleMessage(body)
+
+        self.assertNotIn('resolveuid', msg)
+        self.assertIn('<img src=3D"cid:image_1"', msg)
+        self.assertIn('Content-ID: <image_1>\nContent-Type: image/png;', msg)
+
+    def test_send_test_issue_with_resolveuid_scale_image(self):
+
+        body = '<img src="resolveuid/%s/@@images/image/tile"/>' % self.image.UID()
+        msg = self.sendSampleMessage(body)
+
+        self.assertNotIn('resolveuid', msg)
+        self.assertIn('<img src=3D"cid:image_1"', msg)
+        self.assertIn('Content-ID: <image_1>\nContent-Type: image/png;', msg)
 
     def test_mailonly_filter_in_issue_public_view(self):
         self.newsletter.invokeFactory(

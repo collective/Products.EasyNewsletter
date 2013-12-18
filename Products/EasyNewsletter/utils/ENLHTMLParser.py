@@ -79,7 +79,13 @@ class ENLHTMLParser(HTMLParser.HTMLParser):
         self.html += "<%s" % tag
         for attr in attrs:
             if attr[0] == "src":
-                if 'http' in attr[1]:
+                if attr[1].startswith(self.context.portal_url()):
+                    self.html += ' src="cid:image_%s"' % self.image_number
+                    self.image_number += 1
+                    path = attr[1][len(self.context.portal_url()):]
+                    path = '/'.join(self.context.getPhysicalPath()) + path
+                    self.image_urls.append(path)
+                elif 'http' in attr[1]:
                     url = attr[1]
                     self.html += ' src="%s"' % url
                 else:
