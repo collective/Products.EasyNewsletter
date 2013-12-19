@@ -457,7 +457,7 @@ msgstr ""
 
 #: ./browser/issue.py:25
 msgid "The issue has been send."
-msgstr ""
+msgstr "The issue has been sent."
 
 #: ./browser/subscribers.py:239
 msgid "The number of items in the line is not correct.                         It should be 4. Check your CSV file."
