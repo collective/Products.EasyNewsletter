@@ -3,7 +3,7 @@ from App.Common import package_home
 import unittest2 as unittest
 
 #from zope.component import createObject
-from zope.component import getMultiAdapter
+from zope.component import getMultiAdapter, queryUtility
 #from zope.component import queryUtility
 from zope.component import getSiteManager
 
@@ -18,6 +18,7 @@ from plone.app.testing import TEST_USER_NAME, login
 
 from Products.EasyNewsletter.interfaces import IEasyNewsletter, IENLIssue
 import os
+from Products.TinyMCE.interfaces.utility import ITinyMCE
 
 GLOBALS = globals()
 TESTS_HOME = package_home(GLOBALS)
@@ -128,6 +129,9 @@ class EasyNewsletterTests(unittest.TestCase):
         self.assertIn('Content-ID: <image_1>\nContent-Type: image/png;', msg)
 
     def test_send_test_issue_with_resolveuid_image(self):
+        # for plone < 4.2 we need to ensure turn on to resolveuid links
+        tinymce = queryUtility(ITinyMCE)
+        tinymce.link_using_uids = True
 
         body = '<img src="../../resolveuid/%s"/>' % self.image.UID()
         msg = self.sendSampleMessage(body)
@@ -137,8 +141,11 @@ class EasyNewsletterTests(unittest.TestCase):
         self.assertIn('Content-ID: <image_1>\nContent-Type: image/png;', msg)
 
     def test_send_test_issue_with_resolveuid_scale_image(self):
+        # for plone < 4.2 we need to ensure turn on to resolveuid links
+        tinymce = queryUtility(ITinyMCE)
+        tinymce.link_using_uids = True
 
-        body = '<img src="resolveuid/%s/@@images/image/tile"/>' % self.image.UID()
+        body = '<img src="../../resolveuid/%s/@@images/image/tile"/>' % self.image.UID()
         msg = self.sendSampleMessage(body)
 
         self.assertNotIn('resolveuid', msg)

@@ -401,14 +401,6 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             for image_url in image_urls:
                 try:
                     image_url = urlparse(image_url)[2]
-                    #if 'resolveuid' in image_url:
-                    #    urlparts = image_url.split('/')[1:]
-                    #    uuid = urlparts.pop(0)
-                    #    o = reference_tool.lookupObject(uuid)
-                    #    if o and urlparts:
-                    #        # get thumb
-                    #        o = o.restrictedTraverse(urlparts[0])
-                    #el
                     if "@@images" in image_url:
                         # HACK to get around restrictedTraverse not honoring ITraversable
                         # see http://developer.plone.org/serving/traversing.html#traversing-by-full-path
