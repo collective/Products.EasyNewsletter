@@ -414,15 +414,15 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                     if "@@images" in image_url:
                         # HACK to get around restrictedTraverse not honoring ITraversable
                         # see http://developer.plone.org/serving/traversing.html#traversing-by-full-path
-                        image_url_base, image_scale_params = image_url.split("@@images")
+                        image_url_base, image_scale_params = image_url.split("@@images/")
                         if o is not None:
                             scales = o
                         else:
                             scales = self.restrictedTraverse(
                                     urllib.unquote(image_url_base.strip('/') + '/@@images'))
-                        name = image_scale_params.split("/")[-2]
-                        image_scale = image_scale_params.split("/")[-1]
-                        dummy_request = dict(TraversalRequestNameStack=[image_scale])
+                        parts = list(reversed(image_scale_params.split("/")))
+                        name = parts.pop()
+                        dummy_request = dict(TraversalRequestNameStack=parts)
                         o = scales.publishTraverse(dummy_request, name)
                     if o is None:
                         o = self.restrictedTraverse(urllib.unquote(image_url))
