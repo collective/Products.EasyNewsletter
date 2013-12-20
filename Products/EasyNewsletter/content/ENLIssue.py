@@ -405,11 +405,12 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                         # HACK to get around restrictedTraverse not honoring ITraversable
                         # see http://developer.plone.org/serving/traversing.html#traversing-by-full-path
                         image_url_base, image_scale_params = image_url.split("@@images")
-                        image_scale = image_scale_params.split("/")[-1]
                         scales = self.restrictedTraverse(
                                 urllib.unquote(image_url_base.strip('/') + '/@@images'))
-                        dummy_request = {}
-                        o = scales.publishTraverse(dummy_request, image_scale)
+                        name = image_scale_params.split("/")[-2]
+                        image_scale = image_scale_params.split("/")[-1]
+                        dummy_request = dict(TraversalRequestNameStack=[image_scale])
+                        o = scales.publishTraverse(dummy_request, name)
                     else:
                         o = self.restrictedTraverse(urllib.unquote(image_url))
                 except Exception, e:

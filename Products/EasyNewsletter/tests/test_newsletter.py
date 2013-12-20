@@ -122,7 +122,7 @@ class EasyNewsletterTests(unittest.TestCase):
         self.assertIn('Content-ID: <image_1>\nContent-Type: image/png;', msg)
 
     def test_send_test_issue_with_scale_image(self):
-        body = '<img src="../../image/@@images/image/tile"/>'
+        body = '<img src="../../image/@@images/image/thumb"/>'
         msg = self.sendSampleMessage(body)
 
         self.assertIn('<img src=3D"cid:image_1"', msg)
@@ -145,7 +145,7 @@ class EasyNewsletterTests(unittest.TestCase):
         tinymce = queryUtility(ITinyMCE)
         tinymce.link_using_uids = True
 
-        body = '<img src="../../resolveuid/%s/@@images/image/tile"/>' % self.image.UID()
+        body = '<img src="../../resolveuid/%s/@@images/image/thumb"/>' % self.image.UID()
         msg = self.sendSampleMessage(body)
 
         self.assertNotIn('resolveuid', msg)
