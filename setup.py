@@ -43,7 +43,7 @@ setup(
         'stoneagehtml',
     ],
     extras_require=dict(
-        test=['plone.app.testing'],
+        test=['plone.app.testing', 'Pillow'],
         fmp=['inqbus.plone.fastmemberproperties'],
         all=['inqbus.plone.fastmemberproperties', ]),
 )

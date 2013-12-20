@@ -274,8 +274,8 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             return dict with html, plain and images
         """
         try:
-         resolved_html = str(self.portal_transforms.convertTo('text/x-html-safe',
-           output_html, mimetype='text/html', context=self))
+            resolved_html = str(self.portal_transforms.convertTo('text/x-html-safe',
+                output_html, mimetype='text/html', context=self))
         except UnicodeDecodeError:
             #HACK: Above doesn't seem to handle utf-8 chars.
             log.error('Error doing text/x-html-safe transform during send. Some images may be dropped')
@@ -397,21 +397,34 @@ class ENLIssue(ATTopic, atapi.BaseContent):
 
             # Add images to the message
             image_number = 0
-            #reference_tool = getToolByName(self, 'reference_catalog')
+            reference_tool = getToolByName(self, 'reference_catalog')
             for image_url in image_urls:
                 try:
                     image_url = urlparse(image_url)[2]
+                    o = None
+                    if 'resolveuid' in image_url:
+                        urlparts = image_url.split('resolveuid/')[1:][0]
+                        urlparts = urlparts.split('/')
+                        uuid = urlparts.pop(0)
+                        o = reference_tool.lookupObject(uuid)
+                        if o and urlparts:
+                            # get thumb
+                            o = o.restrictedTraverse(urlparts[0])
+                            image_url = '/'.join(urlparts)
                     if "@@images" in image_url:
                         # HACK to get around restrictedTraverse not honoring ITraversable
                         # see http://developer.plone.org/serving/traversing.html#traversing-by-full-path
                         image_url_base, image_scale_params = image_url.split("@@images")
-                        scales = self.restrictedTraverse(
-                                urllib.unquote(image_url_base.strip('/') + '/@@images'))
+                        if o is not None:
+                            scales = o
+                        else:
+                            scales = self.restrictedTraverse(
+                                    urllib.unquote(image_url_base.strip('/') + '/@@images'))
                         name = image_scale_params.split("/")[-2]
                         image_scale = image_scale_params.split("/")[-1]
                         dummy_request = dict(TraversalRequestNameStack=[image_scale])
                         o = scales.publishTraverse(dummy_request, name)
-                    else:
+                    if o is None:
                         o = self.restrictedTraverse(urllib.unquote(image_url))
                 except Exception, e:
                     log.error("Could not resolve the image \"%s\": %s" % (image_url, e))
