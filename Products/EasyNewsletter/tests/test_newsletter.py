@@ -2,9 +2,7 @@
 from App.Common import package_home
 import unittest2 as unittest
 
-#from zope.component import createObject
 from zope.component import getMultiAdapter, queryUtility
-#from zope.component import queryUtility
 from zope.component import getSiteManager
 
 from Products.MailHost.interfaces import IMailHost
