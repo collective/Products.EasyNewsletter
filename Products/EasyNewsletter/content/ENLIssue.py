@@ -273,20 +273,21 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         """ exchange relative URLs and
             return dict with html, plain and images
         """
-        try:
-            resolved_html = str(self.portal_transforms.convertTo('text/x-html-safe',
-                output_html, mimetype='text/html', context=self))
-        except UnicodeDecodeError:
-            #HACK: Above doesn't seem to handle utf-8 chars.
-            log.error('Error doing text/x-html-safe transform during send. Some images may be dropped')
-            resolved_html = output_html
 
         parser_output_zpt = ENLHTMLParser(self)
-        parser_output_zpt.feed(resolved_html)
+        parser_output_zpt.feed(output_html)
         text = parser_output_zpt.html
         text_plain = self.create_plaintext_message(text)
         image_urls = parser_output_zpt.image_urls
         return dict(html=text, plain=text_plain, images=image_urls)
+
+    def getText(self):
+        output_html = self.getRawText()
+        resolved_html = str(self.portal_transforms.convertTo('text/x-html-safe',
+            output_html, encoding="utf8",
+            mimetype='text/html', context=self))
+        return resolved_html
+
 
     security.declarePublic('send')
     def send(self, recipients=[]):
