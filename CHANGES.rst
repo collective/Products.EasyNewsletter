@@ -4,7 +4,13 @@ Changelog
 2.6.13 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Added tests for sending images
+  [djay]
+- Fixed issues with sending images in Plone 4.0-4.3
+  [djay]
+- Switch to ModifyPortalContent as main permission
+  [djay]
+
 
 
 2.6.12 (2013-11-01)
