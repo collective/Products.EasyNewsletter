@@ -273,12 +273,21 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         """ exchange relative URLs and
             return dict with html, plain and images
         """
+
         parser_output_zpt = ENLHTMLParser(self)
         parser_output_zpt.feed(output_html)
         text = parser_output_zpt.html
         text_plain = self.create_plaintext_message(text)
         image_urls = parser_output_zpt.image_urls
         return dict(html=text, plain=text_plain, images=image_urls)
+
+    def getText(self):
+        output_html = self.getRawText()
+        resolved_html = str(self.portal_transforms.convertTo('text/x-html-safe',
+            output_html, encoding="utf8",
+            mimetype='text/html', context=self))
+        return resolved_html
+
 
     security.declarePublic('send')
     def send(self, recipients=[]):
@@ -326,6 +335,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
 
         receivers = self._send_recipients(recipients)
         output_html = self._render_output_html()
+        # This will resolve 'resolveuid' links for us
         rendered_newsletter = self._exchange_relative_urls(output_html)
         text = rendered_newsletter['html']
         text_plain = rendered_newsletter['plain']
@@ -344,8 +354,8 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                 salutation = receiver['salutation']
                 personal_text = text.replace("[[SUBSCRIBER_SALUTATION]]", "")
                 personal_text_plain = text_plain.replace("[[SUBSCRIBER_SALUTATION]]", "")
-                personal_text = text.replace("[[UNSUBSCRIBE]]", "")
-                personal_text_plain = text_plain.replace("[[UNSUBSCRIBE]]", "")
+                personal_text = personal_text.replace("[[UNSUBSCRIBE]]", "")
+                personal_text_plain = personal_text_plain.replace("[[UNSUBSCRIBE]]", "")
             else:
                 if 'uid' in receiver:
                     try:
@@ -392,20 +402,30 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             for image_url in image_urls:
                 try:
                     image_url = urlparse(image_url)[2]
+                    o = None
                     if 'resolveuid' in image_url:
-                        urlparts = image_url.split('/')[1:]
+                        urlparts = image_url.split('resolveuid/')[1:][0]
+                        urlparts = urlparts.split('/')
                         uuid = urlparts.pop(0)
                         o = reference_tool.lookupObject(uuid)
                         if o and urlparts:
                             # get thumb
                             o = o.restrictedTraverse(urlparts[0])
-                    elif "@@images" in image_url:
-                        image_url_base, image_scale_params = image_url.split("@@images")
-                        image_scale = image_scale_params.split("/")[-1]
-                        scales = self.restrictedTraverse(
-                                urllib.unquote(image_url_base.strip('/') + '/@@images'))
-                        o = scales.scale('image', scale=image_scale)
-                    else:
+                            image_url = '/'.join(urlparts)
+                    if "@@images" in image_url:
+                        # HACK to get around restrictedTraverse not honoring ITraversable
+                        # see http://developer.plone.org/serving/traversing.html#traversing-by-full-path
+                        image_url_base, image_scale_params = image_url.split("@@images/")
+                        if o is not None:
+                            scales = o
+                        else:
+                            scales = self.restrictedTraverse(
+                                    urllib.unquote(image_url_base.strip('/') + '/@@images'))
+                        parts = list(reversed(image_scale_params.split("/")))
+                        name = parts.pop()
+                        dummy_request = dict(TraversalRequestNameStack=parts)
+                        o = scales.publishTraverse(dummy_request, name)
+                    if o is None:
                         o = self.restrictedTraverse(urllib.unquote(image_url))
                 except Exception, e:
                     log.error("Could not resolve the image \"%s\": %s" % (image_url, e))
@@ -418,10 +438,13 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                         image = MIMEImage(o.GET())                        # z3 resource image
                     else:
                         log.error("Could not get the image data from image object!")
-                    image["Content-ID"] = "<image_%s>" % image_number
-                    image_number += 1
-                    # attach images only to html parts
-                    html_part.attach(image)
+                        image = None
+                    if image is not None:
+                        image["Content-ID"] = "<image_%s>" % image_number
+                        # attach images only to html parts
+                        html_part.attach(image)
+                # Numbers have to match what we replaced in html
+                image_number += 1
             outer.attach(text_part)
             outer.attach(html_part)
 
@@ -430,12 +453,8 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                 MailHost.send(outer.as_string())
                 log.info("Send newsletter to \"%s\"" % receiver['email'])
                 send_counter += 1
-            except AttributeError:  # Plone3.3.x
-                MailHost.send(msg.as_string())
-                log.info("Send newsletter to \"%s\"" % receiver['email'])
-                send_counter += 1
             except Exception, e:
-                log.info("Sending newsletter to \"%s\" failed, with error \"%s\"!" % (receiver['email'], e))
+                log.exception("Sending newsletter to \"%s\" failed, with error \"%s\"!" % (receiver['email'],  e))
                 send_error_counter += 1
 
         log.info("Newsletter was sent to (%s) receivers. (%s) errors occurred!" % (send_counter, send_error_counter))

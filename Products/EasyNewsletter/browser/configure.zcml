@@ -11,7 +11,7 @@
     for="..interfaces.IENLIssue"
     class=".issue.IssueView"
     template="issue_send_form.pt"
-    permission="cmf.ManagePortal" />
+    permission="cmf.ModifyPortalContent" />
 
   <browser:page
     name="get-public-body"
@@ -25,14 +25,14 @@
     for="..interfaces.IENLIssue"
     class=".issue.IssueView"
     attribute="send_issue"
-    permission="cmf.ManagePortal" />
+    permission="cmf.ModifyPortalContent" />
 
   <browser:page
     name="refresh-issue"
     for="..interfaces.IENLIssue"
     class=".issue.IssueView"
     attribute="refresh_issue"
-    permission="cmf.ManagePortal" />
+    permission="cmf.ModifyPortalContent" />
 
   <browser:page
     name="enl_public_view"
@@ -45,7 +45,7 @@
     name="daily-issue"
     for="..interfaces.IEasyNewsletter"
     class=".daily_issue.DailyIssueView"
-    permission="cmf.ManagePortal" />
+    permission="cmf.ModifyPortalContent" />
 
   <browser:page
     name="unsubscribe"
@@ -87,20 +87,20 @@
     name="enl_subscribers_view"
     class=".subscribers.Enl_Subscribers_View"
     template="enl_subscribers_view.pt"
-    permission="cmf.ManagePortal" />
+    permission="cmf.ModifyPortalContent" />
 
   <browser:page
     for="..interfaces.IEasyNewsletter"
     name="upload_csv"
     class=".subscribers.UploadCSV"
     template="upload_csv.pt"
-    permission="cmf.ManagePortal" />
+    permission="cmf.ModifyPortalContent" />
 
   <browser:page
     for="..interfaces.IEasyNewsletter"
     name="download_csv"
     class=".subscribers.DownloadCSV"
-    permission="cmf.ManagePortal" />
+    permission="cmf.ModifyPortalContent" />
 
   <browser:viewlet
     name="enl.newsletter_actions"
@@ -108,7 +108,7 @@
     manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
     class=".viewlets.ENLActionsViewlet"
     template="templates/enl_actions_viewlet.pt"
-    permission="cmf.ManagePortal"
+    permission="cmf.ModifyPortalContent"
     />
 
   <browser:resource
