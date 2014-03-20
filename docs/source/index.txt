@@ -21,14 +21,13 @@ Features
     - Plonish (can use Plone's Collections to collect content)
 
     - Variable templates to generate newsletter content
-
-    - Subscribing / Unsubscribing and can use Plone Members/Groups as receivers
-      (works also with Membrane)
-
-    - Support for external subscriber sources (configured through a Zope utility)
-
-    - Support for external delivery services (other than Plone MailHost)
-
+    
+    - Subscribing / Unsubscribing and can use Plone Members/Groups as receivers (works also with Membrane)
+    
+    - support for external subscriber sources (configured through a Zope utility)
+    
+    - support for external delivery services (other than Plone MailHost)
+    
     - TTW customizeable output Template to generate nice HTML Newsletter
 
     - Support personalized mails
@@ -153,7 +152,7 @@ POST                    200 [*]_    204       409
 Filtering Users, Groups and Receivers
 -------------------------------------
 
-EasyNewsletter provide a felxible way to filter the Plone members, Plone groups and the recivers list. You can provide smal funktion in you application and register it as IReceiversMemberFilter, IReceiversGroupFilter or IReceiversPostSendingFilter.
+EasyNewsletter provide a flexible way to filter the Plone members, Plone groups and the recivers list. You can provide smal funtion in your add-on and register it as IReceiversMemberFilter, IReceiversGroupFilter or IReceiversPostSendingFilter. The filter get the list and can filter out some entries or even add some entries.
 
 IReceiversMemberFilter filters
 """"""""""""""""""""""""""""""
@@ -161,7 +160,7 @@ IReceiversMemberFilter filters
 
 The IReceiversMemberFilter filters can be used to filter the list of Plone members which a user can select in newsletters and issues.
 
-..
+:: 
 
    class ReceiversMemberFilterNoPloneMember(object):
        """ filters all members out of newsletter receivers selection list,
@@ -185,7 +184,7 @@ The IReceiversMemberFilter filters can be used to filter the list of Plone membe
 
 **This filter should be registered as follow:**
 
-..
+::
 
     <subscriber zcml:condition="installed my.package"
         for="Products.EasyNewsletter.interfaces.IEasyNewsletter"
@@ -199,7 +198,7 @@ IReceiversGroupFilter filters
 
 The IReceiversGroupFilter filters can be used to filter the list of Plone groups which a user can select in newsletters and issues.
 
-..
+::
 
    class ReceiversGroupFilterInactiveOrganizations(object):
        """ Filter all inactive organizations, out of the group selection list.
@@ -222,7 +221,7 @@ The IReceiversGroupFilter filters can be used to filter the list of Plone groups
 
 **This filter should be registered as follow:**
 
-..
+::
 
     <subscriber zcml:condition="installed my.package"
         for="Products.EasyNewsletter.interfaces.IEasyNewsletter"
@@ -236,7 +235,7 @@ IReceiversPostSendingFilter filters
 
 The IReceiversPostSendingFilter can be used to filter the list of reveivers before sending emails to all receivers.
 
-..
+::
 
    class ReceiversPostSendingFilterNoNewsletter(object):
        """ Filter all contacts that has not set the receive_newsletter
@@ -263,7 +262,7 @@ The IReceiversPostSendingFilter can be used to filter the list of reveivers befo
 
 **This filter should be registered as follow:**
 
-..
+::
 
     <subscriber zcml:condition="installed my.package"
         for="Products.EasyNewsletter.interfaces.IEasyNewsletter"
