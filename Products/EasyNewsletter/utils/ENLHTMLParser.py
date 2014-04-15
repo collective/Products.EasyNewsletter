@@ -17,6 +17,13 @@ class ENLHTMLParser(HTMLParser.HTMLParser):
 
         HTMLParser.HTMLParser.__init__(self)
 
+    def _encode(txt):
+        if isinstance(txt, unicode):
+            plone_utils = getToolByName(context, 'plone_utils')
+            encoding = plone_utils.getSiteEncoding()
+            txt = txt.encode(encoding)
+        return txt
+
     def handle_starttag(self, tag, attrs):
         """
         """
@@ -41,11 +48,7 @@ class ENLHTMLParser(HTMLParser.HTMLParser):
                         url = '#' + anchor
                 except:
                     url = attr[1]
-                if isinstance(url, unicode):
-                    plone_utils = getToolByName(self.context, 'plone_utils')
-                    encoding = plone_utils.getSiteEncoding()
-                    url = url.encode(encoding)
-                self.html += ' href="%s"' % url
+                self.html += ' href="%s"' % self._encode(url)
             else:
                 self.html += ' %s="%s"' % (attr)
 
@@ -87,7 +90,7 @@ class ENLHTMLParser(HTMLParser.HTMLParser):
                     self.image_urls.append(path)
                 elif 'http' in attr[1]:
                     url = attr[1]
-                    self.html += ' src="%s"' % url
+                    self.html += ' src="%s"' % self._encode(url)
                 else:
                     self.html += ' src="cid:image_%s"' % self.image_number
                     self.image_number += 1
