@@ -19,7 +19,7 @@ class ENLHTMLParser(HTMLParser.HTMLParser):
 
     def _encode(self, txt):
         if isinstance(txt, unicode):
-            plone_utils = getToolByName(context, 'plone_utils')
+            plone_utils = getToolByName(self.context, 'plone_utils')
             encoding = plone_utils.getSiteEncoding()
             txt = txt.encode(encoding)
         return txt
@@ -28,7 +28,6 @@ class ENLHTMLParser(HTMLParser.HTMLParser):
         """
         """
         self.html += "<%s" % tag
-
 
         for attr in attrs:
             if attr[0] == "href":
