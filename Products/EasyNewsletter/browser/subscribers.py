@@ -4,7 +4,6 @@ import cStringIO
 import tempfile
 
 from Acquisition import aq_inner
-from Acquisition import aq_parent
 
 
 from zope.component import getUtility
@@ -23,6 +22,7 @@ from Products.EasyNewsletter.interfaces import ISubscriberSource
 from logging import getLogger
 logger = getLogger('Subscribers')
 
+
 class UTF8Recoder:
     """
     Iterator that reads an encoded stream and reencodes the input to UTF-8
@@ -35,6 +35,7 @@ class UTF8Recoder:
 
     def next(self):
         return self.reader.next().encode("utf-8")
+
 
 class UnicodeReader:
     """
@@ -52,6 +53,7 @@ class UnicodeReader:
 
     def __iter__(self):
         return self
+
 
 class UnicodeWriter:
     """
@@ -87,7 +89,8 @@ def normalize_id(astring):
     return getUtility(IIDNormalizer).normalize(astring)
 
 
-CSV_HEADER = [_(u"salutation"), _(u"fullname"), _(u"email"), _(u"organization"), ]
+CSV_HEADER = [
+    _(u"salutation"), _(u"fullname"), _(u"email"), _(u"organization")]
 
 
 class IEnl_Subscribers_View(Interface):
@@ -104,7 +107,7 @@ class Enl_Subscribers_View(BrowserView):
 
     # TODO: we should move these indexes from FieldIndex to ZCTextIndex
     # see setuphandlers.py for indexes creation
-    searchable_params = ('email','fullname','organization')
+    searchable_params = ('email', 'fullname', 'organization')
 
     def __init__(self, context, request):
         self.context = context
@@ -113,7 +116,7 @@ class Enl_Subscribers_View(BrowserView):
     def __call__(self):
         if self.can_delete():
             self.delete()
-        return super(Enl_Subscribers_View,self).__call__()
+        return super(Enl_Subscribers_View, self).__call__()
 
     @property
     def portal_catalog(self):
@@ -126,7 +129,7 @@ class Enl_Subscribers_View(BrowserView):
     @property
     def query(self):
         query = dict(
-            portal_type = 'ENLSubscriber',
+            portal_type='ENLSubscriber',
             path='/'.join(self.context.getPhysicalPath()),
             sort_on='email'
         )
@@ -161,7 +164,8 @@ class Enl_Subscribers_View(BrowserView):
         external_source_name = self.context.getSubscriberSource()
         if external_source_name != 'default':
             try:
-                external_source = getUtility(ISubscriberSource, name=external_source_name)
+                external_source = getUtility(
+                    ISubscriberSource, name=external_source_name)
             except ComponentLookupError:
                 pass
 
@@ -174,13 +178,13 @@ class Enl_Subscribers_View(BrowserView):
     def can_delete(self):
         meth = self.request.get('REQUEST_METHOD')
         delete_button = self.request.get('delete')
-        return meth.lower()=='post' and delete_button
+        return meth.lower() == 'post' and delete_button
 
     def delete(self):
         """ delete all the selected subscribers
         """
         msg_manager = IStatusMessage(self.request)
-        ids = self.request.get('subscriber_ids',[])
+        ids = self.request.get('subscriber_ids', [])
         if not ids:
             msg = _(u"No subscriber selected!")
             msg_manager.addStatusMessage(msg, type='error')
@@ -210,30 +214,34 @@ class UploadCSV(BrowserView):
 
         context = aq_inner(self.context)
         lang = context.Language()
-        plone_utils = getToolByName(self.context, 'plone_utils')
-        encoding = plone_utils.getSiteEncoding()
+        # plone_utils = getToolByName(self.context, 'plone_utils')
+        # encoding = plone_utils.getSiteEncoding()
         existing = self.context.objectIds()
-        messages = IStatusMessage(self.request)
+        # messages = IStatusMessage(self.request)
         success = []
         fail = []
-        data = []
 
         # Show error if no file was specified
         filename = self.request.form.get('csv_upload', None)
         if not filename:
             msg = _('No file specified.')
             IStatusMessage(self.request).addStatusMessage(msg, type='error')
-            return self.request.response.redirect(context.absolute_url() + '/@@upload_csv')
+            return self.request.response.redirect(
+                context.absolute_url() + '/@@upload_csv')
 
         # Show error if no data has been provided in the file
         reader = UnicodeReader(filename)
         header = reader.next()
         CSV_HEADER_I18N = [self.context.translate(_(x)) for x in CSV_HEADER]
         if header != CSV_HEADER_I18N:
-            logger.info("Got header %s\n Expected:%s" % (header, CSV_HEADER_I18N))
-            msg = _('Wrong specification of the CSV file. Please correct it and retry.')
+            logger.info("Got header %s\n Expected:%s" % (
+                header, CSV_HEADER_I18N))
+            msg = _(
+                'Wrong specification of the CSV file. ' +
+                'Please correct it and retry.')
             IStatusMessage(self.request).addStatusMessage(msg, type='error')
-            return self.request.response.redirect(context.absolute_url() + '/@@upload_csv')
+            return self.request.response.redirect(
+                context.absolute_url() + '/@@upload_csv')
 
         for subscriber in reader:
             # Check the length of the line
@@ -260,7 +268,8 @@ class UploadCSV(BrowserView):
                 else:
                     title = email + " - " + fullname
                     try:
-                        self.context.invokeFactory('ENLSubscriber',
+                        self.context.invokeFactory(
+                            'ENLSubscriber',
                             id=id,
                             title=title,
                             description="",
@@ -274,18 +283,21 @@ class UploadCSV(BrowserView):
                         obj.reindexObject()
                         # update existing
                         existing.append(id)
-                        success.append(
-                                {'salutation': salutation,
-                                 'fullname': fullname,
-                                 'email': email,
-                                 'organization': organization})
+                        success.append({
+                            'salutation': salutation,
+                            'fullname': fullname,
+                            'email': email,
+                            'organization': organization
+                        })
                     except Exception, e:
-                        fail.append(
-                            {'salutation': salutation,
-                             'fullname': fullname,
-                             'email': email,
-                             'organization': organization,
-                             'failure': 'An error occured while creating this subscriber: %s' % str(e)})
+                        fail.append({
+                            'salutation': salutation,
+                            'fullname': fullname,
+                            'email': email,
+                            'organization': organization,
+                            'failure': (
+                                'An error occured while creating ' +
+                                'this subscriber: %s') % str(e)})
 
         return {'success': success, 'fail': fail}
 
@@ -302,12 +314,12 @@ class DownloadCSV(BrowserView):
         filename = tempfile.mktemp()
         file = open(filename, 'wb')
         csvWriter = UnicodeWriter(file,
-                                  {'delimiter':',',
-                                   'quotechar':'"',
-                                   'quoting':csv.QUOTE_MINIMAL})
+                                  {'delimiter': ',',
+                                   'quotechar': '"',
+                                   'quoting': csv.QUOTE_MINIMAL})
         CSV_HEADER_I18N = [self.context.translate(_(x)) for x in CSV_HEADER]
         csvWriter.writerow(CSV_HEADER_I18N)
-        for subscriber in ctool(portal_type = 'ENLSubscriber',
+        for subscriber in ctool(portal_type='ENLSubscriber',
                                 path='/'.join(self.context.getPhysicalPath()),
                                 sort_on='email'):
             obj = subscriber.getObject()
@@ -320,11 +332,15 @@ class DownloadCSV(BrowserView):
 
         # Create response
         response = context.REQUEST.response
-        response.addHeader('Content-Disposition', "attachment; filename=easynewsletter-subscribers.csv")
+        response.addHeader(
+            'Content-Disposition',
+            "attachment; filename=easynewsletter-subscribers.csv")
         response.addHeader('Content-Type', 'text/csv')
         response.addHeader('Content-Length', "%d" % len(data))
         response.addHeader('Pragma', "no-cache")
-        response.addHeader('Cache-Control', "must-revalidate, post-check=0, pre-check=0, public")
+        response.addHeader(
+            'Cache-Control',
+            "must-revalidate, post-check=0, pre-check=0, public")
         response.addHeader('Expires', "0")
 
         # Return CSV data
