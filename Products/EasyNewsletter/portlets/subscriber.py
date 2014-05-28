@@ -50,6 +50,13 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
         default = False,
         required = True)
 
+    show_unsubscribe = schema.Bool(
+        title = _(
+            u"label_newletter_show_unsubscribe_link",
+            default=u"Display an unsubscribe link in portlet footer"),
+        default = True,
+        required = True)
+
 
 class Assignment(base.Assignment):
     """
@@ -61,16 +68,19 @@ class Assignment(base.Assignment):
     newsletter = u""
     query_fullname = True
     query_organization = False
+    show_unsubscribe = True
 
-    def __init__(self, portlet_title=u"", portlet_description=u"", newsletter="",
-                 query_fullname = True, query_organization=False):
-        """
-        """
+    def __init__(
+            self, portlet_title=u"", portlet_description=u"", newsletter="",
+            query_fullname=True, query_organization=False,
+            show_unsubscribe=True):
+
         self.portlet_title = portlet_title
         self.portlet_description = portlet_description
         self.newsletter = newsletter
         self.query_fullname = query_fullname
         self.query_organization = query_organization
+        self.show_unsubscribe = show_unsubscribe
 
     @property
     def title(self):

@@ -48,9 +48,16 @@
     permission="cmf.ModifyPortalContent" />
 
   <browser:page
+    name="unsubscribe_form"
+    for="..interfaces.IEasyNewsletter"
+    class=".registration.UnsubscribeView"
+    template="templates/unsubscribe_form.pt"
+    permission="zope2.Public" />
+
+  <browser:page
     name="unsubscribe"
     for="..interfaces.IEasyNewsletter"
-    class=".newsletter.NewsletterView"
+    class=".registration.UnsubscribeView"
     attribute="unsubscribe"
     permission="zope2.Public" />
 

@@ -41,6 +41,7 @@ setup(
         'Products.TemplateFields',
         'setuptools',
         'stoneagehtml',
+        'plone.api',
     ],
     extras_require=dict(
         test=['plone.app.testing', 'Pillow'],

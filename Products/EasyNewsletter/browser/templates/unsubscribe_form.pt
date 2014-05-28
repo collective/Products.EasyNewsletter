@@ -14,14 +14,14 @@
 
   <tal:content-core metal:fill-slot="content-core">
     <h2>You want to unsubscribe from this Newsletter?</h2>
-    <form action="unsubscribe_form_submit" method="get" accept-charset="utf-8">
+    <form action="unsubscribe_form" method="get" accept-charset="utf-8">
       <div class="field">
-        <label>Your registered E-Mail address</label>
-        <input type="text" name="unsubscribe_address" value="" />
+        <label>Your registered E-Mail address: </label>
+        <input type="text" name="subscriber" value="" />
       </div>
       <div>
-        <input type="submit" value="Unsubscribe"> <a
-          tal:attributes="view/newsletter_url">cancel</a>
+        <input type="submit" value="Unsubscribe"> &nbsp; <a
+          tal:attributes="href view/newsletter_url">cancel</a>
       </div>
     </form>
 
