@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en-US" lang="en-US"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="Products.EasyNewsletter">
+<body>
+  <div metal:fill-slot="content-title">
+    <h1 class="documentFirstHeading" tal:content="context/title">
+      Title
+    </h1>
+  </div>
+
+  <tal:content-core metal:fill-slot="content-core">
+    <h2>You want to unsubscribe from this Newsletter?</h2>
+    <form action="unsubscribe_form_submit" method="get" accept-charset="utf-8">
+      <div class="field">
+        <label>Your registered E-Mail address</label>
+        <input type="text" name="unsubscribe_address" value="" />
+      </div>
+      <div>
+        <input type="submit" value="Unsubscribe"> <a
+          tal:attributes="view/newsletter_url">cancel</a>
+      </div>
+    </form>
+
+  </tal:content-core>
+</body>
+</html>
+
+
