@@ -217,8 +217,6 @@ class UnsubscribeView(BrowserView):
                 _("Your email address could not be found in subscribers."),
                 "error")
 
-
-
     def unsubscribe(self):
         """
         """

@@ -342,7 +342,6 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         image_urls = rendered_newsletter['images']
         props = getToolByName(self, "portal_properties").site_properties
         charset = props.getProperty("default_charset")
-        portal = getSite()
         for receiver in receivers:
             # create multipart mail
             outer = MIMEMultipart('alternative')
@@ -449,7 +448,6 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             outer.attach(html_part)
 
             try:
-                #MailHost.send(msg)
                 MailHost.send(outer.as_string())
                 log.info("Send newsletter to \"%s\"" % receiver['email'])
                 send_counter += 1
