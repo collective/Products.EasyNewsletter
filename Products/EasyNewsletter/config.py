@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
+# flake8: noqa
 import re
 from Products.Archetypes.atapi import DisplayList
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
-from zope.i18n import translate
+# from zope.i18n import translate
 
 PROJECTNAME = "EasyNewsletter"
 
@@ -20,35 +22,45 @@ MESSAGE_CODE = {
     "email_added": _(u"email_added", default=u"Your email has been registered. A confirmation email was \
         sent to your address. Please check your inbox and click on the link in \
         the email in order to confirm your subscription."),
-    "invalid_email": _(u"invalid_email", default=u"Please enter a valid email address."),
-    "email_exists": _(u"email_exists", default=u"Your email address is already registered."),
-    "invalid_hashkey": _(u"invalid_hashkey", default=u"Please enter a valid email address."),
-    "subscription_confirmed": _(u"subscription_confirmed", default=u"Your subscription was successfully confirmed."),
+    "invalid_email": _(
+        u"invalid_email", default=u"Please enter a valid email address."),
+    "email_exists": _(
+        u"email_exists", default=u"Your email address is already registered."),
+    "invalid_hashkey": _(
+        u"invalid_hashkey", default=u"Please enter a valid email address."),
+    "subscription_confirmed": _(
+        u"subscription_confirmed",
+        default=u"Your subscription was successfully confirmed."),
     }
 
 
-EMAIL_RE = re.compile(r"(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,6}(?:\s|$)", re.IGNORECASE)
+EMAIL_RE = re.compile(
+    r"(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,6}(?:\s|$)", re.IGNORECASE)
 
 
 DEFAULT_TEMPLATE = """<table border="0" cellpadding="10" cellspacing="10" width="100%">
-<tal:block tal:repeat="object context/queryCatalog" i18n:domain="EasyNewsletter">
+<tal:block tal:repeat="object context/queryCatalog"
+    i18n:domain="EasyNewsletter">
   <tr>
     <td>
-      <h2 class="tileHeadline"><a tal:attributes="href object/getURL" tal:content="object/Title">Title</a></h2>
+      <h2 class="tileHeadline"><a tal:attributes="href object/getURL"
+        tal:content="object/Title">Title</a></h2>
       <p class="tileBody">
         <span tal:content="object/Description">Description</span>
       </p>
       <p class="tileFooter">
-        <a tal:attributes="href object/getURL" i18n:translate="read_more">Read more</a>&hellip;
+        <a tal:attributes="href object/getURL"
+            i18n:translate="read_more">Read more</a>&hellip;
       </p>
     </td>
     <td width="164" align="right">
       <tal:image_obj tal:define="item_object object/getObject;">
-        <tal:block condition="python:object.portal_type in ['Image', 'News Item']">
+        <tal:block
+            condition="python:object.portal_type in ['Image', 'News Item']">
           <a tal:attributes="href object/getURL">
             <img class="tileImage"
                 tal:condition="python:hasattr(item_object, 'tag')"
-                tal:attributes="src python:object.getURL(relative=1) + '/@@images/image/thumb'"
+tal:attributes="src python:object.getURL(relative=1) + '/@@images/image/thumb'"
                 />
           </a>
         </tal:block>
@@ -65,26 +77,31 @@ DEFAULT_TEMPLATE = """<table border="0" cellpadding="10" cellspacing="10" width=
       <h1 tal:content="subtopic/Title">Title</h1>
     </th>
   </tr>
-<tal:blockitems tal:repeat="object subtopic/queryCatalog" i18n:domain="EasyNewsletter">
+<tal:blockitems tal:repeat="object subtopic/queryCatalog"
+    i18n:domain="EasyNewsletter">
   <tr>
     <td>
-      <h2 class="tileHeadline"><a tal:attributes="href object/getURL" tal:content="object/Title">Title</a></h2>
+      <h2 class="tileHeadline"><a
+        tal:attributes="href object/getURL"
+        tal:content="object/Title">Title</a></h2>
       <p class="tileBody">
         <span tal:content="object/Description">Description</span>
       </p>
       <p class="tileFooter">
-        <a tal:attributes="href object/getURL" i18n:translate="read_more">Read more</a>&hellip;
+        <a tal:attributes="href object/getURL"
+            i18n:translate="read_more">Read more</a>&hellip;
       </p>
     </td>
   </tr>
   <tr>
     <td width="164" align="right">
       <tal:image_obj tal:define="item_object object/getObject;">
-        <tal:block condition="python:object.portal_type in ['Image', 'News Item']">
+        <tal:block
+            condition="python:object.portal_type in ['Image', 'News Item']">
         <a tal:attributes="href object/getURL">
           <img class="tileImage"
               tal:condition="python:hasattr(item_object, 'tag')"
-              tal:attributes="src python:object.getURL(relative=1) + '/@@images/image/thumb'"
+tal:attributes="src python:object.getURL(relative=1) + '/@@images/image/thumb'"
               />
         </a>
         </tal:block>
@@ -137,7 +154,8 @@ img.tileImage {
       </td>
     </tr>
     <tr>
-      <td height="1" style="background-color: #284d7b; height: 1px;"><!-- --></td>
+      <td height="1"
+        style="background-color: #284d7b; height: 1px;"><!-- --></td>
     </tr>
     <tr>
       <td height="20">
@@ -147,7 +165,9 @@ img.tileImage {
     <tr>
       <td class="newsletter_link">
         <div class="mailonly">
-          <p><a tal:attributes="href context/absolute_url">View Newsletter in Web-browser</a></p>
+          <p><a
+            tal:attributes="href context/absolute_url"
+                >View Newsletter in Web-browser</a></p>
         </div>
       </td>
     </tr>
@@ -155,7 +175,9 @@ img.tileImage {
       <td class="header">
         <!-- this is the header of the newsletter -->
         <span tal:replace="structure context/getHeader" />
-        <span tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime" tal:replace="structure python:toLocalizedTime(context.modified(), long_format=0)" />
+        <span
+        tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime"
+tal:replace="structure python:toLocalizedTime(context.modified(), long_format=0)" />
       </td>
     </tr>
     <tr>

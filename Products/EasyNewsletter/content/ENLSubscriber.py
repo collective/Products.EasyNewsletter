@@ -9,57 +9,67 @@ from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 
 schema = atapi.BaseSchema + atapi.Schema((
 
-    atapi.StringField('title',
-        required = False,
-        widget = atapi.StringWidget(
-            visible = {'edit': 'invisible', 'view': 'invisible'},
-            label = _(u'EasyNewsletter_label_title', default=u'Title'),
-            description = _(u'EasyNewsletter_help_title', default=u''),
-            i18n_domain = 'EasyNewsletter',
+    atapi.StringField(
+        'title',
+        required=False,
+        widget=atapi.StringWidget(
+            visible={'edit': 'invisible', 'view': 'invisible'},
+            label=_(u'EasyNewsletter_label_title', default=u'Title'),
+            description=_(u'EasyNewsletter_help_title', default=u''),
+            i18n_domain='EasyNewsletter',
         ),
     ),
 
-     atapi.StringField('salutation',
-        required = False,
-        vocabulary = config.SALUTATION,
-        widget = atapi.SelectionWidget(
-            label = _(u'EasyNewsletter_label_salutation',
+    atapi.StringField(
+        'salutation',
+        required=False,
+        vocabulary=config.SALUTATION,
+        widget=atapi.SelectionWidget(
+            label=_(
+                u'EasyNewsletter_label_salutation',
                 default='Salutation'),
-            description = _('EasyNewsletter_help_salutation', default=u''),
-            i18n_domain = 'EasyNewsletter',
-            format = 'select',
+            description=_('EasyNewsletter_help_salutation', default=u''),
+            i18n_domain='EasyNewsletter',
+            format='select',
         ),
     ),
 
-    atapi.StringField('fullname',
-        required = False,
-        widget = atapi.StringWidget(
-            label = _(u'EasyNewsletter_label_fullname', default=u'Full Name'),
-            description = _('EasyNewsletter_help_fullname', default=u''),
-            i18n_domain = 'EasyNewsletter',
+    atapi.StringField(
+        'fullname',
+        required=False,
+        widget=atapi.StringWidget(
+            label=_(u'EasyNewsletter_label_fullname', default=u'Full Name'),
+            description=_('EasyNewsletter_help_fullname', default=u''),
+            i18n_domain='EasyNewsletter',
         ),
     ),
 
-    atapi.StringField('organization',
-        required = False,
-        widget = atapi.StringWidget(
-            label = _(u'EasyNewsletter_label_organization',
+    atapi.StringField(
+        'organization',
+        required=False,
+        widget=atapi.StringWidget(
+            label=_(
+                u'EasyNewsletter_label_organization',
                 default=u'Company/Organization'),
-            description = _('EasyNewsletter_help_organization',
+            description=_(
+                'EasyNewsletter_help_organization',
                 default=u''),
-            i18n_domain = 'EasyNewsletter',
+            i18n_domain='EasyNewsletter',
         ),
     ),
 
-    atapi.StringField('email',
-        required = True,
-        validators = ('isEmail', ),
-        widget = atapi.StringWidget(
-            label = _(u'EasyNewsletter_label_email',
+    atapi.StringField(
+        'email',
+        required=True,
+        validators=('isEmail', ),
+        widget=atapi.StringWidget(
+            label=_(
+                u'EasyNewsletter_label_email',
                 default=u'Email'),
-            description = _(u'EasyNewsletter_help_email',
+            description=_(
+                u'EasyNewsletter_help_email',
                 default=u''),
-            i18n_domain = 'EasyNewsletter',
+            i18n_domain='EasyNewsletter',
         ),
     ),
 

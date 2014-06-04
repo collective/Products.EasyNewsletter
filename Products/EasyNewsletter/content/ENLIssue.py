@@ -8,7 +8,7 @@ from email.MIMEText import MIMEText
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEImage import MIMEImage
 from email.Header import Header
-#from email import Encoders
+# from email import Encoders
 from stoneagehtml import compactify
 
 from AccessControl import ClassSecurityInfo
@@ -28,12 +28,13 @@ try:
     from zope.site.hooks import getSite
 except ImportError:
     try:
-        from zope.app.component.hooks import getSite
+        from zope.app.component.hooks import getSite  # noqa
     except ImportError:
-        from zope.component.hooks import getSite
+        from zope.component.hooks import getSite  # noqa
 
 try:
-    from inqbus.plone.fastmemberproperties.interfaces import IFastmemberpropertiesTool
+    from inqbus.plone.fastmemberproperties.interfaces import (
+        IFastmemberpropertiesTool)
     fmp_tool = True
 except:
     fmp_tool = False
@@ -44,7 +45,7 @@ from Products.EasyNewsletter.interfaces import IENLIssue
 from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter
 from Products.EasyNewsletter.interfaces import ISubscriberSource
 from Products.EasyNewsletter.utils.ENLHTMLParser import ENLHTMLParser
-#from Products.EasyNewsletter.utils.mail import create_html_mail
+# from Products.EasyNewsletter.utils.mail import create_html_mail
 from Products.EasyNewsletter.utils import safe_portal_encoding
 from Products.CMFPlone.utils import safe_unicode
 
@@ -53,111 +54,140 @@ log = logging.getLogger("Products.EasyNewsletter")
 
 
 schema = atapi.Schema((
-    atapi.TextField('text',
-        allowable_content_types = ('text/plain', 'text/structured', 'text/html', 'application/msword'),
-        default_output_type = 'text/html',
-        widget = atapi.RichWidget(
-            rows = 30,
-            label = _('EasyNewsletter_label_text', default=u'Text'),
-            description = _(u'description_text_issue',
-                default=u'The main content of the mailing. You can use the topic \
-                    criteria to collect content or put manual content in. \
-                    This will included in outgoing mails.'),
-            i18n_domain = 'EasyNewsletter',
+    atapi.TextField(
+        'text',
+        allowable_content_types=(
+            'text/plain', 'text/structured', 'text/html',
+            'application/msword'),
+        default_output_type='text/html',
+        widget=atapi.RichWidget(
+            rows=30,
+            label=_('EasyNewsletter_label_text', default=u'Text'),
+            description=_(
+                u'description_text_issue',
+                default=u'The main content of the mailing. You can use \
+                    the topic criteria to collect content or put manual \
+                    content in. This will included in outgoing mails.'),
+            i18n_domain='EasyNewsletter',
         ),
     ),
 
-    atapi.BooleanField('sendToAllPloneMembers',
-        default_method = "get_sendToAllPloneMembers_defaults",
-        widget = atapi.BooleanWidget(
-            label = _(u'label_sendToAllPloneMembers',
+    atapi.BooleanField(
+        'sendToAllPloneMembers',
+        default_method="get_sendToAllPloneMembers_defaults",
+        widget=atapi.BooleanWidget(
+            label=_(
+                u'label_sendToAllPloneMembers',
                 default=u'Send to all Plone members'),
-            description = _(u'help_sendToAllPloneMembers',
+            description=_(
+                u'help_sendToAllPloneMembers',
                 default=u'If checked, the newsletter/mailing is send to all \
                     plone members. If there are subscribers inside the \
                     newsletter, they get the letter anyway.'),
-            i18n_domain = 'EasyNewsletter',
+            i18n_domain='EasyNewsletter',
         )
     ),
 
-    atapi.LinesField('ploneReceiverMembers',
-        vocabulary = "get_plone_members",
-        default_method = "get_ploneReceiverMembers_defaults",
-        widget = atapi.MultiSelectionWidget(
-            label = _(u'EasyNewsletter_label_ploneReceiverMembers',
+    atapi.LinesField(
+        'ploneReceiverMembers',
+        vocabulary="get_plone_members",
+        default_method="get_ploneReceiverMembers_defaults",
+        widget=atapi.MultiSelectionWidget(
+            label=_(
+                u'EasyNewsletter_label_ploneReceiverMembers',
                 default=u'Plone Members to receive the newsletter'),
-            description = _(u'EasyNewsletter_help_ploneReceiverMembers',
-                default=u'Choose Plone Members which should receive the newsletter.'),
-            i18n_domain = 'EasyNewsletter',
-            size = 20,
+            description=_(
+                u'EasyNewsletter_help_ploneReceiverMembers',
+                default=u'Choose Plone Members which should receive \
+                        the newsletter.'),
+            i18n_domain='EasyNewsletter',
+            size=20,
         )
     ),
 
-    atapi.LinesField('ploneReceiverGroups',
-        vocabulary = "get_plone_groups",
-        default_method = "get_ploneReceiverGroups_defaults",
-        widget = atapi.MultiSelectionWidget(
-            label = _(u'EasyNewsletter_label_ploneReceiverGroups',
+    atapi.LinesField(
+        'ploneReceiverGroups',
+        vocabulary="get_plone_groups",
+        default_method="get_ploneReceiverGroups_defaults",
+        widget=atapi.MultiSelectionWidget(
+            label=_(
+                u'EasyNewsletter_label_ploneReceiverGroups',
                 default=u'Plone Groups to receive the newsletter'),
-            description = _(u'EasyNewsletter_help_ploneReceiverGroups',
-                default=u'Choose Plone Groups which members should receive the newsletter.'),
-            i18n_domain = 'EasyNewsletter',
-            size = 10,
+            description=_(
+                u'EasyNewsletter_help_ploneReceiverGroups',
+                default=u'Choose Plone Groups which members should \
+                        receive the newsletter.'),
+            i18n_domain='EasyNewsletter',
+            size=10,
         )
     ),
 
-    atapi.TextField('header',
-        schemata = "settings",
-        allowable_content_types = ('text/plain', 'text/structured', 'text/html', 'application/msword'),
-        default_method = "get_default_header",
-        default_output_type = 'text/html',
-        widget = atapi.RichWidget(
-            rows = 10,
-            label = _(u'EasyNewsletter_label_header',
+    atapi.TextField(
+        'header',
+        schemata="settings",
+        allowable_content_types=(
+            'text/plain', 'text/structured', 'text/html',
+            'application/msword'),
+        default_method="get_default_header",
+        default_output_type='text/html',
+        widget=atapi.RichWidget(
+            rows=10,
+            label=_(
+                u'EasyNewsletter_label_header',
                 default=u"Header"),
-            description=_(u'description_help_header',
+            description=_(
+                u'description_help_header',
                 default=u'The header will included in outgoing mails.'),
             i18n_domain='EasyNewsletter',
         ),
     ),
 
-    atapi.TextField('footer',
-        schemata = "settings",
-        allowable_content_types = ('text/plain', 'text/structured', 'text/html', 'application/msword'),
-        default_method = "get_default_footer",
-        default_output_type = 'text/html',
-        widget = atapi.RichWidget(
-            rows = 10,
-            label = _(u'EasyNewsletter_label_footer', default=u'Footer'),
-            description = _(u'description_help_footer',
+    atapi.TextField(
+        'footer',
+        schemata="settings",
+        allowable_content_types=(
+            'text/plain', 'text/structured', 'text/html',
+            'application/msword'),
+        default_method="get_default_footer",
+        default_output_type='text/html',
+        widget=atapi.RichWidget(
+            rows=10,
+            label=_(u'EasyNewsletter_label_footer', default=u'Footer'),
+            description=_(
+                u'description_help_footer',
                 default=u'The footer will included in outgoing mails.'),
-            i18n_domain = 'EasyNewsletter',
+            i18n_domain='EasyNewsletter',
         ),
     ),
 
-    atapi.BooleanField('acquireCriteria',
-        schemata = "settings",
-        default = True,
-        widget = atapi.BooleanWidget(
-            label = _(u'label_inherit_criteria', default=u'Inherit Criteria'),
-            description = _(u'EasyNewsletter_help_acquireCriteria',
+    atapi.BooleanField(
+        'acquireCriteria',
+        schemata="settings",
+        default=True,
+        widget=atapi.BooleanWidget(
+            label=_(u'label_inherit_criteria', default=u'Inherit Criteria'),
+            description=_(
+                u'EasyNewsletter_help_acquireCriteria',
                 default=u""),
-            i18n_domain = 'EasyNewsletter',
+            i18n_domain='EasyNewsletter',
         )
     ),
 
     # Overwritten to adapt attribute from ATTopic
-    atapi.StringField('template',
-        schemata = "settings",
-        default = "default_template",
-        required = 1,
-        widget = atapi.StringWidget(
-            macro = "NewsletterTemplateWidget",
-            label = _(u"EasyNewsletter_label_template",
+    atapi.StringField(
+        'template',
+        schemata="settings",
+        default="default_template",
+        required=1,
+        widget=atapi.StringWidget(
+            macro="NewsletterTemplateWidget",
+            label=_(
+                u"EasyNewsletter_label_template",
                 default=u"Newsletter Template"),
-            description = _(u"EasyNewsletter_help_template",
+            description=_(
+                u"EasyNewsletter_help_template",
                 default=u"Template, to generate the newsletter."),
-            i18n_domain = 'EasyNewsletter',
+            i18n_domain='EasyNewsletter',
         ),
     ),
 ),
@@ -168,10 +198,13 @@ schema.moveField('acquireCriteria', before='template')
 
 # hide id, even if visible_ids is True
 schema['id'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
-schema['limitNumber'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
+schema['limitNumber'].widget.visible = {
+    'view': 'invisible', 'edit': 'invisible'}
 schema['itemCount'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
-schema['customView'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
-schema['customViewFields'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
+schema['customView'].widget.visible = {
+    'view': 'invisible', 'edit': 'invisible'}
+schema['customViewFields'].widget.visible = {
+    'view': 'invisible', 'edit': 'invisible'}
 
 schema.moveField('header', pos='bottom')
 schema.moveField('footer', pos='bottom')
@@ -186,11 +219,8 @@ class ENLIssue(ATTopic, atapi.BaseContent):
     security = ClassSecurityInfo()
     schema = schema
 
-    #def at_post_create_script(self):
-    #    """Overwritten hook """
-    #    self.loadContent()
-
     security.declarePublic("folder_contents")
+
     def folder_contents(self):
         """Overwritten to "forbid" folder_contents
         """
@@ -205,7 +235,8 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         salutation_mappings = {}
         for line in enl.getSalutations():
             salutation_key, salutation_value = line.split('|')
-            salutation_mappings[salutation_key.strip()] = salutation_value.strip()
+            salutation_mappings[
+                salutation_key.strip()] = salutation_value.strip()
         if recipients:
             receivers = recipients
 
@@ -215,7 +246,9 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             if test_receiver == "":
                 test_receiver = enl.getTestEmail()
             salutation = salutation_mappings.get('default', '')
-            receivers = [{'email': test_receiver, 'fullname': 'Test Member', 'salutation': salutation}]
+            receivers = [
+                {'email': test_receiver, 'fullname': 'Test Member',
+                    'salutation': salutation}]
         else:
             # get ENLSubscribers
             enl_receivers = []
@@ -233,26 +266,37 @@ class ENLIssue(ATTopic, atapi.BaseContent):
 
             # get subscribers over selected plone members and groups
             plone_receivers = self.get_plone_subscribers()
-            # check external subscriber source
-            external_subscribers = []
-            external_source_name = enl.getSubscriberSource()
-            if external_source_name != 'default':
-                log.info('Searching for users in external source "%s"' % external_source_name)
-                external_source = queryUtility(ISubscriberSource, name=external_source_name)
-                if external_source:
-                    external_subscribers = external_source.getSubscribers(enl)
-                    log.info('Found %d external subscriptions' % len(external_subscribers))
+            external_subscribers = self._get_external_source_subscribers(enl)
+            receivers_raw = plone_receivers + enl_receivers + \
+                external_subscribers
+            receivers = self._unique_receivers(receivers_raw)
 
-            receivers_raw = plone_receivers + enl_receivers + external_subscribers
+        return receivers
 
-            # Avoid double emails
-            receivers = []
-            mails = []
-            for receiver in receivers_raw:
-                if receiver['email'] not in mails:
-                    mails.append(receiver['email'])
-                    receivers.append(receiver)
+    def _get_external_source_subscribers(self, enl):
+        external_subscribers = []
+        external_source_name = enl.getSubscriberSource()
+        if external_source_name == 'default':
+            return external_subscribers
+        log.info(
+            'Searching for users in external source "%s"' %
+            external_source_name)
+        external_source = queryUtility(
+            ISubscriberSource, name=external_source_name)
+        if external_source:
+            external_subscribers = external_source.getSubscribers(enl)
+            log.info('Found %d external subscriptions' % len(
+                external_subscribers))
+        return external_subscribers
 
+    def _unique_receivers(self, receivers_raw):
+        receivers = []
+        mails = []
+        for receiver in receivers_raw:
+            if receiver['email'] in mails:
+                continue
+            mails.append(receiver['email'])
+            receivers.append(receiver)
         return receivers
 
     def _render_output_html(self):
@@ -283,13 +327,14 @@ class ENLIssue(ATTopic, atapi.BaseContent):
 
     def getText(self):
         output_html = self.getRawText()
-        resolved_html = str(self.portal_transforms.convertTo('text/x-html-safe',
+        resolved_html = str(self.portal_transforms.convertTo(
+            'text/x-html-safe',
             output_html, encoding="utf8",
             mimetype='text/html', context=self))
         return resolved_html
 
-
     security.declarePublic('send')
+
     def send(self, recipients=[]):
         """Sends the newsletter.
            An optional list of dicts (keys=fullname|mail) can be passed in
@@ -303,22 +348,23 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         enl = self.getNewsletter()
 
         # get sender name
-        sender_name = request.get("sender_name", "")
-        if sender_name == "":
+        sender_name = request.get("sender_name")
+        if not sender_name:
             sender_name = enl.getSenderName()
-        # don't use Header() with a str and a charset arg, even if it is correct
-        # this would generate a encoded header and mail server may not support utf-8 encoded header
+        # don't use Header() with a str and a charset arg, even if
+        # it is correct this would generate a encoded header and mail
+        # server may not support utf-8 encoded header
         from_header = Header(safe_unicode(sender_name))
 
         # get sender e-mail
-        sender_email = request.get("sender_email", "")
-        if sender_email == "":
+        sender_email = request.get("sender_email")
+        if not sender_email:
             sender_email = enl.getSenderEmail()
-        from_header.append('<%s>' % safe_unicode(sender_email))
+        from_header.append(u'<%s>' % safe_unicode(sender_email))
 
         # get subject
-        subject = request.get("subject", "")
-        if subject == "":
+        subject = request.get("subject")
+        if not subject:
             subject = self.Title()
         subject_header = Header(safe_unicode(subject))
 
@@ -340,48 +386,16 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         text = rendered_newsletter['html']
         text_plain = rendered_newsletter['plain']
         image_urls = rendered_newsletter['images']
+        images_to_attach = self._get_images_to_attach(image_urls)
         props = getToolByName(self, "portal_properties").site_properties
         charset = props.getProperty("default_charset")
         for receiver in receivers:
             # create multipart mail
             outer = MIMEMultipart('alternative')
+            outer['To'] = Header(u'<%s>' % safe_unicode(receiver['email']))
 
-            if hasattr(request, "test"):
-                outer['To'] = Header('<%s>' % safe_unicode(receiver['email']))
-
-                fullname = receiver['fullname']
-                salutation = receiver['salutation']
-                personal_text = text.replace("[[SUBSCRIBER_SALUTATION]]", "")
-                personal_text_plain = text_plain.replace("[[SUBSCRIBER_SALUTATION]]", "")
-                personal_text = personal_text.replace("[[UNSUBSCRIBE]]", "")
-                personal_text_plain = personal_text_plain.replace("[[UNSUBSCRIBE]]", "")
-            else:
-                if 'uid' in receiver:
-                    try:
-                        unsubscribe_text = enl.getUnsubscribe_string()
-                    except AttributeError:
-                        unsubscribe_text = "Click here to unsubscribe"
-                    unsubscribe_link = enl.absolute_url() + "/unsubscribe?subscriber=" + receiver['uid']
-                    personal_text = text.replace("[[UNSUBSCRIBE]]", """<a href="%s">%s.</a>""" % (unsubscribe_link, unsubscribe_text))
-                    personal_text_plain = text_plain.replace("[[UNSUBSCRIBE]]", """\n%s: %s""" % (unsubscribe_text, unsubscribe_link))
-                else:
-                    personal_text = text.replace("[[UNSUBSCRIBE]]", "")
-                    personal_text_plain = text_plain.replace("[[UNSUBSCRIBE]]", "")
-                if 'salutation' in receiver:
-                    salutation = receiver["salutation"]
-                else:
-                    salutation = ''
-                fullname = receiver['fullname']
-                if not fullname:
-                    try:
-                        fullname = enl.getFullname_fallback()
-                    except AttributeError:
-                        fullname = "Sir or Madam"
-                outer['To'] = Header('<%s>' % safe_unicode(receiver['email']))
-
-            subscriber_salutation = safe_portal_encoding(salutation) + ' ' + safe_portal_encoding(fullname)
-            personal_text = personal_text.replace("[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
-            personal_text_plain = personal_text_plain.replace("[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
+            personal_text, personal_text_plain = self._personalize_texts(
+                enl, receiver, text, text_plain)
 
             outer['From'] = from_header
             outer['Subject'] = subject_header
@@ -396,54 +410,8 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             html_part.attach(html_text)
 
             # Add images to the message
-            image_number = 0
-            reference_tool = getToolByName(self, 'reference_catalog')
-            for image_url in image_urls:
-                try:
-                    image_url = urlparse(image_url)[2]
-                    o = None
-                    if 'resolveuid' in image_url:
-                        urlparts = image_url.split('resolveuid/')[1:][0]
-                        urlparts = urlparts.split('/')
-                        uuid = urlparts.pop(0)
-                        o = reference_tool.lookupObject(uuid)
-                        if o and urlparts:
-                            # get thumb
-                            o = o.restrictedTraverse(urlparts[0])
-                            image_url = '/'.join(urlparts)
-                    if "@@images" in image_url:
-                        # HACK to get around restrictedTraverse not honoring ITraversable
-                        # see http://developer.plone.org/serving/traversing.html#traversing-by-full-path
-                        image_url_base, image_scale_params = image_url.split("@@images/")
-                        if o is not None:
-                            scales = o
-                        else:
-                            scales = self.restrictedTraverse(
-                                    urllib.unquote(image_url_base.strip('/') + '/@@images'))
-                        parts = list(reversed(image_scale_params.split("/")))
-                        name = parts.pop()
-                        dummy_request = dict(TraversalRequestNameStack=parts)
-                        o = scales.publishTraverse(dummy_request, name)
-                    if o is None:
-                        o = self.restrictedTraverse(urllib.unquote(image_url))
-                except Exception, e:
-                    log.error("Could not resolve the image \"%s\": %s" % (image_url, e))
-                else:
-                    if hasattr(o, "_data"):                               # file-based
-                        image = MIMEImage(o._data)
-                    elif hasattr(o, "data"):
-                        image = MIMEImage(o.data)                         # zodb-based
-                    elif hasattr(o, "GET"):
-                        image = MIMEImage(o.GET())                        # z3 resource image
-                    else:
-                        log.error("Could not get the image data from image object!")
-                        image = None
-                    if image is not None:
-                        image["Content-ID"] = "<image_%s>" % image_number
-                        # attach images only to html parts
-                        html_part.attach(image)
-                # Numbers have to match what we replaced in html
-                image_number += 1
+            for image in images_to_attach:
+                html_part.attach(image)
             outer.attach(text_part)
             outer.attach(html_part)
 
@@ -452,10 +420,14 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                 log.info("Send newsletter to \"%s\"" % receiver['email'])
                 send_counter += 1
             except Exception, e:
-                log.exception("Sending newsletter to \"%s\" failed, with error \"%s\"!" % (receiver['email'],  e))
+                log.exception(
+                    "Sending newsletter to \"%s\" failed, with error \"%s\"!"
+                    % (receiver['email'], e))
                 send_error_counter += 1
 
-        log.info("Newsletter was sent to (%s) receivers. (%s) errors occurred!" % (send_counter, send_error_counter))
+        log.info(
+            "Newsletter was sent to (%s) receivers. (%s) errors occurred!"
+            % (send_counter, send_error_counter))
 
         # change status only for a 'regular' send operation (not 'test', no
         # explicit recipients)
@@ -464,7 +436,105 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             if wftool.getInfoFor(self, 'review_state') == 'draft':
                 wftool.doActionFor(self, "send")
 
+    def _personalize_texts(self, enl, receiver, text, text_plain):
+        salutation = receiver.get("salutation") or ''
+        fullname = receiver.get('fullname')
+        if not fullname:
+            try:
+                fullname = enl.getFullname_fallback()
+            except AttributeError:
+                fullname = "Sir or Madam"
+
+        subscriber_salutation = safe_portal_encoding(salutation) + ' ' + \
+            safe_portal_encoding(fullname)
+        text = text.replace(
+            "[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
+        text_plain = text_plain.replace(
+            "[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
+
+        # we can only build unsubscribe links with subscriber uid
+        if 'uid' in receiver:
+            try:
+                unsubscribe_text = enl.getUnsubscribe_string()
+            except AttributeError:
+                unsubscribe_text = "Click here to unsubscribe"
+            unsubscribe_link = enl.absolute_url() + \
+                "/unsubscribe?subscriber=" + receiver['uid']
+
+            text = text.replace(
+                "[[UNSUBSCRIBE]]", """<a href="%s">%s.</a>""" % (
+                    unsubscribe_link, unsubscribe_text))
+
+            text_plain = text_plain.replace(
+                "[[UNSUBSCRIBE]]", """\n%s: %s""" % (
+                    unsubscribe_text, unsubscribe_link))
+        else:
+            text = text.replace("[[UNSUBSCRIBE]]", "")
+            text_plain = text_plain.replace(
+                "[[UNSUBSCRIBE]]", "")
+
+        return text, text_plain
+
+    def _get_images_to_attach(self, image_urls):
+        image_number = 0
+        images_to_attach = []
+        reference_tool = getToolByName(self, 'reference_catalog')
+        for image_url in image_urls:
+            try:
+                image_url = urlparse(image_url)[2]
+                o = None
+                if 'resolveuid' in image_url:
+                    urlparts = image_url.split('resolveuid/')[1:][0]
+                    urlparts = urlparts.split('/')
+                    uuid = urlparts.pop(0)
+                    o = reference_tool.lookupObject(uuid)
+                    if o and urlparts:
+                        # get thumb
+                        o = o.restrictedTraverse(urlparts[0])
+                        image_url = '/'.join(urlparts)
+                if "@@images" in image_url:
+                    # HACK to get around restrictedTraverse not honoring
+                    # ITraversable see
+                    # http://developer.plone.org/serving/traversing.html\
+                    # traversing-by-full-path
+                    image_url_base, image_scale_params = image_url.split(
+                        "@@images/")
+                    if o is not None:
+                        scales = o
+                    else:
+                        scales = self.restrictedTraverse(
+                            urllib.unquote(
+                                image_url_base.strip('/') + '/@@images'))
+                    parts = list(reversed(image_scale_params.split("/")))
+                    name = parts.pop()
+                    dummy_request = dict(TraversalRequestNameStack=parts)
+                    o = scales.publishTraverse(dummy_request, name)
+                if o is None:
+                    o = self.restrictedTraverse(urllib.unquote(image_url))
+            except Exception, e:
+                log.error("Could not resolve the image \"%s\": %s" % (
+                    image_url, e))
+            else:
+                if hasattr(o, "_data"):  # file-based
+                    image = MIMEImage(o._data)
+                elif hasattr(o, "data"):
+                    image = MIMEImage(o.data)  # zodb-based
+                elif hasattr(o, "GET"):
+                    image = MIMEImage(o.GET())  # z3 resource image
+                else:
+                    log.error(
+                        "Could not get the image data from image object!")
+                    image = None
+                if image is not None:
+                    image["Content-ID"] = "<image_%s>" % image_number
+                    # attach images only to html parts
+                images_to_attach.append(image)
+            # Numbers have to match what we replaced in html
+            image_number += 1
+        return images_to_attach
+
     security.declareProtected("Modify portal content", "loadContent")
+
     def loadContent(self):
         """Loads text dependend on criteria into text attribute.
         """
@@ -523,21 +593,24 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         enl = self.getNewsletter()
         plone_subscribers = []
         if self.getSendToAllPloneMembers():
-            log.info("SendToAllPloneMembers is true, so we add all existing members to receiver_member_list!")
+            log.info(
+                "SendToAllPloneMembers is true, so we add all existing"
+                " members to receiver_member_list!")
             receiver_member_list = enl.get_plone_members()
-            #if all members are receivers we don't need groups relations:
+            # if all members are receivers we don't need groups relations:
             receiver_group_list = []
         else:
             receiver_member_list = self.getPloneReceiverMembers()
             receiver_group_list = self.getPloneReceiverGroups()
         gtool = getToolByName(self, 'portal_groups')
         if fmp_tool:
-            fmp_tool = queryUtility(IFastmemberpropertiesTool, 'fastmemberproperties_tool')
+            fmp_tool = queryUtility(
+                IFastmemberpropertiesTool, 'fastmemberproperties_tool')
             # use fastmemberproperties to get mememberproperties:
             member_properties = fmp_tool.get_all_memberproperties()
         else:
-            # use plone API to get memberproperties, works without fastmemberproperties,
-            # but is much slower!
+            # use plone API to get memberproperties,
+            # works without fastmemberproperties, but is much slower!
             acl_userfolder = getToolByName(self, 'acl_users')
             member_objs = acl_userfolder.getUsers()
             member_properties = {}
@@ -552,17 +625,21 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         selected_group_members = []
         for group in receiver_group_list:
             selected_group_members.extend(gtool.getGroupMembers(group))
-        receiver_member_list = receiver_member_list + tuple(selected_group_members)
+        receiver_member_list = receiver_member_list + tuple(
+            selected_group_members)
 
         # get salutation mappings
         salutation_mappings = {}
         for line in enl.getSalutations():
             salutation_key, salutation_value = line.split('|')
-            salutation_mappings[salutation_key.strip()] = salutation_value.strip()
+            salutation_mappings[
+                salutation_key.strip()] = salutation_value.strip()
         # get all selected member properties
         for receiver_id in set(receiver_member_list):
             if receiver_id not in member_properties:
-                log.debug("Ignore reveiver \"%s\", because we have no properties for this member!" % receiver_id)
+                log.debug(
+                    "Ignore reveiver \"%s\", because we have "
+                    "no properties for this member!" % receiver_id)
                 continue
             member_property = member_properties[receiver_id]
             if EMAIL_RE.findall(member_property['email']):
@@ -572,7 +649,9 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                     'salutation': salutation_mappings.get('default', ''),
                 })
             else:
-                log.debug("Skip '%s' because \"%s\" is not a real email!" % (receiver_id, member_property['email']))
+                log.debug(
+                    "Skip '%s' because \"%s\" is not a real email!"
+                    % (receiver_id, member_property['email']))
         # run registered receivers post sending filters:
         for subscriber in subscribers([enl],
                                       IReceiversPostSendingFilter):
@@ -585,8 +664,8 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         """
         plain_text_maxcols = 72
         textout = cStringIO.StringIO()
-        formtext = formatter.AbstractFormatter(formatter.DumbWriter(
-                        textout, plain_text_maxcols))
+        formtext = formatter.AbstractFormatter(
+            formatter.DumbWriter(textout, plain_text_maxcols))
         parser = HTMLParser(formtext)
         parser.feed(text)
         parser.close()

@@ -1,7 +1,6 @@
 # This code has been shamelessly stolen from collective.singing.
 import formatter
 import htmllib
-import quopri
 import StringIO
 import traceback
 import email
@@ -29,7 +28,7 @@ class IDispatch(interface.Interface):
 
         If this method raises an exception, an 'error' is assumed.
         """
-        
+
 
 def create_html_mail(subject, html, text=None, from_addr=None, to_addr=None,
                      headers=None, encoding='UTF-8'):
@@ -45,8 +44,8 @@ def create_html_mail(subject, html, text=None, from_addr=None, to_addr=None,
         # Produce an approximate textual rendering of the HTML string,
         # unless you have been given a better version as an argument
         textout = StringIO.StringIO()
-        formtext = formatter.AbstractFormatter(formatter.DumbWriter(
-                        textout, plain_text_maxcols))
+        formtext = formatter.AbstractFormatter(
+            formatter.DumbWriter(textout, plain_text_maxcols))
         parser = htmllib.HTMLParser(formtext)
         parser.feed(html)
         parser.close()
@@ -54,7 +53,7 @@ def create_html_mail(subject, html, text=None, from_addr=None, to_addr=None,
         # append the anchorlist at the bottom of a message
         # to keep the message readable.
         counter = 0
-        anchorlist  = "\n\n" + ("-" * plain_text_maxcols) + "\n\n"
+        anchorlist = "\n\n" + ("-" * plain_text_maxcols) + "\n\n"
         for item in parser.anchorlist:
             counter += 1
             anchorlist += "[%d] %s\n" % (counter, item)
@@ -67,7 +66,8 @@ def create_html_mail(subject, html, text=None, from_addr=None, to_addr=None,
     # if we would like to include images in future, there should
     # probably be 'related' instead of 'mixed'
     msg = MIMEMultipart('mixed')
-    # maybe later :)  msg['From'] = Header("%s <%s>" % (send_from_name, send_from), encoding)
+    # maybe later :)  msg['From'] = Header("%s <%s>" %
+    #   (send_from_name, send_from), encoding)
     msg['Subject'] = Header(subject, encoding)
     msg['From'] = from_addr
     msg['To'] = to_addr
@@ -80,10 +80,11 @@ def create_html_mail(subject, html, text=None, from_addr=None, to_addr=None,
 
     alternatives = MIMEMultipart('alternative')
     msg.attach(alternatives)
-    alternatives.attach( MIMEText(text, 'plain', _charset=encoding) )
-    alternatives.attach( MIMEText(html, 'html',  _charset=encoding) )
+    alternatives.attach(MIMEText(text, 'plain', _charset=encoding))
+    alternatives.attach(MIMEText(html, 'html', _charset=encoding))
 
     return msg
+
 
 class Dispatch(object):
     """An IDispatcher registered for ``email.message.Message`` that'll
@@ -105,7 +106,8 @@ class Dispatch(object):
       >>> dispatcher() # doctest: +ELLIPSIS
       Traceback (most recent call last):
       ...
-      ComponentLookupError: (<InterfaceClass zope.sendmail.interfaces.IMailDelivery>, '')
+      ComponentLookupError: (<InterfaceClass \
+              zope.sendmail.interfaces.IMailDelivery>, '')
 
     Let's provide our own ``IMailDelivery`` and see what happens:
 
@@ -175,10 +177,12 @@ class Dispatch(object):
           ['"Daniel flash, Nouri" <daniel.nouri@gmail.com>']
           >>> split('Daniel Nouri <daniel.nouri@gmail.com>, '
           ...       'Daniel Widerin <daniel.widerin@kombinat.at>')
-          ['Daniel Nouri <daniel.nouri@gmail.com>', 'Daniel Widerin <daniel.widerin@kombinat.at>']
+          ['Daniel Nouri <daniel.nouri@gmail.com>',
+                  'Daniel Widerin <daniel.widerin@kombinat.at>']
           >>> split('"Daniel flash, dance Nouri" <daniel.nouri@gmail.com>,'
           ...       '"Daniel Saily Widerin" <daniel.widerin@kombinat.at>')
-          ['"Daniel flash, dance Nouri" <daniel.nouri@gmail.com>', '"Daniel Saily Widerin" <daniel.widerin@kombinat.at>']
+          ['"Daniel flash, dance Nouri" <daniel.nouri@gmail.com>',
+                  '"Daniel Saily Widerin" <daniel.widerin@kombinat.at>']
         """
         items = []
         last_index = 0

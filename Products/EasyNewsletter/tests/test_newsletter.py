@@ -21,6 +21,7 @@ from Products.TinyMCE.interfaces.utility import ITinyMCE
 GLOBALS = globals()
 TESTS_HOME = package_home(GLOBALS)
 
+
 class EasyNewsletterTests(unittest.TestCase):
 
     layer = EASYNEWSLETTER_INTEGRATION_TESTING
@@ -46,7 +47,7 @@ class EasyNewsletterTests(unittest.TestCase):
         # We need to fake a valid mail setup
         self.portal.email_from_address = "portal@plone.test"
         self.mailhost = self.portal.MailHost
-        #image for image testing
+        # image for image testing
         self.folder.invokeFactory("Image", "image")
         self.image = self.folder.image
         img1 = open(os.path.join(TESTS_HOME, 'img1.png'), 'rb').read()
@@ -57,7 +58,7 @@ class EasyNewsletterTests(unittest.TestCase):
         self.newsletter.invokeFactory(
             "ENLIssue",
             id="issue")
-        self.newsletter.issue.title="with image"
+        self.newsletter.issue.title = "with image"
         self.portal.REQUEST.form.update({
             'sender_name': self.newsletter.senderName,
             'sender_email': self.newsletter.senderEmail,
@@ -91,7 +92,9 @@ class EasyNewsletterTests(unittest.TestCase):
         self.newsletter.invokeFactory(
             "ENLIssue",
             id="issue")
-        self.newsletter.issue.title="This is a very long newsletter issue title with special characters such as äüö. Will this really work?"
+        self.newsletter.issue.title = \
+            "This is a very long newsletter issue title with special "\
+            "characters such as äüö. Will this really work?"
         self.portal.REQUEST.form.update({
             'sender_name': self.newsletter.senderName,
             'sender_email': self.newsletter.senderEmail,
@@ -143,7 +146,8 @@ class EasyNewsletterTests(unittest.TestCase):
         tinymce = queryUtility(ITinyMCE)
         tinymce.link_using_uids = True
 
-        body = '<img src="../../resolveuid/%s/@@images/image/thumb"/>' % self.image.UID()
+        body = '<img src="../../resolveuid/%s/@@images/image/thumb"/>' % \
+            self.image.UID()
         msg = self.sendSampleMessage(body)
 
         self.assertNotIn('resolveuid', msg)
@@ -154,24 +158,28 @@ class EasyNewsletterTests(unittest.TestCase):
         self.newsletter.invokeFactory(
             "ENLIssue",
             id="issue")
-        self.newsletter.issue.title="Test Newsletter Issue"
-        self.newsletter.issue.setText("<h1>This is the newsletter body!</h1><div class=\"mailonly\">This test should only visible in mails not in public view!</div>")
+        self.newsletter.issue.title = "Test Newsletter Issue"
+        self.newsletter.issue.setText(
+            "<h1>This is the newsletter body!</h1><div class=\"mailonly\">"
+            "This test should only visible in mails not in public view!</div>")
         view = getMultiAdapter(
             (self.newsletter.issue, self.portal.REQUEST),
             name="get-public-body")
         view = view.__of__(self.portal)
         view_result = view()
 
-        self.assertTrue('mailonly' not in view_result, 'get-public-body view contains mailonly elements, this should filtert out!')
-
+        self.assertTrue(
+            'mailonly' not in view_result,
+            'get-public-body view contains mailonly elements,'
+            ' this should filtert out!')
 
     def test_permission(self):
         setRoles(self.portal, TEST_USER_ID, ['Editor'])
-        self.portal.REQUEST.set('ACTUAL_URL','http://nohost')
+        self.portal.REQUEST.set('ACTUAL_URL', 'http://nohost')
         self.newsletter.invokeFactory(
             "ENLIssue",
             id="issue")
-        self.newsletter.issue.title="Test Newsletter Issue"
+        self.newsletter.issue.title = "Test Newsletter Issue"
         self.newsletter.issue.setText("<h1>This is the newsletter body!")
 
         view = self.newsletter.restrictedTraverse("enl_drafts_view")
@@ -189,7 +197,5 @@ class EasyNewsletterTests(unittest.TestCase):
         self.assertIn('issue', view_result)
 
 
-
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)
-

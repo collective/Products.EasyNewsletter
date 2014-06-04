@@ -23,7 +23,7 @@ class DailyIssueBaseTestCase(unittest.TestCase):
         self.catalog = getToolByName(self.portal, "portal_catalog")
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
 
-        #creating test objects: folder, news, newsletter and subscriber
+        # creating test objects: folder, news, newsletter and subscriber
         self.portal.invokeFactory("Folder", "testfolder")
         self.folder = self.portal["testfolder"]
         self.folder.invokeFactory("News Item", "news01")
@@ -44,7 +44,7 @@ class DailyIssueBaseTestCase(unittest.TestCase):
             name="daily-issue"
         )
 
-        #setting a Mock mailhost
+        # setting a Mock mailhost
         self.portal._original_MailHost = self.portal.MailHost
         self.portal.MailHost = mailhost = MockMailHost("MailHost")
         sm = getSiteManager(context=self.portal)

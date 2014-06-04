@@ -14,48 +14,54 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
     """
     """
     portlet_title = schema.TextLine(
-        title = _(u"Title for the portlet."),
-        default = u"Newsletter",
-        required = True,
+        title=_(u"Title for the portlet."),
+        default=u"Newsletter",
+        required=True,
     )
 
     portlet_description = schema.Text(
-        title = _(u"label_newsletter_description",
+        title=_(
+            u"label_newsletter_description",
             default=u"Description"),
-        description = _(u"help_newsletter_description",
+        description=_(
+            u"help_newsletter_description",
             default=u"Subscribe here to our newsletter."),
-        default = u"",
-        required = False)
+        default=u"",
+        required=False)
 
     newsletter = schema.Choice(
-        title = _(u"label_newsletter_title",
+        title=_(
+            u"label_newsletter_title",
             default=u"Path to Newsletter"),
-        description = _(u"help_newsletter_title",
+        description=_(
+            u"help_newsletter_title",
             default=u"The absolute path from portal_root to the newsletter"),
-        source = SearchableTextSourceBinder(
+        source=SearchableTextSourceBinder(
             {'portal_type': 'EasyNewsletter'},
             default_query='path:'),
         required=True)
 
     query_fullname = schema.Bool(
-        title = _(u"label_newletter_show_fullname",
+        title=_(
+            u"label_newletter_show_fullname",
             default=u"Ask for the salutation and fullname of the subscriber"),
-        default = True,
-        required = True)
+        default=True,
+        required=True)
 
     query_organization = schema.Bool(
-        title = _(
+        title=_(
             u"label_newletter_show_organization",
-            default=u"Display field to enter company/organization of subscriber"),
-        default = False,
-        required = True)
+            default=u"Display field to enter company/organization of "
+            "subscriber"),
+        default=False,
+        required=True)
 
     show_unsubscribe = schema.Bool(
-        title = _(
+        title=_(
             u"label_newletter_show_unsubscribe_link",
             default=u"Display an unsubscribe link in portlet footer"),
-        default = True,
-        required = True)
+        default=True,
+        required=True)
 
 
 class Assignment(base.Assignment):
@@ -121,9 +127,9 @@ class AddForm(base.AddForm):
         """
         """
         return Assignment(
-            portlet_title = data.get("portlet_title", u""),
-            portlet_description = data.get("portlet_description", u""),
-            newsletter = data.get("newsletter", ""),
+            portlet_title=data.get("portlet_title", u""),
+            portlet_description=data.get("portlet_description", u""),
+            newsletter=data.get("newsletter", ""),
         )
 
 
@@ -132,4 +138,5 @@ class EditForm(base.EditForm):
     """
     form_fields = form.Fields(INewsletterSubscriberPortlet)
     label = _(u"Edit Newsletter portlet")
-    description = _(u"This portlet displays the subscriber add form of a newsletter.")
+    description = _(
+        u"This portlet displays the subscriber add form of a newsletter.")

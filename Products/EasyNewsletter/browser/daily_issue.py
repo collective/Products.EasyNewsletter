@@ -30,7 +30,7 @@ class DailyIssueView(BrowserView):
 
         try:
             self.context.invokeFactory('ENLIssue', id)
-        #If issue already exist, don't create it again
+        # If issue already exist, don't create it again
         except BadRequest:
             raise
 

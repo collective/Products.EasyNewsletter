@@ -11,25 +11,29 @@ from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 
 schema = atapi.BaseSchema + atapi.Schema((
 
-    ZPTField('body',
-        validators = ('zptvalidator', ),
-        widget = atapi.TextAreaWidget(
-            label = _(u'label_body_zpt', default=u'Newsletter Template'),
-            description = _('help_body_zpt',
+    ZPTField(
+        'body',
+        validators=('zptvalidator', ),
+        widget=atapi.TextAreaWidget(
+            label=_(u'label_body_zpt', default=u'Newsletter Template'),
+            description=_(
+                'help_body_zpt',
                 default=u'This is a Zope Page Template file that is used for \
                      rendering the newsletter mail.'),
-            i18n_domain = "plone",
-            rows = 30,
+            i18n_domain="plone",
+            rows=30,
         ),
     ),
 
-    atapi.TextField('description',
-        accessor = "Description",
-        widget = atapi.TextAreaWidget(
-            label = _(u"label_description", default=u'Description'),
-            description = _(u"help_description",
+    atapi.TextField(
+        'description',
+        accessor="Description",
+        widget=atapi.TextAreaWidget(
+            label=_(u"label_description", default=u'Description'),
+            description=_(
+                u"help_description",
                 default=u"Enter a value for description."),
-            i18n_domain = "plone",
+            i18n_domain="plone",
         ),
     ),
 
@@ -51,6 +55,7 @@ class ENLTemplate(atapi.BaseContent):
         self.setBody(config.DEFAULT_TEMPLATE)
 
     security.declarePublic('getSourceCode')
+
     def getSourceCode(self):
         """Return body as string
         """
@@ -58,6 +63,7 @@ class ENLTemplate(atapi.BaseContent):
         return html
 
     security.declarePublic('setNewsletter')
+
     def setIssue(self, issue_uid):
         """Sets the newsletter which should be used by the template
         """
@@ -68,7 +74,7 @@ class ENLTemplate(atapi.BaseContent):
         """
         portal_catalog = getToolByName(self, "portal_catalog")
         try:
-            brain = portal_catalog(UID = self.issue_uid)[0]
+            brain = portal_catalog(UID=self.issue_uid)[0]
             issue = brain.getObject()
             return issue.queryCatalog()
         except (AttributeError, IndexError, TypeError):
@@ -79,7 +85,7 @@ class ENLTemplate(atapi.BaseContent):
         """
         portal_catalog = getToolByName(self, "portal_catalog")
         try:
-            brain = portal_catalog(UID = self.issue_uid)[0]
+            brain = portal_catalog(UID=self.issue_uid)[0]
         except (AttributeError, IndexError):
             return []
         else:

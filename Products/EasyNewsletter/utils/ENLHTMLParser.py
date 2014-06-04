@@ -22,13 +22,13 @@ class ENLHTMLParser(HTMLParser.HTMLParser):
         """
         self.html += "<%s" % tag
 
-
         for attr in attrs:
             if attr[0] == "href":
                 try:
                     # split anchor from url
                     baseurl, anchor = urlparse.urldefrag(attr[1])
-                    o = self.context.restrictedTraverse(urllib.unquote(baseurl))
+                    o = self.context.restrictedTraverse(
+                        urllib.unquote(baseurl))
                     if getattr(o, 'absolute_url', None):
                         url = o.absolute_url()
                     else:

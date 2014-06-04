@@ -10,6 +10,12 @@ Changelog
   [djay]
 - Switch to ModifyPortalContent as main permission
   [djay]
+- Added a unsubscribe form that allow unsubscribing direcly from the website
+  [MrTango]
+- Added some test for the unsubscribe views
+  [MrTango]
+- Reduce code complexity in ENLIssue and fix all pep8 violations
+  [MrTango]
 
 
 
