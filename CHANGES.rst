@@ -1,13 +1,8 @@
 Changelog
 =========
 
-2.6.14 (unreleased)
--------------------
 
-- Nothing changed yet.
-
-
-2.6.13 (2014-06-05)
+2.6.13 (unreleased)
 -------------------
 
 - Added tests for sending images
