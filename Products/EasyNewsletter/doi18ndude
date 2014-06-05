@@ -25,7 +25,7 @@ for lang in $LANGUAGES; do
 done
 
 # Rebuild .pot
-i18ndude rebuild-pot --pot locales/$CATALOGNAME.pot --merge locales/manual.pot --create $CATALOGNAME .
+../../bin/i18ndude rebuild-pot --pot locales/$CATALOGNAME.pot --merge locales/manual.pot --create $CATALOGNAME .
 
 # Compile po files
 for lang in $(find locales -mindepth 1 -maxdepth 1 -type d); do
@@ -39,7 +39,7 @@ for lang in $(find locales -mindepth 1 -maxdepth 1 -type d); do
 
         # Sync po file
         echo "Syncing $PO"
-        i18ndude sync --pot locales/$CATALOGNAME.pot $PO
+        ../../bin/i18ndude sync --pot locales/$CATALOGNAME.pot $PO
 
         # Compile .po to .mo
         MO=$lang/LC_MESSAGES/${CATALOGNAME}.mo
