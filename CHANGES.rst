@@ -16,6 +16,8 @@ Changelog
   [MrTango]
 - Reduce code complexity in ENLIssue and fix all pep8 violations
   [MrTango]
+- Do the unicode check for handle_startendtag as well
+  [jean]
 
 
 
