@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-06-05 14:44+0000\n"
+"POT-Creation-Date: 2014-06-05 15:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Gaël Pegliasco <gael.pegliasco@makina-corpus.com>\n"
 "Language-Team: Plone-fr <plone-plone-fr@lists.plone.org.>\n"
@@ -507,6 +507,10 @@ msgstr "Mauvais format du fichier CSV. Veuillez le corriger et recommencer."
 msgid "You have been unsubscribed."
 msgstr "Vous avez été désabonné(e)."
 
+#: ./browser/templates/unsubscribe_form.pt:16
+msgid "You want to unsubscribe from this Newsletter?"
+msgstr ""
+
 #: ./browser/registration.py:217
 msgid "Your email address could not be found in subscribers."
 msgstr ""
@@ -518,6 +522,10 @@ msgstr "Votre adresse email est déjà enregistrée."
 #: ./browser/registration.py:107
 msgid "Your email has been registered.                 A confirmation email was sent to your address. Please check                 your inbox and click on the link in the email in order to                 confirm your subscription."
 msgstr "Votre email a été enregistré. Un message de confirmation vous a été adressé. Veuillez vérifier votre messagerie et cliquer sur le lien de confirmation pour valider votre inscription."
+
+#: ./browser/templates/unsubscribe_form.pt:19
+msgid "Your registered E-Mail address:"
+msgstr ""
 
 #: ./browser/registration.py:129
 msgid "Your subscription was successfully confirmed."
@@ -532,6 +540,10 @@ msgstr "action"
 #: ./browser/enl_subscribers_view.pt:32
 msgid "add_subscriber"
 msgstr "ajouter un abonné"
+
+#: ./browser/templates/unsubscribe_form.pt:25
+msgid "cancel"
+msgstr ""
 
 #: ./browser/registration.py:209
 msgid "confirm newsletter unsubscription"
@@ -678,6 +690,11 @@ msgstr "Modèles"
 #: ./browser/issue_send_form.pt:96
 msgid "easynewsletter_test_button"
 msgstr "Tester la lettre"
+
+#. Default: "Unsubscribe"
+#: ./browser/templates/unsubscribe_form.pt:23
+msgid "easynewsletter_unsubscribe_button"
+msgstr ""
 
 #: ./browser/subscribers.py:93
 #: ./browser/upload_csv.pt:38

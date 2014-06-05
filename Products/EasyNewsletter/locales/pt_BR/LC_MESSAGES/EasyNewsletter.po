@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2014-06-05 14:44+0000\n"
+"POT-Creation-Date: 2014-06-05 15:28+0000\n"
 "PO-Revision-Date: 2011-07-17 09:05-0000\n"
 "Last-Translator: Érico Andrei <erico@simplesconsultoria.com.br>\n"
 "Language-Team: Simples Consultoria <contato@simplesconsultoria.com.br>\n"
@@ -503,6 +503,10 @@ msgstr "Especificação inválida do arquivo CSV. Por favor corrija e tente nova
 msgid "You have been unsubscribed."
 msgstr "Você foi descadastrado."
 
+#: ./browser/templates/unsubscribe_form.pt:16
+msgid "You want to unsubscribe from this Newsletter?"
+msgstr ""
+
 #: ./browser/registration.py:217
 msgid "Your email address could not be found in subscribers."
 msgstr ""
@@ -514,6 +518,10 @@ msgstr "Seu endereço de email já está cadastrado."
 #: ./browser/registration.py:107
 msgid "Your email has been registered.                 A confirmation email was sent to your address. Please check                 your inbox and click on the link in the email in order to                 confirm your subscription."
 msgstr "Seu email foi registrado. Um email de confirmação foi enviado para seu endereço. Por favor verifique sua caixa de entrada e clique no link no email recebido a fim de confirmarmos o seu cadastro."
+
+#: ./browser/templates/unsubscribe_form.pt:19
+msgid "Your registered E-Mail address:"
+msgstr ""
 
 #: ./browser/registration.py:129
 msgid "Your subscription was successfully confirmed."
@@ -528,6 +536,10 @@ msgstr "Ação"
 #: ./browser/enl_subscribers_view.pt:32
 msgid "add_subscriber"
 msgstr "Adicionar assinante"
+
+#: ./browser/templates/unsubscribe_form.pt:25
+msgid "cancel"
+msgstr ""
 
 #: ./browser/registration.py:209
 msgid "confirm newsletter unsubscription"
@@ -674,6 +686,11 @@ msgstr "Modelos"
 #: ./browser/issue_send_form.pt:96
 msgid "easynewsletter_test_button"
 msgstr "Testar newsletter"
+
+#. Default: "Unsubscribe"
+#: ./browser/templates/unsubscribe_form.pt:23
+msgid "easynewsletter_unsubscribe_button"
+msgstr ""
 
 #: ./browser/subscribers.py:93
 #: ./browser/upload_csv.pt:38

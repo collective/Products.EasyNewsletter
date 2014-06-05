@@ -4,7 +4,7 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       metal:use-macro="context/main_template/macros/master"
-      i18n:domain="Products.EasyNewsletter">
+      i18n:domain="EasyNewsletter">
 <body>
   <div metal:fill-slot="content-title">
     <h1 class="documentFirstHeading" tal:content="context/title">
@@ -13,15 +13,18 @@
   </div>
 
   <tal:content-core metal:fill-slot="content-core">
-    <h2>You want to unsubscribe from this Newsletter?</h2>
+    <h2 i18n:translate="">You want to unsubscribe from this Newsletter?</h2>
     <form action="unsubscribe_form" method="get" accept-charset="utf-8">
       <div class="field">
-        <label>Your registered E-Mail address: </label>
+        <label i18n:translate="">Your registered E-Mail address: </label>
         <input type="text" name="subscriber" value="" />
       </div>
       <div>
-        <input type="submit" name="unsubscribe" value="Unsubscribe"> &nbsp; <a
-          tal:attributes="href view/newsletter_url">cancel</a>
+        <input type="submit" name="unsubscribe"
+          value="Unsubscribe"
+          i18n:attributes="value easynewsletter_unsubscribe_button"> &nbsp; <a
+          tal:attributes="href view/newsletter_url" i18n:translate=""
+          >cancel</a>
       </div>
     </form>
 

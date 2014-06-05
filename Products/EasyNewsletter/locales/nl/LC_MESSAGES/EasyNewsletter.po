@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Products.EasyNewsletter\n"
-"POT-Creation-Date: 2014-06-05 14:44+0000\n"
+"POT-Creation-Date: 2014-06-05 15:28+0000\n"
 "PO-Revision-Date: 2011-08-10 15:41+0100\n"
 "Last-Translator: Wim Boucquaert - wimbou <wim.boucquaert@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -503,6 +503,10 @@ msgstr "Het CSV-bestand bevat fouten. Corrigeer en probeer opnieuw."
 msgid "You have been unsubscribed."
 msgstr "U bent uitgeschreven."
 
+#: ./browser/templates/unsubscribe_form.pt:16
+msgid "You want to unsubscribe from this Newsletter?"
+msgstr ""
+
 #: ./browser/registration.py:217
 msgid "Your email address could not be found in subscribers."
 msgstr ""
@@ -514,6 +518,10 @@ msgstr "Je e-mailadres is reeds geregistreerd."
 #: ./browser/registration.py:107
 msgid "Your email has been registered.                 A confirmation email was sent to your address. Please check                 your inbox and click on the link in the email in order to                 confirm your subscription."
 msgstr "Je e-mail werd geregistreerd. Een bevestigings-e-mail werd verzonden naar je e-mailadres. Gelieve je inbox te controleren en te klikken op de link in de e-mail om je registratie te bevestigen."
+
+#: ./browser/templates/unsubscribe_form.pt:19
+msgid "Your registered E-Mail address:"
+msgstr ""
 
 #: ./browser/registration.py:129
 msgid "Your subscription was successfully confirmed."
@@ -527,6 +535,10 @@ msgstr ""
 #. Default: "Add subscriber"
 #: ./browser/enl_subscribers_view.pt:32
 msgid "add_subscriber"
+msgstr ""
+
+#: ./browser/templates/unsubscribe_form.pt:25
+msgid "cancel"
 msgstr ""
 
 #: ./browser/registration.py:209
@@ -674,6 +686,11 @@ msgstr "Sjablonen"
 #: ./browser/issue_send_form.pt:96
 msgid "easynewsletter_test_button"
 msgstr "Test nieuwsbrief"
+
+#. Default: "Unsubscribe"
+#: ./browser/templates/unsubscribe_form.pt:23
+msgid "easynewsletter_unsubscribe_button"
+msgstr ""
 
 #: ./browser/subscribers.py:93
 #: ./browser/upload_csv.pt:38

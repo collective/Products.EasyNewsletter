@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.6.2dev\n"
-"POT-Creation-Date: 2014-06-05 14:44+0000\n"
+"POT-Creation-Date: 2014-06-05 15:28+0000\n"
 "PO-Revision-Date: 2012-02-24 15:22-0300\n"
 "Last-Translator: Juan A. Diaz <juan@linux.org.ar>\n"
 "Language-Team: Spanish; Castilian <>\n"
@@ -505,6 +505,10 @@ msgstr "La especificación del archivo CSV no es correcta. Por favor corrija est
 msgid "You have been unsubscribed."
 msgstr "Su suscripción ha sido dada de baja."
 
+#: ./browser/templates/unsubscribe_form.pt:16
+msgid "You want to unsubscribe from this Newsletter?"
+msgstr ""
+
 #: ./browser/registration.py:217
 msgid "Your email address could not be found in subscribers."
 msgstr ""
@@ -516,6 +520,10 @@ msgstr "Su dirección de correo electrónico ya se encuentra registrada."
 #: ./browser/registration.py:107
 msgid "Your email has been registered.                 A confirmation email was sent to your address. Please check                 your inbox and click on the link in the email in order to                 confirm your subscription."
 msgstr "Su dirección de correo electrónico ha sido registrada. Un correo electrónico de confirmación fue enviado a esta dirección. Por favor verifique su correspondencia y presione sobre el enlace que contiene el correo para confirmar su suscripción."
+
+#: ./browser/templates/unsubscribe_form.pt:19
+msgid "Your registered E-Mail address:"
+msgstr ""
 
 #: ./browser/registration.py:129
 msgid "Your subscription was successfully confirmed."
@@ -530,6 +538,10 @@ msgstr "Acción"
 #: ./browser/enl_subscribers_view.pt:32
 msgid "add_subscriber"
 msgstr "Agregar suscriptor"
+
+#: ./browser/templates/unsubscribe_form.pt:25
+msgid "cancel"
+msgstr ""
 
 #: ./browser/registration.py:209
 msgid "confirm newsletter unsubscription"
@@ -676,6 +688,11 @@ msgstr "Plantillas"
 #: ./browser/issue_send_form.pt:96
 msgid "easynewsletter_test_button"
 msgstr "Probar el envío del boletín de noticias"
+
+#. Default: "Unsubscribe"
+#: ./browser/templates/unsubscribe_form.pt:23
+msgid "easynewsletter_unsubscribe_button"
+msgstr ""
 
 #: ./browser/subscribers.py:93
 #: ./browser/upload_csv.pt:38

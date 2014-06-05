@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.6.2dev\n"
-"POT-Creation-Date: 2014-06-05 14:44+0000\n"
+"POT-Creation-Date: 2014-06-05 15:28+0000\n"
 "PO-Revision-Date: 2012-02-24 15:22-0300\n"
 "Last-Translator: Malthe Borch <mborch@gmail.com>\n"
 "Language-Team: Danish <>\n"
@@ -505,6 +505,10 @@ msgstr "Ukendt specifikation af CSV-fil."
 msgid "You have been unsubscribed."
 msgstr "Du er blevet afmeldt."
 
+#: ./browser/templates/unsubscribe_form.pt:16
+msgid "You want to unsubscribe from this Newsletter?"
+msgstr ""
+
 #: ./browser/registration.py:217
 msgid "Your email address could not be found in subscribers."
 msgstr ""
@@ -516,6 +520,10 @@ msgstr "Din e-mail adresse er allerede registeret."
 #: ./browser/registration.py:107
 msgid "Your email has been registered.                 A confirmation email was sent to your address. Please check                 your inbox and click on the link in the email in order to                 confirm your subscription."
 msgstr "Din e-mail adresse blev registret. En anmodning om godkendelse er blevet sendt."
+
+#: ./browser/templates/unsubscribe_form.pt:19
+msgid "Your registered E-Mail address:"
+msgstr ""
 
 #: ./browser/registration.py:129
 msgid "Your subscription was successfully confirmed."
@@ -530,6 +538,10 @@ msgstr "Handling"
 #: ./browser/enl_subscribers_view.pt:32
 msgid "add_subscriber"
 msgstr "Tilføj tilmelding"
+
+#: ./browser/templates/unsubscribe_form.pt:25
+msgid "cancel"
+msgstr ""
 
 #: ./browser/registration.py:209
 msgid "confirm newsletter unsubscription"
@@ -676,6 +688,11 @@ msgstr "Skabeloner"
 #: ./browser/issue_send_form.pt:96
 msgid "easynewsletter_test_button"
 msgstr "Test-nyhedsbrev"
+
+#. Default: "Unsubscribe"
+#: ./browser/templates/unsubscribe_form.pt:23
+msgid "easynewsletter_unsubscribe_button"
+msgstr ""
 
 #: ./browser/subscribers.py:93
 #: ./browser/upload_csv.pt:38
