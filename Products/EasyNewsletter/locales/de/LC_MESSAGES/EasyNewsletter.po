@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-07-11 12:24+0000\n"
+"POT-Creation-Date: 2014-06-05 14:44+0000\n"
 "PO-Revision-Date: 2011-01-04 22:46+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,7 +35,7 @@ msgstr "Aggregiere Inhalte"
 msgid "An easy to use Newsletter"
 msgstr "Ein einfach zu verwendendes Newsletter-Tool"
 
-#: ./browser/newsletter.py:22
+#: ./browser/registration.py:230
 msgid "An error occured"
 msgstr "Ein Fehler ist aufgetreten"
 
@@ -46,6 +46,10 @@ msgstr "Eine Newsletterausgabe"
 #: ./browser/templates/enl_actions_viewlet.pt:3
 msgid "Archive"
 msgstr "Archiv"
+
+#: ./config.py:221
+msgid "Confirm your subscription on ${portal_url}"
+msgstr ""
 
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "Criteria"
@@ -63,8 +67,9 @@ msgstr "Löschen"
 msgid "Drafts"
 msgstr "Entwürfe"
 
-#. Default: "Text used for confirmation email subject. You can                     customize the text, but it should include the placeholder: ${portal_url}!"
-#: ./content/EasyNewsletter.py:230
+#. Default: "Text used for confirmation email subject. You can                     customize the text, but it should include the                     placeholder: ${portal_url}!"
+#: ./content/EasyNewsletter.py:288
+#, fuzzy
 msgid "EasyNewsletter_description_subscriber_confirmation_mail_subject"
 msgstr "Betreff der Bestätigungsmail. Sie sollten den Platzhalter ${portal_url} verwenden! "
 
@@ -73,60 +78,63 @@ msgstr "Betreff der Bestätigungsmail. Sie sollten den Platzhalter ${portal_url}
 msgid "EasyNewsletter_enablesendbutton_label"
 msgstr "Aktiviere Sende-Knopf"
 
-#: ./content/ENLIssue.py:137
+#: ./content/ENLIssue.py:169
 msgid "EasyNewsletter_help_acquireCriteria"
 msgstr ""
 
-#: ./content/ENLSubscriber.py:60
+#: ./content/ENLSubscriber.py:69
 msgid "EasyNewsletter_help_email"
 msgstr ""
 
-#. Default: "Some packages provide an external delivery service                     for EasyNewsletter. If one is installed you can choose it here."
-#: ./content/EasyNewsletter.py:198
+#. Default: "Some packages provide an external delivery service                     for EasyNewsletter. If one is installed you can choose                     it here."
+#: ./content/EasyNewsletter.py:247
+#, fuzzy
 msgid "EasyNewsletter_help_externalDeliveryService"
 msgstr "Einige Erweiterungen stellen externe Newsletter-Zustelldienste bereit. Wenn eine Erweiterung installiert ist, kann sie hier ausgewählt werden."
 
-#. Default: "Some packages provide an external subscriber source                     for EasyNewsletter. If one is installed you can choose it here."
-#: ./content/EasyNewsletter.py:183
+#. Default: "Some packages provide an external subscriber source                     for EasyNewsletter. If one is installed you can                     choose it here."
+#: ./content/EasyNewsletter.py:228
+#, fuzzy
 msgid "EasyNewsletter_help_externalSubscriberSource"
 msgstr "Einige Erweiterungen stellen externe Newsletter-Abonnenten-Quellen bereit. Wenn eine Erweiterung installiert ist, kann sie hier ausgewählt werden."
 
-#: ./content/ENLSubscriber.py:38
+#: ./content/ENLSubscriber.py:42
 msgid "EasyNewsletter_help_fullname"
 msgstr ""
 
 #. Default: "This will be used if the subscriber has no fullname."
-#: ./content/EasyNewsletter.py:92
+#: ./content/EasyNewsletter.py:109
 msgid "EasyNewsletter_help_fullname_fallback"
 msgstr "Dieser Text wird verwendet sofern der Abonnent keinen Namen gespeichert hat."
 
-#: ./content/ENLSubscriber.py:48
+#: ./content/ENLSubscriber.py:54
 msgid "EasyNewsletter_help_organization"
 msgstr ""
 
 #. Default: "Choose Plone Groups which members should receive the newsletter."
-#: ./content/ENLIssue.py:96
-#: ./content/EasyNewsletter.py:169
+#: ./content/ENLIssue.py:116
+#: ./content/EasyNewsletter.py:210
 msgid "EasyNewsletter_help_ploneReceiverGroups"
 msgstr "Wählen Sie hier die Plone-Gruppen aus, deren Mitglieder den Newsletter erhalten sollen."
 
 #. Default: "Choose Plone Members which should receive the newsletter."
-#: ./content/ENLIssue.py:83
-#: ./content/EasyNewsletter.py:157
+#: ./content/ENLIssue.py:99
+#: ./content/EasyNewsletter.py:194
 msgid "EasyNewsletter_help_ploneReceiverMembers"
 msgstr "Wählen Sie hier die Plone-Nutzer aus, die den Newsletter erhalten sollen."
 
-#: ./content/ENLSubscriber.py:28
+#: ./content/ENLSubscriber.py:31
 msgid "EasyNewsletter_help_salutation"
 msgstr ""
 
-#. Default: "Define here possible salutations for subscriber. One                     salutation per line in the form of: \"mr|Dear Mr.\".                     The left hand value \"mr\" or \"ms\" is mapped to salutation of                     each subscriber and then the right hand value, which you                     can customize is used as salutation."
-#: ./content/EasyNewsletter.py:77
+#. Default: "Define here possible salutations for subscriber. One                     salutation per line in the form of: \"mr|Dear Mr.\".                     The left hand value \"mr\" or \"ms\" is mapped to salutation                     of each subscriber and then the right hand value, which                     you can customize is used as salutation."
+#: ./content/EasyNewsletter.py:91
+#, fuzzy
 msgid "EasyNewsletter_help_salutations"
 msgstr "Hier können Sie verschiedene Anredeformen definieren. Eine Anrede pro Zeile in der folgenden Form: \"mr|Dear Mr.\". \"mr\" ist dabei der Anrede-Schlüssel und darf nicht verändert werden. Der rechte Teil \"Dear Mr.\" wird als Anrede verwendet. Eine Zeile kann z.B. \"ms|Sehr geehrte Frau\" sein."
 
 #. Default: "Default for the sender address of the newsletters."
-#: ./content/EasyNewsletter.py:44
+#: ./content/EasyNewsletter.py:49
 msgid "EasyNewsletter_help_senderEmail"
 msgstr "Standard Absender-Adresse des Newsletters."
 
@@ -136,7 +144,7 @@ msgid "EasyNewsletter_help_senderEmailForm"
 msgstr "Absenderadresse der Newsletters-E-Mail. Falls Sie dieses Feld frei lassen, wird die voreingestellte E-Mail-Adresse verwendet."
 
 #. Default: "Default for the sender name of the newsletters."
-#: ./content/EasyNewsletter.py:54
+#: ./content/EasyNewsletter.py:62
 msgid "EasyNewsletter_help_senderName"
 msgstr "Standard Absender-Name des Newsletters."
 
@@ -150,12 +158,13 @@ msgstr "Absendername der Newsletters-E-Mail. Falls Sie dieses Feld frei lassen, 
 msgid "EasyNewsletter_help_subject"
 msgstr "Thema der Newsletter-E-Mail. Falls Sie dieses Feld frei lassen, wird der Titel des Newsletters verwendet."
 
-#: ./content/ENLIssue.py:152
+#. Default: "Template, to generate the newsletter."
+#: ./content/ENLIssue.py:187
 msgid "EasyNewsletter_help_template"
 msgstr "Template für die automatische Aggregierung von Inhalten."
 
 #. Default: "Default for the test email address."
-#: ./content/EasyNewsletter.py:66
+#: ./content/EasyNewsletter.py:77
 msgid "EasyNewsletter_help_testEmail"
 msgstr "Standard Test-E-Mail-Adresse"
 
@@ -164,106 +173,106 @@ msgstr "Standard Test-E-Mail-Adresse"
 msgid "EasyNewsletter_help_testreceiverForm"
 msgstr "E-Mail-Adresse, die zum Test des Newsletters verwendet wird. Falls Sie diese Feld leer lassen, wird die voreingestellt E-Mail-Adresse verwendet."
 
-#: ./content/ENLSubscriber.py:17
+#: ./content/ENLSubscriber.py:18
 msgid "EasyNewsletter_help_title"
 msgstr ""
 
 #. Default: "This will replace the placeholder [[UNSUBSCRIBE]]."
-#: ./content/EasyNewsletter.py:103
+#: ./content/EasyNewsletter.py:124
 msgid "EasyNewsletter_help_unsubscribe_string"
 msgstr "Dieser Text wird anstelle des Platzhalters [[UNSUBSCRIBE]] in die Email eingefügt."
 
 #. Default: "Default Plone Mailhost"
-#: ./content/EasyNewsletter.py:399
+#: ./content/EasyNewsletter.py:499
 msgid "EasyNewsletter_label_PloneMailHost"
 msgstr "Standard PloneMailHost"
 
 #. Default: "Footer"
-#: ./content/EasyNewsletter.py:130
+#: ./content/EasyNewsletter.py:161
 msgid "EasyNewsletter_label_default_footer"
 msgstr "Fusszeile"
 
 #. Default: "Header"
-#: ./content/EasyNewsletter.py:115
+#: ./content/EasyNewsletter.py:140
 msgid "EasyNewsletter_label_default_header"
 msgstr "Kopfzeile"
 
 #. Default: "Email"
-#: ./content/ENLSubscriber.py:58
+#: ./content/ENLSubscriber.py:66
 msgid "EasyNewsletter_label_email"
 msgstr "E-Mail"
 
 #. Default: "External delivery service"
-#: ./content/EasyNewsletter.py:196
+#: ./content/EasyNewsletter.py:244
 msgid "EasyNewsletter_label_externalDeliveryService"
 msgstr "Externer Newsletter-Zustelldienst"
 
 #. Default: "External subscriber source"
-#: ./content/EasyNewsletter.py:181
+#: ./content/EasyNewsletter.py:225
 msgid "EasyNewsletter_label_externalSubscriberSource"
 msgstr "Externe Newsletter-Abonnentenquelle"
 
 #. Default: "Footer"
-#: ./content/ENLIssue.py:125
+#: ./content/ENLIssue.py:155
 msgid "EasyNewsletter_label_footer"
 msgstr "Fusszeilen"
 
 #. Default: "Full Name"
-#: ./content/ENLSubscriber.py:37
+#: ./content/ENLSubscriber.py:41
 msgid "EasyNewsletter_label_fullname"
 msgstr "Name"
 
 #. Default: "Fallback for subscribers without a name."
-#: ./content/EasyNewsletter.py:90
+#: ./content/EasyNewsletter.py:106
 msgid "EasyNewsletter_label_fullname_fallback"
 msgstr "Ersatz für Abonnenten ohne Namen"
 
 #. Default: "Header"
-#: ./content/ENLIssue.py:110
+#: ./content/ENLIssue.py:135
 msgid "EasyNewsletter_label_header"
 msgstr "Kopfzeilen"
 
 #. Default: "no external subscriber source"
-#: ./content/EasyNewsletter.py:392
+#: ./content/EasyNewsletter.py:490
 msgid "EasyNewsletter_label_noSource"
 msgstr "keine externen Quellen für Abonnenten"
 
 #. Default: "Company/Organization"
-#: ./content/ENLSubscriber.py:46
+#: ./content/ENLSubscriber.py:51
 msgid "EasyNewsletter_label_organization"
 msgstr "Organisation"
 
 #. Default: "Plone Groups to receive the newsletter"
-#: ./content/ENLIssue.py:94
-#: ./content/EasyNewsletter.py:167
+#: ./content/ENLIssue.py:113
+#: ./content/EasyNewsletter.py:207
 msgid "EasyNewsletter_label_ploneReceiverGroups"
 msgstr "Plone Gruppen für den Newsletterempfang"
 
 #. Default: "Plone Members to receive the newsletter"
-#: ./content/ENLIssue.py:81
-#: ./content/EasyNewsletter.py:155
+#: ./content/ENLIssue.py:96
+#: ./content/EasyNewsletter.py:191
 msgid "EasyNewsletter_label_ploneReceiverMembers"
 msgstr "Plone Nutzer für den Newsletterempfang"
 
 #. Default: "Salutation"
-#: ./content/ENLSubscriber.py:26
+#: ./content/ENLSubscriber.py:28
 msgid "EasyNewsletter_label_salutation"
 msgstr "Anrede"
 
 #. Default: "Subscriber Salutations."
-#: ./content/EasyNewsletter.py:75
+#: ./content/EasyNewsletter.py:88
 msgid "EasyNewsletter_label_salutations"
 msgstr "Anrede"
 
 #. Default: "Sender email"
 #: ./browser/issue_send_form.pt:45
-#: ./content/EasyNewsletter.py:42
+#: ./content/EasyNewsletter.py:46
 msgid "EasyNewsletter_label_senderEmail"
 msgstr "E-Mail des Absenders"
 
 #. Default: "Sender name"
 #: ./browser/issue_send_form.pt:27
-#: ./content/EasyNewsletter.py:52
+#: ./content/EasyNewsletter.py:59
 msgid "EasyNewsletter_label_senderName"
 msgstr "Name des Absenders"
 
@@ -273,22 +282,22 @@ msgid "EasyNewsletter_label_subject"
 msgstr "Betreff"
 
 #. Default: "Subscriber confirmation mail subject"
-#: ./content/EasyNewsletter.py:228
+#: ./content/EasyNewsletter.py:285
 msgid "EasyNewsletter_label_subscriber_confirmation_mail_subject"
 msgstr "Betreff der Bestätigungsmail"
 
 #. Default: "Subscriber confirmation mail text"
-#: ./content/EasyNewsletter.py:243
+#: ./content/EasyNewsletter.py:305
 msgid "EasyNewsletter_label_subscriber_confirmation_mail_text"
 msgstr "Text der Bestätigungsmail"
 
 #. Default: "Newsletter Template"
-#: ./content/ENLIssue.py:150
+#: ./content/ENLIssue.py:184
 msgid "EasyNewsletter_label_template"
 msgstr "Inhaltsaggregierungs-Template"
 
 #. Default: "Test email"
-#: ./content/EasyNewsletter.py:64
+#: ./content/EasyNewsletter.py:74
 msgid "EasyNewsletter_label_testEmail"
 msgstr "Test E-Mail-Adresse"
 
@@ -298,17 +307,17 @@ msgid "EasyNewsletter_label_testreceiver"
 msgstr "Empfänger des Test-Newsletters"
 
 #. Default: "Text"
-#: ./content/ENLIssue.py:55
+#: ./content/ENLIssue.py:65
 msgid "EasyNewsletter_label_text"
 msgstr ""
 
 #. Default: "Title"
-#: ./content/ENLSubscriber.py:16
+#: ./content/ENLSubscriber.py:17
 msgid "EasyNewsletter_label_title"
 msgstr "Titel"
 
 #. Default: "Text for the 'unsubscribe' link"
-#: ./content/EasyNewsletter.py:101
+#: ./content/EasyNewsletter.py:121
 msgid "EasyNewsletter_label_unsubscribe_string"
 msgstr "Text für den Newsletterabmelde-Link"
 
@@ -318,7 +327,7 @@ msgstr "Text für den Newsletterabmelde-Link"
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: ./portlets/subscriber.py:124
+#: ./portlets/subscriber.py:140
 msgid "Edit Newsletter portlet"
 msgstr "Newsletter-Portlet bearbeiten"
 
@@ -383,15 +392,15 @@ msgstr "Unterkollektionen verwalten"
 msgid "Newsletter"
 msgstr ""
 
-#: ./portlets/subscriber.py:79
+#: ./portlets/subscriber.py:95
 msgid "Newsletter subscriber portlet"
 msgstr "Newsletter-Abo-Portlet"
 
-#: ./browser/subscribers.py:223
+#: ./browser/subscribers.py:227
 msgid "No file specified."
 msgstr "Es wurde keine Datei angegeben!"
 
-#: ./browser/subscribers.py:184
+#: ./browser/subscribers.py:189
 msgid "No subscriber selected!"
 msgstr "Es wurde kein Abonnent ausgewählt!"
 
@@ -399,11 +408,7 @@ msgstr "Es wurde kein Abonnent ausgewählt!"
 msgid "Organization"
 msgstr "Organisation"
 
-#: ./browser/registration.py:49
-msgid "Please choose a salutation."
-msgstr "Bitte wählen Sie eine Anrede aus!"
-
-#: ./browser/registration.py:52
+#: ./browser/registration.py:55
 msgid "Please enter a valid email address."
 msgstr "Bitte geben Sie eine gültige Email-Adresse ein."
 
@@ -459,7 +464,7 @@ msgstr "Die CSV-Datei muss Kopfzeilen im folgenden Format enthalten!"
 msgid "The issue has been send."
 msgstr "Die Ausgabe wurde verschickt."
 
-#: ./browser/subscribers.py:239
+#: ./browser/subscribers.py:249
 msgid "The number of items in the line is not correct.                         It should be 4. Check your CSV file."
 msgstr ""
 
@@ -467,11 +472,11 @@ msgstr ""
 msgid "There are ${subscribers_count} subscribers"
 msgstr "Es sind ${subscribers_count} Abonnenten eingetragen"
 
-#: ./browser/subscribers.py:251
+#: ./browser/subscribers.py:261
 msgid "This email address is already registered."
 msgstr "Diese E-Mail-Adresse wurde bereits eingetragen!"
 
-#: ./portlets/subscriber.py:125
+#: ./portlets/subscriber.py:141
 msgid "This portlet displays the subscriber add form of a newsletter."
 msgstr "Dieses Portlet ist ein Bestellformular für einen Newsletter."
 
@@ -485,23 +490,31 @@ msgstr "Titel des Portlets"
 msgid "View"
 msgstr "Ansicht"
 
-#: ./browser/subscribers.py:232
+#: ./browser/registration.py:213
+msgid "We send you an email, please confirm this unsubscription."
+msgstr "Wir haben Ihnen eine E-Mail mit einem Abmeldelink geschickt."
+
+#: ./browser/subscribers.py:239
 msgid "Wrong specification of the CSV file. Please correct it and retry."
 msgstr "Falsche Spezifikation der CSV-Datei. Bitte korrigieren Sie den Fehler und versuchen es noch einmal."
 
-#: ./browser/newsletter.py:30
+#: ./browser/registration.py:238
 msgid "You have been unsubscribed."
 msgstr "Sie haben den Newsletter abbestellt."
 
-#: ./browser/registration.py:61
+#: ./browser/registration.py:217
+msgid "Your email address could not be found in subscribers."
+msgstr "Wir konnten Ihre E-Mail-Adresse nicht in den Abonnenten dieses Newsletters finden."
+
+#: ./browser/registration.py:70
 msgid "Your email address is already registered."
 msgstr "Ihre Email-Adresse wurde bereits registriert."
 
-#: ./browser/registration.py:90
+#: ./browser/registration.py:107
 msgid "Your email has been registered.                 A confirmation email was sent to your address. Please check                 your inbox and click on the link in the email in order to                 confirm your subscription."
 msgstr "Ihre E-Mail-Adresse wurde eingetragen. Sie erhalten eine Bestätigungs-E-Mail. Bitte aktivieren Sie Ihr Abonnenment, in dem Sie auf den Link in der Bestätigungs-E-Mail klicken."
 
-#: ./browser/registration.py:107
+#: ./browser/registration.py:129
 msgid "Your subscription was successfully confirmed."
 msgstr "Ihr Newsletter-Abonnement wurde erfolgreich bestätigt."
 
@@ -515,13 +528,17 @@ msgstr "Aktion"
 msgid "add_subscriber"
 msgstr "Abonnent hinzufügen"
 
+#: ./browser/registration.py:209
+msgid "confirm newsletter unsubscription"
+msgstr "Newsletter-Abmeldung bestätigen"
+
 #. Default: "The footer will included in outgoing mails."
-#: ./content/ENLIssue.py:126
+#: ./content/ENLIssue.py:156
 msgid "description_help_footer"
 msgstr "Dieser Text wird am Ende des Newsletter angehängt."
 
 #. Default: "The header will included in outgoing mails."
-#: ./content/ENLIssue.py:112
+#: ./content/ENLIssue.py:138
 msgid "description_help_header"
 msgstr "Dieser Text wird dem Newsletter vorangestellt."
 
@@ -530,28 +547,32 @@ msgstr "Dieser Text wird dem Newsletter vorangestellt."
 msgid "description_no_visible_items_add_paste"
 msgstr "Dieser Ordner hat noch keinen sichtbaren Inhalt."
 
-#. Default: "Text used for confirmation email. You can customize                     the text, but it should include the placeholders:                     ${portal_url}, ${subscriber_email} and ${confirmation_url}!"
-#: ./content/EasyNewsletter.py:245
+#. Default: "Text used for confirmation email. You can customize                     the text, but it should include the placeholders:                     ${portal_url}, ${subscriber_email} and                     ${confirmation_url}!"
+#: ./content/EasyNewsletter.py:308
+#, fuzzy
 msgid "description_subscriber_confirmation_mail_text"
 msgstr "Text der Bestätigungsmail. Sie können den Text anpassen, er sollte aber die Platzhalter ${portal_url}, ${subscriber_email} und ${confirmation_url} enthalten!"
 
-#. Default: "This is used in the frontpage of EasyNewsletter on top of Issue archive list."
-#: ./content/EasyNewsletter.py:257
+#. Default: "This is used in the frontpage of EasyNewsletter             on top of Issue archive list."
+#: ./content/EasyNewsletter.py:322
+#, fuzzy
 msgid "description_text"
 msgstr "Dieser Text wird auf der Startseite des Newsletters über der Liste der Ausgaben angezeigt."
 
 #. Default: "The default footer text. This is used as a default                     for new issues. You can use the placeholders                     [[SUBSCRIBER_SALUTATION]] and [[UNSUBSCRIBE]] here."
-#: ./content/EasyNewsletter.py:131
+#: ./content/EasyNewsletter.py:162
 msgid "description_text_footer"
 msgstr "Der Standard-Seitenfuß. Er wird als Vorlage für neue Ausgaben verwendet."
 
-#. Default: "The default header text. This is used as a default                     for new issues. You can use the placeholders [[SUBSCRIBER_SALUTATION]] and [[UNSUBSCRIBE]] here."
-#: ./content/EasyNewsletter.py:117
+#. Default: "The default header text. This is used as a default                     for new issues. You can use the placeholders                     [[SUBSCRIBER_SALUTATION]] and [[UNSUBSCRIBE]] here."
+#: ./content/EasyNewsletter.py:143
+#, fuzzy
 msgid "description_text_header"
 msgstr "Der Standard Seitenanfang. Er wird als Vorlage für neue Ausgaben verwendet."
 
-#. Default: "The main content of the mailing. You can use the topic                     criteria to collect content or put manual content in.                     This will included in outgoing mails."
-#: ./content/ENLIssue.py:56
+#. Default: "The main content of the mailing. You can use                     the topic criteria to collect content or put manual                     content in. This will included in outgoing mails."
+#: ./content/ENLIssue.py:66
+#, fuzzy
 msgid "description_text_issue"
 msgstr "Der Haupttext des Newsletters. Sie können die Kritierien verwenden um Inhalte der Webseite zu sammeln oder Inhalt von Hand einfügen. Dies ist Teil der verschickten Mails."
 
@@ -568,7 +589,7 @@ msgid "easynewsletter_backtonewsletter_label"
 msgstr "Zurück zum Newsletter"
 
 #. Default: "subscribe"
-#: ./portlets/subscriber.pt:55
+#: ./portlets/subscriber.pt:58
 msgid "easynewsletter_button_label"
 msgstr "Abonnieren"
 
@@ -578,17 +599,17 @@ msgid "easynewsletter_drafts_label"
 msgstr "Entwürfe"
 
 #. Default: "Your email"
-#: ./portlets/subscriber.pt:49
+#: ./portlets/subscriber.pt:52
 msgid "easynewsletter_input_value"
 msgstr "Ihre E-Mail"
 
 #. Default: "Full Name"
-#: ./portlets/subscriber.pt:36
+#: ./portlets/subscriber.pt:39
 msgid "easynewsletter_input_value_fullname"
 msgstr "Vorname Nachname"
 
 #. Default: "Company/Organization"
-#: ./portlets/subscriber.pt:42
+#: ./portlets/subscriber.pt:45
 msgid "easynewsletter_input_value_organization"
 msgstr "Firma/Organisation"
 
@@ -653,10 +674,20 @@ msgstr "Schablonen"
 msgid "easynewsletter_test_button"
 msgstr "Newsletter testen"
 
-#: ./browser/subscribers.py:89
+#: ./browser/subscribers.py:93
 #: ./browser/upload_csv.pt:38
 msgid "email"
 msgstr "E-Mail"
+
+#. Default: "Your email has been registered. A confirmation email was         sent to your address. Please check your inbox and click on the link in         the email in order to confirm your subscription."
+#: ./config.py:22
+msgid "email_added"
+msgstr ""
+
+#. Default: "Your email address is already registered."
+#: ./config.py:27
+msgid "email_exists"
+msgstr ""
 
 #. Default: "Abonnenten"
 msgid "enl_action_subscribers"
@@ -664,7 +695,7 @@ msgstr "Abonnenten"
 
 #. Default: "Fullname:"
 #: ./browser/enl_subscribers_view.pt:43
-#: ./browser/subscribers.py:89
+#: ./browser/subscribers.py:93
 #: ./browser/upload_csv.pt:37
 msgid "fullname"
 msgstr "Name"
@@ -675,33 +706,34 @@ msgid "go_to_parent_url"
 msgstr "Eine Ebene höher"
 
 #. Default: "This is a Zope Page Template file that is used for                      rendering the newsletter mail."
-#: ./content/ENLTemplate.py:18
+#: ./content/ENLTemplate.py:19
 msgid "help_body_zpt"
 msgstr "Dieses Template wird für die Generierung des HTML-Newsletters versendet. Sie brauchen es nicht zu editieren, können aber die Ausgabe flexibel anpassen, wenn Sie die TAL (Zope's Template Attribute Language) beherschen."
 
 #. Default: "Enter a value for description."
-#: ./content/ENLTemplate.py:30
+#: ./content/ENLTemplate.py:33
 msgid "help_description"
 msgstr ""
 
-#. Default: "This is a Zope Page Template used for rendering of the out going mail.                 You don't need to modify it, but if you know TAL (Zope's Template                 Attribute Language) you have the full power to customize your outgoing mails."
-#: ./content/EasyNewsletter.py:214
+#. Default: "This is a Zope Page Template used for rendering                         of the out going mail. You don't need to modify                         it, but if you know TAL (Zope's Template                         Attribute Language) you have the full power                         to customize your outgoing mails."
+#: ./content/EasyNewsletter.py:267
+#, fuzzy
 msgid "help_mailtemplate_body_pt"
 msgstr "Dieses Template wird für die Generierung des HTML-Newsletters versendet. Sie brauchen es nicht zu editieren, können aber die Ausgabe flexibel anpassen, wenn Sie die TAL (Zope's Template Attribute Language) beherschen."
 
 #. Default: "Subscribe here to our newsletter."
-#: ./portlets/subscriber.py:25
+#: ./portlets/subscriber.py:26
 msgid "help_newsletter_description"
 msgstr "Abonnieren Sie unseren Newsletter hier."
 
 #. Default: "The absolute path from portal_root to the newsletter"
-#: ./portlets/subscriber.py:33
+#: ./portlets/subscriber.py:36
 msgid "help_newsletter_title"
 msgstr "Der absolute Pfad zum Newsletter gesehen vom portal_root"
 
 #. Default: "If checked, the newsletter/mailing is send to all                     plone members. If there are subscribers inside the                     newsletter, they get the letter anyway."
-#: ./content/ENLIssue.py:69
-#: ./content/EasyNewsletter.py:144
+#: ./content/ENLIssue.py:82
+#: ./content/EasyNewsletter.py:178
 msgid "help_sendToAllPloneMembers"
 msgstr "An alle Plone-Benutzer senden"
 
@@ -709,6 +741,16 @@ msgstr "An alle Plone-Benutzer senden"
 #: ./browser/enl_subscribers_view.pt:149
 msgid "import_export"
 msgstr "Import / Export"
+
+#. Default: "Please enter a valid email address."
+#: ./config.py:25
+msgid "invalid_email"
+msgstr ""
+
+#. Default: "Please enter a valid email address."
+#: ./config.py:29
+msgid "invalid_hashkey"
+msgstr ""
 
 #. Default: "Issues"
 #: ./skins/EasyNewsletter/easynewsletter_view.pt:46
@@ -721,34 +763,39 @@ msgid "items_per_page"
 msgstr "Einträge pro Seite"
 
 #. Default: "Newsletter Template"
-#: ./content/ENLTemplate.py:17
+#: ./content/ENLTemplate.py:18
 msgid "label_body_zpt"
 msgstr "Newsletter Template"
 
 #. Default: "Choose salutation..."
-#: ./config.py:13
+#: ./config.py:15
 msgid "label_choose_saluation"
 msgstr "Anrede wählen..."
 
 #. Default: "Description"
-#: ./content/ENLTemplate.py:29
+#: ./content/ENLTemplate.py:32
 msgid "label_description"
 msgstr "Beschreibung"
 
 #. Default: "Inherit Criteria"
-#: ./content/ENLIssue.py:136
+#: ./content/ENLIssue.py:168
 msgid "label_inherit_criteria"
 msgstr "Kriterien übernehmen."
 
 #. Default: "Ask for the salutation and fullname of the subscriber"
-#: ./portlets/subscriber.py:41
+#: ./portlets/subscriber.py:45
 msgid "label_newletter_show_fullname"
 msgstr "Nach Anrede und Namen fragen."
 
 #. Default: "Display field to enter company/organization of subscriber"
-#: ./portlets/subscriber.py:47
+#: ./portlets/subscriber.py:52
 msgid "label_newletter_show_organization"
 msgstr "Feld 'Firma/Organisation' im Formular anzeigen'"
+
+#. Default: "Display an unsubscribe link in portlet footer"
+#: ./portlets/subscriber.py:60
+msgid "label_newletter_show_unsubscribe_link"
+msgstr "Abmeldelink im Portlet zeigen"
 
 #. Default: "Description"
 #: ./portlets/subscriber.py:23
@@ -756,22 +803,22 @@ msgid "label_newsletter_description"
 msgstr "Beschreibung"
 
 #. Default: "Path to Newsletter"
-#: ./portlets/subscriber.py:31
+#: ./portlets/subscriber.py:33
 msgid "label_newsletter_title"
 msgstr "Pfad zum Newsletter"
 
 #. Default: "Outgoing Mail Template"
-#: ./content/EasyNewsletter.py:212
+#: ./content/EasyNewsletter.py:264
 msgid "label_out_template_pt"
 msgstr "Newsletter-Ausgabe-Template"
 
 #. Default: "Mr."
-#: ./config.py:15
+#: ./config.py:17
 msgid "label_salutation_mr"
 msgstr "Herr"
 
 #. Default: "Ms."
-#: ./config.py:14
+#: ./config.py:16
 msgid "label_salutation_ms"
 msgstr "Frau"
 
@@ -781,8 +828,8 @@ msgid "label_select_all_items"
 msgstr ""
 
 #. Default: "Send to all Plone members"
-#: ./content/ENLIssue.py:67
-#: ./content/EasyNewsletter.py:142
+#: ./content/ENLIssue.py:79
+#: ./content/EasyNewsletter.py:175
 msgid "label_sendToAllPloneMembers"
 msgstr "An allePlone-Benutzer senden"
 
@@ -816,11 +863,11 @@ msgstr ""
 msgid "mail"
 msgstr "E-Mail"
 
-#: ./portlets/subscriber.pt:29
+#: ./portlets/subscriber.pt:32
 msgid "mr"
 msgstr "Herr"
 
-#: ./portlets/subscriber.pt:24
+#: ./portlets/subscriber.pt:27
 msgid "ms"
 msgstr "Frau"
 
@@ -836,14 +883,14 @@ msgstr "Nicht importierte Abonnenten"
 
 #. Default: "Organization:"
 #: ./browser/enl_subscribers_view.pt:46
-#: ./browser/subscribers.py:89
+#: ./browser/subscribers.py:93
 #: ./browser/upload_csv.pt:39
 msgid "organization"
 msgstr "Organisation"
 
 #. Default: "Salutation"
 #: ./browser/enl_subscribers_view.pt:89
-#: ./browser/subscribers.py:89
+#: ./browser/subscribers.py:93
 #: ./browser/upload_csv.pt:36
 msgid "salutation"
 msgstr "Anrede"
@@ -858,7 +905,7 @@ msgstr "Quelle"
 msgid "sub_topics_label"
 msgstr "Unterkollektionen"
 
-#: ./browser/subscribers.py:191
+#: ./browser/subscribers.py:196
 msgid "subscriber/s deleted successfully"
 msgstr "Abonnenten erfolgreich gelöscht"
 
@@ -867,6 +914,11 @@ msgstr "Abonnenten erfolgreich gelöscht"
 #, fuzzy
 msgid "subscribers_filter_note"
 msgstr "Die Filter wirken sich nur auf lokale Abonnenten aus, nicht auf Abonnenten von externen Quellen."
+
+#. Default: "Your subscription was successfully confirmed."
+#: ./config.py:31
+msgid "subscription_confirmed"
+msgstr ""
 
 #. Default: "Sucessfully created Subscribers"
 #: ./browser/upload_csv.pt:107
@@ -892,4 +944,8 @@ msgstr ""
 #: ./skins/EasyNewsletter/enl_subtopics.pt:220
 msgid "title_move_item_up"
 msgstr ""
+
+#: ./portlets/subscriber.pt:69
+msgid "unsubscribe"
+msgstr "Abmelden"
 
