@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-06-05 15:28+0000\n"
+"POT-Creation-Date: 2014-07-10 12:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Gaël Pegliasco <gael.pegliasco@makina-corpus.com>\n"
 "Language-Team: Plone-fr <plone-plone-fr@lists.plone.org.>\n"

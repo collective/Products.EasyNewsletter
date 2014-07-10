@@ -5,7 +5,8 @@ Changelog
 2.6.14 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Update german translations
+  [MrTango]
 
 
 2.6.13 (2014-06-05)

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-06-05 15:28+0000\n"
+"POT-Creation-Date: 2014-07-10 12:53+0000\n"
 "PO-Revision-Date: 2011-01-04 22:46+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -504,7 +504,7 @@ msgstr "Sie haben den Newsletter abbestellt."
 
 #: ./browser/templates/unsubscribe_form.pt:16
 msgid "You want to unsubscribe from this Newsletter?"
-msgstr "Sie möchten sich aus dem Newsletter austragen?"
+msgstr "Sie möchten das Newsletter Abonnement kündigen?"
 
 #: ./browser/registration.py:217
 msgid "Your email address could not be found in subscribers."
@@ -689,7 +689,7 @@ msgstr "Newsletter testen"
 #. Default: "Unsubscribe"
 #: ./browser/templates/unsubscribe_form.pt:23
 msgid "easynewsletter_unsubscribe_button"
-msgstr "Austragen"
+msgstr "Abonnement kündigen"
 
 #: ./browser/subscribers.py:93
 #: ./browser/upload_csv.pt:38
@@ -964,5 +964,5 @@ msgstr ""
 
 #: ./portlets/subscriber.pt:69
 msgid "unsubscribe"
-msgstr "Austragen"
+msgstr "Abonnenten kündigen"
 
