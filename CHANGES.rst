@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.6.14 (unreleased)
+2.6.14 (2014-07-10)
 -------------------
 
 - Update german translations
