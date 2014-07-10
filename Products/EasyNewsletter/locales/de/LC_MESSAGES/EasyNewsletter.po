@@ -964,5 +964,5 @@ msgstr ""
 
 #: ./portlets/subscriber.pt:69
 msgid "unsubscribe"
-msgstr "Abonnenten kündigen"
+msgstr "Abonnement kündigen"
 
