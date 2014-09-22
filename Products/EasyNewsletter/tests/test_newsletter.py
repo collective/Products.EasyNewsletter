@@ -52,6 +52,10 @@ class EasyNewsletterTests(unittest.TestCase):
         self.image = self.folder.image
         img1 = open(os.path.join(TESTS_HOME, 'img1.png'), 'rb').read()
         self.image.edit(image=img1)
+        # page with collective.contentleadimage
+        self.folder.invokeFactory("Document", "leadimagepage")
+        self.leadimagepage = self.folder.leadimagepage
+        self.leadimagepage.edit(title="Page", leadImage=img1)
 
     def sendSampleMessage(self, body):
         self.assertSequenceEqual(self.mailhost.messages, [])
@@ -148,6 +152,19 @@ class EasyNewsletterTests(unittest.TestCase):
 
         body = '<img src="../../resolveuid/%s/@@images/image/thumb"/>' % \
             self.image.UID()
+        msg = self.sendSampleMessage(body)
+
+        self.assertNotIn('resolveuid', msg)
+        self.assertIn('<img src=3D"cid:image_1"', msg)
+        self.assertIn('Content-ID: <image_1>\nContent-Type: image/png;', msg)
+
+    def test_send_test_issue_with_content_leadimage_on_page(self):
+        # for plone < 4.2 we need to ensure turn on to resolveuid links
+        tinymce = queryUtility(ITinyMCE)
+        tinymce.link_using_uids = True
+        
+        body = '<img src="../..resolveuid/%s/leadImage_thumb"/>' % \
+            self.leadimagepage.UID()
         msg = self.sendSampleMessage(body)
 
         self.assertNotIn('resolveuid', msg)

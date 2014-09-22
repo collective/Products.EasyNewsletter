@@ -44,7 +44,7 @@ setup(
         'plone.api',
     ],
     extras_require=dict(
-        test=['plone.app.testing', 'Pillow'],
+        test=['plone.app.testing', 'Pillow', 'collective.contentleadimage'],
         fmp=['inqbus.plone.fastmemberproperties'],
         all=['inqbus.plone.fastmemberproperties', ]),
 )

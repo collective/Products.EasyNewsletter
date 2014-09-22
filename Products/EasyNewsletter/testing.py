@@ -31,7 +31,14 @@ class EasyNewsletter(PloneSandboxLayer):
         # Install into Plone site using portal_setup
         applyProfile(portal, 'Products.EasyNewsletter:default')
 
+        # Apply profile for content lead image
+        applyProfile(portal, 'collective.contentleadimage:default')
+
     def tearDownZope(self, app):
+
+        # Remove content lead image
+        z2.uninstallProduct(app, 'collective.contentleadimage')
+
         # Uninstall product
         z2.uninstallProduct(app, 'Products.EasyNewsletter')
 
