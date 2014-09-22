@@ -18,6 +18,8 @@ from Products.EasyNewsletter.interfaces import IEasyNewsletter, IENLIssue
 import os
 from Products.TinyMCE.interfaces.utility import ITinyMCE
 
+from Products.CMFCore.utils import getToolByName
+
 GLOBALS = globals()
 TESTS_HOME = package_home(GLOBALS)
 
@@ -53,9 +55,18 @@ class EasyNewsletterTests(unittest.TestCase):
         img1 = open(os.path.join(TESTS_HOME, 'img1.png'), 'rb').read()
         self.image.edit(image=img1)
         # page with collective.contentleadimage
+        # install content lead image
+        portal_setup = getToolByName(self.portal, 'portal_setup')
+        portal_setup.runAllImportStepsFromProfile('profile-collective.contentleadimage:default')
+
         self.folder.invokeFactory("Document", "leadimagepage")
         self.leadimagepage = self.folder.leadimagepage
-        self.leadimagepage.edit(title="Page", leadImage=img1)
+        self.leadimagepage.edit(title="Page")
+        imgField = self.leadimagepage.getField("leadImage")
+        imgField.set(self.leadimagepage, img1)
+        imgField.createScales(self.leadimagepage)
+        self.leadimagepage.reindexObject()
+        self.leadimagepage.reindexObject(idxs=['hasContentLeadImage'])
 
     def sendSampleMessage(self, body):
         self.assertSequenceEqual(self.mailhost.messages, [])
@@ -158,12 +169,13 @@ class EasyNewsletterTests(unittest.TestCase):
         self.assertIn('<img src=3D"cid:image_1"', msg)
         self.assertIn('Content-ID: <image_1>\nContent-Type: image/png;', msg)
 
+
     def test_send_test_issue_with_content_leadimage_on_page(self):
         # for plone < 4.2 we need to ensure turn on to resolveuid links
         tinymce = queryUtility(ITinyMCE)
         tinymce.link_using_uids = True
         
-        body = '<img src="../..resolveuid/%s/leadImage_thumb"/>' % \
+        body = '<img src="../../resolveuid/%s/leadImage_mini"/>' % \
             self.leadimagepage.UID()
         msg = self.sendSampleMessage(body)
 

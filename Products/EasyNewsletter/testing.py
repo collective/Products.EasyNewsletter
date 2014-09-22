@@ -22,6 +22,15 @@ class EasyNewsletter(PloneSandboxLayer):
         # Install product and call its initialize() function
         z2.installProduct(app, 'Products.EasyNewsletter')
 
+
+
+        import collective.contentleadimage
+        xmlconfig.file('configure.zcml',
+                        collective.contentleadimage,
+                        context=configurationContext)
+        # Install Content Lead Image
+        z2.installProduct(app, "collective.contentleadimage")
+
         # Note: you can skip this if Products.EasyNewsletter is not a Zope 2-style
         # product, i.e. it is not in the Products.* namespace and it
         # does not have a <five:registerPackage /> directive in its
@@ -31,14 +40,7 @@ class EasyNewsletter(PloneSandboxLayer):
         # Install into Plone site using portal_setup
         applyProfile(portal, 'Products.EasyNewsletter:default')
 
-        # Apply profile for content lead image
-        applyProfile(portal, 'collective.contentleadimage:default')
-
     def tearDownZope(self, app):
-
-        # Remove content lead image
-        z2.uninstallProduct(app, 'collective.contentleadimage')
-
         # Uninstall product
         z2.uninstallProduct(app, 'Products.EasyNewsletter')
 
