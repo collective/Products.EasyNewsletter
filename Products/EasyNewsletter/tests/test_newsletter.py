@@ -52,8 +52,9 @@ class EasyNewsletterTests(unittest.TestCase):
         # image for image testing
         self.folder.invokeFactory("Image", "image")
         self.image = self.folder.image
-        img1 = open(os.path.join(TESTS_HOME, 'img1.png'), 'rb').read()
-        self.image.edit(image=img1)
+        img1 = open(os.path.join(TESTS_HOME, 'test_41x41.jpg'), 'rb').read()
+        self.image.setImage(value=img1)
+        self.image.getField('image').swallowResizeExceptions = False
         # page with collective.contentleadimage
         # install content lead image
         portal_setup = getToolByName(self.portal, 'portal_setup')
@@ -164,6 +165,9 @@ class EasyNewsletterTests(unittest.TestCase):
         body = '<img src="../../resolveuid/%s/@@images/image/thumb"/>' % \
             self.image.UID()
         msg = self.sendSampleMessage(body)
+        # if you get exeption about 'AttributeError: 'NoneType' object has no attribute 'absolute_url'
+        # it is likely your Pillow is not installed right.
+        # TODO have seperate test to isolate that
 
         self.assertNotIn('resolveuid', msg)
         self.assertIn('<img src=3D"cid:image_1"', msg)
