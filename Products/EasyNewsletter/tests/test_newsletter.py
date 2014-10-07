@@ -77,14 +77,14 @@ class EasyNewsletterTests(unittest.TestCase):
         return str(self.mailhost.messages[0])
 
     def test_create_newsletter(self):
-        self.failUnless(IEasyNewsletter.providedBy(self.newsletter))
+        self.assertTrue(IEasyNewsletter.providedBy(self.newsletter))
 
     def test_create_issue(self):
         self.newsletter.invokeFactory(
             "ENLIssue",
             id="issue",
             title="Issue 1")
-        self.failUnless(IENLIssue.providedBy(self.newsletter.issue))
+        self.assertTrue(IENLIssue.providedBy(self.newsletter.issue))
 
     def test_send_test_issue(self):
         self.newsletter.invokeFactory(

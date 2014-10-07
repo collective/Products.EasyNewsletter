@@ -30,16 +30,16 @@ class EasyNewsletterSetupTests(unittest.TestCase):
 
     def test_newsletter_subtypes_in_meta_types_not_to_list(self):
         # Hide newsletter subtypes from navigation
-        self.failUnless(
+        self.assertTrue(
             self.properties.navtree_properties.hasProperty(
                 'metaTypesNotToList'))
         metaTypesNotToList = \
             self.properties.navtree_properties.metaTypesNotToList
-        self.failUnless(
+        self.assertTrue(
             'ENLIssue' in metaTypesNotToList)
-        self.failUnless(
+        self.assertTrue(
             'ENLSubscriber' in metaTypesNotToList)
-        self.failUnless(
+        self.assertTrue(
             'ENLTemplate' in metaTypesNotToList)
 
 
