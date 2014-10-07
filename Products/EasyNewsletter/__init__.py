@@ -1,10 +1,12 @@
+# -*- coding: utf-8 -*-
 from Products.Archetypes import atapi
 from Products.CMFCore import utils as cmfutils
 from zope.i18nmessageid import MessageFactory
+
 EasyNewsletterMessageFactory = MessageFactory('EasyNewsletter')
 
 # avoid circular import
-from Products.EasyNewsletter import config
+from Products.EasyNewsletter import config  # noqa
 
 
 def initialize(context):

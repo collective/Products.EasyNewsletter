@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 try:
     from zope.site.hooks import getSite
 except ImportError:

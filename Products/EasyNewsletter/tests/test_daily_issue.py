@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 from Acquisition import aq_base
-from plone.app.testing import TEST_USER_ID, setRoles
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.EasyNewsletter.interfaces import IENLIssue
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
 from Products.MailHost.interfaces import IMailHost
+from plone.app.testing import TEST_USER_ID
+from plone.app.testing import setRoles
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
-
 import unittest2 as unittest
 
 

@@ -1,5 +1,6 @@
-import logging
+# -*- coding: utf-8 -*-
 from Products.CMFCore.utils import getToolByName
+import logging
 
 
 # The profile id of your package:

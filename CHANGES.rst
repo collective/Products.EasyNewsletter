@@ -5,7 +5,9 @@ Changelog
 2.6.15 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Added utf-8 headers, sorted imports (plone-style), lines down to 80 chars.
+  Unified qa in ``qa.cfg``, enforce more qa rules.
+  [jensens]
 
 
 2.6.14 (2014-07-10)
@@ -62,7 +64,7 @@ Changelog
 - Fix description for Newsletter Template field in ENLIssue.
   [djowett]
 
-- Add documentation for how to use filter to filter newsletter receivers. 
+- Add documentation for how to use filter to filter newsletter receivers.
   [MrTango]
 
 - Optimize get_plone_member.

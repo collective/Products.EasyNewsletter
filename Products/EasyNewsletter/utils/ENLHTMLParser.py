@@ -1,8 +1,8 @@
-import HTMLParser
-import urlparse
-import urllib
-
+# -*- coding: utf-8 -*-
 from Products.CMFCore.utils import getToolByName
+import HTMLParser
+import urllib
+import urlparse
 
 
 class ENLHTMLParser(HTMLParser.HTMLParser):

@@ -1,10 +1,10 @@
+# -*- coding: utf-8 -*-
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes import atapi
-from zope.interface import implements
-
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter import config
 from Products.EasyNewsletter.interfaces import IENLSubscriber
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
+from zope.interface import implements
 
 
 schema = atapi.BaseSchema + atapi.Schema((

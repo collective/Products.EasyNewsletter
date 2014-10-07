@@ -1,13 +1,12 @@
-from zope import schema
-from zope.formlib import form
-from zope.interface import implements
-
+# -*- coding: utf-8 -*-
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.portlets.portlets import base
 from plone.app.vocabularies.catalog import SearchableTextSourceBinder
 from plone.portlets.interfaces import IPortletDataProvider
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
+from zope import schema
+from zope.formlib import form
+from zope.interface import implements
 
 
 class INewsletterSubscriberPortlet(IPortletDataProvider):

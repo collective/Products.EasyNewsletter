@@ -1,21 +1,19 @@
-import OFS
-import re
-
+# -*- coding: utf-8 -*-
 from AccessControl.SecurityManagement import newSecurityManager
 from Acquisition import aq_inner
-from email.MIMEText import MIMEText
-from zope.component import getMultiAdapter
-from zope.component import queryUtility
-
 from Products.CMFCore.utils import getToolByName
-from Products.Five.browser import BrowserView
-from Products.statusmessages.interfaces import IStatusMessage
-from plone import api
-from plone.i18n.normalizer.interfaces import IIDNormalizer
-
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.config import MESSAGE_CODE
 from Products.EasyNewsletter.interfaces import IENLRegistrationTool
+from Products.Five.browser import BrowserView
+from Products.statusmessages.interfaces import IStatusMessage
+from email.MIMEText import MIMEText
+from plone import api
+from plone.i18n.normalizer.interfaces import IIDNormalizer
+from zope.component import getMultiAdapter
+from zope.component import queryUtility
+import OFS
+import re
 
 
 class SubscriberView(BrowserView):

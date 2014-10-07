@@ -1,9 +1,7 @@
-# -*- coding:utf-8 -*-
-
+# -*- coding: utf-8 -*-
 from Products.Five.browser import BrowserView
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
-
 import datetime
 
 

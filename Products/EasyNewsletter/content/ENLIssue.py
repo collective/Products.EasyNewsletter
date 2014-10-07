@@ -1,29 +1,37 @@
-import cStringIO
-import formatter
-import urllib
-
-from htmllib import HTMLParser
-from urlparse import urlparse
-from email.MIMEText import MIMEText
-from email.MIMEMultipart import MIMEMultipart
-from email.MIMEImage import MIMEImage
-from email.Header import Header
-# from email import Encoders
-from stoneagehtml import compactify
-
+# -*- coding: utf-8 -*-
 from AccessControl import ClassSecurityInfo
-from Products.Archetypes import atapi
-from Products.Archetypes.public import ObjectField
 from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
+from Products.Archetypes import atapi
+from Products.Archetypes.public import ObjectField
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import safe_unicode
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
+from Products.EasyNewsletter.config import EMAIL_RE
+from Products.EasyNewsletter.config import PROJECTNAME
+from Products.EasyNewsletter.interfaces import IENLIssue
+from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter
+from Products.EasyNewsletter.interfaces import ISubscriberSource
+from Products.EasyNewsletter.utils import safe_portal_encoding
+from Products.EasyNewsletter.utils.ENLHTMLParser import ENLHTMLParser
 from Products.MailHost.interfaces import IMailHost
 from Products.PageTemplates.ZopePageTemplate import ZopePageTemplate
-
-from zope.component import queryUtility
+from email.Header import Header
+from email.MIMEImage import MIMEImage
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
+from htmllib import HTMLParser
+from stoneagehtml import compactify
+from urlparse import urlparse
 from zope.component import getUtility
+from zope.component import queryUtility
 from zope.component import subscribers
 from zope.interface import implements
+import cStringIO
+import formatter
+import logging
+import urllib
+
 try:
     from zope.site.hooks import getSite
 except ImportError:
@@ -39,17 +47,7 @@ try:
 except:
     fmp_tool = False
 
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
-from Products.EasyNewsletter.config import PROJECTNAME, EMAIL_RE
-from Products.EasyNewsletter.interfaces import IENLIssue
-from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter
-from Products.EasyNewsletter.interfaces import ISubscriberSource
-from Products.EasyNewsletter.utils.ENLHTMLParser import ENLHTMLParser
-# from Products.EasyNewsletter.utils.mail import create_html_mail
-from Products.EasyNewsletter.utils import safe_portal_encoding
-from Products.CMFPlone.utils import safe_unicode
 
-import logging
 log = logging.getLogger("Products.EasyNewsletter")
 
 

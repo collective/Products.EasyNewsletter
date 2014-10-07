@@ -13,7 +13,8 @@
 *.pyc
 /.Python
 /include
-/lib
+/lib/
+/local/
 /.project
 /.pydevproject
 /.mr.developer.cfg

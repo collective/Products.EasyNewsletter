@@ -1,22 +1,28 @@
+# -*- coding: utf-8 -*-
 from AccessControl import ClassSecurityInfo
 from AccessControl import getSecurityManager
-from AccessControl.SecurityManagement import (
-    newSecurityManager, setSecurityManager)
+from AccessControl.SecurityManagement import newSecurityManager
+from AccessControl.SecurityManagement import setSecurityManager
 from AccessControl.User import UnrestrictedUser as BaseUnrestrictedUser
-
-from Products.Archetypes import atapi
 from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
+from Products.Archetypes import atapi
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
+from Products.EasyNewsletter import config
+from Products.EasyNewsletter.interfaces import IEasyNewsletter
+from Products.EasyNewsletter.interfaces import IReceiversGroupFilter
+from Products.EasyNewsletter.interfaces import IReceiversMemberFilter
+from Products.EasyNewsletter.interfaces import ISubscriberSource
 from Products.MailHost.interfaces import IMailHost
 from Products.TemplateFields import ZPTField
-
 from zExceptions import BadRequest
-from zope.component import queryUtility
 from zope.component import getUtilitiesFor
+from zope.component import queryUtility
 from zope.component import subscribers
 from zope.interface import implements
+import logging
 
 try:
     from inqbus.plone.fastmemberproperties.interfaces import (
@@ -25,15 +31,6 @@ try:
 except:
     fmp_tool = False
 
-# EasyNewsletter imports
-from Products.EasyNewsletter.interfaces import (
-    IReceiversMemberFilter, IReceiversGroupFilter)
-from Products.EasyNewsletter.interfaces import IEasyNewsletter
-from Products.EasyNewsletter.interfaces import ISubscriberSource
-from Products.EasyNewsletter import config
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
-
-import logging
 log = logging.getLogger("Products.EasyNewsletter")
 
 
@@ -90,8 +87,8 @@ schema = atapi.Schema((
                 default=u"Subscriber Salutations."),
             description=_(
                 u"EasyNewsletter_help_salutations",
-                default=u'Define here possible salutations for subscriber. One \
-                    salutation per line in the form of: \"mr|Dear Mr.\". \
+                default=u'Define here possible salutations for subscriber. \
+                    One salutation per line in the form of: \"mr|Dear Mr.\". \
                     The left hand value "mr" or "ms" is mapped to salutation \
                     of each subscriber and then the right hand value, which \
                     you can customize is used as salutation.'),

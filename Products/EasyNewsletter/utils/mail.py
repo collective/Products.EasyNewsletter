@@ -1,17 +1,16 @@
+# -*- coding: utf-8 -*-
 # This code has been shamelessly stolen from collective.singing.
-import formatter
-import htmllib
-import StringIO
-import traceback
-import email
-
 from email.Header import Header
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from email.Utils import formatdate
-
-from zope import interface
 from zope import component
+from zope import interface
+import StringIO
+import email
+import formatter
+import htmllib
+import traceback
 import zope.sendmail.interfaces
 
 
@@ -115,10 +114,10 @@ class Dispatch(object):
       ...     interface.implements(zope.sendmail.interfaces.IMailDelivery)
       ...
       ...     def send(self, from_, to, message):
-      ...         print 'From: ', from_
-      ...         print 'To: ', ', '.join(to)
-      ...         print 'Message follows:'
-      ...         print message
+      ...         print 'From: ', from_  # noqa
+      ...         print 'To: ', ', '.join(to)  # noqa
+      ...         print 'Message follows:'  # noqa
+      ...         print message  # noqa
 
       >>> component.provideUtility(MyMailDelivery())
       >>> dispatcher()
@@ -147,7 +146,7 @@ class Dispatch(object):
       >>> status, message = dispatcher()
       >>> status
       u'error'
-      >>> print message # doctest: +NORMALIZE_WHITESPACE
+      >>> print message # doctest: +NORMALIZE_WHITESPACE # noqa
       Traceback (most recent call last):
       MyException: This is a test
     """

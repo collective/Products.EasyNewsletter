@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # flake8: noqa
-import re
+# from zope.i18n import translate
 from Products.Archetypes.atapi import DisplayList
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
-# from zope.i18n import translate
+import re
 
 PROJECTNAME = "EasyNewsletter"
 
@@ -19,9 +19,13 @@ SALUTATION = DisplayList((
 
 
 MESSAGE_CODE = {
-    "email_added": _(u"email_added", default=u"Your email has been registered. A confirmation email was \
-        sent to your address. Please check your inbox and click on the link in \
-        the email in order to confirm your subscription."),
+    "email_added": _(
+        u"email_added",
+        default=u"Your email has been registered. A confirmation email was"
+                u" sent to your address. Please check your inbox and click "
+                u" on the link in the email in order to confirm your"
+                u" subscription."
+    ),
     "invalid_email": _(
         u"invalid_email", default=u"Please enter a valid email address."),
     "email_exists": _(
@@ -38,7 +42,8 @@ EMAIL_RE = re.compile(
     r"(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,6}(?:\s|$)", re.IGNORECASE)
 
 
-DEFAULT_TEMPLATE = """<table border="0" cellpadding="10" cellspacing="10" width="100%">
+DEFAULT_TEMPLATE = """\
+<table border="0" cellpadding="10" cellspacing="10" width="100%">
 <tal:block tal:repeat="object context/queryCatalog"
     i18n:domain="EasyNewsletter">
   <tr>
@@ -191,7 +196,8 @@ tal:replace="structure python:toLocalizedTime(context.modified(), long_format=0)
             <dl id="file-attachments" tal:condition="files">
                 <tal:loop repeat="file files">
                     <dt>
-                        <a tal:attributes="href file/getURL" tal:content="file/Title" />
+                        <a tal:attributes="href file/getURL"
+                           tal:content="file/Title" />
                     </dt>
                     <dd tal:content="file/Description" />
                 </tal:loop>
@@ -210,18 +216,12 @@ tal:replace="structure python:toLocalizedTime(context.modified(), long_format=0)
 </html>"""
 
 
-#DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT = _(u'DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT', default=u"""Confirm your subscription on ${portal_url}""")
-#
-#
-#DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_TEXT = _(u'DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_TEXT', default=u"""GPE You subscribe to the ${newsletter_title} Newsletter.\n\n
-#Your registered email is: ${subscriber_email}\n
-#Please click on the link to confirm your subscription: \n
-#${confirmation_url}""")
+DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT = _(
+    u"Confirm your subscription on ${portal_url}"
+)
 
-DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT = _(u"Confirm your subscription on ${portal_url}")
-
-
-DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_TEXT = """You subscribe to the ${newsletter_title} Newsletter.\n\n
+DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_TEXT = """\
+You subscribe to the ${newsletter_title} Newsletter.\n\n
 Your registered email is: ${subscriber_email}\n
 Please click on the link to confirm your subscription: \n
 ${confirmation_url}"""

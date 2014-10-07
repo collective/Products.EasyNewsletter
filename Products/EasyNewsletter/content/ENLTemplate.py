@@ -1,12 +1,12 @@
+# -*- coding: utf-8 -*-
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes import atapi
-from Products.TemplateFields import ZPTField
 from Products.CMFCore.utils import getToolByName
-from zope.interface import implements
-
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter import config
 from Products.EasyNewsletter.interfaces import IENLTemplate
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
+from Products.TemplateFields import ZPTField
+from zope.interface import implements
 
 
 schema = atapi.BaseSchema + atapi.Schema((

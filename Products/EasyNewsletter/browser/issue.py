@@ -1,9 +1,9 @@
+# -*- coding: utf-8 -*-
 from BeautifulSoup import BeautifulSoup
 from Products.CMFCore.utils import getToolByName
-from Products.Five.browser import BrowserView
-
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.config import PLACEHOLDERS
+from Products.Five.browser import BrowserView
 
 
 class IssueView(BrowserView):

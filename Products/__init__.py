@@ -1,4 +1,4 @@
-# See http://peak.telecommunity.com/DevCenter/setuptools#namespace-packages
+# -*- coding: utf-8 -*-
 try:
     __import__('pkg_resources').declare_namespace(__name__)
 except ImportError:
