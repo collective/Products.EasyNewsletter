@@ -5,6 +5,9 @@ Changelog
 2.6.15 (unreleased)
 -------------------
 
+- fixed jquery initialization in enl_edithelper.js
+  [benniboy]
+
 - Added utf-8 headers, sorted imports (plone-style), lines down to 80 chars.
   Unified qa in ``qa.cfg``, enforce more qa rules.
   [jensens]
