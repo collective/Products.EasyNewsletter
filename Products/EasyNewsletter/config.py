@@ -7,6 +7,8 @@ import re
 
 PROJECTNAME = "EasyNewsletter"
 
+ENL_ISSUE_TYPES = ['ENLIssue']
+ENL_EDITHELPER_TYPES =['EasyNewsletter', 'ENLIssue']
 
 PLACEHOLDERS = ["UNSUBSCRIBE", "SUBSCRIBER_SALUTATION"]
 
@@ -17,6 +19,12 @@ SALUTATION = DisplayList((
     ("mr", _(u"label_salutation_mr", "Mr.")),
 ))
 
+NL_LANGUAGE = DisplayList((
+    ('', _(u"label_choose_nl_language", "Choose language...")),
+    ("de", _(u"label_salutation_de", "DE")),
+    ("en", _(u"label_salutation_de", "EN")),
+    ("fr", _(u"label_salutation_de", "FR")),
+))
 
 MESSAGE_CODE = {
     "email_added": _(

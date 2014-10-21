@@ -35,6 +35,20 @@ schema = atapi.BaseSchema + atapi.Schema((
     ),
 
     atapi.StringField(
+        'nl_language',
+        required=False,
+        vocabulary=config.NL_LANGUAGE,
+        widget=atapi.SelectionWidget(
+            label=_(
+                u'EasyNewsletter_label_help_nl_language',
+                default='Newsletter language'),
+            description=_('EasyNewsletter_help_nl_language', default=u''),
+            i18n_domain='EasyNewsletter',
+            format='select',
+        ),
+    ),
+
+    atapi.StringField(
         'fullname',
         required=False,
         widget=atapi.StringWidget(

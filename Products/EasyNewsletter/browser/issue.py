@@ -4,7 +4,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.config import PLACEHOLDERS
 from Products.Five.browser import BrowserView
-
+from plone import api
 
 class IssueView(BrowserView):
     """
@@ -35,3 +35,45 @@ class IssueView(BrowserView):
         for node in soup.findAll('div', {'class': 'mailonly'}):
             node.extract()
         return soup.renderContents()
+
+
+    def copy_as_draft(self):
+        newsletter = self.context.aq_parent
+        master_id = self.context.getId()
+
+        if master_id.startswith('master_'):
+            draft_id = master_id.strip('master_')
+        else:
+            draft_id = master_id
+
+        draft_obj = api.content.copy(
+            source=self.context,
+            target=newsletter,
+            safe_id=True,
+            id=draft_id
+        )
+
+        return self.request.response.redirect(
+            draft_obj.absolute_url() + '/edit'
+        )
+
+
+    def copy_as_master(self):
+        request = self.context.REQUEST
+        newsletter = self.context.aq_parent
+        master_id = "master_" + self.context.getId()
+
+        master_obj = api.content.copy(
+            source=self.context,
+            target=newsletter,
+            safe_id=True,
+            id=master_id
+        )
+
+        request['enlwf_guard'] = True
+        api.content.transition(obj=master_obj, transition='make_master')
+        request['enlwf_guard'] = False
+
+        return self.request.response.redirect(
+            master_obj.absolute_url() + '/edit'
+        )

@@ -5,6 +5,6 @@
     cookable="False"
     inline="False"
     enabled="1"
-    expression="python: here.portal_type in ['EasyNewsletter', 'ENLIssue']" />
+    expression="context/@@load_enl_edithelper" />
 
 </object>

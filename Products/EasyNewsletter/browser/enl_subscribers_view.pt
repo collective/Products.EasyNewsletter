@@ -43,6 +43,10 @@
                   <span class="label" i18n:translate="fullname">Fullname:</span>
                   <input type="text" name="fullname"
                          tal:attributes="value request/fullname|nothing" /><br />
+                  <span class="label" i18n:translate="language">Language:</span>
+                  <input type="text" name="Newsletter language"
+                         tal:attributes="value request/nl_language|nothing" /><br />
+
                   <span class="label" i18n:translate="organization">Organization:</span>
                   <input type="text" name="organization"
                          tal:attributes="value request/organization|nothing" /><br />
@@ -72,7 +76,7 @@
 
               <table class="listing" summary="Subscriber Listing">
                   <tr>
-                    <th colspan="7">
+                    <th colspan="8">
                       <span class="total" i18n:translate="">
                         There are
                         <span i18n:name="subscribers_count"
@@ -88,6 +92,7 @@
                       <th i18n:translate="mail">Email</th>
                       <th i18n:translate="salutation">Salutation</th>
                       <th i18n:translate="name">Name</th>
+                      <th i18n:translate="language">Language</th>
                       <th i18n:translate="organization">Company/Organization</th>
                       <th i18n:translate="source">Source</th>
                       <th i18n:translate="action">Action</th>
@@ -113,6 +118,7 @@
                       </td>
                       <td i18n:translate="" tal:content="subscriber/salutation" />
                       <td i18n:translate="" tal:content="subscriber/fullname" />
+                      <td i18n:translate="" tal:content="subscriber/nl_language|nothing" />
                       <td i18n:translate="" tal:content="subscriber/organization|nothing"></td>
                       <td i18n:translate="" tal:content="subscriber/source|nothing"></td>
                       <td>
@@ -141,7 +147,7 @@
               </div>
             </form>
 
-            
+
 
         </div>
 

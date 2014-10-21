@@ -64,5 +64,5 @@
     condition_expr="" url_expr="string:${folder_url}/enl_templates_view"
     visible="True" i18n:attributes="title">
   <permission value="Modify portal content"/>
- </action> 
+ </action>
 </object>

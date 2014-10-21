@@ -71,6 +71,21 @@ schema = atapi.Schema((
     ),
 
     atapi.BooleanField(
+        'excludeAllSubscribers',
+        default_method="get_excludeAllSubscribers_defaults",
+        widget=atapi.BooleanWidget(
+            label=_(
+                u'label_excludeAllSubscribers',
+                default=u'Exclude all external subscribers'),
+            description=_(
+                u'help_excludeAllSubscribers',
+                default=u'If checked, the newsletter/mailing will not be send  \
+                   to all external subscribers inside the newsletter.'),
+            i18n_domain='EasyNewsletter',
+        )
+    ),
+
+    atapi.BooleanField(
         'sendToAllPloneMembers',
         default_method="get_sendToAllPloneMembers_defaults",
         widget=atapi.BooleanWidget(
@@ -80,8 +95,7 @@ schema = atapi.Schema((
             description=_(
                 u'help_sendToAllPloneMembers',
                 default=u'If checked, the newsletter/mailing is send to all \
-                    plone members. If there are subscribers inside the \
-                    newsletter, they get the letter anyway.'),
+                    plone members.'),
             i18n_domain='EasyNewsletter',
         )
     ),
@@ -225,16 +239,28 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         url = self.absolute_url()
         self.REQUEST.RESPONSE.redirect(url)
 
+    def _get_salutation_mappings(self):
+        """
+        returns mapping of salutations. Each salutation itself is a dict
+        with key as language. (prepared for multilingual newsletter)
+        """
+        enl = self.getNewsletter()
+        result = {}
+        lang = self.Language() or 'en'
+
+        for line in enl.getSalutations():
+            if "|" not in line:
+                continue
+            key, value = line.split('|')
+            result[key.strip()] = {lang: value.strip()}
+        return result
+
     def _send_recipients(self, recipients=[]):
         """ return list of recipients """
 
         request = self.REQUEST
         enl = self.getNewsletter()
-        salutation_mappings = {}
-        for line in enl.getSalutations():
-            salutation_key, salutation_value = line.split('|')
-            salutation_mappings[
-                salutation_key.strip()] = salutation_value.strip()
+        salutation_mappings = self._get_salutation_mappings()
         if recipients:
             receivers = recipients
 
@@ -245,22 +271,31 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                 test_receiver = enl.getTestEmail()
             salutation = salutation_mappings.get('default', '')
             receivers = [
-                {'email': test_receiver, 'fullname': 'Test Member',
-                    'salutation': salutation}]
+                {'email': test_receiver,
+                 'fullname': 'Test Member',
+                 'salutation': salutation.get(self.Language(), 'unset'),
+                 'nl_language': self.Language()}]
         else:
+            # only send to all subscribers if the exclude all subscribers
+            # checkbox, was not set.
             # get ENLSubscribers
             enl_receivers = []
-            for subscriber in enl.objectValues("ENLSubscriber"):
-                salutation_key = subscriber.getSalutation()
-                if salutation_key:
-                    salutation = salutation_mappings.get(salutation_key, '')
-                else:
-                    salutation = ''
-                enl_receivers.append({
-                    'email': subscriber.getEmail(),
-                    'fullname': subscriber.getFullname(),
-                    'salutation': salutation,
-                    'uid': subscriber.UID()})
+            if not self.getExcludeAllSubscribers():
+                for subscriber in enl.objectValues("ENLSubscriber"):
+                    salutation_key = subscriber.getSalutation()
+                    if salutation_key:
+                        salutation = salutation_mappings.get(salutation_key, '')
+                    else:
+                        salutation = {}
+                    enl_receivers.append({
+                        'email': subscriber.getEmail(),
+                        'fullname': subscriber.getFullname(),
+                        'salutation': salutation.get(
+                            subscriber.getNl_language(),
+                            salutation.get(self.Language() or 'en', 'unset')
+                            ),
+                        'uid': subscriber.UID(),
+                        'nl_language': subscriber.getNl_language()})
 
             # get subscribers over selected plone members and groups
             plone_receivers = self.get_plone_subscribers()
@@ -360,12 +395,6 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             sender_email = enl.getSenderEmail()
         from_header.append(u'<%s>' % safe_unicode(sender_email))
 
-        # get subject
-        subject = request.get("subject")
-        if not subject:
-            subject = self.Title()
-        subject_header = Header(safe_unicode(subject))
-
         # determine MailHost first (build-in vs. external)
         deliveryServiceName = enl.getDeliveryService()
         if deliveryServiceName == 'mailhost':
@@ -377,26 +406,24 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         send_counter = 0
         send_error_counter = 0
 
-        receivers = self._send_recipients(recipients)
-        output_html = self._render_output_html()
-        # This will resolve 'resolveuid' links for us
-        rendered_newsletter = self._exchange_relative_urls(output_html)
-        text = rendered_newsletter['html']
-        text_plain = rendered_newsletter['plain']
-        image_urls = rendered_newsletter['images']
-        images_to_attach = self._get_images_to_attach(image_urls)
         props = getToolByName(self, "portal_properties").site_properties
         charset = props.getProperty("default_charset")
+
+        receivers = self._send_recipients(recipients)
+
         for receiver in receivers:
+            # get basic issue data
+            issue_data = self._get_issue_data(receiver)
+
             # create multipart mail
             outer = MIMEMultipart('alternative')
             outer['To'] = Header(u'<%s>' % safe_unicode(receiver['email']))
 
             personal_text, personal_text_plain = self._personalize_texts(
-                enl, receiver, text, text_plain)
+                enl, receiver, issue_data['text'], issue_data['text_plain'])
 
             outer['From'] = from_header
-            outer['Subject'] = subject_header
+            outer['Subject'] = issue_data['subject_header']
             outer.epilogue = ''
 
             # Attach text part
@@ -408,7 +435,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             html_part.attach(html_text)
 
             # Add images to the message
-            for image in images_to_attach:
+            for image in issue_data['images_to_attach']:
                 html_part.attach(image)
             outer.attach(text_part)
             outer.attach(html_part)
@@ -430,9 +457,40 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         # change status only for a 'regular' send operation (not 'test', no
         # explicit recipients)
         if not hasattr(request, "test") and not recipients:
+            request['enlwf_guard'] = True
             wftool = getToolByName(self, "portal_workflow")
             if wftool.getInfoFor(self, 'review_state') == 'draft':
                 wftool.doActionFor(self, "send")
+            request['enlwf_guard'] = False
+
+
+    def _get_issue_data(self, receiver):
+        """
+        returns a dict of issue_data, like subject and several parts of
+        the issue. This is done so, to split up the send method and
+        make it more hookable.
+        """
+        issue_data = {}
+
+        request = self.REQUEST
+        subject = request.get("subject")
+        if not subject:
+            subject = self.Title()
+
+        issue_data['subject_header'] = Header(safe_unicode(subject))
+
+        output_html = self._render_output_html()
+        # This will resolve 'resolveuid' links for us
+        rendered_newsletter = self._exchange_relative_urls(output_html)
+
+        issue_data['text'] = rendered_newsletter['html']
+        issue_data['text_plain'] = rendered_newsletter['plain']
+
+        image_urls = rendered_newsletter['images']
+        issue_data['images_to_attach'] = self._get_images_to_attach(image_urls)
+
+        return issue_data
+
 
     def _personalize_texts(self, enl, receiver, text, text_plain):
         salutation = receiver.get("salutation") or ''
@@ -567,6 +625,10 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         enl = self.getNewsletter()
         return enl.get_plone_groups()
 
+    def get_excludeAllSubscribers_defaults(self):
+        enl = self.getNewsletter()
+        return enl.getExcludeAllSubscribers()
+
     def get_sendToAllPloneMembers_defaults(self):
         enl = self.getNewsletter()
         return enl.getSendToAllPloneMembers()
@@ -617,6 +679,10 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                 probdict['id'] = member.getUserId()
                 probdict['email'] = member.getProperty('email')
                 probdict['fullname'] = member.getProperty('fullname')
+                probdict['language'] = member.getProperty('language')
+                #fallback for default plone users without a enl language
+                if not probdict['language']:
+                    probdict['language'] = self.Language()
                 member_properties[probdict['id']] = probdict
         if not member_properties:
             return []
@@ -627,11 +693,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             selected_group_members)
 
         # get salutation mappings
-        salutation_mappings = {}
-        for line in enl.getSalutations():
-            salutation_key, salutation_value = line.split('|')
-            salutation_mappings[
-                salutation_key.strip()] = salutation_value.strip()
+        salutation_mappings = self._get_salutation_mappings()
         # get all selected member properties
         for receiver_id in set(receiver_member_list):
             if receiver_id not in member_properties:
@@ -641,10 +703,17 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                 continue
             member_property = member_properties[receiver_id]
             if EMAIL_RE.findall(member_property['email']):
+                salutation = salutation_mappings[
+                    member_property.get('gender', 'default')
+                ]
                 plone_subscribers.append({
                     'fullname': member_property['fullname'],
                     'email': member_property['email'],
-                    'salutation': salutation_mappings.get('default', ''),
+                    'salutation': salutation.get(
+                        member_property.get('language', ''),
+                        salutation.get(self.Language() or 'en', 'unset')
+                        ),
+                    'nl_language': member_property.get('language', '')
                 })
             else:
                 log.debug(

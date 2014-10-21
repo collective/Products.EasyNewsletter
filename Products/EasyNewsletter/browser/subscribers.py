@@ -104,7 +104,7 @@ class Enl_Subscribers_View(BrowserView):
 
     # TODO: we should move these indexes from FieldIndex to ZCTextIndex
     # see setuphandlers.py for indexes creation
-    searchable_params = ('email', 'fullname', 'organization')
+    searchable_params = ('email', 'fullname', 'nl_language', 'organization')
 
     def __init__(self, context, request):
         self.context = context
@@ -145,7 +145,6 @@ class Enl_Subscribers_View(BrowserView):
                 salutation = SALUTATION.getValue(brain.salutation, '')
             else:
                 salutation = ''
-
             subscribers.append(dict(
                 id=brain.getId,
                 source='plone',
@@ -154,6 +153,7 @@ class Enl_Subscribers_View(BrowserView):
                 getURL=brain.getURL(),
                 salutation=salutation,
                 fullname=brain.fullname,
+                nl_language=brain.nl_language,
                 organization=brain.organization
             ))
 

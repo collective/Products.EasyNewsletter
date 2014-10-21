@@ -21,13 +21,13 @@ Features
     - Plonish (can use Plone's Collections to collect content)
 
     - Variable templates to generate newsletter content
-    
+
     - Subscribing / Unsubscribing and can use Plone Members/Groups as receivers (works also with Membrane)
-    
+
     - support for external subscriber sources (configured through a Zope utility)
-    
+
     - support for external delivery services (other than Plone MailHost)
-    
+
     - TTW customizeable output Template to generate nice HTML Newsletter
 
     - Support personalized mails
@@ -113,6 +113,19 @@ Step by step
 8. If your Newsletter/Mailing is finished, you can activate the send button by clicking on ``Enable send button``.
    Then you can click on ``Send newsletter`` to send the Newsletter to all subscribers or selected groups and users.
 
+Issue workflow information
+--------------------------
+
+There are now three workflow states for an issue, which are draft, sent and master.
+If an issue is created, it's initial state is draft.
+
+Only issues with state draft can be send.
+
+After an issue is sent, it's state is sent and it will appear in the newsletter archive.
+
+In addition a master can be made out of an issue with the state draft or sent using the actions menu.
+The master acts as a blueprint, which can be reedited and copied as a new draft.
+
 Images in HTML mails
 --------------------
 
@@ -160,7 +173,7 @@ IReceiversMemberFilter filters
 
 The IReceiversMemberFilter filters can be used to filter the list of Plone members which a user can select in newsletters and issues.
 
-:: 
+::
 
    class ReceiversMemberFilterNoPloneMember(object):
        """ filters all members out of newsletter receivers selection list,

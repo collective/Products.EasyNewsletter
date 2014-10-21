@@ -5,7 +5,41 @@ Changelog
 2.6.15 (unreleased)
 -------------------
 
-- fixed jquery initialization in enl_edithelper.js
+- Fixed jquery initialization in enl_edithelper.js and make it work again.
+  It didn't hide the user selection fields.
+  [benniboy]
+
+- Status and error messsages show up for anon users (was broke).
+  [benniboy]
+
+- Implemented that subscribers and recipients have a language. This is also
+  queable via index and the affecting page templates have been adjusted.
+  [benniboy]
+
+- Made a checkbox in the send issue form to exclude all external subscribers.
+  [benniboy]
+
+- Split up the send method for better hookability.
+  [benniboy]
+
+- Reworked the whole issue workflow. See README.
+  [benniboy]
+
+- Added info on several newsletter fields, that changing settings does not
+  affect already existing issues for that newsletter.
+  [benniboy]
+
+- Fixed enl_edithelper.py work again.
+  [benniboy]
+
+- Added 2 new constants to the config.py for hookability and adjusted the
+  affected files to look up those constants.
+  [benniboy]
+
+- Fixed A subscriber can now unsubscribe himself, if he is not logged in.
+  [benniboy]
+
+- Reworked the salutation mapping (prepared for multilingual newsletter)
   [benniboy]
 
 - Added utf-8 headers, sorted imports (plone-style), lines down to 80 chars.

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
-
+from Products.EasyNewsletter.config import ENL_ISSUE_TYPES
 
 class NewsletterView(BrowserView):
     """
@@ -12,7 +12,7 @@ class NewsletterView(BrowserView):
 
         result = list()
         catalog = getToolByName(self.context, "portal_catalog")
-        for brain in catalog(portal_type='ENLIssue',
+        for brain in catalog(portal_type=ENL_ISSUE_TYPES,
                              path='/'.join(self.context.getPhysicalPath())):
             issue = brain.getObject()
             content = issue.restrictedTraverse('@@get-public-body')()

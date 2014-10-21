@@ -45,6 +45,16 @@
     visible="True" i18n:attributes="title">
   <permission value="Modify portal content"/>
  </action>
+  <action title="Copy as draft" action_id="copy_as_draft" category="object_buttons"
+    condition_expr="python: portal.portal_workflow.getInfoFor(object, 'review_state') == 'master'" url_expr="string:${folder_url}/copy-as-draft"
+    visible="True" i18n:attributes="title">
+  <permission value="Modify portal content"/>
+ </action>
+   <action title="Copy as master" action_id="copy_as_master" category="object_buttons"
+    condition_expr="python: portal.portal_workflow.getInfoFor(object, 'review_state') in ['draft','sent']" url_expr="string:${folder_url}/copy-as-master"
+    visible="True" i18n:attributes="title">
+  <permission value="Modify portal content"/>
+ </action>
  <action title="Edit criteria" action_id="criteria" category="object_buttons"
     condition_expr="" url_expr="string:${folder_url}/criterion_edit_form"
     visible="True" i18n:attributes="title">

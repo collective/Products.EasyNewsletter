@@ -1,24 +1,26 @@
 var jq = $;
 
 jq(document).ready(function(){
+    var members = "#archetypes-fieldname-ploneReceiverMembers";
+    var groups = "#archetypes-fieldname-ploneReceiverGroups";
+
 	if (jq("#sendToAllPloneMembers").attr('checked')){
-		jq("#archetypes-fieldname-ploneReceiverMembers").addClass('hidden')
-		jq("#archetypes-fieldname-ploneReceiverGroups").addClass('hidden')
+		jq(members).css('visibility', 'hidden');
+		jq(groups).css('visibility', 'hidden');
 	}else{
-		jq("#archetypes-fieldname-ploneReceiverMembers").removeClass('hidden')
-		jq("#archetypes-fieldname-ploneReceiverGroups").removeClass('hidden')
-	};
+		jq(members).css('visibility', 'visible');
+		jq(groups).css('visibility', 'visible');
+	}
 	jq("#sendToAllPloneMembers").click(function (){
 		if (jq(this).attr('checked')){
-			jq("#archetypes-fieldname-ploneReceiverMembers").addClass('hidden')
-			jq("#archetypes-fieldname-ploneReceiverGroups").addClass('hidden')
+			jq(members).css('visibility', 'hidden');
+			jq(groups).css('visibility', 'hidden');
 		}else{
-			jq("#archetypes-fieldname-ploneReceiverMembers").removeClass('hidden')
-			jq("#archetypes-fieldname-ploneReceiverGroups").removeClass('hidden')
+			jq(members).css('visibility', 'visible');
+			jq(groups).css('visibility', 'visible');
 		}
 	});
 });
-
 
 /*
   jq("#archetypes-fieldname-header").insertAfter("\

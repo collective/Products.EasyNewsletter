@@ -41,6 +41,20 @@
     template="issue_public_view.pt"
     permission="zope2.View" />
 
+  <browser:page
+    name="copy-as-draft"
+    for="..interfaces.IENLIssue"
+    class=".issue.IssueView"
+    attribute="copy_as_draft"
+    permission="cmf.ModifyPortalContent" />
+
+  <browser:page
+    name="copy-as-master"
+    for="..interfaces.IENLIssue"
+    class=".issue.IssueView"
+    attribute="copy_as_master"
+    permission="cmf.ModifyPortalContent" />
+
  <browser:page
     name="daily-issue"
     for="..interfaces.IEasyNewsletter"
@@ -122,5 +136,11 @@
     name="Products.EasyNewsletter.enl_edithelper.js"
       file="javascripts/enl_edithelper.js" />
 
+  <browser:page
+    name="load_enl_edithelper"
+    class=".edithelper.EditHelperView"
+    attribute="enable"
+    permission="zope.Public"
+    for="*" />
 
 </configure>

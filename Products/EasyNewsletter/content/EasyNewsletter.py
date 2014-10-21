@@ -22,6 +22,7 @@ from zope.component import getUtilitiesFor
 from zope.component import queryUtility
 from zope.component import subscribers
 from zope.interface import implements
+
 import logging
 
 try:
@@ -166,6 +167,22 @@ schema = atapi.Schema((
     ),
 
     atapi.BooleanField(
+        'excludeAllSubscribers',
+        default=False,
+        widget=atapi.BooleanWidget(
+            label=_(
+                u'label_excludeAllSubscribers',
+                default=u'Exclude all subscribers'),
+            description=_(
+                u'help_excludeAllSubscribers',
+                default=u'If checked, the newsletter/mailing will not be send  \
+                   to all subscribers inside the newsletter. Changing this \
+                   setting does not affect already existing issues.'),
+            i18n_domain='EasyNewsletter',
+        )
+    ),
+
+    atapi.BooleanField(
         'sendToAllPloneMembers',
         default=False,
         widget=atapi.BooleanWidget(
@@ -176,7 +193,8 @@ schema = atapi.Schema((
                 u'help_sendToAllPloneMembers',
                 default=u'If checked, the newsletter/mailing is send to all \
                     plone members. If there are subscribers inside the \
-                    newsletter, they get the letter anyway.'),
+                    newsletter, they get the letter anyway. Changing this \
+                    setting does not affect already existing issues.'),
             i18n_domain='EasyNewsletter',
         )
     ),
@@ -190,8 +208,9 @@ schema = atapi.Schema((
                 default=u"Plone Members to receive the newsletter"),
             description=_(
                 u"EasyNewsletter_help_ploneReceiverMembers",
-                default=u"Choose Plone Members which should receive"
-                " the newsletter."),
+                default=u"Choose Plone Members which should receive \
+                    the newsletter. Changing this setting does not affect \
+                    already existing issues."),
             i18n_domain='EasyNewsletter',
             size=20,
         )
@@ -207,7 +226,8 @@ schema = atapi.Schema((
             description=_(
                 u"EasyNewsletter_help_ploneReceiverGroups",
                 default=u"Choose Plone Groups which members should "
-                "receive the newsletter."),
+                    "receive the newsletter. Changing this setting does not "
+                    "affect already existing issues."),
             i18n_domain='EasyNewsletter',
             size=10,
         )
@@ -381,7 +401,7 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
     security.declarePublic('addSubscriber')
 
     def addSubscriber(
-            self, subscriber, fullname, organization, salutation=None):
+            self, subscriber, fullname, nl_language, organization, salutation=None):
         """Adds a new subscriber to the newsletter (if valid).
         """
         # we need the subscriber email here as an id,
@@ -399,6 +419,7 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
         o = getattr(self, subscriber_id)
         o.setEmail(subscriber)
         o.setFullname(fullname)
+        o.setNl_language(nl_language)
         o.setOrganization(organization)
         o.setSalutation(salutation)
         o.reindexObject()
@@ -504,7 +525,7 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
         """ return sended issues brains"""
         enl = self.getNewsletter()
         issues = self.portal_catalog(
-            portal_type='ENLIssue',
+            portal_type=config.ENL_ISSUE_TYPES,
             review_state='sent',
             sort_on='modified',
             sort_order='reverse',
@@ -516,8 +537,20 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
         """ return draft issues brains"""
         enl = self.getNewsletter()
         issues = self.portal_catalog(
-            portal_type='ENLIssue',
+            portal_type=config.ENL_ISSUE_TYPES,
             review_state='draft',
+            sort_on='modified',
+            sort_order='reverse',
+            path='/'.join(enl.getPhysicalPath())
+        )
+        return issues
+
+    def get_master_issues(self):
+        """ return draft issues brains"""
+        enl = self.getNewsletter()
+        issues = self.portal_catalog(
+            portal_type=config.ENL_ISSUE_TYPES,
+            review_state='master',
             sort_on='modified',
             sort_order='reverse',
             path='/'.join(enl.getPhysicalPath())
