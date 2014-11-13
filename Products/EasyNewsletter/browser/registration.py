@@ -7,6 +7,7 @@ from Products.EasyNewsletter.config import MESSAGE_CODE
 from Products.EasyNewsletter.interfaces import IENLRegistrationTool
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
+from Products.validation.validators.BaseValidators import EMAIL_RE
 from email.MIMEText import MIMEText
 from plone import api
 from plone.i18n.normalizer.interfaces import IIDNormalizer
@@ -14,10 +15,8 @@ from zope.component import getMultiAdapter
 from zope.component import queryUtility
 import OFS
 import re
-from plone import api
-from Products.validation.validators.BaseValidators import EMAIL_RE
-EMAIL_RE = "^" + EMAIL_RE
 
+EMAIL_RE = "^" + EMAIL_RE
 
 
 class SubscriberView(BrowserView):
@@ -33,7 +32,6 @@ class SubscriberView(BrowserView):
         else:
             return self.request.response.redirect(
                 newsletter.absolute_url())
-
 
     def portal_state(self):
         context = aq_inner(self.context)
@@ -98,10 +96,6 @@ class SubscriberView(BrowserView):
         hashkey = pwr_data['randomstring']
         enl_registration_tool = queryUtility(
             IENLRegistrationTool, 'enl_registration_tool')
-        # todo die register mail und  status msg geht immer raus, auch wenns eigentlich
-        # abbrechen sollte wenn zb die email schon confirmed ist - prob bei self._requestReset(subscriber)??
-        # bzw wird ja immer ein neuer hashkey generiert und glaube daher gehört hier nochn check rein
-        #is anon und logged in das selbe
         if hashkey not in enl_registration_tool.objectIds():
             enl_registration_tool[hashkey] = RegistrationData(
                 hashkey, **subscriber_data)
