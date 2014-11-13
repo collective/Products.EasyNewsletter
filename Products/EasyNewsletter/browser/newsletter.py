@@ -3,10 +3,10 @@ from Products.CMFCore.utils import getToolByName
 from Products.EasyNewsletter.config import ENL_ISSUE_TYPES
 from Products.Five.browser import BrowserView
 
+
 class NewsletterView(BrowserView):
     """
     """
-
     def getRenderedIssues(self):
         """ Return the rendered body of all newsletter issues """
 

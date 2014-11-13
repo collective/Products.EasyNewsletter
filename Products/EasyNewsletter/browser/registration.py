@@ -28,7 +28,8 @@ class SubscriberView(BrowserView):
         """
         if api.user.is_anonymous():
             return self.request.response.redirect(
-                    self.context.absolute_url())
+                self.context.absolute_url()
+            )
         else:
             return self.request.response.redirect(
                 newsletter.absolute_url())

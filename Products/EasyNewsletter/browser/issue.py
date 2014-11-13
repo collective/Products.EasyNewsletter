@@ -6,6 +6,7 @@ from Products.EasyNewsletter.config import PLACEHOLDERS
 from Products.Five.browser import BrowserView
 from plone import api
 
+
 class IssueView(BrowserView):
     """
     """
@@ -36,7 +37,6 @@ class IssueView(BrowserView):
             node.extract()
         return soup.renderContents()
 
-
     def copy_as_draft(self):
         newsletter = self.context.aq_parent
         master_id = self.context.getId()
@@ -56,7 +56,6 @@ class IssueView(BrowserView):
         return self.request.response.redirect(
             draft_obj.absolute_url() + '/edit'
         )
-
 
     def copy_as_master(self):
         request = self.context.REQUEST

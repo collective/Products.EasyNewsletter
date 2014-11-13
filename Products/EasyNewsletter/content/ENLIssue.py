@@ -293,7 +293,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                         'salutation': salutation.get(
                             subscriber.getNl_language(),
                             salutation.get(self.Language() or 'en', 'unset')
-                            ),
+                        ),
                         'uid': subscriber.UID(),
                         'nl_language': subscriber.getNl_language()})
 
@@ -463,7 +463,6 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                 wftool.doActionFor(self, "send")
             request['enlwf_guard'] = False
 
-
     def _get_issue_data(self, receiver):
         """
         returns a dict of issue_data, like subject and several parts of
@@ -490,7 +489,6 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         issue_data['images_to_attach'] = self._get_images_to_attach(image_urls)
 
         return issue_data
-
 
     def _personalize_texts(self, enl, receiver, text, text_plain):
         salutation = receiver.get("salutation") or ''
@@ -680,7 +678,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                 probdict['email'] = member.getProperty('email')
                 probdict['fullname'] = member.getProperty('fullname')
                 probdict['language'] = member.getProperty('language')
-                #fallback for default plone users without a enl language
+                # fallback for default plone users without a enl language
                 if not probdict['language']:
                     probdict['language'] = self.Language()
                 member_properties[probdict['id']] = probdict
@@ -712,7 +710,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                     'salutation': salutation.get(
                         member_property.get('language', ''),
                         salutation.get(self.Language() or 'en', 'unset')
-                        ),
+                    ),
                     'nl_language': member_property.get('language', '')
                 })
             else:

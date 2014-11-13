@@ -225,9 +225,9 @@ schema = atapi.Schema((
                 default=u"Plone Groups to receive the newsletter"),
             description=_(
                 u"EasyNewsletter_help_ploneReceiverGroups",
-                default=u"Choose Plone Groups which members should "
-                    "receive the newsletter. Changing this setting does not "
-                    "affect already existing issues."),
+                default=u"Choose Plone Groups which members should \
+                    receive the newsletter. Changing this setting does not \
+                    affect already existing issues."),
             i18n_domain='EasyNewsletter',
             size=10,
         )
