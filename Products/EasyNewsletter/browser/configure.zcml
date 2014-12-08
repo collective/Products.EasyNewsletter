@@ -46,14 +46,14 @@
     for="..interfaces.IENLIssue"
     class=".issue.IssueView"
     attribute="copy_as_draft"
-    permission="cmf.ModifyPortalContent" />
+    permission="zope2.CopyOrMove" />
 
   <browser:page
     name="copy-as-master"
     for="..interfaces.IENLIssue"
     class=".issue.IssueView"
     attribute="copy_as_master"
-    permission="cmf.ModifyPortalContent" />
+    permission="zope2.CopyOrMove" />
 
  <browser:page
     name="daily-issue"
