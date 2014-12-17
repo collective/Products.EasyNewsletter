@@ -15,7 +15,7 @@ PLACEHOLDERS = ["UNSUBSCRIBE", "SUBSCRIBER_SALUTATION"]
 
 SALUTATION = DisplayList((
     ('', _(u"label_choose_saluation", "Choose salutation...")),
-    ("ms", _(u"label_salutation_ms", "Ms.")),
+    ("ms", _(u"label_salutation_mrs", "Mrs.")),
     ("mr", _(u"label_salutation_mr", "Mr.")),
 ))
 
@@ -229,7 +229,7 @@ DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT = _(
 )
 
 DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_TEXT = """\
-You subscribe to the ${newsletter_title} Newsletter.\n\n
+You subscribe to the ${newsletter_title}.\n\n
 Your registered email is: ${subscriber_email}\n
 Please click on the link to confirm your subscription: \n
 ${confirmation_url}"""

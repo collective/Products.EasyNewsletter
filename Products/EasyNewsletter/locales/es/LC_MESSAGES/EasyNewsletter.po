@@ -837,9 +837,9 @@ msgstr "Plantilla del correo saliente"
 msgid "label_salutation_mr"
 msgstr "Sr."
 
-#. Default: "Ms."
+#. Default: "Mrs."
 #: ./config.py:16
-msgid "label_salutation_ms"
+msgid "label_salutation_mrs"
 msgstr "Srta."
 
 #. Default: "Select all items"

@@ -509,7 +509,7 @@ msgstr "Vous avez été désabonné(e)."
 
 #: ./browser/templates/unsubscribe_form.pt:16
 msgid "You want to unsubscribe from this Newsletter?"
-msgstr ""
+msgstr "Vous désirez vous désabonner de cette lettre?"
 
 #: ./browser/registration.py:217
 msgid "Your email address could not be found in subscribers."
@@ -525,7 +525,7 @@ msgstr "Votre email a été enregistré. Un message de confirmation vous a été
 
 #: ./browser/templates/unsubscribe_form.pt:19
 msgid "Your registered E-Mail address:"
-msgstr ""
+msgstr "Votre adresse E-mail enregistrée:"
 
 #: ./browser/registration.py:129
 msgid "Your subscription was successfully confirmed."
@@ -543,7 +543,7 @@ msgstr "ajouter un abonné"
 
 #: ./browser/templates/unsubscribe_form.pt:25
 msgid "cancel"
-msgstr ""
+msgstr "Annuler"
 
 #: ./browser/registration.py:209
 msgid "confirm newsletter unsubscription"
@@ -694,7 +694,7 @@ msgstr "Tester la lettre"
 #. Default: "Unsubscribe"
 #: ./browser/templates/unsubscribe_form.pt:23
 msgid "easynewsletter_unsubscribe_button"
-msgstr ""
+msgstr "Désabonner"
 
 #: ./browser/subscribers.py:93
 #: ./browser/upload_csv.pt:38
@@ -840,9 +840,9 @@ msgstr "Modèle de la lettre envoyée"
 msgid "label_salutation_mr"
 msgstr "Monsieur"
 
-#. Default: "Ms."
+#. Default: "Mrs."
 #: ./config.py:16
-msgid "label_salutation_ms"
+msgid "label_salutation_mrs"
 msgstr "Madame"
 
 #. Default: "Select all items"
@@ -969,5 +969,5 @@ msgstr "Remonter"
 
 #: ./portlets/subscriber.pt:69
 msgid "unsubscribe"
-msgstr ""
+msgstr "Désabonner"
 

@@ -810,9 +810,9 @@ msgstr ""
 msgid "label_salutation_mr"
 msgstr ""
 
-#. Default: "Ms."
+#. Default: "Mrs."
 #: ../config.py:14
-msgid "label_salutation_ms"
+msgid "label_salutation_mrs"
 msgstr ""
 
 #. Default: "Select all items"

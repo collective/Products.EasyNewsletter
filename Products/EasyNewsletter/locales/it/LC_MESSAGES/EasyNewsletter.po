@@ -504,7 +504,7 @@ msgstr "La tua registrazione è stata annullata."
 
 #: ./browser/templates/unsubscribe_form.pt:16
 msgid "You want to unsubscribe from this Newsletter?"
-msgstr ""
+msgstr "Si desidera annullare l'iscrizione a questa newsletter?"
 
 #: ./browser/registration.py:217
 msgid "Your email address could not be found in subscribers."
@@ -520,7 +520,7 @@ msgstr "La tua email è stata registrata. Un'email di conferma è stata inviata 
 
 #: ./browser/templates/unsubscribe_form.pt:19
 msgid "Your registered E-Mail address:"
-msgstr ""
+msgstr "Il tuo indirizzo e-mail registrato"
 
 #: ./browser/registration.py:129
 msgid "Your subscription was successfully confirmed."
@@ -538,7 +538,7 @@ msgstr ""
 
 #: ./browser/templates/unsubscribe_form.pt:25
 msgid "cancel"
-msgstr ""
+msgstr "Annullare"
 
 #: ./browser/registration.py:209
 msgid "confirm newsletter unsubscription"
@@ -687,7 +687,7 @@ msgstr ""
 #. Default: "Unsubscribe"
 #: ./browser/templates/unsubscribe_form.pt:23
 msgid "easynewsletter_unsubscribe_button"
-msgstr ""
+msgstr "Cancellati"
 
 #: ./browser/subscribers.py:93
 #: ./browser/upload_csv.pt:38
@@ -831,9 +831,9 @@ msgstr ""
 msgid "label_salutation_mr"
 msgstr "Signor"
 
-#. Default: "Ms."
+#. Default: "Mrs."
 #: ./config.py:16
-msgid "label_salutation_ms"
+msgid "label_salutation_mrs"
 msgstr "Signora"
 
 #. Default: "Select all items"
@@ -960,5 +960,5 @@ msgstr ""
 
 #: ./portlets/subscriber.pt:69
 msgid "unsubscribe"
-msgstr ""
+msgstr "Cancellati"
 
