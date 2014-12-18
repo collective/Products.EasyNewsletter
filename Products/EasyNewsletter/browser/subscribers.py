@@ -87,7 +87,7 @@ def normalize_id(astring):
 
 
 CSV_HEADER = [
-    _(u"salutation"), _(u"fullname"), _(u"email"), _(u"organization")]
+    _(u"salutation"), _(u"fullname"), _(u"nl_lang"), _(u"email"), _(u"organization")]
 
 
 class IEnl_Subscribers_View(Interface):
@@ -242,23 +242,25 @@ class UploadCSV(BrowserView):
 
         for subscriber in reader:
             # Check the length of the line
-            if len(subscriber) != 4:
+            if len(subscriber) != 5:
                 msg = _('The number of items in the line is not correct. \
-                        It should be 4. Check your CSV file.')
+                        It should be 5. Check your CSV file.')
                 fail.append(
                     {'failure': msg})
             else:
 
                 salutation = subscriber[0]
                 fullname = subscriber[1]
-                email = subscriber[2]
-                organization = subscriber[3]
+                nl_lang = subscriber[2]
+                email = subscriber[3]
+                organization = subscriber[4]
                 id = normalize_id(email)
                 if id in existing:
                     msg = _('This email address is already registered.')
                     fail.append(
                         {'salutation': salutation,
                          'fullname': fullname,
+                         'nl_lang': nl_lang,
                          'email': email,
                          'organization': organization,
                          'failure': msg})
@@ -274,6 +276,7 @@ class UploadCSV(BrowserView):
                         sub = context[id]
                         sub.email = email
                         sub.fullname = fullname
+                        sub.nl_language = nl_lang
                         sub.organization = organization
                         sub.salutation = salutation
                         obj = self.context.get(id, None)
@@ -283,6 +286,7 @@ class UploadCSV(BrowserView):
                         success.append({
                             'salutation': salutation,
                             'fullname': fullname,
+                            'nl_lang': nl_lang,
                             'email': email,
                             'organization': organization
                         })
@@ -290,6 +294,7 @@ class UploadCSV(BrowserView):
                         fail.append({
                             'salutation': salutation,
                             'fullname': fullname,
+                            'nl_lang': nl_lang,
                             'email': email,
                             'organization': organization,
                             'failure': (
