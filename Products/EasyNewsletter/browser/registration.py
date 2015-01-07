@@ -68,22 +68,23 @@ class SubscriberView(BrowserView):
         newsletter_container = self.portal.unrestrictedTraverse(
             path_to_easynewsletter)
         messages = IStatusMessage(self.request)
+
         if not subscriber:
             messages.addStatusMessage(
                 _("Please enter a valid email address."), "error")
-            self._msg_redirect(newsletter_container)
+            return self._msg_redirect(newsletter_container)
 
         mo = re.search(EMAIL_RE, subscriber)
         if not mo:
             messages.addStatusMessage(
                 _("Please enter a valid email address."), "error")
-            self._msg_redirect(newsletter_container)
+            return self._msg_redirect(newsletter_container)
         norm = queryUtility(IIDNormalizer)
         normalized_subscriber = norm.normalize(subscriber)
         if normalized_subscriber in newsletter_container.objectIds():
             messages.addStatusMessage(
                 _("Your email address is already registered."), "error")
-            self._msg_redirect(newsletter_container)
+            return self._msg_redirect(newsletter_container)
         subscriber_data = {}
         subscriber_data["subscriber"] = subscriber
         subscriber_data["fullname"] = fullname
@@ -124,7 +125,7 @@ class SubscriberView(BrowserView):
                 A confirmation email was sent to your address. Please check \
                 your inbox and click on the link in the email in order to \
                 confirm your subscription."), "info")
-            self._msg_redirect(newsletter_container)
+            return self._msg_redirect(newsletter_container)
 
     def confirm_subscriber(self):
         hashkey = self.request.get('hkey')
