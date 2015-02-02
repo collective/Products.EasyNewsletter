@@ -829,7 +829,7 @@ msgstr ""
 #. Default: "Mr."
 #: ./config.py:17
 msgid "label_salutation_mr"
-msgstr "Signor"
+msgstr "Signore"
 
 #. Default: "Mrs."
 #: ./config.py:16
