@@ -678,7 +678,9 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                 probdict['email'] = member.getProperty('email')
                 probdict['gender'] = member.getProperty('nl_gender')
                 # try last name first
-                probdict['fullname'] = member.getProperty('last_name','fullname')
+                probdict['fullname'] = \
+                    member.getProperty('last_name',
+                                       member.getProperty('fullname'))
                 probdict['language'] = member.getProperty('language')
                 # fallback for default plone users without a enl language
                 if not probdict['language']:
