@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-2.6.15 (unreleased)
--------------------
+3.0a1 (unreleased)
+------------------
 
 - Fixed jquery initialization in enl_edithelper.js and make it work again.
   It didn't hide the user selection fields.
@@ -36,7 +36,7 @@ Changelog
   affected files to look up those constants.
   [benniboy]
 
-- Fixed A subscriber can now unsubscribe himself, if he is not logged in.
+- Fixed a subscriber can now unsubscribe himself, if he is not logged in.
   [benniboy]
 
 - Reworked the salutation mapping (prepared for multilingual newsletter)
