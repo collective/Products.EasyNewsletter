@@ -13,7 +13,8 @@ install:
   - mkdir -p buildout-cache/downloads
   - pip install zc.buildout
   - buildout -c travis.cfg annotate
-  - buildout -c travis.cfg -N -q
+  - buildout -c travis.cfg -N
+  - ls bin
 script: bin/code-analysis && bin/test
 after_success:
   - test $QA && bin/coverage.sh && pip install -q coveralls && coveralls || true
