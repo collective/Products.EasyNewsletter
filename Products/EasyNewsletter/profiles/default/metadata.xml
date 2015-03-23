@@ -2,8 +2,8 @@
 
 <metadata>
 
-  <version>2.0</version>
-  
+  <version>3.0</version>
+
   <dependencies>
       <!-- <dependency>profile-inqbus.plone.fastmemberproperties:default</dependency> -->
   </dependencies>
