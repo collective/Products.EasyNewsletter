@@ -904,12 +904,12 @@ msgstr "Modèle de la lettre envoyée"
 #. Default: "Mr."
 #: ./config.py:19
 msgid "label_salutation_mr"
-msgstr "Monsieur"
+msgstr "M."
 
 #. Default: "Mrs."
 #: ./config.py:18
 msgid "label_salutation_mrs"
-msgstr "Madame"
+msgstr "Mme"
 
 #. Default: "Select all items"
 #: ./skins/EasyNewsletter/enl_subtopics.pt:86
@@ -960,12 +960,12 @@ msgstr "Email"
 #. Default: "Mr."
 #: ./portlets/subscriber.pt:38
 msgid "mr"
-msgstr "Monsieur"
+msgstr "M."
 
 #. Default: "Mrs."
 #: ./portlets/subscriber.pt:32
 msgid "mrs"
-msgstr "Madame"
+msgstr "Mme"
 
 #. Default: "Name"
 #: ./browser/enl_subscribers_view.pt:94

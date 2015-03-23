@@ -895,12 +895,12 @@ msgstr ""
 #. Default: "Mr."
 #: ./config.py:19
 msgid "label_salutation_mr"
-msgstr "Signore"
+msgstr "Sig."
 
 #. Default: "Mrs."
 #: ./config.py:18
 msgid "label_salutation_mrs"
-msgstr "Signora"
+msgstr "Sig.ra"
 
 #. Default: "Select all items"
 #: ./skins/EasyNewsletter/enl_subtopics.pt:86
@@ -951,12 +951,12 @@ msgstr ""
 #. Default: "Mr."
 #: ./portlets/subscriber.pt:38
 msgid "mr"
-msgstr "Signore"
+msgstr "Sig."
 
 #. Default: "Mrs."
 #: ./portlets/subscriber.pt:32
 msgid "mrs"
-msgstr "Signora"
+msgstr "Sig.ra"
 
 #. Default: "Name"
 #: ./browser/enl_subscribers_view.pt:94
