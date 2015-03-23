@@ -81,7 +81,7 @@ schema = atapi.Schema((
 
     atapi.LinesField(
         'salutations',
-        default=("mr|Dear Mr.", "ms|Dear Ms.", "default|Dear"),
+        default=("mr|Dear Mr.", "mrs|Dear Mrs.", "default|Dear"),
         widget=atapi.LinesWidget(
             label=_(
                 u'EasyNewsletter_label_salutations',
@@ -90,7 +90,7 @@ schema = atapi.Schema((
                 u"EasyNewsletter_help_salutations",
                 default=u'Define here possible salutations for subscriber. \
                     One salutation per line in the form of: \"mr|Dear Mr.\". \
-                    The left hand value "mr" or "ms" is mapped to salutation \
+                    The left hand value "mr" or "mrs" is mapped to salutation \
                     of each subscriber and then the right hand value, which \
                     you can customize is used as salutation.'),
             i18n_domain='EasyNewsletter',
