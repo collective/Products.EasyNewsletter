@@ -22,8 +22,8 @@ SALUTATION = DisplayList((
 NL_LANGUAGE = DisplayList((
     ('', _(u"label_choose_nl_language", "Choose language...")),
     ("de", _(u"label_nl_language_de", "DE")),
-    ("en", _(u"label_nl_language_de", "EN")),
-    ("fr", _(u"label_nl_language_de", "FR")),
+    ("en", _(u"label_nl_language_en", "EN")),
+    ("fr", _(u"label_nl_language_fr", "FR")),
 ))
 
 MESSAGE_CODE = {
