@@ -27,9 +27,9 @@
               <input
                   type="radio"
                   name="salutation"
-                  value="ms"
-                  id="ms">
-              <label for="ms" i18n:translate="ms">ms</label>
+                  value="mrs"
+                  id="mrs">
+              <label for="mrs" i18n:translate="mrs">mrs</label>
               <input
                   type="radio"
                   name="salutation"

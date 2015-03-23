@@ -15,15 +15,15 @@ PLACEHOLDERS = ["UNSUBSCRIBE", "SUBSCRIBER_SALUTATION"]
 
 SALUTATION = DisplayList((
     ('', _(u"label_choose_saluation", "Choose salutation...")),
-    ("ms", _(u"label_salutation_mrs", "Mrs.")),
+    ("mrs", _(u"label_salutation_mrs", "Mrs.")),
     ("mr", _(u"label_salutation_mr", "Mr.")),
 ))
 
 NL_LANGUAGE = DisplayList((
     ('', _(u"label_choose_nl_language", "Choose language...")),
-    ("de", _(u"label_salutation_de", "DE")),
-    ("en", _(u"label_salutation_de", "EN")),
-    ("fr", _(u"label_salutation_de", "FR")),
+    ("de", _(u"label_nl_language_de", "DE")),
+    ("en", _(u"label_nl_language_de", "EN")),
+    ("fr", _(u"label_nl_language_de", "FR")),
 ))
 
 MESSAGE_CODE = {
