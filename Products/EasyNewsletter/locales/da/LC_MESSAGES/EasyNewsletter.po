@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.6.2dev\n"
-"POT-Creation-Date: 2015-03-23 14:35+0000\n"
+"POT-Creation-Date: 2015-03-23 15:12+0000\n"
 "PO-Revision-Date: 2012-02-24 15:22-0300\n"
 "Last-Translator: Malthe Borch <mborch@gmail.com>\n"
 "Language-Team: Danish <>\n"
@@ -16,6 +16,14 @@ msgstr ""
 "Language-Name: Danish\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: EasyNewsletter\n"
+
+#: ./browser/upload_csv.pt:103
+msgid "${count} import(s) failed."
+msgstr ""
+
+#: ./browser/upload_csv.pt:129
+msgid "${count} import(s) successful."
+msgstr ""
 
 #: ./profiles/default/types/ENLSubscriber.xml
 #: ./profiles/default/types/ENLTemplate.xml
@@ -40,6 +48,10 @@ msgstr "En udgave af et nyhedsbrev"
 
 #: ./browser/templates/enl_actions_viewlet.pt:3
 msgid "Archive"
+msgstr ""
+
+#: ./browser/upload_csv.pt:53
+msgid "CSV file"
 msgstr ""
 
 #: ./config.py:227
@@ -345,6 +357,10 @@ msgstr "Rediger nyhedsbrevsportletten"
 msgid "Edit criteria"
 msgstr ""
 
+#: ./browser/upload_csv.pt:86
+msgid "Email"
+msgstr ""
+
 #: ./profiles/default/types/ENLSubscriber.xml
 #: ./profiles/default/types/ENLTemplate.xml
 msgid "External Edit"
@@ -356,6 +372,10 @@ msgstr ""
 
 #: ./browser/enl_subscribers_view.pt:35
 msgid "Filters"
+msgstr ""
+
+#: ./browser/upload_csv.pt:85
+msgid "Fullname"
 msgstr ""
 
 #: ./profiles/default/types/ENLSubscriber.xml
@@ -414,14 +434,30 @@ msgstr "Ingen fil blev valgt."
 msgid "No subscriber selected!"
 msgstr "Ingen tilmeldte valgt!"
 
+#: ./browser/upload_csv.pt:87
+msgid "Organization"
+msgstr ""
+
 #: ./browser/registration.py:74
 msgid "Please enter a valid email address."
 msgstr "Indtast en gyldig e-mail adresse."
+
+#: ./browser/upload_csv.pt:88
+msgid "Reason for failure"
+msgstr ""
 
 #: ./profiles/default/types/ENLSubscriber.xml
 #: ./profiles/default/types/ENLTemplate.xml
 msgid "References"
 msgstr "Referencer"
+
+#: ./browser/upload_csv.pt:84
+msgid "Salutation"
+msgstr ""
+
+#: ./browser/upload_csv.pt:54
+msgid "Select your CSV file here."
+msgstr ""
 
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Send"
@@ -692,6 +728,7 @@ msgid "easynewsletter_unsubscribe_button"
 msgstr ""
 
 #: ./browser/subscribers.py:90
+#: ./browser/upload_csv.pt:38
 msgid "email"
 msgstr "e-mail"
 
@@ -712,6 +749,7 @@ msgstr ""
 #. Default: "Fullname:"
 #: ./browser/enl_subscribers_view.pt:43
 #: ./browser/subscribers.py:90
+#: ./browser/upload_csv.pt:37
 msgid "fullname"
 msgstr "fuldt navn"
 
@@ -914,13 +952,15 @@ msgstr "Titel"
 msgid "mail"
 msgstr "E-mail:"
 
+#. Default: "Mr."
 #: ./portlets/subscriber.pt:38
 msgid "mr"
 msgstr "hr"
 
+#. Default: "Mrs."
 #: ./portlets/subscriber.pt:32
 msgid "mrs"
-msgstr ""
+msgstr "Fru"
 
 #. Default: "Name"
 #: ./browser/enl_subscribers_view.pt:94
@@ -931,15 +971,22 @@ msgstr "Navn"
 msgid "nl_lang"
 msgstr ""
 
+#. Default: "Not imported subscribers"
+#: ./browser/upload_csv.pt:79
+msgid "not_created_subscribers"
+msgstr ""
+
 #. Default: "Organization:"
 #: ./browser/enl_subscribers_view.pt:50
 #: ./browser/subscribers.py:90
+#: ./browser/upload_csv.pt:39
 msgid "organization"
 msgstr "organisation"
 
 #. Default: "Salutation"
 #: ./browser/enl_subscribers_view.pt:93
 #: ./browser/subscribers.py:90
+#: ./browser/upload_csv.pt:36
 msgid "salutation"
 msgstr "Hilsen"
 
@@ -965,6 +1012,11 @@ msgstr "Dette filter gælder kun for importerede abonnenter, ikke fra de, der ko
 #. Default: "Your subscription was successfully confirmed."
 #: ./config.py:43
 msgid "subscription_confirmed"
+msgstr ""
+
+#. Default: "Sucessfully created Subscribers"
+#: ./browser/upload_csv.pt:107
+msgid "sucessfully_created_subscribers"
 msgstr ""
 
 #. Default: "Content listing"

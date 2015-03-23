@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-03-23 14:35+0000\n"
+"POT-Creation-Date: 2015-03-23 15:12+0000\n"
 "PO-Revision-Date: 2011-01-04 22:46+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,6 +13,14 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
+
+#: ./browser/upload_csv.pt:103
+msgid "${count} import(s) failed."
+msgstr ""
+
+#: ./browser/upload_csv.pt:129
+msgid "${count} import(s) successful."
+msgstr ""
 
 #: ./profiles/default/types/ENLSubscriber.xml
 #: ./profiles/default/types/ENLTemplate.xml
@@ -38,6 +46,10 @@ msgstr "Eine Newsletterausgabe"
 #: ./browser/templates/enl_actions_viewlet.pt:3
 msgid "Archive"
 msgstr "Archiv"
+
+#: ./browser/upload_csv.pt:53
+msgid "CSV file"
+msgstr ""
 
 #: ./config.py:227
 msgid "Confirm your subscription on ${portal_url}"
@@ -342,6 +354,10 @@ msgstr "Newsletter-Portlet bearbeiten"
 msgid "Edit criteria"
 msgstr "Kollektionskriterien bearbeiten"
 
+#: ./browser/upload_csv.pt:86
+msgid "Email"
+msgstr ""
+
 #: ./profiles/default/types/ENLSubscriber.xml
 #: ./profiles/default/types/ENLTemplate.xml
 msgid "External Edit"
@@ -354,6 +370,10 @@ msgstr ""
 #: ./browser/enl_subscribers_view.pt:35
 msgid "Filters"
 msgstr "Filter"
+
+#: ./browser/upload_csv.pt:85
+msgid "Fullname"
+msgstr ""
 
 #: ./profiles/default/types/ENLSubscriber.xml
 #: ./profiles/default/types/ENLTemplate.xml
@@ -411,14 +431,30 @@ msgstr "Es wurde keine Datei angegeben!"
 msgid "No subscriber selected!"
 msgstr "Es wurde kein Abonnent ausgewählt!"
 
+#: ./browser/upload_csv.pt:87
+msgid "Organization"
+msgstr ""
+
 #: ./browser/registration.py:74
 msgid "Please enter a valid email address."
 msgstr "Bitte geben Sie eine gültige Email-Adresse ein."
+
+#: ./browser/upload_csv.pt:88
+msgid "Reason for failure"
+msgstr ""
 
 #: ./profiles/default/types/ENLSubscriber.xml
 #: ./profiles/default/types/ENLTemplate.xml
 msgid "References"
 msgstr "Verweise"
+
+#: ./browser/upload_csv.pt:84
+msgid "Salutation"
+msgstr ""
+
+#: ./browser/upload_csv.pt:54
+msgid "Select your CSV file here."
+msgstr ""
 
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Send"
@@ -689,6 +725,7 @@ msgid "easynewsletter_unsubscribe_button"
 msgstr "Abonnement kündigen"
 
 #: ./browser/subscribers.py:90
+#: ./browser/upload_csv.pt:38
 msgid "email"
 msgstr "E-Mail"
 
@@ -709,6 +746,7 @@ msgstr "Abonnenten"
 #. Default: "Fullname:"
 #: ./browser/enl_subscribers_view.pt:43
 #: ./browser/subscribers.py:90
+#: ./browser/upload_csv.pt:37
 msgid "fullname"
 msgstr "Name"
 
@@ -913,13 +951,15 @@ msgstr "Titel"
 msgid "mail"
 msgstr "E-Mail"
 
+#. Default: "Mr."
 #: ./portlets/subscriber.pt:38
 msgid "mr"
 msgstr "Herr"
 
+#. Default: "Mrs."
 #: ./portlets/subscriber.pt:32
 msgid "mrs"
-msgstr ""
+msgstr "Frau"
 
 #. Default: "Name"
 #: ./browser/enl_subscribers_view.pt:94
@@ -930,15 +970,22 @@ msgstr "Name"
 msgid "nl_lang"
 msgstr ""
 
+#. Default: "Not imported subscribers"
+#: ./browser/upload_csv.pt:79
+msgid "not_created_subscribers"
+msgstr ""
+
 #. Default: "Organization:"
 #: ./browser/enl_subscribers_view.pt:50
 #: ./browser/subscribers.py:90
+#: ./browser/upload_csv.pt:39
 msgid "organization"
 msgstr "Organisation"
 
 #. Default: "Salutation"
 #: ./browser/enl_subscribers_view.pt:93
 #: ./browser/subscribers.py:90
+#: ./browser/upload_csv.pt:36
 msgid "salutation"
 msgstr "Anrede"
 
@@ -966,6 +1013,11 @@ msgstr "Die Filter wirken sich nur auf lokale Abonnenten aus, nicht auf Abonnent
 #: ./config.py:43
 msgid "subscription_confirmed"
 msgstr "Ihre Anmeldung wurde erfolgreich bestätigt."
+
+#. Default: "Sucessfully created Subscribers"
+#: ./browser/upload_csv.pt:107
+msgid "sucessfully_created_subscribers"
+msgstr ""
 
 #. Default: "Content listing"
 #: ./skins/EasyNewsletter/enl_subtopics.pt:78
