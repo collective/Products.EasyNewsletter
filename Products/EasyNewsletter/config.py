@@ -15,7 +15,7 @@ PLACEHOLDERS = ["UNSUBSCRIBE", "SUBSCRIBER_SALUTATION"]
 
 SALUTATION = DisplayList((
     ('', _(u"label_choose_saluation", "Choose salutation...")),
-    ("ms", _(u"label_salutation_mrs", "Mrs.")),
+    ("ms", _(u"label_salutation_ms", "Ms.")),
     ("mr", _(u"label_salutation_mr", "Mr.")),
 ))
 

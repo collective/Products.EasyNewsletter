@@ -840,9 +840,9 @@ msgstr "Modèle de la lettre envoyée"
 msgid "label_salutation_mr"
 msgstr "Monsieur"
 
-#. Default: "Mrs."
+#. Default: "Ms."
 #: ./config.py:16
-msgid "label_salutation_mrs"
+msgid "label_salutation_ms"
 msgstr "Madame"
 
 #. Default: "Select all items"
