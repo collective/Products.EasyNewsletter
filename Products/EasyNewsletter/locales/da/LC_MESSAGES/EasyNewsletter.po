@@ -836,9 +836,9 @@ msgstr "Udgående mail-skabelon"
 msgid "label_salutation_mr"
 msgstr "Hr"
 
-#. Default: "Mrs."
+#. Default: "Ms."
 #: ./config.py:16
-msgid "label_salutation_mrs"
+msgid "label_salutation_ms"
 msgstr "Fru"
 
 #. Default: "Select all items"

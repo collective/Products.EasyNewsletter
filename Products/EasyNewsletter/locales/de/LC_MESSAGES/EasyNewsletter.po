@@ -834,9 +834,9 @@ msgstr "Newsletter-Ausgabe-Template"
 msgid "label_salutation_mr"
 msgstr "Herr"
 
-#. Default: "Mrs."
+#. Default: "Ms."
 #: ./config.py:16
-msgid "label_salutation_mrs"
+msgid "label_salutation_ms"
 msgstr "Frau"
 
 #. Default: "Select all items"
