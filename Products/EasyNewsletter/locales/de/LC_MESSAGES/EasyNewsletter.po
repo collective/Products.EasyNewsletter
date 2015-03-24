@@ -56,7 +56,7 @@ msgid "Criteria"
 msgstr "Kriterium"
 
 #: ./browser/upload_csv.pt:53
-msgid "Csv file"
+msgid "CSV file"
 msgstr "CSV-Datei"
 
 #: ./browser/enl_subscribers_view.pt:135
