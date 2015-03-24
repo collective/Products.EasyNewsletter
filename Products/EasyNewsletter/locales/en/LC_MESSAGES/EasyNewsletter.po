@@ -233,7 +233,7 @@ msgstr ""
 msgid "EasyNewsletter_label_noSource"
 msgstr ""
 
-#. Default: "Company/Organization"
+#. Default: "Organization"
 #: ./content/ENLSubscriber.py:51
 msgid "EasyNewsletter_label_organization"
 msgstr ""
@@ -612,7 +612,7 @@ msgstr ""
 msgid "easynewsletter_input_value_fullname"
 msgstr ""
 
-#. Default: "Company/Organization"
+#. Default: "Organization"
 #: ./portlets/subscriber.pt:45
 msgid "easynewsletter_input_value_organization"
 msgstr ""

@@ -237,7 +237,7 @@ msgstr ""
 msgid "EasyNewsletter_label_noSource"
 msgstr "nessuna sorgente esterna di iscritti"
 
-#. Default: "Company/Organization"
+#. Default: "Organization"
 #: ./content/ENLSubscriber.py:51
 msgid "EasyNewsletter_label_organization"
 msgstr "Azienda/Organizzazione"
@@ -618,7 +618,7 @@ msgstr "La tua email"
 msgid "easynewsletter_input_value_fullname"
 msgstr "Nome completo"
 
-#. Default: "Company/Organization"
+#. Default: "Organization"
 #: ./portlets/subscriber.pt:45
 msgid "easynewsletter_input_value_organization"
 msgstr "Azienda/Organizzazione"

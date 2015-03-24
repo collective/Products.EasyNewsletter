@@ -93,7 +93,7 @@
                       <th i18n:translate="salutation">Salutation</th>
                       <th i18n:translate="name">Name</th>
                       <th i18n:translate="language">Language</th>
-                      <th i18n:translate="organization">Company/Organization</th>
+                      <th i18n:translate="organization">Organization</th>
                       <th i18n:translate="source">Source</th>
                       <th i18n:translate="action">Action</th>
                   </tr>

@@ -46,7 +46,7 @@
                    class="easynewsletter_text"
                    onclick="this.value=''"
                    name="organization"
-                   value="Company/Organization"
+                   value="Organization"
                    i18n:attributes="value easynewsletter_input_value_organization;" />
 
             <input class="easynewsletter_text"

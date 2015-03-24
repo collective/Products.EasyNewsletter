@@ -238,7 +238,7 @@ msgstr "Hoofding"
 msgid "EasyNewsletter_label_noSource"
 msgstr "Geen externe e-mail-verzendingsdienst."
 
-#. Default: "Company/Organization"
+#. Default: "Organization"
 #: ./content/ENLSubscriber.py:51
 msgid "EasyNewsletter_label_organization"
 msgstr "Bedrijf/Organisatie"
@@ -621,7 +621,7 @@ msgstr "Uw e-mailadres"
 msgid "easynewsletter_input_value_fullname"
 msgstr "Volledige naam"
 
-#. Default: "Company/Organization"
+#. Default: "Organization"
 #: ./portlets/subscriber.pt:45
 msgid "easynewsletter_input_value_organization"
 msgstr "Bedrijf/Organisatie"
