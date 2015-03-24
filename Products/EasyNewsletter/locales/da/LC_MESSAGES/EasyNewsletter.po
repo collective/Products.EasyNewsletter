@@ -240,7 +240,7 @@ msgstr "Sidehoved"
 msgid "EasyNewsletter_label_noSource"
 msgstr "Ingen ekstern tilmeldingskilde"
 
-#. Default: "Company/Organization"
+#. Default: "Organization"
 #: ./content/ENLSubscriber.py:51
 msgid "EasyNewsletter_label_organization"
 msgstr "Firma/organisation"
@@ -623,7 +623,7 @@ msgstr "Din e-mail"
 msgid "easynewsletter_input_value_fullname"
 msgstr "Fuldt navn"
 
-#. Default: "Company/Organization"
+#. Default: "Organization"
 #: ./portlets/subscriber.pt:45
 msgid "easynewsletter_input_value_organization"
 msgstr "Firma/organisation"

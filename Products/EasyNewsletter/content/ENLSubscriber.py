@@ -64,7 +64,7 @@ schema = atapi.BaseSchema + atapi.Schema((
         widget=atapi.StringWidget(
             label=_(
                 u'EasyNewsletter_label_organization',
-                default=u'Company/Organization'),
+                default=u'Organization'),
             description=_(
                 'EasyNewsletter_help_organization',
                 default=u''),
