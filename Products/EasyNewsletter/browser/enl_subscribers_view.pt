@@ -46,10 +46,6 @@
                   <span class="label" i18n:translate="lastname">Last Name:</span>
                   <input type="text" name="lastname"
                          tal:attributes="value request/lastname|nothing" /><br />
-                  <span class="label" i18n:translate="language">Language:</span>
-                  <input type="text" name="Newsletter language"
-                         tal:attributes="value request/nl_language|nothing" /><br />
-
                   <span class="label" i18n:translate="organization">Organization:</span>
                   <input type="text" name="organization"
                          tal:attributes="value request/organization|nothing" /><br />
