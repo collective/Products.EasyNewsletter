@@ -53,7 +53,8 @@ class SubscriberView(BrowserView):
         """
         """
         subscriber = self.request.get("subscriber")
-        fullname = self.request.get("fullname", "")
+        name = self.request.get("name", "")
+        firstname = self.request.get("firstname", "")
         portal_state = getMultiAdapter(
             (self.context.aq_inner, self.request),
             name=u'plone_portal_state'
@@ -87,7 +88,8 @@ class SubscriberView(BrowserView):
             return self._msg_redirect(newsletter_container)
         subscriber_data = {}
         subscriber_data["subscriber"] = subscriber
-        subscriber_data["fullname"] = fullname
+        subscriber_data["lastname"] = name
+        subscriber_data["firstname"] = firstname
         subscriber_data["nl_language"] = nl_language
         subscriber_data["salutation"] = salutation
         subscriber_data["organization"] = organization
@@ -137,7 +139,7 @@ class SubscriberView(BrowserView):
             easynewsletter = self.portal.unrestrictedTraverse(
                 regdataobj.path_to_easynewsletter)
             valid_email, error_code = easynewsletter.addSubscriber(
-                regdataobj.subscriber, regdataobj.fullname,
+                regdataobj.subscriber, regdataobj.name, regdataobj.firstname,
                 regdataobj.nl_language, regdataobj.organization,
                 regdataobj.salutation)
             if valid_email:
@@ -191,7 +193,8 @@ class RegistrationData(OFS.SimpleItem.SimpleItem):
 
     @property
     def title(self):
-        return "%s - %s" % (self.fullname, self.subscriber)
+        return "%s - %s" % (' '.join([self.firstname, self.lastname]),
+                            self.subscriber)
 
 
 class UnsubscribeView(BrowserView):
