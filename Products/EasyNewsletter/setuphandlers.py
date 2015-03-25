@@ -34,6 +34,8 @@ def add_catalog_indexes(context, logger=None):
     indexes = catalog.indexes()
     # Specify the indexes you want, with ('index_name', 'index_type')
     wanted = (('fullname', 'FieldIndex'),
+              ('firstname', 'FieldIndex'),
+              ('lastname', 'FieldIndex'),
               ('nl_language', 'FieldIndex'),
               ('email', 'FieldIndex'),
               ('organization', 'FieldIndex'),
