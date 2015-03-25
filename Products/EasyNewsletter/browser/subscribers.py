@@ -87,7 +87,7 @@ def normalize_id(astring):
 
 
 CSV_HEADER = [
-    _(u"salutation"), _(u"fullname"), _(u"nl_lang"), _(u"email"), _(u"organization")]
+    _(u"salutation"), _(u"firstname"), _(u"lastname"), _(u"nl_language"), _(u"email"), _(u"organization")]
 
 
 class IEnl_Subscribers_View(Interface):
@@ -327,7 +327,9 @@ class DownloadCSV(BrowserView):
                                 sort_on='email'):
             obj = subscriber.getObject()
             csvWriter.writerow([obj.salutation,
-                                obj.fullname,
+                                obj.firstname,
+                                obj.lastname,
+                                obj.nl_language,
                                 obj.email,
                                 obj.organization])
         file.close()
