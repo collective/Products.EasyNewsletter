@@ -4,7 +4,7 @@ from Products.Archetypes import atapi
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter import config
 from Products.EasyNewsletter.interfaces import IENLSubscriber
-from zope.interface import implements
+from zope.interface import implementer
 
 
 schema = atapi.BaseSchema + atapi.Schema((
@@ -111,10 +111,10 @@ schema = atapi.BaseSchema + atapi.Schema((
 ), )
 
 
+@implementer(IENLSubscriber)
 class ENLSubscriber(atapi.BaseContent):
     """An newsletter subscriber.
     """
-    implements(IENLSubscriber)
     security = ClassSecurityInfo()
     schema = schema
     _at_rename_after_creation = True

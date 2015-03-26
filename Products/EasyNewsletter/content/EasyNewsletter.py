@@ -21,16 +21,16 @@ from zExceptions import BadRequest
 from zope.component import getUtilitiesFor
 from zope.component import queryUtility
 from zope.component import subscribers
-from zope.interface import implements
+from zope.interface import implementer
 
 import logging
 
 try:
     from inqbus.plone.fastmemberproperties.interfaces import (
         IFastmemberpropertiesTool)
-    fmp_tool = True
+    has_fmp = True
 except:
-    fmp_tool = False
+    has_fmp = False
 
 log = logging.getLogger("Products.EasyNewsletter")
 
@@ -372,16 +372,15 @@ schema.moveField('language', pos='bottom')
 schema.moveField('excludeFromNav', pos='bottom')
 
 
+@implementer(IEasyNewsletter)
 class EasyNewsletter(ATTopic, atapi.BaseFolder):
     """A folder for managing and archiving newsletters.
     """
-    implements(IEasyNewsletter)
     security = ClassSecurityInfo()
     schema = schema
     _at_rename_after_creation = True
 
-    security.declarePublic("initializeArchetype")
-
+    @security.public
     def initializeArchetype(self, **kwargs):
         """Overwritten hook.
         """
@@ -391,17 +390,15 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
             self.manage_addProduct["EasyNewsletter"].addENLTemplate(
                 id="default_template", title="Default")
 
-    security.declarePublic("displayContentsTab")
-
+    @security.public
     def displayContentsTab(self):
         """Overwritten to hide contents tab.
         """
         return False
 
-    security.declarePublic('addSubscriber')
-
-    def addSubscriber(
-            self, subscriber, fullname, nl_language, organization, salutation=None):
+    @security.public
+    def addSubscriber(self, subscriber, fullname, nl_language, organization,
+                      salutation=None):
         """Adds a new subscriber to the newsletter (if valid).
         """
         # we need the subscriber email here as an id,
@@ -431,20 +428,33 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
         """
         return self.objectValues("ATTopic")
 
+    def _get_fmp_tool(self):
+        if has_fmp:
+            log.debug("Use fastmemberpropertiestool to get memberproperties!")
+            fmp_tool = queryUtility(
+                IFastmemberpropertiesTool,
+                'fastmemberproperties_tool'
+            )
+            if fmp_tool is None:
+                log.warn(
+                    'inqbus.plone.fastmemberproperties installed but cant '
+                    'get tool, check the configuration.'
+                )
+            return fmp_tool
+        return False
+
     def get_plone_members(self):
         """ return filtered list of plone members as DisplayList
         """
-        global fmp_tool
-        if fmp_tool and queryUtility(
-                IFastmemberpropertiesTool, 'fastmemberproperties_tool'):
-            log.debug("Use fastmemberpropertiestool to get memberproperties!")
-            fmp_tool = queryUtility(
-                IFastmemberpropertiesTool, 'fastmemberproperties_tool')
+        fmp_tool = self._get_fmp_tool()
+        if fmp_tool:
             member_properties = fmp_tool.get_all_memberproperties()
         else:
-            log.info("We use plone API to get memberproperties, this is very \
-                slow on many members, please install \
-                inqbus.plone.fastmemberproperties to make it fast!")
+            log.info(
+                'Currently plone API is used to get memberproperties, '
+                'this is very slow on many members, please consider '
+                'installing inqbus.plone.fastmemberproperties to make it fast!'
+            )
             acl_userfolder = getToolByName(self, 'acl_users')
             member_objs = acl_userfolder.getUsers()
             member_properties = {}
@@ -538,7 +548,7 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
         enl = self.getNewsletter()
         issues = self.portal_catalog(
             portal_type=config.ENL_ISSUE_TYPES,
-            review_state='draft',
+            review_state=['draft', 'sending'],
             sort_on='modified',
             sort_order='reverse',
             path='/'.join(enl.getPhysicalPath())

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from AccessControl import Unauthorized
 from App.Common import package_home
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.EasyNewsletter.interfaces import IENLIssue
@@ -10,6 +11,7 @@ from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import login
 from plone.app.testing import setRoles
+from zExceptions import Forbidden
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
 from zope.component import queryUtility
@@ -64,6 +66,7 @@ class EasyNewsletterTests(unittest.TestCase):
             'subject': self.newsletter.issue.title,
             'test': 'submit',
         })
+        self.portal.REQUEST['REQUEST_METHOD'] = 'POST'
         self.newsletter.issue.setText(body, mimetype='text/html')
         view = getMultiAdapter(
             (self.newsletter.issue, self.portal.REQUEST),
@@ -100,6 +103,7 @@ class EasyNewsletterTests(unittest.TestCase):
             'subject': self.newsletter.issue.title,
             'test': 'submit',
         })
+        self.portal.REQUEST['REQUEST_METHOD'] = 'POST'
         view = getMultiAdapter(
             (self.newsletter.issue, self.portal.REQUEST),
             name="send-issue")
@@ -189,10 +193,14 @@ class EasyNewsletterTests(unittest.TestCase):
 
         self.assertIn('Test Newsletter', view_result)
 
-        view = self.newsletter.restrictedTraverse("issue/send-issue")
-        view_result = view()
+        # Editor is not allowed to call the one-step send-issue meant for cron
+        with self.assertRaises(Unauthorized):
+            self.newsletter.restrictedTraverse("issue/send-issue")
 
-        self.assertIn('issue', view_result)
+        # check for postonly
+        view = self.newsletter.restrictedTraverse("issue/send-issue-from-form")
+        with self.assertRaises(Forbidden):
+            view()
 
 
 def test_suite():

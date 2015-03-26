@@ -1,4 +1,8 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xml:lang="en"
       lang="en"
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="EasyNewsletter">
@@ -18,9 +22,9 @@
   </a>
 
   <br/>
-  <form tal:attributes="action string:${context/absolute_url}/send-issue"
+  <form tal:attributes="action string:${context/absolute_url}/send-issue-from-form"
         tal:define="wtool context/@@plone_tools/workflow;
-                    sent python:wtool.getInfoFor(context, 'review_state') in ['sent', 'master'] "
+                    sent python:wtool.getInfoFor(context, 'review_state') in ['sent', 'master', 'sending'] "
         method="post"
         id="issue_send_form">
 
@@ -105,10 +109,13 @@
             id="confirm_send"
             name="confirm_send"
             value="off"
-            type="checkbox">
-      <label for="confirm_send" i18n:translate="EasyNewsletter_enablesendbutton_label">Enable sendbutton</label><br />
+            type="checkbox" />
+      <label for="confirm_send" i18n:translate="EasyNewsletter_enablesendbutton_label">
+        Enable sendbutton
+      </label>
+      <br />
 
-    <input tal:condition="not:sent"
+      <input
            id="form_send"
            disabled="disabled"
            class="send"
@@ -116,14 +123,12 @@
            name="send"
            value="Send Newsletter"
            i18n:attributes="value easynewsletter_send_button;"/>
-   </p>
+    </p>
     <div tal:condition="sent"
           i18n:translate="easynewsletter_newslettersent_label">
       The newsletter was already sent.
     </div>
   </form>
-
-
 
 </div>
 

@@ -6,7 +6,7 @@ from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter import config
 from Products.EasyNewsletter.interfaces import IENLTemplate
 from Products.TemplateFields import ZPTField
-from zope.interface import implements
+from zope.interface import implementer
 
 
 schema = atapi.BaseSchema + atapi.Schema((
@@ -40,10 +40,10 @@ schema = atapi.BaseSchema + atapi.Schema((
 ), )
 
 
+@implementer(IENLTemplate)
 class ENLTemplate(atapi.BaseContent):
     """Template used for styling newsletter entries.
     """
-    implements(IENLTemplate)
     security = ClassSecurityInfo()
     schema = schema
     _at_rename_after_creation = True
@@ -54,16 +54,14 @@ class ENLTemplate(atapi.BaseContent):
         atapi.BaseContent.initializeArchetype(self, **kwargs)
         self.setBody(config.DEFAULT_TEMPLATE)
 
-    security.declarePublic('getSourceCode')
-
+    @security.public
     def getSourceCode(self):
         """Return body as string
         """
         html = self.getField("body").getRaw(self)
         return html
 
-    security.declarePublic('setNewsletter')
-
+    @security.public
     def setIssue(self, issue_uid):
         """Sets the newsletter which should be used by the template
         """

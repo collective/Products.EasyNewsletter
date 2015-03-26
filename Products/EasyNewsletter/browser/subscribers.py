@@ -11,7 +11,7 @@ from plone.i18n.normalizer.interfaces import IIDNormalizer
 from zope.component import getUtility
 from zope.component.interfaces import ComponentLookupError
 from zope.interface import Interface
-from zope.interface import implements
+from zope.interface import implementer
 import cStringIO
 import codecs
 import csv
@@ -87,7 +87,14 @@ def normalize_id(astring):
 
 
 CSV_HEADER = [
-    _(u"salutation"), _(u"name_prefix"), _(u"firstname"), _(u"lastname"), _(u"nl_language"), _(u"email"), _(u"organization")]
+    _(u"salutation"),
+    _(u"name_prefix"),
+    _(u"firstname"),
+    _(u"lastname"),
+    _(u"nl_language"),
+    _(u"email"),
+    _(u"organization")
+]
 
 
 class IEnl_Subscribers_View(Interface):
@@ -96,15 +103,21 @@ class IEnl_Subscribers_View(Interface):
     """
 
 
+@implementer(IEnl_Subscribers_View)
 class Enl_Subscribers_View(BrowserView):
     """
     Enl_Subscribers_View browser view
     """
-    implements(IEnl_Subscribers_View)
 
     # TODO: we should move these indexes from FieldIndex to ZCTextIndex
     # see setuphandlers.py for indexes creation
-    searchable_params = ('email', 'firstname', 'lastname', 'nl_language', 'organization')
+    searchable_params = (
+        'email',
+        'firstname',
+        'lastname',
+        'nl_language',
+        'organization'
+    )
 
     def __init__(self, context, request):
         self.context = context

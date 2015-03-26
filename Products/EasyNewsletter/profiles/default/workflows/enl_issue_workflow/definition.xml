@@ -4,11 +4,13 @@
              description="- Essentially a workflow with no transitions, but has a Published state, so portlets and applications that expect that state will continue to work."
              state_variable="review_state"
              initial_state="draft">
+
     <permission>Access contents information</permission>
     <permission>Change portal events</permission>
     <permission>List folder contents</permission>
     <permission>Modify portal content</permission>
     <permission>View</permission>
+
     <state state_id="draft" title="Draft">
         <exit-transition transition_id="send"/>
         <exit-transition transition_id="make_master"/>
@@ -42,6 +44,37 @@
             <permission-role>Editor</permission-role>
         </permission-map>
     </state>
+
+    <state state_id="sending" title="Sending">
+        <exit-transition transition_id="sending_completed"/>
+        <exit-transition transition_id="revert_sending"/>
+        <permission-map name="Access contents information"
+                        acquired="False">
+            <permission-role>Manager</permission-role>
+            <permission-role>Owner</permission-role>
+            <permission-role>Editor</permission-role>
+        </permission-map>
+        <permission-map name="Change portal events"
+                        acquired="False">
+            <permission-role>Manager</permission-role>
+        </permission-map>
+        <permission-map name="List folder contents"
+                        acquired="False">
+            <permission-role>Manager</permission-role>
+            <permission-role>Owner</permission-role>
+            <permission-role>Editor</permission-role>
+        </permission-map>
+        <permission-map name="Modify portal content"
+                        acquired="False">
+            <permission-role>Manager</permission-role>
+        </permission-map>
+        <permission-map name="View" acquired="False">
+            <permission-role>Manager</permission-role>
+            <permission-role>Owner</permission-role>
+            <permission-role>Editor</permission-role>
+        </permission-map>
+    </state>
+
     <state state_id="sent" title="Sent">
         <permission-map name="Access contents information"
                         acquired="False">
@@ -69,6 +102,7 @@
             <permission-role>Editor</permission-role>
         </permission-map>
     </state>
+
     <state state_id="master" title="Master">
         <permission-map name="Access contents information"
                         acquired="False">
@@ -102,9 +136,12 @@
     </state>
 
 
-    <transition transition_id="make_draft" title="Make draft"
-                new_state="draft" trigger="USER"
-                before_script="" after_script="">
+    <transition transition_id="make_draft"
+                title="Make draft"
+                new_state="draft"
+                trigger="USER"
+                before_script=""
+                after_script="">
         <action
             url="%(content_url)s/content_status_modify?workflow_action=make_draft"
             category="workflow">Make draft
@@ -113,9 +150,28 @@
             <guard-expression>python:here.REQUEST.get('enlwf_guard', False)</guard-expression>
         </guard>
     </transition>
-    <transition transition_id="send" title="Send"
-                new_state="sent" trigger="USER"
-                before_script="" after_script="">
+
+    <transition transition_id="revert_sending"
+                title="Revert sending"
+                new_state="draft"
+                trigger="USER"
+                before_script=""
+                after_script="">
+        <action
+            url="%(content_url)s/content_status_modify?workflow_action=revert_sending"
+            category="workflow">Revert Sending
+        </action>
+        <guard>
+            <guard-permission>Manage portal</guard-permission>
+        </guard>
+    </transition>
+
+    <transition transition_id="send"
+                title="Send"
+                new_state="sending"
+                trigger="USER"
+                before_script=""
+                after_script="">
         <action url="%(content_url)s/content_status_modify?workflow_action=send"
                 category="workflow">Send
         </action>
@@ -124,9 +180,26 @@
         </guard>
     </transition>
 
-    <transition transition_id="make_master" title="Make master"
-                new_state="master" trigger="USER"
-                before_script="" after_script="">
+    <transition transition_id="sending_completed"
+                title="Sending Completed"
+                new_state="sent"
+                trigger="USER"
+                before_script=""
+                after_script="">
+        <action url="%(content_url)s/content_status_modify?workflow_action=sending_completed"
+                category="workflow">Sending Completed
+        </action>
+        <guard>
+            <guard-expression>python:here.REQUEST.get('enlwf_guard', False)</guard-expression>
+        </guard>
+    </transition>
+
+    <transition transition_id="make_master"
+                title="Make master"
+                new_state="master"
+                trigger="USER"
+                before_script=""
+                after_script="">
         <action
             url="%(content_url)s/content_status_modify?workflow_action=make_master"
             category="workflow">Make master

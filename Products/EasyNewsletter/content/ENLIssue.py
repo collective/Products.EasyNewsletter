@@ -21,32 +21,36 @@ from email.MIMEImage import MIMEImage
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from htmllib import HTMLParser
+from plone import api
 from stoneagehtml import compactify
 from urlparse import urlparse
 from zope.component import getUtility
 from zope.component import queryUtility
 from zope.component import subscribers
-from zope.interface import implements
+from zope.interface import implementer
 import cStringIO
 import formatter
 import logging
+import pkg_resources
 import urllib
 
 try:
-    from zope.site.hooks import getSite
-except ImportError:
-    try:
-        from zope.app.component.hooks import getSite  # noqa
-    except ImportError:
-        from zope.component.hooks import getSite  # noqa
+    pkg_resources.get_distribution('inqbus.plone.fastmemberproperties')
+except pkg_resources.DistributionNotFound:
+    fmp_tool = False
+else:
+    from inqbus.plone.fastmemberproperties.interfaces import (
+        IFastmemberpropertiesTool
+    )
+    fmp_tool = True
 
 try:
-    from inqbus.plone.fastmemberproperties.interfaces import (
-        IFastmemberpropertiesTool)
-    fmp_tool = True
-except:
-    fmp_tool = False
-
+    pkg_resources.get_distribution('collective.zamqp')
+except pkg_resources.DistributionNotFound:
+    has_zamqp = False
+else:
+    from Products.EasyNewsletter.zamqp.handler import zamqp_queue_issue
+    has_zamqp = True
 
 log = logging.getLogger("Products.EasyNewsletter")
 
@@ -224,15 +228,14 @@ schema.moveField('relatedItems', pos='bottom')
 schema.moveField('language', pos='bottom')
 
 
+@implementer(IENLIssue)
 class ENLIssue(ATTopic, atapi.BaseContent):
     """A newsletter which can be send to subscribers.
     """
-    implements(IENLIssue)
     security = ClassSecurityInfo()
     schema = schema
 
-    security.declarePublic("folder_contents")
-
+    @security.public
     def folder_contents(self):
         """Overwritten to "forbid" folder_contents
         """
@@ -284,7 +287,10 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                 for subscriber in enl.objectValues("ENLSubscriber"):
                     salutation_key = subscriber.getSalutation()
                     if salutation_key:
-                        salutation = salutation_mappings.get(salutation_key, '')
+                        salutation = salutation_mappings.get(
+                            salutation_key,
+                            ''
+                        )
                     else:
                         salutation = {}
                     enl_receivers.append({
@@ -367,16 +373,42 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             mimetype='text/html', context=self))
         return resolved_html
 
-    security.declarePublic('send')
+    @property
+    def is_send_queue_enabled(self):
+        return has_zamqp
 
+    @security.protected('Modify portal content')
+    def queue_issue_for_sendout(self):
+        """queues this issue for sendout using zamqp
+        """
+        if not has_zamqp:
+            raise NotImplemented(
+                'One need to install and configure collective.zamqp in order '
+                'to use the feature of a queued sendout.'
+            )
+
+        # check for workflow
+        current_state = api.content.get_state(obj=self)
+        if current_state != 'sending':
+            raise ValueError(
+                'Executed queue issue for sendout in wrong review state!'
+            )
+        zamqp_queue_issue(self)
+
+    @security.protected('Modify portal content')
     def send(self, recipients=[]):
         """Sends the newsletter.
            An optional list of dicts (keys=fullname|mail) can be passed in
            for sending a newsletter out addresses != subscribers.
         """
-
         # preparations
         request = self.REQUEST
+        test = hasattr(request, "test")
+        current_state = api.content.get_state(obj=self)
+
+        # check for workflow
+        if not (test or recipients) and current_state != 'sending':
+            raise ValueError('Executed send in wrong review state!')
 
         # get hold of the parent Newsletter object#
         enl = self.getNewsletter()
@@ -399,10 +431,10 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         # determine MailHost first (build-in vs. external)
         deliveryServiceName = enl.getDeliveryService()
         if deliveryServiceName == 'mailhost':
-            MailHost = getToolByName(enl, 'MailHost')
+            mail_host = getToolByName(enl, 'MailHost')
         else:
-            MailHost = getUtility(IMailHost, name=deliveryServiceName)
-        log.info('Using mail delivery service "%r"' % MailHost)
+            mail_host = getUtility(IMailHost, name=deliveryServiceName)
+        log.info('Using mail delivery service "%r"' % mail_host)
 
         send_counter = 0
         send_error_counter = 0
@@ -442,7 +474,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             outer.attach(html_part)
 
             try:
-                MailHost.send(outer.as_string())
+                mail_host.send(outer.as_string())
                 log.info("Send newsletter to \"%s\"" % receiver['email'])
                 send_counter += 1
             except Exception, e:
@@ -457,11 +489,9 @@ class ENLIssue(ATTopic, atapi.BaseContent):
 
         # change status only for a 'regular' send operation (not 'test', no
         # explicit recipients)
-        if not hasattr(request, "test") and not recipients:
+        if not (test or recipients):
             request['enlwf_guard'] = True
-            wftool = getToolByName(self, "portal_workflow")
-            if wftool.getInfoFor(self, 'review_state') == 'draft':
-                wftool.doActionFor(self, "send")
+            api.content.transition(obj=self, transition='sending_completed')
             request['enlwf_guard'] = False
 
     def _get_issue_data(self, receiver):
@@ -588,8 +618,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             image_number += 1
         return images_to_attach
 
-    security.declareProtected("Modify portal content", "loadContent")
-
+    @security.protected("Modify portal content")
     def loadContent(self):
         """Loads text dependend on criteria into text attribute.
         """
@@ -693,7 +722,8 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         for group in receiver_group_list:
             selected_group_members.extend(gtool.getGroupMembers(group))
         receiver_member_list = receiver_member_list + tuple(
-            selected_group_members)
+            selected_group_members
+        )
 
         # get salutation mappings
         salutation_mappings = self._get_salutation_mappings()
@@ -723,8 +753,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                     "Skip '%s' because \"%s\" is not a real email!"
                     % (receiver_id, member_property['email']))
         # run registered receivers post sending filters:
-        for subscriber in subscribers([enl],
-                                      IReceiversPostSendingFilter):
+        for subscriber in subscribers([enl], IReceiversPostSendingFilter):
             plone_subscribers = subscriber.filter(plone_subscribers)
         return plone_subscribers
 
@@ -742,10 +771,8 @@ class ENLIssue(ATTopic, atapi.BaseContent):
 
         # append the anchorlist at the bottom of a message
         # to keep the message readable.
-        counter = 0
         anchorlist = "\n\n" + ("-" * plain_text_maxcols) + "\n\n"
-        for item in parser.anchorlist:
-            counter += 1
+        for counter, item in enumerate(parser.anchorlist):
             anchorlist += "[%d] %s\n" % (counter, item)
 
         text = textout.getvalue() + anchorlist
@@ -754,7 +781,11 @@ class ENLIssue(ATTopic, atapi.BaseContent):
 
     def getFiles(self):
         """ Return list of files in subtree """
-        return self.getFolderContents(contentFilter=dict(portal_type=('File'),
-                                      sort_on='getObjPositionInParent'))
+        return self.getFolderContents(
+            contentFilter=dict(
+                portal_type=('File'),
+                sort_on='getObjPositionInParent'
+            )
+        )
 
 atapi.registerType(ENLIssue, PROJECTNAME)
