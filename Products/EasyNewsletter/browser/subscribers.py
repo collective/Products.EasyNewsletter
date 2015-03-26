@@ -243,30 +243,33 @@ class UploadCSV(BrowserView):
 
         for subscriber in reader:
             # Check the length of the line
-            if len(subscriber) != 5:
+            if len(subscriber) != 6:
                 msg = _('The number of items in the line is not correct. \
-                        It should be 5. Check your CSV file.')
+                        It should be 6. Check your CSV file.')
                 fail.append(
                     {'failure': msg})
             else:
 
                 salutation = subscriber[0]
-                fullname = subscriber[1]
-                nl_lang = subscriber[2]
-                email = subscriber[3]
-                organization = subscriber[4]
+                firstname = subscriber[1]
+                lastname = subscriber[2]
+                nl_language = subscriber[3]
+                email = subscriber[4]
+                organization = subscriber[5]
                 id = normalize_id(email)
                 if id in existing:
                     msg = _('This email address is already registered.')
                     fail.append(
                         {'salutation': salutation,
-                         'fullname': fullname,
-                         'nl_lang': nl_lang,
+                         'firstname': firstname,
+                         'lastname': lastname,
+                         'nl_language': nl_language,
                          'email': email,
                          'organization': organization,
                          'failure': msg})
                 else:
-                    title = email + " - " + fullname
+                    title = email + " - " + ' '.join([lastname,
+                                                      firstname])
                     try:
                         self.context.invokeFactory(
                             'ENLSubscriber',
@@ -276,8 +279,9 @@ class UploadCSV(BrowserView):
                             language=lang)
                         sub = context[id]
                         sub.email = email
-                        sub.fullname = fullname
-                        sub.nl_language = nl_lang
+                        sub.firstname = firstname
+                        sub.lastname = lastname
+                        sub.nl_language = nl_language
                         sub.organization = organization
                         sub.salutation = salutation
                         obj = self.context.get(id, None)
@@ -286,16 +290,18 @@ class UploadCSV(BrowserView):
                         existing.append(id)
                         success.append({
                             'salutation': salutation,
-                            'fullname': fullname,
-                            'nl_lang': nl_lang,
+                            'firstname': firstname,
+                            'lastname': lastname,
+                            'nl_language': nl_language,
                             'email': email,
                             'organization': organization
                         })
                     except Exception, e:
                         fail.append({
                             'salutation': salutation,
-                            'fullname': fullname,
-                            'nl_lang': nl_lang,
+                            'firstname': firstname,
+                            'lastname': lastname,
+                            'nl_language': nl_language,
                             'email': email,
                             'organization': organization,
                             'failure': (
