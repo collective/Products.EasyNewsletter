@@ -46,6 +46,10 @@ Changelog
   Unified qa in ``qa.cfg``, enforce more qa rules.
   [jensens]
 
+- Extended subscriber for firstname and lastname, updated csv export and import.
+  Added migration step.
+  [agitator]
+
 
 2.6.14 (2014-07-10)
 -------------------
