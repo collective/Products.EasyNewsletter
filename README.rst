@@ -72,17 +72,16 @@ For more documentation please visit: http://packages.python.org/Products.EasyNew
 Source Code
 ===========
 
-In dec 2011 the source code repository was moved from svn-collective to github.
+Source code is at Github: https://github.com/collective/Products.EasyNewsletter
 
-* Old repository: https://svn.plone.org/svn/collective/Products.EasyNewsletter/
-* New repository: https://github.com/collective/Products.EasyNewsletter
-
+In Dec 2011 the source code repository was moved from `svn-collective <https://svn.plone.org/svn/collective/Products.EasyNewsletter/>`_ (do not use).
 
 Bugtracker
 ==========
 
-* Old: http://plone.org/products/easynewsletter/issues
-* New: https://github.com/collective/Products.EasyNewsletter/issues
+Issue tracker is at Github: https://github.com/collective/Products.EasyNewsletter/issues
+
+There is an old one (do not use) at `plone.org <http://plone.org/products/easynewsletter/issues>`_
 
 
 Authors
@@ -94,3 +93,5 @@ Authors
 * Philip Bauer
 * Timo Stollenwerk
 * Dinu Gherman
+* Peter Holzer
+* Jens W. Klein
