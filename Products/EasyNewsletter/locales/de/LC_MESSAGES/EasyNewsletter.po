@@ -56,7 +56,7 @@ msgid "Criteria"
 msgstr "Kriterium"
 
 #: ./browser/upload_csv.pt:53
-msgid "Csv file"
+msgid "CSV file"
 msgstr "CSV-Datei"
 
 #: ./browser/enl_subscribers_view.pt:135
@@ -237,7 +237,7 @@ msgstr "Kopfzeilen"
 msgid "EasyNewsletter_label_noSource"
 msgstr "keine externen Quellen für Abonnenten"
 
-#. Default: "Company/Organization"
+#. Default: "Organization"
 #: ./content/ENLSubscriber.py:51
 msgid "EasyNewsletter_label_organization"
 msgstr "Organisation"
@@ -620,7 +620,7 @@ msgstr "Ihre E-Mail"
 msgid "easynewsletter_input_value_fullname"
 msgstr "Vorname Nachname"
 
-#. Default: "Company/Organization"
+#. Default: "Organization"
 #: ./portlets/subscriber.pt:45
 msgid "easynewsletter_input_value_organization"
 msgstr "Firma/Organisation"
@@ -834,9 +834,9 @@ msgstr "Newsletter-Ausgabe-Template"
 msgid "label_salutation_mr"
 msgstr "Herr"
 
-#. Default: "Mrs."
+#. Default: "Ms."
 #: ./config.py:16
-msgid "label_salutation_mrs"
+msgid "label_salutation_ms"
 msgstr "Frau"
 
 #. Default: "Select all items"
