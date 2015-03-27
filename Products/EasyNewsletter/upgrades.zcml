@@ -7,11 +7,22 @@
 
   <!-- Register the upgrade step -->
   <genericsetup:upgradeStep
+      title="Add firstname and lastname indexes"
+      name="add_firstname_lastname_indexes"
+      description=""
+      source="2"
+      destination="3"
+      handler=".upgrades.add_catalog_indexes"
+      profile="Products.EasyNewsletter:default" />
+
+  <genericsetup:upgradeStep
       title="Split fullname into firstname and lastname"
       description=""
       source="2"
       destination="3"
       handler=".upgrades.fullname_to_first_and_lastname"
-      profile="Products.EasyNewsletter:default" />
+      profile="Products.EasyNewsletter:default">
+      <depends name="add_firstname_lastname_indexes"/>
+  </genericsetup:importStep>
 
 </configure>
