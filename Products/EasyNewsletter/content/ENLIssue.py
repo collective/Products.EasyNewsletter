@@ -289,7 +289,8 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                         salutation = {}
                     enl_receivers.append({
                         'email': subscriber.getEmail(),
-                        'fullname': subscriber.getFullname(),
+                        'fullname': ' '.join([subscriber.getFirstname(),
+                                              subscriber.getLastname()]),
                         'salutation': salutation.get(
                             subscriber.getNl_language(),
                             salutation.get(self.Language() or 'en', 'unset')

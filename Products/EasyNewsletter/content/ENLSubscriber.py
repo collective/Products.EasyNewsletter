@@ -49,11 +49,32 @@ schema = atapi.BaseSchema + atapi.Schema((
     ),
 
     atapi.StringField(
-        'fullname',
+        'name_prefix',
         required=False,
         widget=atapi.StringWidget(
-            label=_(u'EasyNewsletter_label_fullname', default=u'Full Name'),
-            description=_('EasyNewsletter_help_fullname', default=u''),
+            label=_(
+                u'EasyNewsletter_label_name_prefix', default=u'Name Prefix'),
+            description=_('EasyNewsletter_help_name_prefix', default=u''),
+            i18n_domain='EasyNewsletter',
+        ),
+    ),
+
+    atapi.StringField(
+        'firstname',
+        required=False,
+        widget=atapi.StringWidget(
+            label=_(u'EasyNewsletter_label_firstname', default=u'First Name'),
+            description=_('EasyNewsletter_help_firstname', default=u''),
+            i18n_domain='EasyNewsletter',
+        ),
+    ),
+
+    atapi.StringField(
+        'lastname',
+        required=False,
+        widget=atapi.StringWidget(
+            label=_(u'EasyNewsletter_label_lastname', default=u'Last Name'),
+            description=_('EasyNewsletter_help_lastname', default=u''),
             i18n_domain='EasyNewsletter',
         ),
     ),
@@ -116,8 +137,9 @@ class ENLSubscriber(atapi.BaseContent):
         """Overwritten accessor for Title
         """
         title_str = self.getEmail()
-        if self.getFullname():
-            title_str += ' - ' + self.getFullname()
+        if self['firstname'] or self['lastname']:
+            title_str += ' - ' + ' '.join([self.getLastname(),
+                                           self.getFirstname()])
         return title_str
 
 

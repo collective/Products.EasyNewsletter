@@ -42,6 +42,7 @@ setup(
         'setuptools',
         'stoneagehtml',
         'plone.api',
+        'nameparser'
     ],
     extras_require=dict(
         test=['plone.app.testing', 'Pillow'],

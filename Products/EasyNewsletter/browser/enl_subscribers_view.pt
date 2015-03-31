@@ -40,13 +40,12 @@
                   <span class="label" i18n:translate="mail">Email:</span>
                   <input type="text" name="email"
                          tal:attributes="value request/email|nothing" /><br />
-                  <span class="label" i18n:translate="fullname">Fullname:</span>
-                  <input type="text" name="fullname"
-                         tal:attributes="value request/fullname|nothing" /><br />
-                  <span class="label" i18n:translate="language">Language:</span>
-                  <input type="text" name="Newsletter language"
-                         tal:attributes="value request/nl_language|nothing" /><br />
-
+                  <span class="label" i18n:translate="firstname">First Name:</span>
+                  <input type="text" name="firstname"
+                         tal:attributes="value request/firstname|nothing" /><br />
+                  <span class="label" i18n:translate="lastname">Last Name:</span>
+                  <input type="text" name="lastname"
+                         tal:attributes="value request/lastname|nothing" /><br />
                   <span class="label" i18n:translate="organization">Organization:</span>
                   <input type="text" name="organization"
                          tal:attributes="value request/organization|nothing" /><br />
@@ -76,7 +75,7 @@
 
               <table class="listing" summary="Subscriber Listing">
                   <tr>
-                    <th colspan="8">
+                    <th colspan="10">
                       <span class="total" i18n:translate="">
                         There are
                         <span i18n:name="subscribers_count"
@@ -91,7 +90,9 @@
                       </th>
                       <th i18n:translate="mail">Email</th>
                       <th i18n:translate="salutation">Salutation</th>
-                      <th i18n:translate="name">Name</th>
+                      <th i18n:translate="name_prefix">Prefix</th>
+                      <th i18n:translate="firstname">First Name</th>
+                      <th i18n:translate="lastname">Last Name</th>
                       <th i18n:translate="language">Language</th>
                       <th i18n:translate="organization">Organization</th>
                       <th i18n:translate="source">Source</th>
@@ -117,7 +118,9 @@
                           <span tal:condition="not: isPlone" tal:content="subscriber/email" />
                       </td>
                       <td i18n:translate="" tal:content="subscriber/salutation" />
-                      <td i18n:translate="" tal:content="subscriber/fullname" />
+                      <td i18n:translate="" tal:content="subscriber/name_prefix|nothing" />
+                      <td i18n:translate="" tal:content="subscriber/firstname|nothing" />
+                      <td i18n:translate="" tal:content="subscriber/lastname|nothing" />
                       <td i18n:translate="" tal:content="subscriber/nl_language|nothing" />
                       <td i18n:translate="" tal:content="subscriber/organization|nothing"></td>
                       <td i18n:translate="" tal:content="subscriber/source|nothing"></td>

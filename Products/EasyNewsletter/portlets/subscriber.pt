@@ -22,6 +22,8 @@
 
             <div id="salutation"
               tal:condition="view/data/query_fullname|nothing"
+              tal:define="query_firstname view/data/query_firstname|nothing"
+              tal:attributes="class python:query_firstname and 'withFirstname' or ''"
               id="salutation"
               name="salutation">
               <input
@@ -36,11 +38,23 @@
                   value="mr"
                   id="mr">
               <label for="mr" i18n:translate="mr">mr</label>
-            <input class="easynewsletter_text"
+            <input class="easynewsletter_text name_prefix"
+                   tal:condition="view/data/query_name_prefix|nothing"
                    onclick="this.value=''"
-                   name="fullname"
-                   value="Full Name"
-                   i18n:attributes="value easynewsletter_input_value_fullname;" />
+                   name="name_prefix"
+                   value="Prefix"
+                   i18n:attributes="value easynewsletter_input_value_name_prefix;" /><br>
+            <input class="easynewsletter_text firstname"
+                   tal:condition="view/data/query_firstname|nothing"
+                   onclick="this.value=''"
+                   name="firstname"
+                   value="First Name"
+                   i18n:attributes="value easynewsletter_input_value_firstname;" />
+            <input class="easynewsletter_text name"
+                   onclick="this.value=''"
+                   name="name"
+                   value="Name"
+                   i18n:attributes="value easynewsletter_input_value_name;" />
             </div>
             <input tal:condition="view/data/query_organization|nothing"
                    class="easynewsletter_text"
