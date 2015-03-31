@@ -33,7 +33,7 @@
 
         <h1 class="documentFirstHeading"
             i18n:translate="sub_topics_label">
-            Subtopics 
+            Subtopics
         </h1>
         <tal:full_view condition="full_view">
 
@@ -85,11 +85,11 @@
                   <th class="nosort">
                       <input class="noborder"
                              type="checkbox"
-                             src="select_all_icon.gif"
+                             src="select_all_icon.png"
                              name="selectButton"
                              title="Select all items"
                              onClick="toggleSelect(this,'paths:list');"
-                             tal:attributes="src string:$portal_url/select_all_icon.gif"
+                             tal:attributes="src string:$portal_url/select_all_icon.png"
                              alt="Select all items"
                              i18n:attributes="title label_select_all_items; alt label_select_all_items;"
                   />
@@ -118,9 +118,9 @@
 
             <metal:block tal:condition="batch|not:standalone|nothing">
             <tbody tal:define="portal context/@@plone_portal_state/portal;
-                               arrowUp nocall:portal/arrowUp.gif;
+                               arrowUp nocall:portal/arrow_up_icon.png;
                                arrowUp python:arrowUp.tag(alt='Move Up');
-                               arrowDown nocall:portal/arrowDown.gif;
+                               arrowDown nocall:portal/arrow_down_icon.png;
                                arrowDown python:arrowDown.tag(alt='Move Down');
                                getRelativeContentURL nocall:context/portal_url/getRelativeContentURL;
                                wtool portal/portal_workflow;
@@ -182,13 +182,13 @@
                                   Item Title
                                 </label>
                                 </strong>
-                            </a> 
+                            </a>
                             <a href="#"
-                                title="Edit collection criteria" 
+                                title="Edit collection criteria"
                                 tal:attributes="href  string:${item_url}/criterion_edit_form;"><img src="edit.png" /></a>
                             <a href="#"
-                                title="Delete sub-collection" 
-                                tal:attributes="href  string:${item_url}/delete_confirmation;"><img src="delete_icon.gif" /></a>
+                                title="Delete sub-collection"
+                                tal:attributes="href  string:${item_url}/delete_confirmation;"><img src="delete_icon.png" /></a>
                         </span>
 
                         <span class="state-expired"
@@ -261,7 +261,7 @@
       </form>
 
     </tal:block>
-            
+
         </tal:subtopics>
 
 </div>
