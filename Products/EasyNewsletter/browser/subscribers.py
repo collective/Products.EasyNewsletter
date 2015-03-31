@@ -250,7 +250,6 @@ class UploadCSV(BrowserView):
                 fail.append(
                     {'failure': msg})
             else:
-                import ipdb; ipdb.set_trace()
                 salutation = subscriber[0]
                 name_prefix = subscriber[1]
                 firstname = subscriber[2]
@@ -338,7 +337,6 @@ class DownloadCSV(BrowserView):
                                 path='/'.join(self.context.getPhysicalPath()),
                                 sort_on='email'):
             obj = subscriber.getObject()
-            import ipdb; ipdb.set_trace()
             csvWriter.writerow([obj.salutation,
                                 obj.name_prefix,
                                 obj.firstname,
