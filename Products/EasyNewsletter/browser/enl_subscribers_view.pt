@@ -75,7 +75,7 @@
 
               <table class="listing" summary="Subscriber Listing">
                   <tr>
-                    <th colspan="9">
+                    <th colspan="10">
                       <span class="total" i18n:translate="">
                         There are
                         <span i18n:name="subscribers_count"
@@ -90,6 +90,7 @@
                       </th>
                       <th i18n:translate="mail">Email</th>
                       <th i18n:translate="salutation">Salutation</th>
+                      <th i18n:translate="name_prefix">Prefix</th>
                       <th i18n:translate="firstname">First Name</th>
                       <th i18n:translate="lastname">Last Name</th>
                       <th i18n:translate="language">Language</th>
@@ -117,6 +118,7 @@
                           <span tal:condition="not: isPlone" tal:content="subscriber/email" />
                       </td>
                       <td i18n:translate="" tal:content="subscriber/salutation" />
+                      <td i18n:translate="" tal:content="subscriber/name_prefix|nothing" />
                       <td i18n:translate="" tal:content="subscriber/firstname|nothing" />
                       <td i18n:translate="" tal:content="subscriber/lastname|nothing" />
                       <td i18n:translate="" tal:content="subscriber/nl_language|nothing" />

@@ -5,6 +5,7 @@
   <!-- Add indexes here on penalty of death or worse.
        See add_catalog_indexes in setuphandlers.py instead. -->
   <column value="email" />
+  <column value="name_prefix" />
   <column value="firstname" />
   <column value="lastname" />
   <column value="nl_language" />

@@ -55,6 +55,7 @@ class SubscriberView(BrowserView):
         subscriber = self.request.get("subscriber")
         name = self.request.get("name", "")
         firstname = self.request.get("firstname", "")
+        name_prefix = self.request.get("name_prefix", "")
         portal_state = getMultiAdapter(
             (self.context.aq_inner, self.request),
             name=u'plone_portal_state'
@@ -90,6 +91,7 @@ class SubscriberView(BrowserView):
         subscriber_data["subscriber"] = subscriber
         subscriber_data["lastname"] = name
         subscriber_data["firstname"] = firstname
+        subscriber_data["name_prefix"] = name_prefix
         subscriber_data["nl_language"] = nl_language
         subscriber_data["salutation"] = salutation
         subscriber_data["organization"] = organization
@@ -140,8 +142,8 @@ class SubscriberView(BrowserView):
                 regdataobj.path_to_easynewsletter)
             valid_email, error_code = easynewsletter.addSubscriber(
                 regdataobj.subscriber, regdataobj.name, regdataobj.firstname,
-                regdataobj.nl_language, regdataobj.organization,
-                regdataobj.salutation)
+                regdataobj.name_prefix, regdataobj.nl_language,
+                regdataobj.organization, regdataobj.salutation)
             if valid_email:
 
                 # now delete the regobj

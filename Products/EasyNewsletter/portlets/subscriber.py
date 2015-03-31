@@ -54,6 +54,13 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
         default=False,
         required=True)
 
+    query_name_prefix = schema.Bool(
+        title=_(
+            u"label_newletter_show_name_prefix",
+            default=u"Ask for the name prefix (aka title) as well"),
+        default=False,
+        required=True)
+
     query_organization = schema.Bool(
         title=_(
             u"label_newletter_show_organization",

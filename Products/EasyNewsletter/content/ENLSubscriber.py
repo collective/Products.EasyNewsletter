@@ -48,15 +48,16 @@ schema = atapi.BaseSchema + atapi.Schema((
         ),
     ),
 
-#    atapi.StringField(
-#        'fullname',
-#        required=False,
-#        widget=atapi.StringWidget(
-#            label=_(u'EasyNewsletter_label_fullname', default=u'Full Name'),
-#            description=_('EasyNewsletter_help_fullname', default=u''),
-#            i18n_domain='EasyNewsletter',
-#        ),
-#    ),
+    atapi.StringField(
+        'name_prefix',
+        required=False,
+        widget=atapi.StringWidget(
+            label=_(
+                u'EasyNewsletter_label_name_prefix', default=u'Name Prefix'),
+            description=_('EasyNewsletter_help_name_prefix', default=u''),
+            i18n_domain='EasyNewsletter',
+        ),
+    ),
 
     atapi.StringField(
         'firstname',

@@ -86,6 +86,7 @@
                 <thead>
                     <tr>
                         <th i18n:translate="">Salutation</th>
+                        <th i18n:translate="">Prefix</th>
                         <th i18n:translate="">First Name</th>
                         <th i18n:translate="">Last Name</th>
                         <th i18n:translate="">Language</th>
@@ -97,6 +98,7 @@
                 <tbody tal:repeat="item fail">
                     <tr>
                         <td tal:content="item/salutation | nothing" />
+                        <td tal:content="item/name_prefix | nothing" />
                         <td tal:content="item/firstname | nothing" />
                         <td tal:content="item/lastname | nothing" />
                         <td tal:content="item/nl_language | nothing" />
@@ -118,6 +120,7 @@
                 <thead>
                     <tr>
                         <th i18n:translate="">Salutation</th>
+                        <th i18n:translate="">Prefix</th>
                         <th i18n:translate="">First Name</th>
                         <th i18n:translate="">Last Name</th>
                         <th i18n:translate="">Language</th>
@@ -128,6 +131,7 @@
                 <tbody tal:repeat="item success">
                     <tr>
                         <td tal:content="item/salutation | nothing" />
+                        <td tal:content="item/name_prefix | nothing" />
                         <td tal:content="item/firstname | nothing" />
                         <td tal:content="item/lastname | nothing" />
                         <td tal:content="item/nl_language | nothing" />

@@ -87,7 +87,7 @@ def normalize_id(astring):
 
 
 CSV_HEADER = [
-    _(u"salutation"), _(u"firstname"), _(u"lastname"), _(u"nl_language"), _(u"email"), _(u"organization")]
+    _(u"salutation"), _(u"name_prefix"), _(u"firstname"), _(u"lastname"), _(u"nl_language"), _(u"email"), _(u"organization")]
 
 
 class IEnl_Subscribers_View(Interface):
@@ -152,6 +152,7 @@ class Enl_Subscribers_View(BrowserView):
                 email=brain.email,
                 getURL=brain.getURL(),
                 salutation=salutation,
+                name_prefix=brain.name_prefix,
                 firstname=brain.firstname,
                 lastname=brain.lastname,
                 nl_language=brain.nl_language,
@@ -243,24 +244,26 @@ class UploadCSV(BrowserView):
 
         for subscriber in reader:
             # Check the length of the line
-            if len(subscriber) != 6:
+            if len(subscriber) != 7:
                 msg = _('The number of items in the line is not correct. \
-                        It should be 6. Check your CSV file.')
+                        It should be 7. Check your CSV file.')
                 fail.append(
                     {'failure': msg})
             else:
 
                 salutation = subscriber[0]
-                firstname = subscriber[1]
-                lastname = subscriber[2]
-                nl_language = subscriber[3]
-                email = subscriber[4]
-                organization = subscriber[5]
+                name_prefix = name_prefix[1]
+                firstname = subscriber[2]
+                lastname = subscriber[3]
+                nl_language = subscriber[4]
+                email = subscriber[5]
+                organization = subscriber[6]
                 id = normalize_id(email)
                 if id in existing:
                     msg = _('This email address is already registered.')
                     fail.append(
                         {'salutation': salutation,
+                         'name_prefix': name_prefix,
                          'firstname': firstname,
                          'lastname': lastname,
                          'nl_language': nl_language,
@@ -279,6 +282,7 @@ class UploadCSV(BrowserView):
                             language=lang)
                         sub = context[id]
                         sub.email = email
+                        sub.name_prefix = name_prefix
                         sub.firstname = firstname
                         sub.lastname = lastname
                         sub.nl_language = nl_language
@@ -290,6 +294,7 @@ class UploadCSV(BrowserView):
                         existing.append(id)
                         success.append({
                             'salutation': salutation,
+                            'name_prefix': name_prefix,
                             'firstname': firstname,
                             'lastname': lastname,
                             'nl_language': nl_language,
@@ -299,6 +304,7 @@ class UploadCSV(BrowserView):
                     except Exception, e:
                         fail.append({
                             'salutation': salutation,
+                            'name_prefix': name_prefix,
                             'firstname': firstname,
                             'lastname': lastname,
                             'nl_language': nl_language,
@@ -333,6 +339,7 @@ class DownloadCSV(BrowserView):
                                 sort_on='email'):
             obj = subscriber.getObject()
             csvWriter.writerow([obj.salutation,
+                                obj.name_prefix,
                                 obj.firstname,
                                 obj.lastname,
                                 obj.nl_language,

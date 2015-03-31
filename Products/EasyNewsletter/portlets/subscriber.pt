@@ -37,7 +37,13 @@
                   name="salutation"
                   value="mr"
                   id="mr">
-              <label for="mr" i18n:translate="mr">mr</label><br>
+              <label for="mr" i18n:translate="mr">mr</label>
+            <input class="easynewsletter_text name_prefix"
+                   tal:condition="view/data/query_name_prefix|nothing"
+                   onclick="this.value=''"
+                   name="name_prefix"
+                   value="Prefix"
+                   i18n:attributes="value easynewsletter_input_value_name_prefix;" /><br>
             <input class="easynewsletter_text firstname"
                    tal:condition="view/data/query_firstname|nothing"
                    onclick="this.value=''"
