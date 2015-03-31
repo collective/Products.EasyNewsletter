@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from plone import api
-
 from logging import getLogger
+from nameparser import HumanName
+from plone import api
 
 
 def fullname_to_first_and_lastname(context):
-    """Migrate subscriber fullname to first and lastname fields."""
+    """Migrate subscriber fullname to separate fields."""
 
     logger = getLogger('Products.EasyNewsletter.Subscribers')
 
@@ -15,13 +15,13 @@ def fullname_to_first_and_lastname(context):
     for subscriber in subscribers:
         obj = subscriber.getObject()
         try:
-            names = obj.fullname.split(' ')
-            lastname = names.pop()
-            firstname = ' '.join(names)
+            name = HumanName(obj.fullname)
             if not obj.getLastname():
-                obj.setLastname(lastname)
+                obj.setLastname(name['last'])
             if not obj.getFirstname():
-                obj.setFirstname(firstname)
+                obj.setLastname(name['first'])
+            if not obj.getName_prefix():
+                obj.setLastname(name['title'])
             obj.reindexObject()
             logger.info(
                 'Splitting fullname to first and lastname for {0}'
