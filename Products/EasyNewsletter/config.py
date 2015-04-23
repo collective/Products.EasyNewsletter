@@ -138,7 +138,7 @@ h1, h2, h3, h1 a, h2 a, h3 a {
 th, td {
   padding: 0;
 }
-tileItem {
+.tileItem {
   display: block;
 }
 img.tileImage {
