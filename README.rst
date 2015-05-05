@@ -44,9 +44,9 @@ Requirements
 
 * [inqbus.plone.fastmemberproperties] speed up access of member properties
   (optional, you can installed it with Products.EasyNewsletter[all] in your
-  buidlout eggs list)
+  buildout eggs list)
 
-* Plone 3.X (tested) or 4.X (tested)
+* 4.3 (tested)
 
 Installation
 ============
