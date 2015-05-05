@@ -5,6 +5,14 @@ Changelog
 3.0a1 (unreleased)
 ------------------
 
+- Update french translation by adding missing labels
+  [mordicusetcubitus]
+  
+- Now use site_properties default charset for email subscription confirmation
+  Before this was done using us-ascii preventing from displaying properly 
+  non ascii letters like éàù...
+  [mordicusetcubitus]
+
 - Fixed jquery initialization in enl_edithelper.js and make it work again.
   It didn't hide the user selection fields.
   [benniboy]

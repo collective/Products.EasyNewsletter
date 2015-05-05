@@ -52,6 +52,8 @@ class SubscriberView(BrowserView):
     def register_subscriber(self):
         """
         """
+        props = getToolByName(self, "portal_properties").site_properties
+        charset = props.getProperty("default_charset")
         subscriber = self.request.get("subscriber")
         name = self.request.get("name", "")
         firstname = self.request.get("firstname", "")
@@ -118,7 +120,7 @@ class SubscriberView(BrowserView):
                 "${confirmation_url}", confirmation_url)
             msg_sender = self.portal.getProperty('email_from_address')
             msg_receiver = subscriber
-            msg = MIMEText(msg_text)
+            msg = MIMEText(msg_text, "plain", charset)
             msg['To'] = msg_receiver
             msg['From'] = msg_sender
             msg['Subject'] = msg_subject

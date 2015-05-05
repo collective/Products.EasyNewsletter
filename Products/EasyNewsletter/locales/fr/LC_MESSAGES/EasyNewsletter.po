@@ -338,7 +338,7 @@ msgstr ""
 
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Edit criteria"
-msgstr ""
+msgstr "Editer les crières"
 
 #: ./browser/upload_csv.pt:86
 msgid "Email"
@@ -387,7 +387,7 @@ msgstr "Vue complète des lettres"
 
 #: ./profiles/default/types/EasyNewsletter.xml
 msgid "Manage aggregation templates"
-msgstr ""
+msgstr "Gérer les modèles"
 
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Manage subcollections"
@@ -529,7 +529,7 @@ msgstr "Votre adresse E-mail enregistrée:"
 
 #: ./browser/registration.py:129
 msgid "Your subscription was successfully confirmed."
-msgstr "Votre inscription a été réalisée."
+msgstr "Votre inscription est confirmée. Merci!"
 
 #. Default: "Action"
 #: ./browser/enl_subscribers_view.pt:93
