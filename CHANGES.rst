@@ -5,6 +5,9 @@ Changelog
 3.0a1 (unreleased)
 ------------------
 
+- Supported by v3.x is Plone 4.3.x+ and later.
+  [jensens, agitator]
+
 - Update french translation by adding missing labels
   [mordicusetcubitus]
   
