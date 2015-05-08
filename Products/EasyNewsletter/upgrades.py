@@ -27,8 +27,8 @@ def fullname_to_first_and_lastname(context):
                 'Splitting fullname to first and lastname for {0}'
                 .format(obj.getTitle()))
         except:
-            logger.info(
-                'No splitting necessary for {0}'.format(obj.getTitle()))
+            logger.info('No splitting necessary for {0}'\
+                        .format(obj.getTitle()))
 
 
 def add_catalog_indexes(context, logger=None):
