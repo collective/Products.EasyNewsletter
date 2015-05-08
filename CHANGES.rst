@@ -10,9 +10,9 @@ Changelog
 
 - Update french translation by adding missing labels
   [mordicusetcubitus]
-  
+
 - Now use site_properties default charset for email subscription confirmation
-  Before this was done using us-ascii preventing from displaying properly 
+  Before this was done using us-ascii preventing from displaying properly
   non ascii letters like éàù...
   [mordicusetcubitus]
 
@@ -59,6 +59,9 @@ Changelog
 
 - Extended subscriber for firstname, lastname and prefix,
   updated csv export and import. Added migration step.
+  [agitator]
+
+- Added subscriber to SearchableText index, but excluded from default results.
   [agitator]
 
 

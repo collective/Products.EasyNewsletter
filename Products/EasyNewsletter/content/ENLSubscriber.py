@@ -142,5 +142,12 @@ class ENLSubscriber(atapi.BaseContent):
                                            self.getFirstname()])
         return title_str
 
+    def SearchableText(self):
+        return ' '.join([self.getLastname(),
+                         self.getFirstname(),
+                         self.getOrganization(),
+                         self.getEmail(),
+                         ])
+
 
 atapi.registerType(ENLSubscriber, config.PROJECTNAME)
