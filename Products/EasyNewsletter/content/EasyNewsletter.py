@@ -401,7 +401,7 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
     security.declarePublic('addSubscriber')
 
     def addSubscriber(
-            self, subscriber, fullname, nl_language, organization, salutation=None):
+            self, subscriber, firstname, lastname, name_prefix, nl_language, organization, salutation=None):
         """Adds a new subscriber to the newsletter (if valid).
         """
         # we need the subscriber email here as an id,
@@ -418,7 +418,9 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
             return (False, "email_exists")
         o = getattr(self, subscriber_id)
         o.setEmail(subscriber)
-        o.setFullname(fullname)
+        o.setFirstname(firstname)
+        o.setLastname(lastname)
+        o.setName_prefix(name_prefix)
         o.setNl_language(nl_language)
         o.setOrganization(organization)
         o.setSalutation(salutation)
