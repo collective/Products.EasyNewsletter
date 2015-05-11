@@ -34,6 +34,7 @@ class DailyIssueView(BrowserView):
 
         self.issue = self.context[id]
         self.issue.setTitle(self.context.Title())
+        self.issue.setDescription(self.context.Description())
         self.issue.loadContent()
 
     def send(self):
@@ -42,6 +43,7 @@ class DailyIssueView(BrowserView):
                             name="send-issue").send_issue()
 
     def __call__(self):
+
         if self.request["REQUEST_METHOD"] == "POST":
             if self.has_content():
                 try:
