@@ -38,7 +38,7 @@ def fullname_to_first_and_lastname(context):
             if not obj.getName_prefix():
                 obj.setName_prefix(fullname.title)
             obj.reindexObject()
-            logger.info('Splitting fullname to first and lastname for {0}'\
+            logger.info('Splitting fullname to first and lastname for {0}'
                         .format(obj.getTitle()))
     loadMigrationProfile(
         context,

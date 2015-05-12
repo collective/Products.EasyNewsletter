@@ -19,6 +19,7 @@
 /.project
 /.pydevproject
 /.mr.developer.cfg
+/.ropeproject
 /src/plone*
 /src/collective*
 *.mo

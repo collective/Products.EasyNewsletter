@@ -10,8 +10,9 @@ from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import login
 from plone.app.testing import setRoles
 from plone.testing.z2 import Browser
-from zope.component import getMultiAdapter, getUtility
+from zope.component import getMultiAdapter
 from zope.component import getSiteManager
+from zope.component import getUtility
 import unittest2 as unittest
 
 
@@ -112,7 +113,7 @@ class RegistrationIntegrationTests(unittest.TestCase):
             'subscriber': 'max@example.com',
             'organization': 'Musterfirma',
             'name_prefix': 'Dr.',
-            })
+        })
         view = getMultiAdapter(
             (self.portal, self.portal.REQUEST),
             name="register-subscriber")
@@ -122,7 +123,7 @@ class RegistrationIntegrationTests(unittest.TestCase):
         enl_reg_entry = self.enl_reg_tool.values()[0]
         self.portal.REQUEST.form.update({
             'hkey': enl_reg_entry.id,
-            })
+        })
         view = getMultiAdapter(
             (self.portal, self.portal.REQUEST),
             name="confirm-subscriber")
@@ -161,6 +162,7 @@ class RegistrationIntegrationTests(unittest.TestCase):
             subscriber.title,
             "max@example.com",
         )
+
 
 class RegistrationFunctionalTests(unittest.TestCase):
 
