@@ -38,6 +38,7 @@
                                    date python:toLocalizedTime(newsletter.modified, long_format=0)"
                        tal:content="string:$date ${newsletter/Title}"
                        tal:attributes="href newsletter/getURL">Newsletter's title and Date</a>
+                       <span class="discreet selectedTag" tal:content="newsletter/review_state"></span>
                 </li>
             </ul>
         </div>

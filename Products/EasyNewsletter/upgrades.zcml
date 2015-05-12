@@ -37,4 +37,12 @@
           handler=".upgrades.fullname_to_first_and_lastname"
           profile="Products.EasyNewsletter:default"/>
 
+  <genericsetup:upgradeStep
+          title="Split fullname into firstname and lastname"
+          description=""
+          source="3001"
+          destination="3002"
+          handler=".upgrades.fullname_to_first_and_lastname"
+          profile="Products.EasyNewsletter:default"/>
+
 </configure>

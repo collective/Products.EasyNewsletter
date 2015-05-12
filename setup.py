@@ -3,7 +3,7 @@
 from setuptools import find_packages
 from setuptools import setup
 
-version = '3.0a1.dev0'
+version = '3.0a2.dev0'
 long_description = (
     open('README.rst').read() + '\n' +
     open('CHANGES.rst').read()
@@ -12,7 +12,7 @@ long_description = (
 setup(
     name='Products.EasyNewsletter',
     version=version,
-    description="An easy to use but powerfull newsletter/mailing product for Plone 3+4",
+    description="Powerful newsletter/mailing addon for Plone",
     long_description=long_description,
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -41,7 +41,19 @@ setup(
         'nameparser'
     ],
     extras_require=dict(
-        test=['plone.app.testing', 'Pillow'],
+        test=[
+            'plone.app.testing',
+            'Pillow'
+        ],
         fmp=['inqbus.plone.fastmemberproperties'],
-        all=['inqbus.plone.fastmemberproperties', ]),
+        zamqp=[
+            'collective.zamqp',
+            'msgpack-python',
+        ],
+        all=[
+            'collective.zamqp',
+            'inqbus.plone.fastmemberproperties',
+            'msgpack-python',
+        ]
+    ),
 )

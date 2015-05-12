@@ -1,4 +1,7 @@
 language: python
+cache: 
+  directories:
+    - buildout-cache
 python: 2.7
 env:
   - PLONE_VERSION=4.3 QA=true

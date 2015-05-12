@@ -39,8 +39,10 @@ class DailyIssueView(BrowserView):
 
     def send(self):
         if self.issue:
-            getMultiAdapter((self.issue, self.context.REQUEST),
-                            name="send-issue").send_issue()
+            getMultiAdapter(
+                (self.issue, self.context.REQUEST),
+                name="send-issue"
+            ).send_issue_immediately()
 
     def __call__(self):
 

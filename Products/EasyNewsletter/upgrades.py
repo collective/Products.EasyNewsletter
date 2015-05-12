@@ -24,22 +24,25 @@ def fullname_to_first_and_lastname(context):
 
     for subscriber in subscribers:
         obj = subscriber.getObject()
-        fullname = ''
         try:
-            fullname = HumanName(obj.fullname)
+            name = HumanName(obj.fullname)
+            if not obj.getLastname():
+                obj.setLastname(name['last'])
+            if not obj.getFirstname():
+                obj.setLastname(name['first'])
+            if not obj.getName_prefix():
+                obj.setLastname(name['title'])
+            obj.reindexObject()
+
+            logger.info(
+                'Splitting fullname to first and lastname for {0}'.format(
+                    obj.getTitle()
+                )
+            )
         except:
             logger.info(
                 'No splitting necessary for {0}'.format(obj.getTitle()))
-        if fullname:
-            if not obj.getLastname():
-                obj.setLastname(fullname.last)
-            if not obj.getFirstname():
-                obj.setFirstname(fullname.first)
-            if not obj.getName_prefix():
-                obj.setName_prefix(fullname.title)
-            obj.reindexObject()
-            logger.info('Splitting fullname to first and lastname for {0}'
-                        .format(obj.getTitle()))
+
     loadMigrationProfile(
         context,
         'profile-Products.EasyNewsletter:default'

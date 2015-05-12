@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 from BeautifulSoup import BeautifulSoup
-from Products.CMFCore.utils import getToolByName
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.config import PLACEHOLDERS
 from Products.Five.browser import BrowserView
 from plone import api
+from plone.protect import PostOnly
 
 
 class IssueView(BrowserView):
-    """
+    """Single Issue View
     """
 
     def refresh_issue(self):
@@ -18,13 +18,46 @@ class IssueView(BrowserView):
             self.context.loadContent()
             self.request.response.redirect(self.context.absolute_url())
 
+    def _send_issue_prepare(self):
+        self.request['enlwf_guard'] = True
+        api.content.transition(obj=self.context, transition='send')
+        self.request['enlwf_guard'] = False
+
     def send_issue(self):
         """
+        sets workflow state to sending and then redirects to step2 with UID as
+        parameter as simple safety belt.
         """
-        putils = getToolByName(self.context, "plone_utils")
+        PostOnly(self.request)
+        if 'test' in self.request.form:  # test must not modify the state
+            self.context.send()
+            api.portal.show_message(
+                message=_("The issue test sending has been initiated."),
+                request=self.request,
+            )
+            return self.request.response.redirect(self.context.absolute_url())
+
+        if self.context.is_send_queue_enabled:
+            self._send_issue_prepare()
+            self.context.queue_issue_for_sendout()
+            api.portal.show_message(
+                message=_(
+                    "The issue sending has been initiated in the background."
+                ),
+                request=self.request,
+            )
+            return self.request.response.redirect(self.context.absolute_url())
+
+        self.send_issue_immediately()
+
+    def send_issue_immediately(self):
+        """convinience view for cron and similar
+
+        never call this from UI - needs a way to protect
+        currently manager only
+        """
+        self._send_issue_prepare()
         self.context.send()
-        putils.addPortalMessage(_("The issue has been send."))
-        return self.request.response.redirect(self.context.absolute_url())
 
     def get_public_body(self):
         """ Return the rendered HTML version without placeholders.

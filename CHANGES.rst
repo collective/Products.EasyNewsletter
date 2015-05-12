@@ -8,6 +8,10 @@ Changelog
 - Supported by v3.x is Plone 4.3.x+ and later.
   [jensens, agitator]
 
+- Added optional queued sendout using ``collective.zamqp``. In order to not 
+  enqueue twice the workflow goes over a sending state now.
+  [jensens]
+
 - Update french translation by adding missing labels
   [mordicusetcubitus]
 
