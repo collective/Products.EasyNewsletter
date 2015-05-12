@@ -2,12 +2,22 @@
 from logging import getLogger
 from nameparser import HumanName
 from plone import api
+from plone.app.upgrade.utils import loadMigrationProfile
+
+
+logger = getLogger('Products.EasyNewsletter')
+
+
+def reinstall_gs_profile(context):
+    loadMigrationProfile(
+        context,
+        'profile-Products.EasyNewsletter:default'
+    )
+    logger.info("Products.EasyNewsletter generic setup profile re-installed")
 
 
 def fullname_to_first_and_lastname(context):
     """Migrate subscriber fullname to separate fields."""
-
-    logger = getLogger('Products.EasyNewsletter.Subscribers')
 
     catalog = api.portal.get_tool("portal_catalog")
     subscribers = catalog(portal_type='ENLSubscriber')
@@ -23,6 +33,7 @@ def fullname_to_first_and_lastname(context):
             if not obj.getName_prefix():
                 obj.setLastname(name['title'])
             obj.reindexObject()
+
             logger.info(
                 'Splitting fullname to first and lastname for {0}'.format(
                     obj.getTitle()
@@ -32,11 +43,14 @@ def fullname_to_first_and_lastname(context):
             logger.info(
                 'No splitting necessary for {0}'.format(obj.getTitle()))
 
+    loadMigrationProfile(
+        context,
+        'profile-Products.EasyNewsletter:default'
+    )
+
 
 def add_catalog_indexes(context, logger=None):
     """Add aditional indexes to the portal_catalog."""
-
-    logger = getLogger('Products.EasyNewsletter')
 
     catalog = api.portal.get_tool("portal_catalog")
 

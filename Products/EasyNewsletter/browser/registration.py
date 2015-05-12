@@ -55,7 +55,7 @@ class SubscriberView(BrowserView):
         props = getToolByName(self, "portal_properties").site_properties
         charset = props.getProperty("default_charset")
         subscriber = self.request.get("subscriber")
-        name = self.request.get("name", "")
+        lastname = self.request.get("lastname", "")
         firstname = self.request.get("firstname", "")
         name_prefix = self.request.get("name_prefix", "")
         portal_state = getMultiAdapter(
@@ -91,7 +91,7 @@ class SubscriberView(BrowserView):
             return self._msg_redirect(newsletter_container)
         subscriber_data = {}
         subscriber_data["subscriber"] = subscriber
-        subscriber_data["lastname"] = name
+        subscriber_data["lastname"] = lastname
         subscriber_data["firstname"] = firstname
         subscriber_data["name_prefix"] = name_prefix
         subscriber_data["nl_language"] = nl_language
@@ -143,7 +143,7 @@ class SubscriberView(BrowserView):
             easynewsletter = self.portal.unrestrictedTraverse(
                 regdataobj.path_to_easynewsletter)
             valid_email, error_code = easynewsletter.addSubscriber(
-                regdataobj.subscriber, regdataobj.name, regdataobj.firstname,
+                regdataobj.subscriber, regdataobj.firstname, regdataobj.lastname,
                 regdataobj.name_prefix, regdataobj.nl_language,
                 regdataobj.organization, regdataobj.salutation)
             if valid_email:

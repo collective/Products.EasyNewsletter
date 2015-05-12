@@ -15,7 +15,6 @@ schema = atapi.BaseSchema + atapi.Schema((
         widget=atapi.StringWidget(
             visible={'edit': 'invisible', 'view': 'invisible'},
             label=_(u'EasyNewsletter_label_title', default=u'Title'),
-            description=_(u'EasyNewsletter_help_title', default=u''),
             i18n_domain='EasyNewsletter',
         ),
     ),
@@ -64,7 +63,6 @@ schema = atapi.BaseSchema + atapi.Schema((
         required=False,
         widget=atapi.StringWidget(
             label=_(u'EasyNewsletter_label_firstname', default=u'First Name'),
-            description=_('EasyNewsletter_help_firstname', default=u''),
             i18n_domain='EasyNewsletter',
         ),
     ),
@@ -74,7 +72,6 @@ schema = atapi.BaseSchema + atapi.Schema((
         required=False,
         widget=atapi.StringWidget(
             label=_(u'EasyNewsletter_label_lastname', default=u'Last Name'),
-            description=_('EasyNewsletter_help_lastname', default=u''),
             i18n_domain='EasyNewsletter',
         ),
     ),
@@ -86,9 +83,6 @@ schema = atapi.BaseSchema + atapi.Schema((
             label=_(
                 u'EasyNewsletter_label_organization',
                 default=u'Organization'),
-            description=_(
-                'EasyNewsletter_help_organization',
-                default=u''),
             i18n_domain='EasyNewsletter',
         ),
     ),
@@ -101,9 +95,6 @@ schema = atapi.BaseSchema + atapi.Schema((
             label=_(
                 u'EasyNewsletter_label_email',
                 default=u'Email'),
-            description=_(
-                u'EasyNewsletter_help_email',
-                default=u''),
             i18n_domain='EasyNewsletter',
         ),
     ),

@@ -20,21 +20,18 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
 
     portlet_description = schema.Text(
         title=_(
-            u"label_newsletter_description",
+            u"label_subscriber_portlet_description",
             default=u"Description"),
-        description=_(
-            u"help_newsletter_description",
-            default=u"Subscribe here to our newsletter."),
         default=u"",
         required=False)
 
     newsletter = schema.Choice(
         title=_(
-            u"label_newsletter_title",
+            u"label_newsletter_path",
             default=u"Path to Newsletter"),
         description=_(
-            u"help_newsletter_title",
-            default=u"The absolute path from portal_root to the newsletter"),
+            u"help_newsletter_path",
+            default=u"Search for the accordingly newsletter, choose one and apply."),
         source=SearchableTextSourceBinder(
             {'portal_type': 'EasyNewsletter'},
             default_query='path:'),

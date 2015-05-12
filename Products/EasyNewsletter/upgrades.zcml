@@ -5,7 +5,6 @@
     i18n_domain="EasyNewsLetter">
 
 
-  <!-- Register the upgrade step -->
   <genericsetup:upgradeStep
       title="Add firstname and lastname indexes"
       description=""
@@ -14,8 +13,6 @@
       handler=".upgrades.add_catalog_indexes"
       profile="Products.EasyNewsletter:default" />
 
-<!-- add metadata too! -->
-
   <genericsetup:upgradeStep
       title="Split fullname into firstname and lastname"
       description=""
@@ -23,5 +20,21 @@
       destination="3"
       handler=".upgrades.fullname_to_first_and_lastname"
       profile="Products.EasyNewsletter:default"/>
+
+  <genericsetup:upgradeStep
+          title="Add firstname and lastname indexes"
+          description=""
+          source="3"
+          destination="3000"
+          handler=".upgrades.add_catalog_indexes"
+          profile="Products.EasyNewsletter:default" />
+
+  <genericsetup:upgradeStep
+          title="Split fullname into firstname and lastname"
+          description=""
+          source="3000"
+          destination="3001"
+          handler=".upgrades.fullname_to_first_and_lastname"
+          profile="Products.EasyNewsletter:default"/>
 
 </configure>
