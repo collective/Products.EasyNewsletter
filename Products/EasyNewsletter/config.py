@@ -178,9 +178,7 @@ img.tileImage {
     <tr>
       <td class="newsletter_link">
         <div class="mailonly">
-          <p><a
-            tal:attributes="href context/absolute_url"
-                >View Newsletter in Web-browser</a></p>
+          <p><a tal:attributes="href context/absolute_url">View Newsletter in Web-browser</a></p>
         </div>
       </td>
     </tr>
