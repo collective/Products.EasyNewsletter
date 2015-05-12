@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<registry>
+
+  <records prefix="plone.bundles/easynewsletter"
+            interface='Products.CMFPlone.interfaces.IBundleRegistry'>
+    <value key="enabled">True</value>
+    <value key="jscompilation"></value>
+    <value key="csscompilation">portal_skins/EasyNewsletter/easynewsletter.css</value>
+    <value key="last_compilation">2019-11-26 00:00:00</value>
+    <value key="compile">False</value>
+    <value key="depends">plone</value>
+  </records>
+
+</registry>

@@ -14,6 +14,14 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+  <genericsetup:registerProfile
+      name="plone5"
+      title="Products.EasyNewsletter Plone 5"
+      directory="profiles/plone5"
+      description="Installs plone5 specific EasyNewsLetter steps"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
   <!-- Register the import step -->
   <genericsetup:importStep
       name="Products.EasyNewsletter-setuphandlers"
