@@ -68,13 +68,9 @@ DEFAULT_TEMPLATE = """\
     </td>
     <td width="164" align="right">
       <tal:image_obj tal:define="item_object object/getObject;">
-        <tal:block
-            condition="python:object.portal_type in ['Image', 'News Item']">
+        <tal:block condition="python:object.portal_type in ['Image', 'News Item']">
           <a tal:attributes="href object/getURL">
-            <img class="tileImage"
-                tal:condition="python:hasattr(item_object, 'tag')"
-tal:attributes="src python:object.getURL(relative=1) + '/@@images/image/thumb'"
-                />
+            <img class="tileImage" tal:condition="python:hasattr(item_object, 'tag')" tal:attributes="src python:object.getURL(relative=1) + '/@@images/image/thumb'" />
           </a>
         </tal:block>
       </tal:image_obj>
@@ -94,28 +90,21 @@ tal:attributes="src python:object.getURL(relative=1) + '/@@images/image/thumb'"
     i18n:domain="EasyNewsletter">
   <tr>
     <td>
-      <h2 class="tileHeadline"><a
-        tal:attributes="href object/getURL"
-        tal:content="object/Title">Title</a></h2>
+      <h2 class="tileHeadline"><a tal:attributes="href object/getURL" tal:content="object/Title">Title</a></h2>
       <p class="tileBody">
         <span tal:content="object/Description">Description</span>
       </p>
       <p class="tileFooter">
-        <a tal:attributes="href object/getURL"
-            i18n:translate="read_more">Read more</a>&hellip;
+        <a tal:attributes="href object/getURL" i18n:translate="read_more">Read more</a>&hellip;
       </p>
     </td>
   </tr>
   <tr>
     <td width="164" align="right">
       <tal:image_obj tal:define="item_object object/getObject;">
-        <tal:block
-            condition="python:object.portal_type in ['Image', 'News Item']">
+        <tal:block condition="python:object.portal_type in ['Image', 'News Item']">
         <a tal:attributes="href object/getURL">
-          <img class="tileImage"
-              tal:condition="python:hasattr(item_object, 'tag')"
-tal:attributes="src python:object.getURL(relative=1) + '/@@images/image/thumb'"
-              />
+          <img class="tileImage" tal:condition="python:hasattr(item_object, 'tag')" tal:attributes="src python:object.getURL(relative=1) + '/@@images/image/thumb'" />
         </a>
         </tal:block>
       </tal:image_obj>
