@@ -139,6 +139,11 @@ Elements for mails only
 
 If you want some elements, let's say a logo only in mails but not in the public view, you can put it inside a div tag with a class "mailonly". All div elements with class "mailonly" are filtered out in the public view.
 
+Asyncronous sendout
+-------------------
+
+Products.EasyNewsletter supports asyncronous sendout using collective.zamqp. If you have configured your buildout according to https://pypi.python.org/pypi/collective.zamqp, Products.EasyNewsletter will automatically delegate the sendout to your worker instance.
+
 Sending a daily issue automatically
 -----------------------------------
 EasyNewsletter can create and send daily issues, using the default template and
