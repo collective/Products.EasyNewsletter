@@ -118,10 +118,12 @@ Step by step
 Issue workflow information
 --------------------------
 
-There are now three workflow states for an issue, which are draft, sent and master.
+There are now four workflow states for an issue, which are draft, sending, sent and master.
 If an issue is created, it's initial state is draft.
 
 Only issues with state draft can be send.
+
+If a sendout is started, the state will move to sending.
 
 After an issue is sent, it's state is sent and it will appear in the newsletter archive.
 
