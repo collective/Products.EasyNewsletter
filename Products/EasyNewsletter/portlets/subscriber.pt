@@ -25,6 +25,7 @@
                   type="radio"
                   name="salutation"
                   value="ms"
+                  required="required"
                   id="ms"/>
               <label for="ms" i18n:translate="ms">ms</label>
               <input
@@ -54,6 +55,7 @@
                      onclick="this.value=''"
                      name="name"
                      value="Name"
+                     required="required"
                      i18n:attributes="value easynewsletter_input_value_name;" />
             </div>
             <input tal:condition="view/data/query_organization|nothing"
