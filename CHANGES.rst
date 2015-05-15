@@ -72,6 +72,9 @@ Changelog
   to be queried for at subscription time.
   [agitator]
 
+- Marked E-Mail, Salutation and Name as required if present in subscription portlet.
+  [agitator]
+
 
 2.6.14 (2014-07-10)
 -------------------
