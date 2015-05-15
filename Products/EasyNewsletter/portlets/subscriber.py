@@ -44,9 +44,9 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
         default=True,
         required=False)
 
-    query_fullname = schema.Bool(
+    query_name = schema.Bool(
         title=_(
-            u"label_newletter_show_fullname",
+            u"label_newletter_show_name",
             default=u"Ask for the name of the subscriber"),
         default=True,
         required=False)
@@ -89,7 +89,7 @@ class Assignment(base.Assignment):
     portlet_title = "Newsletter"
     portlet_description = u""
     newsletter = u""
-    query_fullname = True
+    query_name = True
     query_firstname = False
     query_salutation = True
     query_name_prefix = False
@@ -98,14 +98,14 @@ class Assignment(base.Assignment):
 
     def __init__(
             self, portlet_title=u"", portlet_description=u"", newsletter="",
-            query_fullname=True, query_firstname=False,
+            query_name=True, query_firstname=False,
             query_salutation=True, query_name_prefix=False,
             query_organization=False, show_unsubscribe=True):
 
         self.portlet_title = portlet_title
         self.portlet_description = portlet_description
         self.newsletter = newsletter
-        self.query_fullname = query_fullname
+        self.query_name = query_name
         self.query_firstname = query_firstname
         self.query_salutation = query_salutation
         self.query_name_prefix = query_name_prefix

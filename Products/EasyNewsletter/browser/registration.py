@@ -55,7 +55,7 @@ class SubscriberView(BrowserView):
         props = getToolByName(self, "portal_properties").site_properties
         charset = props.getProperty("default_charset")
         subscriber = self.request.get("subscriber")
-        lastname = self.request.get("lastname", "")
+        lastname = self.request.get("name", "")
         firstname = self.request.get("firstname", "")
         name_prefix = self.request.get("name_prefix", "")
         portal_state = getMultiAdapter(
