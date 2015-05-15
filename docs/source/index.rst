@@ -38,6 +38,8 @@ Features
 
     - Support for creating and sending a daily issue
 
+    - Support for decoupled sendout
+
 Requirements
 ============
 
@@ -363,6 +365,8 @@ Authors
 * Philip Bauer
 * Timo Stollenwerk
 * Dinu Gherman
+* Jens Klein
+* Peter Holzer
 
 
 Contents:
