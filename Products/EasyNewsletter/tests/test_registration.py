@@ -54,7 +54,7 @@ class RegistrationIntegrationTests(unittest.TestCase):
             'newsletter': '/enl1',
             'salutation': u'mr',
             'firstname': 'Max',
-            'lastname': 'Mustermann',
+            'name': 'Mustermann',
             'subscriber': 'max@example.com',
         })
         view = getMultiAdapter(
@@ -109,7 +109,7 @@ class RegistrationIntegrationTests(unittest.TestCase):
             'newsletter': '/enl1',
             'salutation': u'mr',
             'firstname': 'Max',
-            'lastname': 'Mustermann',
+            'name': 'Mustermann',
             'subscriber': 'max@example.com',
             'organization': 'Musterfirma',
             'name_prefix': 'Dr.',

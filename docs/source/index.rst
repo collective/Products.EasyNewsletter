@@ -14,36 +14,38 @@ EasyNewsletter is a simple but powerful newsletter/mailing product for Plone.
 Features
 ========
 
-    - Support Text and HTML Newsletter (including images)
+- Support Text and HTML Newsletter (including images)
 
-    - Support manual written Newsletters/Mailings
+- Support manual written Newsletters/Mailings
 
-    - Plonish (can use Plone's Collections to collect content)
+- Plonish (can use Plone's Collections to collect content)
 
-    - Variable templates to generate newsletter content
+- Variable templates to generate newsletter content
 
-    - Subscribing / Unsubscribing and can use Plone Members/Groups as receivers (works also with Membrane)
+- Subscribing / Unsubscribing and can use Plone Members/Groups as receivers (works also with Membrane)
 
-    - support for external subscriber sources (configured through a Zope utility)
+- support for external subscriber sources (configured through a Zope utility)
 
-    - support for external delivery services (other than Plone MailHost)
+- support for external delivery services (other than Plone MailHost)
 
-    - TTW customizeable output Template to generate nice HTML Newsletter
+- TTW customizeable output Template to generate nice HTML Newsletter
 
-    - Support personalized mails
+- Support personalized mails
 
-    - Mass import/export subscribers via csv
+- Mass import/export subscribers via csv
 
-    - Support external filtering/manipulation (filter out or add more subscribers) plugins
+- Support external filtering/manipulation (filter out or add more subscribers) plugins
 
-    - Support for creating and sending a daily issue
+- Support for creating and sending a daily issue
+
+- Support for decoupled sendout
 
 Requirements
 ============
 
-    - [inqbus.plone.fastmemberproperties] speed up access of member properties
-      (optional, you can installed it with Products.EasyNewsletter[all] in your
-      buidlout eggs list)
+- [inqbus.plone.fastmemberproperties] speed up access of member properties
+  (optional, you can installed it with Products.EasyNewsletter[all] in your
+  buidlout eggs list)
 
  Plone 3.X (tested) or 4.X (tested)
 
@@ -51,16 +53,16 @@ Requirements
 Installation
 ============
 
-    1. Add Products.EasyNewsletter to your buildout
+1. Add Products.EasyNewsletter to your buildout
 
-    2. Run your buildout script
+2. Run your buildout script
 
-    3. Restart Zope
+3. Restart Zope
 
-    4. Install EasyNewsletter via Plone Management Interface
+4. Install EasyNewsletter via Plone Management Interface
 
-    5. Add an "Newsletter Subscriber" portlet and select the EasyNewsletter
-       (To this newsletter the subscribers will be added).
+5. Add an "Newsletter Subscriber" portlet and select the EasyNewsletter
+   (To this newsletter the subscribers will be added).
 
 Usage
 =====
@@ -116,10 +118,12 @@ Step by step
 Issue workflow information
 --------------------------
 
-There are now three workflow states for an issue, which are draft, sent and master.
+There are now four workflow states for an issue, which are draft, sending, sent and master.
 If an issue is created, it's initial state is draft.
 
 Only issues with state draft can be send.
+
+If a sendout is started, the state will move to sending.
 
 After an issue is sent, it's state is sent and it will appear in the newsletter archive.
 
@@ -136,6 +140,11 @@ Elements for mails only
 -----------------------
 
 If you want some elements, let's say a logo only in mails but not in the public view, you can put it inside a div tag with a class "mailonly". All div elements with class "mailonly" are filtered out in the public view.
+
+Asyncronous sendout
+-------------------
+
+Products.EasyNewsletter supports asyncronous sendout using collective.zamqp. If you have configured your buildout according to https://pypi.python.org/pypi/collective.zamqp, Products.EasyNewsletter will automatically delegate the sendout to your worker instance.
 
 Sending a daily issue automatically
 -----------------------------------
@@ -363,6 +372,8 @@ Authors
 * Philip Bauer
 * Timo Stollenwerk
 * Dinu Gherman
+* Jens Klein
+* Peter Holzer
 
 
 Contents:

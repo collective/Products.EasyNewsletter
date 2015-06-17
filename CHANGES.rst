@@ -8,7 +8,7 @@ Changelog
 - Supported by v3.x is Plone 4.3.x+ and later.
   [jensens, agitator]
 
-- Added optional queued sendout using ``collective.zamqp``. In order to not 
+- Added optional queued sendout using ``collective.zamqp``. In order to not
   enqueue twice the workflow goes over a sending state now.
   [jensens]
 
@@ -66,6 +66,13 @@ Changelog
   [agitator]
 
 - Added subscriber to SearchableText index, but excluded from default results.
+  [agitator]
+
+- Updated portlet fields, fullname is now "generic" name. Updated portlet options
+  to be queried for at subscription time.
+  [agitator]
+
+- Marked E-Mail, Salutation and Name as required if present in subscription portlet.
   [agitator]
 
 

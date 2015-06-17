@@ -37,26 +37,33 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
             default_query='path:'),
         required=True)
 
-    query_fullname = schema.Bool(
+    query_salutation = schema.Bool(
         title=_(
-            u"label_newletter_show_fullname",
-            default=u"Ask for the salutation and fullname of the subscriber"),
+            u"label_newletter_show_salutation",
+            default=u"Ask for the salutation of the subscriber"),
         default=True,
-        required=True)
+        required=False)
+
+    query_name = schema.Bool(
+        title=_(
+            u"label_newletter_show_name",
+            default=u"Ask for the name of the subscriber"),
+        default=True,
+        required=False)
 
     query_firstname = schema.Bool(
         title=_(
             u"label_newletter_show_firstname",
             default=u"Ask for the firstname as well"),
         default=False,
-        required=True)
+        required=False)
 
     query_name_prefix = schema.Bool(
         title=_(
             u"label_newletter_show_name_prefix",
             default=u"Ask for the name prefix (aka title) as well"),
         default=False,
-        required=True)
+        required=False)
 
     query_organization = schema.Bool(
         title=_(
@@ -64,14 +71,14 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
             default=u"Display field to enter company/organization of "
             "subscriber"),
         default=False,
-        required=True)
+        required=False)
 
     show_unsubscribe = schema.Bool(
         title=_(
             u"label_newletter_show_unsubscribe_link",
             default=u"Display an unsubscribe link in portlet footer"),
         default=True,
-        required=True)
+        required=False)
 
 
 class Assignment(base.Assignment):
@@ -82,21 +89,26 @@ class Assignment(base.Assignment):
     portlet_title = "Newsletter"
     portlet_description = u""
     newsletter = u""
-    query_fullname = True
+    query_name = True
     query_firstname = False
+    query_salutation = True
+    query_name_prefix = False
     query_organization = False
     show_unsubscribe = True
 
     def __init__(
             self, portlet_title=u"", portlet_description=u"", newsletter="",
-            query_fullname=True, query_firstname=True, query_organization=False,
-            show_unsubscribe=True):
+            query_name=True, query_firstname=False,
+            query_salutation=True, query_name_prefix=False,
+            query_organization=False, show_unsubscribe=True):
 
         self.portlet_title = portlet_title
         self.portlet_description = portlet_description
         self.newsletter = newsletter
-        self.query_fullname = query_fullname
+        self.query_name = query_name
         self.query_firstname = query_firstname
+        self.query_salutation = query_salutation
+        self.query_name_prefix = query_name_prefix
         self.query_organization = query_organization
         self.show_unsubscribe = show_unsubscribe
 

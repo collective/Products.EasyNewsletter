@@ -3,17 +3,17 @@ input.easynewsletter_text {
   margin-right: 0;
 }
 
-.withFirstname input.firstname,
-.withFirstname input.name  {
-  width: 46%;
-}
-
 #enl_actions{
   margin: 1em 0 2em 0;
   padding:0.5em;
   border-bottom: 1px solid #75AD0A;
 }
+
 #enl_actions li{
   display: inline;
   margin: 0 1em 0 0;
+}
+
+.portletNewsletterSubscriber div.field span.required::after {
+    position: absolute;
 }
