@@ -2,6 +2,7 @@
 from BeautifulSoup import BeautifulSoup
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.config import PLACEHOLDERS
+from Products.EasyNewsletter.utils import addTokenToUrl
 from Products.Five.browser import BrowserView
 from plone import api
 from plone.protect import PostOnly
@@ -35,7 +36,9 @@ class IssueView(BrowserView):
                 message=_("The issue test sending has been initiated."),
                 request=self.request,
             )
-            return self.request.response.redirect(self.context.absolute_url())
+            return self.request.response.redirect(
+                addTokenToUrl(self.context.absolute_url())
+            )
 
         if self.context.is_send_queue_enabled:
             self._send_issue_prepare()
@@ -46,7 +49,9 @@ class IssueView(BrowserView):
                 ),
                 request=self.request,
             )
-            return self.request.response.redirect(self.context.absolute_url())
+            return self.request.response.redirect(
+                addTokenToUrl(self.context.absolute_url())
+            )
 
         self.send_issue_immediately()
 
@@ -87,7 +92,7 @@ class IssueView(BrowserView):
         )
 
         return self.request.response.redirect(
-            draft_obj.absolute_url() + '/edit'
+            addTokenToUrl(draft_obj.absolute_url() + '/edit')
         )
 
     def copy_as_master(self):
@@ -107,5 +112,5 @@ class IssueView(BrowserView):
         request['enlwf_guard'] = False
 
         return self.request.response.redirect(
-            master_obj.absolute_url() + '/edit'
+            addTokenToUrl(master_obj.absolute_url() + '/edit')
         )

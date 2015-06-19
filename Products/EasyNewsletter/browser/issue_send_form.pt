@@ -28,6 +28,8 @@
         method="post"
         id="issue_send_form">
 
+    <span tal:replace="structure context/@@authenticator/authenticator"/>
+
     <label for="sender name"
            i18n:translate="EasyNewsletter_label_senderName">
            Sender name
