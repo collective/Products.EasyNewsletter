@@ -144,7 +144,7 @@ If you want some elements, let's say a logo only in mails but not in the public 
 Asyncronous sendout
 -------------------
 
-Products.EasyNewsletter supports asyncronous sendout using collective.zamqp. If you have configured your buildout according to https://pypi.python.org/pypi/collective.zamqp, Products.EasyNewsletter will automatically delegate the sendout to your worker instance.
+Products.EasyNewsletter supports asyncronous sendout using collective.zamqp. Look at the self contained buildout or https://pypi.python.org/pypi/collective.zamqp and add Products.EasyNewsletter[zamqp] to your eggs section. If you have configured your buildout according accordingly, Products.EasyNewsletter will automatically delegate the sendout to your worker instance.
 
 Sending a daily issue automatically
 -----------------------------------
