@@ -396,7 +396,7 @@ msgstr "Newsletter Entwürfe"
 
 #: EasyNewsletter/browser/templates/enl_actions_viewlet.pt:11
 msgid "Issue masters"
-msgstr "Aggregierungsschablonen"
+msgstr "Muster"
 
 #: EasyNewsletter/browser/upload_csv.pt:39
 msgid "Language"
@@ -416,7 +416,7 @@ msgstr "Unterkollektionen verwalten"
 
 #: EasyNewsletter/browser/templates/enl_actions_viewlet.pt:11
 msgid "Masters"
-msgstr "Aggregierungsschablonen"
+msgstr "Muster"
 
 #: EasyNewsletter/profiles/default/types/EasyNewsletter.xml
 msgid "Newsletter"
@@ -683,7 +683,7 @@ msgstr "Abonnenten importieren"
 #. Default: "Masters"
 #: EasyNewsletter/skins/EasyNewsletter/enl_masters_view.pt:20
 msgid "easynewsletter_masters_label"
-msgstr "Aggregierungsschablonen"
+msgstr "Muster"
 
 #. Default: "The newsletter was already sent."
 #: EasyNewsletter/browser/issue_send_form.pt:120
