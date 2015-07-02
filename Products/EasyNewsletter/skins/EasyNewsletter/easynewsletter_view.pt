@@ -12,7 +12,9 @@
            tal:define="kssClassesView context/@@kss_field_decorator_view;
                        getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;
                        templateId template/getId;
-                       text here/getText;">
+                       text here/getText;
+                       authenticator context/@@authenticator;
+                       token python:authenticator.token();">
 
         <div tal:replace="structure provider:plone.abovecontenttitle" />
 
@@ -56,7 +58,7 @@
                     <a tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime;
                                    date python:toLocalizedTime(newsletter.modified, long_format=0)"
                        tal:content="string:$date: ${newsletter/Title}"
-                       tal:attributes="href newsletter/getURL">Newsletter's title and Date</a>
+                       tal:attributes="href string:${newsletter/getURL}?_authenticator=${token}">Newsletter's title and Date</a>
                </li>
              </ul>
         </tal:block>
