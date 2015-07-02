@@ -67,6 +67,9 @@ class IssueView(BrowserView):
     def get_public_body(self):
         """ Return the rendered HTML version without placeholders.
         """
+        if "_authenticator" not in self.request:
+            authenticator = self.context.restrictedTraverse("@@authenticator")
+            self.request['_authenticator'] = authenticator.token()
         html = self.context._render_output_html()
         for placeholder in PLACEHOLDERS:
             html = html.replace('[[' + placeholder + ']]', '')
