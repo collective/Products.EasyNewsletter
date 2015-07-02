@@ -133,7 +133,7 @@ schema = atapi.Schema((
             'text/plain', 'text/structured', 'text/html',
             'application/msword'),
         default_output_type='text/html',
-        widget=atapi.RichWidget(
+        widget=atapi.TinyMCEWidget(
             rows=10,
             label=_(
                 u"EasyNewsletter_label_default_header",
@@ -154,7 +154,7 @@ schema = atapi.Schema((
             'application/msword'),
         default="{{UNSUBSCRIBE}}",
         default_output_type='text/html',
-        widget=atapi.RichWidget(
+        widget=atapi.TinyMCEWidget(
             rows=10,
             label=_(u"EasyNewsletter_label_default_footer", default=u"Footer"),
             description=_(
