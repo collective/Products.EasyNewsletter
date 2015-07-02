@@ -50,11 +50,21 @@
   <permission value="Modify portal content"/>
  </action>
  -->
+ <action title="Criteria" action_id="criteria" category="object"
+    condition_expr="" url_expr="string:${folder_url}/criterion_edit_form"
+    visible="False" i18n:attributes="title">
+  <permission value="Change portal topics"/>
+ </action>
  <action title="Criteria" action_id="criteria" category="object_buttons"
     condition_expr="" url_expr="string:${folder_url}/criterion_edit_form"
     visible="True" i18n:attributes="title">
   <permission value="Change portal topics"/>
 </action>
+ <action title="Subfolders" action_id="subtopics" category="object"
+    condition_expr="" url_expr="string:${folder_url}/enl_subtopics"
+    visible="False" i18n:attributes="title">
+  <permission value="Change portal topics"/>
+ </action>
  <action title="Subfolders" action_id="subtopics" category="object_buttons"
     condition_expr="" url_expr="string:${folder_url}/enl_subtopics"
     visible="True" i18n:attributes="title">
