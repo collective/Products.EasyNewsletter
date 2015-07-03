@@ -12,7 +12,9 @@
            tal:define="kssClassesView context/@@kss_field_decorator_view;
                        getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;
                        templateId template/getId;
-                       text here/getText;">
+                       text here/getText;
+                       authenticator context/@@authenticator;
+                       token python:authenticator.token();">
 
         <div tal:replace="structure provider:plone.abovecontenttitle" />
 
@@ -37,7 +39,7 @@
             <ul tal:repeat="template templates">
                 <li>
                     <a tal:content="template/Title"
-                       tal:attributes="href template/getURL">
+                       tal:attributes="href string:${template/getURL}?_authenticator=${token}">
                         Link to Template
                     </a>
                    <div tal:content="template/Description">Template Description</div>
