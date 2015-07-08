@@ -17,11 +17,6 @@ class IENLSubscriber(Interface):
     """
 
 
-class IENLTemplate(Interface):
-    """
-    """
-
-
 class IIssueView(Interface):
     """
     """

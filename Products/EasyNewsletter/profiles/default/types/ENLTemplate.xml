@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <object name="ENLTemplate"
-   meta_type="Factory-based Type Information with dynamic views"
+   meta_type="ENLTemplate"
    i18n:domain="EasyNewsletter" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <property name="title" i18n:translate="">Template</property>
  <property name="description"
@@ -8,20 +8,26 @@
  <property name="content_icon">newspaper_icon.png</property>
  <property name="content_meta_type">ENLTemplate</property>
  <property name="product">EasyNewsletter</property>
- <property name="factory">addENLTemplate</property>
+ <property name="factory">ENLTemplate</property>
  <property name="immediate_view">enl_template_view</property>
  <property name="global_allow">False</property>
  <property name="filter_content_types">True</property>
  <property name="allowed_content_types"/>
  <property name="allow_discussion">False</property>
+
+ <property name="schema">Products.EasyNewsletter.content.IENLTemplate</property>
+ <property name="klass">Products.EasyNewsletter.content.ENLTemplate</property>
+
  <property name="default_view">enl_template_view</property>
  <property name="view_methods">
   <element value="enl_template_view"/>
  </property>
+
  <alias from="(Default)" to="enl_template_view"/>
  <alias from="edit" to="atct_edit"/>
  <alias from="sharing" to="@@sharing"/>
  <alias from="view" to="enl_template_view"/>
+
  <action title="View" action_id="view" category="object" condition_expr=""
     url_expr="string:${object_url}" visible="True" i18n:attributes="title">
   <permission value="View"/>

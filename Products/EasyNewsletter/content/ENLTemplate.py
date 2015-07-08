@@ -1,67 +1,48 @@
 # -*- coding: utf-8 -*-
 from AccessControl import ClassSecurityInfo
-from Products.Archetypes import atapi
 from Products.CMFCore.utils import getToolByName
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter import config
-from Products.EasyNewsletter.interfaces import IENLTemplate
 from Products.TemplateFields import ZPTField
+from plone.dexterity.content import Item
+from plone.supermodel import model
 from zope.interface import implementer
+from zope import schema
 
 
-schema = atapi.BaseSchema + atapi.Schema((
+class IENLTemplate(model.Schema):
+    """ Template used for styling newsletter entries.
+    """
 
-    ZPTField(
-        'body',
-        validators=('zptvalidator', ),
-        widget=atapi.TextAreaWidget(
-            label=_(u'label_body_zpt', default=u'Newsletter Template'),
-            description=_(
-                'help_body_zpt',
-                default=u'This is a Zope Page Template file that is used for \
-                     rendering the newsletter mail.'),
-            i18n_domain="plone",
-            rows=30,
+    body = schema.Text(
+        title=_(u'label_body_zpt', default=u'Newsletter Template'),
+        description=_(
+            u'help_body_zpt',
+            default=u'This is a Zope Page Template file that is used for rendering the newsletter mail.'
         ),
-    ),
+        default=config.DEFAULT_TEMPLATE,
+    )
 
-    atapi.TextField(
-        'description',
-        accessor="Description",
-        widget=atapi.TextAreaWidget(
-            label=_(u"label_description", default=u'Description'),
-            description=_(
-                u"help_description",
-                default=u"Enter a value for description."),
-            i18n_domain="plone",
+    description = schema.Text(
+        title=_(u"label_description", default=u'Description'),
+        description=_(
+            u"help_description",
+            default=u"Enter a value for description."
         ),
-    ),
-
-), )
+    )    
 
 
 @implementer(IENLTemplate)
-class ENLTemplate(atapi.BaseContent):
-    """Template used for styling newsletter entries.
+class ENLTemplate(Item):
+    """ Template used for styling newsletter entries.
     """
-    security = ClassSecurityInfo()
-    schema = schema
-    _at_rename_after_creation = True
 
-    def initializeArchetype(self, **kwargs):
-        """overwritten hook
-        """
-        atapi.BaseContent.initializeArchetype(self, **kwargs)
-        self.setBody(config.DEFAULT_TEMPLATE)
-
-    @security.public
     def getSourceCode(self):
         """Return body as string
         """
-        html = self.getField("body").getRaw(self)
+        html = self.body.getRaw(self)
         return html
 
-    @security.public
     def setIssue(self, issue_uid):
         """Sets the newsletter which should be used by the template
         """
@@ -89,6 +70,3 @@ class ENLTemplate(atapi.BaseContent):
         else:
             newsletter = brain.getObject()
             return newsletter.getSubTopics()
-
-
-atapi.registerType(ENLTemplate, config.PROJECTNAME)
