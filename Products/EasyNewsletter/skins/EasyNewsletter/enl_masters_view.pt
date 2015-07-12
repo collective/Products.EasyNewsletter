@@ -28,7 +28,7 @@
 
         <div tal:define="newsletters context/get_master_issues">
             <div tal:condition="not: newsletters"
-                 i18n:translate="easynewsletter_nondrafts_label">
+                 i18n:translate="easynewsletter_nonmasters_label">
                   There are no masters.
             </div>
 

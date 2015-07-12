@@ -79,10 +79,10 @@ schema = atapi.Schema((
         default_method="get_excludeAllSubscribers_defaults",
         widget=atapi.BooleanWidget(
             label=_(
-                u'label_excludeAllSubscribers',
+                u'label_excludeAllExternalSubscribers',
                 default=u'Exclude all external subscribers'),
             description=_(
-                u'help_excludeAllSubscribers',
+                u'EasyNewsletter_ENLIssue_help_excludeAllSubscribers',
                 default=u'If checked, the newsletter/mailing will not be send  \
                    to all external subscribers inside the newsletter.'),
             i18n_domain='EasyNewsletter',
@@ -97,7 +97,7 @@ schema = atapi.Schema((
                 u'label_sendToAllPloneMembers',
                 default=u'Send to all Plone members'),
             description=_(
-                u'help_sendToAllPloneMembers',
+                u'EasyNewsletter_ENLIssue_help_sendToAllPloneMembers',
                 default=u'If checked, the newsletter/mailing is send to all \
                     plone members.'),
             i18n_domain='EasyNewsletter',
@@ -113,7 +113,7 @@ schema = atapi.Schema((
                 u'EasyNewsletter_label_ploneReceiverMembers',
                 default=u'Plone Members to receive the newsletter'),
             description=_(
-                u'EasyNewsletter_help_ploneReceiverMembers',
+                u'EasyNewsletter_ENLIssue_help_ploneReceiverMembers',
                 default=u'Choose Plone Members which should receive \
                         the newsletter.'),
             i18n_domain='EasyNewsletter',
@@ -130,7 +130,7 @@ schema = atapi.Schema((
                 u'EasyNewsletter_label_ploneReceiverGroups',
                 default=u'Plone Groups to receive the newsletter'),
             description=_(
-                u'EasyNewsletter_help_ploneReceiverGroups',
+                u'EasyNewsletter_ENLIssue_help_ploneReceiverGroups',
                 default=u'Choose Plone Groups which members should \
                         receive the newsletter.'),
             i18n_domain='EasyNewsletter',

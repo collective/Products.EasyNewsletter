@@ -37,32 +37,32 @@
  </action>
  <action title="Send" action_id="send" category="object"
     condition_expr="" url_expr="string:${folder_url}/send-issue-form"
-    visible="True" i18n:attributes="title">
+    visible="True" i18n:domain="plone" i18n:attributes="title">
   <permission value="Modify portal content"/>
  </action>
  <action title="Aggregate content" action_id="refresh" category="object_buttons"
     condition_expr="python: portal.portal_workflow.getInfoFor(object, 'review_state') == 'draft'" url_expr="string:${folder_url}/refresh-issue"
-    visible="True" i18n:attributes="title">
+    visible="True" i18n:domain="plone" i18n:attributes="title">
   <permission value="Modify portal content"/>
  </action>
   <action title="Copy as draft" action_id="copy_as_draft" category="object_buttons"
     condition_expr="python: portal.portal_workflow.getInfoFor(object, 'review_state') == 'master'" url_expr="string:${folder_url}/copy-as-draft"
-    visible="True" i18n:attributes="title">
+    visible="True" i18n:domain="plone" i18n:attributes="title">
   <permission value="Copy or Move"/>
  </action>
    <action title="Copy as master" action_id="copy_as_master" category="object_buttons"
     condition_expr="python: portal.portal_workflow.getInfoFor(object, 'review_state') in ['draft','sent']" url_expr="string:${folder_url}/copy-as-master"
-    visible="True" i18n:attributes="title">
+    visible="True" i18n:domain="plone" i18n:attributes="title">
   <permission value="Copy or Move"/>
  </action>
  <action title="Edit criteria" action_id="criteria" category="object_buttons"
     condition_expr="" url_expr="string:${folder_url}/criterion_edit_form"
-    visible="True" i18n:attributes="title">
+    visible="True" i18n:domain="plone" i18n:attributes="title">
   <permission value="Change portal topics"/>
  </action>
  <action title="Manage subcollections" action_id="subtopics" category="object_buttons"
     condition_expr="" url_expr="string:${folder_url}/atct_topic_subtopics"
-    visible="True" i18n:attributes="title">
+    visible="True" i18n:domain="plone" i18n:attributes="title">
   <permission value="Change portal topics"/>
  </action>
 </object>

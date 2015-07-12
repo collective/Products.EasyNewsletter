@@ -1,9 +1,12 @@
 <?xml version="1.0"?>
-<dc-workflow workflow_id="enl_issue_workflow"
-             title="Single State Workflow"
+<dc-workflow xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+             i18n:domain="plone"
+             workflow_id="enl_issue_workflow"
+             title="Single State Workflow for a EasyNewsletter Issue"
              description="- Essentially a workflow with no transitions, but has a Published state, so portlets and applications that expect that state will continue to work."
              state_variable="review_state"
-             initial_state="draft">
+             initial_state="draft"
+             i18n:attributes="title; description">
 
     <permission>Access contents information</permission>
     <permission>Change portal events</permission>
@@ -11,7 +14,7 @@
     <permission>Modify portal content</permission>
     <permission>View</permission>
 
-    <state state_id="draft" title="Draft">
+    <state state_id="draft" title="Draft" i18n:attributes="title">
         <exit-transition transition_id="send"/>
         <exit-transition transition_id="make_master"/>
         <permission-map name="Access contents information"
@@ -45,7 +48,7 @@
         </permission-map>
     </state>
 
-    <state state_id="sending" title="Sending">
+    <state state_id="sending" title="Sending" i18n:attributes="title">
         <exit-transition transition_id="sending_completed"/>
         <exit-transition transition_id="revert_sending"/>
         <permission-map name="Access contents information"
@@ -75,7 +78,7 @@
         </permission-map>
     </state>
 
-    <state state_id="sent" title="Sent">
+    <state state_id="sent" title="Sent" i18n:attributes="title">
         <permission-map name="Access contents information"
                         acquired="False">
             <permission-role>Manager</permission-role>
@@ -103,7 +106,7 @@
         </permission-map>
     </state>
 
-    <state state_id="master" title="Master">
+    <state state_id="master" title="Master" i18n:attributes="title">
         <permission-map name="Access contents information"
                         acquired="False">
             <permission-role>Manager</permission-role>
@@ -137,7 +140,7 @@
 
 
     <transition transition_id="make_draft"
-                title="Make draft"
+                title="Make draft" i18n:attributes="title"
                 new_state="draft"
                 trigger="USER"
                 before_script=""
@@ -152,7 +155,7 @@
     </transition>
 
     <transition transition_id="revert_sending"
-                title="Revert sending"
+                title="Revert sending" i18n:attributes="title"
                 new_state="draft"
                 trigger="USER"
                 before_script=""
@@ -167,7 +170,7 @@
     </transition>
 
     <transition transition_id="send"
-                title="Send"
+                title="Send" i18n:attributes="title"
                 new_state="sending"
                 trigger="USER"
                 before_script=""
@@ -181,7 +184,7 @@
     </transition>
 
     <transition transition_id="sending_completed"
-                title="Sending Completed"
+                title="Sending Completed" i18n:attributes="title"
                 new_state="sent"
                 trigger="USER"
                 before_script=""
@@ -195,7 +198,7 @@
     </transition>
 
     <transition transition_id="make_master"
-                title="Make master"
+                title="Make master" i18n:attributes="title"
                 new_state="master"
                 trigger="USER"
                 before_script=""

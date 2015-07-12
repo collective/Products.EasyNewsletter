@@ -58,7 +58,7 @@
               </div>
             </div>
             <div class="field" tal:condition="view/data/query_organization|nothing">
-              <label for="name" i18n:translate="name">Organization</label>
+              <label for="name" i18n:translate="organization_portlet">Organization</label>
               <input class="easynewsletter_text"
                      name="organization"/>
             </div>

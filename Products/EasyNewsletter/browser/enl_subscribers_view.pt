@@ -37,19 +37,19 @@
                   This filters affect only imported subscribers, not those coming from external sources.
                 </p>
                 <form tal:attributes="action view/__name__">
-                  <span class="label" i18n:translate="mail">Email:</span>
+                  <span class="label" i18n:translate="mail_filter">Email:</span>
                   <input type="text" name="email"
                          tal:attributes="value request/email|nothing" /><br />
-                  <span class="label" i18n:translate="firstname">First Name:</span>
+                  <span class="label" i18n:translate="firstname_filter">First Name:</span>
                   <input type="text" name="firstname"
                          tal:attributes="value request/firstname|nothing" /><br />
-                  <span class="label" i18n:translate="lastname">Last Name:</span>
+                  <span class="label" i18n:translate="lastname_filter">Last Name:</span>
                   <input type="text" name="lastname"
                          tal:attributes="value request/lastname|nothing" /><br />
-                  <span class="label" i18n:translate="organization">Organization:</span>
+                  <span class="label" i18n:translate="organization_filter">Organization:</span>
                   <input type="text" name="organization"
                          tal:attributes="value request/organization|nothing" /><br />
-                  <span class="label" i18n:translate="items_per_page">Items per page:</span>
+                  <span class="label" i18n:translate="items_per_page_filter">Items per page:</span>
                   <select name="b_size:int">
                     <option tal:repeat="opt python:range(10,110,10)"
                             tal:attributes="value opt;
@@ -89,12 +89,12 @@
                         <input id="selectall" type="checkbox" name="selectall" />
                       </th>
                       <th i18n:translate="mail">Email</th>
-                      <th i18n:translate="salutation">Salutation</th>
-                      <th i18n:translate="name_prefix">Prefix</th>
-                      <th i18n:translate="firstname">First Name</th>
-                      <th i18n:translate="lastname">Last Name</th>
+                      <th i18n:translate="salutation_listing">Salutation</th>
+                      <th i18n:translate="name_prefix_listing">Prefix</th>
+                      <th i18n:translate="firstname_listing">First Name</th>
+                      <th i18n:translate="lastname_listing">Last Name</th>
                       <th i18n:translate="language">Language</th>
-                      <th i18n:translate="organization">Organization</th>
+                      <th i18n:translate="organization_listing">Organization</th>
                       <th i18n:translate="source">Source</th>
                       <th i18n:translate="action">Action</th>
                   </tr>

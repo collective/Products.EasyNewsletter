@@ -26,6 +26,7 @@ done
 
 # Rebuild .pot
 ../../bin/i18ndude rebuild-pot --pot locales/$CATALOGNAME.pot --merge locales/manual.pot --create $CATALOGNAME .
+../../bin/i18ndude rebuild-pot --pot locales/plone.pot --merge locales/plone-manual.pot --create plone ./profiles
 
 # Compile po files
 for lang in $(find locales -mindepth 1 -maxdepth 1 -type d); do
@@ -33,18 +34,25 @@ for lang in $(find locales -mindepth 1 -maxdepth 1 -type d); do
     if test -d $lang/LC_MESSAGES; then
 
         PO=$lang/LC_MESSAGES/${CATALOGNAME}.po
+        POP=$lang/LC_MESSAGES/plone.po
 
         # Create po file if not exists
         touch $PO
+        touch $POP
 
         # Sync po file
         echo "Syncing $PO"
         ../../bin/i18ndude sync --pot locales/$CATALOGNAME.pot $PO
+        echo "Syncing $POP"
+        ../../bin/i18ndude sync --pot locales/plone.pot $POP
 
         # Compile .po to .mo
         MO=$lang/LC_MESSAGES/${CATALOGNAME}.mo
+        MOP=$lang/LC_MESSAGES/plone.mo
         echo "Compiling $MO"
         msgfmt -o $MO $lang/LC_MESSAGES/${CATALOGNAME}.po
+        echo "Compiling $MOP"
+        msgfmt -o $MOP $lang/LC_MESSAGES/plone.po
     fi
 done
 
