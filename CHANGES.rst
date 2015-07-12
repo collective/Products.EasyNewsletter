@@ -5,6 +5,12 @@ Changelog
 3.0a1 (unreleased)
 ------------------
 
+- Update Spanish translation
+  [macagua]
+
+- Added more improvements about i18n
+  [macagua]
+
 - Supported by v3.x is Plone 4.3.x+ and later.
   [jensens, agitator]
 
