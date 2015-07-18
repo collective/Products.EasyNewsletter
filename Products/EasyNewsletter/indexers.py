@@ -1,5 +1,5 @@
-from plone.indexer import indexer
 from Products.EasyNewsletter.interfaces import IENLSubscriber
+from plone.indexer import indexer
 
 
 @indexer(IENLSubscriber)
