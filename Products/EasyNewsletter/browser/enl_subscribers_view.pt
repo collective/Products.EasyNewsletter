@@ -32,9 +32,9 @@
             <a href="createObject?type_name=ENLSubscriber" i18n:translate="add_subscriber">Add subscriber</a>
             <div class="search">
               <fieldset>
-                <legend i18n:translate="">Filters</legend>
-                <p class="discreet" i18n:translate="subscribers_filter_note">
-                  This search affect only local subscribers, not those coming from external sources.
+                <legend i18n:translate="">Subscriber Search</legend>
+                <p class="discreet" i18n:translate="subscribers_search_note">
+                  This search affects only local subscribers, not those coming from external sources.
                 </p>
                 <form tal:attributes="action view/__name__">
                   <input type="text" name="SearchableText"
