@@ -112,11 +112,7 @@ class Enl_Subscribers_View(BrowserView):
     # TODO: we should move these indexes from FieldIndex to ZCTextIndex
     # see setuphandlers.py for indexes creation
     searchable_params = (
-        'email',
-        'firstname',
-        'lastname',
-        'nl_language',
-        'organization'
+        'SearchableText',
     )
 
     def __init__(self, context, request):
@@ -146,7 +142,13 @@ class Enl_Subscribers_View(BrowserView):
         form = self.request.form
         for k in self.searchable_params:
             if form.get(k):
-                query[k] = form.get(k)
+                if k == 'SearchableText':
+                    searchterm = form.get(k)
+                    if not searchterm.endswith('*'):
+                        searchterm += '*'
+                    query[k] = searchterm
+                else:
+                    query[k] = form.get(k)
         return query
 
     def subscribers(self):
