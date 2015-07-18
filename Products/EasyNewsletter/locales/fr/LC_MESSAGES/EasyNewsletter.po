@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-07-12 07:34+0000\n"
+"POT-Creation-Date: 2015-07-18 16:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Gaël Pegliasco <gael.pegliasco@makina-corpus.com>\n"
 "Language-Team: Plone-fr <plone-plone-fr@lists.plone.org.>\n"
@@ -60,7 +60,7 @@ msgstr "Confirmez votre inscription au site ${portal_url}"
 msgid "Criteria"
 msgstr "Critères"
 
-#: ./browser/enl_subscribers_view.pt:144
+#: ./browser/enl_subscribers_view.pt:127
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -372,14 +372,6 @@ msgstr ""
 msgid "External Edit"
 msgstr ""
 
-#: ./browser/enl_subscribers_view.pt:59
-msgid "Filter"
-msgstr "Chercher"
-
-#: ./browser/enl_subscribers_view.pt:35
-msgid "Filters"
-msgstr "Filtres"
-
 #: ./browser/upload_csv.pt:37
 #: ./portlets/subscriber.pt:49
 msgid "First Name"
@@ -437,11 +429,11 @@ msgstr "Lettre d'informations"
 msgid "Newsletter subscriber portlet"
 msgstr ""
 
-#: ./browser/subscribers.py:239
+#: ./browser/subscribers.py:241
 msgid "No file specified."
 msgstr "Aucun fichier sélectionné"
 
-#: ./browser/subscribers.py:201
+#: ./browser/subscribers.py:203
 msgid "No subscriber selected!"
 msgstr ""
 
@@ -470,6 +462,10 @@ msgstr "Références"
 msgid "Salutation"
 msgstr "Salutation"
 
+#: ./browser/enl_subscribers_view.pt:42
+msgid "Search"
+msgstr ""
+
 #: ./browser/upload_csv.pt:58
 msgid "Select your CSV file here."
 msgstr "Sélectionnez votre fichier CSV"
@@ -484,6 +480,10 @@ msgstr "Sous dossiers"
 #: ./profiles/default/types/ENLSubscriber.xml
 msgid "Subscriber"
 msgstr "Abonné"
+
+#: ./browser/enl_subscribers_view.pt:35
+msgid "Subscriber Search"
+msgstr ""
 
 #: ./browser/templates/enl_actions_viewlet.pt:15
 msgid "Subscriberlist"
@@ -509,15 +509,15 @@ msgstr ""
 msgid "The issue test sending has been initiated."
 msgstr ""
 
-#: ./browser/subscribers.py:261
+#: ./browser/subscribers.py:263
 msgid "The number of items in the line is not correct.                         It should be 7. Check your CSV file."
 msgstr ""
 
-#: ./browser/enl_subscribers_view.pt:81
+#: ./browser/enl_subscribers_view.pt:64
 msgid "There are ${subscribers_count} subscribers"
 msgstr "Il y a ${subscribers_count} abonnés"
 
-#: ./browser/subscribers.py:275
+#: ./browser/subscribers.py:277
 msgid "This email address is already registered."
 msgstr "Cet email est déjà enregistré."
 
@@ -543,7 +543,7 @@ msgstr "Voir"
 msgid "We send you an email, please confirm this unsubscription."
 msgstr ""
 
-#: ./browser/subscribers.py:251
+#: ./browser/subscribers.py:253
 msgid "Wrong specification of the CSV file. Please correct it and retry."
 msgstr "Mauvais format du fichier CSV. Veuillez le corriger et recommencer."
 
@@ -576,7 +576,7 @@ msgid "Your subscription was successfully confirmed."
 msgstr "Votre inscription est confirmée. Merci!"
 
 #. Default: "Action"
-#: ./browser/enl_subscribers_view.pt:99
+#: ./browser/enl_subscribers_view.pt:82
 msgid "action"
 msgstr "action"
 
@@ -660,12 +660,12 @@ msgid "easynewsletter_drafts_label"
 msgstr "Brouillons"
 
 #. Default: "Export subscribers"
-#: ./browser/enl_subscribers_view.pt:163
+#: ./browser/enl_subscribers_view.pt:146
 msgid "easynewsletter_label_export_subscribers"
 msgstr "Exporter les abonnés"
 
 #. Default: "Import subscribers"
-#: ./browser/enl_subscribers_view.pt:160
+#: ./browser/enl_subscribers_view.pt:143
 msgid "easynewsletter_label_import_subscribers"
 msgstr "Importer des abonnés"
 
@@ -696,7 +696,7 @@ msgid "easynewsletter_nonmasters_label"
 msgstr ""
 
 #. Default: "There are no subscribers."
-#: ./browser/enl_subscribers_view.pt:67
+#: ./browser/enl_subscribers_view.pt:50
 msgid "easynewsletter_nosubscribers_label"
 msgstr "Il n'y a pas d'abonné."
 
@@ -759,13 +759,8 @@ msgstr ""
 msgid "firstname"
 msgstr ""
 
-#. Default: "First Name:"
-#: ./browser/enl_subscribers_view.pt:43
-msgid "firstname_filter"
-msgstr ""
-
 #. Default: "First Name"
-#: ./browser/enl_subscribers_view.pt:94
+#: ./browser/enl_subscribers_view.pt:77
 msgid "firstname_listing"
 msgstr ""
 
@@ -807,7 +802,7 @@ msgid "help_sendToAllPloneMembers"
 msgstr "Si sélectionné, la lettre sera adressée à tous les membres du site. S'il y a des abonnés à la lettre, ils la recevront aussi."
 
 #. Default: "Import / Export"
-#: ./browser/enl_subscribers_view.pt:158
+#: ./browser/enl_subscribers_view.pt:141
 msgid "import_export"
 msgstr "Import / Export"
 
@@ -825,11 +820,6 @@ msgstr ""
 #: ./skins/EasyNewsletter/easynewsletter_view.pt:46
 msgid "issues_label"
 msgstr "Exemplaires de la lettre d'informations"
-
-#. Default: "Items per page:"
-#: ./browser/enl_subscribers_view.pt:52
-msgid "items_per_page_filter"
-msgstr ""
 
 #. Default: "Newsletter Template"
 #: ./content/ENLTemplate.py:18
@@ -948,7 +938,7 @@ msgid "label_subscriber_portlet_description"
 msgstr ""
 
 #. Default: "Language"
-#: ./browser/enl_subscribers_view.pt:96
+#: ./browser/enl_subscribers_view.pt:79
 msgid "language"
 msgstr ""
 
@@ -957,13 +947,8 @@ msgstr ""
 msgid "lastname"
 msgstr ""
 
-#. Default: "Last Name:"
-#: ./browser/enl_subscribers_view.pt:46
-msgid "lastname_filter"
-msgstr ""
-
 #. Default: "Last Name"
-#: ./browser/enl_subscribers_view.pt:95
+#: ./browser/enl_subscribers_view.pt:78
 msgid "lastname_listing"
 msgstr ""
 
@@ -993,15 +978,10 @@ msgid "listingheader_title"
 msgstr "Titre"
 
 #. Default: "Email"
-#: ./browser/enl_subscribers_view.pt:91
+#: ./browser/enl_subscribers_view.pt:74
 #, fuzzy
 msgid "mail"
 msgstr "Email"
-
-#. Default: "Email:"
-#: ./browser/enl_subscribers_view.pt:40
-msgid "mail_filter"
-msgstr ""
 
 #. Default: "Mr"
 #: ./portlets/subscriber.pt:37
@@ -1024,7 +1004,7 @@ msgid "name_prefix"
 msgstr ""
 
 #. Default: "Prefix"
-#: ./browser/enl_subscribers_view.pt:93
+#: ./browser/enl_subscribers_view.pt:76
 msgid "name_prefix_listing"
 msgstr ""
 
@@ -1043,13 +1023,8 @@ msgstr "Enregistrements non importés"
 msgid "organization"
 msgstr "Organisation"
 
-#. Default: "Organization:"
-#: ./browser/enl_subscribers_view.pt:49
-msgid "organization_filter"
-msgstr ""
-
 #. Default: "Organization"
-#: ./browser/enl_subscribers_view.pt:97
+#: ./browser/enl_subscribers_view.pt:80
 msgid "organization_listing"
 msgstr ""
 
@@ -1064,12 +1039,12 @@ msgid "salutation"
 msgstr "Salutation"
 
 #. Default: "Salutation"
-#: ./browser/enl_subscribers_view.pt:92
+#: ./browser/enl_subscribers_view.pt:75
 msgid "salutation_listing"
 msgstr ""
 
 #. Default: "Source"
-#: ./browser/enl_subscribers_view.pt:98
+#: ./browser/enl_subscribers_view.pt:81
 msgid "source"
 msgstr "Source"
 
@@ -1078,14 +1053,14 @@ msgstr "Source"
 msgid "sub_topics_label"
 msgstr "Sous élément"
 
-#: ./browser/subscribers.py:208
+#: ./browser/subscribers.py:210
 msgid "subscriber/s deleted successfully"
 msgstr "Abonné(s) supprimé(s) avec succès"
 
-#. Default: "This filters affect only imported subscribers, not those coming from external sources."
+#. Default: "This search affects only local subscribers, not those coming from external sources."
 #: ./browser/enl_subscribers_view.pt:36
-msgid "subscribers_filter_note"
-msgstr "Ces filtres affecteront seulement les abonnés, pas ceux provenant de sources externes."
+msgid "subscribers_search_note"
+msgstr ""
 
 #. Default: "Your subscription was successfully confirmed."
 #: ./config.py:43
