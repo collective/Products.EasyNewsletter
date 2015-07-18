@@ -72,3 +72,14 @@ def add_catalog_indexes(context, logger=None):
     if len(indexables) > 0:
         logger.info("Indexing new indexes %s.", ', '.join(indexables))
         catalog.manage_reindexIndex(ids=indexables)
+
+
+def reindex_subscribers(context):
+    """Reindex subscribers"""
+
+    catalog = api.portal.get_tool("portal_catalog")
+    subscribers = catalog(portal_type='ENLSubscriber')
+
+    for subscriber in subscribers:
+        obj = subscriber.getObject()
+        obj.reindexObject()
