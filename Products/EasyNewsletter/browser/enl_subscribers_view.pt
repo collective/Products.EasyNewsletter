@@ -25,40 +25,23 @@
                          subscribers_number python:len(subscribers) ;
                          Batch python:modules['Products.CMFPlone'].Batch;
                          b_start python:request.get('b_start',0);
-                         b_size request/b_size|python:30;
+                         b_size request/b_size|python:100;
                          batch_base_url here/@@plone_context_state/current_base_url;
                          batch python:Batch(subscribers, b_size, int(b_start), orphan=1)">
 
             <a href="createObject?type_name=ENLSubscriber" i18n:translate="add_subscriber">Add subscriber</a>
             <div class="search">
               <fieldset>
-                <legend i18n:translate="">Filters</legend>
-                <p class="discreet" i18n:translate="subscribers_filter_note">
-                  This filters affect only imported subscribers, not those coming from external sources.
+                <legend i18n:translate="">Subscriber Search</legend>
+                <p class="discreet" i18n:translate="subscribers_search_note">
+                  This search affects only local subscribers, not those coming from external sources.
                 </p>
                 <form tal:attributes="action view/__name__">
-                  <span class="label" i18n:translate="mail_filter">Email:</span>
-                  <input type="text" name="email"
-                         tal:attributes="value request/email|nothing" /><br />
-                  <span class="label" i18n:translate="firstname_filter">First Name:</span>
-                  <input type="text" name="firstname"
-                         tal:attributes="value request/firstname|nothing" /><br />
-                  <span class="label" i18n:translate="lastname_filter">Last Name:</span>
-                  <input type="text" name="lastname"
-                         tal:attributes="value request/lastname|nothing" /><br />
-                  <span class="label" i18n:translate="organization_filter">Organization:</span>
-                  <input type="text" name="organization"
-                         tal:attributes="value request/organization|nothing" /><br />
-                  <span class="label" i18n:translate="items_per_page_filter">Items per page:</span>
-                  <select name="b_size:int">
-                    <option tal:repeat="opt python:range(10,110,10)"
-                            tal:attributes="value opt;
-                                            selected python:request.get('b_size',10)==opt and 'selected' or None"
-                            tal:content="opt" />
-                  </select>
+                  <input type="text" name="SearchableText"
+                         tal:attributes="value request/email|nothing" />
                   <input type="submit" class="standalone"
                          name="submit"
-                         value="Filter"
+                         value="Search"
                          i18n:attributes="value" />
                 </form>
               </fieldset>

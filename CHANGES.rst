@@ -81,6 +81,9 @@ Changelog
 - Marked E-Mail, Salutation and Name as required if present in subscription portlet.
   [agitator]
 
+- Change subscriber search into fulltext search via SearchableText
+  [agitator]
+
 
 2.6.14 (2014-07-10)
 -------------------

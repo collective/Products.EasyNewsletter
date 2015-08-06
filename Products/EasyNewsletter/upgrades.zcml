@@ -45,4 +45,12 @@
           handler=".upgrades.fullname_to_first_and_lastname"
           profile="Products.EasyNewsletter:default"/>
 
+  <genericsetup:upgradeStep
+          title="Reindex subscribers for SearchableText index"
+          description=""
+          source="3002"
+          destination="3003"
+          handler=".upgrades.reindex_subscribers"
+          profile="Products.EasyNewsletter:default"/>
+
 </configure>

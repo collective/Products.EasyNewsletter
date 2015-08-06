@@ -33,6 +33,7 @@
       zcml:condition="installed collective.zamqp"
   />
 
+  <include file="indexers.zcml" />
   <include file="profiles.zcml" />
   <include file="upgrades.zcml" />
 

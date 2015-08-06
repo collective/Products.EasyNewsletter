@@ -25,8 +25,6 @@ class EasyNewsletterSetupTests(unittest.TestCase):
     def test_catalog(self):
         indexes = self.portal.portal_catalog.indexes()
         self.assertEqual('email' in indexes, True)
-        self.assertEqual('fullname' in indexes, True)
-        self.assertEqual('organization' in indexes, True)
 
     def test_newsletter_subtypes_in_meta_types_not_to_list(self):
         # Hide newsletter subtypes from navigation
