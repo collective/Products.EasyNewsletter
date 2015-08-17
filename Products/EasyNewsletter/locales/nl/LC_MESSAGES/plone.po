@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-07-18 16:25+0000\n"
+"POT-Creation-Date: 2015-08-17 10:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9,83 +9,84 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"Language-Code: en\n"
-"Language-Name: English\n"
+"Language-Code: nl\n"
+"Language-Name: Dutch\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: DOMAIN\n"
+"Domain: plone\n"
+"X-Is-Fallback-For: nl-be nl-nl\n"
 
 #: ./profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "- Essentially a workflow with no transitions, but has a Published state, so portlets and applications that expect that state will continue to work."
-msgstr ""
+msgstr "- Een workflow zonder overgangen, maar met een gepubliceerd status, zodat portlet en add'ons die deze status verwachten goed blijven werken."
 
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Aggregate content"
-msgstr ""
+msgstr "Inhoud samenvoegen"
 
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Copy as draft"
-msgstr ""
+msgstr "Kopieer als concept"
 
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Copy as master"
-msgstr ""
+msgstr "Kopieer als sjabloon"
 
 #: ./profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Draft"
-msgstr ""
+msgstr "Concept"
 
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Edit criteria"
-msgstr ""
+msgstr "Bewerk criteria"
 
 #: ./profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Make draft"
-msgstr ""
+msgstr "Maak concept"
 
 #: ./profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Make master"
-msgstr ""
+msgstr "Maak sjabloon"
 
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Manage subcollections"
-msgstr ""
+msgstr "Beheer subverzamelingen"
 
 #: ./profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Master"
-msgstr ""
+msgstr "Sjabloon"
 
 #: ./profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Revert sending"
-msgstr ""
+msgstr "Herstel versturen"
 
 #: ./profiles/default/types/ENLIssue.xml
 #: ./profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Send"
-msgstr ""
+msgstr "Verstuur"
 
 #: ./profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Sending"
-msgstr ""
+msgstr "Aan het versturen"
 
 #: ./profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Sending Completed"
-msgstr ""
+msgstr "Versturen afgerond"
 
 #: ./profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Sent"
-msgstr ""
+msgstr "Verstuurd"
 
 #: ./profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Single State Workflow for a EasyNewsletter Issue"
-msgstr ""
+msgstr "Single State workflow voor een EasyNewsletter editie"
 
 #. Default: "Portlet to add subscribers."
 #: ./profiles/default/portlets.xml
 msgid "description_newsletter_subscriber_portlet"
-msgstr ""
+msgstr "Portlet voor het aanmelden van abonnees"
 
 #. Default: "Newsletter subscriber portlet"
 #: ./profiles/default/portlets.xml
 msgid "title_newsletter_subscriber_portlet"
-msgstr ""
+msgstr "Nieuwsbrief aanmeldportlet"
 
