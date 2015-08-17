@@ -16,15 +16,3 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: plone\n"
-
-#. Default: "Newsletter subscriber portlet"
-#: ../profiles/default/portlets.xml
-msgid "title_newsletter_subscriber_portlet"
-msgstr ""
-
-#. Default: "Portlet to add subscribers."
-#: ../profiles/default/portlets.xml
-msgid "description_newsletter_subscriber_portlet"
-msgstr ""
-
-
