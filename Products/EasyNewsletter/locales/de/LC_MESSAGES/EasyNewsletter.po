@@ -777,7 +777,7 @@ msgstr "Dieses Template wird für die Generierung des HTML-Newsletters versendet
 #. Default: "Search for the accordingly newsletter, choose one and apply."
 #: ./portlets/subscriber.py:32
 msgid "help_newsletter_path"
-msgstr "Suchen sie den gewünschten Newsletter und wählen sie disen aus."
+msgstr "Suchen sie den gewünschten Newsletter und wählen sie diesen aus."
 
 #. Default: "If checked, the newsletter/mailing is send to all                     plone members. If there are subscribers inside the                     newsletter, they get the letter anyway. Changing this                     setting does not affect already existing issues."
 #: ./content/EasyNewsletter.py:192
