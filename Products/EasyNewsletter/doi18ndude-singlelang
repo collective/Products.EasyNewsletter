@@ -1,0 +1,64 @@
+#!/bin/sh
+#
+# Shell script to manage .po files.
+#
+# Run this file in the folder main __init__.py of product
+#
+# E.g. if your product is yourproduct.name
+# you run this file in yourproduct.name/yourproduct/name
+#
+#
+# Copyright 2009 Twinapex Research http://www.twinapex.com
+#
+
+# This is a slighty modified version of the doi81ndude script to only scan for
+# one or a few language explicitly in the LANGUAGE variable, instead of scanning
+# the locales folder, so you don't update language files you're not working on
+# as a translator.
+
+# Assume the product name is the current folder name
+# CURRENT_PATH=`pwd`
+CATALOGNAME="EasyNewsletter"
+
+# List of languages
+#LANGUAGES="en de es fr it nl pt_BR"
+LANGUAGES="nl"
+
+# Create locales folder structure for languages
+install -d locales
+for lang in $LANGUAGES; do
+    install -d locales/$lang/LC_MESSAGES
+done
+
+# Rebuild .pot
+../../bin/i18ndude rebuild-pot --pot locales/$CATALOGNAME.pot --merge locales/manual.pot --create $CATALOGNAME .
+../../bin/i18ndude rebuild-pot --pot locales/plone.pot --merge locales/plone-manual.pot --create plone ./profiles
+
+# Compile po files
+for lang in $LANGUAGES; do
+
+    if test -d locales/$lang/LC_MESSAGES; then
+
+        PO=locales/$lang/LC_MESSAGES/${CATALOGNAME}.po
+        POP=locales/$lang/LC_MESSAGES/plone.po
+
+        # Create po file if not exists
+        touch $PO
+        touch $POP
+
+        # Sync po file
+        echo "Syncing $PO"
+        ../../bin/i18ndude sync --pot locales/$CATALOGNAME.pot $PO
+        echo "Syncing $POP"
+        ../../bin/i18ndude sync --pot locales/plone.pot $POP
+
+        # Compile .po to .mo
+        MO=locales/$lang/LC_MESSAGES/${CATALOGNAME}.mo
+        MOP=locales/$lang/LC_MESSAGES/plone.mo
+        echo "Compiling $MO"
+        msgfmt -o $MO locales/$lang/LC_MESSAGES/${CATALOGNAME}.po
+        echo "Compiling $MOP"
+        msgfmt -o $MOP locales/$lang/LC_MESSAGES/plone.po
+    fi
+done
+
