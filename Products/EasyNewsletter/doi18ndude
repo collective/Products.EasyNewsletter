@@ -18,6 +18,10 @@ CATALOGNAME="EasyNewsletter"
 # List of languages
 LANGUAGES="en de es fr it nl pt_BR"
 
+# Location of i18ndude
+I18NDUDE="../../bin/i18ndude"
+
+
 # Create locales folder structure for languages
 install -d locales
 for lang in $LANGUAGES; do
@@ -25,8 +29,8 @@ for lang in $LANGUAGES; do
 done
 
 # Rebuild .pot
-../../bin/i18ndude rebuild-pot --pot locales/$CATALOGNAME.pot --merge locales/manual.pot --create $CATALOGNAME .
-../../bin/i18ndude rebuild-pot --pot locales/plone.pot --merge locales/plone-manual.pot --create plone ./profiles
+$I18NDUDE rebuild-pot --pot locales/$CATALOGNAME.pot --merge locales/manual.pot --create $CATALOGNAME .
+$I18NDUDE rebuild-pot --pot locales/plone.pot --merge locales/plone-manual.pot --create plone ./profiles
 
 # Compile po files
 for lang in $(find locales -mindepth 1 -maxdepth 1 -type d); do
@@ -42,9 +46,9 @@ for lang in $(find locales -mindepth 1 -maxdepth 1 -type d); do
 
         # Sync po file
         echo "Syncing $PO"
-        ../../bin/i18ndude sync --pot locales/$CATALOGNAME.pot $PO
+        $I18NDUDE sync --pot locales/$CATALOGNAME.pot $PO
         echo "Syncing $POP"
-        ../../bin/i18ndude sync --pot locales/plone.pot $POP
+        $I18NDUDE sync --pot locales/plone.pot $POP
 
         # Compile .po to .mo
         MO=$lang/LC_MESSAGES/${CATALOGNAME}.mo
