@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-08-17 10:44+0000\n"
+"POT-Creation-Date: 2015-08-21 09:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Wim Boucquaert - wimbou <wim.boucquaert@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -632,13 +632,18 @@ msgstr ""
 #. Default: "Back to newsletter"
 #: ./browser/issue_send_form.pt:18
 #: ./skins/EasyNewsletter/enl_drafts_view.pt:23
-#: ./skins/EasyNewsletter/enl_masters_view.pt:23
+#: ./skins/EasyNewsletter/enl_masters_view.pt:25
 msgid "easynewsletter_backtonewsletter_label"
 msgstr ""
 
 #. Default: "subscribe"
 #: ./portlets/subscriber.pt:71
 msgid "easynewsletter_button_label"
+msgstr ""
+
+#. Default: "Drafts are newsletter editions that are still in the writing process and unsent."
+#: ./skins/EasyNewsletter/enl_drafts_view.pt:29
+msgid "easynewsletter_drafts_description"
 msgstr ""
 
 #. Default: "Drafts"
@@ -654,6 +659,11 @@ msgstr ""
 #. Default: "Import subscribers"
 #: ./browser/enl_subscribers_view.pt:143
 msgid "easynewsletter_label_import_subscribers"
+msgstr ""
+
+#. Default: "Masters are saved newsletters that are hidden from normal view which you can re-use as a basis when you start writng new editions."
+#: ./skins/EasyNewsletter/enl_masters_view.pt:31
+msgid "easynewsletter_masters_description"
 msgstr ""
 
 #. Default: "Masters"
@@ -672,12 +682,12 @@ msgid "easynewsletter_non_issues_label"
 msgstr ""
 
 #. Default: "There are no drafts."
-#: ./skins/EasyNewsletter/enl_drafts_view.pt:30
+#: ./skins/EasyNewsletter/enl_drafts_view.pt:34
 msgid "easynewsletter_nondrafts_label"
 msgstr ""
 
 #. Default: "There are no masters."
-#: ./skins/EasyNewsletter/enl_masters_view.pt:30
+#: ./skins/EasyNewsletter/enl_masters_view.pt:37
 msgid "easynewsletter_nonmasters_label"
 msgstr ""
 
@@ -687,7 +697,7 @@ msgid "easynewsletter_nosubscribers_label"
 msgstr ""
 
 #. Default: "There are no templates."
-#: ./skins/EasyNewsletter/enl_templates_view.pt:28
+#: ./skins/EasyNewsletter/enl_templates_view.pt:32
 msgid "easynewsletter_notemplates_label"
 msgstr ""
 
@@ -705,6 +715,11 @@ msgstr ""
 #: ./browser/enl_subscribers_view.pt:20
 #: ./browser/upload_csv.pt:20
 msgid "easynewsletter_subcribers_label"
+msgstr ""
+
+#. Default: "With templates you can customise the generation of the easynewsletter html output and create different output for the same content."
+#: ./skins/EasyNewsletter/enl_templates_view.pt:25
+msgid "easynewsletter_templates_description"
 msgstr ""
 
 #. Default: "Templates"

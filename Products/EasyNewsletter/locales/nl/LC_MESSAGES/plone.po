@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-08-17 10:44+0000\n"
+"POT-Creation-Date: 2015-08-21 09:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,11 +29,14 @@ msgstr "Kopieer als concept"
 
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Copy as master"
-msgstr "Kopieer als sjabloon"
+msgstr "Kopieer als master"
 
 #: ./profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Draft"
 msgstr "Concept"
+
+msgid "Drafts"
+msgstr "Concepten"
 
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Edit criteria"
@@ -45,7 +48,7 @@ msgstr "Maak concept"
 
 #: ./profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Make master"
-msgstr "Maak sjabloon"
+msgstr "Maak master"
 
 #: ./profiles/default/types/ENLIssue.xml
 msgid "Manage subcollections"
@@ -53,7 +56,7 @@ msgstr "Beheer subverzamelingen"
 
 #: ./profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Master"
-msgstr "Sjabloon"
+msgstr "Master"
 
 #: ./profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Revert sending"
@@ -79,6 +82,9 @@ msgstr "Verstuurd"
 #: ./profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Single State Workflow for a EasyNewsletter Issue"
 msgstr "Single State workflow voor een EasyNewsletter editie"
+
+msgid "Templates"
+msgstr "Sjablonen"
 
 #. Default: "Portlet to add subscribers."
 #: ./profiles/default/portlets.xml

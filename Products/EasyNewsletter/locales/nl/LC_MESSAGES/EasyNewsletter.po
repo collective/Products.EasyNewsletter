@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Products.EasyNewsletter\n"
-"POT-Creation-Date: 2015-08-17 10:44+0000\n"
+"POT-Creation-Date: 2015-08-21 09:18+0000\n"
 "PO-Revision-Date: 2011-08-10 15:41+0100\n"
 "Last-Translator: Fred van Dijk - fredvd <f.vandijk@zestsoftware.nl>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,7 +62,7 @@ msgstr "Verwijderen"
 
 #: ./browser/templates/enl_actions_viewlet.pt:7
 msgid "Drafts"
-msgstr "Kladversies"
+msgstr "Concepten"
 
 #: ./portlets/subscriber.pt:66
 msgid "E-Mail"
@@ -631,7 +631,7 @@ msgstr "Opslaan & bijwerken"
 #. Default: "Back to newsletter"
 #: ./browser/issue_send_form.pt:18
 #: ./skins/EasyNewsletter/enl_drafts_view.pt:23
-#: ./skins/EasyNewsletter/enl_masters_view.pt:23
+#: ./skins/EasyNewsletter/enl_masters_view.pt:25
 msgid "easynewsletter_backtonewsletter_label"
 msgstr "Terug naar de nieuwsbrief"
 
@@ -639,6 +639,11 @@ msgstr "Terug naar de nieuwsbrief"
 #: ./portlets/subscriber.pt:71
 msgid "easynewsletter_button_label"
 msgstr "Inschrijven"
+
+#. Default: "Drafts are newsletter editions that are still in the writing process and unsent."
+#: ./skins/EasyNewsletter/enl_drafts_view.pt:29
+msgid "easynewsletter_drafts_description"
+msgstr "Concepten zijn nieuwsbrief-editites waaraan u schrijft en die nog niet verstuurd zijn."
 
 #. Default: "Drafts"
 #: ./skins/EasyNewsletter/enl_drafts_view.pt:20
@@ -655,10 +660,15 @@ msgstr "Abonnees exporteren"
 msgid "easynewsletter_label_import_subscribers"
 msgstr "Abonnees importeren"
 
+#. Default: "Masters are saved newsletters that are hidden from normal view which you can re-use as a basis when you start writng new editions."
+#: ./skins/EasyNewsletter/enl_masters_view.pt:31
+msgid "easynewsletter_masters_description"
+msgstr "Masters zijn opgeslagen nieuwsbrieven die voor gewone gebruikers niet zichtbaar zijn en welke u kunt gebruiken als basis voor de inhoud van nieuwe uitgaven van de nieuwsbrief."
+
 #. Default: "Masters"
 #: ./skins/EasyNewsletter/enl_masters_view.pt:20
 msgid "easynewsletter_masters_label"
-msgstr "Sjablonen"
+msgstr "Masters"
 
 #. Default: "The newsletter was already sent."
 #: ./browser/issue_send_form.pt:127
@@ -671,12 +681,12 @@ msgid "easynewsletter_non_issues_label"
 msgstr "Er zijn geen edities"
 
 #. Default: "There are no drafts."
-#: ./skins/EasyNewsletter/enl_drafts_view.pt:30
+#: ./skins/EasyNewsletter/enl_drafts_view.pt:34
 msgid "easynewsletter_nondrafts_label"
 msgstr "Er zijn geen concept-edities."
 
 #. Default: "There are no masters."
-#: ./skins/EasyNewsletter/enl_masters_view.pt:30
+#: ./skins/EasyNewsletter/enl_masters_view.pt:37
 msgid "easynewsletter_nonmasters_label"
 msgstr "Er zijn geen sjablonen"
 
@@ -686,7 +696,7 @@ msgid "easynewsletter_nosubscribers_label"
 msgstr "Er zijn geen abonnees."
 
 #. Default: "There are no templates."
-#: ./skins/EasyNewsletter/enl_templates_view.pt:28
+#: ./skins/EasyNewsletter/enl_templates_view.pt:32
 msgid "easynewsletter_notemplates_label"
 msgstr "Er zijn geen sjablonen."
 
@@ -705,6 +715,11 @@ msgstr "Verzend editie"
 #: ./browser/upload_csv.pt:20
 msgid "easynewsletter_subcribers_label"
 msgstr "Abonnees"
+
+#. Default: "With templates you can customise the generation of the easynewsletter html output and create different output for the same content."
+#: ./skins/EasyNewsletter/enl_templates_view.pt:25
+msgid "easynewsletter_templates_description"
+msgstr "Met sjablonen past u de htmlcode van de nieuwsbrief aan en kunnen nieuwsbrieven met dezelfde inhoud een verschillende stijl krijgen."
 
 #. Default: "Templates"
 #: ./skins/EasyNewsletter/enl_templates_view.pt:21
