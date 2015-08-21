@@ -688,7 +688,7 @@ msgstr "Er zijn geen concept-edities."
 #. Default: "There are no masters."
 #: ./skins/EasyNewsletter/enl_masters_view.pt:37
 msgid "easynewsletter_nonmasters_label"
-msgstr "Er zijn geen sjablonen"
+msgstr "Er zijn geen masters."
 
 #. Default: "There are no subscribers."
 #: ./browser/enl_subscribers_view.pt:50
