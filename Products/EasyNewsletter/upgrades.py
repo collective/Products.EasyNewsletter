@@ -50,30 +50,6 @@ def fullname_to_first_and_lastname(context):
     )
 
 
-def add_catalog_indexes(context, logger=None):
-    """Add aditional indexes to the portal_catalog."""
-
-    catalog = api.portal.get_tool("portal_catalog")
-
-    indexes = catalog.indexes()
-    wanted = (('fullname', 'FieldIndex'),
-              ('firstname', 'FieldIndex'),
-              ('lastname', 'FieldIndex'),
-              ('nl_language', 'FieldIndex'),
-              ('email', 'FieldIndex'),
-              ('organization', 'FieldIndex'),
-              )
-    indexables = []
-    for name, meta_type in wanted:
-        if name not in indexes:
-            catalog.addIndex(name, meta_type)
-            indexables.append(name)
-            logger.info("Added %s for field %s.", meta_type, name)
-    if len(indexables) > 0:
-        logger.info("Indexing new indexes %s.", ', '.join(indexables))
-        catalog.manage_reindexIndex(ids=indexables)
-
-
 def reindex_subscribers(context):
     """Reindex subscribers"""
 

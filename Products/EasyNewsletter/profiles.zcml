@@ -29,13 +29,4 @@
       description=""
       handler="Products.EasyNewsletter.setuphandlers.import_various" />
 
-  <!-- Register the upgrade step -->
-  <genericsetup:upgradeStep
-      title="Add catalog indexes"
-      description=""
-      source="1"
-      destination="2"
-      handler="Products.EasyNewsletter.setuphandlers.add_catalog_indexes"
-      profile="Products.EasyNewsletter:default" />
-
 </configure>

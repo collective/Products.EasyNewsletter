@@ -6,11 +6,19 @@
 
 
   <genericsetup:upgradeStep
+      title="Add catalog indexes"
+      description=""
+      source="1"
+      destination="2"
+      handler="Products.EasyNewsletter.setuphandlers.add_catalog_indexes"
+      profile="Products.EasyNewsletter:default" />
+
+  <genericsetup:upgradeStep
       title="Add firstname and lastname indexes"
       description=""
       source="2"
       destination="3"
-      handler=".upgrades.add_catalog_indexes"
+      handler=".setuphandlers.add_catalog_indexes"
       profile="Products.EasyNewsletter:default" />
 
   <genericsetup:upgradeStep
@@ -26,7 +34,7 @@
           description=""
           source="3"
           destination="3000"
-          handler=".upgrades.add_catalog_indexes"
+          handler=".setuphandlers.add_catalog_indexes"
           profile="Products.EasyNewsletter:default" />
 
   <genericsetup:upgradeStep
