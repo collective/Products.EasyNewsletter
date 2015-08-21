@@ -5,6 +5,11 @@ Changelog
 3.0a1 (unreleased)
 ------------------
 
+- Add extra textlines and corresponding translations id's in the drafts,
+  masters and templates overview to clarify the difference in usage between 
+  them.
+  [fredvd]
+
 - Update Spanish translation
   [macagua]
 

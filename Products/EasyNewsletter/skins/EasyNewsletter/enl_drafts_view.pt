@@ -26,6 +26,10 @@
            Back to newsletter
         </a>
 
+        <p i18n:translate="easynewsletter_drafts_description">
+            Drafts are newsletter editions that are still in the writing process and unsent.
+        </p>
+
         <div tal:define="newsletters context/get_draft_issues">
             <div tal:condition="not: newsletters"
                  i18n:translate="easynewsletter_nondrafts_label">
