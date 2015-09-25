@@ -499,7 +499,7 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
         for group in groups:
             group_id = group.getId()
             group_properties[group_id] = {
-                'title': group.getGroupTitleOrName(),
+                'title': group.getGroupTitleOrName().decode('utf8'),
                 'email': group.getProperty('email'),
             }
         results = [
