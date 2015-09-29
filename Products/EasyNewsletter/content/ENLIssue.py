@@ -17,6 +17,8 @@ from email.Header import Header
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from plone import api
+from plone.namedfile.scaling import ImageScale
+from urlparse import urlparse
 from zope.component import getUtility
 from zope.component import queryUtility
 from zope.component import subscribers
