@@ -22,3 +22,6 @@ msgstr ""
 
 msgid "Templates"
 msgstr ""
+
+msgid "Subscribers"
+msgstr ""

@@ -96,3 +96,5 @@ msgstr "Portlet voor het aanmelden van abonnees"
 msgid "title_newsletter_subscriber_portlet"
 msgstr "Nieuwsbrief aanmeldportlet"
 
+msgid "Subscribers"
+msgstr "Abonnees"

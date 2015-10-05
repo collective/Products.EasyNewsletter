@@ -85,7 +85,7 @@ msgstr ""
 msgid "Single State Workflow for a EasyNewsletter Issue"
 msgstr ""
 
-msgid "Templates"
+msgid "Subscribers"
 msgstr ""
 
 #. Default: "Portlet to add subscribers."
