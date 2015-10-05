@@ -2,7 +2,7 @@
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import setRoles
-import unittest2 as unittest
+import unittest
 
 
 class EasyNewsletterSetupTests(unittest.TestCase):

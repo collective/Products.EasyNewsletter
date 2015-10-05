@@ -13,7 +13,7 @@ from plone.testing.z2 import Browser
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
 from zope.component import getUtility
-import unittest2 as unittest
+import unittest
 
 
 GLOBALS = globals()

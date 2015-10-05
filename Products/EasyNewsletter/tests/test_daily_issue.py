@@ -10,7 +10,7 @@ from plone.app.testing import setRoles
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
-import unittest2 as unittest
+import unittest
 
 
 class DailyIssueBaseTestCase(unittest.TestCase):

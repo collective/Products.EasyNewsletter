@@ -16,7 +16,7 @@ from zope.component import getMultiAdapter
 from zope.component import getSiteManager
 from zope.component import queryUtility
 import os
-import unittest2 as unittest
+import unittest
 
 GLOBALS = globals()
 TESTS_HOME = package_home(GLOBALS)
