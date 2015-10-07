@@ -19,5 +19,5 @@ except ImportError:
 def safe_portal_encoding(string):
     portal = getSite()
     props = portal.portal_properties.site_properties
-    charset = props.getProperty("default_charset")
+    charset = props.getProperty("default_charset", 'utf8')
     return safe_unicode(string).encode(charset)
