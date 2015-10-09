@@ -54,6 +54,7 @@ class IssueView(BrowserView):
             )
 
         self.send_issue_immediately()
+        return self.request.response.redirect(self.context.absolute_url())
 
     def send_issue_immediately(self):
         """convinience view for cron and similar
