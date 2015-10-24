@@ -660,7 +660,7 @@ msgstr "Abonnees exporteren"
 msgid "easynewsletter_label_import_subscribers"
 msgstr "Abonnees importeren"
 
-#. Default: "Masters are saved newsletters that are hidden from normal view which you can re-use as a basis when you start writng new editions."
+#. Default: "Masters are saved newsletters that are hidden from normal view which you can re-use as a basis when you start writing new editions."
 #: ./skins/EasyNewsletter/enl_masters_view.pt:31
 msgid "easynewsletter_masters_description"
 msgstr "Masters zijn opgeslagen nieuwsbrieven die voor gewone gebruikers niet zichtbaar zijn en welke u kunt gebruiken als basis voor de inhoud van nieuwe uitgaven van de nieuwsbrief."

@@ -661,7 +661,7 @@ msgstr ""
 msgid "easynewsletter_label_import_subscribers"
 msgstr ""
 
-#. Default: "Masters are saved newsletters that are hidden from normal view which you can re-use as a basis when you start writng new editions."
+#. Default: "Masters are saved newsletters that are hidden from normal view which you can re-use as a basis when you start writing new editions."
 #: ./skins/EasyNewsletter/enl_masters_view.pt:31
 msgid "easynewsletter_masters_description"
 msgstr ""

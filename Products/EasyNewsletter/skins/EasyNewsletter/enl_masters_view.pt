@@ -20,8 +20,8 @@
             <span tal:omit-tag=""
                   i18n:translate="easynewsletter_masters_label">Masters</span>
         </h1>
-        
-        
+
+
         <a class="link-parent"
            tal:attributes="href context/aq_parent/absolute_url"
            i18n:translate="easynewsletter_backtonewsletter_label">
@@ -30,9 +30,9 @@
 
         <p i18n:translate="easynewsletter_masters_description">
             Masters are saved newsletters that are hidden from normal view which
-            you can re-use as a basis when you start writng new editions.
+            you can re-use as a basis when you start writing new editions.
         </p>
-        
+
         <div tal:define="newsletters context/get_master_issues">
             <div tal:condition="not: newsletters"
                  i18n:translate="easynewsletter_nonmasters_label">
