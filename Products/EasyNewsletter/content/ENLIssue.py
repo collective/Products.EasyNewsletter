@@ -614,13 +614,11 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             else:
                 if hasattr(o, "_data"):  # file-based
                     image = MIMEImage(o._data)
-
                 elif hasattr(o, "data"):
                     if plone_namedfile and isinstance(o, ImageScale):
                         image = MIMEImage(o.data.data)  # zodb-based dx image
                     else:
                         image = MIMEImage(o.data)  # zodb-based
-
                 elif hasattr(o, "GET"):
                     image = MIMEImage(o.GET())  # z3 resource image
                 else:
