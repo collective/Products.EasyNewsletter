@@ -123,7 +123,7 @@ msgstr "z.B. Titel (Dr.)"
 #. No translation needed
 #: ./content/ENLSubscriber.py:44
 msgid "EasyNewsletter_help_nl_language"
-msgstr "Keine Übersetzung notwendig"
+msgstr ""
 
 #. Default: "Choose Plone Groups which members should                     receive the newsletter. Changing this setting does not                     affect already existing issues."
 #: ./content/EasyNewsletter.py:226
@@ -138,7 +138,7 @@ msgstr "Wählen Sie hier die Plone-Nutzer aus, die den Newsletter erhalten solle
 #. No translation needed
 #: ./content/ENLSubscriber.py:30
 msgid "EasyNewsletter_help_salutation"
-msgstr "Keine Übersetzung notwendig"
+msgstr ""
 
 #. Default: "Define here possible salutations for subscriber.                     One salutation per line in the form of: \"mr|Dear Mr.\".                     The left hand value \"mr\" or \"ms\" is mapped to salutation                     of each subscriber and then the right hand value, which                     you can customize is used as salutation."
 #: ./content/EasyNewsletter.py:89
