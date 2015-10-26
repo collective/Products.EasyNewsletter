@@ -45,6 +45,16 @@ else:
     fmp_tool = True
 
 try:
+    pkg_resources.get_distribution('plone.namedfile')
+except pkg_resources.DistributionNotFound:
+    plone_namedfile = False
+else:
+    from plone.namedfile.scaling import (
+        ImageScale
+    )
+    plone_namedfile = True
+
+try:
     pkg_resources.get_distribution('collective.zamqp')
 except pkg_resources.DistributionNotFound:
     has_zamqp = False
@@ -560,10 +570,12 @@ class ENLIssue(ATTopic, atapi.BaseContent):
 
         return text, text_plain
 
-    def _get_images_to_attach(self, image_urls):
+    def _get_images_to_attach(self, image_urls):  # noqa
+        # this should really be refactored!
         image_number = 0
         images_to_attach = []
         reference_tool = getToolByName(self, 'reference_catalog')
+
         for image_url in image_urls:
             try:
                 image_url = urlparse(image_url)[2]
@@ -602,8 +614,13 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             else:
                 if hasattr(o, "_data"):  # file-based
                     image = MIMEImage(o._data)
+
                 elif hasattr(o, "data"):
-                    image = MIMEImage(o.data)  # zodb-based
+                    if plone_namedfile and isinstance(o, ImageScale):
+                        image = MIMEImage(o.data.data)  # zodb-based dx image
+                    else:
+                        image = MIMEImage(o.data)  # zodb-based
+
                 elif hasattr(o, "GET"):
                     image = MIMEImage(o.GET())  # z3 resource image
                 else:

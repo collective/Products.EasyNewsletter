@@ -5,11 +5,14 @@ Changelog
 3.0a1 (unreleased)
 ------------------
 
+- Fixed usage of inline images from plone.app.contenttypes.
+  [agitator]
+
 - Clean up upgrade steps for adding catalog indexes. There's only one method in   setuphandlers now that adds indexes when they not already exist.
   [fredvd]
 
 - Add extra textlines and corresponding translations id's in the drafts,
-  masters and templates overview to clarify the difference in usage between 
+  masters and templates overview to clarify the difference in usage between
   them.
   [fredvd]
 
