@@ -75,7 +75,7 @@ class IssueView(BrowserView):
         master_id = self.context.getId()
 
         if master_id.startswith('master_'):
-            draft_id = master_id.strip('master_')
+            draft_id = master_id.lstrip('master_')
         else:
             draft_id = master_id
 

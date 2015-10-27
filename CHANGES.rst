@@ -5,6 +5,9 @@ Changelog
 3.0a1 (unreleased)
 ------------------
 
+- Fixed renaming issue on copy_as_draft
+  [agitator]
+
 - Fixed usage of inline images from plone.app.contenttypes.
   [agitator]
 
