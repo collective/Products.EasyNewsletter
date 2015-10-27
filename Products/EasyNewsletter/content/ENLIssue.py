@@ -22,7 +22,6 @@ from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from htmllib import HTMLParser
 from plone import api
-from plone.namedfile.scaling import ImageScale
 from stoneagehtml import compactify
 from urlparse import urlparse
 from zope.component import getUtility
@@ -613,8 +612,6 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                 log.error("Could not resolve the image \"%s\": %s" % (
                     image_url, e))
             else:
-                if isinstance(o, ImageScale):
-                    o = o.data
                 if hasattr(o, "_data"):  # file-based
                     image = MIMEImage(o._data)
                 elif hasattr(o, "data"):
