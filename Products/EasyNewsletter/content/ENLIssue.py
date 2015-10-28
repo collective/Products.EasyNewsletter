@@ -18,6 +18,7 @@ from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from plone import api
 from plone.namedfile.scaling import ImageScale
+from plone.app.uuid.utils import uuidToObject
 from urlparse import urlparse
 from zope.component import getUtility
 from zope.component import queryUtility
@@ -405,7 +406,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         send_error_counter = 0
 
         props = getToolByName(self, "portal_properties").site_properties
-        charset = props.getProperty("default_charset")
+        charset = props.getProperty("default_charset", 'utf8')
 
         receivers = self._send_recipients(recipients)
         issue_data_fetcher = IIssueDataFetcher(self)
