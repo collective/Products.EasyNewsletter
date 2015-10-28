@@ -22,6 +22,7 @@ from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from htmllib import HTMLParser
 from plone import api
+from plone.app.uuid.utils import uuidToObject
 from stoneagehtml import compactify
 from urlparse import urlparse
 from zope.component import getUtility
@@ -450,7 +451,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         send_error_counter = 0
 
         props = getToolByName(self, "portal_properties").site_properties
-        charset = props.getProperty("default_charset")
+        charset = props.getProperty("default_charset", 'utf8')
 
         receivers = self._send_recipients(recipients)
 
@@ -574,7 +575,6 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         # this should really be refactored!
         image_number = 0
         images_to_attach = []
-        reference_tool = getToolByName(self, 'reference_catalog')
 
         for image_url in image_urls:
             try:
@@ -584,7 +584,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                     urlparts = image_url.split('resolveuid/')[1:][0]
                     urlparts = urlparts.split('/')
                     uuid = urlparts.pop(0)
-                    o = reference_tool.lookupObject(uuid)
+                    o = uuidToObject(uuid)
                     if o and urlparts:
                         # get thumb
                         o = o.restrictedTraverse(urlparts[0])
