@@ -721,7 +721,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                 probdict = {}
                 probdict['id'] = member.getUserId()
                 probdict['email'] = member.getProperty('email')
-                probdict['gender'] = member.getProperty('nl_gender')
+                probdict['gender'] = member.getProperty('nl_gender', 'default')
                 # try last name first
                 probdict['fullname'] = \
                     member.getProperty('last_name',
