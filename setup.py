@@ -38,7 +38,7 @@ setup(
         'setuptools',
         'stoneagehtml',
         'plone.api',
-        'plone.protect',
+        'plone4.csrffixes',
         'nameparser'
     ],
     extras_require=dict(
