@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 from AccessControl.SecurityManagement import newSecurityManager
 from Acquisition import aq_inner
+from email.MIMEText import MIMEText
+from plone import api
+from plone.i18n.normalizer.interfaces import IIDNormalizer
+from plone.protect.interfaces import IDisableCSRFProtection
 from Products.CMFCore.utils import getToolByName
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.config import MESSAGE_CODE
@@ -8,13 +12,12 @@ from Products.EasyNewsletter.interfaces import IENLRegistrationTool
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.validation.validators.BaseValidators import EMAIL_RE
-from email.MIMEText import MIMEText
-from plone import api
-from plone.i18n.normalizer.interfaces import IIDNormalizer
 from zope.component import getMultiAdapter
 from zope.component import queryUtility
+from zope.interface import alsoProvides
 import OFS
 import re
+
 
 EMAIL_RE = "^" + EMAIL_RE
 
@@ -248,6 +251,7 @@ class UnsubscribeView(BrowserView):
     def unsubscribe(self):
         """
         """
+        alsoProvides(self.request, IDisableCSRFProtection)
         putils = getToolByName(self.context, "plone_utils")
         catalog = getToolByName(self.context, "reference_catalog")
         uid = self.request.get("subscriber")
@@ -264,4 +268,5 @@ class UnsubscribeView(BrowserView):
             del newsletter[subscriber.id]
             putils.addPortalMessage(_("You have been unsubscribed."))
 
-        return self.request.response.redirect(self.context.absolute_url())
+        return self.request.response.redirect(
+            api.portal.get_navigation_root(self).absolute_url())

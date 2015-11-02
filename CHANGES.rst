@@ -5,6 +5,12 @@ Changelog
 3.0a1 (unreleased)
 ------------------
 
+- Unsubscribe page works now with plone.protect enabled
+  [agitator]
+
+- Changed unsubscribe target link to navigation root, to allow unsubscribe from a private newsletter without showing the login page.
+  [agitator]
+
 - Fixed renaming issue on copy_as_draft
   [agitator]
 
