@@ -31,7 +31,9 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
             default=u"Path to Newsletter"),
         description=_(
             u"help_newsletter_path",
-            default=u"Search for the accordingly newsletter, choose one and apply."),
+            default=u"Search for the accordingly newsletter, choose one and "
+                    u"apply."
+        ),
         source=SearchableTextSourceBinder(
             {'portal_type': 'EasyNewsletter'},
             default_query='path:'),

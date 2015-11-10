@@ -146,9 +146,14 @@ class SubscriberView(BrowserView):
             easynewsletter = self.portal.unrestrictedTraverse(
                 regdataobj.path_to_easynewsletter)
             valid_email, error_code = easynewsletter.addSubscriber(
-                regdataobj.subscriber, regdataobj.firstname, regdataobj.lastname,
-                regdataobj.name_prefix, regdataobj.nl_language,
-                regdataobj.organization, regdataobj.salutation)
+                regdataobj.subscriber,
+                regdataobj.firstname,
+                regdataobj.lastname,
+                regdataobj.name_prefix,
+                regdataobj.nl_language,
+                regdataobj.organization,
+                regdataobj.salutation
+            )
             if valid_email:
 
                 # now delete the regobj

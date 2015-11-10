@@ -29,7 +29,7 @@ try:
     from inqbus.plone.fastmemberproperties.interfaces import (
         IFastmemberpropertiesTool)
     has_fmp = True
-except:
+except Exception:
     has_fmp = False
 
 log = logging.getLogger("Products.EasyNewsletter")
@@ -615,7 +615,7 @@ def execute_under_special_role(portal, role, function, *args, **kwargs):
             # Call the function
             return function(*args, **kwargs)
 
-        except:
+        except Exception:
             # If special exception handlers are needed, run them here
             raise
     finally:

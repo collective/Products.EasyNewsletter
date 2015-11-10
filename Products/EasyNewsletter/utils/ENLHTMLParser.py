@@ -46,7 +46,7 @@ class ENLHTMLParser(HTMLParser.HTMLParser):
                             url = attr[1]
                     if anchor:
                         url = '#' + anchor
-                except:
+                except Exception:
                     url = attr[1]
                 self.html += ' href="%s"' % self._encode(url)
             else:

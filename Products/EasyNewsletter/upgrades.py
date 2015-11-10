@@ -27,7 +27,7 @@ def fullname_to_first_and_lastname(context):
         name = ''
         try:
             name = HumanName(obj.fullname)
-        except:
+        except Exception:
             logger.info(
                 'No splitting necessary for {0}'.format(obj.getTitle()))
         if name:
