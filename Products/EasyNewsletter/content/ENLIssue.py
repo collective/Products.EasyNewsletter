@@ -466,11 +466,11 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             outer.epilogue = ''
 
             # Attach text part
-            text_part = MIMEText(personal_text_plain, "plain", charset)
+            text_part = MIMEText(issue_data['body_plain'], "plain", charset)
 
             # Attach html part with images
             html_part = MIMEMultipart("related")
-            html_text = MIMEText(personal_text, "html", charset)
+            html_text = MIMEText(issue_data['body_html'], "html", charset)
             html_part.attach(html_text)
 
             # Add images to the message
@@ -519,19 +519,22 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         # This will resolve 'resolveuid' links for us
         rendered_newsletter = self._exchange_relative_urls(output_html)
 
-        issue_data['text'] = rendered_newsletter['html']
-        issue_data['text_plain'] = rendered_newsletter['plain']
+        issue_data['body_html'] = rendered_newsletter['html']
+        issue_data['body_plain'] = rendered_newsletter['plain']
 
         image_urls = rendered_newsletter['images']
         issue_data['images_to_attach'] = self._get_images_to_attach(image_urls)
 
         # personalize the old way
         # deprecated.
-        issue_data['text'], issue_data['text_plain'] = self._personalize_texts(
+        (
+            issue_data['body_html'],
+            issue_data['body_plain']
+        ) = self._personalize_texts(
             self.getNewsletter(),
             receiver,
-            issue_data['text'],
-            issue_data['text_plain']
+            issue_data['body_html'],
+            issue_data['body_plain']
         )
 
         return issue_data
