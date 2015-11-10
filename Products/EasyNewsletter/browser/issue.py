@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-from BeautifulSoup import BeautifulSoup
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
-from Products.EasyNewsletter.config import PLACEHOLDERS
+from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.Five.browser import BrowserView
 from plone import api
 from plone.protect import PostOnly
@@ -62,13 +61,8 @@ class IssueView(BrowserView):
     def get_public_body(self):
         """ Return the rendered HTML version without placeholders.
         """
-        html = self.context._render_output_html()
-        for placeholder in PLACEHOLDERS:
-            html = html.replace('[[' + placeholder + ']]', '')
-        soup = BeautifulSoup(html)
-        for node in soup.findAll('div', {'class': 'mailonly'}):
-            node.extract()
-        return soup.renderContents()
+        issuedatafetcher = IIssueDataFetcher(self.context)
+        return issuedatafetcher.preview_html()
 
     def copy_as_draft(self):
         newsletter = self.context.aq_parent

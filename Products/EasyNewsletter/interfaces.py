@@ -72,3 +72,28 @@ class IReceiversPostSendingFilter(Interface):
 class IENLRegistrationTool(Interface):
     """ Marker interface for ENL registration utility
     """
+
+
+class IIssueDataFetcher(Interface):
+    """ Provides personalized issue data
+    """
+
+    def __call__(receiver):
+        """return issue data dict-like object with keys:
+
+        ``subject_header``
+            the subject header line
+
+        - ``body_plain``
+            the plain text body of the email
+
+        - ``body_html``
+            the html body of the email
+
+        - ``images_to_attach``
+            list of Image Plone content objects
+        """
+
+    def preview_html():
+        """html meant for preview of the newsletter in browser.
+        """
