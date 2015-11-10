@@ -1,19 +1,30 @@
 language: python
 sudo: false
-cache: 
+cache:
+  pip: true
   directories:
-    - buildout-cache
-python: 2.7
+    - $HOME/buildout-cache
+python:
+  - 2.7
 env:
   - PLONE_VERSION=4.3 QA=true
+before_install:
+  - mkdir -p $HOME/buildout-cache/{eggs,downloads}
+  - mkdir $HOME/.buildout
+  - echo "[buildout]" > $HOME/.buildout/default.cfg
+  - echo "download-cache = $HOME/buildout-cache/downloads" >> $HOME/.buildout/default.cfg
+  - echo "eggs-directory = $HOME/buildout-cache/eggs" >> $HOME/.buildout/default.cfg
+  - virtualenv .
+  - bin/pip install --upgrade pip setuptools zc.buildout coveralls
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
 install:
-  - sed -ie "s#travis-4.x.cfg#travis-$PLONE_VERSION.x.cfg#" travis.cfg
-  - sed -ie "s#versions-$PLONE_VERSION.x#versions#" travis.cfg
-  - mkdir -p buildout-cache/downloads
-  - pip install zc.buildout
-  - buildout -c travis.cfg annotate
-  - buildout -c travis.cfg -N
-  - ls bin
-script: bin/code-analysis && bin/test
+  - sed -ie "s#plone-4.3.x.cfg#plone-$PLONE_VERSION.x.cfg#" travis.cfg
+  - bin/buildout -N -t 3 -c travis.cfg
+script:
+  - bin/code-analysis
+  - bin/test --all
 after_success:
-  - test $QA && bin/coverage.sh && pip install -q coveralls && coveralls || true
+  - bin/createcoverage
+  - bin/python -m coverage.pickle2json
+  - bin/coveralls
