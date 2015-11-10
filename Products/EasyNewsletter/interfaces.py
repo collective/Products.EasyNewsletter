@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from zope.interface import Attribute
 from zope.interface import Interface
 
 
@@ -97,3 +98,10 @@ class IIssueDataFetcher(Interface):
     def preview_html():
         """html meant for preview of the newsletter in browser.
         """
+
+
+class IBeforePersonalizationEvent(Interface):
+
+    html = Attribute('html to be personalized')
+
+    data = Attribute('receiver specific data')

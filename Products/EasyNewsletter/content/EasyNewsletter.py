@@ -128,7 +128,7 @@ schema = atapi.Schema((
 
     atapi.TextField(
         'default_header',
-        default="[[SUBSCRIBER_SALUTATION]]<br />",
+        default="{{SUBSCRIBER_SALUTATION}}<br />",
         allowable_content_types=(
             'text/plain', 'text/structured', 'text/html',
             'application/msword'),
@@ -142,7 +142,7 @@ schema = atapi.Schema((
                 u'description_text_header',
                 default=u'The default header text. This is used as a default \
                     for new issues. You can use the placeholders \
-                    [[SUBSCRIBER_SALUTATION]] and [[UNSUBSCRIBE]] here.'),
+                    {{SUBSCRIBER_SALUTATION}} and {{UNSUBSCRIBE}} here.'),
             i18n_domain='EasyNewsletter',
         ),
     ),
@@ -152,7 +152,7 @@ schema = atapi.Schema((
         allowable_content_types=(
             'text/plain', 'text/structured', 'text/html',
             'application/msword'),
-        default="[[UNSUBSCRIBE]]",
+        default="{{UNSUBSCRIBE}}",
         default_output_type='text/html',
         widget=atapi.RichWidget(
             rows=10,
@@ -161,7 +161,7 @@ schema = atapi.Schema((
                 u'description_text_footer',
                 default=u'The default footer text. This is used as a default \
                     for new issues. You can use the placeholders \
-                    [[SUBSCRIBER_SALUTATION]] and [[UNSUBSCRIBE]] here.'),
+                    {{SUBSCRIBER_SALUTATION}} and {{UNSUBSCRIBE}} here.'),
             i18n_domain='EasyNewsletter',
         ),
     ),
