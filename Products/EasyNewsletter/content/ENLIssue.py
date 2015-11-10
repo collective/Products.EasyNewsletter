@@ -455,16 +455,12 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         receivers = self._send_recipients(recipients)
 
         for receiver in receivers:
-            # get basic issue data
+            # get complete issue data
             issue_data = self._get_issue_data(receiver)
 
             # create multipart mail
             outer = MIMEMultipart('alternative')
             outer['To'] = Header(u'<%s>' % safe_unicode(receiver['email']))
-
-            personal_text, personal_text_plain = self._personalize_texts(
-                enl, receiver, issue_data['text'], issue_data['text_plain'])
-
             outer['From'] = from_header
             outer['Subject'] = issue_data['subject_header']
             outer.epilogue = ''
@@ -528,6 +524,15 @@ class ENLIssue(ATTopic, atapi.BaseContent):
 
         image_urls = rendered_newsletter['images']
         issue_data['images_to_attach'] = self._get_images_to_attach(image_urls)
+
+        # personalize the old way
+        # deprecated.
+        issue_data['text'], issue_data['text_plain'] = self._personalize_texts(
+            self.getNewsletter(),
+            receiver,
+            issue_data['text'],
+            issue_data['text_plain']
+        )
 
         return issue_data
 
