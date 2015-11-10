@@ -9,18 +9,29 @@ from Products.Archetypes.public import ObjectField
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter.config import PLACEHOLDERS
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
+from Products.EasyNewsletter.interfaces import IBeforePersonalizationEvent
 from Products.EasyNewsletter.utils import safe_portal_encoding
 from Products.EasyNewsletter.utils.ENLHTMLParser import ENLHTMLParser
 from Products.PageTemplates.ZopePageTemplate import ZopePageTemplate
 from stoneagehtml import compactify
 from urlparse import urlparse
+from zope.event import notify
 from zope.interface import implementer
 import cStringIO
 import formatter
+import jinja2
 import logging
 import urllib
 
 log = logging.getLogger("Products.EasyNewsletter")
+
+
+@implementer(IBeforePersonalizationEvent)
+class BeforePersonalizationEvent(object):
+
+    def __init__(self, html, data):
+        self.html = html
+        self.data = data
 
 
 @implementer(IIssueDataFetcher)
@@ -44,21 +55,24 @@ class DefaultIssueDataFetcher(object):
 
         data['subject_header'] = Header(safe_unicode(subject))
 
-        output_html = self._render_output_html()
+        html = self._render_output_html()
+
+        # personalize (fire also event before personalization)
+        html = self._personalize(receiver, html)
 
         # exchange relative URLs and resolve 'resolveuid' links for us
-        parser_output_zpt = ENLHTMLParser(self.issue)
-        parser_output_zpt.feed(output_html)
+        parser = ENLHTMLParser(self.issue)
+        parser.feed(html)
 
         # get html version
-        data['body_html'] = parser_output_zpt.html
+        data['body_html'] = parser.html
 
         # get plain text version
         data['body_plain'] = self._create_plaintext_message(data['body_html'])
 
         # handle image attachments
         data['images_to_attach'] = self._get_images_to_attach(
-            parser_output_zpt.image_urls
+            parser.image_urls
         )
 
         # personalize the old way
@@ -72,6 +86,7 @@ class DefaultIssueDataFetcher(object):
 
     def preview_html(self):
         html = self._render_output_html()
+        html = self._personalize({}, html)
         for placeholder in PLACEHOLDERS:
             html = html.replace('[[' + placeholder + ']]', '')
         soup = BeautifulSoup(html)
@@ -91,11 +106,39 @@ class DefaultIssueDataFetcher(object):
             try:
                 return self.enl.getFullname_fallback()
             except AttributeError:
-                return "Sir or Madam"
+                return u"Sir or Madam"
         return fullname
 
     def _salutation(self, receiver):
-        return receiver.get("salutation") or ''
+        return receiver.get("salutation") or u''
+
+    def _subscriber_salutation(self, receiver):
+        return str(safe_portal_encoding(
+            u'{0} {1}'.format(
+                self._salutation(receiver),
+                safe_portal_encoding(self._fullname(receiver))
+            )
+        ))
+
+    def _unsubscribe_info(self, receiver):
+        if 'uid' not in receiver:
+            return {'link': u'', 'text': u'', 'html': u''}
+        try:
+            unsubscribe_text = self.enl.getUnsubscribe_string()
+        except AttributeError:
+            unsubscribe_text = "Click here to unsubscribe"
+        unsubscribe_link = "{0}/unsubscribe?subscriber={1}".format(
+            self.enl.absolute_url(), receiver['uid']
+        )
+        unsubscribe_markup = """<a href="{0}">{1}.</a>""".format(
+            unsubscribe_link,
+            unsubscribe_text
+        )
+        return {
+            'link': unsubscribe_link.decode('utf8'),
+            'text': unsubscribe_text.decode('utf8'),
+            'html': unsubscribe_markup.decode('utf8'),
+        }
 
     def _render_output_html(self):
         """ Return rendered newsletter
@@ -117,13 +160,23 @@ class DefaultIssueDataFetcher(object):
         output_html = compactify(output_html, filter_tags=False)
         return output_html
 
-    def _personalize_texts(self, receiver, text, text_plain):
-        subscriber_salutation = safe_portal_encoding(
-            '{0} {1}'.format(
-                self._salutation(receiver),
-                safe_portal_encoding(self._fullname(receiver))
-            )
+    def _personalize(self, receiver, html):
+        tpl_context = {}
+        tpl_context['receiver'] = receiver
+        tpl_context['fullname'] = self._fullname(receiver)
+        tpl_context['salutation'] = self._salutation(receiver)
+        tpl_context['unsubscribe'] = self._unsubscribe_info(receiver)
+        tpl_context['UNSUBSCRIBE'] = tpl_context['unsubscribe']['html']
+        tpl_context['SUBSCRIBER_SALUTATION'] = self._subscriber_salutation(
+            receiver
         )
+        notify(BeforePersonalizationEvent(html, tpl_context))
+        template = jinja2.Template(html.decode('utf8'))
+        return template.render(**tpl_context)
+
+    def _personalize_texts(self, receiver, text, text_plain):
+        # DEPRECATED
+        subscriber_salutation = self._subscriber_salutation(receiver)
         text = text.replace(
             "[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
         text_plain = text_plain.replace(
