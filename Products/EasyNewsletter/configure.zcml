@@ -53,4 +53,9 @@
       name="EasyNewsletter"
   />
 
+  <adapter
+      factory=".issuedatafetcher.DefaultIssueDataFetcher"
+      for=".interfaces.IENLIssue"
+  />
+
 </configure>
