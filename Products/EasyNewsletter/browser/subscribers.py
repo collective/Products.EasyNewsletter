@@ -87,13 +87,13 @@ def normalize_id(astring):
 
 
 CSV_HEADER = [
-    _(u"salutation"),
-    _(u"name_prefix"),
-    _(u"firstname"),
-    _(u"lastname"),
-    _(u"nl_language"),
-    _(u"email"),
-    _(u"organization")
+    u'salutation',
+    u'name_prefix',
+    u'firstname',
+    u'lastname',
+    u'nl_language',
+    u'email',
+    u'organization'
 ]
 
 
@@ -246,10 +246,9 @@ class UploadCSV(BrowserView):
         # Show error if no data has been provided in the file
         reader = UnicodeReader(filename)
         header = reader.next()
-        CSV_HEADER_I18N = [self.context.translate(_(x)) for x in CSV_HEADER]
-        if header != CSV_HEADER_I18N:
+        if header != [x for x in CSV_HEADER]:
             logger.info("Got header %s\n Expected:%s" % (
-                header, CSV_HEADER_I18N))
+                header, CSV_HEADER))
             msg = _(
                 'Wrong specification of the CSV file. ' +
                 'Please correct it and retry.')
@@ -346,8 +345,7 @@ class DownloadCSV(BrowserView):
                                   {'delimiter': ',',
                                    'quotechar': '"',
                                    'quoting': csv.QUOTE_MINIMAL})
-        CSV_HEADER_I18N = [self.context.translate(_(x)) for x in CSV_HEADER]
-        csvWriter.writerow(CSV_HEADER_I18N)
+        csvWriter.writerow([x for x in CSV_HEADER])
         for subscriber in ctool(portal_type='ENLSubscriber',
                                 path='/'.join(self.context.getPhysicalPath()),
                                 sort_on='email'):
