@@ -5,6 +5,9 @@ Changelog
 3.0a1 (unreleased)
 ------------------
 
+- Language independent CSV Header
+  [agitator]
+
 - Unsubscribe page works now with plone.protect enabled
   [agitator]
 
