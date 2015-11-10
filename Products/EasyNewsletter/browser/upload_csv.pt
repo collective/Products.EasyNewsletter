@@ -33,17 +33,19 @@
               <table class="listing">
                   <thead>
                     <tr>
-                      <th i18n:translate="">Salutation</th>
-                      <th i18n:translate="">First Name</th>
-                      <th i18n:translate="">Last Name</th>
-                      <th i18n:translate="">Language</th>
-                      <th i18n:translate="">Email</th>
-                      <th i18n:translate="">Organization</th>
+                      <th>salutation</th>
+                      <th>name_prefix</th>
+                      <th>firstname</th>
+                      <th>lastname</th>
+                      <th>nl_language</th>
+                      <th>email</th>
+                      <th>organization</th>
                     </tr>
                   </thead>
                   <tbody>
                   <tr>
                       <td>Mr.</td>
+                      <td>Dr.</td>
                       <td>John</td>
                       <td>Doe</td>
                       <td>en</td>
