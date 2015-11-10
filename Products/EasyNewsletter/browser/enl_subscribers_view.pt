@@ -29,7 +29,13 @@
                          batch_base_url here/@@plone_context_state/current_base_url;
                          batch python:Batch(subscribers, b_size, int(b_start), orphan=1)">
 
-            <a href="createObject?type_name=ENLSubscriber" i18n:translate="add_subscriber">Add subscriber</a>
+            <a href="createObject?type_name=ENLSubscriber" i18n:translate="add_subscriber">Add subscriber</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span i18n:translate="import_export">Import / Export</span>:
+            <a href="" tal:attributes="href string:${context/absolute_url}/@@upload_csv"
+               i18n:translate="easynewsletter_label_import_subscribers">Import subscribers</a> /
+            <a href="" tal:attributes="href string:${context/absolute_url}/@@download_csv"
+               i18n:translate="easynewsletter_label_export_subscribers">Export subscribers</a>
+
             <div class="search">
               <fieldset>
                 <legend i18n:translate="">Subscriber Search</legend>
@@ -133,21 +139,7 @@
               </div>
             </form>
 
-
-
         </div>
-
-        <fieldset>
-          <legend i18n:translate="import_export">Import / Export</legend>
-          <ul>
-            <li><a href=""
-               tal:attributes="href string:${context/absolute_url}/@@upload_csv"
-               i18n:translate="easynewsletter_label_import_subscribers">Import subscribers</a></li>
-            <li><a href=""
-               tal:attributes="href string:${context/absolute_url}/@@download_csv"
-               i18n:translate="easynewsletter_label_export_subscribers">Export subscribers</a></li>
-          </ul>
-        </fieldset>
 
         <script type="text/javascript">
           // select/unselect all subscribers
