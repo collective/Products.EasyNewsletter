@@ -38,13 +38,14 @@ setup(
         'setuptools',
         'stoneagehtml',
         'plone.api',
-        'plone.protect',
+        'plone.protect>=3.0.15',
         'nameparser'
     ],
     extras_require=dict(
         test=[
+            'Pillow',
             'plone.app.testing',
-            'Pillow'
+            'plone.dexterity',
         ],
         fmp=['inqbus.plone.fastmemberproperties'],
         zamqp=[
