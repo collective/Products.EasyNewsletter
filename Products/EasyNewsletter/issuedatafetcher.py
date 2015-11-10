@@ -45,14 +45,21 @@ class DefaultIssueDataFetcher(object):
         data['subject_header'] = Header(safe_unicode(subject))
 
         output_html = self._render_output_html()
-        # This will resolve 'resolveuid' links for us
-        rendered_newsletter = self._exchange_relative_urls(output_html)
 
-        data['body_html'] = rendered_newsletter['html']
-        data['body_plain'] = rendered_newsletter['plain']
+        # exchange relative URLs and resolve 'resolveuid' links for us
+        parser_output_zpt = ENLHTMLParser(self.issue)
+        parser_output_zpt.feed(output_html)
 
-        image_urls = rendered_newsletter['images']
-        data['images_to_attach'] = self._get_images_to_attach(image_urls)
+        # get html version
+        data['body_html'] = parser_output_zpt.html
+
+        # get plain text version
+        data['body_plain'] = self._create_plaintext_message(data['body_html'])
+
+        # handle image attachments
+        data['images_to_attach'] = self._get_images_to_attach(
+            parser_output_zpt.image_urls
+        )
 
         # personalize the old way
         # deprecated.
@@ -144,17 +151,6 @@ class DefaultIssueDataFetcher(object):
                 "[[UNSUBSCRIBE]]", "")
 
         return text, text_plain
-
-    def _exchange_relative_urls(self, output_html):
-        """ exchange relative URLs and
-            return dict with html, plain and images
-        """
-        parser_output_zpt = ENLHTMLParser(self.issue)
-        parser_output_zpt.feed(output_html)
-        text = parser_output_zpt.html
-        text_plain = self._create_plaintext_message(text)
-        image_urls = parser_output_zpt.image_urls
-        return dict(html=text, plain=text_plain, images=image_urls)
 
     def _get_images_to_attach(self, image_urls):  # noqa
         # this should really be refactored!

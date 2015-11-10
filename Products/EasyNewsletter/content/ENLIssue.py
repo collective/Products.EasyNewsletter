@@ -255,7 +255,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         enl = self.getNewsletter()
         salutation_mappings = self._get_salutation_mappings()
         if recipients:
-            receivers = recipients
+            return recipients
 
         elif hasattr(request, "test"):
             # get test e-mail
@@ -268,38 +268,39 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                  'fullname': 'Test Member',
                  'salutation': salutation.get(self.Language(), 'unset'),
                  'nl_language': self.Language()}]
-        else:
-            # only send to all subscribers if the exclude all subscribers
-            # checkbox, was not set.
-            # get ENLSubscribers
-            enl_receivers = []
-            if not self.getExcludeAllSubscribers():
-                for subscriber in enl.objectValues("ENLSubscriber"):
-                    salutation_key = subscriber.getSalutation()
-                    if salutation_key:
-                        salutation = salutation_mappings.get(
-                            salutation_key,
-                            ''
-                        )
-                    else:
-                        salutation = {}
-                    enl_receivers.append({
-                        'email': subscriber.getEmail(),
-                        'fullname': ' '.join([subscriber.getFirstname(),
-                                              subscriber.getLastname()]),
-                        'salutation': salutation.get(
-                            subscriber.getNl_language(),
-                            salutation.get(self.Language() or 'en', 'unset')
-                        ),
-                        'uid': subscriber.UID(),
-                        'nl_language': subscriber.getNl_language()})
+            return receivers
 
-            # get subscribers over selected plone members and groups
-            plone_receivers = self.get_plone_subscribers()
-            external_subscribers = self._get_external_source_subscribers(enl)
-            receivers_raw = plone_receivers + enl_receivers + \
-                external_subscribers
-            receivers = self._unique_receivers(receivers_raw)
+        # only send to all subscribers if the exclude all subscribers
+        # checkbox, was not set.
+        # get ENLSubscribers
+        enl_receivers = []
+        if not self.getExcludeAllSubscribers():
+            for subscriber in enl.objectValues("ENLSubscriber"):
+                salutation_key = subscriber.getSalutation()
+                if salutation_key:
+                    salutation = salutation_mappings.get(
+                        salutation_key,
+                        ''
+                    )
+                else:
+                    salutation = {}
+                enl_receivers.append({
+                    'email': subscriber.getEmail(),
+                    'fullname': ' '.join([subscriber.getFirstname(),
+                                          subscriber.getLastname()]),
+                    'salutation': salutation.get(
+                        subscriber.getNl_language(),
+                        salutation.get(self.Language() or 'en', 'unset')
+                    ),
+                    'uid': subscriber.UID(),
+                    'nl_language': subscriber.getNl_language()})
+
+        # get subscribers over selected plone members and groups
+        plone_receivers = self.get_plone_subscribers()
+        external_subscribers = self._get_external_source_subscribers(enl)
+        receivers_raw = plone_receivers + enl_receivers + \
+            external_subscribers
+        receivers = self._unique_receivers(receivers_raw)
 
         return receivers
 
