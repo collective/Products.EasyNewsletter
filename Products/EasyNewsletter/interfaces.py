@@ -102,6 +102,4 @@ class IIssueDataFetcher(Interface):
 
 class IBeforePersonalizationEvent(Interface):
 
-    html = Attribute('html to be personalized')
-
-    data = Attribute('receiver specific data')
+    data = Attribute('issue specific data')
