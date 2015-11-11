@@ -22,6 +22,7 @@ import formatter
 import jinja2
 import logging
 import urllib
+import warnings
 
 log = logging.getLogger("Products.EasyNewsletter")
 
@@ -74,13 +75,6 @@ class DefaultIssueDataFetcher(object):
             parser.image_urls
         )
 
-        # personalize the old way
-        # deprecated.
-        data['body_html'], data['body_plain'] = self._personalize_texts(
-            receiver,
-            data['body_html'],
-            data['body_plain']
-        )
         return data
 
     def preview_html(self):
@@ -172,47 +166,23 @@ class DefaultIssueDataFetcher(object):
             receiver
         )
         notify(BeforePersonalizationEvent(data))
+
+        # BBB Code, remove in version 4
+        if '[[' in data['html'] and ']]' in data['html']:
+            warnings.deprecated(
+                'Usage of [[VARIABLE]] style placeholders is deprecated'
+            )
+            data['html'] = data['html'].replace('[[', '{{')
+            data['html'] = data['html'].replace(']]', '}}')
+
         template = jinja2.Template(data['html'].decode('utf8'))
         return template.render(**data['context'])
 
-    def _personalize_texts(self, receiver, text, text_plain):
-        # DEPRECATED
-        subscriber_salutation = self._subscriber_salutation(receiver)
-        text = text.replace(
-            "[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
-        text_plain = text_plain.replace(
-            "[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
-
-        # we can only build unsubscribe links with subscriber uid
-        if 'uid' in receiver:
-            try:
-                unsubscribe_text = self.enl.getUnsubscribe_string()
-            except AttributeError:
-                unsubscribe_text = "Click here to unsubscribe"
-            unsubscribe_link = self.enl.absolute_url() + \
-                "/unsubscribe?subscriber=" + receiver['uid']
-
-            text = text.replace(
-                "[[UNSUBSCRIBE]]", """<a href="%s">%s.</a>""" % (
-                    unsubscribe_link, unsubscribe_text))
-
-            text_plain = text_plain.replace(
-                "[[UNSUBSCRIBE]]", """\n%s: %s""" % (
-                    unsubscribe_text, unsubscribe_link))
-        else:
-            text = text.replace("[[UNSUBSCRIBE]]", "")
-            text_plain = text_plain.replace(
-                "[[UNSUBSCRIBE]]", "")
-
-        return text, text_plain
-
     def _get_images_to_attach(self, image_urls):  # noqa
         # this should really be refactored!
-        image_number = 0
         images_to_attach = []
         reference_tool = api.portal.get_tool('reference_catalog')
-
-        for image_url in image_urls:
+        for image_number, image_url in enumerate(image_urls):
             try:
                 image_url = urlparse(image_url)[2]
                 o = None
@@ -237,7 +207,8 @@ class DefaultIssueDataFetcher(object):
                     else:
                         scales = self.issue.restrictedTraverse(
                             urllib.unquote(
-                                image_url_base.strip('/') + '/@@images'
+                                image_url_base.encode('utf8').strip('/') +
+                                '/@@images'
                             )
                         )
                     parts = list(reversed(image_scale_params.split("/")))
@@ -246,31 +217,33 @@ class DefaultIssueDataFetcher(object):
                     o = scales.publishTraverse(dummy_request, name)
                 if o is None:
                     o = self.issue.restrictedTraverse(
-                        urllib.unquote(image_url)
+                        urllib.unquote(image_url).encode('utf8')
                     )
-            except Exception, e:
-                log.error("Could not resolve the image \"%s\": %s" % (
-                    image_url, e))
-            else:
-                if hasattr(o, "_data"):  # file-based
-                    image = MIMEImage(o._data)
-                elif hasattr(o, "data"):
-                    if isinstance(o, ImageScale):
-                        image = MIMEImage(o.data.data)  # zodb-based dx image
-                    else:
-                        image = MIMEImage(o.data)  # zodb-based
-                elif hasattr(o, "GET"):
-                    image = MIMEImage(o.GET())  # z3 resource image
+            except Exception:
+                log.exception(
+                    'Could not resolve the image: {0}'.format(image_url)
+                )
+                image_number += 1  # even on failure we have to increase
+                continue
+
+            # until here we found some object that ought to be an image
+            if hasattr(o, "_data"):  # file-based
+                image = MIMEImage(o._data)
+            elif hasattr(o, "data"):
+                if isinstance(o, ImageScale):
+                    image = MIMEImage(o.data.data)  # zodb-based dx image
                 else:
-                    log.error(
-                        "Could not get the image data from image object!")
-                    image = None
-                if image is not None:
-                    image["Content-ID"] = "<image_%s>" % image_number
-                    # attach images only to html parts
-                images_to_attach.append(image)
-            # Numbers have to match what we replaced in html
-            image_number += 1
+                    image = MIMEImage(o.data)  # zodb-based
+            elif hasattr(o, "GET"):
+                image = MIMEImage(o.GET())  # z3 resource image
+            else:
+                log.error(
+                    "Could not get the image data from image object!")
+                image = None
+            if image is not None:
+                image["Content-ID"] = "<image_%s>" % image_number
+                # attach images only to html parts
+            images_to_attach.append(image)
         return images_to_attach
 
     def _create_plaintext_message(self, text):
