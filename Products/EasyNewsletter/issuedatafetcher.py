@@ -29,8 +29,7 @@ log = logging.getLogger("Products.EasyNewsletter")
 @implementer(IBeforePersonalizationEvent)
 class BeforePersonalizationEvent(object):
 
-    def __init__(self, html, data):
-        self.html = html
+    def __init__(self, data):
         self.data = data
 
 
@@ -161,18 +160,20 @@ class DefaultIssueDataFetcher(object):
         return output_html
 
     def _personalize(self, receiver, html):
-        tpl_context = {}
-        tpl_context['receiver'] = receiver
-        tpl_context['fullname'] = self._fullname(receiver)
-        tpl_context['salutation'] = self._salutation(receiver)
-        tpl_context['unsubscribe'] = self._unsubscribe_info(receiver)
-        tpl_context['UNSUBSCRIBE'] = tpl_context['unsubscribe']['html']
-        tpl_context['SUBSCRIBER_SALUTATION'] = self._subscriber_salutation(
+        data = {}
+        data['html'] = html
+        data['context'] = {}
+        data['context']['receiver'] = receiver
+        data['context']['fullname'] = self._fullname(receiver)
+        data['context']['salutation'] = self._salutation(receiver)
+        data['context']['unsubscribe'] = self._unsubscribe_info(receiver)
+        data['context']['UNSUBSCRIBE'] = data['context']['unsubscribe']['html']
+        data['context']['SUBSCRIBER_SALUTATION'] = self._subscriber_salutation(
             receiver
         )
-        notify(BeforePersonalizationEvent(html, tpl_context))
-        template = jinja2.Template(html.decode('utf8'))
-        return template.render(**tpl_context)
+        notify(BeforePersonalizationEvent(data))
+        template = jinja2.Template(data['html'].decode('utf8'))
+        return template.render(**data['context'])
 
     def _personalize_texts(self, receiver, text, text_plain):
         # DEPRECATED
@@ -289,7 +290,7 @@ class DefaultIssueDataFetcher(object):
         # to keep the message readable.
         anchorlist = "\n\n" + ("-" * plain_text_maxcols) + "\n\n"
         for counter, item in enumerate(parser.anchorlist):
-            anchorlist += "[%d] %s\n" % (counter, item)
+            anchorlist += "[{0:d}] {1:s}\n".format(counter, item)
 
         text = textout.getvalue() + anchorlist
         del textout, formtext, parser, anchorlist
