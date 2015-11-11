@@ -169,9 +169,9 @@ class DefaultIssueDataFetcher(object):
 
         # BBB Code, remove in version 4
         if '[[' in data['html'] and ']]' in data['html']:
-            warnings.deprecated(
-                'Usage of [[VARIABLE]] style placeholders is deprecated'
-            )
+            warnings.warn(
+                'Usage of [[VARIABLE]] style placeholders is deprecated',
+                DeprecationWarning)
             data['html'] = data['html'].replace('[[', '{{')
             data['html'] = data['html'].replace(']]', '}}')
 
