@@ -108,12 +108,16 @@ class DefaultIssueDataFetcher(object):
         return receiver.get("salutation") or u''
 
     def _subscriber_salutation(self, receiver):
-        return str(safe_portal_encoding(
-            u'{0} {1}'.format(
-                self._salutation(receiver),
-                safe_portal_encoding(self._fullname(receiver))
-            )
-        ))
+        # return str(safe_portal_encoding(
+        #     u'{0} {1}'.format(
+        #         self._salutation(receiver),
+        #         safe_portal_encoding(self._fullname(receiver))
+        #     )
+        # ))
+        return u'{0} {1}'.format(
+            safe_unicode(self._salutation(receiver)),
+            safe_unicode(self._fullname(receiver))
+        )
 
     def _unsubscribe_info(self, receiver):
         if 'uid' not in receiver:
