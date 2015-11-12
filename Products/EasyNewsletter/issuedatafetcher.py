@@ -68,7 +68,9 @@ class DefaultIssueDataFetcher(object):
         data['body_html'] = parser.html
 
         # get plain text version
-        data['body_plain'] = self._create_plaintext_message(data['body_html'])
+        data['body_plain'] = self._create_plaintext_message(
+            safe_unicode(data['body_html']).encode('utf-8')
+        )
 
         # handle image attachments
         data['images_to_attach'] = self._get_images_to_attach(
