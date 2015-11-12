@@ -158,6 +158,7 @@ class DefaultIssueDataFetcher(object):
         data['html'] = html
         data['context'] = {}
         data['context']['receiver'] = receiver
+        data['context']['language'] = self.enl.language
         data['context']['fullname'] = self._fullname(receiver)
         data['context']['salutation'] = self._salutation(receiver)
         data['context']['unsubscribe'] = self._unsubscribe_info(receiver)
