@@ -5,6 +5,18 @@ Changelog
 3.0a1 (unreleased)
 ------------------
 
+- Added firstname, lastname and gender to enl_receivers dictionary
+  [agitator]
+
+- Added IBeforePersonalizationEvent for customisations
+  [jensens]
+
+- Use jinja syntax for template processing
+  [jensens]
+
+- Rafactoring of ENLIssue personalization
+  [jensens]
+
 - Language independent CSV Header
   [agitator]
 
