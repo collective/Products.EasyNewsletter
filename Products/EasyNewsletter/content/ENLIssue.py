@@ -266,7 +266,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             receivers = [
                 {'email': test_receiver,
                  'fullname': 'Test Member',
-                 'salutation': salutation.get(self.Language(), 'unset'),
+                 'salutation': salutation.get(self.Language(), ''),
                  'nl_language': self.Language()}]
             return receivers
 
@@ -286,11 +286,15 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                     salutation = {}
                 enl_receivers.append({
                     'email': subscriber.getEmail(),
+                    'gender': subscriber.getSalutation(),
+                    'name_prefix': subscriber.getName_prefix(),
+                    'firstname': subscriber.getFirstname(),
+                    'lastname': subscriber.getLastname(),
                     'fullname': ' '.join([subscriber.getFirstname(),
                                           subscriber.getLastname()]),
                     'salutation': salutation.get(
                         subscriber.getNl_language(),
-                        salutation.get(self.Language() or 'en', 'unset')
+                        salutation.get(self.Language() or 'en', '')
                     ),
                     'uid': subscriber.UID(),
                     'nl_language': subscriber.getNl_language()})
