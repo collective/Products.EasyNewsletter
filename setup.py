@@ -12,7 +12,8 @@ long_description = (
 setup(
     name='Products.EasyNewsletter',
     version=version,
-    description="An easy to use but powerfull newsletter/mailing product for Plone 3+4",
+    description="An easy to use but powerfull newsletter/mailing product for "
+    "Plone",
     long_description=long_description,
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -42,6 +43,7 @@ setup(
         'setuptools',
         'stoneagehtml',
         'plone.api',
+        'plone.protect',
     ],
     extras_require=dict(
         test=['plone.app.testing', 'Pillow'],

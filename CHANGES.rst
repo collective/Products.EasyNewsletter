@@ -5,6 +5,9 @@ Changelog
 2.6.15 (unreleased)
 -------------------
 
+- Unsubscribe page works now with plone.protect enabled
+  [agitator]
+
 - fixed jquery initialization in enl_edithelper.js
   [benniboy]
 
