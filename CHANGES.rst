@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.6.15 (unreleased)
+2.6.15 (2015-11-16)
 -------------------
 
 - Unsubscribe page works now with plone.protect enabled
