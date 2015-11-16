@@ -29,13 +29,13 @@
                   name="salutation"
                   value="ms"
                   id="ms">
-              <label for="ms" i18n:translate="ms"> </label>
+              <label for="ms" i18n:translate="ms">Ms. </label>
               <input
                   type="radio"
                   name="salutation"
                   value="mr"
                   id="mr">
-              <label for="mr" i18n:translate="mr"> </label>
+              <label for="mr" i18n:translate="mr">Mr. </label>
 
 
             <input class="easynewsletter_text"
