@@ -15,6 +15,12 @@ Changelog
   Unified qa in ``qa.cfg``, enforce more qa rules.
   [jensens]
 
+- Fix subscriber portlet to allow annonymous users to unsubscribe
+  [MrTango]
+
+- Fix subscriber portlet i18n default strings for salutation
+  [MrTango]
+
 
 2.6.14 (2014-07-10)
 -------------------
