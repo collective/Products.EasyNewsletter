@@ -34,12 +34,13 @@ setup(
     zip_safe=False,
     install_requires=[
         'BeautifulSoup',
+        'jinja2',
+        'nameparser',
+        'plone.api',
+        'plone.protect>=3.0.15',
         'Products.TemplateFields',
         'setuptools',
         'stoneagehtml',
-        'plone.api',
-        'plone.protect>=3.0.15',
-        'nameparser'
     ],
     extras_require=dict(
         test=[

@@ -3,36 +3,26 @@ from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
 from Products.Archetypes import atapi
-from Products.Archetypes.public import ObjectField
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.config import EMAIL_RE
 from Products.EasyNewsletter.config import PROJECTNAME
 from Products.EasyNewsletter.interfaces import IENLIssue
+from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter
 from Products.EasyNewsletter.interfaces import ISubscriberSource
-from Products.EasyNewsletter.utils import safe_portal_encoding
-from Products.EasyNewsletter.utils.ENLHTMLParser import ENLHTMLParser
 from Products.MailHost.interfaces import IMailHost
-from Products.PageTemplates.ZopePageTemplate import ZopePageTemplate
 from email.Header import Header
-from email.MIMEImage import MIMEImage
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
-from htmllib import HTMLParser
 from plone import api
-from stoneagehtml import compactify
-from urlparse import urlparse
 from zope.component import getUtility
 from zope.component import queryUtility
 from zope.component import subscribers
 from zope.interface import implementer
-import cStringIO
-import formatter
 import logging
 import pkg_resources
-import urllib
 
 try:
     pkg_resources.get_distribution('inqbus.plone.fastmemberproperties')
@@ -43,16 +33,6 @@ else:
         IFastmemberpropertiesTool
     )
     fmp_tool = True
-
-try:
-    pkg_resources.get_distribution('plone.namedfile')
-except pkg_resources.DistributionNotFound:
-    plone_namedfile = False
-else:
-    from plone.namedfile.scaling import (
-        ImageScale
-    )
-    plone_namedfile = True
 
 try:
     pkg_resources.get_distribution('collective.zamqp')
@@ -275,7 +255,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         enl = self.getNewsletter()
         salutation_mappings = self._get_salutation_mappings()
         if recipients:
-            receivers = recipients
+            return recipients
 
         elif hasattr(request, "test"):
             # get test e-mail
@@ -286,40 +266,45 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             receivers = [
                 {'email': test_receiver,
                  'fullname': 'Test Member',
-                 'salutation': salutation.get(self.Language(), 'unset'),
+                 'salutation': salutation.get(self.Language(), ''),
                  'nl_language': self.Language()}]
-        else:
-            # only send to all subscribers if the exclude all subscribers
-            # checkbox, was not set.
-            # get ENLSubscribers
-            enl_receivers = []
-            if not self.getExcludeAllSubscribers():
-                for subscriber in enl.objectValues("ENLSubscriber"):
-                    salutation_key = subscriber.getSalutation()
-                    if salutation_key:
-                        salutation = salutation_mappings.get(
-                            salutation_key,
-                            ''
-                        )
-                    else:
-                        salutation = {}
-                    enl_receivers.append({
-                        'email': subscriber.getEmail(),
-                        'fullname': ' '.join([subscriber.getFirstname(),
-                                              subscriber.getLastname()]),
-                        'salutation': salutation.get(
-                            subscriber.getNl_language(),
-                            salutation.get(self.Language() or 'en', 'unset')
-                        ),
-                        'uid': subscriber.UID(),
-                        'nl_language': subscriber.getNl_language()})
+            return receivers
 
-            # get subscribers over selected plone members and groups
-            plone_receivers = self.get_plone_subscribers()
-            external_subscribers = self._get_external_source_subscribers(enl)
-            receivers_raw = plone_receivers + enl_receivers + \
-                external_subscribers
-            receivers = self._unique_receivers(receivers_raw)
+        # only send to all subscribers if the exclude all subscribers
+        # checkbox, was not set.
+        # get ENLSubscribers
+        enl_receivers = []
+        if not self.getExcludeAllSubscribers():
+            for subscriber in enl.objectValues("ENLSubscriber"):
+                salutation_key = subscriber.getSalutation()
+                if salutation_key:
+                    salutation = salutation_mappings.get(
+                        salutation_key,
+                        ''
+                    )
+                else:
+                    salutation = {}
+                enl_receivers.append({
+                    'email': subscriber.getEmail(),
+                    'gender': subscriber.getSalutation(),
+                    'name_prefix': subscriber.getName_prefix(),
+                    'firstname': subscriber.getFirstname(),
+                    'lastname': subscriber.getLastname(),
+                    'fullname': ' '.join([subscriber.getFirstname(),
+                                          subscriber.getLastname()]),
+                    'salutation': salutation.get(
+                        subscriber.getNl_language(),
+                        salutation.get(self.Language() or 'en', '')
+                    ),
+                    'uid': subscriber.UID(),
+                    'nl_language': subscriber.getNl_language()})
+
+        # get subscribers over selected plone members and groups
+        plone_receivers = self.get_plone_subscribers()
+        external_subscribers = self._get_external_source_subscribers(enl)
+        receivers_raw = plone_receivers + enl_receivers + \
+            external_subscribers
+        receivers = self._unique_receivers(receivers_raw)
 
         return receivers
 
@@ -348,32 +333,6 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             mails.append(receiver['email'])
             receivers.append(receiver)
         return receivers
-
-    def _render_output_html(self):
-        """ Return rendered newsletter
-            with header+body+footer (raw html).
-        """
-        enl = self.getNewsletter()
-        # get out_template from ENL object and render it in context of issue
-        out_template_pt_field = enl.getField('out_template_pt')
-        ObjectField.set(out_template_pt_field, self, ZopePageTemplate(
-            out_template_pt_field.getName(),
-            enl.getRawOut_template_pt()))
-        output_html = safe_portal_encoding(self.out_template_pt.pt_render())
-        output_html = compactify(output_html, filter_tags=False)
-        return output_html
-
-    def _exchange_relative_urls(self, output_html):
-        """ exchange relative URLs and
-            return dict with html, plain and images
-        """
-
-        parser_output_zpt = ENLHTMLParser(self)
-        parser_output_zpt.feed(output_html)
-        text = parser_output_zpt.html
-        text_plain = self.create_plaintext_message(text)
-        image_urls = parser_output_zpt.image_urls
-        return dict(html=text, plain=text_plain, images=image_urls)
 
     def getText(self):
         output_html = self.getRawText()
@@ -453,28 +412,25 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         charset = props.getProperty("default_charset")
 
         receivers = self._send_recipients(recipients)
+        issue_data_fetcher = IIssueDataFetcher(self)
 
         for receiver in receivers:
-            # get basic issue data
-            issue_data = self._get_issue_data(receiver)
+            # get complete issue data
+            issue_data = issue_data_fetcher(receiver)
 
             # create multipart mail
             outer = MIMEMultipart('alternative')
             outer['To'] = Header(u'<%s>' % safe_unicode(receiver['email']))
-
-            personal_text, personal_text_plain = self._personalize_texts(
-                enl, receiver, issue_data['text'], issue_data['text_plain'])
-
             outer['From'] = from_header
             outer['Subject'] = issue_data['subject_header']
             outer.epilogue = ''
 
             # Attach text part
-            text_part = MIMEText(personal_text_plain, "plain", charset)
+            text_part = MIMEText(issue_data['body_plain'], "plain", charset)
 
             # Attach html part with images
             html_part = MIMEMultipart("related")
-            html_text = MIMEText(personal_text, "html", charset)
+            html_text = MIMEText(issue_data['body_html'], "html", charset)
             html_part.attach(html_text)
 
             # Add images to the message
@@ -503,135 +459,6 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             request['enlwf_guard'] = True
             api.content.transition(obj=self, transition='sending_completed')
             request['enlwf_guard'] = False
-
-    def _get_issue_data(self, receiver):
-        """
-        returns a dict of issue_data, like subject and several parts of
-        the issue. This is done so, to split up the send method and
-        make it more hookable.
-        """
-        issue_data = {}
-
-        request = self.REQUEST
-        subject = request.get("subject")
-        if not subject:
-            subject = self.Title()
-
-        issue_data['subject_header'] = Header(safe_unicode(subject))
-
-        output_html = self._render_output_html()
-        # This will resolve 'resolveuid' links for us
-        rendered_newsletter = self._exchange_relative_urls(output_html)
-
-        issue_data['text'] = rendered_newsletter['html']
-        issue_data['text_plain'] = rendered_newsletter['plain']
-
-        image_urls = rendered_newsletter['images']
-        issue_data['images_to_attach'] = self._get_images_to_attach(image_urls)
-
-        return issue_data
-
-    def _personalize_texts(self, enl, receiver, text, text_plain):
-        salutation = receiver.get("salutation") or ''
-        fullname = receiver.get('fullname')
-        if not fullname:
-            try:
-                fullname = enl.getFullname_fallback()
-            except AttributeError:
-                fullname = "Sir or Madam"
-
-        subscriber_salutation = safe_portal_encoding(salutation) + ' ' + \
-            safe_portal_encoding(fullname)
-        text = text.replace(
-            "[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
-        text_plain = text_plain.replace(
-            "[[SUBSCRIBER_SALUTATION]]", str(subscriber_salutation))
-
-        # we can only build unsubscribe links with subscriber uid
-        if 'uid' in receiver:
-            try:
-                unsubscribe_text = enl.getUnsubscribe_string()
-            except AttributeError:
-                unsubscribe_text = "Click here to unsubscribe"
-            unsubscribe_link = enl.absolute_url() + \
-                "/unsubscribe?subscriber=" + receiver['uid']
-
-            text = text.replace(
-                "[[UNSUBSCRIBE]]", """<a href="%s">%s.</a>""" % (
-                    unsubscribe_link, unsubscribe_text))
-
-            text_plain = text_plain.replace(
-                "[[UNSUBSCRIBE]]", """\n%s: %s""" % (
-                    unsubscribe_text, unsubscribe_link))
-        else:
-            text = text.replace("[[UNSUBSCRIBE]]", "")
-            text_plain = text_plain.replace(
-                "[[UNSUBSCRIBE]]", "")
-
-        return text, text_plain
-
-    def _get_images_to_attach(self, image_urls):  # noqa
-        # this should really be refactored!
-        image_number = 0
-        images_to_attach = []
-        reference_tool = getToolByName(self, 'reference_catalog')
-
-        for image_url in image_urls:
-            try:
-                image_url = urlparse(image_url)[2]
-                o = None
-                if 'resolveuid' in image_url:
-                    urlparts = image_url.split('resolveuid/')[1:][0]
-                    urlparts = urlparts.split('/')
-                    uuid = urlparts.pop(0)
-                    o = reference_tool.lookupObject(uuid)
-                    if o and urlparts:
-                        # get thumb
-                        o = o.restrictedTraverse(urlparts[0])
-                        image_url = '/'.join(urlparts)
-                if "@@images" in image_url:
-                    # HACK to get around restrictedTraverse not honoring
-                    # ITraversable see
-                    # http://developer.plone.org/serving/traversing.html\
-                    # traversing-by-full-path
-                    image_url_base, image_scale_params = image_url.split(
-                        "@@images/")
-                    if o is not None:
-                        scales = o
-                    else:
-                        scales = self.restrictedTraverse(
-                            urllib.unquote(
-                                image_url_base.strip('/') + '/@@images'))
-                    parts = list(reversed(image_scale_params.split("/")))
-                    name = parts.pop()
-                    dummy_request = dict(TraversalRequestNameStack=parts)
-                    o = scales.publishTraverse(dummy_request, name)
-                if o is None:
-                    o = self.restrictedTraverse(urllib.unquote(image_url))
-            except Exception, e:
-                log.error("Could not resolve the image \"%s\": %s" % (
-                    image_url, e))
-            else:
-                if hasattr(o, "_data"):  # file-based
-                    image = MIMEImage(o._data)
-                elif hasattr(o, "data"):
-                    if plone_namedfile and isinstance(o, ImageScale):
-                        image = MIMEImage(o.data.data)  # zodb-based dx image
-                    else:
-                        image = MIMEImage(o.data)  # zodb-based
-                elif hasattr(o, "GET"):
-                    image = MIMEImage(o.GET())  # z3 resource image
-                else:
-                    log.error(
-                        "Could not get the image data from image object!")
-                    image = None
-                if image is not None:
-                    image["Content-ID"] = "<image_%s>" % image_number
-                    # attach images only to html parts
-                images_to_attach.append(image)
-            # Numbers have to match what we replaced in html
-            image_number += 1
-        return images_to_attach
 
     @security.protected("Modify portal content")
     def loadContent(self):
@@ -771,28 +598,6 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         for subscriber in subscribers([enl], IReceiversPostSendingFilter):
             plone_subscribers = subscriber.filter(plone_subscribers)
         return plone_subscribers
-
-    def create_plaintext_message(self, text):
-        """ Create a plain-text-message by parsing the html
-            and attaching links as endnotes
-        """
-        plain_text_maxcols = 72
-        textout = cStringIO.StringIO()
-        formtext = formatter.AbstractFormatter(
-            formatter.DumbWriter(textout, plain_text_maxcols))
-        parser = HTMLParser(formtext)
-        parser.feed(text)
-        parser.close()
-
-        # append the anchorlist at the bottom of a message
-        # to keep the message readable.
-        anchorlist = "\n\n" + ("-" * plain_text_maxcols) + "\n\n"
-        for counter, item in enumerate(parser.anchorlist):
-            anchorlist += "[%d] %s\n" % (counter, item)
-
-        text = textout.getvalue() + anchorlist
-        del textout, formtext, parser, anchorlist
-        return text
 
     def getFiles(self):
         """ Return list of files in subtree """
