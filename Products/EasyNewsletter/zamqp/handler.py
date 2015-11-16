@@ -22,7 +22,6 @@ class MailProcessingProducer(Producer):
     routing_key = QUEUE_NAME
 
     durable = True
-    auto_delete = True
 
 
 class MailProcessingConsumer(Consumer):
@@ -34,7 +33,6 @@ class MailProcessingConsumer(Consumer):
     routing_key = QUEUE_NAME
 
     durable = True
-    auto_delete = True
 
 
 def process_message(message, event):

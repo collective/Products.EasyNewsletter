@@ -5,6 +5,9 @@ Changelog
 3.0a1 (unreleased)
 ------------------
 
+- zamqp: removed auto_delete property to keep sending queues on consumer restart
+  [agitator]
+
 - Added firstname, lastname and gender to enl_receivers dictionary
   [agitator]
 
