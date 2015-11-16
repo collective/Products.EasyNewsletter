@@ -198,6 +198,8 @@ class UnsubscribeView(BrowserView):
         query = {}
         query["portal_type"] = "ENLSubscriber"
         query["email"] = subscriber
+        owner = newsletter.getWrappedOwner()
+        newSecurityManager(newsletter, owner)
         results = catalog(query)
         messages = IStatusMessage(self.request)
         if results:
