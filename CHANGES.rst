@@ -5,6 +5,11 @@ Changelog
 3.0a1 (unreleased)
 ------------------
 
+- Only add IDisableCSRFProtection to the unsubscribe view if the supported
+  newer plone.protect is available. Don't force dependency on plone.protect
+  3.X
+  [fredvd]
+
 - zamqp: removed auto_delete property to keep sending queues on consumer restart
   [agitator]
 

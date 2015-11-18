@@ -4,7 +4,6 @@ from Acquisition import aq_inner
 from email.MIMEText import MIMEText
 from plone import api
 from plone.i18n.normalizer.interfaces import IIDNormalizer
-from plone.protect.interfaces import IDisableCSRFProtection
 from Products.CMFCore.utils import getToolByName
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.config import MESSAGE_CODE
@@ -18,6 +17,11 @@ from zope.interface import alsoProvides
 import OFS
 import re
 
+try:
+    from plone.protect.interfaces import IDisableCSRFProtection
+except ImportError:
+    # BBB for old plone.protect, default until at least Plone 4.3.7.
+    IDisableCSRFProtection = None
 
 EMAIL_RE = "^" + EMAIL_RE
 
@@ -256,7 +260,8 @@ class UnsubscribeView(BrowserView):
     def unsubscribe(self):
         """
         """
-        alsoProvides(self.request, IDisableCSRFProtection)
+        if IDisableCSRFProtection is not None:
+            alsoProvides(self.request, IDisableCSRFProtection)
         putils = getToolByName(self.context, "plone_utils")
         catalog = getToolByName(self.context, "reference_catalog")
         uid = self.request.get("subscriber")
