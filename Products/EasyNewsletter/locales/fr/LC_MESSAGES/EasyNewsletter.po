@@ -232,7 +232,7 @@ msgstr "Source externe d'inscrit"
 #. Default: "First Name"
 #: ./content/ENLSubscriber.py:65
 msgid "EasyNewsletter_label_firstname"
-msgstr ""
+msgstr "Prénom"
 
 #. Default: "Footer"
 #: ./content/ENLIssue.py:171
@@ -262,7 +262,7 @@ msgstr ""
 #. Default: "Name Prefix"
 #: ./content/ENLSubscriber.py:54
 msgid "EasyNewsletter_label_name_prefix"
-msgstr ""
+msgstr "Titre"
 
 #. Default: "no external subscriber source"
 #: ./content/EasyNewsletter.py:520
@@ -272,7 +272,7 @@ msgstr "Pas de source externe pour les abonnés"
 #. Default: "Organization"
 #: ./content/ENLSubscriber.py:83
 msgid "EasyNewsletter_label_organization"
-msgstr "Entreprise/Organisation"
+msgstr "Organisation"
 
 #. Default: "Plone Groups to receive the newsletter"
 #: ./content/ENLIssue.py:129
@@ -346,7 +346,7 @@ msgstr ""
 #. Default: "Title"
 #: ./content/ENLSubscriber.py:17
 msgid "EasyNewsletter_label_title"
-msgstr ""
+msgstr "Titre"
 
 #. Default: "Text for the 'unsubscribe' link"
 #: ./content/EasyNewsletter.py:119
@@ -375,7 +375,7 @@ msgstr ""
 #: ./browser/upload_csv.pt:37
 #: ./portlets/subscriber.pt:49
 msgid "First Name"
-msgstr ""
+msgstr "Prénom"
 
 #: ./profiles/default/types/ENLSubscriber.xml
 #: ./profiles/default/types/ENLTemplate.xml
@@ -447,7 +447,7 @@ msgstr "Veuillez saisir une adresse email valide"
 
 #: ./browser/upload_csv.pt:89
 msgid "Prefix"
-msgstr ""
+msgstr "Titre"
 
 #: ./browser/upload_csv.pt:95
 msgid "Reason for failure"
@@ -527,7 +527,7 @@ msgstr "Cette portlet affiche le formulaire d'ajout d'un abonné à la lettre"
 
 #: ./portlets/subscriber.pt:44
 msgid "Title"
-msgstr ""
+msgstr "Titre"
 
 #: ./portlets/subscriber.py:16
 msgid "Title for the portlet."
@@ -757,12 +757,12 @@ msgstr ""
 #. Default: "First Name"
 #: ./browser/subscribers.py:92
 msgid "firstname"
-msgstr ""
+msgstr "Prénom"
 
 #. Default: "First Name"
 #: ./browser/enl_subscribers_view.pt:77
 msgid "firstname_listing"
-msgstr ""
+msgstr "Prénom"
 
 #. Default: "Up one level"
 #: ./skins/EasyNewsletter/enl_subtopics.pt:40
@@ -996,17 +996,17 @@ msgstr "Mme"
 #. Default: "Name"
 #: ./portlets/subscriber.pt:54
 msgid "name"
-msgstr ""
+msgstr "Nom"
 
 #. Default: "Prefix"
 #: ./browser/subscribers.py:91
 msgid "name_prefix"
-msgstr ""
+msgstr "Titre"
 
 #. Default: "Prefix"
 #: ./browser/enl_subscribers_view.pt:76
 msgid "name_prefix_listing"
-msgstr ""
+msgstr "Titre"
 
 #: ./browser/subscribers.py:94
 msgid "nl_language"
@@ -1026,12 +1026,12 @@ msgstr "Organisation"
 #. Default: "Organization"
 #: ./browser/enl_subscribers_view.pt:80
 msgid "organization_listing"
-msgstr ""
+msgstr "Organisation"
 
 #. Default: "Organization"
 #: ./portlets/subscriber.pt:61
 msgid "organization_portlet"
-msgstr ""
+msgstr "Organisation"
 
 #. Default: "Salutation"
 #: ./browser/subscribers.py:90
