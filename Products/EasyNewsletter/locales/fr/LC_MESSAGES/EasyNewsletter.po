@@ -986,12 +986,12 @@ msgstr "Email"
 #. Default: "Mr"
 #: ./portlets/subscriber.pt:37
 msgid "mr"
-msgstr "m"
+msgstr "M."
 
 #. Default: "Ms"
 #: ./portlets/subscriber.pt:30
 msgid "ms"
-msgstr "mme"
+msgstr "Mme"
 
 #. Default: "Name"
 #: ./portlets/subscriber.pt:54
