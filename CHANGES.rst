@@ -5,6 +5,9 @@ Changelog
 3.0a1 (unreleased)
 ------------------
 
+- have the ``default`` profile in both, plone 4 and 5, do the full required install.
+  [jensens]
+
 - Only add IDisableCSRFProtection to the unsubscribe view if the supported
   newer plone.protect is available. Don't force dependency on plone.protect
   3.X
