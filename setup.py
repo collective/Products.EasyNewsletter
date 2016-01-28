@@ -33,6 +33,9 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
+        'Products.CMFPlone',
+        'Products.Archetypes',
+        'Products.ATContentTypes',
         'BeautifulSoup',
         'jinja2',
         'nameparser',
@@ -46,6 +49,7 @@ setup(
             'Pillow',
             'plone.app.testing',
             'plone.dexterity',
+            'Products.SecureMailHost',
         ],
         fmp=['inqbus.plone.fastmemberproperties'],
         zamqp=[

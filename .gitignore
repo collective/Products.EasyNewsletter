@@ -31,3 +31,4 @@ docs/make.bat
 docs/Makefile
 *.sublime-project
 *.sublime-workspace
+*.ropeproject

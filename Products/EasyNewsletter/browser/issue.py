@@ -69,16 +69,6 @@ class IssueView(BrowserView):
         """
         issuedatafetcher = IIssueDataFetcher(self.context)
         return issuedatafetcher.preview_html()
-        if "_authenticator" not in self.request:
-            authenticator = self.context.restrictedTraverse("@@authenticator")
-            self.request['_authenticator'] = authenticator.token()
-        html = self.context._render_output_html()
-        for placeholder in PLACEHOLDERS:
-            html = html.replace('[[' + placeholder + ']]', '')
-        soup = BeautifulSoup(html)
-        for node in soup.findAll('div', {'class': 'mailonly'}):
-            node.extract()
-        return soup.renderContents()
 
     def copy_as_draft(self):
         newsletter = self.context.aq_parent

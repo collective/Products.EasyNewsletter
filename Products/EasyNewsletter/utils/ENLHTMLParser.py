@@ -50,7 +50,8 @@ class ENLHTMLParser(HTMLParser.HTMLParser):
                     url = attr[1]
                 self.html += ' href="%s"' % self._encode(url)
             else:
-                self.html += ' {0}="{1}"'.format(self._encode(attr[0]), self._encode(attr[1]))
+                self.html += ' {0}="{1}"'.format(
+                    self._encode(attr[0]), self._encode(attr[1]))
 
         self.html += ">"
 

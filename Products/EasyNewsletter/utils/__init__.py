@@ -9,7 +9,6 @@ except ImportError:
 from Products.CMFPlone.utils import safe_unicode
 
 try:
-    from plone.app.upgrade import v50
     from plone.protect.utils import addTokenToUrl
 except ImportError:
     def addTokenToUrl(url):
