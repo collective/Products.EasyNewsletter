@@ -5,6 +5,16 @@ Changelog
 3.0a1 (unreleased)
 ------------------
 
+- Give a redirect with a status message back to the issue page after sending a
+  news letter issue directly (without asynchronous queueing), this was broken
+  after the zamqp support was added.
+  [fredvd]
+
+- Do a transaction.commit() after changing the Issue workflow to 'sending' so
+  we are certain another incoming request for sending the issue will see the
+  change and fail in direct send mode. (Fixes #83)
+  [fredvd]
+
 - Only add IDisableCSRFProtection to the unsubscribe view if the supported
   newer plone.protect is available. Don't force dependency on plone.protect
   3.X
