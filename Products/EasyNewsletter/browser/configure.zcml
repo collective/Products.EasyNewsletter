@@ -10,17 +10,9 @@
 
 
   <plone:static
-    name="nl_resources"
+    name="easynewsletter"
     directory="static"
     type="plone"
-    />
-
-  <browser:resourceDirectory
-    name="nl_resources"
-    directory="static"
-    layer="Products.EasyNewsletter.interfaces.IEasyNewsletterLayer"
-    permission="zope.Public"
-    zcml:condition="not-have plone-5"
     />
 
 
@@ -159,7 +151,7 @@
 
   <browser:resource
     name="Products.EasyNewsletter.enl_edithelper.js"
-      file="javascripts/enl_edithelper.js" />
+    file="static/enl_edithelper.js" />
 
   <browser:page
     name="load_enl_edithelper"

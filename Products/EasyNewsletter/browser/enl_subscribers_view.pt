@@ -119,7 +119,7 @@
                              tal:attributes="href string:${subscriber/getURL|nothing}/delete_confirmation">
                              <img tal:attributes="alt string:Delete subscriber;
                                                   title string:Delete subscriber;
-                                                  src string:delete_icon.png" />
+                                                  src string:++plone++easynewsletter/delete_icon.png" />
                           </a>
                       </td>
                   </tr>

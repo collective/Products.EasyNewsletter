@@ -6,59 +6,59 @@
 
 
   <genericsetup:upgradeStep
-      title="Add catalog indexes"
-      description=""
-      source="1"
-      destination="2"
-      handler="Products.EasyNewsletter.setuphandlers.add_catalog_indexes"
-      profile="Products.EasyNewsletter:default" />
+    title="Add catalog indexes"
+    description=""
+    source="1"
+    destination="2"
+    handler="Products.EasyNewsletter.setuphandlers.add_catalog_indexes"
+    profile="Products.EasyNewsletter:default" />
 
   <genericsetup:upgradeStep
-      title="Add firstname and lastname indexes"
-      description=""
-      source="2"
-      destination="3"
-      handler=".setuphandlers.add_catalog_indexes"
-      profile="Products.EasyNewsletter:default" />
+    title="Add firstname and lastname indexes"
+    description=""
+    source="2"
+    destination="3"
+    handler=".setuphandlers.add_catalog_indexes"
+    profile="Products.EasyNewsletter:default" />
 
   <genericsetup:upgradeStep
-      title="Split fullname into firstname and lastname"
-      description=""
-      source="2"
-      destination="3"
-      handler=".upgrades.fullname_to_first_and_lastname"
-      profile="Products.EasyNewsletter:default"/>
+    title="Split fullname into firstname and lastname"
+    description=""
+    source="2"
+    destination="3"
+    handler=".upgrades.fullname_to_first_and_lastname"
+    profile="Products.EasyNewsletter:default"/>
 
   <genericsetup:upgradeStep
-          title="Add firstname and lastname indexes"
-          description=""
-          source="3"
-          destination="3000"
-          handler=".setuphandlers.add_catalog_indexes"
-          profile="Products.EasyNewsletter:default" />
+    title="Add firstname and lastname indexes"
+    description=""
+    source="3"
+    destination="3000"
+    handler=".setuphandlers.add_catalog_indexes"
+    profile="Products.EasyNewsletter:default" />
 
   <genericsetup:upgradeStep
-          title="Split fullname into firstname and lastname"
-          description=""
-          source="3000"
-          destination="3001"
-          handler=".upgrades.fullname_to_first_and_lastname"
-          profile="Products.EasyNewsletter:default"/>
+    title="Split fullname into firstname and lastname"
+    description=""
+    source="3000"
+    destination="3001"
+    handler=".upgrades.fullname_to_first_and_lastname"
+    profile="Products.EasyNewsletter:default"/>
 
   <genericsetup:upgradeStep
-          title="Split fullname into firstname and lastname"
-          description=""
-          source="3001"
-          destination="3002"
-          handler=".upgrades.fullname_to_first_and_lastname"
-          profile="Products.EasyNewsletter:default"/>
+    title="Split fullname into firstname and lastname"
+    description=""
+    source="3001"
+    destination="3002"
+    handler=".upgrades.fullname_to_first_and_lastname"
+    profile="Products.EasyNewsletter:default"/>
 
   <genericsetup:upgradeStep
-          title="Reindex subscribers for SearchableText index"
-          description=""
-          source="3002"
-          destination="3003"
-          handler=".upgrades.reindex_subscribers"
-          profile="Products.EasyNewsletter:default"/>
+    title="Reindex subscribers for SearchableText index"
+    description=""
+    source="3002"
+    destination="3003"
+    handler=".upgrades.reindex_subscribers"
+    profile="Products.EasyNewsletter:default"/>
 
 </configure>

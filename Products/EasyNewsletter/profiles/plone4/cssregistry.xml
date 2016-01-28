@@ -3,12 +3,12 @@
 <object name="portal_css">
 
  <stylesheet title=""
-    id="easynewsletter.css"
-    media="screen" 
-    rel="stylesheet" 
+    id="++plone++easynewsletter/easynewsletter.css"
+    media="screen"
+    rel="stylesheet"
     rendering="import"
-    cacheable="True" 
-    compression="safe" 
+    cacheable="True"
+    compression="safe"
     cookable="True"
     enabled="1"
     expression="" />
