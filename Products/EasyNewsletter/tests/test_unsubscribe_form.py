@@ -105,7 +105,8 @@ class UnsubscribeFormFunctionalTests(unittest.TestCase):
 
     def test_render_unsubscribe_form(self):
         self.browser.open(self.unsubscribe_form_url)
-        self.assertTrue(u"unsubscribe_form" in self.browser.contents)
+        self.assertTrue(u"unsubscribe_form" in self.browser.contents.decode(
+            'utf8'))
 
     def test_unsubscribe_view(self):
         subscriber1_id = self.newsletter.subscriber1.id
@@ -113,7 +114,8 @@ class UnsubscribeFormFunctionalTests(unittest.TestCase):
             self.unsubscribe_view_url + '?subscriber=' +
             self.newsletter.subscriber1.UID())
         self.assertTrue(
-            u"You have been unsubscribed." in self.browser.contents,
+            u"You have been unsubscribed." in self.browser.contents.decode(
+                'utf8'),
             'There should be a portal message!')
         self.assertTrue(
             subscriber1_id not in self.newsletter.objectIds(),

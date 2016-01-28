@@ -5,6 +5,7 @@ from Products.CMFPlone.tests.utils import MockMailHost
 from Products.EasyNewsletter.interfaces import IENLIssue
 from Products.EasyNewsletter.interfaces import IEasyNewsletter
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
+from Products.EasyNewsletter.tests.utils import set_image_field
 from Products.MailHost.interfaces import IMailHost
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
@@ -49,7 +50,7 @@ class EasyNewsletterTests(unittest.TestCase):
         self.folder.invokeFactory("Image", "image")
         self.image = self.folder.image
         img1 = open(os.path.join(TESTS_HOME, 'img1.png'), 'rb').read()
-        self.image.edit(image=img1)
+        set_image_field(self.image, img1)
 
     def sendSampleMessage(self, body):
         self.assertSequenceEqual(self.mailhost.messages, [])

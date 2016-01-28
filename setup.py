@@ -51,6 +51,7 @@ setup(
             'plone.app.upgrade',
             'plone.dexterity',
             'Products.SecureMailHost',
+            'plone.app.robotframework',
         ],
         fmp=['inqbus.plone.fastmemberproperties'],
         zamqp=[

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
+from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
-from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import applyProfile
 from plone.testing import z2
@@ -10,7 +10,7 @@ from zope.configuration import xmlconfig
 
 class EasyNewsletter(PloneSandboxLayer):
 
-    defaultBases = (PLONE_FIXTURE, )
+    defaultBases = (PLONE_APP_CONTENTTYPES_FIXTURE, )
 
     def setUpZope(self, app, configurationContext):
         # Load ZCML
@@ -20,6 +20,7 @@ class EasyNewsletter(PloneSandboxLayer):
                        context=configurationContext)
 
         # Install product and call its initialize() function
+        z2.installProduct(app, 'Products.Archetypes')
         z2.installProduct(app, 'Products.EasyNewsletter')
 
         # Note: you can skip this if Products.EasyNewsletter is not a
