@@ -6,7 +6,6 @@ from Products.EasyNewsletter.interfaces import IENLIssue
 from Products.EasyNewsletter.interfaces import IEasyNewsletter
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
 from Products.MailHost.interfaces import IMailHost
-from Products.TinyMCE.interfaces.utility import ITinyMCE
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import login
@@ -14,7 +13,6 @@ from plone.app.testing import setRoles
 from zExceptions import Forbidden
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
-from zope.component import queryUtility
 import os
 import unittest
 
@@ -132,10 +130,6 @@ class EasyNewsletterTests(unittest.TestCase):
         self.assertIn('Content-ID: <image_1>\nContent-Type: image/png;', msg)
 
     def test_send_test_issue_with_resolveuid_image(self):
-        # for plone < 4.2 we need to ensure turn on to resolveuid links
-        tinymce = queryUtility(ITinyMCE)
-        tinymce.link_using_uids = True
-
         body = '<img src="../../resolveuid/%s"/>' % self.image.UID()
         msg = self.sendSampleMessage(body)
 
@@ -144,10 +138,6 @@ class EasyNewsletterTests(unittest.TestCase):
         self.assertIn('Content-ID: <image_1>\nContent-Type: image/png;', msg)
 
     def test_send_test_issue_with_resolveuid_scale_image(self):
-        # for plone < 4.2 we need to ensure turn on to resolveuid links
-        tinymce = queryUtility(ITinyMCE)
-        tinymce.link_using_uids = True
-
         body = '<img src="../../resolveuid/%s/@@images/image/thumb"/>' % \
             self.image.UID()
         msg = self.sendSampleMessage(body)
