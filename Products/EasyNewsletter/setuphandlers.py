@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.interfaces import INonInstallable
+from zope.interface import implementer
 import logging
 
 
@@ -63,3 +65,14 @@ def import_various(context):
     logger = context.getLogger('Products.EasyNewsletter')
     site = context.getSite()
     add_catalog_indexes(site, logger)
+
+
+@implementer(INonInstallable)
+class HiddenProfiles(object):
+
+    def getNonInstallableProfiles(self):
+        """Hide profiles from site-creation and quickinstaller"""
+        return [
+            'Products.EasyNewsletter:newsletterbase',
+            'Products.EasyNewsletter:uninstall',
+        ]

@@ -1,10 +1,28 @@
 <configure
   xmlns="http://namespaces.zope.org/zope"
   xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns:plone="http://namespaces.plone.org/plone"
   xmlns:cmf="http://namespaces.zope.org/cmf"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
   i18n_domain="EasyNewsletter">
 
   <include package="plone.app.contentmenu" />
+
+
+  <plone:static
+    name="nl_resources"
+    directory="static"
+    type="plone"
+    />
+
+  <browser:resourceDirectory
+    name="nl_resources"
+    directory="static"
+    layer="Products.EasyNewsletter.interfaces.IEasyNewsletterLayer"
+    permission="zope.Public"
+    zcml:condition="not-have plone-5"
+    />
+
 
   <browser:page
     name="send-issue-form"
