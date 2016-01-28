@@ -3,6 +3,11 @@ from zope.interface import Attribute
 from zope.interface import Interface
 
 
+class IEasyNewsletterLayer(Interface):
+    """
+    """
+
+
 class IEasyNewsletter(Interface):
     """
     """
