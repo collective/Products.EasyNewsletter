@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<metadata>
+  <version>3003</version>
+  <dependencies>
+    <dependency>profile-Products.ATContentTypes:base</dependency>
+    <dependency>profile-Products.EasyNewsletter:newsletterbase</dependency>
+  </dependencies>
+</metadata>
