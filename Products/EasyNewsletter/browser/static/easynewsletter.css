@@ -17,3 +17,14 @@ input.easynewsletter_text {
 .portletNewsletterSubscriber div.field span.required::after {
     position: absolute;
 }
+
+.template-enl_subscribers_view .search fieldset {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+.template-enl_subscribers_view .search input[type="text"] {
+    width: 50%;
+    margin-right: 1em;
+    float: left;
+
+}
