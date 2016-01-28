@@ -5,7 +5,7 @@
  <property name="title" i18n:translate="">Newsletter</property>
  <property name="description"
      i18n:translate="">An easy to use Newsletter</property>
- <property name="content_icon">newspaper_icon.png</property>
+ <property name="content_icon">++plone++easynewsletter/newspaper_icon.png</property>
  <property name="content_meta_type">EasyNewsletter</property>
  <property name="product">EasyNewsletter</property>
  <property name="factory">addEasyNewsletter</property>

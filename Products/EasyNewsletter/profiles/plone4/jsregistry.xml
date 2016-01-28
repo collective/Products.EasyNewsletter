@@ -1,6 +1,6 @@
 <object name="portal_javascripts" meta_type="JavaScripts Registry" autogroup="False">
 
-  <javascript id="++resource++Products.EasyNewsletter.enl_edithelper.js"
+  <javascript id="++plone++easynewsletter/enl_edithelper.js"
     compression="safe"
     cookable="False"
     inline="False"
