@@ -48,6 +48,7 @@ setup(
         test=[
             'Pillow',
             'plone.app.testing',
+            'plone.app.upgrade',
             'plone.dexterity',
             'Products.SecureMailHost',
         ],
