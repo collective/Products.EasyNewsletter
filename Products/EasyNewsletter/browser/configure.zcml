@@ -15,6 +15,14 @@
     type="plone"
     />
 
+  <browser:resourceDirectory
+    name="easynewsletter"
+    directory="static"
+    layer="Products.EasyNewsletter.interfaces.IEasyNewsletterLayer"
+    permission="zope.Public"
+    zcml:condition="not-have plone-5"
+    />
+
 
   <browser:page
     name="send-issue-form"

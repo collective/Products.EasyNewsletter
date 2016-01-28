@@ -3,7 +3,7 @@
 <object name="portal_css">
 
  <stylesheet title=""
-    id="++plone++easynewsletter/easynewsletter.css"
+    id="++resource++easynewsletter/easynewsletter.css"
     media="screen"
     rel="stylesheet"
     rendering="import"
