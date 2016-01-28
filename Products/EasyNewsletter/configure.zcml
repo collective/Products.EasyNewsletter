@@ -39,12 +39,6 @@
 
   <i18n:registerTranslations directory="locales" />
 
-  <!-- File System Directory Views registration -->
-  <cmf:registerDirectory
-      directory="skins/EasyNewsletter"
-      name="EasyNewsletter"
-  />
-
   <adapter
       factory=".issuedatafetcher.DefaultIssueDataFetcher"
       for=".interfaces.IENLIssue"
