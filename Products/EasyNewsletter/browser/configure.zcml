@@ -23,6 +23,48 @@
     zcml:condition="not-have plone-5"
     />
 
+  <browser:page
+    name="easynewsletter_view"
+    for="*"
+    template="templates/easynewsletter_view.pt"
+    permission="zope2.View" />
+
+  <browser:page
+    name="enl_drafts_view"
+    for="*"
+    template="templates/enl_drafts_view.pt"
+    permission="zope2.View" />
+
+  <browser:page
+    name="enl_masters_view"
+    for="*"
+    template="templates/enl_masters_view.pt"
+    permission="zope2.View" />
+
+  <browser:page
+    name="enl_subtopics"
+    for="*"
+    class=".views.SubTopicsView"
+    template="templates/enl_masters_view.pt"
+    permission="zope2.View" />
+
+  <browser:page
+    name="enl_template_view"
+    for="*"
+    template="templates/enl_template_view.pt"
+    permission="zope2.View" />
+
+  <browser:page
+    name="enl_templates_view"
+    for="*"
+    template="templates/enl_templates_view.pt"
+    permission="zope2.View" />
+
+  <browser:page
+    name="NewsletterTemplateWidget"
+    for="*"
+    template="templates/NewsletterTemplateWidget.pt"
+    permission="zope2.View" />
 
   <browser:page
     name="send-issue-form"

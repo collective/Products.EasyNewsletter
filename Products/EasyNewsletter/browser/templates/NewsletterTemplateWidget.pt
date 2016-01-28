@@ -1,5 +1,5 @@
 <html i18n:domain="EasyNewsletter">
-      
+
   <body>
     <div metal:define-macro="edit">
 
@@ -19,7 +19,7 @@
 
             </select>
 
-            <input type="submit" 
+            <input type="submit"
                    name="form.button.update"
                    value="Save &amp; Update"
                    i18n:attributes="value easycms_saveupdate_label;"/>
@@ -27,16 +27,16 @@
 
           </metal:fill>
 
-      </metal:use>    
+      </metal:use>
     </div>
 
     <div metal:define-macro="view">
     </div>
 
     <div metal:define-macro="search">
-      <div metal:use-macro="context/widgets/string/macros/search" />    
+      <div metal:use-macro="context/widgets/string/macros/search" />
     </div>
-  
-  </body>      
-      
+
+  </body>
+
 </html>

@@ -66,7 +66,7 @@
                                    use_view_action site_properties/typesUseViewActionInListings|python:();
                                    query_path python:path('contentFilter/path|nothing') or request.get('path',None);
                                    preSorted python:query_path or ((contentFilter and contentFilter.get('sort_on', 'getObjPositionInParent')!='getObjPositionInParent') or (not contentFilter and request.get('sort_on', 'getObjPositionInParent')!='getObjPositionInParent'));
-                                   isOrderable context/enl_isOrderable;
+                                   isOrderable nocall:view/enl_isOrderable;
                                    nosortclass python:test(isOrderable, 'nosort', '');
                                    canModifyFolderContent is_editable;">
 
@@ -120,7 +120,7 @@
             <tbody tal:define="portal context/@@plone_portal_state/portal;
                                arrowUp nocall:portal/arrow_up_icon.png;
                                arrowUp python:arrowUp.tag(alt='Move Up');
-                               arrowDown nocall:portal/++resource++easynewsletter/arrow_down_icon.png;
+                               arrowDown nocall:portal/++resource++easynewsl<etter/arrow_down_icon.png;
                                arrowDown python:arrowDown.tag(alt='Move Down');
                                getRelativeContentURL nocall:context/portal_url/getRelativeContentURL;
                                wtool portal/portal_workflow;
