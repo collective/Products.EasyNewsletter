@@ -595,7 +595,7 @@ msgid "description_help_header"
 msgstr "Dieser Text wird dem Newsletter vorangestellt."
 
 #. Default: "This folder has no visible items. To add content, press the add button, or paste content from another location."
-#: ./skins/EasyNewsletter/enl_subtopics.pt:57
+#: ./browser/templates/enl_subtopics.pt:57
 msgid "description_no_visible_items_add_paste"
 msgstr "Dieser Ordner enhält keine Einträge"
 
@@ -625,14 +625,14 @@ msgid "description_text_issue"
 msgstr "Der Haupttext des Newsletters. Sie können die Kritierien verwenden um Inhalte der Webseite zu sammeln oder Inhalt von Hand einfügen. Dies ist Teil der verschickten Mails."
 
 #. Default: "Save & Update"
-#: ./skins/EasyNewsletter/NewsletterTemplateWidget.pt:22
+#: ./browser/templates/NewsletterTemplateWidget.pt:22
 msgid "easycms_saveupdate_label"
 msgstr "Sichern und Aktualisieren"
 
 #. Default: "Back to newsletter"
 #: ./browser/issue_send_form.pt:18
-#: ./skins/EasyNewsletter/enl_drafts_view.pt:23
-#: ./skins/EasyNewsletter/enl_masters_view.pt:23
+#: ./browser/templates/enl_drafts_view.pt:23
+#: ./browser/templates/enl_masters_view.pt:23
 msgid "easynewsletter_backtonewsletter_label"
 msgstr "Zurück zum Newsletter"
 
@@ -642,7 +642,7 @@ msgid "easynewsletter_button_label"
 msgstr "Abonnieren"
 
 #. Default: "Drafts"
-#: ./skins/EasyNewsletter/enl_drafts_view.pt:20
+#: ./browser/templates/enl_drafts_view.pt:20
 msgid "easynewsletter_drafts_label"
 msgstr "Entwürfe"
 
@@ -657,7 +657,7 @@ msgid "easynewsletter_label_import_subscribers"
 msgstr "Abonnenten importieren"
 
 #. Default: "Masters"
-#: ./skins/EasyNewsletter/enl_masters_view.pt:20
+#: ./browser/templates/enl_masters_view.pt:20
 msgid "easynewsletter_masters_label"
 msgstr "Muster"
 
@@ -667,17 +667,17 @@ msgid "easynewsletter_newslettersent_label"
 msgstr "Dieser Newsletter wurde bereits versandt."
 
 #. Default: "There are no issues."
-#: ./skins/EasyNewsletter/easynewsletter_view.pt:49
+#: ./browser/templates/easynewsletter_view.pt:49
 msgid "easynewsletter_non_issues_label"
 msgstr "Es gibt keine Ausgaben."
 
 #. Default: "There are no drafts."
-#: ./skins/EasyNewsletter/enl_drafts_view.pt:30
+#: ./browser/templates/enl_drafts_view.pt:30
 msgid "easynewsletter_nondrafts_label"
 msgstr "Es gibt keine Entwürfe."
 
 #. Default: "There are no masters."
-#: ./skins/EasyNewsletter/enl_masters_view.pt:30
+#: ./browser/templates/enl_masters_view.pt:30
 msgid "easynewsletter_nonmasters_label"
 msgstr "Es gibt keine Muster."
 
@@ -687,7 +687,7 @@ msgid "easynewsletter_nosubscribers_label"
 msgstr "Es gibt keine Abonnenten."
 
 #. Default: "There are no templates."
-#: ./skins/EasyNewsletter/enl_templates_view.pt:28
+#: ./browser/templates/enl_templates_view.pt:28
 msgid "easynewsletter_notemplates_label"
 msgstr "Es gibt keine Schablonen."
 
@@ -708,7 +708,7 @@ msgid "easynewsletter_subcribers_label"
 msgstr "Abonnenten"
 
 #. Default: "Templates"
-#: ./skins/EasyNewsletter/enl_templates_view.pt:21
+#: ./browser/templates/enl_templates_view.pt:21
 msgid "easynewsletter_templates_label"
 msgstr "Schablonen"
 
@@ -750,7 +750,7 @@ msgid "firstname_listing"
 msgstr "Vorname"
 
 #. Default: "Up one level"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:40
+#: ./browser/templates/enl_subtopics.pt:40
 msgid "go_to_parent_url"
 msgstr "Eine Ebene höher"
 
@@ -800,7 +800,7 @@ msgid "invalid_hashkey"
 msgstr "Bitte geben Sie eine korrekte E-Mail-Adresse ein!"
 
 #. Default: "Issues"
-#: ./skins/EasyNewsletter/easynewsletter_view.pt:46
+#: ./browser/templates/easynewsletter_view.pt:46
 msgid "issues_label"
 msgstr "Ausgaben"
 
@@ -905,7 +905,7 @@ msgid "label_salutation_ms"
 msgstr "Frau"
 
 #. Default: "Select all items"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:86
+#: ./browser/templates/enl_subtopics.pt:86
 msgid "label_select_all_items"
 msgstr "Alle Elemente auswählen"
 
@@ -936,27 +936,27 @@ msgid "lastname_listing"
 msgstr "Nachname"
 
 #. Default: "Modified"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:105
+#: ./browser/templates/enl_subtopics.pt:105
 msgid "listingheader_modified"
 msgstr "Bearbeitet"
 
 #. Default: "Order"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:112
+#: ./browser/templates/enl_subtopics.pt:112
 msgid "listingheader_order"
 msgstr "Reihenfolge"
 
 #. Default: "Size"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:102
+#: ./browser/templates/enl_subtopics.pt:102
 msgid "listingheader_size"
 msgstr "Größe"
 
 #. Default: "State"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:108
+#: ./browser/templates/enl_subtopics.pt:108
 msgid "listingheader_status"
 msgstr "Status"
 
 #. Default: "Title"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:98
+#: ./browser/templates/enl_subtopics.pt:98
 msgid "listingheader_title"
 msgstr "Titel"
 
@@ -1030,7 +1030,7 @@ msgid "source"
 msgstr "Quelle"
 
 #. Default: "Subtopics"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:34
+#: ./browser/templates/enl_subtopics.pt:34
 msgid "sub_topics_label"
 msgstr "Unterkollektionen"
 
@@ -1054,22 +1054,22 @@ msgid "sucessfully_created_subscribers"
 msgstr "Erfolgreich angelegte Abonnenten"
 
 #. Default: "Content listing"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:78
+#: ./browser/templates/enl_subtopics.pt:78
 msgid "summary_content_listing"
 msgstr "Inhalt"
 
 #. Default: "expired"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:194
+#: ./browser/templates/enl_subtopics.pt:194
 msgid "time_expired"
 msgstr "Ablaufdatum"
 
 #. Default: "Move item down"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:227
+#: ./browser/templates/enl_subtopics.pt:227
 msgid "title_move_item_down"
 msgstr "Eintrag nach unten"
 
 #. Default: "Move item up"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:220
+#: ./browser/templates/enl_subtopics.pt:220
 msgid "title_move_item_up"
 msgstr "Eintrag nach oben"
 

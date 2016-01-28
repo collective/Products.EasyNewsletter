@@ -594,7 +594,7 @@ msgid "description_help_header"
 msgstr "Deze hoofding wordt in de e-mail opgenomen."
 
 #. Default: "This folder has no visible items. To add content, press the add button, or paste content from another location."
-#: ./skins/EasyNewsletter/enl_subtopics.pt:57
+#: ./browser/templates/enl_subtopics.pt:57
 msgid "description_no_visible_items_add_paste"
 msgstr "Deze folder heeft geen zichtbare objecten. Om inhoud toe te voegen klik op de knop \"toevoegen\" of plak inhoud van een andere locatie."
 
@@ -624,14 +624,14 @@ msgid "description_text_issue"
 msgstr "De hoofdinhoud van de nieuwsbrief. Verzamelingscriteria zijn te gebruiken om inhoud automatisch te verzameln of u voegt handmatig inhoud toe. Dit wordt toegevoegd aan uitgaande e-mails."
 
 #. Default: "Save & Update"
-#: ./skins/EasyNewsletter/NewsletterTemplateWidget.pt:22
+#: ./browser/templates/NewsletterTemplateWidget.pt:22
 msgid "easycms_saveupdate_label"
 msgstr "Opslaan & bijwerken"
 
 #. Default: "Back to newsletter"
 #: ./browser/issue_send_form.pt:18
-#: ./skins/EasyNewsletter/enl_drafts_view.pt:23
-#: ./skins/EasyNewsletter/enl_masters_view.pt:25
+#: ./browser/templates/enl_drafts_view.pt:23
+#: ./browser/templates/enl_masters_view.pt:25
 msgid "easynewsletter_backtonewsletter_label"
 msgstr "Terug naar de nieuwsbrief"
 
@@ -641,12 +641,12 @@ msgid "easynewsletter_button_label"
 msgstr "Inschrijven"
 
 #. Default: "Drafts are newsletter editions that are still in the writing process and unsent."
-#: ./skins/EasyNewsletter/enl_drafts_view.pt:29
+#: ./browser/templates/enl_drafts_view.pt:29
 msgid "easynewsletter_drafts_description"
 msgstr "Concepten zijn nieuwsbrief-editites waaraan u schrijft en die nog niet verstuurd zijn."
 
 #. Default: "Drafts"
-#: ./skins/EasyNewsletter/enl_drafts_view.pt:20
+#: ./browser/templates/enl_drafts_view.pt:20
 msgid "easynewsletter_drafts_label"
 msgstr "Concept-edities"
 
@@ -661,12 +661,12 @@ msgid "easynewsletter_label_import_subscribers"
 msgstr "Abonnees importeren"
 
 #. Default: "Masters are saved newsletters that are hidden from normal view which you can re-use as a basis when you start writing new editions."
-#: ./skins/EasyNewsletter/enl_masters_view.pt:31
+#: ./browser/templates/enl_masters_view.pt:31
 msgid "easynewsletter_masters_description"
 msgstr "Masters zijn opgeslagen nieuwsbrieven die voor gewone gebruikers niet zichtbaar zijn en welke u kunt gebruiken als basis voor de inhoud van nieuwe uitgaven van de nieuwsbrief."
 
 #. Default: "Masters"
-#: ./skins/EasyNewsletter/enl_masters_view.pt:20
+#: ./browser/templates/enl_masters_view.pt:20
 msgid "easynewsletter_masters_label"
 msgstr "Masters"
 
@@ -676,17 +676,17 @@ msgid "easynewsletter_newslettersent_label"
 msgstr "De nieuwsbrief is reeds verzonden."
 
 #. Default: "There are no issues."
-#: ./skins/EasyNewsletter/easynewsletter_view.pt:49
+#: ./browser/templates/easynewsletter_view.pt:49
 msgid "easynewsletter_non_issues_label"
 msgstr "Er zijn geen edities"
 
 #. Default: "There are no drafts."
-#: ./skins/EasyNewsletter/enl_drafts_view.pt:34
+#: ./browser/templates/enl_drafts_view.pt:34
 msgid "easynewsletter_nondrafts_label"
 msgstr "Er zijn geen concept-edities."
 
 #. Default: "There are no masters."
-#: ./skins/EasyNewsletter/enl_masters_view.pt:37
+#: ./browser/templates/enl_masters_view.pt:37
 msgid "easynewsletter_nonmasters_label"
 msgstr "Er zijn geen Masters."
 
@@ -696,7 +696,7 @@ msgid "easynewsletter_nosubscribers_label"
 msgstr "Er zijn geen abonnees."
 
 #. Default: "There are no templates."
-#: ./skins/EasyNewsletter/enl_templates_view.pt:32
+#: ./browser/templates/enl_templates_view.pt:32
 msgid "easynewsletter_notemplates_label"
 msgstr "Er zijn geen sjablonen."
 
@@ -717,12 +717,12 @@ msgid "easynewsletter_subcribers_label"
 msgstr "Abonnees"
 
 #. Default: "With templates you can customise the generation of the easynewsletter html output and create different output for the same content."
-#: ./skins/EasyNewsletter/enl_templates_view.pt:25
+#: ./browser/templates/enl_templates_view.pt:25
 msgid "easynewsletter_templates_description"
 msgstr "Met sjablonen past u de htmlcode van de nieuwsbrief aan en kunnen nieuwsbrieven met dezelfde inhoud een verschillende stijl krijgen."
 
 #. Default: "Templates"
-#: ./skins/EasyNewsletter/enl_templates_view.pt:21
+#: ./browser/templates/enl_templates_view.pt:21
 msgid "easynewsletter_templates_label"
 msgstr "Sjablonen"
 
@@ -764,7 +764,7 @@ msgid "firstname_listing"
 msgstr "Voornaam"
 
 #. Default: "Up one level"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:40
+#: ./browser/templates/enl_subtopics.pt:40
 msgid "go_to_parent_url"
 msgstr "Ga een nivieau naar boven"
 
@@ -814,7 +814,7 @@ msgid "invalid_hashkey"
 msgstr "Vul alstublieft een geldig e-mailadres in"
 
 #. Default: "Issues"
-#: ./skins/EasyNewsletter/easynewsletter_view.pt:46
+#: ./browser/templates/easynewsletter_view.pt:46
 msgid "issues_label"
 msgstr "Edities"
 
@@ -919,7 +919,7 @@ msgid "label_salutation_ms"
 msgstr "Mevrouw"
 
 #. Default: "Select all items"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:86
+#: ./browser/templates/enl_subtopics.pt:86
 msgid "label_select_all_items"
 msgstr "Selecteer alle items"
 
@@ -950,27 +950,27 @@ msgid "lastname_listing"
 msgstr "Achternaam"
 
 #. Default: "Modified"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:105
+#: ./browser/templates/enl_subtopics.pt:105
 msgid "listingheader_modified"
 msgstr "Gewijzigd"
 
 #. Default: "Order"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:112
+#: ./browser/templates/enl_subtopics.pt:112
 msgid "listingheader_order"
 msgstr "Volgorde"
 
 #. Default: "Size"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:102
+#: ./browser/templates/enl_subtopics.pt:102
 msgid "listingheader_size"
 msgstr "Grootte"
 
 #. Default: "State"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:108
+#: ./browser/templates/enl_subtopics.pt:108
 msgid "listingheader_status"
 msgstr "Status"
 
 #. Default: "Title"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:98
+#: ./browser/templates/enl_subtopics.pt:98
 msgid "listingheader_title"
 msgstr "Titel"
 
@@ -1044,7 +1044,7 @@ msgid "source"
 msgstr "Bron"
 
 #. Default: "Subtopics"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:34
+#: ./browser/templates/enl_subtopics.pt:34
 msgid "sub_topics_label"
 msgstr "subverzamelingen"
 
@@ -1068,22 +1068,22 @@ msgid "sucessfully_created_subscribers"
 msgstr "Abonnees met succes aangemaakt"
 
 #. Default: "Content listing"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:78
+#: ./browser/templates/enl_subtopics.pt:78
 msgid "summary_content_listing"
 msgstr "Inhoud samenvatting"
 
 #. Default: "expired"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:194
+#: ./browser/templates/enl_subtopics.pt:194
 msgid "time_expired"
 msgstr "verstreken"
 
 #. Default: "Move item down"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:227
+#: ./browser/templates/enl_subtopics.pt:227
 msgid "title_move_item_down"
 msgstr "Plaats item naar beneden"
 
 #. Default: "Move item up"
-#: ./skins/EasyNewsletter/enl_subtopics.pt:220
+#: ./browser/templates/enl_subtopics.pt:220
 msgid "title_move_item_up"
 msgstr "Plaats item naar boven"
 
