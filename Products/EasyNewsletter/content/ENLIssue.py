@@ -3,6 +3,10 @@ from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
 from Products.Archetypes import atapi
+try:
+    from Products.Archetypes.atapi import TinyMCEWidget
+except ImportError:
+    from Products.Archetypes.atapi import RichWidget as TinyMCEWidget
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
@@ -52,7 +56,7 @@ schema = atapi.Schema((
             'text/plain', 'text/structured', 'text/html',
             'application/msword'),
         default_output_type='text/html',
-        widget=atapi.TinyMCEWidget(
+        widget=TinyMCEWidget(
             rows=30,
             label=_('EasyNewsletter_label_text', default=u'Text'),
             description=_(
@@ -136,7 +140,7 @@ schema = atapi.Schema((
             'application/msword'),
         default_method="get_default_header",
         default_output_type='text/html',
-        widget=atapi.TinyMCEWidget(
+        widget=TinyMCEWidget(
             rows=10,
             label=_(
                 u'EasyNewsletter_label_header',
@@ -156,7 +160,7 @@ schema = atapi.Schema((
             'application/msword'),
         default_method="get_default_footer",
         default_output_type='text/html',
-        widget=atapi.TinyMCEWidget(
+        widget=TinyMCEWidget(
             rows=10,
             label=_(u'EasyNewsletter_label_footer', default=u'Footer'),
             description=_(
