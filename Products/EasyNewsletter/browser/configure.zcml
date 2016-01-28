@@ -159,7 +159,7 @@
 
   <browser:resource
     name="Products.EasyNewsletter.enl_edithelper.js"
-      file="javascripts/enl_edithelper.js" />
+    file="static/enl_edithelper.js" />
 
   <browser:page
     name="load_enl_edithelper"
