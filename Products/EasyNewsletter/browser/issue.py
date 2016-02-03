@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import transaction
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.Five.browser import BrowserView
@@ -20,6 +21,9 @@ class IssueView(BrowserView):
     def _send_issue_prepare(self):
         self.request['enlwf_guard'] = True
         api.content.transition(obj=self.context, transition='send')
+        # commit the transaction so that identical incoming requests, for
+        # whatever reason, will not trigger another send
+        transaction.commit()
         self.request['enlwf_guard'] = False
 
     def send_issue(self):
@@ -47,7 +51,15 @@ class IssueView(BrowserView):
             )
             return self.request.response.redirect(self.context.absolute_url())
 
+        # No queuing but direct send
         self.send_issue_immediately()
+        api.portal.show_message(
+            message=_(
+                "The issue has been generated and sent to the mail server."
+            ),
+            request=self.request,
+        )
+        return self.request.response.redirect(self.context.absolute_url())
 
     def send_issue_immediately(self):
         """convinience view for cron and similar

@@ -3,7 +3,7 @@ from Acquisition import aq_base
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.EasyNewsletter.interfaces import IENLIssue
-from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
+from Products.EasyNewsletter.testing import EASYNEWSLETTER_FUNCTIONAL_TESTING
 from Products.MailHost.interfaces import IMailHost
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import setRoles
@@ -16,7 +16,7 @@ import unittest
 class DailyIssueBaseTestCase(unittest.TestCase):
     """Test case sending a daily Newsletter issue"""
 
-    layer = EASYNEWSLETTER_INTEGRATION_TESTING
+    layer = EASYNEWSLETTER_FUNCTIONAL_TESTING
 
     def setUp(self):
         self.portal = self.layer["portal"]
