@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from AccessControl import ClassSecurityInfo
+from DateTime import DateTime
 from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
 from Products.Archetypes import atapi
@@ -504,6 +505,8 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             request['enlwf_guard'] = True
             api.content.transition(obj=self, transition='sending_completed')
             request['enlwf_guard'] = False
+            self.setEffectiveDate(DateTime())
+            self.reindexObject(idxs=['effective'])
 
     def _get_issue_data(self, receiver):
         """
