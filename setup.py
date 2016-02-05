@@ -3,7 +3,7 @@
 from setuptools import find_packages
 from setuptools import setup
 
-version = '3.0a3.dev3'
+version = '3.0a3.dev4'
 long_description = (
     open('README.rst').read() + '\n' +
     open('CHANGES.rst').read()
