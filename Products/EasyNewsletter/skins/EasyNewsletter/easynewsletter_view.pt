@@ -51,12 +51,14 @@
                There are no issues.
              </div>
 
-              <ul>
+              <ul class="newsletterIssues">
                 <li tal:repeat="newsletter newsletters">
                     <a tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime;
                                    date python:toLocalizedTime(newsletter.modified, long_format=0)"
-                       tal:content="string:$date: ${newsletter/Title}"
-                       tal:attributes="href newsletter/getURL">Newsletter's title and Date</a>
+                       tal:attributes="href newsletter/getURL">
+                       <span class="issueDate"><span tal:replace="date">Date</span>:</span>
+                       <span class="issueTitle" tal:content="newsletter/Title">Newsletter's Title</span>
+                       </a>
                </li>
              </ul>
         </tal:block>
