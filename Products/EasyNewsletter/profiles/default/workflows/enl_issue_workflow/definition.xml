@@ -2,8 +2,8 @@
 <dc-workflow xmlns:i18n="http://xml.zope.org/namespaces/i18n"
              i18n:domain="plone"
              workflow_id="enl_issue_workflow"
-             title="Single State Workflow for a EasyNewsletter Issue"
-             description="- Essentially a workflow with no transitions, but has a Published state, so portlets and applications that expect that state will continue to work."
+             title="Workflow for an EasyNewsletter Issue"
+             description=""
              state_variable="review_state"
              initial_state="draft"
              i18n:attributes="title; description">
