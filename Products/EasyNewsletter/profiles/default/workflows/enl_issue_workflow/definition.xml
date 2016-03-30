@@ -121,6 +121,7 @@
         </permission-map>
         <permission-map name="List folder contents"
                         acquired="False">
+            <permission-role>Anonymous</permission-role>
             <permission-role>Manager</permission-role>
             <permission-role>Owner</permission-role>
             <permission-role>Editor</permission-role>
@@ -132,6 +133,7 @@
             <permission-role>Editor</permission-role>
         </permission-map>
         <permission-map name="View" acquired="False">
+            <permission-role>Anonymous</permission-role>
             <permission-role>Manager</permission-role>
             <permission-role>Owner</permission-role>
             <permission-role>Editor</permission-role>

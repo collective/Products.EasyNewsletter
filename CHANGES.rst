@@ -5,6 +5,9 @@ Changelog
 3.0a1 (unreleased)
 ------------------
 
+- Made sent issues visible to public
+  [agitator]
+
 - Give a redirect with a status message back to the issue page after sending a
   news letter issue directly (without asynchronous queueing), this was broken
   after the zamqp support was added.
