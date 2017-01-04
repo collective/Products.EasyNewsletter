@@ -19,19 +19,10 @@
       zcml:condition="installed inqbus.plone.fastmemberproperties"
   />
 
-  <include
-      package=".zamqp"
-      zcml:condition="installed collective.zamqp"
-  />
-
   <include package=".browser" />
-  <include package=".portlets" />
   <include package=".content" />
-
-  <include
-      package=".zamqp"
-      zcml:condition="installed collective.zamqp"
-  />
+  <include package=".portlets" />
+  <include package=".queue" />
 
   <include file="indexers.zcml" />
   <include file="profiles.zcml" />

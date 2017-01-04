@@ -37,14 +37,14 @@ else:
     fmp_tool = True
 
 try:
-    pkg_resources.get_distribution('collective.zamqp')
+    pkg_resources.get_distribution('collective.taskqueue')
 except pkg_resources.DistributionNotFound:
-    has_zamqp = False
+    has_queue = False
 else:
-    from Products.EasyNewsletter.zamqp.handler import zamqp_queue_issue
-    has_zamqp = True
+    from Products.EasyNewsletter.queue.handler import queue_issue
+    has_queue = True
 
-log = logging.getLogger("Products.EasyNewsletter")
+log = logging.getLogger('Products.EasyNewsletter')
 
 
 schema = atapi.Schema((
@@ -68,7 +68,7 @@ schema = atapi.Schema((
 
     atapi.BooleanField(
         'excludeAllSubscribers',
-        default_method="get_excludeAllSubscribers_defaults",
+        default_method='get_excludeAllSubscribers_defaults',
         widget=atapi.BooleanWidget(
             label=_(
                 u'label_excludeAllExternalSubscribers',
@@ -83,7 +83,7 @@ schema = atapi.Schema((
 
     atapi.BooleanField(
         'sendToAllPloneMembers',
-        default_method="get_sendToAllPloneMembers_defaults",
+        default_method='get_sendToAllPloneMembers_defaults',
         widget=atapi.BooleanWidget(
             label=_(
                 u'label_sendToAllPloneMembers',
@@ -98,8 +98,8 @@ schema = atapi.Schema((
 
     atapi.LinesField(
         'ploneReceiverMembers',
-        vocabulary="get_plone_members",
-        default_method="get_ploneReceiverMembers_defaults",
+        vocabulary='get_plone_members',
+        default_method='get_ploneReceiverMembers_defaults',
         widget=atapi.MultiSelectionWidget(
             label=_(
                 u'EasyNewsletter_label_ploneReceiverMembers',
@@ -115,8 +115,8 @@ schema = atapi.Schema((
 
     atapi.LinesField(
         'ploneReceiverGroups',
-        vocabulary="get_plone_groups",
-        default_method="get_ploneReceiverGroups_defaults",
+        vocabulary='get_plone_groups',
+        default_method='get_ploneReceiverGroups_defaults',
         widget=atapi.MultiSelectionWidget(
             label=_(
                 u'EasyNewsletter_label_ploneReceiverGroups',
@@ -132,17 +132,17 @@ schema = atapi.Schema((
 
     atapi.TextField(
         'header',
-        schemata="settings",
+        schemata='settings',
         allowable_content_types=(
             'text/plain', 'text/structured', 'text/html',
             'application/msword'),
-        default_method="get_default_header",
+        default_method='get_default_header',
         default_output_type='text/html',
         widget=atapi.RichWidget(
             rows=10,
             label=_(
                 u'EasyNewsletter_label_header',
-                default=u"Header"),
+                default=u'Header'),
             description=_(
                 u'description_help_header',
                 default=u'The header will included in outgoing mails.'),
@@ -152,11 +152,11 @@ schema = atapi.Schema((
 
     atapi.TextField(
         'footer',
-        schemata="settings",
+        schemata='settings',
         allowable_content_types=(
             'text/plain', 'text/structured', 'text/html',
             'application/msword'),
-        default_method="get_default_footer",
+        default_method='get_default_footer',
         default_output_type='text/html',
         widget=atapi.RichWidget(
             rows=10,
@@ -170,13 +170,13 @@ schema = atapi.Schema((
 
     atapi.BooleanField(
         'acquireCriteria',
-        schemata="settings",
+        schemata='settings',
         default=True,
         widget=atapi.BooleanWidget(
             label=_(u'label_inherit_criteria', default=u'Inherit Criteria'),
             description=_(
                 u'EasyNewsletter_help_acquireCriteria',
-                default=u""),
+                default=u''),
             i18n_domain='EasyNewsletter',
         )
     ),
@@ -184,17 +184,17 @@ schema = atapi.Schema((
     # Overwritten to adapt attribute from ATTopic
     atapi.StringField(
         'template',
-        schemata="settings",
-        default="default_template",
+        schemata='settings',
+        default='default_template',
         required=1,
         widget=atapi.StringWidget(
-            macro="NewsletterTemplateWidget",
+            macro='NewsletterTemplateWidget',
             label=_(
-                u"EasyNewsletter_label_template",
-                default=u"Newsletter Template"),
+                u'EasyNewsletter_label_template',
+                default=u'Newsletter Template'),
             description=_(
-                u"EasyNewsletter_help_template",
-                default=u"Template, to generate the newsletter."),
+                u'EasyNewsletter_help_template',
+                default=u'Template, to generate the newsletter.'),
             i18n_domain='EasyNewsletter',
         ),
     ),
@@ -257,15 +257,16 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         salutation_mappings = self._get_salutation_mappings()
         if getattr(request, 'test', None):
             # get test e-mail
-            test_receiver = request.get("test_receiver", "")
+            test_receiver = request.get('test_receiver', '')
             if test_receiver == "":
                 test_receiver = enl.getTestEmail()
             salutation = salutation_mappings.get('default', '')
-            receivers = [
-                {'email': test_receiver,
-                 'fullname': 'Test Member',
-                 'salutation': salutation.get(self.Language(), ''),
-                 'nl_language': self.Language()}]
+            receivers = [{
+                'email': test_receiver,
+                'fullname': 'Test Member',
+                'salutation': salutation.get(self.Language(), ''),
+                'nl_language': self.Language()
+            }]
             return receivers
 
         # only send to all subscribers if the exclude all subscribers
@@ -273,7 +274,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         # get ENLSubscribers
         enl_receivers = []
         if not self.getExcludeAllSubscribers():
-            for subscriber in enl.objectValues("ENLSubscriber"):
+            for subscriber in enl.objectValues('ENLSubscriber'):
                 salutation_key = subscriber.getSalutation()
                 salutation = salutation_mappings.get(salutation_key, {})
                 enl_receivers.append({
@@ -336,16 +337,16 @@ class ENLIssue(ATTopic, atapi.BaseContent):
 
     @property
     def is_send_queue_enabled(self):
-        return has_zamqp
+        return has_queue
 
     @security.protected('Modify portal content')
     def queue_issue_for_sendout(self):
         """queues this issue for sendout using zamqp
         """
-        if not has_zamqp:
+        if not has_queue:
             raise NotImplemented(
-                'One need to install and configure collective.zamqp in order '
-                'to use the feature of a queued sendout.'
+                'One need to install and configure collective.taskqueue in '
+                'order to use the feature of a queued sendout.'
             )
 
         # check for workflow
@@ -452,7 +453,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             api.content.transition(obj=self, transition='sending_completed')
             request['enlwf_guard'] = False
 
-    @security.protected("Modify portal content")
+    @security.protected('Modify portal content')
     def loadContent(self):
         """Loads text dependend on criteria into text attribute.
         """
@@ -465,9 +466,9 @@ class ENLIssue(ATTopic, atapi.BaseContent):
     def getSubTopics(self):
         """Returns subtopics of the issues.
         """
-        topics = self.objectValues("ATTopic")
+        topics = self.objectValues('ATTopic')
         if self.getAcquireCriteria():
-            return self.aq_inner.aq_parent.objectValues("ATTopic")
+            return self.aq_inner.aq_parent.objectValues('ATTopic')
         else:
             return topics
 
@@ -527,7 +528,9 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         gtool = getToolByName(self, 'portal_groups')
         if fmp_tool:
             fmp_tool = queryUtility(
-                IFastmemberpropertiesTool, 'fastmemberproperties_tool')
+                IFastmemberpropertiesTool,
+                'fastmemberproperties_tool'
+            )
             # use fastmemberproperties to get mememberproperties:
             member_properties = fmp_tool.get_all_memberproperties()
         else:
@@ -542,9 +545,10 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                 probdict['email'] = member.getProperty('email')
                 probdict['gender'] = member.getProperty('nl_gender', 'default')
                 # try last name first
-                probdict['fullname'] = \
-                    member.getProperty('last_name',
-                                       member.getProperty('fullname'))
+                probdict['fullname'] = member.getProperty(
+                    'last_name',
+                    member.getProperty('fullname')
+                )
                 probdict['language'] = member.getProperty('language')
                 # fallback for default plone users without a enl language
                 if not probdict['language']:
