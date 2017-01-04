@@ -14,8 +14,10 @@ from Products.validation.validators.BaseValidators import EMAIL_RE
 from zope.component import getMultiAdapter
 from zope.component import queryUtility
 from zope.interface import alsoProvides
+
 import OFS
 import re
+
 
 try:
     from plone.protect.interfaces import IDisableCSRFProtection

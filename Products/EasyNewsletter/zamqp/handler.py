@@ -6,6 +6,7 @@ from plone import api
 from zope.component import getUtility
 from zope.interface import Interface
 
+
 QUEUE_NAME = 'Products.EasyNewsletter.queue'
 
 

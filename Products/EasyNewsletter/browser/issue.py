@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-import transaction
+from plone import api
+from plone.protect import PostOnly
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.Five.browser import BrowserView
-from plone import api
-from plone.protect import PostOnly
+
+import transaction
 
 
 class IssueView(BrowserView):

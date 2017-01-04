@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.portlets.portlets import base
 from plone.app.vocabularies.catalog import SearchableTextSourceBinder
 from plone.portlets.interfaces import IPortletDataProvider
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope import schema
 from zope.formlib import form
 from zope.interface import implements

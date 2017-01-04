@@ -3,7 +3,9 @@
 # from zope.i18n import translate
 from Products.Archetypes.atapi import DisplayList
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
+
 import re
+
 
 PROJECTNAME = "EasyNewsletter"
 

@@ -1,22 +1,24 @@
 # -*- coding: utf-8 -*-
 from AccessControl import Unauthorized
 from App.Common import package_home
+from plone.app.testing import login
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
+from plone.app.testing import TEST_USER_NAME
 from Products.CMFPlone.tests.utils import MockMailHost
-from Products.EasyNewsletter.interfaces import IENLIssue
 from Products.EasyNewsletter.interfaces import IEasyNewsletter
+from Products.EasyNewsletter.interfaces import IENLIssue
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
 from Products.MailHost.interfaces import IMailHost
 from Products.TinyMCE.interfaces.utility import ITinyMCE
-from plone.app.testing import TEST_USER_ID
-from plone.app.testing import TEST_USER_NAME
-from plone.app.testing import login
-from plone.app.testing import setRoles
 from zExceptions import Forbidden
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
 from zope.component import queryUtility
+
 import os
 import unittest
+
 
 GLOBALS = globals()
 TESTS_HOME = package_home(GLOBALS)

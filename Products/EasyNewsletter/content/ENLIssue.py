@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 from AccessControl import ClassSecurityInfo
+from email.Header import Header
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
+from plone import api
+from Products.Archetypes import atapi
 from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
-from Products.Archetypes import atapi
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
@@ -13,16 +17,14 @@ from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter
 from Products.EasyNewsletter.interfaces import ISubscriberSource
 from Products.MailHost.interfaces import IMailHost
-from email.Header import Header
-from email.MIMEMultipart import MIMEMultipart
-from email.MIMEText import MIMEText
-from plone import api
 from zope.component import getUtility
 from zope.component import queryUtility
 from zope.component import subscribers
 from zope.interface import implementer
+
 import logging
 import pkg_resources
+
 
 try:
     pkg_resources.get_distribution('inqbus.plone.fastmemberproperties')
@@ -248,16 +250,12 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             result[key.strip()] = {lang: value.strip()}
         return result
 
-    def _send_recipients(self, recipients=[]):
+    def _send_recipients(self):
         """ return list of recipients """
-
         request = self.REQUEST
         enl = self.getNewsletter()
         salutation_mappings = self._get_salutation_mappings()
-        if recipients:
-            return recipients
-
-        elif hasattr(request, "test"):
+        if getattr(request, 'test', None):
             # get test e-mail
             test_receiver = request.get("test_receiver", "")
             if test_receiver == "":
@@ -404,8 +402,8 @@ class ENLIssue(ATTopic, atapi.BaseContent):
 
         props = getToolByName(self, "portal_properties").site_properties
         charset = props.getProperty("default_charset")
-
-        receivers = self._send_recipients(recipients)
+        if not recipients:
+            receivers = self._send_recipients()
         issue_data_fetcher = IIssueDataFetcher(self)
 
         for receiver in receivers:
@@ -601,5 +599,6 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                 sort_on='getObjPositionInParent'
             )
         )
+
 
 atapi.registerType(ENLIssue, PROJECTNAME)

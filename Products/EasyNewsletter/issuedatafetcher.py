@@ -8,8 +8,8 @@ from plone.namedfile.scaling import ImageScale
 from Products.Archetypes.public import ObjectField
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter.config import PLACEHOLDERS
-from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.EasyNewsletter.interfaces import IBeforePersonalizationEvent
+from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.EasyNewsletter.utils import safe_portal_encoding
 from Products.EasyNewsletter.utils.ENLHTMLParser import ENLHTMLParser
 from Products.PageTemplates.ZopePageTemplate import ZopePageTemplate
@@ -17,12 +17,14 @@ from stoneagehtml import compactify
 from urlparse import urlparse
 from zope.event import notify
 from zope.interface import implementer
+
 import cStringIO
 import formatter
 import jinja2
 import logging
 import urllib
 import warnings
+
 
 log = logging.getLogger("Products.EasyNewsletter")
 

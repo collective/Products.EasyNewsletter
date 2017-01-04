@@ -1,21 +1,23 @@
 # -*- coding: utf-8 -*-
 from Acquisition import aq_inner
+from logging import getLogger
+from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.CMFCore.utils import getToolByName
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.config import SALUTATION
 from Products.EasyNewsletter.interfaces import ISubscriberSource
 from Products.Five import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
-from logging import getLogger
-from plone.i18n.normalizer.interfaces import IIDNormalizer
 from zope.component import getUtility
 from zope.component.interfaces import ComponentLookupError
-from zope.interface import Interface
 from zope.interface import implementer
-import cStringIO
+from zope.interface import Interface
+
 import codecs
+import cStringIO
 import csv
 import tempfile
+
 
 logger = getLogger('Subscribers')
 

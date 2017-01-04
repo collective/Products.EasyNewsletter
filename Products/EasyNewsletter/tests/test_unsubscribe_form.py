@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
 from App.Common import package_home
+from plone.app.testing import login
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
+from plone.app.testing import TEST_USER_NAME
+from plone.testing.z2 import Browser
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_FUNCTIONAL_TESTING
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
 from Products.MailHost.interfaces import IMailHost
-from plone.app.testing import TEST_USER_ID
-from plone.app.testing import TEST_USER_NAME
-from plone.app.testing import login
-from plone.app.testing import setRoles
-from plone.testing.z2 import Browser
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
+
 import unittest
 
 

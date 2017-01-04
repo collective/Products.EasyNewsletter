@@ -4,9 +4,9 @@ from AccessControl import getSecurityManager
 from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import setSecurityManager
 from AccessControl.User import UnrestrictedUser as BaseUnrestrictedUser
+from Products.Archetypes import atapi
 from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
-from Products.Archetypes import atapi
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
@@ -24,6 +24,7 @@ from zope.component import subscribers
 from zope.interface import implementer
 
 import logging
+
 
 try:
     from inqbus.plone.fastmemberproperties.interfaces import (

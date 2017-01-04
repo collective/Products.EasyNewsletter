@@ -6,10 +6,11 @@ from email.MIMEText import MIMEText
 from email.Utils import formatdate
 from zope import component
 from zope import interface
-import StringIO
+
 import email
 import formatter
 import htmllib
+import StringIO
 import traceback
 import zope.sendmail.interfaces
 

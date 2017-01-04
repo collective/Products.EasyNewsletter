@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
-from plone.app.testing import TEST_USER_ID
 from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
+from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
+
 import unittest
 
 

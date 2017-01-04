@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
+from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
-from plone.app.testing import applyProfile
 from plone.testing import z2
 from zope.configuration import xmlconfig
 
@@ -42,7 +42,11 @@ class EasyNewsletter(PloneSandboxLayer):
 EASYNEWSLETTER_FIXTURE = EasyNewsletter()
 
 EASYNEWSLETTER_INTEGRATION_TESTING = IntegrationTesting(
-    bases=(EASYNEWSLETTER_FIXTURE, ), name="EasyNewsletter:Integration")
+    bases=(EASYNEWSLETTER_FIXTURE, ),
+    name="EasyNewsletter:Integration"
+)
 
 EASYNEWSLETTER_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(EASYNEWSLETTER_FIXTURE, ), name="EasyNewsletter:Functional")
+    bases=(EASYNEWSLETTER_FIXTURE, ),
+    name="EasyNewsletter:Functional"
+)
