@@ -37,6 +37,7 @@ setup(
         'jinja2',
         'nameparser',
         'plone.api',
+        'Products.Archetypes',
         'Products.TemplateFields',
         'setuptools',
         'stoneagehtml',
