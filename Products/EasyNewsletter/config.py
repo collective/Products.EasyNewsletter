@@ -1,51 +1,52 @@
 # -*- coding: utf-8 -*-
 # flake8: noqa
-# from zope.i18n import translate
 from Products.Archetypes.atapi import DisplayList
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
+from zope.i18nmessageid import MessageFactory
 
 import re
 
+_ = MessageFactory('EasyNewsletter')
 
-PROJECTNAME = "EasyNewsletter"
+
+PROJECTNAME = 'EasyNewsletter'
 
 ENL_ISSUE_TYPES = ['ENLIssue']
-ENL_EDITHELPER_TYPES =['EasyNewsletter', 'ENLIssue']
+ENL_EDITHELPER_TYPES = ['EasyNewsletter', 'ENLIssue']
 
-PLACEHOLDERS = ["UNSUBSCRIBE", "SUBSCRIBER_SALUTATION"]
+PLACEHOLDERS = ['UNSUBSCRIBE', 'SUBSCRIBER_SALUTATION']
 
 
 SALUTATION = DisplayList((
-    ('', _(u"label_choose_saluation", "Choose salutation...")),
-    ("ms", _(u"label_salutation_ms", "Ms.")),
-    ("mr", _(u"label_salutation_mr", "Mr.")),
+    ('', _(u'label_choose_saluation', 'Choose salutation...')),
+    ('ms', _(u'label_salutation_ms', 'Ms.')),
+    ('mr', _(u'label_salutation_mr', 'Mr.')),
 ))
 
 NL_LANGUAGE = DisplayList((
-    ('', _(u"label_choose_nl_language", "Choose language...")),
-    ("de", _(u"label_salutation_de", "DE")),
-    ("en", _(u"label_salutation_en", "EN")),
-    ("fr", _(u"label_salutation_fr", "FR")),
+    ('', _(u'label_choose_nl_language', 'Choose language...')),
+    ('de', _(u'label_salutation_de', 'DE')),
+    ('en', _(u'label_salutation_en', 'EN')),
+    ('fr', _(u'label_salutation_fr', 'FR')),
 ))
 
 MESSAGE_CODE = {
-    "email_added": _(
-        u"email_added",
-        default=u"Your email has been registered. A confirmation email was"
-                u" sent to your address. Please check your inbox and click "
-                u" on the link in the email in order to confirm your"
-                u" subscription."
+    'email_added': _(
+        u'email_added',
+        default=u'Your email has been registered. A confirmation email was'
+                u' sent to your address. Please check your inbox and click '
+                u' on the link in the email in order to confirm your'
+                u' subscription.'
     ),
-    "invalid_email": _(
-        u"invalid_email", default=u"Please enter a valid email address."),
-    "email_exists": _(
-        u"email_exists", default=u"Your email address is already registered."),
-    "invalid_hashkey": _(
-        u"invalid_hashkey", default=u"Please enter a valid email address."),
-    "subscription_confirmed": _(
-        u"subscription_confirmed",
-        default=u"Your subscription was successfully confirmed."),
-    }
+    'invalid_email': _(
+        u'invalid_email', default=u'Please enter a valid email address.'),
+    'email_exists': _(
+        u'email_exists', default=u'Your email address is already registered.'),
+    'invalid_hashkey': _(
+        u'invalid_hashkey', default=u'Please enter a valid email address.'),
+    'subscription_confirmed': _(
+        u'subscription_confirmed',
+        default=u'Your subscription was successfully confirmed.'),
+}
 
 
 EMAIL_RE = re.compile(
@@ -225,7 +226,7 @@ tal:replace="structure python:toLocalizedTime(context.modified(), long_format=0)
 
 
 DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT = _(
-    u"Confirm your subscription on ${portal_url}"
+    u'Confirm your subscription on ${portal_url}'
 )
 
 DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_TEXT = """\
