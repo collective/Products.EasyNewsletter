@@ -16,6 +16,7 @@ from Products.EasyNewsletter.interfaces import IENLIssue
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter
 from Products.EasyNewsletter.interfaces import ISubscriberSource
+from Products.EasyNewsletter.queue.interfaces import IIssueQueue
 from Products.MailHost.interfaces import IMailHost
 from zope.component import getUtility
 from zope.component import queryUtility
@@ -36,13 +37,6 @@ else:
     )
     fmp_tool = True
 
-try:
-    pkg_resources.get_distribution('collective.taskqueue')
-except pkg_resources.DistributionNotFound:
-    has_queue = False
-else:
-    from Products.EasyNewsletter.queue.handler import queue_issue
-    has_queue = True
 
 log = logging.getLogger('Products.EasyNewsletter')
 
@@ -336,16 +330,17 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         return resolved_html
 
     @property
-    def is_send_queue_enabled(self):
-        return has_queue
+    def issue_queue(self):
+        return queryUtility(IIssueQueue)
 
     @security.protected('Modify portal content')
     def queue_issue_for_sendout(self):
         """queues this issue for sendout using zamqp
         """
-        if not has_queue:
+        queue = self.issue_queue
+        if queue is None:
             raise NotImplemented(
-                'One need to install and configure collective.taskqueue in '
+                'One need to install and configure a queue in '
                 'order to use the feature of a queued sendout.'
             )
 
@@ -355,7 +350,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             raise ValueError(
                 'Executed queue issue for sendout in wrong review state!'
             )
-        zamqp_queue_issue(self)
+        queue.start(self)
 
     @security.protected('Modify portal content')
     def send(self, recipients=[]):
@@ -365,7 +360,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         """
         # preparations
         request = self.REQUEST
-        test = hasattr(request, "test")
+        test = hasattr(request, 'test')
         current_state = api.content.get_state(obj=self)
 
         # check for workflow
@@ -376,7 +371,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         enl = self.getNewsletter()
 
         # get sender name
-        sender_name = request.get("sender_name")
+        sender_name = request.get('sender_name')
         if not sender_name:
             sender_name = enl.getSenderName()
         # don't use Header() with a str and a charset arg, even if
@@ -385,7 +380,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         from_header = Header(safe_unicode(sender_name))
 
         # get sender e-mail
-        sender_email = request.get("sender_email")
+        sender_email = request.get('sender_email')
         if not sender_email:
             sender_email = enl.getSenderEmail()
         from_header.append(u'<%s>' % safe_unicode(sender_email))
@@ -401,8 +396,8 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         send_counter = 0
         send_error_counter = 0
 
-        props = getToolByName(self, "portal_properties").site_properties
-        charset = props.getProperty("default_charset")
+        props = getToolByName(self, 'portal_properties').site_properties
+        charset = props.getProperty('default_charset')
         if not recipients:
             receivers = self._send_recipients()
         issue_data_fetcher = IIssueDataFetcher(self)
@@ -419,11 +414,11 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             outer.epilogue = ''
 
             # Attach text part
-            text_part = MIMEText(issue_data['body_plain'], "plain", charset)
+            text_part = MIMEText(issue_data['body_plain'], 'plain', charset)
 
             # Attach html part with images
-            html_part = MIMEMultipart("related")
-            html_text = MIMEText(issue_data['body_html'], "html", charset)
+            html_part = MIMEMultipart('related')
+            html_text = MIMEText(issue_data['body_html'], 'html', charset)
             html_part.attach(html_text)
 
             # Add images to the message
@@ -434,16 +429,16 @@ class ENLIssue(ATTopic, atapi.BaseContent):
 
             try:
                 mail_host.send(outer.as_string())
-                log.info("Send newsletter to \"%s\"" % receiver['email'])
+                log.info('Send newsletter to "%s"' % receiver['email'])
                 send_counter += 1
             except Exception, e:
                 log.exception(
-                    "Sending newsletter to \"%s\" failed, with error \"%s\"!"
+                    'Sending newsletter to "%s" failed, with error "%s"!'
                     % (receiver['email'], e))
                 send_error_counter += 1
 
         log.info(
-            "Newsletter was sent to (%s) receivers. (%s) errors occurred!"
+            'Newsletter was sent to (%s) receivers. (%s) errors occurred!'
             % (send_counter, send_error_counter))
 
         # change status only for a 'regular' send operation (not 'test', no

@@ -36,17 +36,17 @@ class IssueView(BrowserView):
         if 'test' in self.request.form:  # test must not modify the state
             self.context.send()
             api.portal.show_message(
-                message=_("The issue test sending has been initiated."),
+                message=_('The issue test sending has been initiated.'),
                 request=self.request,
             )
             return self.request.response.redirect(self.context.absolute_url())
 
-        if self.context.is_send_queue_enabled:
+        if self.context.issue_queue is not None:
             self._send_issue_prepare()
             self.context.queue_issue_for_sendout()
             api.portal.show_message(
                 message=_(
-                    "The issue sending has been initiated in the background."
+                    'The issue sending has been initiated in the background.'
                 ),
                 request=self.request,
             )
@@ -56,7 +56,7 @@ class IssueView(BrowserView):
         self.send_issue_immediately()
         api.portal.show_message(
             message=_(
-                "The issue has been generated and sent to the mail server."
+                'The issue has been generated and sent to the mail server.'
             ),
             request=self.request,
         )

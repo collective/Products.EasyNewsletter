@@ -4,7 +4,6 @@ from collective.zamqp.interfaces import IProducer
 from collective.zamqp.producer import Producer
 from plone import api
 from Producer.EasyNewsletter.queue.interfaces import IIssueQueue
-from Producer.EasyNewsletter.queue.interfaces import Progress
 from zope.component import getUtility
 from zope.interface import implementer
 from zope.interface import Interface
@@ -61,6 +60,3 @@ class ZAMQPIssueQueue(object):
         producer = getUtility(IProducer, name=QUEUE_NAME)
         producer.register()
         producer.publish(kwargs, correlation_id=api.content.get_uuid(context))
-
-    def progress(self, context):
-        return Progress(None, None, None)

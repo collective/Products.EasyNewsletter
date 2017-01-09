@@ -13,9 +13,3 @@ class IIssueQueue(Interface):
     def start(issue):
         """Queues an IENLissue for sendout
         """
-
-    def progress(issue):
-        """progress returns is a named tuple Progress
-
-        (sent, total, start) as (int, int, datetime)
-        """
