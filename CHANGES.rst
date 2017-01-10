@@ -5,6 +5,12 @@ Changelog
 3.0a1 (unreleased)
 ------------------
 
+- A bunch of fixes in order to work better with Plone 5, plone.protect/CSRF protection and also some cleanup.
+  [jensens]
+
+- ``collective.taskqueue`` asynchronous send out support added.
+  [jensens]
+
 - Made sent issues visible to public
   [agitator]
 
