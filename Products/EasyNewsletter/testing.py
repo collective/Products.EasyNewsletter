@@ -7,6 +7,15 @@ from plone.app.testing import PloneSandboxLayer
 from plone.testing import z2
 from zope.configuration import xmlconfig
 
+import pkg_resources
+
+try:
+    pkg_resources.get_distribution('plone.app.contenttypes')
+except pkg_resources.DistributionNotFound:
+    HAS_PACT = False
+else:
+    HAS_PACT = True
+
 
 class EasyNewsletter(PloneSandboxLayer):
 
@@ -18,25 +27,21 @@ class EasyNewsletter(PloneSandboxLayer):
         xmlconfig.file('configure.zcml',
                        Products.EasyNewsletter,
                        context=configurationContext)
+        if HAS_PACT:
+            z2.installProduct(app, 'plone.app.contenttypes')
 
         # Install product and call its initialize() function
         z2.installProduct(app, 'Products.EasyNewsletter')
 
-        # Note: you can skip this if Products.EasyNewsletter is not a
-        # Zope 2-style product, i.e. it is not in the Products.*
-        # namespace and it does not have a <five:registerPackage />
-        # directive in its configure.zcml.
-
     def setUpPloneSite(self, portal):
         # Install into Plone site using portal_setup
         applyProfile(portal, 'Products.EasyNewsletter:default')
+        if HAS_PACT:
+            applyProfile(portal, 'plone.app.contenttypes:default')
 
     def tearDownZope(self, app):
         # Uninstall product
         z2.uninstallProduct(app, 'Products.EasyNewsletter')
-
-        # Note: Again, you can skip this if Products.EasyNewsletter is
-        # not a Zope 2-style product
 
 
 EASYNEWSLETTER_FIXTURE = EasyNewsletter()

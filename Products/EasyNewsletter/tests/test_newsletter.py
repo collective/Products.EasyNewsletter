@@ -10,15 +10,25 @@ from Products.EasyNewsletter.interfaces import IEasyNewsletter
 from Products.EasyNewsletter.interfaces import IENLIssue
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
 from Products.MailHost.interfaces import IMailHost
-from Products.TinyMCE.interfaces.utility import ITinyMCE
 from zExceptions import Forbidden
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
 from zope.component import queryUtility
+from zope.interface import Interface
 
 import os
+import pkg_resources
 import unittest
 
+try:
+    pkg_resources.get_distribution('Products.TinyMCE')
+except pkg_resources.DistributionNotFound:
+
+    class ITinyMCE(Interface):
+        pass
+
+else:
+    from Products.TinyMCE.interfaces.utility import ITinyMCE
 
 GLOBALS = globals()
 TESTS_HOME = package_home(GLOBALS)
@@ -136,6 +146,8 @@ class EasyNewsletterTests(unittest.TestCase):
     def test_send_test_issue_with_resolveuid_image(self):
         # for plone < 4.2 we need to ensure turn on to resolveuid links
         tinymce = queryUtility(ITinyMCE)
+        if tinymce is None:
+            return
         tinymce.link_using_uids = True
 
         body = '<img src="../../resolveuid/%s"/>' % self.image.UID()
@@ -148,6 +160,8 @@ class EasyNewsletterTests(unittest.TestCase):
     def test_send_test_issue_with_resolveuid_scale_image(self):
         # for plone < 4.2 we need to ensure turn on to resolveuid links
         tinymce = queryUtility(ITinyMCE)
+        if tinymce is None:
+            return
         tinymce.link_using_uids = True
 
         body = '<img src="../../resolveuid/%s/@@images/image/thumb"/>' % \

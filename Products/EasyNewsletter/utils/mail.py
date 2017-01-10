@@ -4,8 +4,10 @@ from email.Header import Header
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from email.Utils import formatdate
-from zope import component
-from zope import interface
+from zope.component import adapter
+from zope.component import getUtility
+from zope.interface import implementer
+from zope.interface import Interface
 
 import email
 import formatter
@@ -15,7 +17,7 @@ import traceback
 import zope.sendmail.interfaces
 
 
-class IDispatch(interface.Interface):
+class IDispatch(Interface):
     """Dispatchers adapt message *payloads* and send them."""
 
     def __call__():
@@ -86,6 +88,8 @@ def create_html_mail(subject, html, text=None, from_addr=None, to_addr=None,
     return msg
 
 
+@implementer(IDispatch)
+@adapter(email.Message.Message)
 class Dispatch(object):
     """An IDispatcher registered for ``email.message.Message`` that'll
     send e-mails using ``zope.sendmail``.
@@ -152,15 +156,12 @@ class Dispatch(object):
       MyException: This is a test
     """
 
-    interface.implements(IDispatch)
-    component.adapts(email.Message.Message)
-
     def __init__(self, message):
         self.message = message
 
     def __call__(self):
         msg = self.message
-        delivery = component.getUtility(zope.sendmail.interfaces.IMailDelivery)
+        delivery = getUtility(zope.sendmail.interfaces.IMailDelivery)
         try:
             delivery.send(msg['From'], self._split(msg['To']), msg.as_string())
         except Exception, e:

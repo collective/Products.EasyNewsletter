@@ -18,6 +18,8 @@ setup(
         'Development Status :: 4 - Beta',
         'Framework :: Plone',
         'Framework :: Plone :: 4.3',
+        'Framework :: Plone :: 5.0',
+        'Framework :: Plone :: 5.1',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7',
         'Topic :: Software Development :: Libraries :: Python Modules',
@@ -34,10 +36,14 @@ setup(
     zip_safe=False,
     install_requires=[
         'BeautifulSoup',
+        'zope.formlib',
         'jinja2',
         'nameparser',
         'plone.api',
+        'plone.app.upgrade',
         'Products.Archetypes',
+        'Products.ATContentTypes',
+        'Products.CMFPlone',
         'Products.TemplateFields',
         'setuptools',
         'stoneagehtml',
@@ -53,10 +59,11 @@ setup(
             'collective.zamqp',
             'msgpack-python',
         ],
-        all=[
-            'collective.zamqp',
-            'inqbus.plone.fastmemberproperties',
-            'msgpack-python',
-        ]
+        taskqueue=[
+            'collective.taskqueue',
+        ],
+        taskqueue_redis=[
+            'collective.taskqueue[redis]',
+        ],
     ),
 )

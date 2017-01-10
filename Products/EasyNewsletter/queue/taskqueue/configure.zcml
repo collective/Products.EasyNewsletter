@@ -1,0 +1,14 @@
+<configure
+    i18n_domain="Products.EasyNewsletter"
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:zcml="http://namespaces.zope.org/zcml">
+  <utility factory=".handler.TCIssueQueue" />
+  <browser:page
+      class=".view.ProcessQueue"
+      for="Products.EasyNewsletter.interfaces.IENLIssue"
+      layer="collective.taskqueue.interfaces.ITaskQueueLayer"
+      name="enl_taskqueue_sendout"
+      permission="cmf.ModifyPortalContent"
+  />
+</configure>

@@ -22,6 +22,7 @@ import cStringIO
 import formatter
 import jinja2
 import logging
+import transaction
 import urllib
 import warnings
 
@@ -51,7 +52,7 @@ class DefaultIssueDataFetcher(object):
         data = {}
 
         request = self.issue.REQUEST
-        subject = request.get("subject")
+        subject = request.get('subject')
         if not subject:
             subject = self.issue.Title()
 
@@ -103,19 +104,13 @@ class DefaultIssueDataFetcher(object):
             try:
                 return self.enl.getFullname_fallback()
             except AttributeError:
-                return u"Sir or Madam"
+                return u'Sir or Madam'
         return fullname
 
     def _salutation(self, receiver):
-        return receiver.get("salutation") or u''
+        return receiver.get('salutation') or u''
 
     def _subscriber_salutation(self, receiver):
-        # return str(safe_portal_encoding(
-        #     u'{0} {1}'.format(
-        #         self._salutation(receiver),
-        #         safe_portal_encoding(self._fullname(receiver))
-        #     )
-        # ))
         return u'{0} {1}'.format(
             safe_unicode(self._salutation(receiver)),
             safe_unicode(self._fullname(receiver))
@@ -127,8 +122,8 @@ class DefaultIssueDataFetcher(object):
         try:
             unsubscribe_text = self.enl.getUnsubscribe_string()
         except AttributeError:
-            unsubscribe_text = "Click here to unsubscribe"
-        unsubscribe_link = "{0}/unsubscribe?subscriber={1}".format(
+            unsubscribe_text = 'Click here to unsubscribe'
+        unsubscribe_link = '{0}/unsubscribe?subscriber={1}'.format(
             self.enl.absolute_url(), receiver['uid']
         )
         unsubscribe_markup = """<a href="{0}">{1}.</a>""".format(
@@ -147,6 +142,8 @@ class DefaultIssueDataFetcher(object):
         """
         # get out_template from ENL object and render it in context of issue
         out_template_pt_field = self.enl.getField('out_template_pt')
+        # and here we create a write on read, but we do not need to persist it:
+        sp = transaction.savepoint()
         ObjectField.set(
             out_template_pt_field,
             self.issue,
@@ -158,6 +155,7 @@ class DefaultIssueDataFetcher(object):
         output_html = safe_portal_encoding(
             self.issue.out_template_pt.pt_render()
         )
+        sp.rollback()  # no actual write to db!
         output_html = compactify(output_html, filter_tags=False)
         return output_html
 

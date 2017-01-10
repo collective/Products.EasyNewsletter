@@ -1,23 +1,18 @@
 <configure
     i18n_domain="Products.EasyNewsletter"
     xmlns="http://namespaces.zope.org/zope">
-
-  <include package="collective.zamqp" />
-
+  <utility factory=".handler.ZAMQPIssueQueue" />
   <utility
       factory=".handler.MailProcessingProducer"
       name="Products.EasyNewsletter.queue"
   />
-
   <utility
       factory=".handler.MailProcessingConsumer"
       name="Products.EasyNewsletter.queue"
   />
-
   <subscriber
       for=".handler.IMailProcessingMessage
-             collective.zamqp.interfaces.IMessageArrivedEvent"
+           collective.zamqp.interfaces.IMessageArrivedEvent"
       handler=".handler.process_message"
   />
-
 </configure>

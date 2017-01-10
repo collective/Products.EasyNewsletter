@@ -1,0 +1,13 @@
+<configure
+    i18n_domain="Products.EasyNewsletter"
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:zcml="http://namespaces.zope.org/zcml">
+  <include
+      package=".zamqp"
+      zcml:condition="installed collective.zamqp"
+  />
+  <include
+      package=".taskqueue"
+      zcml:condition="installed collective.taskqueue"
+  />
+</configure>

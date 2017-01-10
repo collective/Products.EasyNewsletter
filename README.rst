@@ -13,55 +13,67 @@ EasyNewsletter is a simple but powerful newsletter/mailing product for Plone.
 Features
 ========
 
-* Support Text and HTML Newsletter (including images)
+* Plain text and HTML newsletters (including images),
 
-* Support manual written Newsletters/Mailings
+* manual written newsletters/mailings,
 
-* Plonish (can use Plone's Collections to collect content)
+* automatic Plonish newsletters/mailings: Utilize Plone's Collections to collect content)
 
-* Variable templates to generate newsletter content
+* send out daily issues automatically,
+  based on collections (by cron or clock-server)
 
-* Subscribing / Unsubscribing and can use Plone Members/Groups as receivers
-  (works also with Membrane)
+* flexible templates to generate newsletter content,
 
-* support for external subscriber sources (configured through a Zope utility)
+* TTW customizable output template to generate winning HTML newsletters
 
-* support for external delivery services (other than Plone MailHost)
+* personalized emails
 
-* TTW customizeable output Template to generate nice HTML Newsletter
+* synchronous/ asynchronous sendout (also test emails),
 
-* Support personalized mails
+* subscribing/ unsubscribing,
 
-* Support for sending daily issues automatically, based on collections
-  (by cron or clock-server)
+* import/export subscribers via csv
 
-* mass import/export subscribers via csv
+* use Plone Members/Groups as receivers (works also with Membrane),
 
-* support external filtering/manipulation (filter out or add more subscribers) plugins
+* external
+
+  * subscriber sources (configured through a Zope utility),
+  * delivery services (other than Plone MailHost),
+
+
+* external subscriber filtering/manipulation with plugins (filter out or add more subscribers)
 
 Requirements
 ============
 
-* [inqbus.plone.fastmemberproperties] speed up access of member properties
-  (optional, you can installed it with Products.EasyNewsletter[all] in your
-  buildout eggs list)
+* Plone 4.3, 5.0 and 5.1 (tested)
+* Archetypes
+* ATContentTypes (base profile only)
 
-* 4.3 (tested)
+Optional:
+
+* ``inqbus.plone.fastmemberproperties`` speeds up access of member properties.
+  Use ``Products.EasyNewsletter[fmp]`` extra in your buildouts eggs list.
+* ``collective.taskqueue`` for asynchronous sendout.
+  Use either ``Products.EasyNewsletter[taskqueue]`` or ``Products.EasyNewsletter[taskqueue_redis]`` extra.
+  Configure a named task queue ``Products.EasyNewsletter.queue``.
+  Read carefully the documentation of ``collective.taskqueue``.
+* ``collective.zamqp`` for asynchronous sendout.
+  Configure a queue named ``Products.EasyNewsletter.queue``.
+* For asynchronous sendout use the one or the other, both together will crash Plone.
+  ``collective.taskqueue`` is recommended unless you know why you want to use AMQP.
+
 
 Installation
 ============
 
-1. Add Products.EasyNewsletter to your buildout
-
+1. Add ``Products.EasyNewsletter`` to your buildout
 2. Run your buildout script
-
 3. Restart zope
-
 4. Install EasyNewsletter via Plone Management Interface
-
-5. Add an "Newsletter Subscriber" portlet and select the EasyNewsletter
+5. Add a "Newsletter Subscriber" portlet and select the EasyNewsletter
    (To this newsletter the subscribers will be added).
-
 
 Documentation
 =============
@@ -74,14 +86,11 @@ Source Code
 
 Source code is at Github: https://github.com/collective/Products.EasyNewsletter
 
-In Dec 2011 the source code repository was moved from `svn-collective <https://svn.plone.org/svn/collective/Products.EasyNewsletter/>`_ (do not use).
 
 Bugtracker
 ==========
 
 Issue tracker is at Github: https://github.com/collective/Products.EasyNewsletter/issues
-
-There is an old one (do not use) at `plone.org <http://plone.org/products/easynewsletter/issues>`_
 
 
 Authors

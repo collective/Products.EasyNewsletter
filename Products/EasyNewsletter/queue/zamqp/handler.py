@@ -3,7 +3,9 @@ from collective.zamqp.consumer import Consumer
 from collective.zamqp.interfaces import IProducer
 from collective.zamqp.producer import Producer
 from plone import api
+from Producer.EasyNewsletter.queue.interfaces import IIssueQueue
 from zope.component import getUtility
+from zope.interface import implementer
 from zope.interface import Interface
 
 
@@ -48,10 +50,13 @@ def process_message(message, event):
     message.ack()
 
 
-def zamqp_queue_issue(context):
-    """Queues issue for sendout through collective.zamqp.
-    """
-    kwargs = {}
-    producer = getUtility(IProducer, name=QUEUE_NAME)
-    producer.register()
-    producer.publish(kwargs, correlation_id=api.content.get_uuid(context))
+@implementer(IIssueQueue)
+class ZAMQPIssueQueue(object):
+
+    def start(self, context):
+        """Queues issue for sendout through collective.zamqp.
+        """
+        kwargs = {}
+        producer = getUtility(IProducer, name=QUEUE_NAME)
+        producer.register()
+        producer.publish(kwargs, correlation_id=api.content.get_uuid(context))

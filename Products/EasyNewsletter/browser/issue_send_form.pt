@@ -97,6 +97,8 @@
            size="40"
            tal:attributes="value python:context.REQUEST.get('test_receiver', context.aq_parent.getTestEmail())" />
 
+    <span tal:replace="structure context/@@authenticator/authenticator"/>
+
     <input type="submit"
            class="context"
            name="test"

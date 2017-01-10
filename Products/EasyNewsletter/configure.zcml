@@ -19,33 +19,16 @@
       zcml:condition="installed inqbus.plone.fastmemberproperties"
   />
 
-  <include
-      package=".zamqp"
-      zcml:condition="installed collective.zamqp"
-  />
-
   <include package=".browser" />
-  <include package=".portlets" />
   <include package=".content" />
-
-  <include
-      package=".zamqp"
-      zcml:condition="installed collective.zamqp"
-  />
+  <include package=".portlets" />
+  <include package=".queue" />
 
   <include file="indexers.zcml" />
   <include file="profiles.zcml" />
   <include file="upgrades.zcml" />
 
   <i18n:registerTranslations directory="locales" />
-
-  <genericsetup:registerProfile
-      description="An easy to use Newsletter for Plone."
-      directory="profiles/default"
-      name="default"
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      title="EasyNewsletter"
-  />
 
   <!-- File System Directory Views registration -->
   <cmf:registerDirectory

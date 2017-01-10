@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<metadata>
+  <!-- PLONE 5 -->
+  <version>3003</version>
+  <dependencies>
+    <dependency>profile-Products.Archetypes:Archetypes</dependency>
+    <dependency>profile-Products.ATContentTypes:base</dependency>
+    <dependency>profile-Products.EasyNewsletter:base</dependency>
+  </dependencies>
+</metadata>
