@@ -42,6 +42,7 @@ setup(
         'plone.api',
         'plone.app.upgrade',
         'Products.Archetypes',
+        'Products.ATContentTypes',
         'Products.CMFPlone',
         'Products.TemplateFields',
         'setuptools',
