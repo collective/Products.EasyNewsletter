@@ -44,7 +44,6 @@ setup(
         'Products.Archetypes',
         'Products.CMFPlone',
         'Products.TemplateFields',
-        'Products.TinyMCE',
         'setuptools',
         'stoneagehtml',
     ],

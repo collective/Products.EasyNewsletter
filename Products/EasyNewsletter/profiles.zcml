@@ -21,7 +21,7 @@
       name="default"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       title="EasyNewsletter"
-      zcml:condition="have plone5"
+      zcml:condition="have plone-5"
   />
   <genericsetup:registerProfile
       description="Installs Products.EasyNewsLetter"
@@ -29,7 +29,7 @@
       name="default"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       title="EasyNewsletter"
-      zcml:condition="not-have plone5"
+      zcml:condition="not-have plone-5"
   />
   <genericsetup:registerProfile
       description="Removes the EasyNewsLetter."
