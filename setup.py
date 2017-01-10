@@ -36,6 +36,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'BeautifulSoup',
+        'zope.formlib',
         'jinja2',
         'nameparser',
         'plone.api',
