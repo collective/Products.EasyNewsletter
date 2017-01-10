@@ -13,8 +13,8 @@ class TCIssueQueue(object):
     def start(self, context):
         """Queues issue for sendout through collective.taskqueue
         """
-        '/'.join(context.getPhysicalPath() + [VIEW_NAME])
-        taskqueue.add(
-            '/'.join(context.getPhysicalPath()),
+        jobid = taskqueue.add(
+            '/'.join(context.getPhysicalPath() + (VIEW_NAME, )),
             queue=QUEUE_NAME
         )
+        return jobid
