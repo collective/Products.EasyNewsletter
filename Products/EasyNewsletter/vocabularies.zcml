@@ -1,0 +1,10 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="jlu.ublibrarydb">
+
+  <utility
+      component=".vocabularies.NewslettersVocabularyFactory"
+      name="Products.EasyNewsletter.newsletters"
+      />
+
+</configure>

@@ -26,6 +26,7 @@
 
   <include file="indexers.zcml" />
   <include file="profiles.zcml" />
+  <include file="vocabularies.zcml" />
   <include file="upgrades.zcml" />
 
   <i18n:registerTranslations directory="locales" />

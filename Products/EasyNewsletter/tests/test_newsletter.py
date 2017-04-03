@@ -65,7 +65,7 @@ class EasyNewsletterTests(unittest.TestCase):
         img1 = open(os.path.join(TESTS_HOME, 'img1.png'), 'rb').read()
         self.image.edit(image=img1)
 
-    def sendSampleMessage(self, body):
+    def send_sample_message(self, body):
         self.assertSequenceEqual(self.mailhost.messages, [])
         self.newsletter.invokeFactory(
             "ENLIssue",
@@ -131,14 +131,14 @@ class EasyNewsletterTests(unittest.TestCase):
 
     def test_send_test_issue_with_image(self):
         body = '<img src="../../image"/>'
-        msg = self.sendSampleMessage(body)
+        msg = self.send_sample_message(body)
 
         self.assertIn('<img src=3D"cid:image_1"', msg)
         self.assertIn('Content-ID: <image_1>\nContent-Type: image/png;', msg)
 
     def test_send_test_issue_with_scale_image(self):
         body = '<img src="../../image/@@images/image/thumb"/>'
-        msg = self.sendSampleMessage(body)
+        msg = self.send_sample_message(body)
 
         self.assertIn('<img src=3D"cid:image_1"', msg)
         self.assertIn('Content-ID: <image_1>\nContent-Type: image/png;', msg)
@@ -151,7 +151,7 @@ class EasyNewsletterTests(unittest.TestCase):
         tinymce.link_using_uids = True
 
         body = '<img src="../../resolveuid/%s"/>' % self.image.UID()
-        msg = self.sendSampleMessage(body)
+        msg = self.send_sample_message(body)
 
         self.assertNotIn('resolveuid', msg)
         self.assertIn('<img src=3D"cid:image_1"', msg)
@@ -166,7 +166,7 @@ class EasyNewsletterTests(unittest.TestCase):
 
         body = '<img src="../../resolveuid/%s/@@images/image/thumb"/>' % \
             self.image.UID()
-        msg = self.sendSampleMessage(body)
+        msg = self.send_sample_message(body)
 
         self.assertNotIn('resolveuid', msg)
         self.assertIn('<img src=3D"cid:image_1"', msg)
