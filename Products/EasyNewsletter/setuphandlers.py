@@ -10,16 +10,16 @@ from zope.interface import implementer
 @implementer(INonInstallable)
 class HiddenProfiles(object):
 
-    def getNonInstallableProfiles(self):
+    def getNonInstallableProfiles(self):  # noqa
         """Hide uninstall profile from site-creation and quickinstaller"""
         return [
-            'Products.EasyNewsletter:base',
+            'Products.EasyNewsletter:install-base',
             'Products.EasyNewsletter:uninstall',
         ]
 
 
 # The profile id of your package:
-PROFILE_ID = 'profile-Products.EasyNewsletter:base'
+PROFILE_ID = 'profile-Products.EasyNewsletter:install-base'
 
 
 def add_catalog_indexes(context, logger=None):

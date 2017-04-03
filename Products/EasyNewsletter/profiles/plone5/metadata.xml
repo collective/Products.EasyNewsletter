@@ -5,6 +5,6 @@
   <dependencies>
     <dependency>profile-Products.Archetypes:Archetypes</dependency>
     <dependency>profile-Products.ATContentTypes:base</dependency>
-    <dependency>profile-Products.EasyNewsletter:base</dependency>
+    <dependency>profile-Products.EasyNewsletter:install-base</dependency>
   </dependencies>
 </metadata>

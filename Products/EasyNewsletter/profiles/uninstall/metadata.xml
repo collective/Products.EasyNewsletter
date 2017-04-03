@@ -2,6 +2,5 @@
 <metadata>
   <version>1.0</version>
   <dependencies>
-    <dependency>profile-inqbus.plone.fastmemberproperties:uninstall</dependency>
   </dependencies>
 </metadata>

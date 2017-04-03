@@ -2,6 +2,6 @@
 <metadata>
   <version>3003</version>
   <dependencies>
-    <dependency>profile-Products.EasyNewsletter:base</dependency>
+    <dependency>profile-Products.EasyNewsletter:install-base</dependency>
   </dependencies>
 </metadata>
