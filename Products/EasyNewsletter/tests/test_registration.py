@@ -6,6 +6,7 @@ from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from plone.testing.z2 import Browser
 from Products.CMFPlone.tests.utils import MockMailHost
+from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.EasyNewsletter.interfaces import IENLRegistrationTool
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_FUNCTIONAL_TESTING
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
@@ -44,7 +45,8 @@ class RegistrationIntegrationTests(unittest.TestCase):
         sm.unregisterUtility(provided=IMailHost)
         sm.registerUtility(mailhost, provided=IMailHost)
         # We need to fake a valid mail setup
-        self.portal.email_from_address = "portal@plone.test"
+        self.mail_settings = get_portal_mail_settings()
+        self.mail_settings.email_from_address = "portal@plone.test"
         self.mailhost = self.portal.MailHost
         self.enl_reg_tool = getUtility(
             IENLRegistrationTool, 'enl_registration_tool')
@@ -183,8 +185,8 @@ class RegistrationFunctionalTests(unittest.TestCase):
         sm.unregisterUtility(provided=IMailHost)
         sm.registerUtility(mailhost, provided=IMailHost)
         # We need to fake a valid mail setup
-        self.portal.email_from_address = "portal@plone.test"
-        self.mailhost = self.portal.MailHost
+        self.mail_settings = get_portal_mail_settings()
+        self.mail_settings.email_from_address = "portal@plone.test"
 
         # create EasyNewsletter instance and add some subscribers
         setRoles(self.portal, TEST_USER_ID, ['Manager'])

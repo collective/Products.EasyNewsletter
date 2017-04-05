@@ -61,4 +61,12 @@
           handler=".upgrades.reindex_subscribers"
           profile="Products.EasyNewsletter:default"/>
 
+  <genericsetup:upgradeStep
+          title="Reload profiles to update the registry"
+          description="Fixes settings for Plone 5"
+          source="3003"
+          destination="3004"
+          handler=".upgrades.reinstall_gs_profile"
+          profile="Products.EasyNewsletter:default"/>
+
 </configure>

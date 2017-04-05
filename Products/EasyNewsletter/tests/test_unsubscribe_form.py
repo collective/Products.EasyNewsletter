@@ -4,14 +4,16 @@ from plone.app.testing import login
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
+from plone.registry.interfaces import IRegistry
 from plone.testing.z2 import Browser
+from Products.CMFPlone.interfaces.controlpanel import IMailSchema
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_FUNCTIONAL_TESTING
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
 from Products.MailHost.interfaces import IMailHost
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
-
+from zope.component import getUtility
 import unittest
 
 
@@ -31,6 +33,9 @@ class UnsubscribeFormIntegrationTests(unittest.TestCase):
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         login(self.portal, TEST_USER_NAME)
 
+        registry = getUtility(IRegistry)
+        self.mail_settings = registry.forInterface(IMailSchema, prefix='plone')
+
         self.portal.invokeFactory('EasyNewsletter', 'enl1', title=u"ENL 1")
         self.newsletter = self.portal.get('enl1')
         self.newsletter.invokeFactory(
@@ -46,13 +51,12 @@ class UnsubscribeFormIntegrationTests(unittest.TestCase):
         # Set up a mock mailhost
         self.portal._original_MailHost = self.portal.MailHost
         self.portal.MailHost = mailhost = MockMailHost('MailHost')
-        self.portal.MailHost.smtp_host = 'localhost'
-        self.portal.MailHost.email_from_address = 'portal@plone.test'
+        self.mail_settings.smtp_host = u'localhost'
+        self.mail_settings.email_from_address = 'portal@plone.test'
         sm = getSiteManager(context=self.portal)
         sm.unregisterUtility(provided=IMailHost)
         sm.registerUtility(mailhost, provided=IMailHost)
         # We need to fake a valid mail setup
-        self.portal.email_from_address = "portal@plone.test"
         self.mailhost = self.portal.MailHost
 
     def test_submit_unsubscribe_form(self):

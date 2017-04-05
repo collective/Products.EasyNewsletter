@@ -5,6 +5,7 @@ from plone.app.testing import TEST_USER_ID
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.EasyNewsletter.interfaces import IENLIssue
+from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_FUNCTIONAL_TESTING
 from Products.MailHost.interfaces import IMailHost
 from zExceptions import BadRequest
@@ -52,7 +53,8 @@ class DailyIssueBaseTestCase(unittest.TestCase):
         sm.unregisterUtility(provided=IMailHost)
         sm.registerUtility(mailhost, provided=IMailHost)
 
-        self.portal.email_from_address = "noreply@plone.org"
+        self.mail_settings = get_portal_mail_settings()
+        self.mail_settings.email_from_address = "noreply@plone.org"
 
     def tearDown(self):
         self.portal.MailHost = self.portal._original_MailHost

@@ -9,13 +9,13 @@ from Products.CMFPlone.tests.utils import MockMailHost
 from Products.EasyNewsletter.interfaces import IEasyNewsletter
 from Products.EasyNewsletter.interfaces import IENLIssue
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
+from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.MailHost.interfaces import IMailHost
 from zExceptions import Forbidden
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
 from zope.component import queryUtility
 from zope.interface import Interface
-
 import os
 import pkg_resources
 import unittest
@@ -35,10 +35,10 @@ TESTS_HOME = package_home(GLOBALS)
 
 
 class EasyNewsletterTests(unittest.TestCase):
-
     layer = EASYNEWSLETTER_INTEGRATION_TESTING
 
     def setUp(self):
+        self.mail_settings = get_portal_mail_settings()
         self.portal = self.layer['portal']
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         login(self.portal, TEST_USER_NAME)
@@ -57,7 +57,7 @@ class EasyNewsletterTests(unittest.TestCase):
         sm.unregisterUtility(provided=IMailHost)
         sm.registerUtility(mailhost, provided=IMailHost)
         # We need to fake a valid mail setup
-        self.portal.email_from_address = "portal@plone.test"
+        self.mail_settings.email_from_address = u'portal@plone.test'
         self.mailhost = self.portal.MailHost
         # image for image testing
         self.folder.invokeFactory("Image", "image")

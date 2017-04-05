@@ -245,9 +245,10 @@ class UnsubscribeView(BrowserView):
                 '/unsubscribe?subscriber=' + subscriber_brain.UID
             msg_text = """%s: %s""" % (
                 newsletter.getUnsubscribe_string(), unsubscribe_url)
+            settings = get_portal_mail_settings()
             api.portal.send_email(
                 recipient=subscriber,
-                sender=self.context.email_from_address,
+                sender=settings.email_from_address,
                 subject=_(u"confirm newsletter unsubscription"),
                 body=msg_text,
             )
