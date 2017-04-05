@@ -41,11 +41,11 @@ class UtilsIntegrationTests(unittest.TestCase):
 
         if not IS_PLONE_5:  # BBB
             self.portal.email_from_address = "portal@plone.test"
-            self.portal.email_from_name = "Plone Master"
-            self.mail_host.smtp_host = "example.com"
-            self.mail_host.smtp_port = "25"
-            self.mail_host.smtp_userid = "portal@plone.test"
-            self.mail_host.smtp_pass = "Password"
+            self.portal.email_from_name = u"Plone Master"
+            self.mail_host.smtp_host = u"example.com"
+            self.mail_host.smtp_port = 25
+            self.mail_host.smtp_userid = u"portal@plone.test"
+            self.mail_host.smtp_pass = u"Password"
         else:
             self.registry = getUtility(IRegistry)
             reg_mail = self.registry.forInterface(
