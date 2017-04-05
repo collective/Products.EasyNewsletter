@@ -5,8 +5,9 @@ from email.MIMEText import MIMEText
 from plone import api
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.CMFCore.utils import getToolByName
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
 from Products.EasyNewsletter.config import MESSAGE_CODE
+from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.EasyNewsletter.interfaces import IENLRegistrationTool
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
@@ -127,7 +128,8 @@ class SubscriberView(BrowserView):
             msg_text = msg_text.replace("${subscriber_email}", subscriber)
             msg_text = msg_text.replace(
                 "${confirmation_url}", confirmation_url)
-            msg_sender = self.portal.getProperty('email_from_address')
+            settings = get_portal_mail_settings()
+            msg_sender = settings.email_from_address
             msg_receiver = subscriber
             msg = MIMEText(msg_text, "plain", charset)
             msg['To'] = msg_receiver
@@ -174,7 +176,7 @@ class SubscriberView(BrowserView):
                 _("Please enter a valid email address."), "error")
         return self.request.response.redirect(self.context.absolute_url())
 
-    def _requestReset(self, userid):
+    def _requestReset(self, userid):  # noqa
         """Ask the system to start the password reset procedure for
         user 'userid'.
 

@@ -37,6 +37,7 @@ log = logging.getLogger("Products.EasyNewsletter")
 
 
 schema = atapi.Schema((
+    # TODO: provide a default value here fromportals email_from_address
     atapi.StringField(
         'senderEmail',
         required=True,
@@ -481,8 +482,8 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
                     log.error(
                         "Property email: \"%s\" is not an email!" %
                         property['email'])
-        except TypeError, e:
-            log.error(":get_plone_members: error in member_properties %s/ \
+        except TypeError, e:  # noqa
+            log.error(":get_plone_members: error in member_properties %s \
                 properties:'%s'" % (e, member_properties.items()))
         # run registered member filter:
         for subscriber in subscribers([self], IReceiversMemberFilter):
