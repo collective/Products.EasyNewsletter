@@ -3,7 +3,7 @@ from collective.zamqp.consumer import Consumer
 from collective.zamqp.interfaces import IProducer
 from collective.zamqp.producer import Producer
 from plone import api
-from Producer.EasyNewsletter.queue.interfaces import IIssueQueue
+from Products.EasyNewsletter.queue.interfaces import IIssueQueue
 from zope.component import getUtility
 from zope.interface import implementer
 from zope.interface import Interface
