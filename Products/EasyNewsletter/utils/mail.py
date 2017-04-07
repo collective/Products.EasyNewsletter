@@ -3,6 +3,7 @@ from email.Header import Header
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from email.Utils import formatdate
+from Products.CMFCore.utils import getToolByName
 from Products.EasyNewsletter.config import IS_PLONE_5
 from zope.component import adapter
 from zope.component import getUtility
@@ -63,6 +64,16 @@ class PortalMailSettings(object):
 
 def get_portal_mail_settings():
     return PortalMailSettings()
+
+
+def get_email_charset():
+    if not IS_PLONE_5:  # BBB
+        portal = getSite()
+        props = getToolByName(portal, 'portal_properties').site_properties
+        return props.getProperty('default_charset')
+    else:
+        registry = getUtility(IRegistry)
+        return registry.get('plone.email_charset', 'utf-8')
 
 
 class IDispatch(Interface):

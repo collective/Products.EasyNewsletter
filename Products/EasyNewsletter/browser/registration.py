@@ -7,6 +7,7 @@ from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.CMFCore.utils import getToolByName
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
 from Products.EasyNewsletter.config import MESSAGE_CODE
+from Products.EasyNewsletter.utils.mail import get_email_charset
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.EasyNewsletter.interfaces import IENLRegistrationTool
 from Products.Five.browser import BrowserView
@@ -62,8 +63,7 @@ class SubscriberView(BrowserView):
     def register_subscriber(self):
         """
         """
-        props = getToolByName(self, "portal_properties").site_properties
-        charset = props.getProperty("default_charset")
+        charset = get_email_charset()
         subscriber = self.request.get("subscriber")
         lastname = self.request.get("name", "")
         firstname = self.request.get("firstname", "")

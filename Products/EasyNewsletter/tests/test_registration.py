@@ -7,9 +7,12 @@ from plone.app.testing import TEST_USER_NAME
 from plone.testing.z2 import Browser
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
+from plone.registry.interfaces import IRegistry
+from Products.CMFPlone.interfaces.controlpanel import IMailSchema
 from Products.EasyNewsletter.interfaces import IENLRegistrationTool
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_FUNCTIONAL_TESTING
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
+from Products.EasyNewsletter.config import IS_PLONE_5
 from Products.MailHost.interfaces import IMailHost
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
@@ -39,14 +42,24 @@ class RegistrationIntegrationTests(unittest.TestCase):
         # Set up a mock mailhost
         self.portal._original_MailHost = self.portal.MailHost
         self.portal.MailHost = mailhost = MockMailHost('MailHost')
-        self.portal.MailHost.smtp_host = 'localhost'
-        self.portal.MailHost.email_from_address = 'portal@plone.test'
+        # self.portal.MailHost.smtp_host = 'localhost'
+        # self.portal.MailHost.email_from_address = 'portal@plone.test'
         sm = getSiteManager(context=self.portal)
         sm.unregisterUtility(provided=IMailHost)
         sm.registerUtility(mailhost, provided=IMailHost)
-        # We need to fake a valid mail setup
+        if not IS_PLONE_5:  # BBB
+            self.portal._setProperty(
+                'email_from_address', "portal@plone.test", 'string')
+            self.portal.portal_properties._setProperty(
+                'email_from_address', "portal@plone.test", 'string')
+        else:
+            registry = getUtility(IRegistry)
+            settings = registry.forInterface(
+                IMailSchema, prefix='plone')
+            settings.email_from_address = "portal@plone.test"
+            settings.smtp_host = u"localhost"
         self.mail_settings = get_portal_mail_settings()
-        self.mail_settings.email_from_address = "portal@plone.test"
+        # We need to fake a valid mail setup
         self.mailhost = self.portal.MailHost
         self.enl_reg_tool = getUtility(
             IENLRegistrationTool, 'enl_registration_tool')

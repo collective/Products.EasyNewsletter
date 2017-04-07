@@ -10,6 +10,7 @@ from Products.ATContentTypes.content.topic import ATTopicSchema
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
+from Products.EasyNewsletter.utils.mail import get_email_charset
 from Products.EasyNewsletter.config import EMAIL_RE
 from Products.EasyNewsletter.config import PROJECTNAME
 from Products.EasyNewsletter.interfaces import IENLIssue
@@ -396,12 +397,10 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         send_counter = 0
         send_error_counter = 0
 
-        props = getToolByName(self, 'portal_properties').site_properties
-        charset = props.getProperty('default_charset')
+        charset = get_email_charset()
         if not recipients:
             receivers = self._send_recipients()
         issue_data_fetcher = IIssueDataFetcher(self)
-
         for receiver in receivers:
             # get complete issue data
             issue_data = issue_data_fetcher(receiver)
