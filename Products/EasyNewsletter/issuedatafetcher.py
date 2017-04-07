@@ -250,6 +250,8 @@ class DefaultIssueDataFetcher(object):
             if image is not None:
                 image["Content-ID"] = "<image_%s>" % image_number
                 # attach images only to html parts
+            if image is None:
+                continue
             images_to_attach.append(image)
         return images_to_attach
 

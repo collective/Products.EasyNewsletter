@@ -6,6 +6,7 @@ from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from Products.CMFPlone.tests.utils import MockMailHost
+from Products.EasyNewsletter.config import IS_PLONE_5
 from Products.EasyNewsletter.interfaces import IEasyNewsletter
 from Products.EasyNewsletter.interfaces import IENLIssue
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
@@ -32,6 +33,19 @@ else:
 
 GLOBALS = globals()
 TESTS_HOME = package_home(GLOBALS)
+
+
+def dummy_image(image=None):
+    from plone.namedfile.file import NamedBlobImage
+    # filename = open(os.path.join(TESTS_HOME, 'img1.png'), 'rb')
+    filename = os.path.join(os.path.dirname(__file__), u'img1.png')
+    if not IS_PLONE_5:  # BBB
+        image.edit(image=filename.read())
+    else:
+        return NamedBlobImage(
+            data=open(filename, 'r').read(),
+            filename=filename
+        )
 
 
 class EasyNewsletterTests(unittest.TestCase):
@@ -62,8 +76,11 @@ class EasyNewsletterTests(unittest.TestCase):
         # image for image testing
         self.folder.invokeFactory("Image", "image")
         self.image = self.folder.image
-        img1 = open(os.path.join(TESTS_HOME, 'img1.png'), 'rb').read()
-        self.image.edit(image=img1)
+        image = self.folder['image']
+        image.title = 'My Image'
+        image.description = 'This is my image.'
+        image.image = dummy_image(image)
+        self.image = image
 
     def send_sample_message(self, body):
         self.assertSequenceEqual(self.mailhost.messages, [])
@@ -122,7 +139,6 @@ class EasyNewsletterTests(unittest.TestCase):
         view = view.__of__(self.portal)
 
         view.send_issue()
-
         self.assertEqual(len(self.mailhost.messages), 1)
         self.assertTrue(self.mailhost.messages[0])
         msg = str(self.mailhost.messages[0])
