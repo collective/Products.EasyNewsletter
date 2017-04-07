@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from Products.EasyNewsletter.interfaces import IEasyNewsletter
