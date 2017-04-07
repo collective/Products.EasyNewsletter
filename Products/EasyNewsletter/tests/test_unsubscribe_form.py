@@ -5,14 +5,13 @@ from plone.app.testing import login
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
-from plone.registry.interfaces import IRegistry
 from plone.testing.z2 import Browser
-from Products.CMFPlone.interfaces.controlpanel import IMailSchema
+from Products.MailHost.interfaces import IMailHost
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.CMFPlone.utils import safe_unicode
+from Products.EasyNewsletter.config import IS_PLONE_5
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_FUNCTIONAL_TESTING
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
-from Products.MailHost.interfaces import IMailHost
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
 from zope.component import getUtility
@@ -21,6 +20,10 @@ import unittest
 
 GLOBALS = globals()
 TESTS_HOME = package_home(GLOBALS)
+
+if IS_PLONE_5:
+    from plone.registry.interfaces import IRegistry
+    from Products.CMFPlone.interfaces.controlpanel import IMailSchema
 
 
 class UnsubscribeFormIntegrationTests(unittest.TestCase):
@@ -50,11 +53,11 @@ class UnsubscribeFormIntegrationTests(unittest.TestCase):
         self.newsletter.senderName = "ACME newsletter"
         self.newsletter.testEmail = "test@acme.com"
 
+        self.mail_settings.smtp_host = u'localhost'
+        self.mail_settings.email_from_address = 'portal@plone.test'
         # Set up a mock mailhost
         self.portal._original_MailHost = self.portal.MailHost
         self.portal.MailHost = mailhost = MockMailHost('MailHost')
-        self.mail_settings.smtp_host = u'localhost'
-        self.mail_settings.email_from_address = 'portal@plone.test'
         sm = getSiteManager(context=self.portal)
         sm.unregisterUtility(provided=IMailHost)
         sm.registerUtility(mailhost, provided=IMailHost)

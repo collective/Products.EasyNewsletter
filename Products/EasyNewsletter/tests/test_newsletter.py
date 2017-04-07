@@ -71,7 +71,7 @@ class EasyNewsletterTests(unittest.TestCase):
         sm.unregisterUtility(provided=IMailHost)
         sm.registerUtility(mailhost, provided=IMailHost)
         # We need to fake a valid mail setup
-        self.mail_settings.email_from_address = u'portal@plone.test'
+        # self.mail_settings.email_from_address = u'portal@plone.test'
         self.mailhost = self.portal.MailHost
         # image for image testing
         self.folder.invokeFactory("Image", "image")

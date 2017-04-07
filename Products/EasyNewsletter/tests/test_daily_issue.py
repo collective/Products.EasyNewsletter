@@ -46,15 +46,14 @@ class DailyIssueBaseTestCase(unittest.TestCase):
             name="daily-issue"
         )
 
+        self.mail_settings = get_portal_mail_settings()
+        self.mail_settings.email_from_address = "noreply@plone.org"
         # setting a Mock mailhost
         self.portal._original_MailHost = self.portal.MailHost
         self.portal.MailHost = mailhost = MockMailHost("MailHost")
         sm = getSiteManager(context=self.portal)
         sm.unregisterUtility(provided=IMailHost)
         sm.registerUtility(mailhost, provided=IMailHost)
-
-        self.mail_settings = get_portal_mail_settings()
-        self.mail_settings.email_from_address = "noreply@plone.org"
 
     def tearDown(self):
         self.portal.MailHost = self.portal._original_MailHost
