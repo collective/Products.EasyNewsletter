@@ -40,7 +40,7 @@ def dummy_image(image=None):
     # filename = open(os.path.join(TESTS_HOME, 'img1.png'), 'rb')
     filename = os.path.join(os.path.dirname(__file__), u'img1.png')
     if not IS_PLONE_5:  # BBB
-        image.edit(image=filename.read())
+        image.edit(image=open(filename, 'r').read())
     else:
         return NamedBlobImage(
             data=open(filename, 'r').read(),

@@ -64,10 +64,11 @@ class EasyNewsletterSetupTests(unittest.TestCase):
 
     def test_newsletter_subtypes_in_types_not_searched(self):
         if not IS_PLONE_5:  # BBB
+            site_props = self.properties.site_properties
             self.assertTrue(
-                self.properties.hasProperty(
+                site_props.hasProperty(
                     'types_not_searched'))
-            types_not_searched = self.properties.types_not_searched
+            types_not_searched = site_props.types_not_searched
             self.assertTrue(
                 'ENLSubscriber' in types_not_searched)
         else:

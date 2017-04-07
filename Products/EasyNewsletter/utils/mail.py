@@ -35,17 +35,25 @@ class PortalMailSettings(object):
 
     def __init__(self):
         self.settings = {}
+
+    def __getattr__(self, key):
         if not IS_PLONE_5:  # BBB
             portal = getSite()
             mail_host = getUtility(IMailHost)
-            self.settings['smtp_host'] = mail_host.smtp_host
-            self.settings['smtp_port'] = mail_host.smtp_port
-            self.settings['smtp_userid'] = mail_host.smtp_userid
-            self.settings['smtp_pass'] = mail_host.smtp_pass
-            self.settings['email_from_address'] = portal.getProperty(
-                'email_from_address')
-            self.settings['email_from_name'] = mail_host.email_from_name
-            self.settings['email_charset'] = mail_host.email_charset
+            key_map = {
+                'smtp_host': 'smtp_host',
+                'smtp_port': 'smtp_port',
+                'smtp_userid': 'smtp_uid',
+                'smtp_pass': 'smtp_pwd',
+            }
+            if key in key_map:
+                return getattr(mail_host, key, '')
+            elif key == 'email_from_address':
+                return portal.getProperty(key)
+            elif key == 'email_from_name':
+                return portal.getProperty(key)
+            elif key == 'email_charset':
+                return portal.getProperty(key)
         else:
             self.registry = getUtility(IRegistry)
             reg_mail = self.registry.forInterface(
@@ -57,8 +65,6 @@ class PortalMailSettings(object):
             self.settings['email_from_address'] = reg_mail.email_from_address
             self.settings['email_from_name'] = reg_mail.email_from_name
             self.settings['email_charset'] = reg_mail.email_charset
-
-    def __getattr__(self, key):
         return self.settings.get(key)
 
 

@@ -37,9 +37,14 @@ class UnsubscribeFormIntegrationTests(unittest.TestCase):
         # create EasyNewsletter instance and add some subscribers
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         login(self.portal, TEST_USER_NAME)
-
-        registry = getUtility(IRegistry)
-        self.mail_settings = registry.forInterface(IMailSchema, prefix='plone')
+        if IS_PLONE_5:
+            registry = getUtility(IRegistry)
+            self.mail_settings = registry.forInterface(
+                    IMailSchema, prefix='plone')
+            self.mail_settings.smtp_host = u'localhost'
+            self.mail_settings.email_from_address = 'portal@plone.test'
+        else:  # BBB
+            self.portal.email_from_address = "portal@plone.test"
 
         self.portal.invokeFactory('EasyNewsletter', 'enl1', title=u"ENL 1")
         self.newsletter = self.portal.get('enl1')
@@ -53,11 +58,10 @@ class UnsubscribeFormIntegrationTests(unittest.TestCase):
         self.newsletter.senderName = "ACME newsletter"
         self.newsletter.testEmail = "test@acme.com"
 
-        self.mail_settings.smtp_host = u'localhost'
-        self.mail_settings.email_from_address = 'portal@plone.test'
         # Set up a mock mailhost
         self.portal._original_MailHost = self.portal.MailHost
         self.portal.MailHost = mailhost = MockMailHost('MailHost')
+        self.portal.MailHost.smtp_host = 'localhost'
         sm = getSiteManager(context=self.portal)
         sm.unregisterUtility(provided=IMailHost)
         sm.registerUtility(mailhost, provided=IMailHost)
