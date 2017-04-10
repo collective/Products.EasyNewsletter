@@ -32,3 +32,4 @@ docs/make.bat
 docs/Makefile
 /EasyNewsletter.sublime-project
 /EasyNewsletter.sublime-workspace
+/pip-selfcheck.json
