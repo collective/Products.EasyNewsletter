@@ -10,7 +10,7 @@ from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter.config import PLACEHOLDERS
 from Products.EasyNewsletter.interfaces import IBeforePersonalizationEvent
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
-from Products.EasyNewsletter.utils import safe_portal_encoding
+from Products.EasyNewsletter.utils.base import safe_portal_encoding
 from Products.EasyNewsletter.utils.ENLHTMLParser import ENLHTMLParser
 from Products.PageTemplates.ZopePageTemplate import ZopePageTemplate
 from stoneagehtml import compactify
@@ -250,6 +250,8 @@ class DefaultIssueDataFetcher(object):
             if image is not None:
                 image["Content-ID"] = "<image_%s>" % image_number
                 # attach images only to html parts
+            if image is None:
+                continue
             images_to_attach.append(image)
         return images_to_attach
 

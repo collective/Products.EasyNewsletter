@@ -6,10 +6,12 @@ from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from plone.testing.z2 import Browser
 from Products.CMFPlone.tests.utils import MockMailHost
+from Products.MailHost.interfaces import IMailHost
+from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.EasyNewsletter.interfaces import IENLRegistrationTool
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_FUNCTIONAL_TESTING
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
-from Products.MailHost.interfaces import IMailHost
+from Products.EasyNewsletter.config import IS_PLONE_5
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
 from zope.component import getUtility
@@ -19,6 +21,11 @@ import unittest
 
 GLOBALS = globals()
 TESTS_HOME = package_home(GLOBALS)
+
+
+if IS_PLONE_5:
+    from plone.registry.interfaces import IRegistry
+    from Products.CMFPlone.interfaces.controlpanel import IMailSchema
 
 
 class RegistrationIntegrationTests(unittest.TestCase):
@@ -35,16 +42,23 @@ class RegistrationIntegrationTests(unittest.TestCase):
         self.newsletter.senderEmail = "newsletter@acme.com"
         self.newsletter.senderName = "ACME newsletter"
         self.newsletter.testEmail = "test@acme.com"
+        self.mail_settings = get_portal_mail_settings()
         # Set up a mock mailhost
         self.portal._original_MailHost = self.portal.MailHost
         self.portal.MailHost = mailhost = MockMailHost('MailHost')
         self.portal.MailHost.smtp_host = 'localhost'
-        self.portal.MailHost.email_from_address = 'portal@plone.test'
+        if not IS_PLONE_5:  # BBB
+            self.portal.email_from_address = "portal@plone.test"
+        else:
+            registry = getUtility(IRegistry)
+            self.mail_settings = registry.forInterface(
+                IMailSchema, prefix='plone')
+            self.mail_settings.email_from_address = "portal@plone.test"
+            self.mail_settings.smtp_host = u"localhost"
         sm = getSiteManager(context=self.portal)
         sm.unregisterUtility(provided=IMailHost)
         sm.registerUtility(mailhost, provided=IMailHost)
         # We need to fake a valid mail setup
-        self.portal.email_from_address = "portal@plone.test"
         self.mailhost = self.portal.MailHost
         self.enl_reg_tool = getUtility(
             IENLRegistrationTool, 'enl_registration_tool')
@@ -174,6 +188,8 @@ class RegistrationFunctionalTests(unittest.TestCase):
         self.portal_url = self.portal.absolute_url()
         self.browser = Browser(self.portal)
         self.browser.handleErrors = False
+        self.mail_settings = get_portal_mail_settings()
+        self.mail_settings.email_from_address = "portal@plone.test"
         # Set up a mock mailhost
         self.portal._original_MailHost = self.portal.MailHost
         self.portal.MailHost = mailhost = MockMailHost('MailHost')
@@ -183,8 +199,6 @@ class RegistrationFunctionalTests(unittest.TestCase):
         sm.unregisterUtility(provided=IMailHost)
         sm.registerUtility(mailhost, provided=IMailHost)
         # We need to fake a valid mail setup
-        self.portal.email_from_address = "portal@plone.test"
-        self.mailhost = self.portal.MailHost
 
         # create EasyNewsletter instance and add some subscribers
         setRoles(self.portal, TEST_USER_ID, ['Manager'])

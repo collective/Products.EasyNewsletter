@@ -23,9 +23,11 @@
   <include package=".content" />
   <include package=".portlets" />
   <include package=".queue" />
+  <include package=".utils" />
 
   <include file="indexers.zcml" />
   <include file="profiles.zcml" />
+  <include file="vocabularies.zcml" />
   <include file="upgrades.zcml" />
 
   <i18n:registerTranslations directory="locales" />

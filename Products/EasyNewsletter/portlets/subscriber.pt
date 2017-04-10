@@ -14,7 +14,7 @@
   	    <p tal:content="view/description|nothing"
             tal:omit-tag="not:view/description"/>
 
-        <form action="@@register-subscriber">
+        <form tal:attributes="action string:${portal_url}/@@register-subscriber">
             <input type="hidden"
                    name="newsletter"
                    value="newsletter"

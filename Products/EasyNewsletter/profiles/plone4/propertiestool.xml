@@ -12,8 +12,10 @@
 
   </object> <!-- end navtree_properties -->
 
-  <property name="types_not_searched" type="lines" purge="False">
-   <element value="ENLSubscriber"/>
-  </property>
+  <object name="site_properties" meta_type="Plone Property Sheet">
+    <property name="types_not_searched" type="lines" purge="False">
+      <element value="ENLSubscriber"/>
+    </property>
+  </object> <!-- end navtree_properties -->
 
 </object>

@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 from plone.app.portlets.portlets import base
-from plone.app.vocabularies.catalog import SearchableTextSourceBinder
+# from plone.app.vocabularies.catalog import SearchableTextSourceBinder
 from plone.portlets.interfaces import IPortletDataProvider
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope import schema
-from zope.formlib import form
 from zope.interface import implements
+from Products.EasyNewsletter.config import IS_PLONE_5
+
+
+if not IS_PLONE_5:  # BBB
+    from zope.formlib import form
 
 
 class INewsletterSubscriberPortlet(IPortletDataProvider):
@@ -34,9 +38,7 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
             default=u"Search for the accordingly newsletter, choose one and "
                     u"apply."
         ),
-        source=SearchableTextSourceBinder(
-            {'portal_type': 'EasyNewsletter'},
-            default_query='path:'),
+        vocabulary="Products.EasyNewsletter.newsletters",
         required=True)
 
     query_salutation = schema.Bool(
@@ -147,7 +149,10 @@ class Renderer(base.Renderer):
 class AddForm(base.AddForm):
     """
     """
-    form_fields = form.Fields(INewsletterSubscriberPortlet)
+    if IS_PLONE_5:
+        schema = INewsletterSubscriberPortlet
+    else:  # BBB
+        form_fields = form.Fields(INewsletterSubscriberPortlet)
 
     def create(self, data):
         """
@@ -162,7 +167,11 @@ class AddForm(base.AddForm):
 class EditForm(base.EditForm):
     """
     """
-    form_fields = form.Fields(INewsletterSubscriberPortlet)
+    if IS_PLONE_5:
+        schema = INewsletterSubscriberPortlet
+    else:  # BBB
+        form_fields = form.Fields(INewsletterSubscriberPortlet)
+
     label = _(u"Edit Newsletter portlet")
     description = _(
         u"This portlet displays the subscriber add form of a newsletter.")

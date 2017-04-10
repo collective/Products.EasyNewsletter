@@ -1,20 +1,85 @@
 # -*- coding: utf-8 -*-
-# This code has been shamelessly stolen from collective.singing.
 from email.Header import Header
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from email.Utils import formatdate
+from Products.CMFCore.utils import getToolByName
+from Products.EasyNewsletter.config import IS_PLONE_5
 from zope.component import adapter
 from zope.component import getUtility
 from zope.interface import implementer
 from zope.interface import Interface
-
 import email
 import formatter
 import htmllib
 import StringIO
 import traceback
 import zope.sendmail.interfaces
+
+if not IS_PLONE_5:  # BBB
+    from zope.site.hooks import getSite
+    from Products.MailHost.interfaces import IMailHost
+else:
+    from plone.registry.interfaces import IRegistry
+    from Products.CMFPlone.interfaces.controlpanel import IMailSchema
+
+
+class IPortalMailSettings(Interface):
+    """ PortalMailSettings proxy interface
+    """
+
+
+class PortalMailSettings(object):
+    """ PortalMailSettings proxy
+    """
+
+    def __init__(self):
+        self.settings = {}
+
+    def __getattr__(self, key):
+        if not IS_PLONE_5:  # BBB
+            portal = getSite()
+            mail_host = getUtility(IMailHost)
+            key_map = {
+                'smtp_host': 'smtp_host',
+                'smtp_port': 'smtp_port',
+                'smtp_userid': 'smtp_uid',
+                'smtp_pass': 'smtp_pwd',
+            }
+            if key in key_map:
+                return getattr(mail_host, key, '')
+            elif key == 'email_from_address':
+                return portal.getProperty(key)
+            elif key == 'email_from_name':
+                return portal.getProperty(key)
+            elif key == 'email_charset':
+                return portal.getProperty(key)
+        else:
+            self.registry = getUtility(IRegistry)
+            reg_mail = self.registry.forInterface(
+                IMailSchema, prefix='plone')
+            self.settings['smtp_host'] = reg_mail.smtp_host
+            self.settings['smtp_port'] = reg_mail.smtp_port
+            self.settings['smtp_userid'] = reg_mail.smtp_userid
+            self.settings['smtp_pass'] = reg_mail.smtp_pass
+            self.settings['email_from_address'] = reg_mail.email_from_address
+            self.settings['email_from_name'] = reg_mail.email_from_name
+            self.settings['email_charset'] = reg_mail.email_charset
+        return self.settings.get(key)
+
+
+def get_portal_mail_settings():
+    return PortalMailSettings()
+
+
+def get_email_charset():
+    if not IS_PLONE_5:  # BBB
+        portal = getSite()
+        props = getToolByName(portal, 'portal_properties').site_properties
+        return props.getProperty('default_charset')
+    else:
+        registry = getUtility(IRegistry)
+        return registry.get('plone.email_charset', 'utf-8')
 
 
 class IDispatch(Interface):
@@ -164,7 +229,7 @@ class Dispatch(object):
         delivery = getUtility(zope.sendmail.interfaces.IMailDelivery)
         try:
             delivery.send(msg['From'], self._split(msg['To']), msg.as_string())
-        except Exception, e:
+        except Exception, e:  # noqa
             # TODO: log
             return u'error', traceback.format_exc(e)
         else:

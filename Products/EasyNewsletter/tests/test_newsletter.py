@@ -6,16 +6,17 @@ from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from Products.CMFPlone.tests.utils import MockMailHost
+from Products.EasyNewsletter.config import IS_PLONE_5
 from Products.EasyNewsletter.interfaces import IEasyNewsletter
 from Products.EasyNewsletter.interfaces import IENLIssue
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
+from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.MailHost.interfaces import IMailHost
 from zExceptions import Forbidden
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
 from zope.component import queryUtility
 from zope.interface import Interface
-
 import os
 import pkg_resources
 import unittest
@@ -34,11 +35,24 @@ GLOBALS = globals()
 TESTS_HOME = package_home(GLOBALS)
 
 
-class EasyNewsletterTests(unittest.TestCase):
+def dummy_image(image=None):
+    from plone.namedfile.file import NamedBlobImage
+    # filename = open(os.path.join(TESTS_HOME, 'img1.png'), 'rb')
+    filename = os.path.join(os.path.dirname(__file__), u'img1.png')
+    if not IS_PLONE_5:  # BBB
+        image.edit(image=open(filename, 'r').read())
+    else:
+        return NamedBlobImage(
+            data=open(filename, 'r').read(),
+            filename=filename
+        )
 
+
+class EasyNewsletterTests(unittest.TestCase):
     layer = EASYNEWSLETTER_INTEGRATION_TESTING
 
     def setUp(self):
+        self.mail_settings = get_portal_mail_settings()
         self.portal = self.layer['portal']
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         login(self.portal, TEST_USER_NAME)
@@ -57,13 +71,16 @@ class EasyNewsletterTests(unittest.TestCase):
         sm.unregisterUtility(provided=IMailHost)
         sm.registerUtility(mailhost, provided=IMailHost)
         # We need to fake a valid mail setup
-        self.portal.email_from_address = "portal@plone.test"
+        # self.mail_settings.email_from_address = u'portal@plone.test'
         self.mailhost = self.portal.MailHost
         # image for image testing
         self.folder.invokeFactory("Image", "image")
         self.image = self.folder.image
-        img1 = open(os.path.join(TESTS_HOME, 'img1.png'), 'rb').read()
-        self.image.edit(image=img1)
+        image = self.folder['image']
+        image.title = 'My Image'
+        image.description = 'This is my image.'
+        image.image = dummy_image(image)
+        self.image = image
 
     def send_sample_message(self, body):
         self.assertSequenceEqual(self.mailhost.messages, [])
@@ -122,7 +139,6 @@ class EasyNewsletterTests(unittest.TestCase):
         view = view.__of__(self.portal)
 
         view.send_issue()
-
         self.assertEqual(len(self.mailhost.messages), 1)
         self.assertTrue(self.mailhost.messages[0])
         msg = str(self.mailhost.messages[0])
