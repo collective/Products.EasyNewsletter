@@ -27,7 +27,5 @@ script:
   - bin/code-analysis
   - bin/test --all
 after_success:
-  - bin/test-coverage
-  - bin/createcoverage
-  - pip install coverage==3.7.1 coveralls
+  - pip install -q coveralls
   - coveralls
