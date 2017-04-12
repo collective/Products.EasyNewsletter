@@ -69,4 +69,20 @@
           handler=".upgrades.reinstall_gs_profile"
           profile="Products.EasyNewsletter:default"/>
 
+  <genericsetup:upgradeStep
+          title="Reload profiles to install archetypes.referencebrowserwidget"
+          description="Add archetypes.referencebrowserwidget"
+          source="3004"
+          destination="3005"
+          handler=".upgrades.reinstall_gs_profile"
+          profile="Products.EasyNewsletter:default"/>
+
+  <genericsetup:upgradeStep
+          title="Reload profiles register ENL settings in plone.registry"
+          description=""
+          source="3005"
+          destination="3006"
+          handler=".upgrades.reinstall_gs_profile"
+          profile="Products.EasyNewsletter:default"/>
+
 </configure>

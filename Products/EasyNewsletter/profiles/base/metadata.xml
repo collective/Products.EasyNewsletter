@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <metadata>
-  <version>3004</version>
+  <version>3006</version>
   <dependencies>
     <!-- <dependency>profile-inqbus.plone.fastmemberproperties:default</dependency> -->
+    <dependency>profile-archetypes.referencebrowserwidget:default</dependency>
   </dependencies>
 </metadata>

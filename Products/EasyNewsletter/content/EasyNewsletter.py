@@ -17,6 +17,8 @@ from Products.EasyNewsletter.interfaces import IReceiversMemberFilter
 from Products.EasyNewsletter.interfaces import ISubscriberSource
 from Products.MailHost.interfaces import IMailHost
 from Products.TemplateFields import ZPTField
+from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
+
 from zExceptions import BadRequest
 from zope.component import getUtilitiesFor
 from zope.component import queryUtility
@@ -165,6 +167,24 @@ schema = atapi.Schema((
                     for new issues. You can use the placeholders \
                     {{SUBSCRIBER_SALUTATION}} and {{UNSUBSCRIBE}} here.'),
             i18n_domain='EasyNewsletter',
+        ),
+    ),
+
+    atapi.ReferenceField(
+        'content_aggregation_sources',
+        multiValued=1,
+        referencesSortable=1,
+        relationship='contentAggregationSource',
+        allowed_types_method="get_allowed_content_aggregation_types",
+        widget=ReferenceBrowserWidget(
+            allow_sorting=1,
+            label=_(
+                u"ENL_content_aggregation_sources_label",
+                default=u"Content aggregation sources"),
+            description=_(
+                u"ENL_content_aggregation_sources_desc",
+                default=u"Choose sources to aggregate newsletter content from."
+            ),
         ),
     ),
 
@@ -385,6 +405,10 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
     schema = schema
     _at_rename_after_creation = True
 
+    def get_allowed_content_aggregation_types():
+        """ return a tuple of allowed content types for content aggregation
+        """
+
     @security.public
     def initializeArchetype(self, **kwargs):
         """Overwritten hook.
@@ -395,12 +419,7 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
             self.manage_addProduct["EasyNewsletter"].addENLTemplate(
                 id="default_template", title="Default")
 
-    @security.public
-    def displayContentsTab(self):
-        """Overwritten to hide contents tab.
-        """
-        return False
-
+    # XXX factore this out for DX reimplementation
     @security.public
     def addSubscriber(self, subscriber, firstname, lastname, name_prefix,
                       nl_language, organization, salutation=None):
@@ -429,11 +448,6 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
         o.reindexObject()
 
         return (True, "subscription_confirmed")
-
-    def getSubTopics(self):
-        """Returns sub topics.
-        """
-        return self.objectValues("ATTopic")
 
     def _get_fmp_tool(self):
         if has_fmp:

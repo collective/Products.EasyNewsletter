@@ -45,6 +45,8 @@ setup(
         'Products.ATContentTypes',
         'Products.CMFPlone',
         'Products.TemplateFields',
+        'archetypes.referencebrowserwidget',
+        'plone.app.registry',
         'setuptools',
         'stoneagehtml',
     ],

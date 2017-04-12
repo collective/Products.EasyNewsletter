@@ -163,6 +163,10 @@ schema = atapi.Schema((
         ),
     ),
 
+    # XXX to reused for using aggregation items from parent?
+    # do we need this or should we just use the local relation list if defined?
+    # maybe ceep things simple and remove this, so it's either the parent list
+    # or the issue list
     atapi.BooleanField(
         'acquireCriteria',
         schemata='settings',
@@ -221,13 +225,6 @@ class ENLIssue(ATTopic, atapi.BaseContent):
     """
     security = ClassSecurityInfo()
     schema = schema
-
-    @security.public
-    def folder_contents(self):
-        """Overwritten to "forbid" folder_contents
-        """
-        url = self.absolute_url()
-        self.REQUEST.RESPONSE.redirect(url)
 
     def _get_salutation_mappings(self):
         """
@@ -430,7 +427,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                 mail_host.send(outer.as_string())
                 log.info('Send newsletter to "%s"' % receiver['email'])
                 send_counter += 1
-            except Exception, e:
+            except Exception, e:  # noqa
                 log.exception(
                     'Sending newsletter to "%s" failed, with error "%s"!'
                     % (receiver['email'], e))
@@ -447,6 +444,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             api.content.transition(obj=self, transition='sending_completed')
             request['enlwf_guard'] = False
 
+    # XXX
     @security.protected('Modify portal content')
     def loadContent(self):
         """Loads text dependend on criteria into text attribute.
@@ -457,6 +455,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             text = issue_template.body()
             self.setText(text)
 
+    # XXX
     def getSubTopics(self):
         """Returns subtopics of the issues.
         """

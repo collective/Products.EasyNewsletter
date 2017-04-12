@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<registry>
+
+  <records interface="Products.EasyNewsletter.browser.controlpanel.IENLSettings"
+      prefix="Products.EasyNewsletter">
+  </records>
+
+  <record name="Products.EasyNewsletter.allowed_content_aggregation_types"
+      interface="Products.EasyNewsletter.browser.controlpanel.IENLSettings"
+      field="allowed_content_aggregation_types">
+    <value purge="false"><element key="Collection">Collection</element></value>
+  </record>
+
+</registry>

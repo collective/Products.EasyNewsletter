@@ -8,6 +8,8 @@
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:zcml="http://namespaces.zope.org/zcml">
 
+    <includeDependencies package="." />
+
   <include
       file="permissions.zcml"
       package="Products.CMFCore"
