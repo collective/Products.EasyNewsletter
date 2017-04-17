@@ -188,7 +188,7 @@ img.tileImage {
       </td>
     </tr>
     <tr>
-      <td class="header">
+      <td class="header" tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime">
         <!-- this is the header of the newsletter -->
         <span tal:replace="structure context/getHeader" />
         <span
