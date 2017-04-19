@@ -1,0 +1,120 @@
+<tal:block tal:repeat="source context/getContentSources">
+
+
+  <!-- MODULE ROW // -->
+  <tr>
+    <td align="center" valign="top">
+        <!-- CENTERING TABLE // -->
+          <!--
+            The centering table keeps the content
+              tables centered in the emailBody table,
+              in case its width is set to 100%.
+          -->
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td align="center" valign="top">
+                    <!-- FLEXIBLE CONTAINER // -->
+                      <!--
+                        The flexible container has a set width
+                          that gets overridden by the media query.
+                          Most content tables within can then be
+                          given 100% widths.
+                      -->
+                    <table border="0" cellpadding="0" cellspacing="0" width="600" class="flexibleContainer">
+                        <tr>
+                            <td align="center" valign="top" width="600" class="flexibleContainerCell">
+
+
+                                  <!-- CONTENT TABLE // -->
+                                  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                      <tr>
+                                          <td valign="top" class="textContent">
+                                              <h3 tal:content="source/Title">Title</h3>
+                                              <br />
+                                              <span tal:replace="source/Description"></span>
+                                          </td>
+                                      </tr>
+                                  </table>
+                                  <!-- // CONTENT TABLE -->
+
+
+                              </td>
+                          </tr>
+                      </table>
+                      <!-- // FLEXIBLE CONTAINER -->
+                  </td>
+              </tr>
+          </table>
+          <!-- // CENTERING TABLE -->
+      </td>
+  </tr>
+  <!-- // MODULE ROW -->
+
+
+<tal:blockitems tal:repeat="brain source/queryCatalog"
+    i18n:domain="EasyNewsletter">
+
+
+  <!-- MODULE ROW // -->
+  <tr>
+    <td align="center" valign="top">
+        <!-- CENTERING TABLE // -->
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td align="center" valign="top">
+                    <!-- FLEXIBLE CONTAINER // -->
+                    <table border="0" cellpadding="0" cellspacing="0" width="600" class="flexibleContainer">
+                        <tr>
+                            <td align="center" valign="top" width="600" class="flexibleContainerCell bottomShim">
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%" class="nestedContainer">
+                                    <tr>
+                                        <td valign="top" class="nestedContainerCell">
+
+
+                                          <!-- CONTENT TABLE // -->
+                                          <table tal:define="item_object brain/getObject"
+                                            tal:condition="python:hasattr(item_object.aq_explicit, 'image')"
+                                            align="Left" border="0" cellpadding="0" cellspacing="0" width="200" class="flexibleContainer">
+                                              <tr>
+                                                  <td align="Left" valign="top" class="imageContent">
+                                                      <a tal:define="here_url item_object/@@plone_context_state/object_url;"
+                                                         tal:attributes="href brain/getURL">
+                                                        <img class="flexibleImage" width="200" style="max-width:200px;"
+                                                            tal:attributes="src string:${brain/getURL}/@@images/image/mini" />
+                                                      </a>
+                                                  </td>
+                                              </tr>
+                                          </table>
+                                          <!-- // CONTENT TABLE -->
+
+
+                                          <!-- CONTENT TABLE // -->
+                                          <table align="Right" border="0" cellpadding="0" cellspacing="0" width="280" class="flexibleContainer">
+                                              <tr>
+                                                  <td valign="top" class="textContent">
+                                                      <h3><a tal:attributes="href brain/getURL" tal:content=" brain/Title">Title</a></h3>
+                                                      <br />
+                                                      <span tal:replace="brain/Description">Description</span>                                                      </td>
+                                              </tr>
+                                          </table>
+                                          <!-- // CONTENT TABLE -->
+
+
+                                          </td>
+                                      </tr>
+                                  </table>
+                              </td>
+                          </tr>
+                      </table>
+                      <!-- // FLEXIBLE CONTAINER -->
+                  </td>
+              </tr>
+          </table>
+          <!-- // CENTERING TABLE -->
+      </td>
+  </tr>
+  <!-- // MODULE ROW -->
+
+
+</tal:blockitems>
+</tal:block>

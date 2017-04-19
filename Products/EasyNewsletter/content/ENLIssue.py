@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from AccessControl import ClassSecurityInfo
+from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 from email.Header import Header
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
@@ -10,7 +11,6 @@ from Products.ATContentTypes.content.topic import ATTopicSchema
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
-from Products.EasyNewsletter.utils.mail import get_email_charset
 from Products.EasyNewsletter.config import EMAIL_RE
 from Products.EasyNewsletter.config import PROJECTNAME
 from Products.EasyNewsletter.interfaces import IENLIssue
@@ -18,12 +18,13 @@ from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter
 from Products.EasyNewsletter.interfaces import ISubscriberSource
 from Products.EasyNewsletter.queue.interfaces import IIssueQueue
+from Products.EasyNewsletter.utils.mail import get_email_charset
 from Products.MailHost.interfaces import IMailHost
 from zope.component import getUtility
 from zope.component import queryUtility
 from zope.component import subscribers
 from zope.interface import implementer
-
+from plone.protect.auto import safeWrite
 import logging
 import pkg_resources
 
@@ -125,6 +126,25 @@ schema = atapi.Schema((
         )
     ),
 
+    atapi.ReferenceField(
+        'contentAggregationSources',
+        schemata='settings',
+        multiValued=1,
+        referencesSortable=1,
+        relationship='contentAggregationSource',
+        allowed_types_method="get_allowed_content_aggregation_types",
+        widget=ReferenceBrowserWidget(
+            allow_sorting=1,
+            label=_(
+                u"ENL_content_aggregation_sources_label",
+                default=u"Content aggregation sources"),
+            description=_(
+                u"ENL_content_aggregation_sources_desc",
+                default=u"Choose sources to aggregate newsletter content from."
+            ),
+        ),
+    ),
+
     atapi.TextField(
         'header',
         schemata='settings',
@@ -163,23 +183,6 @@ schema = atapi.Schema((
         ),
     ),
 
-    # XXX to reused for using aggregation items from parent?
-    # do we need this or should we just use the local relation list if defined?
-    # maybe ceep things simple and remove this, so it's either the parent list
-    # or the issue list
-    atapi.BooleanField(
-        'acquireCriteria',
-        schemata='settings',
-        default=True,
-        widget=atapi.BooleanWidget(
-            label=_(u'label_inherit_criteria', default=u'Inherit Criteria'),
-            description=_(
-                u'EasyNewsletter_help_acquireCriteria',
-                default=u''),
-            i18n_domain='EasyNewsletter',
-        )
-    ),
-
     # Overwritten to adapt attribute from ATTopic
     atapi.StringField(
         'template',
@@ -201,7 +204,6 @@ schema = atapi.Schema((
 )
 
 schema = ATTopicSchema.copy() + schema
-schema.moveField('acquireCriteria', before='template')
 
 # hide id, even if visible_ids is True
 schema['id'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
@@ -447,23 +449,12 @@ class ENLIssue(ATTopic, atapi.BaseContent):
     # XXX
     @security.protected('Modify portal content')
     def loadContent(self):
-        """Loads text dependend on criteria into text attribute.
+        """ Agregate content from content_aggregation_sources.
         """
-        if self.getAcquireCriteria():
-            issue_template = self.restrictedTraverse(self.getTemplate())
-            issue_template.setIssue(self.UID())
-            text = issue_template.body()
-            self.setText(text)
-
-    # XXX
-    def getSubTopics(self):
-        """Returns subtopics of the issues.
-        """
-        topics = self.objectValues('ATTopic')
-        if self.getAcquireCriteria():
-            return self.aq_inner.aq_parent.objectValues('ATTopic')
-        else:
-            return topics
+        issue_template = self.restrictedTraverse(self.getTemplate())
+        issue_template.setIssue(self.UID())
+        text = issue_template.body()
+        self.setText(text)
 
     def get_default_header(self):
         enl = self.getNewsletter()

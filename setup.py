@@ -46,6 +46,7 @@ setup(
         'Products.CMFPlone',
         'Products.TemplateFields',
         'archetypes.referencebrowserwidget',
+        'plone.app.referenceablebehavior',
         'plone.app.registry',
         'setuptools',
         'stoneagehtml',

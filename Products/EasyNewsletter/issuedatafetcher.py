@@ -156,7 +156,7 @@ class DefaultIssueDataFetcher(object):
             self.issue.out_template_pt.pt_render()
         )
         sp.rollback()  # no actual write to db!
-        output_html = compactify(output_html, filter_tags=False)
+        # output_html = compactify(output_html, filter_tags=False)
         return output_html
 
     def _personalize(self, receiver, html):

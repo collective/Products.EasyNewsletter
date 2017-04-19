@@ -85,4 +85,12 @@
           handler=".upgrades.reinstall_gs_profile"
           profile="Products.EasyNewsletter:default"/>
 
+  <genericsetup:upgradeStep
+          title="Apply referenceable behavior"
+          description="Makes existing DX CTs referenceable for Archetypes"
+          source="3006"
+          destination="3007"
+          handler=".upgrades.apply_referenceable_behavior"
+          profile="Products.EasyNewsletter:default"/>
+
 </configure>
