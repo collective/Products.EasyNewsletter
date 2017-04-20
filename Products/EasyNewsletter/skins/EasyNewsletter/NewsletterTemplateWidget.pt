@@ -1,12 +1,11 @@
 <html i18n:domain="EasyNewsletter">
-      
   <body>
     <div metal:define-macro="edit">
 
       <metal:use use-macro="field_macro | here/widgets/field/macros/edit">
 
           <metal:fill fill-slot="widget_body"
-                      tal:define="vocab python:context.aq_parent.objectValues('ENLTemplate')">
+                      tal:define="vocab context/get_aggregation_template_objects">
 
             <select tal:attributes="name fieldName;
                                     id fieldName;">
@@ -19,24 +18,22 @@
 
             </select>
 
-            <input type="submit" 
+            <!--<input type="submit"
                    name="form.button.update"
                    value="Save &amp; Update"
-                   i18n:attributes="value easycms_saveupdate_label;"/>
-
+                   i18n:attributes="value easycms_saveupdate_label;"/>-->
 
           </metal:fill>
 
-      </metal:use>    
+      </metal:use>
     </div>
 
     <div metal:define-macro="view">
     </div>
 
     <div metal:define-macro="search">
-      <div metal:use-macro="context/widgets/string/macros/search" />    
+      <div metal:use-macro="context/widgets/string/macros/search" />
     </div>
-  
-  </body>      
-      
+
+  </body>
 </html>

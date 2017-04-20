@@ -9,10 +9,7 @@
 
 <metal:main fill-slot="main">
     <tal:main-macro metal:define-macro="main"
-           tal:define="kssClassesView context/@@kss_field_decorator_view;
-                       getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;
-                       templateId template/getId;
-                       text here/getText;">
+           tal:define="templateId template/getId;">
 
         <div tal:replace="structure provider:plone.abovecontenttitle" />
 
@@ -29,16 +26,13 @@
             Back to newsletter
         </a>
 
-        <p class="documentDescription">
-            <metal:field use-macro="python:here.widget('description', mode='view')">
-            Description
-            </metal:field>
-        </p>
-
         <div tal:replace="structure provider:plone.abovecontentbody" />
 
         <div metal:define-macro="body">
-          <pre tal:content="context/getSourceCode">Source Code</pre>
+        <dl>
+          <dt>Aggregation template:</dt>
+          <dd tal:content="context/getAggregationTemplate"></dd>
+        </dl>
         </div>
 
         <div tal:replace="structure provider:plone.belowcontentbody" />

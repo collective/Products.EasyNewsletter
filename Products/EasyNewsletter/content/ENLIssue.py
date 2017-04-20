@@ -23,6 +23,7 @@ from Products.MailHost.interfaces import IMailHost
 from zope.component import getUtility
 from zope.component import queryUtility
 from zope.component import subscribers
+from zope.site.hooks import getSite
 from zope.interface import implementer
 from plone.protect.auto import safeWrite
 import logging
@@ -183,20 +184,19 @@ schema = atapi.Schema((
         ),
     ),
 
-    # Overwritten to adapt attribute from ATTopic
     atapi.StringField(
         'template',
         schemata='settings',
-        default='default_template',
-        required=1,
+        default_method='get_aggregation_template_from_parent',
+        required=0,
         widget=atapi.StringWidget(
             macro='NewsletterTemplateWidget',
             label=_(
                 u'EasyNewsletter_label_template',
-                default=u'Newsletter Template'),
+                default=u'Content Aggregation Template'),
             description=_(
                 u'EasyNewsletter_help_template',
-                default=u'Template, to generate the newsletter.'),
+                default=u'Template to used to render aggregated content.'),
             i18n_domain='EasyNewsletter',
         ),
     ),
@@ -227,6 +227,14 @@ class ENLIssue(ATTopic, atapi.BaseContent):
     """
     security = ClassSecurityInfo()
     schema = schema
+
+    def get_aggregation_template_objects(self):
+        enl = self.getNewsletter()
+        return enl.objectValues('ENLTemplate')
+
+    def get_aggregation_template_from_parent(self):
+        enl = self.getNewsletter()
+        return enl.getTemplate()
 
     def _get_salutation_mappings(self):
         """
@@ -446,13 +454,22 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             api.content.transition(obj=self, transition='sending_completed')
             request['enlwf_guard'] = False
 
-    # XXX
     @security.protected('Modify portal content')
     def loadContent(self):
         """ Agregate content from content_aggregation_sources.
         """
         issue_template = self.restrictedTraverse(self.getTemplate())
         issue_template.setIssue(self.UID())
+        portal = getSite()
+        template_id = issue_template.getAggregationTemplate()
+        if template_id != 'custom':
+            template_obj = portal.restrictedTraverse(
+                'email_templates/' + template_id)
+            # XXX we copy over the template here every time we load the content
+            # which is not perfect but ok for now.
+            # This will be refactored when we drop Plone 4 support and use
+            # behaviors on source object like Collections
+            issue_template.setBody(template_obj.read())
         text = issue_template.body()
         self.setText(text)
 
