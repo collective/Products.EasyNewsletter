@@ -13,7 +13,7 @@ from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.EasyNewsletter.utils.base import safe_portal_encoding
 from Products.EasyNewsletter.utils.ENLHTMLParser import ENLHTMLParser
 from Products.PageTemplates.ZopePageTemplate import ZopePageTemplate
-from stoneagehtml import compactify
+# from stoneagehtml import compactify
 from urlparse import urlparse
 from zope.event import notify
 from zope.interface import implementer

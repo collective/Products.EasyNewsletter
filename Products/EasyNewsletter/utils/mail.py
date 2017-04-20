@@ -152,6 +152,7 @@ def create_html_mail(subject, html, text=None, from_addr=None, to_addr=None,
 
     return msg
 
+
 # XXX verify if this is in use, seems not the case
 @implementer(IDispatch)
 @adapter(email.Message.Message)

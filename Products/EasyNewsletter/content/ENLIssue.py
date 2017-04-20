@@ -25,7 +25,7 @@ from zope.component import queryUtility
 from zope.component import subscribers
 from zope.site.hooks import getSite
 from zope.interface import implementer
-from plone.protect.auto import safeWrite
+# from plone.protect.auto import safeWrite
 import logging
 import pkg_resources
 
