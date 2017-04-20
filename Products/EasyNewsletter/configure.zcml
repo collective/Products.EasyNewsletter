@@ -38,6 +38,7 @@
   <cmf:registerDirectory
       directory="skins/EasyNewsletter"
       name="EasyNewsletter"
+      recursive="True"
   />
 
   <adapter
