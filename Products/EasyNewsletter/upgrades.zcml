@@ -101,4 +101,11 @@
           handler=".upgrades.reinstall_gs_profile"
           profile="Products.EasyNewsletter:default"/>
 
+  <genericsetup:upgradeStep
+          title="Reload profiles register ENL aggregation templates in plone.registry"
+          description=""
+          source="3008"
+          destination="3009"
+          handler=".upgrades.reinstall_gs_profile"
+          profile="Products.EasyNewsletter:default"/>
 </configure>

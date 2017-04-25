@@ -14,6 +14,10 @@ def reinstall_gs_profile(context):
         context,
         'profile-Products.EasyNewsletter:default'
     )
+    loadMigrationProfile(
+        context,
+        'profile-Products.EasyNewsletter:install-base'
+    )
     logger.info("Products.EasyNewsletter generic setup profile re-installed")
 
 
