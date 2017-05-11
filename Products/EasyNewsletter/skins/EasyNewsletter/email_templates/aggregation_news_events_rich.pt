@@ -12,7 +12,6 @@ RICH:
 	tal:define="portal here/@@plone_portal_state/portal;
 							enl_helpers here/@@enl_helpers">
 
-
   <!-- MODULE ROW // -->
   <tr>
     <td align="center" valign="top">

@@ -10,6 +10,7 @@ import re
 _ = MessageFactory('EasyNewsletter')
 
 IS_PLONE_5 = api.env.plone_version().startswith('5')
+IS_PLONE_4 = api.env.plone_version().startswith('4')
 
 PROJECTNAME = 'EasyNewsletter'
 

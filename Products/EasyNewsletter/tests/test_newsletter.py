@@ -7,6 +7,7 @@ from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.EasyNewsletter.config import IS_PLONE_5
+from Products.EasyNewsletter.config import IS_PLONE_4
 from Products.EasyNewsletter.interfaces import IEasyNewsletter
 from Products.EasyNewsletter.interfaces import IENLIssue
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
@@ -162,11 +163,12 @@ class EasyNewsletterTests(unittest.TestCase):
         self.assertIn('Content-ID: <image_0>\nContent-Type: image/png;', msg)
 
     def test_send_test_issue_with_resolveuid_image(self):
-        # for plone < 4.2 we need to ensure turn on to resolveuid links
-        tinymce = queryUtility(ITinyMCE)
-        if tinymce is None:
-            return
-        tinymce.link_using_uids = True
+        if IS_PLONE_4:
+            # for plone < 4.2 we need to ensure turn on to resolveuid links
+            tinymce = queryUtility(ITinyMCE)
+            if tinymce is None:
+                return
+            tinymce.link_using_uids = True
 
         body = '<img src="../../resolveuid/%s"/>' % self.image.UID()
         msg = self.send_sample_message(body)
@@ -176,12 +178,13 @@ class EasyNewsletterTests(unittest.TestCase):
         self.assertIn('Content-ID: <image_0>\nContent-Type: image/png;', msg)
 
     def test_send_test_issue_with_resolveuid_scale_image(self):
-        # for plone < 4.2 we need to ensure turn on to resolveuid links
-        tinymce = queryUtility(ITinyMCE)
-        if tinymce is None:
-            return
-        tinymce.link_using_uids = True
-
+        if IS_PLONE_4:
+            # for plone < 4.2 we need to ensure turn on to resolveuid links
+            tinymce = queryUtility(ITinyMCE)
+            if tinymce is None:
+                return
+            tinymce.link_using_uids = True
+        import pdb; pdb.set_trace()
         body = '<img src="../../resolveuid/%s/@@images/image/thumb"/>' % \
             self.image.UID()
         msg = self.send_sample_message(body)

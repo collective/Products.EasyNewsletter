@@ -47,17 +47,15 @@ log = logging.getLogger('Products.EasyNewsletter')
 schema = atapi.Schema((
     atapi.TextField(
         'text',
-        allowable_content_types=(
-            'text/plain', 'text/structured', 'text/html',
-            'application/msword'),
+        allowable_content_types=('text/html'),
         default_output_type='text/html',
-        widget=atapi.RichWidget(
+        widget=atapi.TinyMCEWidget(
             rows=30,
             label=_('EasyNewsletter_label_text', default=u'Text'),
             description=_(
                 u'description_text_issue',
                 default=u'The main content of the mailing. You can use \
-                    the topic criteria to collect content or put manual \
+                    the Collections to collect content or put manual \
                     content in. This will included in outgoing mails.'),
             i18n_domain='EasyNewsletter',
         ),
@@ -331,8 +329,10 @@ class ENLIssue(ATTopic, atapi.BaseContent):
 
     def getText(self):
         output_html = self.getRawText()
+        # we want pnly apply plone-outputfilters here,
+        # but not the safe-html filter!
         resolved_html = str(self.portal_transforms.convertTo(
-            'text/x-html-safe',
+            'text/x-plone-outputfilters-html',
             output_html, encoding="utf8",
             mimetype='text/html', context=self))
         return resolved_html
