@@ -17,3 +17,10 @@ input.easynewsletter_text {
 .portletNewsletterSubscriber div.field span.required::after {
     position: absolute;
 }
+
+.template-atct_edit.portaltype-enltemplate #archetypes-fieldname-body textarea{
+    height: 850px;
+    min-width: 800px;
+    font-family: Courier New;
+    font-size: 90%;
+}

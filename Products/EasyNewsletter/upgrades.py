@@ -3,6 +3,7 @@ from logging import getLogger
 from nameparser import HumanName
 from plone import api
 from plone.app.upgrade.utils import loadMigrationProfile
+from Products.CMFCore.utils import getToolByName
 
 
 logger = getLogger('Products.EasyNewsletter')
@@ -12,6 +13,10 @@ def reinstall_gs_profile(context):
     loadMigrationProfile(
         context,
         'profile-Products.EasyNewsletter:default'
+    )
+    loadMigrationProfile(
+        context,
+        'profile-Products.EasyNewsletter:install-base'
     )
     logger.info("Products.EasyNewsletter generic setup profile re-installed")
 
@@ -59,3 +64,17 @@ def reindex_subscribers(context):
     for subscriber in subscribers:
         obj = subscriber.getObject()
         obj.reindexObject()
+
+
+def apply_referenceable_behavior(context):
+    # See plone.app.referenceablebehavior.uidcatalog.
+    uid_catalog = getToolByName(context, 'uid_catalog')
+    portal_catalog = getToolByName(context, 'portal_catalog')
+    brains = portal_catalog(
+        meta_type=['Dexterity Item', 'Dexterity Container'])
+    for brain in brains:
+        obj = brain.getObject()
+        path = '/'.join(obj.getPhysicalPath())
+        logger.info("Applying referenceable behavior for object at path %s",
+                    path)
+        uid_catalog.catalog_object(obj, path)

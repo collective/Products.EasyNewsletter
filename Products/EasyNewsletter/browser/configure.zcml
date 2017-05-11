@@ -130,6 +130,14 @@
     class=".subscribers.DownloadCSV"
     permission="cmf.ModifyPortalContent" />
 
+  <browser:page
+    for="*"
+    name="enl_helpers"
+    class=".helper_views.ENLHelperView"
+    allowed_interface=".helper_views.IENLHelperView"
+    permission="zope.Public"
+    />
+
   <browser:viewlet
     name="enl.newsletter_actions"
     for="Products.EasyNewsletter.interfaces.IEasyNewsletter"

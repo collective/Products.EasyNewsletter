@@ -4,4 +4,3 @@
 rm -r ./lib ./include ./local ./bin
 virtualenv --clear .
 ./bin/pip install --upgrade -r requirements.txt
-./bin/buildout

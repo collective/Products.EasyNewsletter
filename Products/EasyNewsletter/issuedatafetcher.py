@@ -13,7 +13,7 @@ from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.EasyNewsletter.utils.base import safe_portal_encoding
 from Products.EasyNewsletter.utils.ENLHTMLParser import ENLHTMLParser
 from Products.PageTemplates.ZopePageTemplate import ZopePageTemplate
-from stoneagehtml import compactify
+# from stoneagehtml import compactify
 from urlparse import urlparse
 from zope.event import notify
 from zope.interface import implementer
@@ -156,7 +156,7 @@ class DefaultIssueDataFetcher(object):
             self.issue.out_template_pt.pt_render()
         )
         sp.rollback()  # no actual write to db!
-        output_html = compactify(output_html, filter_tags=False)
+        # output_html = compactify(output_html, filter_tags=False)
         return output_html
 
     def _personalize(self, receiver, html):

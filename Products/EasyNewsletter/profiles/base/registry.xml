@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<registry>
+
+  <records interface="Products.EasyNewsletter.browser.controlpanel.IENLSettings"
+      prefix="Products.EasyNewsletter">
+  </records>
+
+  <record name="Products.EasyNewsletter.allowed_content_aggregation_types"
+      interface="Products.EasyNewsletter.browser.controlpanel.IENLSettings"
+      field="allowed_content_aggregation_types">
+    <value purge="false"><element>Collection</element></value>
+  </record>
+
+  <record name="Products.EasyNewsletter.content_aggregation_templates">
+      <field type="plone.registry.field.Dict">
+          <title>ENL Content aggregation templates</title>
+          <key_type type="plone.registry.field.TextLine" />
+          <value_type type="plone.registry.field.TextLine" />
+      </field>
+      <value>
+          <element key="aggregation_news_events_listing">News Events Listing</element>
+          <element key="aggregation_news_events_rich">News Events Rich Listing</element>
+      </value>
+  </record>
+
+
+</registry>

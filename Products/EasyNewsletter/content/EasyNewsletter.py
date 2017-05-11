@@ -4,25 +4,29 @@ from AccessControl import getSecurityManager
 from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import setSecurityManager
 from AccessControl.User import UnrestrictedUser as BaseUnrestrictedUser
+from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter import config
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.interfaces import IEasyNewsletter
 from Products.EasyNewsletter.interfaces import IReceiversGroupFilter
 from Products.EasyNewsletter.interfaces import IReceiversMemberFilter
 from Products.EasyNewsletter.interfaces import ISubscriberSource
+from Products.EasyNewsletter.utils.enl import IENLUtils
 from Products.MailHost.interfaces import IMailHost
 from Products.TemplateFields import ZPTField
 from zExceptions import BadRequest
 from zope.component import getUtilitiesFor
+from zope.component import getUtility
 from zope.component import queryUtility
 from zope.component import subscribers
 from zope.interface import implementer
-
+from zope.site.hooks import getSite
+from plone.registry.interfaces import IRegistry
 import logging
 
 
@@ -37,7 +41,7 @@ log = logging.getLogger("Products.EasyNewsletter")
 
 
 schema = atapi.Schema((
-    # TODO: provide a default value here fromportals email_from_address
+    # TODO: provide a default value here from portals email_from_address
     atapi.StringField(
         'senderEmail',
         required=True,
@@ -81,9 +85,28 @@ schema = atapi.Schema((
         ),
     ),
 
+    atapi.ReferenceField(
+        'contentAggregationSources',
+        multiValued=1,
+        referencesSortable=1,
+        relationship='contentAggregationSource',
+        allowed_types_method="get_allowed_content_aggregation_types",
+        widget=ReferenceBrowserWidget(
+            allow_sorting=1,
+            label=_(
+                u"ENL_content_aggregation_sources_label",
+                default=u"Content aggregation sources"),
+            description=_(
+                u"ENL_content_aggregation_sources_desc",
+                default=u"Choose sources to aggregate newsletter content from."
+            ),
+        ),
+    ),
+
     atapi.LinesField(
         'salutations',
         default=("mr|Dear Mr.", "ms|Dear Ms.", "default|Dear"),
+        schemata='personalization',
         widget=atapi.LinesWidget(
             label=_(
                 u'EasyNewsletter_label_salutations',
@@ -102,6 +125,7 @@ schema = atapi.Schema((
     atapi.StringField(
         'fullname_fallback',
         default="Sir or Madam",
+        schemata='personalization',
         widget=atapi.StringWidget(
             label=_(
                 u'EasyNewsletter_label_fullname_fallback',
@@ -117,6 +141,7 @@ schema = atapi.Schema((
     atapi.StringField(
         'unsubscribe_string',
         default="Click here to unsubscribe",
+        schemata='personalization',
         widget=atapi.StringWidget(
             label=_(
                 u"EasyNewsletter_label_unsubscribe_string",
@@ -131,6 +156,7 @@ schema = atapi.Schema((
     atapi.TextField(
         'default_header',
         default="{{SUBSCRIBER_SALUTATION}}<br />",
+        schemata='personalization',
         allowable_content_types=(
             'text/plain', 'text/structured', 'text/html',
             'application/msword'),
@@ -151,6 +177,7 @@ schema = atapi.Schema((
 
     atapi.TextField(
         'default_footer',
+        schemata='personalization',
         allowable_content_types=(
             'text/plain', 'text/structured', 'text/html',
             'application/msword'),
@@ -171,6 +198,7 @@ schema = atapi.Schema((
     atapi.BooleanField(
         'excludeAllSubscribers',
         default=False,
+        schemata='recipients',
         widget=atapi.BooleanWidget(
             label=_(
                 u'label_excludeAllSubscribers',
@@ -187,6 +215,7 @@ schema = atapi.Schema((
     atapi.BooleanField(
         'sendToAllPloneMembers',
         default=False,
+        schemata='recipients',
         widget=atapi.BooleanWidget(
             label=_(
                 u'label_sendToAllPloneMembers',
@@ -204,6 +233,7 @@ schema = atapi.Schema((
     atapi.LinesField(
         'ploneReceiverMembers',
         vocabulary="get_plone_members",
+        schemata='recipients',
         widget=atapi.MultiSelectionWidget(
             label=_(
                 u"EasyNewsletter_label_ploneReceiverMembers",
@@ -221,6 +251,7 @@ schema = atapi.Schema((
     atapi.LinesField(
         'ploneReceiverGroups',
         vocabulary="get_plone_groups",
+        schemata='recipients',
         widget=atapi.MultiSelectionWidget(
             label=_(
                 u"EasyNewsletter_label_ploneReceiverGroups",
@@ -277,7 +308,7 @@ schema = atapi.Schema((
         'out_template_pt',
         schemata='settings',
         required=True,
-        default=config.DEFAULT_OUT_TEMPLATE_PT,
+        default_method='get_out_template_pt',
         validators=('zptvalidator', ),
         widget=atapi.TextAreaWidget(
             label=_(
@@ -295,6 +326,25 @@ schema = atapi.Schema((
         ),
     ),
 
+    atapi.StringField(
+        'template',
+        schemata='settings',
+        default_method='get_default_aggregation_template',
+        required=0,
+        widget=atapi.StringWidget(
+            macro='NewsletterTemplateWidget',
+            label=_(
+                u'EasyNewsletter_label_template',
+                default=u'Content Aggregation Template'),
+            description=_(
+                u'EasyNewsletter_help_template',
+                default=u'Template to used to render aggregated content.'),
+            i18n_domain='EasyNewsletter',
+        ),
+    ),
+
+    # XXX move these settings into the plone registry,
+    # so we can easy customize them
     atapi.StringField(
         'subscriber_confirmation_mail_subject',
         schemata="settings",
@@ -314,6 +364,8 @@ schema = atapi.Schema((
         ),
     ),
 
+    # XXX move these settings into the plone registry,
+    # so we can easy customize them
     atapi.TextField(
         'subscriber_confirmation_mail_text',
         schemata="settings",
@@ -367,11 +419,23 @@ schema['rights'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
 schema['relatedItems'].schemata = "settings"
 schema['language'].schemata = "settings"
 schema['excludeFromNav'].schemata = "settings"
+schema.moveField('contentAggregationSources', after='title')
+schema.moveField('testEmail', after='title')
+schema.moveField('senderName', after='title')
+schema.moveField('senderEmail', after='title')
 schema.moveField('deliveryService', pos='bottom')
 schema.moveField('subscriberSource', pos='bottom')
 schema.moveField('relatedItems', pos='bottom')
 schema.moveField('language', pos='bottom')
 schema.moveField('excludeFromNav', pos='bottom')
+
+schema.moveField('default_footer', after='contentAggregationSources')
+schema.moveField('default_header', after='contentAggregationSources')
+schema.moveField('unsubscribe_string', after='contentAggregationSources')
+schema.moveField('fullname_fallback', after='contentAggregationSources')
+schema.moveField('salutations', after='contentAggregationSources')
+
+schema.moveField('excludeAllSubscribers', after='default_footer')
 
 
 @implementer(IEasyNewsletter)
@@ -382,22 +446,52 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
     schema = schema
     _at_rename_after_creation = True
 
+    def get_allowed_content_aggregation_types(self):
+        enl_utils = getUtility(IENLUtils)
+        return enl_utils.get_allowed_content_aggregation_types()
+
+    def get_default_aggregation_template(self):
+        """ return the default template key """
+        registry = getUtility(IRegistry)
+        templates_keys = registry.get(
+            'Products.EasyNewsletter.content_aggregation_templates').keys()
+        if templates_keys:
+            default_tmpl_key = templates_keys[0]
+        else:
+            default_tmpl_key = 'custom'
+        return default_tmpl_key
+
+    def get_aggregation_template_objects(self):
+        enl = self
+        return enl.objectValues('ENLTemplate')
+
     @security.public
     def initializeArchetype(self, **kwargs):
         """Overwritten hook.
         """
         ATTopic.initializeArchetype(self, **kwargs)
-        # Add default template
-        if not getattr(self, 'default_template', None):
+
+        def create_template(id="", title=""):
+            """ Add template object """
+            if getattr(self, id, None):
+                return
             self.manage_addProduct["EasyNewsletter"].addENLTemplate(
-                id="default_template", title="Default")
+                id=id, title=title)
+            self[id].setAggregationTemplate(id)
+            # portal = getSite()
+            # template_obj = portal.restrictedTraverse(
+            #    'email_templates/' + id)
+            # self[id].setBody(template_obj.read())
 
-    @security.public
-    def displayContentsTab(self):
-        """Overwritten to hide contents tab.
-        """
-        return False
+        # XXX could be configureable in the registry, so that we could register
+        # new templates TTW
+        registry = getUtility(IRegistry)
+        aggregation_templates = registry.get(
+            'Products.EasyNewsletter.content_aggregation_templates')
+        for key, value in aggregation_templates.items():
+            create_template(id=str(key), title=value)
 
+    # XXX factore this out for DX reimplementation
     @security.public
     def addSubscriber(self, subscriber, firstname, lastname, name_prefix,
                       nl_language, organization, salutation=None):
@@ -426,11 +520,6 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
         o.reindexObject()
 
         return (True, "subscription_confirmed")
-
-    def getSubTopics(self):
-        """Returns sub topics.
-        """
-        return self.objectValues("ATTopic")
 
     def _get_fmp_tool(self):
         if has_fmp:
@@ -560,7 +649,7 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
         return issues
 
     def get_master_issues(self):
-        """ return draft issues brains"""
+        """ return issues brains of issues in review state master"""
         enl = self.getNewsletter()
         issues = self.portal_catalog(
             portal_type=config.ENL_ISSUE_TYPES,
@@ -570,6 +659,11 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
             path='/'.join(enl.getPhysicalPath())
         )
         return issues
+
+    def get_out_template_pt(self):
+        portal = getSite()
+        template_obj = portal.restrictedTraverse('email_templates/output')
+        return template_obj.read()
 
 
 atapi.registerType(EasyNewsletter, config.PROJECTNAME)

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from AccessControl import ClassSecurityInfo
+from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 from email.Header import Header
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
@@ -10,7 +11,6 @@ from Products.ATContentTypes.content.topic import ATTopicSchema
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
-from Products.EasyNewsletter.utils.mail import get_email_charset
 from Products.EasyNewsletter.config import EMAIL_RE
 from Products.EasyNewsletter.config import PROJECTNAME
 from Products.EasyNewsletter.interfaces import IENLIssue
@@ -18,12 +18,14 @@ from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter
 from Products.EasyNewsletter.interfaces import ISubscriberSource
 from Products.EasyNewsletter.queue.interfaces import IIssueQueue
+from Products.EasyNewsletter.utils.mail import get_email_charset
 from Products.MailHost.interfaces import IMailHost
 from zope.component import getUtility
 from zope.component import queryUtility
 from zope.component import subscribers
+from zope.site.hooks import getSite
 from zope.interface import implementer
-
+# from plone.protect.auto import safeWrite
 import logging
 import pkg_resources
 
@@ -45,17 +47,15 @@ log = logging.getLogger('Products.EasyNewsletter')
 schema = atapi.Schema((
     atapi.TextField(
         'text',
-        allowable_content_types=(
-            'text/plain', 'text/structured', 'text/html',
-            'application/msword'),
+        allowable_content_types=('text/html'),
         default_output_type='text/html',
-        widget=atapi.RichWidget(
+        widget=atapi.TinyMCEWidget(
             rows=30,
             label=_('EasyNewsletter_label_text', default=u'Text'),
             description=_(
                 u'description_text_issue',
                 default=u'The main content of the mailing. You can use \
-                    the topic criteria to collect content or put manual \
+                    the Collections to collect content or put manual \
                     content in. This will included in outgoing mails.'),
             i18n_domain='EasyNewsletter',
         ),
@@ -125,6 +125,25 @@ schema = atapi.Schema((
         )
     ),
 
+    atapi.ReferenceField(
+        'contentAggregationSources',
+        schemata='settings',
+        multiValued=1,
+        referencesSortable=1,
+        relationship='contentAggregationSource',
+        allowed_types_method="get_allowed_content_aggregation_types",
+        widget=ReferenceBrowserWidget(
+            allow_sorting=1,
+            label=_(
+                u"ENL_content_aggregation_sources_label",
+                default=u"Content aggregation sources"),
+            description=_(
+                u"ENL_content_aggregation_sources_desc",
+                default=u"Choose sources to aggregate newsletter content from."
+            ),
+        ),
+    ),
+
     atapi.TextField(
         'header',
         schemata='settings',
@@ -163,33 +182,19 @@ schema = atapi.Schema((
         ),
     ),
 
-    atapi.BooleanField(
-        'acquireCriteria',
-        schemata='settings',
-        default=True,
-        widget=atapi.BooleanWidget(
-            label=_(u'label_inherit_criteria', default=u'Inherit Criteria'),
-            description=_(
-                u'EasyNewsletter_help_acquireCriteria',
-                default=u''),
-            i18n_domain='EasyNewsletter',
-        )
-    ),
-
-    # Overwritten to adapt attribute from ATTopic
     atapi.StringField(
         'template',
         schemata='settings',
-        default='default_template',
-        required=1,
+        default_method='get_aggregation_template_from_parent',
+        required=0,
         widget=atapi.StringWidget(
             macro='NewsletterTemplateWidget',
             label=_(
                 u'EasyNewsletter_label_template',
-                default=u'Newsletter Template'),
+                default=u'Content Aggregation Template'),
             description=_(
                 u'EasyNewsletter_help_template',
-                default=u'Template, to generate the newsletter.'),
+                default=u'Template to used to render aggregated content.'),
             i18n_domain='EasyNewsletter',
         ),
     ),
@@ -197,7 +202,6 @@ schema = atapi.Schema((
 )
 
 schema = ATTopicSchema.copy() + schema
-schema.moveField('acquireCriteria', before='template')
 
 # hide id, even if visible_ids is True
 schema['id'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
@@ -222,12 +226,13 @@ class ENLIssue(ATTopic, atapi.BaseContent):
     security = ClassSecurityInfo()
     schema = schema
 
-    @security.public
-    def folder_contents(self):
-        """Overwritten to "forbid" folder_contents
-        """
-        url = self.absolute_url()
-        self.REQUEST.RESPONSE.redirect(url)
+    def get_aggregation_template_objects(self):
+        enl = self.getNewsletter()
+        return enl.objectValues('ENLTemplate')
+
+    def get_aggregation_template_from_parent(self):
+        enl = self.getNewsletter()
+        return enl.getTemplate()
 
     def _get_salutation_mappings(self):
         """
@@ -324,8 +329,10 @@ class ENLIssue(ATTopic, atapi.BaseContent):
 
     def getText(self):
         output_html = self.getRawText()
+        # we want pnly apply plone-outputfilters here,
+        # but not the safe-html filter!
         resolved_html = str(self.portal_transforms.convertTo(
-            'text/x-html-safe',
+            'text/x-plone-outputfilters-html',
             output_html, encoding="utf8",
             mimetype='text/html', context=self))
         return resolved_html
@@ -430,7 +437,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                 mail_host.send(outer.as_string())
                 log.info('Send newsletter to "%s"' % receiver['email'])
                 send_counter += 1
-            except Exception, e:
+            except Exception, e:  # noqa
                 log.exception(
                     'Sending newsletter to "%s" failed, with error "%s"!'
                     % (receiver['email'], e))
@@ -449,22 +456,22 @@ class ENLIssue(ATTopic, atapi.BaseContent):
 
     @security.protected('Modify portal content')
     def loadContent(self):
-        """Loads text dependend on criteria into text attribute.
+        """ Agregate content from content_aggregation_sources.
         """
-        if self.getAcquireCriteria():
-            issue_template = self.restrictedTraverse(self.getTemplate())
-            issue_template.setIssue(self.UID())
-            text = issue_template.body()
-            self.setText(text)
-
-    def getSubTopics(self):
-        """Returns subtopics of the issues.
-        """
-        topics = self.objectValues('ATTopic')
-        if self.getAcquireCriteria():
-            return self.aq_inner.aq_parent.objectValues('ATTopic')
-        else:
-            return topics
+        issue_template = self.restrictedTraverse(self.getTemplate())
+        issue_template.setIssue(self.UID())
+        portal = getSite()
+        template_id = issue_template.getAggregationTemplate()
+        if template_id != 'custom':
+            template_obj = portal.restrictedTraverse(
+                'email_templates/' + template_id)
+            # XXX we copy over the template here every time we load the content
+            # which is not perfect but ok for now.
+            # This will be refactored when we drop Plone 4 support and use
+            # behaviors on source object like Collections
+            issue_template.setBody(template_obj.read())
+        text = issue_template.body()
+        self.setText(text)
 
     def get_default_header(self):
         enl = self.getNewsletter()

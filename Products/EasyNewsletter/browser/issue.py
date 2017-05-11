@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from plone import api
 from plone.protect import PostOnly
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.Five.browser import BrowserView
-
+from plone.protect.interfaces import IDisableCSRFProtection
+from zope.interface import alsoProvides
 import transaction
 
 
@@ -12,12 +13,12 @@ class IssueView(BrowserView):
     """Single Issue View
     """
 
-    def refresh_issue(self):
+    def refresh_issue(self, REQUEST=None):  # noqa
         """Refresh the aggregate body when using collections.
         """
-        if self.context.getAcquireCriteria():
-            self.context.loadContent()
-            self.request.response.redirect(self.context.absolute_url())
+        alsoProvides(self.request, IDisableCSRFProtection)
+        self.context.loadContent()
+        self.request.response.redirect(self.context.absolute_url())
 
     def _send_issue_prepare(self):
         self.request['enlwf_guard'] = True
