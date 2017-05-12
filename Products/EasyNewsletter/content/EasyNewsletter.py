@@ -37,6 +37,13 @@ try:
 except Exception:
     has_fmp = False
 
+
+if config.IS_PLONE_5:
+    from Products.Archetypes.atapi import TinyMCEWidget as RichTextWidget
+else:
+    from Products.Archetypes.atapi import RichTextWidget
+
+
 log = logging.getLogger("Products.EasyNewsletter")
 
 
@@ -161,7 +168,7 @@ schema = atapi.Schema((
             'text/plain', 'text/structured', 'text/html',
             'application/msword'),
         default_output_type='text/html',
-        widget=atapi.RichWidget(
+        widget=RichTextWidget(
             rows=10,
             label=_(
                 u"EasyNewsletter_label_default_header",
@@ -183,7 +190,7 @@ schema = atapi.Schema((
             'application/msword'),
         default="{{UNSUBSCRIBE}}",
         default_output_type='text/html',
-        widget=atapi.RichWidget(
+        widget=RichTextWidget(
             rows=10,
             label=_(u"EasyNewsletter_label_default_footer", default=u"Footer"),
             description=_(
