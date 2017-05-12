@@ -13,6 +13,7 @@ from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.config import EMAIL_RE
 from Products.EasyNewsletter.config import PROJECTNAME
+from Products.EasyNewsletter.config import IS_PLONE_5
 from Products.EasyNewsletter.interfaces import IENLIssue
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter
@@ -41,6 +42,12 @@ else:
     fmp_tool = True
 
 
+if IS_PLONE_5:
+    from Products.Archetypes.atapi import TinyMCEWidget as RichTextWidget
+else:
+    from Products.Archetypes.atapi import RichTextWidget
+
+
 log = logging.getLogger('Products.EasyNewsletter')
 
 
@@ -49,7 +56,7 @@ schema = atapi.Schema((
         'text',
         allowable_content_types=('text/html'),
         default_output_type='text/html',
-        widget=atapi.TinyMCEWidget(
+        widget=RichTextWidget(
             rows=30,
             label=_('EasyNewsletter_label_text', default=u'Text'),
             description=_(

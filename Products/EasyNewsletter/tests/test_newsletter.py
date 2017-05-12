@@ -184,7 +184,6 @@ class EasyNewsletterTests(unittest.TestCase):
             if tinymce is None:
                 return
             tinymce.link_using_uids = True
-        import pdb; pdb.set_trace()
         body = '<img src="../../resolveuid/%s/@@images/image/thumb"/>' % \
             self.image.UID()
         msg = self.send_sample_message(body)
