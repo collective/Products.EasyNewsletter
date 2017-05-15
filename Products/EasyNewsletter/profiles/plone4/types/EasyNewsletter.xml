@@ -43,7 +43,7 @@
   <permission value="Modify portal content"/>
  </action>
 
- <action title="Criteria" action_id="criteria" category="object_buttons" remove="True" />
- <action title="Subfolders" action_id="subtopics" category="object_buttons" remove="True" />
+ <action title="Criteria" action_id="criteria" category="object" remove="true" />
+ <action title="Subfolders" action_id="subtopics" category="object" remove="true" />
 
 </object>

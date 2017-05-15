@@ -156,11 +156,10 @@ schema = atapi.Schema((
         'header',
         schemata='settings',
         allowable_content_types=(
-            'text/plain', 'text/structured', 'text/html',
-            'application/msword'),
+            'text/html', 'text/x-plone-outputfilters-html'),
+        default_output_type='text/x-plone-outputfilters-html',
         default_method='get_default_header',
-        default_output_type='text/html',
-        widget=atapi.RichWidget(
+        widget=RichTextWidget(
             rows=10,
             label=_(
                 u'EasyNewsletter_label_header',
@@ -176,11 +175,10 @@ schema = atapi.Schema((
         'footer',
         schemata='settings',
         allowable_content_types=(
-            'text/plain', 'text/structured', 'text/html',
-            'application/msword'),
+            'text/html', 'text/x-plone-outputfilters-html'),
+        default_output_type='text/x-plone-outputfilters-html',
         default_method='get_default_footer',
-        default_output_type='text/html',
-        widget=atapi.RichWidget(
+        widget=RichTextWidget(
             rows=10,
             label=_(u'EasyNewsletter_label_footer', default=u'Footer'),
             description=_(
