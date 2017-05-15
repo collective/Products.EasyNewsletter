@@ -76,8 +76,6 @@ body#visual-portal-wrapper.pat-plone #edit-zone {
   }
 }
 
-
-
 input.easynewsletter_text {
   width: 96%;
   margin-right: 0;
@@ -95,12 +93,27 @@ input.easynewsletter_text {
 }
 
 .portletNewsletterSubscriber div.field span.required::after {
-    position: absolute;
+  position: absolute;
 }
 
 .template-atct_edit.portaltype-enltemplate #archetypes-fieldname-body textarea{
-    height: 850px;
-    min-width: 800px;
-    font-family: Courier New;
-    font-size: 90%;
+  height: 850px;
+  min-width: 800px;
+  font-family: Courier New;
+  font-size: 90%;
+}
+
+.template-enl_subscribers_view .search {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  legend {
+    margin-bottom: 0;
+    border-bottom: 0;
+    font-size: @plone-font-size-h3;
+    font-weight: @plone-font-weight-regular;
+  }
+  input[type="text"] {
+    width: unset;
+    display: inline-block;
+  }
 }
