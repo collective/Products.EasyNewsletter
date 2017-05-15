@@ -33,3 +33,8 @@ docs/Makefile
 /EasyNewsletter.sublime-project
 /EasyNewsletter.sublime-workspace
 /pip-selfcheck.json
+/Gruntfile.js
+/node_modules
+/package.json
+/Products/EasyNewsletter/browser/static/font/fontello-2f32f5bf
+/temp_resources
