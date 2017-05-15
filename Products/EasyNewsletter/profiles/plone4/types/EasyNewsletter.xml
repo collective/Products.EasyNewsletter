@@ -13,7 +13,6 @@
  <property name="global_allow">True</property>
  <property name="filter_content_types">True</property>
  <property name="allowed_content_types">
-  <element value="Topic"/>
   <element value="ENLIssue"/>
   <element value="ENLSubscriber"/>
   <element value="ENLTemplate"/>
@@ -37,32 +36,14 @@
     url_expr="string:${object_url}/edit" visible="True"
     i18n:attributes="title">
   <permission value="Change portal topics"/>
-</action>
-<!--
- <action title="Drafts" action_id="drafts" category="object"
-    condition_expr="" url_expr="string:${folder_url}/enl_drafts_view"
-    visible="True" i18n:attributes="title">
-  <permission value="Modify portal content"/>
- </action>
- <action title="Subscribers" action_id="subscribers" category="object"
-    condition_expr="" url_expr="string:${folder_url}/enl_subscribers_view"
-    visible="True" i18n:attributes="title">
-  <permission value="Modify portal content"/>
- </action>
- -->
- <action title="Criteria" action_id="criteria" category="object"
-    condition_expr="" url_expr="string:${folder_url}/criterion_edit_form"
-    visible="True" i18n:attributes="title">
-  <permission value="Change portal topics"/>
-</action>
- <action title="Subfolders" action_id="subtopics" category="object"
-    condition_expr="" url_expr="string:${folder_url}/enl_subtopics"
-    visible="True" i18n:attributes="title">
-  <permission value="Change portal topics"/>
  </action>
  <action title="Manage aggregation templates" action_id="templates" category="object_buttons"
     condition_expr="" url_expr="string:${folder_url}/enl_templates_view"
     visible="True" i18n:attributes="title">
   <permission value="Modify portal content"/>
  </action>
+
+ <action title="Criteria" action_id="criteria" category="object_buttons" remove="True" />
+ <action title="Subfolders" action_id="subtopics" category="object_buttons" remove="True" />
+
 </object>
