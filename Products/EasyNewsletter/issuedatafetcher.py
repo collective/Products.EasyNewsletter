@@ -243,6 +243,8 @@ class DefaultIssueDataFetcher(object):
                     image = MIMEImage(o.data)  # zodb-based
             elif hasattr(o, "GET"):
                 image = MIMEImage(o.GET())  # z3 resource image
+            elif hasattr(o, "image"):
+                image = MIMEImage(o.image.data)  # Plone 5 DX unscaled image
             else:
                 log.error(
                     "Could not get the image data from image object!")

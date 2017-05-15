@@ -11,6 +11,7 @@ from Products.EasyNewsletter.config import IS_PLONE_4
 from Products.EasyNewsletter.interfaces import IEasyNewsletter
 from Products.EasyNewsletter.interfaces import IENLIssue
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
+from Products.EasyNewsletter.testing import EASYNEWSLETTER_FUNCTIONAL_TESTING
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.MailHost.interfaces import IMailHost
 from zExceptions import Forbidden
@@ -21,6 +22,7 @@ from zope.interface import Interface
 import os
 import pkg_resources
 import unittest
+import transaction as zt
 
 try:
     pkg_resources.get_distribution('Products.TinyMCE')
@@ -50,7 +52,7 @@ def dummy_image(image=None):
 
 
 class EasyNewsletterTests(unittest.TestCase):
-    layer = EASYNEWSLETTER_INTEGRATION_TESTING
+    layer = EASYNEWSLETTER_FUNCTIONAL_TESTING
 
     def setUp(self):
         self.mail_settings = get_portal_mail_settings()
@@ -89,6 +91,8 @@ class EasyNewsletterTests(unittest.TestCase):
             "ENLIssue",
             id="issue")
         self.newsletter.issue.title = "with image"
+        self.newsletter.issue.setText(body, mimetype='text/html')
+
         self.portal.REQUEST.form.update({
             'sender_name': self.newsletter.senderName,
             'sender_email': self.newsletter.senderEmail,
@@ -97,7 +101,6 @@ class EasyNewsletterTests(unittest.TestCase):
             'test': 'submit',
         })
         self.portal.REQUEST['REQUEST_METHOD'] = 'POST'
-        self.newsletter.issue.setText(body, mimetype='text/html')
         view = getMultiAdapter(
             (self.newsletter.issue, self.portal.REQUEST),
             name="send-issue")
@@ -147,17 +150,27 @@ class EasyNewsletterTests(unittest.TestCase):
         self.assertIn('From: ACME newsletter <newsletter@acme.com>', msg)
 
     # TODO: fix this test
-    # def test_send_test_issue_with_image(self):
-    #     body = "<img src=\"%s\"/>" %  \
-    #         self.image.absolute_url_path()
-    #     msg = self.send_sample_message(body)
-    #     # import pdb; pdb.set_trace()
-    #     self.assertIn('<img src=3D"cid:image_0"', msg)
-    #     self.assertIn('Content-ID: <image_0>\nContent-Type: image/png;', msg)
+    def test_send_test_issue_with_image(self):
+        body = "<img src=\"%s\"/>" %  \
+            self.image.absolute_url_path()
+        msg = self.send_sample_message(body)
+
+        self.assertIn('<img src=3D"cid:image_0"', msg)
+        self.assertIn('Content-ID: <image_0>\nContent-Type: image/png;', msg)
 
     def test_send_test_issue_with_scale_image(self):
         body = "<img src=\"%s/@@images/image/thumb\"/>" %  \
             self.image.absolute_url_path()
+
+        # trigger scale generation:
+        image_scales_url = "%s/@@images" % \
+            self.image.absolute_url_path()
+        scales = self.portal.restrictedTraverse(image_scales_url)
+        scale_view = scales.scale(fieldname='image', scale='thumb')
+        scale_view()
+        # scale_view.index_html()
+        zt.commit()
+
         msg = self.send_sample_message(body)
         self.assertIn('<img src=3D"cid:image_0"', msg)
         self.assertIn('Content-ID: <image_0>\nContent-Type: image/png;', msg)
@@ -171,12 +184,14 @@ class EasyNewsletterTests(unittest.TestCase):
             tinymce.link_using_uids = True
 
         body = '<img src="../../resolveuid/%s"/>' % self.image.UID()
+
         msg = self.send_sample_message(body)
 
         self.assertNotIn('resolveuid', msg)
         self.assertIn('<img src=3D"cid:image_0"', msg)
         self.assertIn('Content-ID: <image_0>\nContent-Type: image/png;', msg)
 
+    # TODO: find a way to get the uid-based images in tests
     def test_send_test_issue_with_resolveuid_scale_image(self):
         if IS_PLONE_4:
             # for plone < 4.2 we need to ensure turn on to resolveuid links
@@ -184,8 +199,21 @@ class EasyNewsletterTests(unittest.TestCase):
             if tinymce is None:
                 return
             tinymce.link_using_uids = True
-        body = '<img src="../../resolveuid/%s/@@images/image/thumb"/>' % \
-            self.image.UID()
+
+        path = "image/thumb"
+        stack = path.split('/')
+        body = '<img src="../../resolveuid/%s/@@images/%s"/>' % (
+            self.image.UID(), path)
+
+        # trigger scale generation:
+        image_scales_url = "%s/@@images" % \
+            self.image.absolute_url_path()
+        scales = self.portal.restrictedTraverse(image_scales_url)
+        scale_view = scales.scale(fieldname=stack[0], scale=stack[1])
+        scale_view()
+        # scale_view.index_html()
+        zt.commit()
+
         msg = self.send_sample_message(body)
 
         self.assertNotIn('resolveuid', msg)
