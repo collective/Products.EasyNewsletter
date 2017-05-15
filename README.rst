@@ -41,7 +41,6 @@ Features
   * subscriber sources (configured through a Zope utility),
   * delivery services (other than Plone MailHost),
 
-
 * external subscriber filtering/manipulation with plugins (filter out or add more subscribers)
 
 Requirements

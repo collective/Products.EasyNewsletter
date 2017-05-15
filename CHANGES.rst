@@ -2,8 +2,15 @@ Changelog
 =========
 
 
-3.0a1 (unreleased)
+3.0b1 (2017-05-15)
 ------------------
+
+- Use new Collections for aggregating content
+  [MrTango]
+
+- Provide more and better email tempalte (output and aggregation)
+  Templates are based and inspired on: https://github.com/mailchimp/email-blueprints
+  [MrTango]
 
 - Added newsletter toolbar and icons for Plone 5
   [agitator]
