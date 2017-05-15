@@ -48,6 +48,7 @@ setup(
         'archetypes.referencebrowserwidget',
         'plone.app.referenceablebehavior',
         'plone.app.registry',
+        'plone.resource',
         'setuptools',
         'stoneagehtml',
     ],

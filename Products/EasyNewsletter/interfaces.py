@@ -3,22 +3,27 @@ from zope.interface import Attribute
 from zope.interface import Interface
 
 
-class IEasyNewsletter(Interface):
+class IENLBase(Interface):
     """
     """
 
 
-class IENLIssue(Interface):
+class IEasyNewsletter(IENLBase):
     """
     """
 
 
-class IENLSubscriber(Interface):
+class IENLIssue(IENLBase):
     """
     """
 
 
-class IENLTemplate(Interface):
+class IENLSubscriber(IENLBase):
+    """
+    """
+
+
+class IENLTemplate(IENLBase):
     """
     """
 

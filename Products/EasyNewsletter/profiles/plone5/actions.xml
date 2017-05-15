@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<object name="portal_actions" meta_type="Plone Actions Tool"
+   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+
+  <object name="easynewsletter" meta_type="CMF Action Category" />
+
+</object>
