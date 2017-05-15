@@ -22,7 +22,7 @@ import cStringIO
 import formatter
 import jinja2
 import logging
-import transaction
+# import transaction
 import urllib
 import warnings
 
