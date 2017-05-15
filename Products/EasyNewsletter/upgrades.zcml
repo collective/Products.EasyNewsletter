@@ -108,4 +108,12 @@
           destination="3009"
           handler=".upgrades.reinstall_gs_profile"
           profile="Products.EasyNewsletter:default"/>
+
+  <genericsetup:upgradeStep
+          title="Reload profiles to enable toolbar for Plone 5"
+          description=""
+          source="3009"
+          destination="3010"
+          handler=".upgrades.reinstall_gs_profile"
+          profile="Products.EasyNewsletter:default"/>
 </configure>

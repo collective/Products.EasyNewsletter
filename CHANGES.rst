@@ -5,6 +5,9 @@ Changelog
 3.0a1 (unreleased)
 ------------------
 
+- Added newsletter toolbar and icons for Plone 5
+  [agitator]
+
 - A bunch of fixes in order to work better with Plone 5, plone.protect/CSRF protection and also some cleanup.
   [jensens]
 
