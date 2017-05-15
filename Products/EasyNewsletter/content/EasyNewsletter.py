@@ -41,7 +41,7 @@ except Exception:
 if config.IS_PLONE_5:
     from Products.Archetypes.atapi import TinyMCEWidget as RichTextWidget
 else:
-    from Products.Archetypes.atapi import RichTextWidget
+    from Products.Archetypes.atapi import RichWidget as RichTextWidget
 
 
 log = logging.getLogger("Products.EasyNewsletter")
@@ -165,8 +165,7 @@ schema = atapi.Schema((
         default="{{SUBSCRIBER_SALUTATION}}<br />",
         schemata='personalization',
         allowable_content_types=(
-            'text/plain', 'text/structured', 'text/html',
-            'application/msword'),
+            'text/html', 'text/x-plone-outputfilters-html'),
         default_output_type='text/html',
         widget=RichTextWidget(
             rows=10,
@@ -186,8 +185,7 @@ schema = atapi.Schema((
         'default_footer',
         schemata='personalization',
         allowable_content_types=(
-            'text/plain', 'text/structured', 'text/html',
-            'application/msword'),
+            'text/html', 'text/x-plone-outputfilters-html'),
         default="{{UNSUBSCRIBE}}",
         default_output_type='text/html',
         widget=RichTextWidget(

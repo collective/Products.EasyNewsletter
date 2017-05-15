@@ -45,7 +45,7 @@ else:
 if IS_PLONE_5:
     from Products.Archetypes.atapi import TinyMCEWidget as RichTextWidget
 else:
-    from Products.Archetypes.atapi import RichTextWidget
+    from Products.Archetypes.atapi import RichWidget as RichTextWidget
 
 
 log = logging.getLogger('Products.EasyNewsletter')
@@ -54,8 +54,9 @@ log = logging.getLogger('Products.EasyNewsletter')
 schema = atapi.Schema((
     atapi.TextField(
         'text',
-        allowable_content_types=('text/html'),
-        default_output_type='text/html',
+        allowable_content_types=(
+            'text/html', 'text/x-plone-outputfilters-html'),
+        default_output_type='text/x-plone-outputfilters-html',
         widget=RichTextWidget(
             rows=30,
             label=_('EasyNewsletter_label_text', default=u'Text'),
