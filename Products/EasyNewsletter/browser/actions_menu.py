@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from plone.app.contentmenu.interfaces import IActionsMenu
 from plone.app.contentmenu.interfaces import IActionsSubMenuItem
 from plone.app.contentmenu.menu import BrowserMenu
@@ -39,24 +40,24 @@ class EasyNewsletterActionsSubMenuItem(BrowserSubMenuItem):
 @implementer(IActionsMenu)
 class EasyNewsletterActionsMenu(BrowserMenu):
 
-    def getMenuItems(self, context, request):
+    def getMenuItems(self, context, request):  # flack8: noqa
         """Return menu item entries in a TAL-friendly form."""
         results = []
 
         context_state = getMultiAdapter((context, request),
                                         name='plone_context_state')
-        editActions = context_state.actions('easynewsletter')
-        if not editActions:
+        edit_actions = context_state.actions('easynewsletter')
+        if not edit_actions:
             return results
 
-        for action in editActions:
+        for action in edit_actions:
             if action['allowed']:
                 aid = action['id']
-                cssClass = 'actionicon-object_buttons-%s' % aid
+                css_class = 'actionicon-object_buttons-%s' % aid
                 icon = action.get('icon', None)
                 modal = action.get('modal', None)
                 if modal:
-                    cssClass += ' pat-plone-modal'
+                    css_class += ' pat-plone-modal'
 
                 results.append({
                     'title': action['title'],
@@ -66,7 +67,7 @@ class EasyNewsletterActionsMenu(BrowserMenu):
                     'icon': icon,
                     'extra': {'id': 'plone-contentmenu-actions-' + aid,
                               'separator': None,
-                              'class': cssClass,
+                              'class': css_class,
                               'modal': modal},
                     'submenu': None,
                 })
