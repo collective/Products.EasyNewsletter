@@ -1,14 +1,25 @@
 <?xml version="1.0"?>
 <registry>
 
-  <records prefix="plone.bundles/easynewsletter"
-            interface='Products.CMFPlone.interfaces.IBundleRegistry'>
+  <records prefix="plone.resources/easynewsletter"
+           interface='Products.CMFPlone.interfaces.IResourceRegistry'>
+    <value key="css">
+      <element>++plone++easynewsletter/easynewsletter.less</element>
+    </value>
+  </records>
+
+  <records
+      interface="Products.CMFPlone.interfaces.IBundleRegistry"
+      prefix="plone.bundles/easynewsletter">
+    <value key="resources">
+      <element>easynewsletter</element>
+    </value>
     <value key="enabled">True</value>
-    <value key="jscompilation"></value>
-    <value key="csscompilation">portal_skins/EasyNewsletter/easynewsletter.css</value>
-    <value key="last_compilation">2019-11-26 00:00:00</value>
-    <value key="compile">False</value>
+    <value key="csscompilation">++plone++easynewsletter/easynewsletter.css</value>
+    <value key="last_compilation">2018-05-15 00:00:00</value>
+    <value key="compile">True</value>
     <value key="depends">plone</value>
+    <value key="merge_with">default</value>
   </records>
 
   <record name="plone.displayed_types" interface="Products.CMFPlone.interfaces.controlpanel.INavigationSchema" field="displayed_types">
