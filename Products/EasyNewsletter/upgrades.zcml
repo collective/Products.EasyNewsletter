@@ -116,4 +116,13 @@
           destination="3010"
           handler=".upgrades.reinstall_gs_profile"
           profile="Products.EasyNewsletter:default"/>
+
+  <genericsetup:upgradeStep
+          title="Reload profiles to reload workflow settings"
+          description=""
+          source="3010"
+          destination="3011"
+          handler=".upgrades.reinstall_gs_profile"
+          profile="Products.EasyNewsletter:default"/>
+
 </configure>

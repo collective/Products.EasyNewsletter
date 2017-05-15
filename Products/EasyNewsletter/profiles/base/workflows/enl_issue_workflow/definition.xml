@@ -79,6 +79,7 @@
     </state>
 
     <state state_id="sent" title="Sent" i18n:attributes="title">
+        <exit-transition transition_id="revert_sending"/>
         <permission-map name="Access contents information"
                         acquired="False">
             <permission-role>Manager</permission-role>
