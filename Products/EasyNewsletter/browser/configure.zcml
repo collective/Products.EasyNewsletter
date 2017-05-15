@@ -1,10 +1,28 @@
 <configure
   xmlns="http://namespaces.zope.org/zope"
+  xmlns:plone="http://namespaces.plone.org/plone"
   xmlns:browser="http://namespaces.zope.org/browser"
   xmlns:cmf="http://namespaces.zope.org/cmf"
   i18n_domain="EasyNewsletter">
 
   <include package="plone.app.contentmenu" />
+
+  <plone:static
+    name="easynewsletter"
+    directory="static"
+    type="plone"
+    />
+
+  <!-- toolbar menu -->
+  <browser:menu
+    id="easynewsletter-actions"
+    title=""
+    class=".actions_menu.EasyNewsletterActionsMenu" />
+
+  <adapter for="* *"
+   name="easynewsletter-actions"
+   factory=".actions_menu.EasyNewsletterActionsSubMenuItem"
+   provides="plone.app.contentmenu.interfaces.IContentMenuItem" />
 
   <browser:page
     name="send-issue-form"
