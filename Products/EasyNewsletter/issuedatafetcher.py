@@ -143,7 +143,7 @@ class DefaultIssueDataFetcher(object):
         # get out_template from ENL object and render it in context of issue
         out_template_pt_field = self.enl.getField('out_template_pt')
         # and here we create a write on read, but we do not need to persist it:
-        sp = transaction.savepoint()
+        transaction.commit()
         ObjectField.set(
             out_template_pt_field,
             self.issue,
@@ -155,7 +155,8 @@ class DefaultIssueDataFetcher(object):
         output_html = safe_portal_encoding(
             self.issue.out_template_pt.pt_render()
         )
-        sp.rollback()  # no actual write to db!
+        transaction.abort()
+        # sp.rollback()  # no actual write to db!
         # output_html = compactify(output_html, filter_tags=False)
         return output_html
 
