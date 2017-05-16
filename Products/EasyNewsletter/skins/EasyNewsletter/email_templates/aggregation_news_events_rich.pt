@@ -228,7 +228,7 @@
                                       <td valign="top" class="imageContent">
                                         <a tal:attributes="href obj_url">
                                           <img class="flexibleImage" width="520" style="max-width:520px;"
-                                            tal:attributes="src string:${obj_url}/@@images/image/large"></img>
+                                            tal:attributes="src string:${obj_url}/@@images/image/large" />
                                         </a>
                                       </td>
                                   </tr>
