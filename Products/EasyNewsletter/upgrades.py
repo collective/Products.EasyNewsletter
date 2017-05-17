@@ -3,6 +3,7 @@ from logging import getLogger
 from nameparser import HumanName
 from plone import api
 from plone.app.upgrade.utils import loadMigrationProfile
+from Products.Archetypes.interfaces import IReferenceable
 from Products.CMFCore.utils import getToolByName
 
 
@@ -74,7 +75,8 @@ def apply_referenceable_behavior(context):
         meta_type=['Dexterity Item', 'Dexterity Container'])
     for brain in brains:
         obj = brain.getObject()
-        path = '/'.join(obj.getPhysicalPath())
-        logger.info("Applying referenceable behavior for object at path %s",
-                    path)
-        uid_catalog.catalog_object(obj, path)
+        if IReferenceable.providedBy(obj):
+            path = '/'.join(obj.getPhysicalPath())
+            logger.info("""Applying referenceable behavior for
+                        object at path %s""", path)
+            uid_catalog.catalog_object(obj, path)
