@@ -13,6 +13,10 @@ class IssueView(BrowserView):
     """Single Issue View
     """
 
+    @property
+    def here_url(self):
+        return self.context.absolute_url()
+
     def refresh_issue(self, REQUEST=None):  # noqa
         """Refresh the aggregate body when using collections.
         """
@@ -76,7 +80,8 @@ class IssueView(BrowserView):
         """ Return the rendered HTML version without placeholders.
         """
         issuedatafetcher = IIssueDataFetcher(self.context)
-        return issuedatafetcher.preview_html()
+        preview_html = issuedatafetcher.preview_html()
+        return preview_html
 
     def copy_as_draft(self):
         newsletter = self.context.aq_parent

@@ -15,6 +15,7 @@ from Products.EasyNewsletter.utils.ENLHTMLParser import ENLHTMLParser
 from Products.PageTemplates.ZopePageTemplate import ZopePageTemplate
 # from stoneagehtml import compactify
 from urlparse import urlparse
+from zope.component import getMultiAdapter
 from zope.event import notify
 from zope.interface import implementer
 
@@ -156,11 +157,12 @@ class DefaultIssueDataFetcher(object):
             self.issue.out_template_pt.pt_render()
         )
         transaction.abort()
-        # sp.rollback()  # no actual write to db!
         # output_html = compactify(output_html, filter_tags=False)
         return output_html
 
     def _personalize(self, receiver, html):
+        plone_view = getMultiAdapter(
+            (self.enl, self.enl.REQUEST), name='plone')
         data = {}
         data['html'] = html
         data['context'] = {}
@@ -168,6 +170,13 @@ class DefaultIssueDataFetcher(object):
         data['context']['language'] = self.enl.Language()
         data['context']['fullname'] = self._fullname(receiver)
         data['context']['salutation'] = self._salutation(receiver)
+        data['context']['banner'] = self.issue.get_image_tag()
+        scales = self.enl.restrictedTraverse('@@images')
+        data['context']['logo'] = scales.tag('logo')
+        data['context']['date'] = plone_view.toLocalizedTime(
+            self.issue.modified(), long_format=0)
+        data['context']['month'] = self.issue.modified().month()
+        data['context']['year'] = self.issue.modified().year()
         data['context']['unsubscribe'] = self._unsubscribe_info(receiver)
         data['context']['UNSUBSCRIBE'] = data['context']['unsubscribe']['html']
         data['context']['SUBSCRIBER_SALUTATION'] = self._subscriber_salutation(

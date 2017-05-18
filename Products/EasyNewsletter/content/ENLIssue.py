@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
+# from plone.protect.auto import safeWrite
 from AccessControl import ClassSecurityInfo
 from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 from email.Header import Header
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from plone import api
+from plone.app.blob.field import ImageField
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
@@ -12,8 +14,8 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.config import EMAIL_RE
-from Products.EasyNewsletter.config import PROJECTNAME
 from Products.EasyNewsletter.config import IS_PLONE_5
+from Products.EasyNewsletter.config import PROJECTNAME
 from Products.EasyNewsletter.interfaces import IENLIssue
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter
@@ -24,11 +26,11 @@ from Products.MailHost.interfaces import IMailHost
 from zope.component import getUtility
 from zope.component import queryUtility
 from zope.component import subscribers
-from zope.site.hooks import getSite
 from zope.interface import implementer
-# from plone.protect.auto import safeWrite
+from zope.site.hooks import getSite
 import logging
 import pkg_resources
+import transaction
 
 
 try:
@@ -152,6 +154,39 @@ schema = atapi.Schema((
         ),
     ),
 
+    atapi.BooleanField(
+        'hideImage',
+        schemata='settings',
+        default=False,
+        widget=atapi.BooleanWidget(
+            label=_(
+                u'label_issueHideImage',
+                default=u'Hide banner image.'),
+            description=_(
+                u'enl_issue_help_hide_image',
+                default=u'If checked, the banner image defined on newsletter \
+                    or on this issue will not be used.'),
+            i18n_domain='EasyNewsletter',
+        )
+    ),
+
+    ImageField(
+        'image',
+        schemata='settings',
+        max_size=(600, 600),
+        widget=atapi.ImageWidget(
+            display_threshold=512000,
+            label=_(
+                u"ENL_image_label",
+                default=u"Banner image"),
+            description=_(
+                u"ENL_image_desc",
+                default=u"Banner image, you can include in the templates by" +
+                        u"\n adding the {{banner}} placeholder into it."
+            ),
+        ),
+    ),
+
     atapi.TextField(
         'header',
         schemata='settings',
@@ -218,6 +253,19 @@ schema['customView'].widget.visible = {
     'view': 'invisible', 'edit': 'invisible'}
 schema['customViewFields'].widget.visible = {
     'view': 'invisible', 'edit': 'invisible'}
+schema['allowDiscussion'].widget.visible = {
+    'view': 'invisible', 'edit': 'invisible'}
+schema['subject'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
+schema['location'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
+schema['effectiveDate'].widget.visible = {
+    'view': 'invisible', 'edit': 'invisible'}
+schema['expirationDate'].widget.visible = {
+    'view': 'invisible', 'edit': 'invisible'}
+schema['creators'].widget.visible = {
+    'view': 'invisible', 'edit': 'invisible'}
+schema['contributors'].widget.visible = {
+    'view': 'invisible', 'edit': 'invisible'}
+schema['rights'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
 
 schema.moveField('header', pos='bottom')
 schema.moveField('footer', pos='bottom')
@@ -239,6 +287,19 @@ class ENLIssue(ATTopic, atapi.BaseContent):
     def get_aggregation_template_from_parent(self):
         enl = self.getNewsletter()
         return enl.getTemplate()
+
+    def get_image_tag(self):
+        img_tag = ""
+        if self.getHideImage():
+            return img_tag
+        scales = self.restrictedTraverse('@@images')
+        img_tag = scales.tag('image')
+        if img_tag:
+            return img_tag
+        enl = self.getNewsletter()
+        scales = enl.restrictedTraverse('@@images')
+        img_tag = scales.tag('image')
+        return img_tag
 
     def _get_salutation_mappings(self):
         """
@@ -465,6 +526,8 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         """ Agregate content from content_aggregation_sources.
         """
         issue_template = self.restrictedTraverse(self.getTemplate())
+        # here we create a write on read, but we do not need to persist it:
+        sp = transaction.savepoint()
         issue_template.setIssue(self.UID())
         portal = getSite()
         template_id = issue_template.getAggregationTemplate()
@@ -477,6 +540,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             # behaviors on source object like Collections
             issue_template.setBody(template_obj.read())
         text = issue_template.body()
+        sp.rollback()
         self.setText(text)
 
     def get_default_header(self):

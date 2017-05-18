@@ -27,6 +27,7 @@ from zope.component import subscribers
 from zope.interface import implementer
 from zope.site.hooks import getSite
 from plone.registry.interfaces import IRegistry
+from plone.app.blob.field import ImageField
 import logging
 
 
@@ -155,8 +156,42 @@ schema = atapi.Schema((
                 default=u"Text for the 'unsubscribe' link"),
             description=_(
                 u"EasyNewsletter_help_unsubscribe_string",
-                default=u'This will replace the placeholder [[UNSUBSCRIBE]].'),
+                default=u'This will replace the placeholder {{UNSUBSCRIBE}}.'),
             i18n_domain='EasyNewsletter',
+        ),
+    ),
+
+    ImageField(
+        'image',
+        schemata='personalization',
+        max_size=(600, 600),
+        widget=atapi.ImageWidget(
+            display_threshold=512000,
+            label=_(
+                u"ENL_image_label",
+                default=u"Banner image"),
+            description=_(
+                u"ENL_image_desc",
+                default=u"Banner image, you can include in the templates by" +
+                        u"\n adding the {{banner}} placeholder into it."
+            ),
+        ),
+    ),
+
+    ImageField(
+        'logo',
+        schemata='personalization',
+        max_size=(768, 768),
+        widget=atapi.ImageWidget(
+            display_threshold=512000,
+            label=_(
+                u"ENL_logo_label",
+                default=u"Logo image"),
+            description=_(
+                u"ENL_logo_desc",
+                default=u"Logo image, you can include in the templates by\n"\
+                        + u" adding the {{logo}} placeholder into it."
+            ),
         ),
     ),
 
@@ -450,6 +485,9 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
     security = ClassSecurityInfo()
     schema = schema
     _at_rename_after_creation = True
+
+    # logo = atapi.ATFieldProperty('logo')
+    # image = atapi.ATFieldProperty('image')
 
     def get_allowed_content_aggregation_types(self):
         enl_utils = getUtility(IENLUtils)

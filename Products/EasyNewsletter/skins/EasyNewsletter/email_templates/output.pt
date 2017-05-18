@@ -180,6 +180,8 @@
             </tr>
             <!-- // MODULE ROW -->
 
+            {{logo}}
+            {{banner}}
 
             <!-- MODULE ROW // -->
             <tr>
@@ -201,9 +203,7 @@
                                                     <!-- this is the header of the newsletter -->
                                                     <span tal:replace="structure context/getHeader" />
                                                     <br />
-                                                    <span
-                                                    tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime"
-                                            tal:replace="structure python:toLocalizedTime(context.modified(), long_format=0)" />
+                                                    {{year}}
                                                 </td>
                                             </tr>
                                         </table>

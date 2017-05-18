@@ -3,7 +3,8 @@
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="EasyNewsletter">
     <body>
-        <div metal:fill-slot="main">
+        <div metal:fill-slot="main"
+            tal:define="is_editable context/@@plone_context_state/is_editable">
 
             <h1 class="documentFirstHeading">
                 <metal:field use-macro="python:context.widget('title', mode='view')">
@@ -19,9 +20,17 @@
 
             <div tal:replace="structure provider:plone.abovecontentbody" />
 
+            <a tal:attributes="href string:${view/here_url}/preview"
+                tal:condition="is_editable"
+                target="_blank"
+                class="btn btn-info"
+                role="button">preview email content in new window</a>
+
             <div id="newsletter-content"
                 tal:content="structure view/get_public_body"
                 />
+
+
 
             <div tal:replace="structure provider:plone.belowcontentbody" />
         </div>
