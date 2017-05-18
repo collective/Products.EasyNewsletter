@@ -25,7 +25,7 @@ class EasyNewsletterActionsSubMenuItem(BrowserSubMenuItem):
 
     @property
     def action(self):
-        return 'url-for-action'
+        return self.context.getNewsletter().absolute_url()
 
     def available(self):
         if checkPermission('cmf.ModifyPortalContent', self.context) and \
