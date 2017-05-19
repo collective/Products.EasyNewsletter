@@ -10,10 +10,15 @@ class DailyIssueView(BrowserView):
     """Creates a new issue of EasyNewsletter and sends it"""
 
     def has_content(self):
-        if self.context.buildQuery():
-            return len(self.context.queryCatalog())
-        else:
-            return 0
+        results = []
+        enl_template = self.context.restrictedTraverse(
+            self.context.getTemplate())
+        sources = enl_template.getContentSources()
+        for source in sources:
+            source_results = source.queryCatalog()
+            results.extend(source_results)
+
+        return len(results)
 
     def __generate_id(self):
         return "enlissue_%s" % (datetime.date.today().isoformat())
