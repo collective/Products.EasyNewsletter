@@ -499,7 +499,10 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
         templates_keys = registry.get(
             'Products.EasyNewsletter.content_aggregation_templates').keys()
         if templates_keys:
-            default_tmpl_key = templates_keys[0]
+            if 'aggregation_news_events_listing' in templates_keys:
+                default_tmpl_key = 'aggregation_news_events_listing'
+            else:
+                default_tmpl_key = templates_keys[0]
         else:
             default_tmpl_key = 'custom'
         return default_tmpl_key
