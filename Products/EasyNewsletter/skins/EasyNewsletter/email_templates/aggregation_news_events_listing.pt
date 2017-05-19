@@ -6,22 +6,54 @@
       i18n:domain="plone">
 <body>
 
+
 <tal:blockmain
   define="portal here/@@plone_portal_state/portal;
           enl_helpers here/@@enl_helpers;
           asources python: enl_helpers.get_results_from_aggregation_sources(context)">
 
-    <ul id="enl_headlines">
-      <tal:blockHeadline
-        tal:repeat="source asources">
-      <li tal:content="source/title"
-        tal:condition="source/brains_count"></li>
-      </tal:blockHeadline>
-    </ul>
+      <table border="0" cellpadding="0" cellspacing="0">
+        <!-- MODULE ROW // -->
+        <tr>
+          <td align="center" valign="top">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+              <tr>
+                <td align="center" valign="top">
+                  <table border="0" cellpadding="0" cellspacing="0" width="600" class="flexibleContainer headlineBackground">
+                    <tr>
+                      <td align="center" valign="top" width="600" class="flexibleContainerCell">
 
+                        <!-- CONTENT TABLE // -->
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                          <tr>
+                            <td valign="top" style="color:#FFFFFF;">
+                              {{issue_title}}
+                            </td>
+                            <td valign="top">
+                              <ul id="enl_headlines">
+                              <tal:blockHeadline tal:repeat="source asources">
+                                <li tal:condition="source/brains_count">
+                                  <a tal:content="source/title" tal:attributes="href string:#source_${source/uid}"></a>
+                                </li>
+                              </tal:blockHeadline>
+                              </ul>
+                            </td>
+                          </tr>
+                        </table>
+                        <!-- // CONTENT TABLE -->
 
-    <tal:blocksource
-      repeat="source asources">
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- // FLEXIBLE CONTAINER -->
+                </td>
+              </tr>
+            </table>
+            <!-- // CENTERING TABLE -->
+
+          </td>
+        </tr>
+        <!-- // MODULE ROW -->
 
         <!-- MODULE ROW // -->
         <tr>
@@ -37,8 +69,43 @@
                         <table border="0" cellpadding="0" cellspacing="0" width="100%">
                           <tr>
                             <td valign="top">
-                              <h3 tal:content="source/title"
-                                tal:attributes="id string:source_${source/uid}">Title</h3>
+                              {{SUBSCRIBER_SALUTATION}}
+                            </td>
+                          </tr>
+                        </table>
+                        <!-- // CONTENT TABLE -->
+
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- // FLEXIBLE CONTAINER -->
+                </td>
+              </tr>
+            </table>
+            <!-- // CENTERING TABLE -->
+          </td>
+        </tr>
+        <!-- // MODULE ROW -->
+
+      <tal:blocksource
+        repeat="source asources">
+
+        <!-- MODULE ROW // -->
+        <tr>
+          <td align="center" valign="top">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+              <tr>
+                <td align="center" valign="top">
+                  <table border="0" cellpadding="0" cellspacing="0" width="600" class="flexibleContainer">
+                    <tr>
+                      <td align="center" valign="top" width="600" class="flexibleContainerCell">
+
+                        <!-- CONTENT TABLE // -->
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                          <tr>
+                            <td valign="top">
+                              <h2 tal:content="source/title"
+                                tal:attributes="id string:source_${source/uid}">Title</h2>
                               <br tal:condition="source/description" />
                               <span tal:replace="source/description"></span>
                             </td>
@@ -110,7 +177,7 @@
                                         <h3>
                                           <a tal:attributes="href obj_url"
                                           tal:content=" brain/Title"
-                                          style="text-decoration: none; color: #404040;">
+                                          style="text-decoration: none;">
                                           Title
                                         </a>
                                       </h3>
@@ -146,6 +213,7 @@
         </tal:blockitems>
 
     </tal:blocksource>
+      </table>
 </tal:blockmain>
 
 </body>

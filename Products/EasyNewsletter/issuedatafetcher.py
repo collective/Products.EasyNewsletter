@@ -170,9 +170,14 @@ class DefaultIssueDataFetcher(object):
         data['context']['language'] = self.enl.Language()
         data['context']['fullname'] = self._fullname(receiver)
         data['context']['salutation'] = self._salutation(receiver)
-        data['context']['banner'] = self.issue.get_image_tag()
+        data['context']['issue_title'] = self.issue.Title()
+        data['context']['issue_description'] = self.issue.Description()
+        data['context']['banner_src'] = self.issue.get_image_src()
         scales = self.enl.restrictedTraverse('@@images')
-        data['context']['logo'] = scales.tag('logo')
+        logo_src = ""
+        if scales.scale('logo', scale='mini'):
+            logo_src = self.enl.absolute_url() + "/logo"
+        data['context']['logo_src'] = logo_src
         data['context']['date'] = plone_view.toLocalizedTime(
             self.issue.modified(), long_format=0)
         data['context']['month'] = self.issue.modified().month()

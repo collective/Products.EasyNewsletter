@@ -288,18 +288,19 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         enl = self.getNewsletter()
         return enl.getTemplate()
 
-    def get_image_tag(self):
-        img_tag = ""
+    def get_image_src(self):
+        img_src = ""
         if self.getHideImage():
-            return img_tag
+            return img_src
         scales = self.restrictedTraverse('@@images')
-        img_tag = scales.tag('image')
-        if img_tag:
-            return img_tag
+        if scales.scale('image', scale='mini'):
+            img_src = self.absolute_url() + "/image"
+            return img_src
         enl = self.getNewsletter()
         scales = enl.restrictedTraverse('@@images')
-        img_tag = scales.tag('image')
-        return img_tag
+        if scales.scale('image', scale='mini'):
+            img_src = enl.absolute_url() + "/image"
+        return img_src
 
     def _get_salutation_mappings(self):
         """

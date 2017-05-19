@@ -1,5 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+  lang="en"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="EasyNewsletter">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width"/>
@@ -40,6 +43,7 @@
       .emailCalendar{background-color:#FFFFFF; border:1px solid #CCCCCC;}
       .emailCalendarMonth{background-color:#2C9AB7; color:#FFFFFF; font-family:Helvetica, Arial, sans-serif; font-size:16px; font-weight:bold; padding-top:10px; padding-bottom:10px; text-align:center;}
       .emailCalendarDay{color:#2C9AB7; font-family:Helvetica, Arial, sans-serif; font-size:60px; font-weight:bold; line-height:100%; padding-top:20px; padding-bottom:20px; text-align:center;}
+      #enl_headline{list-style-type: none; padding-left: 0;}
 
       /*////// MOBILE STYLES //////*/
       @media only screen and (max-width: 480px){
@@ -113,16 +117,9 @@
 
                 <table border="0" cellpadding="10" cellspacing="0" width="100%">
                   <tr>
-                    <td valign="top">
-                      <div>
-                           Use this area to offer a short teaser of your email's content.
-                            Text here will show in the preview area of some email clients.
-                        </div>
-                    </td>
-                    <td valign="top" width="190">
-                      <div>
-                        Is this email not displaying correctly?<br />
-                        <a tal:attributes="href context/absolute_url" target="_blank">View it in your browser</a>.
+                    <td valign="top" width="600">
+                      <div >
+                        <span i18n:translate="">Is this email not displaying correctly?</span> &nbsp; <a tal:attributes="href context/absolute_url" target="_blank" i18n:translate="">View it in your browser</a>.
                       </div>
                     </td>
                   </tr>
@@ -135,11 +132,31 @@
         </td>
       </tr>
 
-
       <tr>
         <!-- EMAIL CONTAINER // -->
         <td align="center" valign="top" id="bodyCell">
           <table border="0" cellpadding="0" cellspacing="0" width="600" id="emailBody">
+
+            <tr>
+              <td align="center" valign="top">
+                  <!-- // Begin Template Header \\ -->
+                  <table id="templateHeader" width="600" border="0" cellpadding="0" cellspacing="0">
+                    <tbody>
+                      <tr>
+                        <td class="headerContent" padding="10">
+                          <img class="flexibleImage" width="200" style="max-width:200px;" src="{{logo_src}}" />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="headerContent">
+                          <img class="headerImage campaign-icon" width="600" style="max-width:600px;" src="{{banner_src}}" />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- // End Template Header \\ -->
+                </td>
+            </tr>
 
             <!-- MODULE ROW // -->
             <tr>
@@ -157,13 +174,13 @@
 
                             <!-- CONTENT TABLE // -->
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                <tr>
-                                    <td valign="top" class="textContent">
-                                        <h3 tal:content="context/Title">Title</h3>
-                                        <br />
-                                        <span tal:replace="context/Description"></span>
-                                    </td>
-                                </tr>
+                              <tr>
+                                <td valign="top" class="textContent">
+                                  <h1 tal:content="context/Title">Title</h1>
+                                  <br />
+                                  <span tal:replace="context/Description"></span>
+                                </td>
+                              </tr>
                             </table>
                             <!-- // CONTENT TABLE -->
 
@@ -180,8 +197,6 @@
             </tr>
             <!-- // MODULE ROW -->
 
-            {{logo}}
-            {{banner}}
 
             <!-- MODULE ROW // -->
             <tr>
@@ -202,8 +217,6 @@
                                                 <td valign="top" class="textContent">
                                                     <!-- this is the header of the newsletter -->
                                                     <span tal:replace="structure context/getHeader" />
-                                                    <br />
-                                                    {{year}}
                                                 </td>
                                             </tr>
                                         </table>
@@ -236,31 +249,31 @@
                               <!-- FLEXIBLE CONTAINER // -->
                               <table border="0" cellpadding="0" cellspacing="0" width="600" class="flexibleContainer">
                                   <tr>
-                                      <td align="center" valign="top" width="600" class="flexibleContainerCell">
+                                    <td align="center" valign="top" width="600" class="flexibleContainerCell">
 
 
-                                            <!-- CONTENT TABLE // -->
-                                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                                <tr>
-                                                    <td valign="top" class="textContent">
-                                                    <tal:def tal:define="files context/getFiles">
-                                                        <dl id="file-attachments" tal:condition="files">
-                                                            <tal:loop repeat="file files">
-                                                                <dt>
-                                                                    <a tal:attributes="href file/getURL"
-                                                                       tal:content="file/Title" />
-                                                                </dt>
-                                                                <dd tal:content="file/Description" />
-                                                            </tal:loop>
-                                                        </dl>
-                                                    </tal:def>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <!-- // CONTENT TABLE -->
+                                      <!-- CONTENT TABLE // -->
+                                      <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                        <tr>
+                                          <td valign="top" class="textContent">
+                                          <tal:def tal:define="files context/getFiles">
+                                              <dl id="file-attachments" tal:condition="files">
+                                                  <tal:loop repeat="file files">
+                                                      <dt>
+                                                          <a tal:attributes="href file/getURL"
+                                                             tal:content="file/Title" />
+                                                      </dt>
+                                                      <dd tal:content="file/Description" />
+                                                  </tal:loop>
+                                              </dl>
+                                          </tal:def>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                      <!-- // CONTENT TABLE -->
 
 
-                                        </td>
+                                      </td>
                                     </tr>
                                 </table>
                                 <!-- // FLEXIBLE CONTAINER -->
@@ -287,8 +300,40 @@
 
                 <table border="0" cellpadding="10" cellspacing="0" width="100%">
                   <tr>
-                    <td valign="top">
+                    <td valign="top" bgcolor="#e2eff8">
                       <div style="font-size: 90%;" tal:content="structure context/getFooter"></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td bgcolor="#004994" style="color: #ffffff;">
+
+                      <table border="0" cellpadding="10" cellspacing="0" width="100%">
+                        <tr>
+                          <td valign="top">
+                            Publisher:<br />
+                            <br />
+                            <b>Example organization</b><br />
+                            <br />
+                            Example street 43<br />
+                            04170 Leipzig<br />
+                            GERMANY<br />
+                            <br />
+                            Phone: 03274754983<br />
+                            <br />
+                          </td>
+                          <td valign="top">
+                            Responsible:<br />
+                            <br />
+                            <b>Jon Doe</b><br />
+                            CEO<br />
+                            <br />
+                            Editorial office:<br />
+                            <b>Jonny Cash</b><br />
+
+                          </td>
+                        </tr>
+                      </table>
+
                     </td>
                   </tr>
                 </table>
