@@ -27,7 +27,6 @@
   <include package=".queue" />
   <include package=".utils" />
   <include package='plone.app.referenceablebehavior' />
-  <include package='plone.app.relationfield' />
 
   <include file="indexers.zcml" />
   <include file="profiles.zcml" />
