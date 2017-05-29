@@ -210,7 +210,6 @@ class EasyNewsletterTests(unittest.TestCase):
         scales = self.portal.restrictedTraverse(image_scales_url)
         scale_view = scales.scale(fieldname=stack[0], scale=stack[1])
         scale_view()
-        scale_view.index_html()
         zt.commit()
 
         msg = self.send_sample_message(body)
