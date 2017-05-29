@@ -1,17 +1,20 @@
 # -*- coding: utf-8 -*-
 from Acquisition import aq_base
+from plone import api
+from plone.uuid.interfaces import IUUID
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.EasyNewsletter.interfaces import IENLIssue
-from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_FUNCTIONAL_TESTING
+from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.MailHost.interfaces import IMailHost
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
-
+from zope.component import getUtility
+from plone.dexterity.interfaces import IDexterityFTI
 import unittest
 
 
@@ -34,11 +37,26 @@ class DailyIssueBaseTestCase(unittest.TestCase):
         self.newsletter = self.folder["daily-news"]
         self.newsletter.setTitle("Daily News")
 
-        criteria = self.newsletter.addCriterion(
-            "portal_type",
-            "ATSimpleStringCriterion"
-        )
-        criteria.setValue("News Item")
+        # make sure that Collections have the referenceable behavior:
+        fti = getUtility(IDexterityFTI, name='Collection')
+        referenceable = u'plone.app.referenceablebehavior.referenceable.IReferenceable'  # noqa
+        behaviors = list(fti.behaviors)
+        if referenceable not in behaviors:
+            behaviors.append(referenceable)
+            fti.behaviors = tuple(behaviors)
+
+        news_collection = api.content.create(
+            type="Collection",
+            id='news-collection',
+            title=u'News Collection',
+            container=self.folder)
+        query = [{
+            'i': 'portal_type',
+            'o': 'plone.app.querystring.operation.selection.is',
+            'v': ['News Item'],
+        }]
+        news_collection.setQuery(query)
+        self.newsletter.setContentAggregationSources(IUUID(news_collection))
 
         self.newsletter.invokeFactory("ENLSubscriber", "subscriber01")
         self.view = getMultiAdapter(

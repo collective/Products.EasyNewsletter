@@ -205,6 +205,8 @@ class DefaultIssueDataFetcher(object):
         images_to_attach = []
         reference_tool = api.portal.get_tool('reference_catalog')
         for image_number, image_url in enumerate(image_urls):
+            if not image_url:
+                continue
             try:
                 image_url = urlparse(image_url)[2]
                 o = None

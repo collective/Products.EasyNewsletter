@@ -36,6 +36,7 @@ class EasyNewsletter(PloneSandboxLayer):
     def setUpPloneSite(self, portal):
         # Install into Plone site using portal_setup
         applyProfile(portal, 'Products.EasyNewsletter:default')
+        applyProfile(portal, 'Products.EasyNewsletter:install-base')
         if HAS_PACT:
             applyProfile(portal, 'plone.app.contenttypes:default')
 
