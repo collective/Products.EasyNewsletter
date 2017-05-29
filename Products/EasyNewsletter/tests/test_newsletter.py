@@ -154,8 +154,8 @@ class EasyNewsletterTests(unittest.TestCase):
             self.image.absolute_url_path()
         msg = self.send_sample_message(body)
 
-        self.assertIn('<img src=3D"cid:image_0"', msg)
-        self.assertIn('Content-ID: <image_0>\nContent-Type: image/png;', msg)
+        self.assertIn('<img src=3D"cid:image_2"', msg)
+        self.assertIn('Content-ID: <image_2>\nContent-Type: image/png;', msg)
 
     def test_send_test_issue_with_scale_image(self):
         body = "<img src=\"%s/@@images/image/thumb\"/>" %  \
@@ -171,8 +171,8 @@ class EasyNewsletterTests(unittest.TestCase):
         zt.commit()
 
         msg = self.send_sample_message(body)
-        self.assertIn('<img src=3D"cid:image_0"', msg)
-        self.assertIn('Content-ID: <image_0>\nContent-Type: image/png;', msg)
+        self.assertIn('<img src=3D"cid:image_2"', msg)
+        self.assertIn('Content-ID: <image_2>\nContent-Type: image/png;', msg)
 
     def test_send_test_issue_with_resolveuid_image(self):
         if IS_PLONE_4:
@@ -187,8 +187,8 @@ class EasyNewsletterTests(unittest.TestCase):
         msg = self.send_sample_message(body)
 
         self.assertNotIn('resolveuid', msg)
-        self.assertIn('<img src=3D"cid:image_0"', msg)
-        self.assertIn('Content-ID: <image_0>\nContent-Type: image/png;', msg)
+        self.assertIn('<img src=3D"cid:image_2"', msg)
+        self.assertIn('Content-ID: <image_2>\nContent-Type: image/png;', msg)
 
     # TODO: find a way to get the uid-based images in tests
     def test_send_test_issue_with_resolveuid_scale_image(self):
@@ -210,14 +210,14 @@ class EasyNewsletterTests(unittest.TestCase):
         scales = self.portal.restrictedTraverse(image_scales_url)
         scale_view = scales.scale(fieldname=stack[0], scale=stack[1])
         scale_view()
-        # scale_view.index_html()
+        scale_view.index_html()
         zt.commit()
 
         msg = self.send_sample_message(body)
 
         self.assertNotIn('resolveuid', msg)
-        self.assertIn('<img src=3D"cid:image_0"', msg)
-        self.assertIn('Content-ID: <image_0>\nContent-Type: image/png;', msg)
+        self.assertIn('<img src=3D"cid:image_2"', msg)
+        self.assertIn('Content-ID: <image_2>\nContent-Type: image/png;', msg)
 
     def test_mailonly_filter_in_issue_public_view(self):
         self.newsletter.invokeFactory(

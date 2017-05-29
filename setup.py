@@ -47,7 +47,6 @@ setup(
         'Products.TemplateFields',
         'archetypes.referencebrowserwidget',
         'plone.app.referenceablebehavior',
-        'plone.app.relationfield',
         'plone.app.registry',
         'plone.resource',
         'setuptools',
