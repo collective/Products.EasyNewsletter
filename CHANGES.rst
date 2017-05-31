@@ -5,7 +5,18 @@ Changelog
 3.0b2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Refactured output and aggregation template rendering
+  [MrTango]
+- no write on read for issue public view anymore
+  [MrTango]
+- fixed permissions of issue in sent state
+  [MrTango]
+- refacture daily_issue view to work with new aggregation templates
+  [MrTango]
+- improved newsletter menu handling
+  [agitator]
+- Update documentation
+  [MrTango]
 
 
 3.0b1 (2017-05-15)
