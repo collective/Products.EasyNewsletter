@@ -5,14 +5,12 @@ from email.MIMEImage import MIMEImage
 from htmllib import HTMLParser
 from plone import api
 from plone.namedfile.scaling import ImageScale
-from Products.Archetypes.public import ObjectField
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter.config import PLACEHOLDERS
 from Products.EasyNewsletter.interfaces import IBeforePersonalizationEvent
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.EasyNewsletter.utils.base import safe_portal_encoding
 from Products.EasyNewsletter.utils.ENLHTMLParser import ENLHTMLParser
-from Products.PageTemplates.ZopePageTemplate import ZopePageTemplate
 # from stoneagehtml import compactify
 from urlparse import urlparse
 from zope.component import getMultiAdapter
@@ -23,7 +21,6 @@ import cStringIO
 import formatter
 import jinja2
 import logging
-import transaction
 import urllib
 import warnings
 

@@ -25,7 +25,6 @@ from zope.component import getUtility
 from zope.component import queryUtility
 from zope.component import subscribers
 from zope.interface import implementer
-from zope.site.hooks import getSite
 from plone.registry.interfaces import IRegistry
 from plone.app.blob.field import ImageField
 import logging

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from AccessControl import ClassSecurityInfo
-from Acquisition import aq_inner, aq_parent
 from plone.registry.interfaces import IRegistry
 from Products.Archetypes import atapi
 from Products.CMFCore.utils import getToolByName

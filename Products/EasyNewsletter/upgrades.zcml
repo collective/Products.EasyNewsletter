@@ -141,12 +141,4 @@
           handler=".upgrades.reinstall_gs_profile"
           profile="Products.EasyNewsletter:default"/>
 
-<!--  <genericsetup:upgradeStep
-          title="Add _obj suffix to all ENLTemplate objects"
-          description=""
-          source="3013"
-          destination="3014"
-          handler=".upgrades.add_suffix_to_enl_template_objects"
-          profile="Products.EasyNewsletter:default"/>
--->
 </configure>
