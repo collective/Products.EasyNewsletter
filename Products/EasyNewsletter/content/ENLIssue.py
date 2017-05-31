@@ -567,10 +567,12 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         """ Agregate content from content_aggregation_sources.
         """
         # issue_template = self.restrictedTraverse(self.getTemplate())
-        enl_template_id = self.getTemplate()
-        if enl_template_id not in self.objectIds():
+        enl_template_obj_id = self.getTemplate()
+        enl = self.getNewsletter()
+        if enl_template_obj_id not in enl.objectIds():
+            log.warn("No enl_template found, skip loadContent!")
             return
-        issue_template = self.getattr(enl_template_id, None)
+        issue_template = getattr(enl.aq_explicit, enl_template_obj_id, None)
 
         # here we create a write on read, but we do not need to persist it:
         sp = transaction.savepoint()

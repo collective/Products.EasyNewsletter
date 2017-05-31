@@ -501,9 +501,6 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
     schema = schema
     _at_rename_after_creation = True
 
-    # logo = atapi.ATFieldProperty('logo')
-    # image = atapi.ATFieldProperty('image')
-
     def get_allowed_content_aggregation_types(self):
         enl_utils = getUtility(IENLUtils)
         return enl_utils.get_allowed_content_aggregation_types()
@@ -558,11 +555,12 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
     def initializeArchetype(self, **kwargs):
         """Overwritten hook.
         """
+        ATTopic.initializeArchetype(self, **kwargs)
 
         def create_template(id="", title=""):
             """ Add template object """
-            if getattr(self, id, None):
-                print("already exists: %s" % id)
+            if getattr(self.aq_explicit, id, None):
+                log.info("ENLTemplate obj already exists: %s" % id)
                 return
             self.manage_addProduct["EasyNewsletter"].addENLTemplate(
                 id=id, title=title)
@@ -572,6 +570,9 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
         aggregation_templates = registry.get(
             'Products.EasyNewsletter.content_aggregation_templates')
         if not aggregation_templates:
+            log.warn(
+                "No aggregation_templates found, ",
+                "skip creating ENLTemplate objs!")
             return
         for key, value in aggregation_templates.items():
             tmpl_id = str(key)

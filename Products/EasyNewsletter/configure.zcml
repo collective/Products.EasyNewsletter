@@ -48,8 +48,8 @@
   />
 
   <subscriber
-     for="Products.EasyNewsletter.interfaces.IEasyNewsletter
-          zope.lifecycleevent.interfaces.IObjectAddedEvent"
-     handler=".handlers.add_default_enl_templates" />
+     for="Products.EasyNewsletter.interfaces.IENLTemplate
+          Products.Archetypes.interfaces.IObjectEditedEvent"
+     handler=".handlers.update_enl_template_body_field" />
 
 </configure>
