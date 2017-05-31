@@ -5,14 +5,12 @@ from email.MIMEImage import MIMEImage
 from htmllib import HTMLParser
 from plone import api
 from plone.namedfile.scaling import ImageScale
-from Products.Archetypes.public import ObjectField
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter.config import PLACEHOLDERS
 from Products.EasyNewsletter.interfaces import IBeforePersonalizationEvent
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.EasyNewsletter.utils.base import safe_portal_encoding
 from Products.EasyNewsletter.utils.ENLHTMLParser import ENLHTMLParser
-from Products.PageTemplates.ZopePageTemplate import ZopePageTemplate
 # from stoneagehtml import compactify
 from urlparse import urlparse
 from zope.component import getMultiAdapter
@@ -23,7 +21,6 @@ import cStringIO
 import formatter
 import jinja2
 import logging
-import transaction
 import urllib
 import warnings
 
@@ -141,22 +138,10 @@ class DefaultIssueDataFetcher(object):
         """ Return rendered newsletter
             with header+body+footer (raw html).
         """
-        # get out_template from ENL object and render it in context of issue
-        out_template_pt_field = self.enl.getField('out_template_pt')
-        # and here we create a write on read, but we do not need to persist it:
-        transaction.commit()
-        ObjectField.set(
-            out_template_pt_field,
-            self.issue,
-            ZopePageTemplate(
-                out_template_pt_field.getName(),
-                self.enl.getRawOut_template_pt()
-            )
-        )
-        output_html = safe_portal_encoding(
-            self.issue.out_template_pt.pt_render()
-        )
-        transaction.abort()
+        output_tmpl_id = self.issue.getOutputTemplate()
+        issue_tmpl = self.issue.restrictedTraverse(output_tmpl_id)
+        output_html = issue_tmpl.render()
+        output_html = safe_portal_encoding(output_html)
         # output_html = compactify(output_html, filter_tags=False)
         return output_html
 
@@ -197,7 +182,7 @@ class DefaultIssueDataFetcher(object):
             data['html'] = data['html'].replace('[[', '{{')
             data['html'] = data['html'].replace(']]', '}}')
 
-        template = jinja2.Template(data['html'].decode('utf8'))
+        template = jinja2.Template(safe_unicode(data['html']))
         return template.render(**data['context'])
 
     def _get_images_to_attach(self, image_urls):  # noqa

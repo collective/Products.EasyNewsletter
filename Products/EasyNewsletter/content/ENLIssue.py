@@ -7,6 +7,7 @@ from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from plone import api
 from plone.app.blob.field import ImageField
+from plone.registry.interfaces import IRegistry
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
@@ -239,6 +240,25 @@ schema = atapi.Schema((
             i18n_domain='EasyNewsletter',
         ),
     ),
+
+    atapi.StringField(
+        'outputTemplate',
+        vocabulary="get_output_templates",
+        required=True,
+        default_method='get_output_template_from_parent',
+        widget=atapi.SelectionWidget(
+            label=_(
+                u"enl_label_output_template",
+                default="Output template"),
+            description=_(
+                u"enl_help_output_template",
+                default=u"Choose the template to render the email. "
+            ),
+            i18n_domain='EasyNewsletter',
+            size=1,
+        )
+    ),
+
 ),
 )
 
@@ -287,6 +307,26 @@ class ENLIssue(ATTopic, atapi.BaseContent):
     def get_aggregation_template_from_parent(self):
         enl = self.getNewsletter()
         return enl.getTemplate()
+
+    def get_output_templates(self):
+        """ Return registered output templates as DisplayList """
+        result = atapi.DisplayList()
+        registry = getUtility(IRegistry)
+        output_templates = registry.get(
+            'Products.EasyNewsletter.output_templates')
+        if not output_templates:
+            return result
+        for key, value in output_templates.items():
+            result.add(key, value)
+        if not len(result):
+            result.add(u'output_default', _(
+                u'enl_label_default_output_template',
+                u'Default output template'))
+        return result
+
+    def get_output_template_from_parent(self):
+        enl = self.getNewsletter()
+        return enl.getOutputTemplate()
 
     def get_image_src(self):
         img_src = ""
@@ -526,15 +566,21 @@ class ENLIssue(ATTopic, atapi.BaseContent):
     def loadContent(self):
         """ Agregate content from content_aggregation_sources.
         """
-        issue_template = self.restrictedTraverse(self.getTemplate())
+        # issue_template = self.restrictedTraverse(self.getTemplate())
+        enl_template_obj_id = self.getTemplate()
+        enl = self.getNewsletter()
+        if enl_template_obj_id not in enl.objectIds():
+            log.warn("No enl_template found, skip loadContent!")
+            return
+        issue_template = getattr(enl.aq_explicit, enl_template_obj_id, None)
+
         # here we create a write on read, but we do not need to persist it:
         sp = transaction.savepoint()
         issue_template.setIssue(self.UID())
         portal = getSite()
         template_id = issue_template.getAggregationTemplate()
         if template_id != 'custom':
-            template_obj = portal.restrictedTraverse(
-                'email_templates/' + template_id)
+            template_obj = portal.restrictedTraverse(template_id)
             # XXX we copy over the template here every time we load the content
             # which is not perfect but ok for now.
             # This will be refactored when we drop Plone 4 support and use

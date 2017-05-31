@@ -93,10 +93,12 @@ class DailyIssueContent(DailyIssueBaseTestCase):
         )
         self.assertEqual(len(issues), 0)
         self.assertFalse(self.view.already_sent())
-        try:
-            self.view.create_issue()
-        except Exception:
-            self.fail("Couldn't create an issue!")
+        self.view.create_issue()
+        # try:
+        #     self.view.create_issue()
+        # except Exception, e:
+        #     import pdb; pdb.set_trace()
+        #     self.fail("Couldn't create an issue! (%s)" % e)
 
         issues = self.catalog(
             object_provides=IENLIssue.__identifier__,

@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
-from Acquisition import aq_inner, aq_parent
 from AccessControl import ClassSecurityInfo
+from plone.registry.interfaces import IRegistry
 from Products.Archetypes import atapi
 from Products.CMFCore.utils import getToolByName
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
 from Products.EasyNewsletter import config
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
 from Products.EasyNewsletter.interfaces import IENLTemplate
 from Products.TemplateFields import ZPTField
-from zope.interface import implementer
 from zope.component import getUtility
-from plone.registry.interfaces import IRegistry
+from zope.interface import implementer
+from zope.site.hooks import getSite
 
 
 schema = atapi.BaseSchema + atapi.Schema((
@@ -34,9 +34,6 @@ schema = atapi.BaseSchema + atapi.Schema((
         )
     ),
 
-    # XXX provide a default_method to select template from registry if possible
-    # this could be combined with an email render behavior on the content
-    # source target objects like Collection (Plone >= 5 only).
     ZPTField(
         'body',
         validators=('zptvalidator', ),
@@ -69,14 +66,14 @@ class ENLTemplate(atapi.BaseContent):
     schema = schema
     _at_rename_after_creation = True
 
-    # def initializeArchetype(self, **kwargs):  # noqa
-    #     """overwritten hook
-    #     """
-    #     atapi.BaseContent.initializeArchetype(self, **kwargs)
-    #     portal = getSite()
-    #     template_obj = portal.restrictedTraverse(
-    #         'email_templates/aggregation_news_events_listing')
-    #     self.setBody(template_obj.read())
+    def initializeArchetype(self, **kwargs):  # noqa
+        """overwritten hook
+        """
+        atapi.BaseContent.initializeArchetype(self, **kwargs)
+        portal = getSite()
+        enl_template_id = self.getAggregationTemplate()
+        template_file = portal.restrictedTraverse(enl_template_id)
+        self.setBody(template_file.read())
 
     def get_aggregation_templates(self):
         """ Return registered aggregation templates as DisplayList """
@@ -120,19 +117,23 @@ class ENLTemplate(atapi.BaseContent):
         """
         """
         portal_catalog = getToolByName(self, "portal_catalog")
-        try:
-            brain = portal_catalog(UID=self.issue_uid)[0]
-        except (AttributeError, IndexError):
-            return []
-        else:
-            issue = brain.getObject()
-            content_sources = issue.getContentAggregationSources()
-            if not content_sources:
-                content_sources = aq_parent(aq_inner(
-                    issue)).getContentAggregationSources()
-            if not content_sources:
+        content_sources = None
+        issue_uid = getattr(self, 'issue_uid', None)
+        if issue_uid:
+            try:
+                brain = portal_catalog(UID=issue_uid)[0]
+            except (AttributeError, IndexError):
                 return []
-            return content_sources
+            else:
+                if brain:
+                    issue = brain.getObject()
+                    content_sources = issue.getContentAggregationSources()
+        if not content_sources:
+            enl = self.getNewsletter()
+            content_sources = enl.getContentAggregationSources()
+        if not content_sources:
+            return []
+        return content_sources
 
 
 atapi.registerType(ENLTemplate, config.PROJECTNAME)

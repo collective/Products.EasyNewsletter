@@ -2,8 +2,6 @@
 from Products.Five.browser import BrowserView
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
-from zope.site.hooks import getSite
-import transaction
 import datetime
 
 
@@ -12,27 +10,15 @@ class DailyIssueView(BrowserView):
 
     def has_content(self):
         results = []
-        portal = getSite()
-        enl_template = self.context.restrictedTraverse(
-            self.context.getTemplate())
-        # here we create a write on read, but we do not need to persist it:
-        sp = transaction.savepoint()
-        enl_template.setIssue(self.context.UID())
-        template_id = enl_template.getAggregationTemplate()
-        if template_id != 'custom':
-            template_obj = portal.restrictedTraverse(
-                'email_templates/' + template_id)
-            # XXX we copy over the template here every time we load the content
-            # which is not perfect but ok for now.
-            # This will be refactored when we drop Plone 4 support and use
-            # behaviors on source object like Collections
-            enl_template.setBody(template_obj.read())
+        enl = self.context
+        enl_template_id = enl.getTemplate()
+        if enl_template_id not in self.context.objectIds():
+            return
+        enl_template = getattr(enl.aq_explicit, enl_template_id, None)
         sources = enl_template.getContentSources()
         for source in sources:
             source_results = source.queryCatalog()
             results.extend(source_results)
-
-        sp.rollback()
         return len(results)
 
     def __generate_id(self):

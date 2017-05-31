@@ -47,4 +47,9 @@
       for=".interfaces.IENLIssue"
   />
 
+  <subscriber
+     for="Products.EasyNewsletter.interfaces.IENLTemplate
+          Products.Archetypes.interfaces.IObjectEditedEvent"
+     handler=".handlers.update_enl_template_body_field" />
+
 </configure>
