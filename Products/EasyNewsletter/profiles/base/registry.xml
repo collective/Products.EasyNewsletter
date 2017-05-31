@@ -23,5 +23,17 @@
       </value>
   </record>
 
+  <record name="Products.EasyNewsletter.output_templates">
+      <field type="plone.registry.field.Dict">
+          <title>ENL Output templates</title>
+          <key_type type="plone.registry.field.TextLine" />
+          <value_type type="plone.registry.field.TextLine" />
+      </field>
+      <value>
+          <element key="output_default">Default output template</element>
+          <element key="output_blacksee">Blacksee output template</element>
+      </value>
+  </record>
+
 
 </registry>

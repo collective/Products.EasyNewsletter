@@ -80,3 +80,17 @@ def apply_referenceable_behavior(context):
             logger.info("""Applying referenceable behavior for
                         object at path %s""", path)
             uid_catalog.catalog_object(obj, path)
+
+
+def add_suffix_to_enl_template_objects(context):
+    portal_catalog = getToolByName(context, 'portal_catalog')
+    brains = portal_catalog(
+        portal_type=['ENLTemplate'])
+    for brain in brains:
+        obj = brain.getObject()
+        new_id = obj.id + '_obj'
+        if obj.id.endswith("_obj"):
+            continue
+        new_obj = api.content.rename(obj=obj, new_id=new_id)
+        logger.info(
+            "add suffix to ENLTemplate: %s" % new_obj.absolute_url_path())

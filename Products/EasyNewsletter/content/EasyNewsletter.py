@@ -344,26 +344,41 @@ schema = atapi.Schema((
         )
     ),
 
+    # XXX can be removed in version 4
     ZPTField(
         'out_template_pt',
         schemata='settings',
-        required=True,
-        default_method='get_out_template_pt',
+        required=False,
         validators=('zptvalidator', ),
         widget=atapi.TextAreaWidget(
             label=_(
                 u"label_out_template_pt",
-                default=u"Outgoing Mail Template"),
+                default=u"Outgoing Mail Template, NOT USED ANY MORE!"),
             description=_(
                 u"help_mailtemplate_body_pt",
-                default=u"This is a Zope Page Template used for rendering \
-                        of the out going mail. You don\'t need to modify \
-                        it, but if you know TAL (Zope\'s Template \
-                        Attribute Language) you have the full power \
-                        to customize your outgoing mails."),
+                default=u"This is not used anymore and will be removed in \
+                    future, please see docs for output templates."),
             i18n_domain="EasyNewsletter",
             rows=40,
         ),
+    ),
+
+    atapi.StringField(
+        'outputTemplate',
+        vocabulary="get_output_templates",
+        required=True,
+        default_method='get_default_output_template',
+        widget=atapi.SelectionWidget(
+            label=_(
+                u"enl_label_output_template",
+                default="Output template"),
+            description=_(
+                u"enl_help_output_template",
+                default=u"Choose the template to render the email. "
+            ),
+            i18n_domain='EasyNewsletter',
+            size=1,
+        )
     ),
 
     atapi.StringField(
@@ -511,31 +526,56 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
         enl = self
         return enl.objectValues('ENLTemplate')
 
+    def get_output_templates(self):
+        """ Return registered output templates as DisplayList """
+        result = atapi.DisplayList()
+        registry = getUtility(IRegistry)
+        output_templates = registry.get(
+            'Products.EasyNewsletter.output_templates')
+        if not output_templates:
+            return result
+        for key, value in output_templates.items():
+            result.add(key, value)
+        if not len(result):
+            result.add(u'output_default', _(
+                u'enl_label_default_output_template',
+                u'Default output template'))
+        return result
+
+    def get_default_output_template(self):
+        registry = getUtility(IRegistry)
+        templates_keys = registry.get(
+            'Products.EasyNewsletter.output_templates').keys()
+        if not templates_keys:
+            return
+        if 'output_default' in templates_keys:
+            default_tmpl_key = 'output_default'
+        else:
+            default_tmpl_key = templates_keys[0]
+        return default_tmpl_key
+
     @security.public
     def initializeArchetype(self, **kwargs):
         """Overwritten hook.
         """
-        ATTopic.initializeArchetype(self, **kwargs)
 
         def create_template(id="", title=""):
             """ Add template object """
             if getattr(self, id, None):
+                print("already exists: %s" % id)
                 return
             self.manage_addProduct["EasyNewsletter"].addENLTemplate(
                 id=id, title=title)
             self[id].setAggregationTemplate(id)
-            # portal = getSite()
-            # template_obj = portal.restrictedTraverse(
-            #    'email_templates/' + id)
-            # self[id].setBody(template_obj.read())
 
-        # XXX could be configureable in the registry, so that we could register
-        # new templates TTW
         registry = getUtility(IRegistry)
         aggregation_templates = registry.get(
             'Products.EasyNewsletter.content_aggregation_templates')
+        if not aggregation_templates:
+            return
         for key, value in aggregation_templates.items():
-            create_template(id=str(key), title=value)
+            tmpl_id = str(key)
+            create_template(id=tmpl_id, title=value)
 
     # XXX factore this out for DX reimplementation
     @security.public
@@ -705,11 +745,6 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
             path='/'.join(enl.getPhysicalPath())
         )
         return issues
-
-    def get_out_template_pt(self):
-        portal = getSite()
-        template_obj = portal.restrictedTraverse('email_templates/output')
-        return template_obj.read()
 
 
 atapi.registerType(EasyNewsletter, config.PROJECTNAME)

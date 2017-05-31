@@ -47,4 +47,9 @@
       for=".interfaces.IENLIssue"
   />
 
+  <subscriber
+     for="Products.EasyNewsletter.interfaces.IEasyNewsletter
+          zope.lifecycleevent.interfaces.IObjectAddedEvent"
+     handler=".handlers.add_default_enl_templates" />
+
 </configure>

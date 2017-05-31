@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
-from Acquisition import aq_inner, aq_parent
 from AccessControl import ClassSecurityInfo
+from Acquisition import aq_inner, aq_parent
+from plone.registry.interfaces import IRegistry
 from Products.Archetypes import atapi
 from Products.CMFCore.utils import getToolByName
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
 from Products.EasyNewsletter import config
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
 from Products.EasyNewsletter.interfaces import IENLTemplate
 from Products.TemplateFields import ZPTField
-from zope.interface import implementer
 from zope.component import getUtility
-from plone.registry.interfaces import IRegistry
+from zope.interface import implementer
+from zope.site.hooks import getSite
 
 
 schema = atapi.BaseSchema + atapi.Schema((
@@ -69,14 +70,14 @@ class ENLTemplate(atapi.BaseContent):
     schema = schema
     _at_rename_after_creation = True
 
-    # def initializeArchetype(self, **kwargs):  # noqa
-    #     """overwritten hook
-    #     """
-    #     atapi.BaseContent.initializeArchetype(self, **kwargs)
-    #     portal = getSite()
-    #     template_obj = portal.restrictedTraverse(
-    #         'email_templates/aggregation_news_events_listing')
-    #     self.setBody(template_obj.read())
+    def initializeArchetype(self, **kwargs):  # noqa
+        """overwritten hook
+        """
+        atapi.BaseContent.initializeArchetype(self, **kwargs)
+        portal = getSite()
+        template_obj = portal.restrictedTraverse(
+            self.get_default_aggregation_template())
+        self.setBody(template_obj.read())
 
     def get_aggregation_templates(self):
         """ Return registered aggregation templates as DisplayList """

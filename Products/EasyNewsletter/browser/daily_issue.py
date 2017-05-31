@@ -13,15 +13,17 @@ class DailyIssueView(BrowserView):
     def has_content(self):
         results = []
         portal = getSite()
-        enl_template = self.context.restrictedTraverse(
-            self.context.getTemplate())
+        enl_template_id = self.context.getTemplate()
+        if enl_template_id not in self.context.objectIds():
+            return
+        enl_template = self.context.getattr(enl_template_id, None)
+
         # here we create a write on read, but we do not need to persist it:
         sp = transaction.savepoint()
         enl_template.setIssue(self.context.UID())
         template_id = enl_template.getAggregationTemplate()
         if template_id != 'custom':
-            template_obj = portal.restrictedTraverse(
-                'email_templates/' + template_id)
+            template_obj = portal.restrictedTraverse(template_id)
             # XXX we copy over the template here every time we load the content
             # which is not perfect but ok for now.
             # This will be refactored when we drop Plone 4 support and use

@@ -18,7 +18,7 @@ Features
 
 - Support manual written Newsletters/Mailings
 
-- Plonish (can use Plone's Collections to collect content)
+- Flexible (can use Plone's Collections to collect content)
 
 - Variable templates to generate newsletter content
 
@@ -28,7 +28,7 @@ Features
 
 - support for external delivery services (other than Plone MailHost)
 
-- TTW customizeable output Template to generate nice HTML Newsletter
+- TTW customizeable output Templates to generate nice HTML Newsletter
 
 - Support personalized mails
 
@@ -72,24 +72,13 @@ General
 You can use EasyNewsletter to manually create mailings/newsletters
 or you can use the collection criteria to collect content.
 
-EasyNewsletter is heavily based on Plone's Collections. In fact, the
-Newsletter as well as the Issues are actually specialized Collections.
+EasyNewsletter can use multible Collections to aggregate content for a newsletter issue.
 
-Hence you can use familiar criteria to decide which content should be part of
-a newsletter.
-
-It's a feature of Collections that subtopics are able to inherit criteria
-from its parent, so all Issue instances are able to inherit criteria from the
-outer Newsletter instance.
-
-Plone's default feature of subtopics is used to create sections within the
-newsletter issue. For example one can create two sections - news and events - by
-creating subtopics which collect just this kind of content objects.
-
-Once the content is generated one can edit the text as usual in Plone.
+Once the content is generated one can edit the text as usual in Plone. But it's not recommented,
+because TinyMCE is not very helpful with email markup.
 
 You can create your own templates to structure the selected content. Please refer
-to the provided "default" template to see how it works.
+to the provided templates to see how it works.
 
 Step by step
 ------------
@@ -98,19 +87,16 @@ Step by step
 
 2. If you want to write a simple manual mailing, you can add an Issue and fill it out with your text.
 
-3. Or if you want to use collections to collect you content first, then you can add an Issue,
-   go to Criteria tab and add the criteria, which shall be applied to *all* of
-   your Newsletters, e.g. "Items Type".
+3. Or if you want to use collections to aggregate your content first, select some existing Collection in ``Content aggregation sources`` on the Newsletter and finally add an Issue.
 
-4. You can create more than one subcollection to build categories like news, events and pictures in your newsletter.
-   Just add some collections to the newsletter itself and define your criteria for all of them.
-   The issues will combine them into different part in your content area.
+4. You can select more than one Collection to build categories like news, events and pictures in your newsletter.
+   Empty Collections will be ignored in default aggregations templates.
 
-5. Go to the view tab and call ``Aggregate body content`` from the action menu.
+5. Go to the view tab and call ``Aggregate body content`` from the action or Newsletter menu (>= Plone 5) menu.
 
-6. You can also add subcollections and define criteria on Issue level.
+6. You can also select `Content aggregation sources`` on Issue level. Then only the issue Collections are used.
 
-7. Go to Send tab and push ``Test Newsletter``.
+7. Go to Send tab or Send action in Newsletter menu (>=Plone 5) and push ``Test Newsletter``.
 
 8. If your Newsletter/Mailing is finished, you can activate the send button by clicking on ``Enable send button``.
    Then you can click on ``Send newsletter`` to send the Newsletter to all subscribers or selected groups and users.
@@ -335,10 +321,72 @@ Inside the ``Edit`` view of the instance under the ``External`` tab you should f
 Allowed placeholders
 ====================
 
-The following placeholder can be used in the header, body and footer of Issues:
+The following placeholder can be used in the header, body and footer or the aggregation and output templates:
 
-* ``[[SUBSCRIBER_SALUTATION]]``
-* ``[[UNSUBSCRIBE]]``
+* ``{{SUBSCRIBER_SALUTATION}}`` example: Dear Ms.
+* ``{{salutation}}`` example: Ms.
+* ``{{unsubscribe}}`` unsubscribe link to be included in emails
+* ``{{receiver}}``  example: ``{'salutation': 'Guten Tag', 'nl_language': 'de', 'fullname': 'Test Member', 'email': 'maik@planetcrazy.de'}``
+* ``{{language}}``  example: de
+* ``{{fullname}}``
+* ``{{issue_title}}``
+* ``{{issue_description}}``
+* ``{{banner_src}}``  Banner src url
+* ``{{logo_src}}``  Logo src url
+* ``{{date}}``  example: 30.05.2017
+* ``{{month}}``  example: 5
+* ``{{year}}``  example: 2017
+
+
+Aggregation templates
+=====================
+
+We provide some content aggregation templates, but you can add more. A aggregation template has to be global available template.
+The default templates are in the skins folder. They have to be registered in the Plone registry, see below for an example how to do that with GenericSetup.
+
+You can add your aggregation templates TTW in /portal_skins/custom/manage_main and add them to the registry in /portal_registry.
+Search there for EasyNewsletter, you will find ``Products EasyNewsletter content_aggregation_templates`` where you can add your templates.
+
+To do it with your addon product, add this to your registry.xml in your profiles.
+
+.. code-block :: xml
+
+    <record name="Products.EasyNewsletter.content_aggregation_templates">
+        <field type="plone.registry.field.Dict">
+            <title>ENL Content aggregation templates</title>
+            <key_type type="plone.registry.field.TextLine" />
+            <value_type type="plone.registry.field.TextLine" />
+        </field>
+        <value purge="false">
+            <element key="aggregation_fancy_pictures">Fancy pictures listing</element>
+        </value>
+    </record>
+
+
+Output templates
+================
+
+We provide some output templates, but you can add more. A output template has to be global available template.
+The default templates are in the skins folder. They have to be registered in the Plone registry, see below for an example how to do that with GenericSetup.
+
+You can add your output templates TTW in /portal_skins/custom/manage_main and add them to the registry in /portal_registry.
+Search there for EasyNewsletter, you will find ``Products EasyNewsletter output_templates`` where you can add your templates.
+
+To do it with your addon product, add this to your registry.xml in your profiles.
+
+.. code-block :: xml
+
+    <record name="Products.EasyNewsletter.output_templates">
+        <field type="plone.registry.field.Dict">
+            <title>ENL Output templates</title>
+            <key_type type="plone.registry.field.TextLine" />
+            <value_type type="plone.registry.field.TextLine" />
+        </field>
+        <value purge="false">
+            <element key="output_green_energy">Green energy output template</element>
+        </value>
+    </record>
+
 
 
 Documentation
@@ -350,17 +398,13 @@ For more documentation please visit: http://packages.python.org/Products.EasyNew
 Source Code
 ===========
 
-In dec 2011 the source code repository was moved from svn-collective to github.
-
-* Old repository: https://svn.plone.org/svn/collective/Products.EasyNewsletter/
-* New repository: https://github.com/collective/Products.EasyNewsletter
+* repository: https://github.com/collective/Products.EasyNewsletter
 
 
 Bugtracker
 ==========
 
-* Old: http://plone.org/products/easynewsletter/issues
-* New: https://github.com/collective/Products.EasyNewsletter/issues
+* https://github.com/collective/Products.EasyNewsletter/issues
 
 
 Authors
