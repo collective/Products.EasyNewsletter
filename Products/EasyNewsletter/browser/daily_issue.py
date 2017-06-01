@@ -3,6 +3,10 @@ from Products.Five.browser import BrowserView
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
 import datetime
+import logging
+
+
+log = logging.getLogger("Products.EasyNewsletter: daily-issue")
 
 
 class DailyIssueView(BrowserView):
@@ -61,12 +65,15 @@ class DailyIssueView(BrowserView):
                     # Accepted. Sending mails
                     self.send()
                     self.request.response.setStatus(200)
+                    log.info("Daily issue sended.")
                 except BadRequest:
                     # Can't send it twice
                     self.request.response.setStatus(409, 'Already Sent Today')
+                    log.info("Daily issue already send today, skip!")
             else:
                 # Empty issue
                 self.request.response.setStatus(204, 'Nothing to Send')
+                log.info("No data found for daily issue today, skip!")
 
         elif self.request["REQUEST_METHOD"] == "GET":
             if self.already_sent():
@@ -78,3 +85,15 @@ class DailyIssueView(BrowserView):
         else:
             self.request.response.setStatus(405)
             self.request.response.setHeader("Allow", "GET, POST")
+
+
+class TriggerDailyIssueView(BrowserView):
+    """
+    """
+
+    def __call__(self):
+        self.request['REQUEST_METHOD'] = 'POST'
+        view = getMultiAdapter(
+            (self.context, self.request),
+            name="daily-issue")
+        return view()

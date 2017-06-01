@@ -96,6 +96,12 @@
     class=".daily_issue.DailyIssueView"
     permission="cmf.ModifyPortalContent" />
 
+ <browser:page
+    name="trigger-daily-issue"
+    for="..interfaces.IEasyNewsletter"
+    class=".daily_issue.TriggerDailyIssueView"
+    permission="cmf.ModifyPortalContent" />
+
   <browser:page
     name="unsubscribe_form"
     for="..interfaces.IEasyNewsletter"
