@@ -38,3 +38,5 @@ docs/Makefile
 /package.json
 /Products/EasyNewsletter/browser/static/font/fontello-2f32f5bf
 /temp_resources
+/.coverage
+/htmlcov
