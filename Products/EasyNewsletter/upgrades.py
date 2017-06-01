@@ -3,7 +3,6 @@ from logging import getLogger
 from nameparser import HumanName
 from plone import api
 from plone.app.upgrade.utils import loadMigrationProfile
-from Products.Archetypes.interfaces import IReferenceable
 from Products.CMFCore.utils import getToolByName
 
 
@@ -71,12 +70,10 @@ def apply_referenceable_behavior(context):
     # See plone.app.referenceablebehavior.uidcatalog.
     uid_catalog = getToolByName(context, 'uid_catalog')
     portal_catalog = getToolByName(context, 'portal_catalog')
-    brains = portal_catalog(
-        meta_type=['Dexterity Item', 'Dexterity Container'])
+    brains = portal_catalog(portal_type=['Collection'])
     for brain in brains:
         obj = brain.getObject()
-        if IReferenceable.providedBy(obj):
-            path = '/'.join(obj.getPhysicalPath())
-            logger.info("""Applying referenceable behavior for
-                        object at path %s""", path)
-            uid_catalog.catalog_object(obj, path)
+        path = '/'.join(obj.getPhysicalPath())
+        logger.info("""Applying referenceable behavior for
+                    object at path %s""", path)
+        uid_catalog.catalog_object(obj, path)
