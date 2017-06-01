@@ -22,23 +22,23 @@ class EasyNewsletter(PloneSandboxLayer):
     defaultBases = (PLONE_FIXTURE, )
 
     def setUpZope(self, app, configurationContext):
+        if HAS_PACT:
+            z2.installProduct(app, 'plone.app.contenttypes')
         # Load ZCML
         import Products.EasyNewsletter
         xmlconfig.file('configure.zcml',
                        Products.EasyNewsletter,
                        context=configurationContext)
-        if HAS_PACT:
-            z2.installProduct(app, 'plone.app.contenttypes')
 
         # Install product and call its initialize() function
         z2.installProduct(app, 'Products.EasyNewsletter')
 
     def setUpPloneSite(self, portal):
+        if HAS_PACT:
+            applyProfile(portal, 'plone.app.contenttypes:default')
         # Install into Plone site using portal_setup
         applyProfile(portal, 'Products.EasyNewsletter:default')
         applyProfile(portal, 'Products.EasyNewsletter:install-base')
-        if HAS_PACT:
-            applyProfile(portal, 'plone.app.contenttypes:default')
 
     def tearDownZope(self, app):
         # Uninstall product

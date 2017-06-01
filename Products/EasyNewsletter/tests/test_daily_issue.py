@@ -9,13 +9,13 @@ from Products.CMFPlone.tests.utils import MockMailHost
 from Products.EasyNewsletter.interfaces import IENLIssue
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_FUNCTIONAL_TESTING
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
-from Products.EasyNewsletter.config import IS_PLONE_5
+# from Products.EasyNewsletter.config import IS_PLONE_5
 from Products.MailHost.interfaces import IMailHost
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
-from zope.component import getUtility
-from plone.dexterity.interfaces import IDexterityFTI
+# from zope.component import getUtility
+# from plone.dexterity.interfaces import IDexterityFTI
 import unittest
 
 
@@ -38,14 +38,14 @@ class DailyIssueBaseTestCase(unittest.TestCase):
         self.newsletter = self.folder["daily-news"]
         self.newsletter.setTitle("Daily News")
 
-        if IS_PLONE_5:
-            # make sure that Collections have the referenceable behavior:
-            fti = getUtility(IDexterityFTI, name='Collection')
-            referenceable = u'plone.app.referenceablebehavior.referenceable.IReferenceable'  # noqa
-            behaviors = list(fti.behaviors)
-            if referenceable not in behaviors:
-                behaviors.append(referenceable)
-                fti.behaviors = tuple(behaviors)
+        # if IS_PLONE_5:
+        #     # make sure that Collections have the referenceable behavior:
+        #     fti = getUtility(IDexterityFTI, name='Collection')
+        #     referenceable = u'plone.app.referenceablebehavior.referenceable.IReferenceable'  # noqa
+        #     behaviors = list(fti.behaviors)
+        #     if referenceable not in behaviors:
+        #         behaviors.append(referenceable)
+        #         fti.behaviors = tuple(behaviors)
 
         news_collection = api.content.create(
             type="Collection",
