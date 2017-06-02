@@ -14,6 +14,12 @@
     type="plone"
     />
 
+  <plone:static
+    name="easynewsletter_scripts"
+    directory="javascripts"
+    type="plone"
+    />
+
   <!-- toolbar menu -->
   <browser:menu
     zcml:condition="have plone-5"
@@ -184,6 +190,10 @@
   <browser:resource
     name="Products.EasyNewsletter.enl_edithelper.js"
       file="javascripts/enl_edithelper.js" />
+
+  <browser:resource
+    name="Products.EasyNewsletter.iframeResizer.js"
+      file="javascripts/iframeResizer.js" />
 
   <browser:page
     name="load_enl_edithelper"
