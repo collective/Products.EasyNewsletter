@@ -1,17 +1,27 @@
 # -*- coding: utf-8 -*-
 from plone import api
 from plone.protect import PostOnly
+from plone.protect.interfaces import IDisableCSRFProtection
+from Products.CMFPlone.resources import add_resource_on_request
+from Products.CMFPlone.utils import getFSVersionTuple
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.Five.browser import BrowserView
-from plone.protect.interfaces import IDisableCSRFProtection
 from zope.interface import alsoProvides
 import transaction
+
+PLONE5 = getFSVersionTuple()[0] >= 5
 
 
 class IssueView(BrowserView):
     """Single Issue View
     """
+
+    if PLONE5:
+        def __call__(self):
+            add_resource_on_request(self.request, 'iFrameResizer.contentWindow')
+            add_resource_on_request(self.request, 'iframeResizer')
+            return super(IssueView, self).__call__()
 
     @property
     def here_url(self):

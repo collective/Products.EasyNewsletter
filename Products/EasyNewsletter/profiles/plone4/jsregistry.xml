@@ -7,4 +7,10 @@
     enabled="1"
     expression="context/@@load_enl_edithelper" />
 
+  <javascript id="++plone++easynewsletter_scripts/iframeResizer.js"
+    compression="safe"
+    cookable="True"
+    inline="False"
+    enabled="1"/>
+
 </object>
