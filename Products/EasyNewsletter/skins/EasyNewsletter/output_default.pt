@@ -115,11 +115,11 @@
             <tr>
               <td valign="top" class="preheaderContent">
 
-                <table border="0" cellpadding="10" cellspacing="0" width="100%">
+                <table border="0" cellpadding="20" cellspacing="0" width="100%">
                   <tr>
-                    <td valign="top" width="600">
-                      <div >
-                        <span i18n:translate="">Is this email not displaying correctly?</span> &nbsp; <a tal:attributes="href context/absolute_url" target="_blank" i18n:translate="">View it in your browser</a>.
+                    <td valign="top" width="600" align="center">
+                      <div class="mailonly">
+                        <a tal:attributes="href string:${context/absolute_url}/preview" target="_blank" i18n:translate="">Click here</a>&nbsp;<span i18n:translate="">to view in browser.</span>
                       </div>
                     </td>
                   </tr>
