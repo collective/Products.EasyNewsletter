@@ -2,25 +2,25 @@
 from plone import api
 from plone.protect import PostOnly
 from plone.protect.interfaces import IDisableCSRFProtection
-from Products.CMFPlone.resources import add_resource_on_request
-from Products.CMFPlone.utils import getFSVersionTuple
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
+from Products.EasyNewsletter.config import IS_PLONE_5
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.Five.browser import BrowserView
 from zope.interface import alsoProvides
 import transaction
 
-PLONE5 = getFSVersionTuple()[0] >= 5
+if IS_PLONE_5:
+    from Products.CMFPlone.resources import add_resource_on_request
 
 
 class IssueView(BrowserView):
     """Single Issue View
     """
 
-    if PLONE5:
-        def __call__(self):
+    def __call__(self):
+        if IS_PLONE_5:
             add_resource_on_request(self.request, 'iframeResizer')
-            return super(IssueView, self).__call__()
+        return super(IssueView, self).__call__()
 
     @property
     def here_url(self):
