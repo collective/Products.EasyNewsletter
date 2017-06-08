@@ -34,6 +34,7 @@
                     marginwidth="0"
                     marginheight="0"
                     width="100%"
+                    scrolling="no"
                     frameborder="0"
                     tal:attributes="src string:${context/absolute_url}/preview;
                                     title context/Title;">
