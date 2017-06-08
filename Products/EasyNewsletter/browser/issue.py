@@ -19,7 +19,6 @@ class IssueView(BrowserView):
 
     if PLONE5:
         def __call__(self):
-            add_resource_on_request(self.request, 'iFrameResizer.contentWindow')
             add_resource_on_request(self.request, 'iframeResizer')
             return super(IssueView, self).__call__()
 
