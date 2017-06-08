@@ -115,14 +115,14 @@
       <tr>
         <td align="center" valign="top">
 
-          <table border="0" cellpadding="0" cellspacing="0" width="600" id="templatePreheader">
+          <table border="0" cellpadding="0" cellspacing="0" width="600" id="templatePreheader" class="mailonly">
             <tr>
               <td valign="top" class="preheaderContent">
 
                 <table border="0" cellpadding="20" cellspacing="0" width="100%">
                   <tr>
                     <td valign="top" width="600" align="center">
-                      <div class="mailonly">
+                      <div >
                         <a tal:attributes="href string:${context/absolute_url}/preview" target="_blank" i18n:translate="">Click here</a>&nbsp;<span i18n:translate="">to view in browser.</span>
                       </div>
                     </td>
