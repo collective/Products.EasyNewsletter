@@ -86,7 +86,7 @@ class DefaultIssueDataFetcher(object):
         for placeholder in PLACEHOLDERS:
             html = html.replace('[[' + placeholder + ']]', '')
         soup = BeautifulSoup(html)
-        for node in soup.findAll('div', {'class': 'mailonly'}):
+        for node in soup.findAll(True, {'class': 'mailonly'}):
             node.extract()
         return soup.renderContents()
 
