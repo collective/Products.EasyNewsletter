@@ -5,6 +5,9 @@ Changelog
 3.0b2 (unreleased)
 ------------------
 
+- CSV import checks for duplicates based on email and updates existing subscribers.
+  [agitator]
+
 - Show newsletter issue preview in iframe
   [agitator]
 
