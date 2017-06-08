@@ -128,6 +128,7 @@
                         <th i18n:translate="">Language</th>
                         <th i18n:translate="">Email</th>
                         <th i18n:translate="">Organization</th>
+                        <th i18n:translate="">Action</th>
                     </tr>
                 </thead>
                 <tbody tal:repeat="item success">
@@ -139,6 +140,7 @@
                         <td tal:content="item/nl_language | nothing" />
                         <td tal:content="item/email | nothing" />
                         <td tal:content="item/organization | nothing" />
+                        <td tal:content="item/success" />
                     </tr>
                 </tbody>
             </table>

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from Acquisition import aq_inner
 from logging import getLogger
+from plone import api
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from plone.protect.utils import addTokenToUrl
 from Products.CMFCore.utils import getToolByName
@@ -236,7 +237,12 @@ class UploadCSV(BrowserView):
         lang = context.Language()
         # plone_utils = getToolByName(self.context, 'plone_utils')
         # encoding = plone_utils.getSiteEncoding()
-        existing = self.context.objectIds()
+        existing = []
+        subscribers = api.content.find(context=self.context,
+                                       portal_type='ENLSubscriber')
+        for subscriber in subscribers:
+            existing.append(subscriber.email.lower())
+
         # messages = IStatusMessage(self.request)
         success = []
         fail = []
@@ -275,21 +281,51 @@ class UploadCSV(BrowserView):
                 firstname = subscriber[2]
                 lastname = subscriber[3]
                 nl_language = subscriber[4]
-                email = subscriber[5]
+                email = subscriber[5].lower()
                 organization = subscriber[6]
                 id = normalize_id(email)
-                if id in existing:
-                    msg = _('This email address is already registered.')
-                    fail.append(
-                        {'salutation': salutation,
-                         'name_prefix': name_prefix,
-                         'firstname': firstname,
-                         'lastname': lastname,
-                         'nl_language': nl_language,
-                         'email': email,
-                         'organization': organization,
-                         'failure': msg})
+                if email in existing:
+                    # If subscriber with email exists, update user info
+                    sub = api.content.find(context=self.context,
+                                           email=email)
+                    if len(sub) > 1:
+                        msg = _('More than one subscriber with this email '
+                                'address existed, subscriber info was NOT '
+                                'updated. Check manually!')
+                        fail.append(
+                            {'salutation': salutation,
+                             'name_prefix': name_prefix,
+                             'firstname': firstname,
+                             'lastname': lastname,
+                             'nl_language': nl_language,
+                             'email': email,
+                             'organization': organization,
+                             'failure': msg})
+                    else:
+                        sub = sub[0].getObject()
+                        sub.email = email
+                        sub.name_prefix = name_prefix
+                        sub.firstname = firstname
+                        sub.lastname = lastname
+                        sub.nl_language = nl_language
+                        sub.organization = organization
+                        sub.salutation = salutation
+                        sub.title = email + " - " + ' '.join([lastname,
+                                                             firstname])
+                        sub.reindexObject()
+                        msg = _('Email existed, updated subscriber.')
+                        success.append(
+                            {'salutation': salutation,
+                             'name_prefix': name_prefix,
+                             'firstname': firstname,
+                             'lastname': lastname,
+                             'nl_language': nl_language,
+                             'email': email,
+                             'organization': organization,
+                             'success': msg})
+
                 else:
+                    # If it doesn't exist, create subscriber
                     title = email + " - " + ' '.join([lastname,
                                                       firstname])
                     try:
@@ -307,10 +343,10 @@ class UploadCSV(BrowserView):
                         sub.nl_language = nl_language
                         sub.organization = organization
                         sub.salutation = salutation
-                        obj = self.context.get(id, None)
-                        obj.reindexObject()
+                        sub.reindexObject()
                         # update existing
-                        existing.append(id)
+                        existing.append(email)
+                        msg = _('Subscriber created.')
                         success.append({
                             'salutation': salutation,
                             'name_prefix': name_prefix,
@@ -318,8 +354,9 @@ class UploadCSV(BrowserView):
                             'lastname': lastname,
                             'nl_language': nl_language,
                             'email': email,
-                            'organization': organization
-                        })
+                            'organization': organization,
+                            'success': msg})
+
                     except Exception, e:
                         fail.append({
                             'salutation': salutation,
