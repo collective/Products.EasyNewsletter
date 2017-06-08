@@ -2,6 +2,7 @@
 from Acquisition import aq_inner
 from logging import getLogger
 from plone.i18n.normalizer.interfaces import IIDNormalizer
+from plone.protect.utils import addTokenToUrl
 from Products.CMFCore.utils import getToolByName
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.config import SALUTATION
@@ -212,6 +213,9 @@ class Enl_Subscribers_View(BrowserView):
         msg = _(u"subscriber/s deleted successfully")
         msg_manager.addStatusMessage(msg, type="info")
         return True
+
+    def addTokenToUrl(self, url):
+        return addTokenToUrl(url)
 
 
 class UploadCSV(BrowserView):
