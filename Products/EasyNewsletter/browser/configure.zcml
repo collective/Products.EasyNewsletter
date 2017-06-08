@@ -189,11 +189,7 @@
 
   <browser:resource
     name="Products.EasyNewsletter.enl_edithelper.js"
-      file="javascripts/enl_edithelper.js" />
-
-  <browser:resource
-    name="Products.EasyNewsletter.iframeResizer.js"
-      file="javascripts/iframeResizer.js" />
+    file="javascripts/enl_edithelper.js" />
 
   <browser:page
     name="load_enl_edithelper"
