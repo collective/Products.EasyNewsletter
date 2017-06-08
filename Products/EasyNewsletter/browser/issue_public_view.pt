@@ -20,16 +20,33 @@
 
             <div tal:replace="structure provider:plone.abovecontentbody" />
 
-            <a tal:attributes="href string:${view/here_url}/preview"
-                tal:condition="is_editable"
-                target="_blank"
-                class="btn btn-info"
-                role="button">preview email content in new window</a>
+            <p>
+                <a tal:attributes="href string:${view/here_url}/preview"
+                    tal:condition="is_editable"
+                    target="_blank"
+                    class="btn btn-info"
+                    role="button">Preview email content in new window</a>
+            </p>
 
-            <div id="newsletter-content"
-                tal:content="structure view/get_public_body"
-                />
+            <iframe src="preview_url"
+                    name="enl_issue_preview"
+                    id="enl-issue-preview"
+                    marginwidth="0"
+                    marginheight="0"
+                    width="100%"
+                    scrolling="no"
+                    frameborder="0"
+                    tal:attributes="src string:${context/absolute_url}/preview;
+                                    title context/Title;">
+                <a href="#" target="_blank"
+                   tal:attributes="href string:${view/here_url}/preview"
+                   tal:content="string:${view/here_url}/preview">preview url</a>
+            </iframe>
 
+
+            <script type="text/javascript">
+                iFrameResize({log:true});
+            </script>
 
 
             <div tal:replace="structure provider:plone.belowcontentbody" />

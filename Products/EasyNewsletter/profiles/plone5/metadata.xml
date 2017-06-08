@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <metadata>
   <!-- PLONE 5 -->
-  <version>3013</version>
+  <version>3014</version>
   <dependencies>
     <dependency>profile-Products.Archetypes:Archetypes</dependency>
     <dependency>profile-Products.ATContentTypes:base</dependency>

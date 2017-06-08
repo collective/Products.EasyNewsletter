@@ -5,16 +5,27 @@ Changelog
 3.0b2 (unreleased)
 ------------------
 
+- CSV import checks for duplicates based on email and updates existing subscribers.
+  [agitator]
+
+- Show newsletter issue preview in iframe
+  [agitator]
+
 - Refactured output and aggregation template rendering
   [MrTango]
+
 - no write on read for issue public view anymore
   [MrTango]
+
 - fixed permissions of issue in sent state
   [MrTango]
+
 - refacture daily_issue view to work with new aggregation templates
   [MrTango]
+
 - improved newsletter menu handling
   [agitator]
+
 - Update documentation
   [MrTango]
 
