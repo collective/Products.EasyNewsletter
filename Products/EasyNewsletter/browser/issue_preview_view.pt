@@ -3,11 +3,18 @@
       i18n:domain="EasyNewsletter">
 <body>
 
-    <div id="newsletter-content"
-        tal:content="structure view/get_public_body"
-        />
+    <div tal:content="structure view/get_public_body" />
 
     <script type="text/javascript" src="++plone++easynewsletter_scripts/iframeResizer.contentWindow.min.js" data-bundle="none"></script>
+
+    <script type="text/javascript">
+    //<![CDATA[
+        var links = document.getElementsByTagName('a')
+        for (var i = links.length - 1; i >= 0; i--) {
+            links[i].setAttribute('target', '_top');
+        }
+    //]]>
+    </script>
 
 </body>
 </html>

@@ -73,7 +73,7 @@
                                 class="flexibleContainer leadImage">
                                   <tr>
                                       <td align="Left" valign="top" class="imageContent">
-    																		<a tal:attributes="href obj_url">
+    																		<a tal:attributes="href obj_url" target="_top">
     																			<img class="flexibleImage" width="200" style="max-width:200px;"
     																				tal:attributes="src string:${obj_url}/@@images/image/mini" />
     																		</a>
@@ -89,8 +89,9 @@
                                 <tr>
                                   <td valign="top" class="textContent">
                                     <h3>
-                                      <a tal:attributes="href obj_url"
+                                      <a tal:attributes="href obj_url" target="_top"
                                       tal:content=" brain/Title"
+                                      target="_top"
                                       style="text-decoration: none; color: #404040;">
                                       Title
                                     </a>
@@ -100,7 +101,8 @@
                                     Description
                                   </span><br tal:condition="brain/Description" />
                                   <a i18n:translate="read_more"
-                                  tal:attributes="href obj_url">Read More&hellip;</a>
+                                   tal:attributes="href obj_url"
+                                   target="_top">Read More&hellip;</a>
                                 </td>
                               </tr>
                             </table>
@@ -146,7 +148,8 @@
                                 class="flexibleContainer leadImage">
                                   <tr>
                                       <td align="Left" valign="top" class="imageContent">
-                                        <a tal:attributes="href obj_url">
+                                        <a tal:attributes="href obj_url"
+                                           target="_top">
                                           <img class="flexibleImage" width="200" style="max-width:200px;"
                                             tal:attributes="src string:${obj_url}/@@images/image/mini" />
                                         </a>
@@ -163,7 +166,8 @@
                                   <td valign="top" class="textContent">
                                     <h3>
                                       <a tal:attributes="href obj_url"
-                                      tal:content=" brain/Title"
+                                        tal:content=" brain/Title"
+                                        target="_top"
                                       style="text-decoration: none; color: #404040;">
                                       Title
                                     </a>
@@ -174,7 +178,8 @@
                                   </span><br tal:condition="brain/Description" />
                                   <span tal:replace="structure item_obj/@@event_summary"></span>
                                   <a i18n:translate="read_more"
-                                  tal:attributes="href obj_url">Read More&hellip;</a>
+                                    tal:attributes="href obj_url"
+                                    target="_top">Read More&hellip;</a>
                                 </td>
                               </tr>
                             </table>
@@ -218,7 +223,7 @@
                                 width="100%">
                                   <tr>
                                       <td valign="top" class="imageContent">
-                                        <a tal:attributes="href obj_url">
+                                        <a tal:attributes="href obj_url" target="_top">
                                           <img class="flexibleImage" width="520" style="max-width:520px;"
                                             tal:attributes="src string:${obj_url}/@@images/image/large" />
                                         </a>

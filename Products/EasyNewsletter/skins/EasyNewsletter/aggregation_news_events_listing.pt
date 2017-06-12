@@ -24,7 +24,9 @@
                               <ul id="enl_headlines">
                               <tal:blockHeadline tal:repeat="source asources">
                                 <li tal:condition="source/brains_count">
-                                  <a tal:content="source/title" tal:attributes="href string:#source_${source/uid}"></a>
+                                  <a tal:content="source/title"
+                                     tal:attributes="href string:#source_${source/uid}"
+                                     target="_top"></a>
                                 </li>
                               </tal:blockHeadline>
                               </ul>
@@ -167,6 +169,7 @@
                                         <h3>
                                           <a tal:attributes="href link_url"
                                           tal:content=" brain/Title"
+                                          target="_top"
                                           style="text-decoration: none;">
                                           Title
                                         </a>
@@ -176,7 +179,8 @@
                                         Description
                                       </span><br tal:condition="brain/Description" />
                                       <a i18n:translate="read_more"
-                                      tal:attributes="href link_url">Read More&hellip;</a>
+                                        tal:attributes="href link_url"
+                                        target="_top">Read More&hellip;</a>
                                     </td>
                                   </tr>
                                 </table>
