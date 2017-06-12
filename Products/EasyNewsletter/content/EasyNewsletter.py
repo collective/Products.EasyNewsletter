@@ -220,7 +220,7 @@ schema = atapi.Schema((
         schemata='personalization',
         allowable_content_types=(
             'text/html', 'text/x-plone-outputfilters-html'),
-        default="{{UNSUBSCRIBE}}",
+        default="<h1>Community Newsletter for Plone</h1>\n{{UNSUBSCRIBE}}",
         default_output_type='text/html',
         widget=RichTextWidget(
             rows=10,

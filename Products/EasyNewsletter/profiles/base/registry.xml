@@ -18,8 +18,8 @@
           <value_type type="plone.registry.field.TextLine" />
       </field>
       <value>
-          <element key="aggregation_news_events_listing">News Events Listing</element>
-          <element key="aggregation_news_events_rich">News Events Rich Listing</element>
+          <element key="aggregation_news_events_listing">Default Listing with lead images</element>
+          <element key="aggregation_news_events_rich">News, Events, Images Listing</element>
       </value>
   </record>
 
@@ -31,7 +31,7 @@
       </field>
       <value>
           <element key="output_default">Default output template</element>
-          <element key="output_blacksee">Blacksee output template</element>
+          <element key="output_blacksea">Blacksea output template</element>
       </value>
   </record>
 

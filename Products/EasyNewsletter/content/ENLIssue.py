@@ -328,6 +328,15 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         enl = self.getNewsletter()
         return enl.getOutputTemplate()
 
+    def has_image(self):
+        has_image = bool(self.get_image_src())
+        return has_image
+
+    def has_logo(self):
+        enl = self.getNewsletter()
+        has_logo = getattr(enl.aq_explicit, 'logo', None)
+        return has_logo
+
     def get_image_src(self):
         img_src = ""
         if self.getHideImage():

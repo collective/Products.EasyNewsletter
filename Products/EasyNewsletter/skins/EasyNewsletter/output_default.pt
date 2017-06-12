@@ -48,6 +48,10 @@
       .emailCalendarMonth{background-color:#2C9AB7; color:#FFFFFF; font-family:Helvetica, Arial, sans-serif; font-size:16px; font-weight:bold; padding-top:10px; padding-bottom:10px; text-align:center;}
       .emailCalendarDay{color:#2C9AB7; font-family:Helvetica, Arial, sans-serif; font-size:60px; font-weight:bold; line-height:100%; padding-top:20px; padding-bottom:20px; text-align:center;}
       #enl_headline{list-style-type: none; padding-left: 0;}
+      .headlineBackground{background-color: #004994;color:#FFFFFF;}
+      #enl_headlines{list-style-type: none; padding-left: 0;}
+      #enl_headlines a{color:#FFFFFF;}
+      .footerContentStatic{color:#FFFFFF;}
 
       /*////// MOBILE STYLES //////*/
       @media only screen and (max-width: 480px){

@@ -149,4 +149,12 @@
           handler=".upgrades.reinstall_gs_profile"
           profile="Products.EasyNewsletter:default"/>
 
+  <genericsetup:upgradeStep
+          title="Reload profiles to update registry"
+          description=""
+          source="3014"
+          destination="3015"
+          handler=".upgrades.reinstall_gs_profile"
+          profile="Products.EasyNewsletter:default"/>
+
 </configure>
