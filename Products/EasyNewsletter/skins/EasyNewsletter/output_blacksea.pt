@@ -44,6 +44,7 @@
       .emailCalendarMonth{background-color:#2C9AB7; color:#FFFFFF; font-family:Arial, Helvetica, sans-serif; font-size:16px; font-weight:bold; padding-top:10px; padding-bottom:10px; text-align:center;}
       .emailCalendarDay{color:#2C9AB7; font-family:Arial, Helvetica, sans-serif; font-size:60px; font-weight:bold; line-height:100%; padding-top:20px; padding-bottom:20px; text-align:center;}
      .headlineBackground{background-color: #3c586d;color:#FFFFFF;}
+     .enlLogo{padding:1em;}
      #enl_headlines{list-style-type:none; padding-left:0; line-height:1.5em;}
      #enl_headlines a{color:#FFFFFF;font-family:Arial, Helvetica;}
      .footerContentStatic{color:#FFFFFF;}
@@ -147,7 +148,7 @@
                                     has_logo context/has_logo">
                   <tbody>
                     <tr tal:condition="has_logo">
-                      <td class="headerContent">
+                      <td class="headerContent enlLogo">
                         <img class="flexibleImage" width="200" style="max-width:200px;" src="{{logo_src}}" />
                       </td>
                     </tr>
