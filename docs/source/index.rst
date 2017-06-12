@@ -156,6 +156,11 @@ POST                    200 [*]_    204       409
 
 .. [*] It sends the issue first.
 
+Using cron4plone to send it out
+...............................
+
+You can now use cron4plone to call the new trigger ``@@trigger-daily-issue`` which will make a POST request to the ``@@daily-issue``.
+
 
 Filtering Users, Groups and Receivers
 -------------------------------------

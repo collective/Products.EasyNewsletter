@@ -19,12 +19,12 @@ Features
 
 * automatic Plonish newsletters/mailings: Utilize Plone's Collections to collect content)
 
-* send out daily issues automatically,
+* send out daily/weekly/monthly issues automatically,
   based on collections (by cron or clock-server)
 
-* flexible templates to generate newsletter content,
+* flexible templates to generate newsletter content
 
-* TTW customizable output template to generate winning HTML newsletters
+* TTW customizable output template to generate HTML newsletters
 
 * personalized emails
 
