@@ -50,11 +50,10 @@ class ENLHelperView(BrowserView):
             if item.portal_type not in types:
                 continue
             allowed_items.append(item)
-        print(allowed_items)
         return allowed_items
 
     def get_results_from_aggregation_sources(self, context):
-        """
+        """ Returns a list of sources and it's results
         """
         sources = context.getContentSources()
         results = []
@@ -67,6 +66,7 @@ class ENLHelperView(BrowserView):
                 'title': source.Title(),
                 'description': source.Description(),
                 'uid': source.UID(),
+                'portal_type': sresults[0].portal_type,
                 'brains': sresults,
                 'brains_count': len(sresults),
             })

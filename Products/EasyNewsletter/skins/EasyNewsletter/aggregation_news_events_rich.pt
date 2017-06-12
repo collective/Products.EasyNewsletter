@@ -1,12 +1,89 @@
-<tal:block
-	tal:repeat="source context/getContentSources"
-	tal:define="portal here/@@plone_portal_state/portal;
-							enl_helpers here/@@enl_helpers">
-  <tal:block_results define="results source/queryCatalog">
-    <!-- you can use enl_helpers.type_filter(results, ['News Item']) to filter by content_types -->
+<tal:blockmain
+  define="portal here/@@plone_portal_state/portal;
+          enl_helpers here/@@enl_helpers;
+          asources python: enl_helpers.get_results_from_aggregation_sources(context)">
+  <table border="0" cellpadding="0" cellspacing="0">
+    <!-- MODULE ROW // -->
+    <tr>
+      <td align="center" valign="top">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+          <tr>
+            <td align="center" valign="top" class="headlineBackground">
+              <table border="0" cellpadding="0" cellspacing="0" width="600" class="flexibleContainer">
+                <tr>
+                  <td align="center" valign="top" width="600" class="flexibleContainerCell">
+
+                    <!-- CONTENT TABLE // -->
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                      <tr>
+                        <td valign="top" style="color:#FFFFFF;">
+                          {{issue_title}}
+                        </td>
+                        <td valign="top">
+                          <ul id="enl_headlines">
+                          <tal:blockHeadline tal:repeat="source asources">
+                            <li tal:condition="source/brains_count">
+                              <a tal:content="source/title"
+                                 tal:attributes="href string:#source_${source/uid}"
+                                 target="_top"></a>
+                            </li>
+                          </tal:blockHeadline>
+                          </ul>
+                        </td>
+                      </tr>
+                    </table>
+                    <!-- // CONTENT TABLE -->
+
+                  </td>
+                </tr>
+              </table>
+              <!-- // FLEXIBLE CONTAINER -->
+            </td>
+          </tr>
+        </table>
+        <!-- // CENTERING TABLE -->
+
+      </td>
+    </tr>
+    <!-- // MODULE ROW -->
 
     <!-- MODULE ROW // -->
-    <tr tal:condition="python: 1 or enl_helpers.type_filter(results, ['News Item'])">
+    <tr>
+      <td align="center" valign="top">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+          <tr>
+            <td align="center" valign="top">
+              <table border="0" cellpadding="0" cellspacing="0" width="600" class="flexibleContainer">
+                <tr>
+                  <td align="center" valign="top" width="600" class="flexibleContainerCell">
+
+                    <!-- CONTENT TABLE // -->
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                      <tr>
+                        <td valign="top">
+                          {{SUBSCRIBER_SALUTATION}}
+                        </td>
+                      </tr>
+                    </table>
+                    <!-- // CONTENT TABLE -->
+
+                  </td>
+                </tr>
+              </table>
+              <!-- // FLEXIBLE CONTAINER -->
+            </td>
+          </tr>
+        </table>
+        <!-- // CENTERING TABLE -->
+      </td>
+    </tr>
+    <!-- // MODULE ROW -->
+
+  <tal:blocksource
+    repeat="source asources">
+
+    <!-- MODULE ROW // -->
+    <tr>
       <td align="center" valign="top">
         <table border="0" cellpadding="0" cellspacing="0" width="100%">
           <tr>
@@ -19,9 +96,9 @@
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                       <tr>
                         <td valign="top" class="textContent">
-                          <h3 tal:content="source/Title">Title</h3>
+                          <h3 tal:content="source/title">Title</h3>
                           <br />
-                          <span tal:replace="source/Description"></span>
+                          <span tal:replace="source/description"></span>
                         </td>
                       </tr>
                     </table>
@@ -41,7 +118,7 @@
     <!-- // MODULE ROW -->
 
 
-    <tal:blockitems repeat="brain results"
+    <tal:blockitems repeat="brain source/brains"
         i18n:domain="EasyNewsletter">
       <tal:blockitemtype
         define="item_obj brain/getObject">
@@ -262,5 +339,7 @@
 
       </tal:blockitemtype>
     </tal:blockitems>
-  </tal:block_results>
-</tal:block>
+
+    </tal:blocksource>
+      </table>
+</tal:blockmain>
