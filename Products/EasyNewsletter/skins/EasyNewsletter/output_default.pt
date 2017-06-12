@@ -31,7 +31,7 @@
       #bodyCell{padding-top:40px; padding-bottom:40px;}
       #emailBody{background-color:#FFFFFF; border:1px solid #DDDDDD; border-collapse:separate; border-radius:6px;}
       h1, h2, h3, h4, h5, h6{color:#202020; font-family:Arial, Helvetica; font-size:20px; line-height:125%; text-align:Left;}
-      .headlineBackground{background-color:#020202; color:#FFFFFF;}
+      .headlineBackground{background-color:#0083be; color:#FFFFFF;}
       .enlLogo{padding:1em;}
       #enl_headlines{list-style-type:none; padding-left:0; margin-top:0; line-height:1.5em;}
       #enl_headlines a{color:#FFFFFF;font-family:Arial, Helvetica;}
@@ -49,10 +49,10 @@
       .footerContent h1,
       .footerContent h2,
       .footerContent h3{
-        color:#555555;
+        color:#FFFFFF;
       }
       .footerContentDynamic{padding-left: 20px; vertical-align: middle;}
-      .footerContentStatic{color:#555555; background-color:#eeeeee;}
+      .footerContentStatic{color:#555555; background-color:#FFFFFF;}
 
       /*////// MOBILE STYLES //////*/
       @media only screen and (max-width: 480px){
@@ -144,10 +144,9 @@
       <tr>
         <!-- EMAIL CONTAINER // -->
         <td align="center" valign="top" id="bodyCell">
-          <table border="0" cellpadding="0" cellspacing="0" width="600" id="emailBody">
+          <table border="0" cellpadding="0" cellspacing="0" width="598" id="emailBody">
             <tr>
               <td align="center" valign="bottom">
-                <!-- // Begin Template Header \\ -->
                 <table id="templateHeader" width="600" border="0" cellpadding="0" cellspacing="0"
                         tal:define="has_image context/has_image;
                                     has_logo context/has_logo">
@@ -158,13 +157,12 @@
                       </td>
                     </tr>
                     <tr tal:condition="has_image" height="200">
-                      <td class="headerContent" style="height:200px !important;">
+                      <td class="headerContent" style="height:200px !important;width:600;" width="600">
                         <img class="headerImage campaign-icon" width="600" height="200" style="max-width:600px;max-height:200px;" src="{{banner_src}}" />
                       </td>
                     </tr>
                   </tbody>
                 </table>
-                <!-- // End Template Header \\ -->
               </td>
             </tr>
 
@@ -224,12 +222,12 @@
 
                      <table border="0" cellpadding="10" cellspacing="0" width="100%">
                         <tr>
-                          <td valign="middle" bgcolor="#F8F8F8" style="color:#555555;" class="footerContentDynamic">
+                          <td valign="middle" bgcolor="#0083be" style="color:#FFFFFF;" class="footerContentDynamic">
                             <div style="font-size: 90%;" tal:content="structure context/getFooter"></div>
                           </td>
                         </tr>
                         <tr>
-                          <td bgcolor="#eeeeee" class="footerContentStatic">
+                          <td bgcolor="#FFFFFF" class="footerContentStatic">
 
                             <table border="0" cellpadding="10" cellspacing="0" width="100%">
                               <tr>
