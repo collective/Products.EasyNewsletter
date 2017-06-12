@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-3.0b2 (unreleased)
+3.0b2 (2017-06-12)
 ------------------
 
 - CSV import checks for duplicates based on email and updates existing subscribers.
