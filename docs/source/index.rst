@@ -321,7 +321,7 @@ Inside the ``Edit`` view of the instance under the ``External`` tab you should f
 Allowed placeholders
 ====================
 
-The following placeholder can be used in the header, body and footer or the aggregation and output templates:
+The following placeholder can be used in the header, body and footer fields or the aggregation and output templates:
 
 * ``{{SUBSCRIBER_SALUTATION}}`` example: Dear Ms.
 * ``{{salutation}}`` example: Ms.

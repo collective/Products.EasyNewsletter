@@ -1,15 +1,12 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-  lang="en"
-  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-  i18n:domain="EasyNewsletter">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width"/>
   <style type="text/css">
       /*////// RESET STYLES //////*/
       body, #bodyTable, #bodyCell{height:100% !important; margin:0; padding:0; width:100% !important;}
-      table{border-collapse:collapse;}
+      table{border-collapse:collapse;border-spacing:0 !important;}
       img, a img{border:0; outline:none; text-decoration:none;}
       h1, h2, h3, h4, h5, h6{margin:0; padding:0;}
       p{margin: 1em 0;}
@@ -30,28 +27,32 @@
       .nestedContainerCell{padding-top:20px; padding-Right:20px; padding-Left:20px;}
 
       /*////// GENERAL STYLES //////*/
-      body, #bodyTable{background-color:#F5F5F5; font-family:Helvetica, Arial, sans-serif; font-size:13px; color: #555;}
-      #bodyCell{padding-top:10px; padding-bottom:20px;}
-      #emailBody{background-color:#FFFFFF; border:1px solid #DDDDDD; border-collapse:separate; border-radius:4px;}
-      h1, h2, h3, h4, h5, h6{color:#202020; font-family:Helvetica; font-size:20px; line-height:125%; text-align:Left;}
-      .contentHeader {color:#404040; font-family:Helvetica; font-size:16px; line-height:125%; text-align:Left; padding-top: 12px;/* padding-bottom:20px; */}
-      .textContent, .textContentLast{color:#404040; font-family:Helvetica; font-size:16px; line-height:125%; text-align:Left; /* padding-bottom:20px; */}
+      body, #bodyTable{background-color:#F5F5F5;font-family:Arial, Helvetica;}
+      #bodyCell{padding-top:40px; padding-bottom:40px;}
+      #emailBody{background-color:#FFFFFF; border:1px solid #DDDDDD; border-collapse:separate; border-radius:6px;}
+      h1, h2, h3, h4, h5, h6{color:#202020; font-family:Arial, Helvetica; font-size:20px; line-height:125%; text-align:Left;}
+      .headlineBackground{background-color:#020202; color:#FFFFFF;}
+      .enlLogo{padding:1em;}
+      #enl_headlines{list-style-type:none; padding-left:0; margin-top:0; line-height:1.5em;}
+      #enl_headlines a{color:#FFFFFF;font-family:Arial, Helvetica;}
+      h1{color:#FFFFFF;}
+      h2{color:#555555;}
+      .textContent, .textContentLast{color:#404040; font-family:Arial, Helvetica; font-size:16px; line-height:125%; text-align:Left; padding-bottom:20px;}
       .textContent a, .textContentLast a{color:#2C9AB7; text-decoration:underline;}
-      .footerContent, .footerContentLast{color:#404040; font-family:Helvetica; font-size:14px; line-height:125%; text-align:Left; /* padding-bottom:20px; */}
-      .footerContent a, .footerContentLast a{color:#2C9AB7; text-decoration:underline;}
-
       .nestedContainer{background-color:#E5E5E5; border:1px solid #CCCCCC;}
       .emailButton{background-color:#2C9AB7; border-collapse:separate; border-radius:4px;}
-      .buttonContent{color:#FFFFFF; font-family:Helvetica; font-size:18px; font-weight:bold; line-height:100%; padding:15px; text-align:center;}
+      .buttonContent{color:#FFFFFF; font-family:Arial, Helvetica; font-size:18px; font-weight:bold; line-height:100%; padding:15px; text-align:center;}
       .buttonContent a{color:#FFFFFF; display:block; text-decoration:none;}
       .emailCalendar{background-color:#FFFFFF; border:1px solid #CCCCCC;}
-      .emailCalendarMonth{background-color:#2C9AB7; color:#FFFFFF; font-family:Helvetica, Arial, sans-serif; font-size:16px; font-weight:bold; padding-top:10px; padding-bottom:10px; text-align:center;}
-      .emailCalendarDay{color:#2C9AB7; font-family:Helvetica, Arial, sans-serif; font-size:60px; font-weight:bold; line-height:100%; padding-top:20px; padding-bottom:20px; text-align:center;}
-      #enl_headline{list-style-type: none; padding-left: 0;}
-      .headlineBackground{background-color: #004994;color:#FFFFFF;}
-      #enl_headlines{list-style-type: none; padding-left: 0;}
-      #enl_headlines a{color:#FFFFFF;}
-      .footerContentStatic{color:#FFFFFF;}
+      .emailCalendarMonth{background-color:#2C9AB7; color:#FFFFFF; font-family:Arial, Helvetica, sans-serif; font-size:16px; font-weight:bold; padding-top:10px; padding-bottom:10px; text-align:center;}
+      .emailCalendarDay{color:#2C9AB7; font-family:Arial, Helvetica, sans-serif; font-size:60px; font-weight:bold; line-height:100%; padding-top:20px; padding-bottom:20px; text-align:center;}
+      .footerContent h1,
+      .footerContent h2,
+      .footerContent h3{
+        color:#555555;
+      }
+      .footerContentDynamic{padding-left: 20px; vertical-align: middle;}
+      .footerContentStatic{color:#555555; background-color:#eeeeee;}
 
       /*////// MOBILE STYLES //////*/
       @media only screen and (max-width: 480px){
@@ -119,14 +120,14 @@
       <tr>
         <td align="center" valign="top">
 
-          <table border="0" cellpadding="0" cellspacing="0" width="600" id="templatePreheader" class="mailonly">
+          <table border="0" cellpadding="0" cellspacing="0" width="600" id="templatePreheader">
             <tr>
               <td valign="top" class="preheaderContent">
 
-                <table border="0" cellpadding="20" cellspacing="0" width="100%">
+                <table border="0" cellpadding="10" cellspacing="0" width="100%">
                   <tr>
-                    <td valign="top" width="600" align="center">
-                      <div >
+                    <td valign="top" width="600">
+                      <div class="mailonly">
                         <a tal:attributes="href string:${context/absolute_url}/preview" target="_blank" i18n:translate="">Click here</a>&nbsp;<span i18n:translate="">to view in browser.</span>
                       </div>
                     </td>
@@ -144,67 +145,61 @@
         <!-- EMAIL CONTAINER // -->
         <td align="center" valign="top" id="bodyCell">
           <table border="0" cellpadding="0" cellspacing="0" width="600" id="emailBody">
-
             <tr>
-              <td align="center" valign="top">
-                  <!-- // Begin Template Header \\ -->
-                  <table id="templateHeader" width="600" border="0" cellpadding="0" cellspacing="0"
-                         tal:define="image context/getImage;
-                                     issue_image context/aq_parent/getImage;
-                                     hideImage context/getHideImage;
-                                     logo context/getLogo">
-                    <tbody>
-                      <tr tal:condition="logo">
-                        <td class="headerContent" padding="10">
-                          <img class="flexibleImage" width="200" style="max-width:200px;" src="{{logo_src}}" />
-                        </td>
-                      </tr>
-                      <tr tal:condition="python:image or issue_image and not hideImage">
-                        <td class="headerContent">
-                          <img class="headerImage campaign-icon" width="600" style="max-width:600px;" src="{{banner_src}}" />
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <!-- // End Template Header \\ -->
-                </td>
+              <td align="center" valign="bottom">
+                <!-- // Begin Template Header \\ -->
+                <table id="templateHeader" width="600" border="0" cellpadding="0" cellspacing="0"
+                        tal:define="has_image context/has_image;
+                                    has_logo context/has_logo">
+                  <tbody>
+                    <tr tal:condition="has_logo">
+                      <td class="headerContent enlLogo">
+                        <img class="flexibleImage" width="200" style="max-width:200px;" src="{{logo_src}}" />
+                      </td>
+                    </tr>
+                    <tr tal:condition="has_image" height="200">
+                      <td class="headerContent" style="height:200px !important;">
+                        <img class="headerImage campaign-icon" width="600" height="200" style="max-width:600px;max-height:200px;" src="{{banner_src}}" />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!-- // End Template Header \\ -->
+              </td>
             </tr>
 
-            <!-- MODULE ROW // -->
-            <tr>
-              <td align="center" valign="top">
 
+            <!-- MODULE ROW // -->
+            <tr tal:condition="python: context.getHeader()">
+              <td align="center" valign="top">
                 <!-- CENTERING TABLE // -->
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                   <tr>
                     <td align="center" valign="top">
-
                       <!-- FLEXIBLE CONTAINER // -->
                       <table border="0" cellpadding="0" cellspacing="0" width="600" class="flexibleContainer">
-                        <tr>
-                          <td align="center" valign="top" width="600" class="flexibleContainerCell">
+                          <tr>
+                            <td align="center" valign="top" width="600" class="flexibleContainerCell">
 
-                            <!-- CONTENT TABLE // -->
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                              <tr>
-                                <td valign="top" class="textContent contentHeader">
-                                  <h1 tal:content="context/Title">Title</h1>
-                                  <br tal:condition="context/Description" />
-                                  <span tal:replace="context/Description"></span>
-                                </td>
-                              </tr>
-                            </table>
-                            <!-- // CONTENT TABLE -->
+                              <!-- CONTENT TABLE // -->
+                              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                  <td valign="top" class="textContent enlHeaderContent">
+                                    <!-- this is the header of the newsletter -->
+                                    <span tal:replace="structure context/getHeader" />
+                                  </td>
+                                </tr>
+                              </table>
+                              <!-- // CONTENT TABLE -->
 
-                          </td>
-                        </tr>
+                            </td>
+                          </tr>
                       </table>
                       <!-- // FLEXIBLE CONTAINER -->
-
                     </td>
                   </tr>
                 </table>
-                  <!-- // CENTERING TABLE -->
+                <!-- // CENTERING TABLE -->
               </td>
             </tr>
             <!-- // MODULE ROW -->
@@ -213,156 +208,75 @@
             <!-- MODULE ROW // -->
             <tr>
               <td align="center" valign="top">
-                  <!-- CENTERING TABLE // -->
-                  <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                      <tr>
-                          <td align="center" valign="top">
-                              <!-- FLEXIBLE CONTAINER // -->
-                              <table border="0" cellpadding="0" cellspacing="0" width="600" class="flexibleContainer">
-                                  <tr>
-                                      <td align="center" valign="top" width="600" class="flexibleContainerCell">
-
-
-                                        <!-- CONTENT TABLE // -->
-                                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                            <tr>
-                                                <td valign="top" class="textContent">
-                                                    <!-- this is the header of the newsletter -->
-                                                    <span tal:replace="structure context/getHeader" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                              <td class="textContent" align="left" valign="top">
-                                                <span tal:replace="structure context/getText" />
-                                              </td>
-                                            </tr>
-                                        </table>
-                                        <!-- // CONTENT TABLE -->
-
-
-                                        </td>
-                                    </tr>
-                                </table>
-                                <!-- // FLEXIBLE CONTAINER -->
-                            </td>
-                        </tr>
-                    </table>
-                    <!-- // CENTERING TABLE -->
-                </td>
+                <span tal:replace="structure context/getText" />
+              </td>
             </tr>
             <!-- // MODULE ROW -->
 
 
-            <!-- MODULE ROW // -->
-            <!-- // MODULE ROW -->
-
-
-            <!-- MODULE ROW // -->
+            <!-- footer -->
             <tr>
               <td align="center" valign="top">
-                  <!-- CENTERING TABLE // -->
-                  <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                      <tr>
-                          <td align="center" valign="top">
-                              <!-- FLEXIBLE CONTAINER // -->
-                              <table border="0" cellpadding="0" cellspacing="0" width="600" class="flexibleContainer">
-                                  <tr>
-                                    <td align="center" valign="top" width="600" class="flexibleContainerCell">
 
+                <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateFooter">
+                  <tr>
+                    <td valign="top" class="footerContent">
 
-                                      <!-- CONTENT TABLE // -->
-                                      <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                        <tr>
-                                          <td valign="top" class="textContent">
-                                          <tal:def tal:define="files context/getFiles">
-                                              <dl id="file-attachments" tal:condition="files">
-                                                  <tal:loop repeat="file files">
-                                                      <dt>
-                                                          <a tal:attributes="href file/getURL"
-                                                             tal:content="file/Title" />
-                                                      </dt>
-                                                      <dd tal:content="file/Description" />
-                                                  </tal:loop>
-                                              </dl>
-                                          </tal:def>
-                                          </td>
-                                        </tr>
-                                      </table>
-                                      <!-- // CONTENT TABLE -->
-
-
-                                      </td>
-                                    </tr>
-                                </table>
-                                <!-- // FLEXIBLE CONTAINER -->
-                            </td>
+                     <table border="0" cellpadding="10" cellspacing="0" width="100%">
+                        <tr>
+                          <td valign="middle" bgcolor="#F8F8F8" style="color:#555555;" class="footerContentDynamic">
+                            <div style="font-size: 90%;" tal:content="structure context/getFooter"></div>
+                          </td>
                         </tr>
-                    </table>
-                    <!-- // CENTERING TABLE -->
-                </td>
+                        <tr>
+                          <td bgcolor="#eeeeee" class="footerContentStatic">
+
+                            <table border="0" cellpadding="10" cellspacing="0" width="100%">
+                              <tr>
+                                <td valign="top" style="color:#555555;">
+                                  Publisher:<br />
+                                  <br />
+                                  <b>Example organization</b><br />
+                                  <br />
+                                  Example street 43<br />
+                                  04170 Leipzig<br />
+                                  GERMANY<br />
+                                  <br />
+                                  Phone: 03274754983<br />
+                                  <br />
+                                </td>
+                                <td valign="top" style="color:#555555;">
+                                  Responsible:<br />
+                                  <br />
+                                  <b>Jon Doe</b><br />
+                                  CEO<br />
+                                  <br />
+                                  Editorial office:<br />
+                                  <b>Jonny Cash</b><br />
+
+                                </td>
+                              </tr>
+                            </table>
+
+                          </td>
+                        </tr>
+                      </table>
+
+                    </td>
+                  </tr>
+                </table>
+
+              </td>
             </tr>
-            <!-- // MODULE ROW -->
 
           </table>
         </td>
         <!-- // EMAIL CONTAINER -->
       </tr>
 
-      <!-- footer -->
-      <tr>
-        <td align="center" valign="top">
 
-          <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateFooter">
-            <tr>
-              <td valign="top" class="footerContent">
-
-                <table border="0" cellpadding="10" cellspacing="0" width="100%">
-                  <tr>
-                    <td bgcolor="#eee" style="color: #555;">
-
-                      <table border="0" cellpadding="10" cellspacing="0" width="100%">
-                        <tr>
-                          <td valign="top" width="50%">
-                            Publisher:<br />
-                            <br />
-                            <b>Example organization</b><br />
-                            Example street 43<br />
-                            04170 Leipzig<br />
-                            GERMANY<br />
-                            <br />
-                            Phone: 03274754983<br />
-                          </td>
-                          <td valign="top" width="50%">
-                            Responsible:<br />
-                            <br />
-                            <b>Jon Doe</b><br />
-                            CEO<br />
-                            <br />
-                            Editorial office:<br />
-                            <b>Jonny Cash</b><br />
-                          </td>
-                        </tr>
-                      </table>
-
-                    </td>
-                  </tr>
-                </table>
-
-                <table border="0" cellpadding="10" cellspacing="0" width="100%">
-                  <tr>
-                    <td valign="top" align="center">
-                      <div style="font-size: 90%;" tal:content="structure context/getFooter"></div>
-                    </td>
-                  </tr>
-                </table>
-
-              </td>
-            </tr>
-          </table>
-
-        </td>
-      </tr>
     </table>
   </center>
+
 </body>
 </html>

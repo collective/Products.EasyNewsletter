@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from plone import api
 from Products.Five.browser import BrowserView
 from zope.interface import Interface
 from zope.interface.declarations import implementer
@@ -13,6 +14,9 @@ class IENLHelperView(Interface):
 
     def type_filter(self, items, types=None):
         """ filter given list by portal_type """
+
+    def get_issue(self, context):
+        """ return the issue obj """
 
     def get_results_from_aggregation_sources(self, context):
         """ return a list of result sets based on aggregation sources """
@@ -51,6 +55,9 @@ class ENLHelperView(BrowserView):
                 continue
             allowed_items.append(item)
         return allowed_items
+
+    def get_issue(self, context):
+        return api.content.get(UID=context.issue_uid)
 
     def get_results_from_aggregation_sources(self, context):
         """ Returns a list of sources and it's results
