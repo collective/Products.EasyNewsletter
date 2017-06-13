@@ -408,7 +408,7 @@ To do it with your addon product, add this to your registry.xml in your profiles
 Documentation
 =============
 
-For more documentation please visit: http://packages.python.org/Products.EasyNewsletter/
+For more documentation please visit: http://productseasynewsletter.readthedocs.io
 
 
 Source Code

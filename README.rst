@@ -77,7 +77,7 @@ Installation
 Documentation
 =============
 
-For more documentation please visit: http://packages.python.org/Products.EasyNewsletter/
+For more documentation please visit: http://productseasynewsletter.readthedocs.io
 
 
 Source Code
