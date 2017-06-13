@@ -43,11 +43,22 @@ Features
 Requirements
 ============
 
-- [inqbus.plone.fastmemberproperties] speed up access of member properties
-  (optional, you can installed it with Products.EasyNewsletter[all] in your
-  buidlout eggs list)
+* Plone 4.3, 5.0 and 5.1 (tested)
+* Archetypes
+* ATContentTypes (base profile only)
 
- Plone 3.X (tested) or 4.X (tested)
+Optional:
+
+* ``inqbus.plone.fastmemberproperties`` speeds up access of member properties.
+  Use ``Products.EasyNewsletter[fmp]`` extra in your buildouts eggs list.
+* ``collective.taskqueue`` for asynchronous sendout.
+  Use either ``Products.EasyNewsletter[taskqueue]`` or ``Products.EasyNewsletter[taskqueue_redis]`` extra.
+  Configure a named task queue ``Products.EasyNewsletter.queue``.
+  Read carefully the documentation of ``collective.taskqueue``.
+* ``collective.zamqp`` for asynchronous sendout.
+  Configure a queue named ``Products.EasyNewsletter.queue``.
+* For asynchronous sendout use the one or the other, both together will crash Plone.
+  ``collective.taskqueue`` is recommended unless you know why you want to use AMQP.
 
 
 Installation
