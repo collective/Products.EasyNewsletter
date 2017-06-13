@@ -5,7 +5,7 @@ Changelog
 3.0b3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Just fix broken release on pypi
 
 
 3.0b2 (2017-06-12)
