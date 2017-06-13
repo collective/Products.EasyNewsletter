@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-3.0b3 (unreleased)
+3.0b3 (2017-06-13)
 ------------------
 
 - Just fix broken release on pypi
