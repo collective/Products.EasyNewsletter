@@ -80,6 +80,12 @@ Documentation
 For more documentation please visit: http://productseasynewsletter.readthedocs.io
 
 
+Known Issues
+============
+
+* If parts of the ENLIssue footer show up in the Plone footer, change the footer portlet view name from ``footer`` to ``@@footer``. This issue was fixed in Plone already, but you have to manually update this in an existing site.
+
+
 Source Code
 ===========
 
