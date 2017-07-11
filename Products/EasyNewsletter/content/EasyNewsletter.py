@@ -172,7 +172,8 @@ schema = atapi.Schema((
             description=_(
                 u"ENL_image_desc",
                 default=u"Banner image, you can include in the templates by" +
-                        u"\n adding the {{banner}} placeholder into it."
+                        u"\n adding the {{banner}} placeholder into it." +
+                        u" By default it should be 600x200 pixel."
             ),
         ),
     ),
