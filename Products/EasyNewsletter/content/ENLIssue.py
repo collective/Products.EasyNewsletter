@@ -393,7 +393,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         enl_receivers = []
         if not self.getExcludeAllSubscribers():
             for subscriber in enl.objectValues('ENLSubscriber'):
-                salutation_key = subscriber.getSalutation()
+                salutation_key = subscriber.getSalutation() or 'default'
                 salutation = salutation_mappings.get(salutation_key, {})
                 enl_receivers.append({
                     'email': subscriber.getEmail(),

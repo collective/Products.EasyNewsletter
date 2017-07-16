@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from AccessControl import Unauthorized
 from App.Common import package_home
+from plone import api
 from plone.app.testing import login
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
@@ -66,6 +67,24 @@ class EasyNewsletterTests(unittest.TestCase):
         self.newsletter.senderEmail = "newsletter@acme.com"
         self.newsletter.senderName = "ACME newsletter"
         self.newsletter.testEmail = "test@acme.com"
+        api.content.create(
+            type='ENLSubscriber',
+            container=self.newsletter,
+            salutation='ms',
+            title='jane@example.com',
+            firstname='Jane',
+            lastname='Doe',
+            email='jane@example.com'
+        )
+        api.content.create(
+            type='ENLSubscriber',
+            container=self.newsletter,
+            title='john@example.com',
+            firstname='John',
+            lastname='Doe',
+            email='john@example.com'
+        )
+
         # Set up a mock mailhost
         self.portal._original_MailHost = self.portal.MailHost
         self.portal.MailHost = mailhost = MockMailHost('MailHost')
@@ -148,7 +167,36 @@ class EasyNewsletterTests(unittest.TestCase):
         self.assertIn('To: <test@acme.com>', msg)
         self.assertIn('From: ACME newsletter <newsletter@acme.com>', msg)
 
-    # TODO: fix this test
+    def test_send_test_personalization(self):
+        self.newsletter.invokeFactory(
+            "ENLIssue",
+            id="issue")
+        self.newsletter.issue.title = \
+            "This is a very long newsletter issue title with special "\
+            "characters such as äüö. Will this really work?"
+        self.portal.REQUEST.form.update({
+            'sender_name': self.newsletter.senderName,
+            'sender_email': self.newsletter.senderEmail,
+            'test_receiver': self.newsletter.testEmail,
+            'subject': self.newsletter.issue.title,
+        })
+        self.portal.REQUEST['REQUEST_METHOD'] = 'POST'
+        view = getMultiAdapter(
+            (self.newsletter.issue, self.portal.REQUEST),
+            name="send-issue")
+        view = view.__of__(self.portal)
+
+        view.send_issue()
+        self.assertEqual(len(self.mailhost.messages), 2)
+        self.assertTrue(self.mailhost.messages[0])
+        self.assertTrue(self.mailhost.messages[1])
+        msg1 = str(self.mailhost.messages[0])
+        self.assertIn('To: <jane@example.com>', msg1)
+        self.assertIn('Dear Ms. Jane Doe', msg1)
+        msg2 = str(self.mailhost.messages[1])
+        self.assertIn('To: <john@example.com>', msg2)
+        self.assertIn('Dear John Doe', msg2)
+
     def test_send_test_issue_with_image(self):
         body = "<img src=\"%s\"/>" %  \
             self.image.absolute_url_path()

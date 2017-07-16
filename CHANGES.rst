@@ -5,7 +5,8 @@ Changelog
 3.0b4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Use globaly unique Content-Id for attached images. This fixes caching issues in some clients.
+  [MrTango]
 
 
 3.0b3 (2017-06-13)
