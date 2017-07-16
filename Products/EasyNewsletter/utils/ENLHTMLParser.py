@@ -4,6 +4,7 @@ from Products.CMFCore.utils import getToolByName
 import HTMLParser
 import urllib
 import urlparse
+import uuid
 
 
 class ENLHTMLParser(HTMLParser.HTMLParser):
@@ -84,18 +85,20 @@ class ENLHTMLParser(HTMLParser.HTMLParser):
         for attr in attrs:
             if attr[0] == "src":
                 if attr[1].startswith(self.context.portal_url()):
-                    self.html += ' src="cid:image_%s"' % self.image_number
-                    self.image_number += 1
+                    image_content_id = str(uuid.uuid4())
+                    # content-id must be globaly unique!
+                    self.html += ' src="cid:image_%s"' % image_content_id
                     path = attr[1][len(self.context.portal_url()):]
                     path = '/'.join(self.context.getPhysicalPath()) + path
-                    self.image_urls.append(path)
+                    self.image_urls.append((path, image_content_id))
                 elif 'http' in attr[1]:
                     url = attr[1]
                     self.html += ' src="%s"' % self._encode(url)
                 else:
-                    self.html += ' src="cid:image_%s"' % self.image_number
+                    # content-id must be globaly unique!
+                    self.html += ' src="cid:image_%s"' % image_content_id
                     self.image_number += 1
-                    self.image_urls.append(attr[1])
+                    self.image_urls.append((attr[1], image_content_id))
             else:
                 self.html += ' %s="%s"' % (attr)
 

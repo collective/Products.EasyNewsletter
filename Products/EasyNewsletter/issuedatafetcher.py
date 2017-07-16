@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# from stoneagehtml import compactify
 from BeautifulSoup import BeautifulSoup
 from email.Header import Header
 from email.MIMEImage import MIMEImage
@@ -11,12 +12,10 @@ from Products.EasyNewsletter.interfaces import IBeforePersonalizationEvent
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.EasyNewsletter.utils.base import safe_portal_encoding
 from Products.EasyNewsletter.utils.ENLHTMLParser import ENLHTMLParser
-# from stoneagehtml import compactify
 from urlparse import urlparse
 from zope.component import getMultiAdapter
 from zope.event import notify
 from zope.interface import implementer
-
 import cStringIO
 import formatter
 import jinja2
@@ -189,7 +188,7 @@ class DefaultIssueDataFetcher(object):
         # this should really be refactored!
         images_to_attach = []
         reference_tool = api.portal.get_tool('reference_catalog')
-        for image_number, image_url in enumerate(image_urls):
+        for image_url, image_cid in image_urls:
             if not image_url:
                 continue
             try:
@@ -198,8 +197,8 @@ class DefaultIssueDataFetcher(object):
                 if 'resolveuid' in image_url:
                     urlparts = image_url.split('resolveuid/')[1:][0]
                     urlparts = urlparts.split('/')
-                    uuid = urlparts.pop(0)
-                    o = reference_tool.lookupObject(uuid)
+                    img_uuid = urlparts.pop(0)
+                    o = reference_tool.lookupObject(img_uuid)
                     if o and urlparts:
                         # get thumb
                         o = o.restrictedTraverse(urlparts[0])
@@ -232,7 +231,6 @@ class DefaultIssueDataFetcher(object):
                 log.exception(
                     'Could not resolve the image: {0}'.format(image_url)
                 )
-                image_number += 1  # even on failure we have to increase
                 continue
 
             # until here we found some object that ought to be an image
@@ -252,7 +250,8 @@ class DefaultIssueDataFetcher(object):
                     "Could not get the image data from image object!")
                 image = None
             if image is not None:
-                image["Content-ID"] = "<image_%s>" % image_number
+                # content-id has to be globaly unique
+                image["Content-ID"] = "<image_%s>" % image_cid
                 # attach images only to html parts
             if image is None:
                 continue
