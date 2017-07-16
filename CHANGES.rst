@@ -2,10 +2,13 @@ Changelog
 =========
 
 
-3.0b4 (unreleased)
+3.0 (unreleased)
 ------------------
 
 - Use globaly unique Content-Id for attached images. This fixes caching issues in some clients.
+  [MrTango]
+
+- Fix resolving default salutation
   [MrTango]
 
 
