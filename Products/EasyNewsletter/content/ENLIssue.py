@@ -544,7 +544,6 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             html_part = MIMEMultipart('related')
             html_text = MIMEText(issue_data['body_html'], 'html', charset)
             html_part.attach(html_text)
-
             # Add images to the message
             for image in issue_data['images_to_attach']:
                 html_part.attach(image)

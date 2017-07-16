@@ -84,8 +84,8 @@ class ENLHTMLParser(HTMLParser.HTMLParser):
         self.html += "<%s" % tag
         for attr in attrs:
             if attr[0] == "src":
+                image_content_id = str(uuid.uuid4())
                 if attr[1].startswith(self.context.portal_url()):
-                    image_content_id = str(uuid.uuid4())
                     # content-id must be globaly unique!
                     self.html += ' src="cid:image_%s"' % image_content_id
                     path = attr[1][len(self.context.portal_url()):]
