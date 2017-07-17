@@ -96,7 +96,7 @@ class DefaultIssueDataFetcher(object):
         return self._enl
 
     def _fullname(self, receiver):
-        fullname = receiver.get('fullname')
+        fullname = receiver.get('fullname').strip()
         if not fullname:
             try:
                 return self.enl.getFullname_fallback()

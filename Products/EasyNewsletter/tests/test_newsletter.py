@@ -67,23 +67,6 @@ class EasyNewsletterTests(unittest.TestCase):
         self.newsletter.senderEmail = "newsletter@acme.com"
         self.newsletter.senderName = "ACME newsletter"
         self.newsletter.testEmail = "test@acme.com"
-        api.content.create(
-            type='ENLSubscriber',
-            container=self.newsletter,
-            salutation='ms',
-            title='jane@example.com',
-            firstname='Jane',
-            lastname='Doe',
-            email='jane@example.com'
-        )
-        api.content.create(
-            type='ENLSubscriber',
-            container=self.newsletter,
-            title='john@example.com',
-            firstname='John',
-            lastname='Doe',
-            email='john@example.com'
-        )
 
         # Set up a mock mailhost
         self.portal._original_MailHost = self.portal.MailHost
@@ -168,6 +151,49 @@ class EasyNewsletterTests(unittest.TestCase):
         self.assertIn('From: ACME newsletter <newsletter@acme.com>', msg)
 
     def test_send_test_personalization(self):
+        # with all infos
+        api.content.create(
+            type='ENLSubscriber',
+            container=self.newsletter,
+            salutation='ms',
+            title='jane@example.com',
+            firstname='Jane',
+            lastname='Doe',
+            email='jane@example.com'
+        )
+        # without salutation
+        api.content.create(
+            type='ENLSubscriber',
+            container=self.newsletter,
+            title='john@example.com',
+            firstname='John',
+            lastname='Doe',
+            email='john@example.com'
+        )
+        # without firstname
+        api.content.create(
+            type='ENLSubscriber',
+            container=self.newsletter,
+            title='max@example.com',
+            lastname='Mustermann',
+            email='max@example.com'
+        )
+        # without lastname
+        api.content.create(
+            type='ENLSubscriber',
+            container=self.newsletter,
+            title='maxima@example.com',
+            firstname='Maxima',
+            email='maxima@example.com'
+        )
+        # without firstname and lastname
+        api.content.create(
+            type='ENLSubscriber',
+            container=self.newsletter,
+            title='leo@example.com',
+            email='leo@example.com'
+        )
+
         self.newsletter.invokeFactory(
             "ENLIssue",
             id="issue")
@@ -185,17 +211,31 @@ class EasyNewsletterTests(unittest.TestCase):
             (self.newsletter.issue, self.portal.REQUEST),
             name="send-issue")
         view = view.__of__(self.portal)
-
         view.send_issue()
-        self.assertEqual(len(self.mailhost.messages), 2)
+
+        self.assertEqual(len(self.mailhost.messages), 5)
         self.assertTrue(self.mailhost.messages[0])
         self.assertTrue(self.mailhost.messages[1])
+
         msg1 = str(self.mailhost.messages[0])
         self.assertIn('To: <jane@example.com>', msg1)
         self.assertIn('Dear Ms. Jane Doe', msg1)
+
         msg2 = str(self.mailhost.messages[1])
         self.assertIn('To: <john@example.com>', msg2)
         self.assertIn('Dear John Doe', msg2)
+
+        msg3 = str(self.mailhost.messages[2])
+        self.assertIn('To: <max@example.com>', msg3)
+        self.assertIn('Dear Mustermann', msg3)
+
+        msg4 = str(self.mailhost.messages[3])
+        self.assertIn('To: <maxima@example.com>', msg4)
+        self.assertIn('Dear Maxima', msg4)
+
+        msg5 = str(self.mailhost.messages[4])
+        self.assertIn('To: <leo@example.com>', msg5)
+        self.assertIn('Sir or Madam', msg5)
 
     def test_send_test_issue_with_image(self):
         body = "<img src=\"%s\"/>" %  \

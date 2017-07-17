@@ -395,7 +395,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             for subscriber in enl.objectValues('ENLSubscriber'):
                 salutation_key = subscriber.getSalutation() or 'default'
                 salutation = salutation_mappings.get(salutation_key, {})
-                enl_receivers.append({
+                enl_receiver = {
                     'email': subscriber.getEmail(),
                     'gender': subscriber.getSalutation(),
                     'name_prefix': subscriber.getName_prefix(),
@@ -408,7 +408,10 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                         salutation.get(self.Language() or 'en', '')
                     ),
                     'uid': subscriber.UID(),
-                    'nl_language': subscriber.getNl_language()})
+                    'nl_language': subscriber.getNl_language()
+                }
+
+                enl_receivers.append(enl_receiver)
 
         # get subscribers over selected plone members and groups
         plone_receivers = self.get_plone_subscribers()
