@@ -4,7 +4,7 @@ from plone.registry.interfaces import IRegistry
 from Products.Archetypes import atapi
 from Products.CMFCore.utils import getToolByName
 from Products.EasyNewsletter import config
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.interfaces import IENLTemplate
 from Products.TemplateFields import ZPTField
 from zope.component import getUtility

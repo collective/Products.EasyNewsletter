@@ -9,12 +9,14 @@ from zope.component import adapter
 from zope.component import getUtility
 from zope.interface import implementer
 from zope.interface import Interface
+
 import email
 import formatter
 import htmllib
 import StringIO
 import traceback
 import zope.sendmail.interfaces
+
 
 if not IS_PLONE_5:  # BBB
     from zope.site.hooks import getSite
@@ -180,9 +182,9 @@ class Dispatch(object):
               zope.sendmail.interfaces.IMailDelivery>, '')
 
     Let's provide our own ``IMailDelivery`` and see what happens:
-
+      >>> @interface.implementer(zope.sendmail.interfaces.IMailDelivery)
       >>> class MyMailDelivery(object):
-      ...     interface.implements(zope.sendmail.interfaces.IMailDelivery)
+      ...
       ...
       ...     def send(self, from_, to, message):
       ...         print 'From: ', from_  # noqa
@@ -208,9 +210,9 @@ class Dispatch(object):
 
       >>> class MyException(Exception):
       ...     pass
+      >>> @interface.implementer(zope.sendmail.interfaces.IMailDelivery)
       >>> class MyFailingMailDelivery(object):
-      ...     interface.implements(zope.sendmail.interfaces.IMailDelivery)
-      ...
+      ...           ...
       ...     def send(self, from_, to, message):
       ...         raise MyException('This is a test')
       >>> component.provideUtility(MyFailingMailDelivery())

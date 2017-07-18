@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-from plone.app.portlets.portlets import base
 # from plone.app.vocabularies.catalog import SearchableTextSourceBinder
+from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
+from Products.EasyNewsletter.config import IS_PLONE_5
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope import schema
-from zope.interface import implements
-from Products.EasyNewsletter.config import IS_PLONE_5
+from zope.interface import implementer
 
 
 if not IS_PLONE_5:  # BBB
@@ -85,10 +85,10 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
         required=False)
 
 
+@implementer(INewsletterSubscriberPortlet)
 class Assignment(base.Assignment):
     """
     """
-    implements(INewsletterSubscriberPortlet)
 
     portlet_title = "Newsletter"
     portlet_description = u""

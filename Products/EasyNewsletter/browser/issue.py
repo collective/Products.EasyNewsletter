@@ -7,7 +7,9 @@ from Products.EasyNewsletter.config import IS_PLONE_5
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.Five.browser import BrowserView
 from zope.interface import alsoProvides
+
 import transaction
+
 
 if IS_PLONE_5:
     from Products.CMFPlone.resources import add_resource_on_request

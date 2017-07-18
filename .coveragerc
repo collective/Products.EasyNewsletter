@@ -1,8 +1,10 @@
 [report]
+include = Products/EasyNewsletter/*
 omit =
     /home/*/.buildout/eggs/*
     /usr/*
     bin/test
     buildout-cache/eggs/*
     eggs/*
+    lib/*
     parts/*

@@ -3,6 +3,7 @@ from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from Products.EasyNewsletter.config import IS_PLONE_5
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
+
 import unittest
 
 

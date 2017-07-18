@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-
-from zope.schema.interfaces import IVocabularyFactory
-from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
+from plone import api
 from Products.EasyNewsletter.interfaces import IEasyNewsletter
 from zope.interface import implementer
-from plone import api
+from zope.schema.interfaces import IVocabularyFactory
+from zope.schema.vocabulary import SimpleTerm
+from zope.schema.vocabulary import SimpleVocabulary
 
 
 @implementer(IVocabularyFactory)

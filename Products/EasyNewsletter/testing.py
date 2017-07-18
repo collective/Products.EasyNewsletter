@@ -5,12 +5,13 @@ from plone.app.testing import IntegrationTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
 from plone.testing import z2
-from zope.configuration import xmlconfig
 
 import pkg_resources
 
+
 try:
     pkg_resources.get_distribution('plone.app.contenttypes')
+
 except pkg_resources.DistributionNotFound:
     HAS_PACT = False
 else:
@@ -26,9 +27,7 @@ class EasyNewsletter(PloneSandboxLayer):
             z2.installProduct(app, 'plone.app.contenttypes')
         # Load ZCML
         import Products.EasyNewsletter
-        xmlconfig.file('configure.zcml',
-                       Products.EasyNewsletter,
-                       context=configurationContext)
+        self.loadZCML(package=Products.EasyNewsletter)
 
         # Install product and call its initialize() function
         z2.installProduct(app, 'Products.EasyNewsletter')
