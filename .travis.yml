@@ -26,5 +26,6 @@ script:
   - bin/code-analysis
   - bin/test --all
 after_success:
+  - bin/createcoverage
   - pip install -q coveralls
   - coveralls

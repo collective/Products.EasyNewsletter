@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from zope.site.hooks import getSite
 from Products.EasyNewsletter.interfaces import IENLTemplate
+from zope.site.hooks import getSite
 
 
 def update_enl_template_body_field(obj, event):

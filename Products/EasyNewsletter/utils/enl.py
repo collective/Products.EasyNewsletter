@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # from Products.EasyNewsletter.config import IS_PLONE_5
-from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
-from zope.interface import Interface
 from Products.EasyNewsletter.browser.controlpanel import IENLSettings
+from zope.component import getUtility
+from zope.interface import Interface
 
 
 class IENLUtils(Interface):

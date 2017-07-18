@@ -7,9 +7,9 @@ from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.CMFCore.utils import getToolByName
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
 from Products.EasyNewsletter.config import MESSAGE_CODE
+from Products.EasyNewsletter.interfaces import IENLRegistrationTool
 from Products.EasyNewsletter.utils.mail import get_email_charset
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
-from Products.EasyNewsletter.interfaces import IENLRegistrationTool
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.validation.validators.BaseValidators import EMAIL_RE

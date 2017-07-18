@@ -5,6 +5,8 @@ from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import setSecurityManager
 from AccessControl.User import UnrestrictedUser as BaseUnrestrictedUser
 from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
+from plone.app.blob.field import ImageField
+from plone.registry.interfaces import IRegistry
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.topic import ATTopic
 from Products.ATContentTypes.content.topic import ATTopicSchema
@@ -25,8 +27,7 @@ from zope.component import getUtility
 from zope.component import queryUtility
 from zope.component import subscribers
 from zope.interface import implementer
-from plone.registry.interfaces import IRegistry
-from plone.app.blob.field import ImageField
+
 import logging
 
 

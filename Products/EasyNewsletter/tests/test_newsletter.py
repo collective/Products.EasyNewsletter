@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from AccessControl import Unauthorized
 from App.Common import package_home
 from plone import api
@@ -7,8 +8,8 @@ from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from Products.CMFPlone.tests.utils import MockMailHost
-from Products.EasyNewsletter.config import IS_PLONE_5
 from Products.EasyNewsletter.config import IS_PLONE_4
+from Products.EasyNewsletter.config import IS_PLONE_5
 from Products.EasyNewsletter.interfaces import IEasyNewsletter
 from Products.EasyNewsletter.interfaces import IENLIssue
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_FUNCTIONAL_TESTING
@@ -19,10 +20,12 @@ from zope.component import getMultiAdapter
 from zope.component import getSiteManager
 from zope.component import queryUtility
 from zope.interface import Interface
+
 import os
 import pkg_resources
-import unittest
 import transaction as zt
+import unittest
+
 
 try:
     pkg_resources.get_distribution('Products.TinyMCE')
@@ -238,8 +241,8 @@ class EasyNewsletterTests(unittest.TestCase):
         self.assertIn('Sir or Madam', msg5)
 
     def test_send_test_issue_with_image(self):
-        body = "<img src=\"%s\"/>" %  \
-            self.image.absolute_url_path()
+        body = "<img src=\"{0}\"/>".format(
+            self.image.absolute_url_path())
         msg = self.send_sample_message(body)
 
         self.assertIn('<img src=3D"cid:image_', msg)
@@ -247,12 +250,12 @@ class EasyNewsletterTests(unittest.TestCase):
         self.assertIn('Content-Type: image/png;', msg)
 
     def test_send_test_issue_with_scale_image(self):
-        body = "<img src=\"%s/@@images/image/thumb\"/>" %  \
-            self.image.absolute_url_path()
+        body = '<img src="{0}/@@images/image/thumb"/>'.format(
+            self.image.absolute_url_path())
 
         # trigger scale generation:
-        image_scales_url = "%s/@@images" % \
-            self.image.absolute_url_path()
+        image_scales_url = '{0}/@@images'.format(
+            self.image.absolute_url_path())
         scales = self.portal.restrictedTraverse(image_scales_url)
         scale_view = scales.scale(fieldname='image', scale='thumb')
         scale_view()
@@ -272,7 +275,7 @@ class EasyNewsletterTests(unittest.TestCase):
                 return
             tinymce.link_using_uids = True
 
-        body = '<img src="../../resolveuid/%s"/>' % self.image.UID()
+        body = '<img src="../../resolveuid/{0}"/>'.format(self.image.UID())
 
         msg = self.send_sample_message(body)
 
@@ -292,12 +295,12 @@ class EasyNewsletterTests(unittest.TestCase):
 
         path = "image/thumb"
         stack = path.split('/')
-        body = '<img src="../../resolveuid/%s/@@images/%s"/>' % (
+        body = '<img src="../../resolveuid/{0}/@@images/{1}"/>'.format(
             self.image.UID(), path)
 
         # trigger scale generation:
-        image_scales_url = "%s/@@images" % \
-            self.image.absolute_url_path()
+        image_scales_url = '{0}/@@images'.format(
+            self.image.absolute_url_path())
         scales = self.portal.restrictedTraverse(image_scales_url)
         scale_view = scales.scale(fieldname=stack[0], scale=stack[1])
         scale_view()

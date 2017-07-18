@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes import atapi
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter import config
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.interfaces import IENLSubscriber
 from zope.interface import implementer
 

@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 from Products.CMFCore.utils import getToolByName
-
-import logging
-# -*- coding: utf-8 -*-
 from Products.CMFPlone.interfaces import INonInstallable
 from Products.EasyNewsletter import upgrades
 from zope.interface import implementer
+
+import logging
 
 
 @implementer(INonInstallable)
