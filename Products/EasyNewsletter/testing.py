@@ -27,10 +27,7 @@ class EasyNewsletter(PloneSandboxLayer):
             z2.installProduct(app, 'plone.app.contenttypes')
         # Load ZCML
         import Products.EasyNewsletter
-        self.loadZCML(
-            'configure.zcml',
-            Products.EasyNewsletter,
-            context=configurationContext)
+        self.loadZCML(package=Products.EasyNewsletter)
 
         # Install product and call its initialize() function
         z2.installProduct(app, 'Products.EasyNewsletter')
