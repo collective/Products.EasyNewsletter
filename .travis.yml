@@ -9,7 +9,7 @@ python:
 env:
   - PLONE_VERSION=4.3 QA=true
   - PLONE_VERSION=5.0
-#- PLONE_VERSION=5.1
+  - PLONE_VERSION=5.1
 before_install:
   - mkdir -p $HOME/buildout-cache/{eggs,downloads}
   - mkdir $HOME/.buildout
