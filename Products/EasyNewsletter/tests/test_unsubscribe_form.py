@@ -6,15 +6,16 @@ from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from plone.testing.z2 import Browser
-from Products.MailHost.interfaces import IMailHost
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter.config import IS_PLONE_5
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_FUNCTIONAL_TESTING
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
+from Products.MailHost.interfaces import IMailHost
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
 from zope.component import getUtility
+
 import unittest
 
 
@@ -40,7 +41,7 @@ class UnsubscribeFormIntegrationTests(unittest.TestCase):
         if IS_PLONE_5:
             registry = getUtility(IRegistry)
             self.mail_settings = registry.forInterface(
-                    IMailSchema, prefix='plone')
+                IMailSchema, prefix='plone')
             self.mail_settings.smtp_host = u'localhost'
             self.mail_settings.email_from_address = 'portal@plone.test'
         else:  # BBB

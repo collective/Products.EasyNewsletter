@@ -1,21 +1,22 @@
 # -*- coding: utf-8 -*-
+# from plone.dexterity.interfaces import IDexterityFTI
+# from Products.EasyNewsletter.config import IS_PLONE_5
+# from zope.component import getUtility
 from Acquisition import aq_base
 from plone import api
-from plone.uuid.interfaces import IUUID
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from plone.uuid.interfaces import IUUID
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.EasyNewsletter.interfaces import IENLIssue
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_FUNCTIONAL_TESTING
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
-# from Products.EasyNewsletter.config import IS_PLONE_5
 from Products.MailHost.interfaces import IMailHost
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
-# from zope.component import getUtility
-# from plone.dexterity.interfaces import IDexterityFTI
+
 import unittest
 
 

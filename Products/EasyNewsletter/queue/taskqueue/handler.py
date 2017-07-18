@@ -3,6 +3,7 @@ from collective.taskqueue import taskqueue
 from Products.EasyNewsletter.queue.interfaces import IIssueQueue
 from zope.interface import implementer
 
+
 QUEUE_NAME = 'Products.EasyNewsletter.queue'
 VIEW_NAME = 'enl_taskqueue_sendout'
 

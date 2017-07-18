@@ -4,10 +4,10 @@ from plone.app.contentmenu.interfaces import IActionsSubMenuItem
 from plone.app.contentmenu.menu import BrowserMenu
 from plone.app.contentmenu.menu import BrowserSubMenuItem
 from plone.protect.utils import addTokenToUrl
+from Products.EasyNewsletter.interfaces import IENLBase
 from zope.component import getMultiAdapter
 from zope.interface import implementer
 from zope.security import checkPermission
-from Products.EasyNewsletter.interfaces import IENLBase
 
 
 @implementer(IActionsSubMenuItem)

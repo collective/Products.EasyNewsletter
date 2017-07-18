@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
-from zope.interface import Interface
 from zope import schema
+from zope.interface import Interface
 
 
 class IENLSettings(Interface):
