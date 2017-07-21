@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-3.0.1 (unreleased)
-----------------
+3.0.1 (2017-07-21)
+------------------
 
 - Add test and documentation for customizing email personalization in addons.
   [MrTango]
