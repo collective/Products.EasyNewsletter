@@ -10,14 +10,17 @@ from plone.app.testing import TEST_USER_NAME
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.EasyNewsletter.config import IS_PLONE_4
 from Products.EasyNewsletter.config import IS_PLONE_5
+from Products.EasyNewsletter.interfaces import IBeforePersonalizationEvent
 from Products.EasyNewsletter.interfaces import IEasyNewsletter
 from Products.EasyNewsletter.interfaces import IENLIssue
 from Products.EasyNewsletter.testing import EASYNEWSLETTER_FUNCTIONAL_TESTING
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.MailHost.interfaces import IMailHost
 from zExceptions import Forbidden
+from zope.component import getGlobalSiteManager
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
+from zope.component import provideHandler
 from zope.component import queryUtility
 from zope.interface import Interface
 
@@ -239,6 +242,75 @@ class EasyNewsletterTests(unittest.TestCase):
         msg5 = str(self.mailhost.messages[4])
         self.assertIn('To: <leo@example.com>', msg5)
         self.assertIn('Sir or Madam', msg5)
+
+    def test_before_the_personalization_filter(self):
+        def _personalize(event):
+            edc = event.data['context']
+            event.data['html'] = event.data['html'].replace('PHP', 'Python')
+            firstname = edc['receiver'].get('firstname')
+            lastname = edc['receiver'].get('lastname')
+            if not firstname and not lastname:
+                edc['SUBSCRIBER_SALUTATION'] = u'Dear {0}'.format(
+                    edc['receiver']['email']
+                )
+        provideHandler(_personalize, [IBeforePersonalizationEvent])
+        try:
+            # with all infos
+            api.content.create(
+                type='ENLSubscriber',
+                container=self.newsletter,
+                salutation='ms',
+                title='jane@example.com',
+                firstname='Jane',
+                lastname='Doe',
+                email='jane@example.com'
+            )
+            # without firstname and lastname
+            api.content.create(
+                type='ENLSubscriber',
+                container=self.newsletter,
+                salutation='mr',
+                title='john@example.com',
+                email='john@example.com'
+            )
+
+            self.newsletter.invokeFactory(
+                "ENLIssue",
+                id="issue")
+            self.newsletter.issue.title = \
+                "This is a very long newsletter issue title with special "\
+                "characters such as äüö. Will this really work?"
+            self.newsletter.issue.setText(u'''
+                <h1>PHP is cool</h1>
+                {{SUBSCRIBER_SALUTATION}}
+                ''')
+            self.portal.REQUEST.form.update({
+                'sender_name': self.newsletter.senderName,
+                'sender_email': self.newsletter.senderEmail,
+                'test_receiver': self.newsletter.testEmail,
+                'subject': self.newsletter.issue.title,
+            })
+            self.portal.REQUEST['REQUEST_METHOD'] = 'POST'
+            # clearEvents()  # noqa
+            view = getMultiAdapter(
+                (self.newsletter.issue, self.portal.REQUEST),
+                name="send-issue")
+            view = view.__of__(self.portal)
+            view.send_issue()
+
+            # pers_events = getEvents(IBeforePersonalizationFilter)
+            # print(pers_events)
+            self.assertEqual(len(self.mailhost.messages), 2)
+            msg1 = str(self.mailhost.messages[0])
+            self.assertIn('To: <jane@example.com>', msg1)
+            self.assertIn('Dear Ms. Jane Doe', msg1)
+
+            msg2 = str(self.mailhost.messages[1])
+            self.assertIn('To: <john@example.com>', msg2)
+            self.assertIn('Dear john@example.com', msg2)
+        finally:
+            getGlobalSiteManager().unregisterHandler(
+                _personalize, [IBeforePersonalizationEvent])
 
     def test_send_test_issue_with_image(self):
         body = "<img src=\"{0}\"/>".format(
