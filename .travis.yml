@@ -16,6 +16,7 @@ env:
   - PLONE_VERSION=5.0
   - PLONE_VERSION=5.1
 before_install:
+  - sudo apt-get install -qq python2.7 python2.7-dev
   - mkdir -p $HOME/buildout-cache/{eggs,downloads}
   - mkdir $HOME/.buildout
   - echo "[buildout]" > $HOME/.buildout/default.cfg
