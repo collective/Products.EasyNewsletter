@@ -3,7 +3,7 @@
 from setuptools import find_packages
 from setuptools import setup
 
-version = '3.1.dev0'
+version = '3.0.1.dev0'
 long_description = (
     open('README.rst').read() + '\n' +
     open('CHANGES.rst').read()
@@ -24,9 +24,9 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
-    keywords='Zope Plone Newsletter Mailing',
-    maintainer='Maik Derstappen, Timo Stollenwerk, Andreas Jung',
-    author='Maik Derstappen',
+    keywords='Plone Newsletter Mailing Email Mailinglist',
+    maintainer='MrTango',
+    author='Maik Derstappen (MrTango)',
     author_email='md@derico.de',
     url='https://github.com/collective/Products.EasyNewsletter',
     license='GPL',

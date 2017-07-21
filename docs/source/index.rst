@@ -11,69 +11,9 @@ What is it?
 
 EasyNewsletter is a simple but powerful newsletter/mailing product for Plone.
 
-Features
-========
+For Features, Requirements and Installation see `README`_ on PyPi.
 
-- Support Text and HTML Newsletter (including images)
-
-- Support manual written Newsletters/Mailings
-
-- Flexible (can use Plone's Collections to collect content)
-
-- Variable templates to generate newsletter content
-
-- Subscribing / Unsubscribing and can use Plone Members/Groups as receivers (works also with Membrane)
-
-- support for external subscriber sources (configured through a Zope utility)
-
-- support for external delivery services (other than Plone MailHost)
-
-- TTW customizeable output Templates to generate nice HTML Newsletter
-
-- Support personalized mails
-
-- Mass import/export subscribers via csv
-
-- Support external filtering/manipulation (filter out or add more subscribers) plugins
-
-- Support for creating and sending a daily issue
-
-- Support for decoupled sendout
-
-Requirements
-============
-
-* Plone 4.3, 5.0 and 5.1 (tested)
-* Archetypes
-* ATContentTypes (base profile only)
-
-Optional:
-
-* ``inqbus.plone.fastmemberproperties`` speeds up access of member properties.
-  Use ``Products.EasyNewsletter[fmp]`` extra in your buildouts eggs list.
-* ``collective.taskqueue`` for asynchronous sendout.
-  Use either ``Products.EasyNewsletter[taskqueue]`` or ``Products.EasyNewsletter[taskqueue_redis]`` extra.
-  Configure a named task queue ``Products.EasyNewsletter.queue``.
-  Read carefully the documentation of ``collective.taskqueue``.
-* ``collective.zamqp`` for asynchronous sendout.
-  Configure a queue named ``Products.EasyNewsletter.queue``.
-* For asynchronous sendout use the one or the other, both together will crash Plone.
-  ``collective.taskqueue`` is recommended unless you know why you want to use AMQP.
-
-
-Installation
-============
-
-1. Add Products.EasyNewsletter to your buildout
-
-2. Run your buildout script
-
-3. Restart Zope
-
-4. Install EasyNewsletter via Plone Management Interface
-
-5. Add an "Newsletter Subscriber" portlet and select the EasyNewsletter
-   (To this newsletter the subscribers will be added).
+.. _README: https://pypi.python.org/pypi/Products.EasyNewsletter
 
 Usage
 =====
@@ -112,6 +52,7 @@ Step by step
 8. If your Newsletter/Mailing is finished, you can activate the send button by clicking on ``Enable send button``.
    Then you can click on ``Send newsletter`` to send the Newsletter to all subscribers or selected groups and users.
 
+
 Issue workflow information
 --------------------------
 
@@ -127,21 +68,43 @@ After an issue is sent, it's state is sent and it will appear in the newsletter 
 In addition a master can be made out of an issue with the state draft or sent using the actions menu.
 The master acts as a blueprint, which can be reedited and copied as a new draft.
 
+
 Images in HTML mails
 --------------------
 
-- All images with relative urls in ``src`` attribute, like the ones added by TinyMCE, are included and attached to the mail.
-- All images with absolute urls in ``src`` attribute are not attached but included in HTML with the original ``src`` url.
+- All images with local urls in ``src`` attribute, are included and attached to the mail.
+- All images with external absolute urls in ``src`` attribute are not attached but included in HTML with the original ``src`` url.
+
 
 Elements for mails only
 -----------------------
 
-If you want some elements, let's say a logo only in mails but not in the public view, you can put it inside a div tag with a class "mailonly". All div elements with class "mailonly" are filtered out in the public view.
+If you want some elements, let's say a logo only in mails but not in the public view, you can add a class ``mailonly``. All elements with class ``mailonly`` are filtered out in the public view.
+
 
 Asyncronous sendout
 -------------------
 
-Products.EasyNewsletter supports asyncronous sendout using collective.zamqp. Look at the self contained buildout or https://pypi.python.org/pypi/collective.zamqp and add Products.EasyNewsletter[zamqp] to your eggs section. If you have configured your buildout according accordingly, Products.EasyNewsletter will automatically delegate the sendout to your worker instance.
+Products.EasyNewsletter supports asyncronous sendout using `collective.taskqueue`_
+
+.. _collective.taskqueue: https://pypi.python.org/pypi/collective.taskqueue
+
+Add this to your instance section in your buildout config::
+
+   zope-conf-additional =
+       <taskqueue>
+         queue Products.EasyNewsletter.queue
+       </taskqueue>
+       <taskqueue-server>
+         queue Products.EasyNewsletter.queue
+       </taskqueue-server>
+
+In your eggs list you should add the following install extra ``[taskqueue]``::
+
+   Products.EasyNewsletter[taskqueue]
+
+This will install collective.taskqeue as requirement. If you have configured your buildout according accordingly, Products.EasyNewsletter will automatically delegate the sendout to your worker instance.
+
 
 Sending a daily issue automatically
 -----------------------------------
@@ -354,6 +317,34 @@ The following placeholder can be used in the header, body and footer fields or t
 * ``{{year}}``  example: 2017
 
 
+Customize personalization (placeholders)
+========================================
+
+You can use the BeforePersonalizeEvent to override placeholder values or even manipulate the html before the placeholder are filled.
+
+First define a event handler somewhere in you package.
+::
+
+   def enl_personalize(event):
+       edc = event.data['context']
+       event.data['html'] = event.data['html'].replace('PHP', 'Python')
+       firstname = edc['receiver'].get('firstname')
+       lastname = edc['receiver'].get('lastname')
+       if not firstname and not lastname:
+           edc['SUBSCRIBER_SALUTATION'] = u'Dear {0}'.format(
+               edc['receiver']['email']
+           )
+
+Then register the event handler for the BeforePersonalizeEvent::
+
+   <subscriber
+     for="Products.EasyNewsletter.interfaces.IBeforePersonalizationEvent"
+     handler=".subscribers.enl_personalize"
+     />
+
+For a working example see ``test_before_the_personalization_filter`` in ``test_newsletter.py``.
+
+
 Aggregation templates
 =====================
 
@@ -408,7 +399,7 @@ To do it with your addon product, add this to your registry.xml in your profiles
 Documentation
 =============
 
-For more documentation please visit: http://productseasynewsletter.readthedocs.io
+Online documentation: http://productseasynewsletter.readthedocs.io
 
 
 Source Code

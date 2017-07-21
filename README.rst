@@ -52,14 +52,12 @@ Requirements
 
 Optional:
 
-* ``inqbus.plone.fastmemberproperties`` speeds up access of member properties.
-  Use ``Products.EasyNewsletter[fmp]`` extra in your buildouts eggs list.
 * ``collective.taskqueue`` for asynchronous sendout.
   Use either ``Products.EasyNewsletter[taskqueue]`` or ``Products.EasyNewsletter[taskqueue_redis]`` extra.
   Configure a named task queue ``Products.EasyNewsletter.queue``.
   Read carefully the documentation of ``collective.taskqueue``.
 * ``collective.zamqp`` for asynchronous sendout.
-  Configure a queue named ``Products.EasyNewsletter.queue``.
+  Configure a queue named ``Products.EasyNewsletter.queue`` (DEPRECATED).
 * For asynchronous sendout use the one or the other, both together will crash Plone.
   ``collective.taskqueue`` is recommended unless you know why you want to use AMQP.
 
