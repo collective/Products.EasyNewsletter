@@ -6,6 +6,11 @@ cache:
     - $HOME/buildout-cache
 python:
   - 2.7
+addons:
+  apt:
+    packages:
+      - python2.7
+      - python2.7-dev
 env:
   - PLONE_VERSION=4.3 QA=true
   - PLONE_VERSION=5.0
