@@ -157,4 +157,12 @@
           handler=".upgrades.reinstall_gs_profile"
           profile="Products.EasyNewsletter:default"/>
 
+  <genericsetup:upgradeStep
+          title="Reload profiles to update js registry in Plone 4"
+          description=""
+          source="3015"
+          destination="3016"
+          handler=".upgrades.reinstall_gs_profile"
+          profile="Products.EasyNewsletter:default"/>
+
 </configure>

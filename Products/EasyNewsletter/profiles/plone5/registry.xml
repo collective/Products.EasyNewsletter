@@ -24,7 +24,8 @@
 
   <records prefix="plone.resources/iframeResizer"
            interface='Products.CMFPlone.interfaces.IResourceRegistry'>
-      <value key="js">++plone++easynewsletter_scripts/iframeResizer.min.js</value>
+      <value key="js">++resource++Products.EasyNewsletter.iframeResizer.min.js</value>
+      <value key="compile">False</value>
       <value key="deps">jquery</value>
   </records>
 

@@ -5,7 +5,7 @@
 
     <div tal:content="structure view/get_public_body" />
 
-    <script type="text/javascript" src="++plone++easynewsletter_scripts/iframeResizer.contentWindow.min.js" data-bundle="none"></script>
+    <script type="text/javascript" src="++resource++Products.EasyNewsletter.iframeResizer.contentWindow.min.js" data-bundle="none"></script>
 
     <script type="text/javascript">
     //<![CDATA[

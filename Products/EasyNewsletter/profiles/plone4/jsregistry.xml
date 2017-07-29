@@ -7,9 +7,9 @@
     enabled="1"
     expression="context/@@load_enl_edithelper" />
 
-  <javascript id="++plone++easynewsletter_scripts/iframeResizer.js"
-    compression="safe"
-    cookable="True"
+  <javascript id="++resource++Products.EasyNewsletter.iframeResizer.min.js"
+    compression="none"
+    cookable="False"
     inline="False"
     enabled="1"/>
 
