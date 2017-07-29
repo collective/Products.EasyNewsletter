@@ -1,5 +1,5 @@
 language: python
-sudo: false
+sudo: true
 dist: xenial
 cache:
   pip: true
@@ -12,15 +12,19 @@ env:
   - PLONE_VERSION=5.0
   - PLONE_VERSION=5.1
 before_install:
+  - before_install:
+#  - sudo apt-get update -qq
+#  - sudo apt-get install -qq python2.7 python2.7-virtualenv
   - mkdir -p $HOME/buildout-cache/{eggs,downloads}
   - mkdir $HOME/.buildout
   - echo "[buildout]" > $HOME/.buildout/default.cfg
   - echo "download-cache = $HOME/buildout-cache/downloads" >> $HOME/.buildout/default.cfg
   - echo "eggs-directory = $HOME/buildout-cache/eggs" >> $HOME/.buildout/default.cfg
-  - ./bootstrap-travis.sh
+  - python --version
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 install:
+  - ./bootstrap-travis.sh
   - sed -ie "s#plone-4.3.x.cfg#plone-$PLONE_VERSION.x.cfg#" travis.cfg
   - bin/python --version
   - bin/buildout -N -t 3 -c travis.cfg
