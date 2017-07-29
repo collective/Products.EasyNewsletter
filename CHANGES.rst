@@ -5,7 +5,8 @@ Changelog
 3.0.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix iFrameReziser in ENL Issue preview
+  [MrTango]
 
 
 3.0.1 (2017-07-21)
