@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-3.0.2 (unreleased)
+3.0.2 (2017-07-29)
 ------------------
 
 - Fix iFrameReziser in ENL Issue preview
