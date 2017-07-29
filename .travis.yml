@@ -20,10 +20,12 @@ before_install:
   - echo "download-cache = $HOME/buildout-cache/downloads" >> $HOME/.buildout/default.cfg
   - echo "eggs-directory = $HOME/buildout-cache/eggs" >> $HOME/.buildout/default.cfg
   - python --version
+  - virtualenv --version
+  - pip install --upgrade virtualenv
+  - ./bootstrap-travis.sh
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 install:
-  - ./bootstrap-travis.sh
   - sed -ie "s#plone-4.3.x.cfg#plone-$PLONE_VERSION.x.cfg#" travis.cfg
   - bin/python --version
   - bin/buildout -N -t 3 -c travis.cfg
