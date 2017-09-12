@@ -2,10 +2,10 @@ Changelog
 =========
 
 
-3.0.3 (unreleased)
+3.0.3 (2017-09-12)
 ------------------
 
-- Nothing changed yet.
+- Show all placeholders with dummy data in the separate preview window
 
 
 3.0.2 (2017-07-29)
