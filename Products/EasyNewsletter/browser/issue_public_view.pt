@@ -37,10 +37,10 @@
                     width="100%"
                     scrolling="no"
                     frameborder="0"
-                    tal:attributes="src string:${context/absolute_url}/preview?_authenticator=${token};
+                    tal:attributes="src string:${context/absolute_url}/issue-online-view?_authenticator=${token};
                                     title context/Title;">
                 <a href="#" target="_blank"
-                   tal:attributes="href string:${view/here_url}/preview?_authenticator=${token}"
+                   tal:attributes="href string:${view/here_url}/issue-online-view?_authenticator=${token}"
                    tal:content="string:${view/here_url}/preview">preview url</a>
             </iframe>
 

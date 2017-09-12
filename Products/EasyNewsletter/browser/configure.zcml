@@ -42,6 +42,13 @@
     permission="zope2.View" />
 
   <browser:page
+    name="issue-online-view"
+    for="..interfaces.IENLIssue"
+    class=".issue.IssueView"
+    template="issue_online_view.pt"
+    permission="zope2.View" />
+
+  <browser:page
     name="preview"
     for="..interfaces.IENLIssue"
     class=".issue.IssueView"

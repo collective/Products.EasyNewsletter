@@ -94,6 +94,25 @@ class IssueView(BrowserView):
         preview_html = issuedatafetcher.preview_html()
         return preview_html
 
+    def get_preview(self):
+        """ Return the rendered HTML version with all placeholder,
+            for admin preview.
+        """
+        test_receiver = {
+            'email': 'john@example.com',
+            'fullname': 'John Doe',
+            'firstname': 'John',
+            'lastname': 'Doe',
+            'salutation': 'Dear Mr.',
+            'nl_language': 'de',
+            'uid': 'xyz',
+
+        }
+        issuedatafetcher = IIssueDataFetcher(self.context)
+        preview_html = issuedatafetcher.preview_html(
+            disable_filter=True, receiver=test_receiver)
+        return preview_html
+
     def copy_as_draft(self):
         newsletter = self.context.aq_parent
         master_id = self.context.getId()

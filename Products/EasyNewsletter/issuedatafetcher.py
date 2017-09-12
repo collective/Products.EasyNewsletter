@@ -80,14 +80,16 @@ class DefaultIssueDataFetcher(object):
 
         return data
 
-    def preview_html(self):
+    def preview_html(self, disable_filter=False, receiver=None):
+        receiver = receiver or {}
         html = self._render_output_html()
-        html = self._personalize({}, html)
+        html = self._personalize(receiver, html)
         for placeholder in PLACEHOLDERS:
             html = html.replace('[[' + placeholder + ']]', '')
         soup = BeautifulSoup(html)
-        for node in soup.findAll(True, {'class': 'mailonly'}):
-            node.extract()
+        if not disable_filter:
+            for node in soup.findAll(True, {'class': 'mailonly'}):
+                node.extract()
         return soup.renderContents()
 
     @property
