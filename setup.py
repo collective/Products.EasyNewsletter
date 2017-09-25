@@ -51,6 +51,8 @@ setup(
         'plone.resource',
         'setuptools',
         'stoneagehtml',
+        'plone.protect>=3.1.1',
+        'plone4.csrffixes>=1.1',
     ],
     extras_require=dict(
         test=[

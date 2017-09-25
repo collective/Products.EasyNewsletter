@@ -2,16 +2,18 @@ Changelog
 =========
 
 
-3.0.4 (unreleased)
+3.0.4 (2017-09-25)
 ------------------
 
-- Nothing changed yet.
+- add plone.protect >= 3.1.1 and plone4.csrffixes>=1.1 as dependencies
+  [MrTango]
 
 
 3.0.3 (2017-09-12)
 ------------------
 
 - Show all placeholders with dummy data in the separate preview window
+  [MrTango]
 
 
 3.0.2 (2017-07-29)
