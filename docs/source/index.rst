@@ -91,13 +91,27 @@ Products.EasyNewsletter supports asyncronous sendout using `collective.taskqueue
 
 Add this to your instance section in your buildout config::
 
-   zope-conf-additional =
-       <taskqueue>
-         queue Products.EasyNewsletter.queue
-       </taskqueue>
-       <taskqueue-server>
-         queue Products.EasyNewsletter.queue
-       </taskqueue-server>
+  zope-conf-additional =
+    %import collective.taskqueue
+    <taskqueue>
+      type redis
+      queue Products.EasyNewsletter.queue
+      unix_socket_path PATH-TO-YOUR/redis.sock
+    </taskqueue>
+
+Four your dedicated sendout instance, add this to the config:
+
+zope-conf-additional =
+    %import collective.taskqueue
+    <taskqueue>
+      type redis
+      queue Products.EasyNewsletter.queue
+      unix_socket_path PATH-TO-YOUR/redis.sock
+    </taskqueue>
+    <taskqueue-server>
+      queue Products.EasyNewsletter.queue
+      name ${:_buildout_section_name_}
+    </taskqueue-server>
 
 In your eggs list you should add the following install extra ``[taskqueue]``::
 
