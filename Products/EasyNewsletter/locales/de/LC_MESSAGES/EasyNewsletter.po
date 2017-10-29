@@ -560,7 +560,7 @@ msgstr "Ihre E-Mail-Adresse wurde eingetragen. Sie erhalten eine Bestätigungs-E
 
 #: ./browser/templates/unsubscribe_form.pt:19
 msgid "Your registered E-Mail address:"
-msgstr "Ihre eingetragenen E-Mail-adresse:"
+msgstr "Ihre eingetragenen E-Mail-Adresse:"
 
 #: ./browser/registration.py:154
 msgid "Your subscription was successfully confirmed."
