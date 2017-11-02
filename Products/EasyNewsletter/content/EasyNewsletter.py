@@ -20,7 +20,6 @@ from Products.EasyNewsletter.interfaces import IReceiversMemberFilter
 from Products.EasyNewsletter.interfaces import ISubscriberSource
 from Products.EasyNewsletter.utils.enl import IENLUtils
 from Products.MailHost.interfaces import IMailHost
-from Products.TemplateFields import ZPTField
 from zExceptions import BadRequest
 from zope.component import getUtilitiesFor
 from zope.component import getUtility
@@ -343,25 +342,6 @@ schema = atapi.Schema((
             i18n_domain='EasyNewsletter',
             size=10,
         )
-    ),
-
-    # XXX can be removed in version 4
-    ZPTField(
-        'out_template_pt',
-        schemata='settings',
-        required=False,
-        validators=('zptvalidator', ),
-        widget=atapi.TextAreaWidget(
-            label=_(
-                u"label_out_template_pt",
-                default=u"Outgoing Mail Template, NOT USED ANY MORE!"),
-            description=_(
-                u"help_mailtemplate_body_pt",
-                default=u"This is not used anymore and will be removed in \
-                    future, please see docs for output templates."),
-            i18n_domain="EasyNewsletter",
-            rows=40,
-        ),
     ),
 
     atapi.StringField(

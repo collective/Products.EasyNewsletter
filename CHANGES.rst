@@ -5,7 +5,8 @@ Changelog
 3.0.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Remove unused out_template_pt field from EasyNewsletter
+  [agitator]
 
 
 3.0.4 (2017-09-25)
