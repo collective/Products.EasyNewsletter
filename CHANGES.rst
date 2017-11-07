@@ -5,6 +5,9 @@ Changelog
 3.0.5 (unreleased)
 ------------------
 
+- Use same cmf.ReviewPortalContent permission for taskqueue sendout as with standard sendout.
+  [agitator]
+
 - Show newsletter toolbar for reviewers.
   [agitator]
 
