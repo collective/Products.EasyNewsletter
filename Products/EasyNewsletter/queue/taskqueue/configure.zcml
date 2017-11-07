@@ -9,6 +9,6 @@
       for="Products.EasyNewsletter.interfaces.IENLIssue"
       layer="collective.taskqueue.interfaces.ITaskQueueLayer"
       name="enl_taskqueue_sendout"
-      permission="cmf.ModifyPortalContent"
+      permission="cmf.ReviewPortalContent"
   />
 </configure>
