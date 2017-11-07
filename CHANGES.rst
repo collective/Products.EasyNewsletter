@@ -5,7 +5,8 @@ Changelog
 3.0.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Show newsletter toolbar for reviewers.
+  [agitator]
 
 
 3.0.4 (2017-09-25)

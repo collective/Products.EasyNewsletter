@@ -28,7 +28,8 @@ class EasyNewsletterActionsSubMenuItem(BrowserSubMenuItem):
         return self.context.getNewsletter().absolute_url()
 
     def available(self):
-        if checkPermission('cmf.ModifyPortalContent', self.context) and \
+        if (checkPermission('cmf.ModifyPortalContent', self.context) or
+            checkPermission('cmf.ReviewPortalContent', self.context)) and \
                 IENLBase.providedBy(self.context):
             return True
         return False
