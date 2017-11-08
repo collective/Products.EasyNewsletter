@@ -2,6 +2,7 @@
 # from plone.protect.auto import safeWrite
 from AccessControl import ClassSecurityInfo
 from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
+from DateTime import DateTime
 from email.Header import Header
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
@@ -574,6 +575,8 @@ class ENLIssue(ATTopic, atapi.BaseContent):
             request['enlwf_guard'] = True
             api.content.transition(obj=self, transition='sending_completed')
             request['enlwf_guard'] = False
+            self.setEffectiveDate(DateTime())
+            self.reindexObject(idxs=['effective'])
 
     @security.protected('Modify portal content')
     def loadContent(self):
