@@ -495,7 +495,7 @@ schema.moveField('excludeAllSubscribers', after='default_footer')
 
 
 @implementer(IEasyNewsletter)
-class EasyNewsletter(ATTopic, atapi.BaseFolder):
+class EasyNewsletter(ATTopic, atapi.OrderedBaseFolder):
     """A folder for managing and archiving newsletters.
     """
     security = ClassSecurityInfo()
