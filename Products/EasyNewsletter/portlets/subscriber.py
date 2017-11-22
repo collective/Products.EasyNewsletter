@@ -161,6 +161,12 @@ class AddForm(base.AddForm):
             portlet_title=data.get("portlet_title", u""),
             portlet_description=data.get("portlet_description", u""),
             newsletter=data.get("newsletter", ""),
+            query_name=data.get("query_name", ""),
+            query_firstname=data.get("query_firstname", ""),
+            query_salutation=data.get("query_salutation", ""),
+            query_name_prefix=data.get("query_name_prefix", ""),
+            query_organization=data.get("query_organization", ""),
+            show_unsubscribe=data.get("show_unsubscribe", ""),
         )
 
 

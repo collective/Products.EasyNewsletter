@@ -40,3 +40,11 @@ docs/Makefile
 /temp_resources
 /.coverage
 /htmlcov
+
+/.plone.versioncheck.cache/
+
+/.plone.versioncheck.tracked.json
+
+/Products.EasyNewsletter_plone4.sublime-project
+
+/extends/
