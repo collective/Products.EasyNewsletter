@@ -14,6 +14,9 @@ Changelog
 - Set effective date after sending an issue.
   [Gagaro]
 
+- Fix subscriber portlet, it now reflects all settings also on addform
+  [MrTango]
+
 
 3.0.4 (2017-09-25)
 ------------------
