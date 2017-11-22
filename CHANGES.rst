@@ -11,6 +11,9 @@ Changelog
 - Show newsletter toolbar for reviewers.
   [agitator]
 
+- Set effective date after sending an issue.
+  [Gagaro]
+
 
 3.0.4 (2017-09-25)
 ------------------
