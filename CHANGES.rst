@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-3.0.5 (unreleased)
+3.0.5 (2017-11-22)
 ------------------
 
 - Use same cmf.ReviewPortalContent permission for taskqueue sendout as with standard sendout.
