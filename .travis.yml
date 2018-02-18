@@ -1,12 +1,12 @@
 language: python
 # sudo: true
-dist: xenial
+# dist: xenial
 cache:
   pip: true
   directories:
     - $HOME/buildout-cache
 python:
-  - 2.7.12
+  - 2.7.14
 env:
   - PLONE_VERSION=4.3 QA=true
   - PLONE_VERSION=5.0
