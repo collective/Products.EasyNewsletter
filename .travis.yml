@@ -1,5 +1,5 @@
 language: python
-sudo: true
+# sudo: true
 dist: xenial
 cache:
   pip: true
