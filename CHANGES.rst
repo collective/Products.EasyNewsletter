@@ -2,10 +2,12 @@ Changelog
 =========
 
 
-3.0.6 (unreleased)
+3.0.6 (2018-02-18)
 ------------------
 
-- Nothing changed yet.
+- DisableCSRFProtection for daily issue views, which are triggered by cron
+  jobs
+  [MrTango]
 
 
 3.0.5 (2017-11-22)
