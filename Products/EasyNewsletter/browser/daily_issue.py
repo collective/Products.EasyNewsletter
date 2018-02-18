@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
+from plone.protect.interfaces import IDisableCSRFProtection
 from Products.Five.browser import BrowserView
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
+from zope.interface import alsoProvides
 
 import datetime
 import logging
@@ -59,6 +61,7 @@ class DailyIssueView(BrowserView):
     def __call__(self):
 
         if self.request["REQUEST_METHOD"] == "POST":
+            alsoProvides(self.request, IDisableCSRFProtection)
             if self.has_content():
                 try:
                     self.create_issue()
@@ -93,6 +96,7 @@ class TriggerDailyIssueView(BrowserView):
     """
 
     def __call__(self):
+        alsoProvides(self.request, IDisableCSRFProtection)
         self.request['REQUEST_METHOD'] = 'POST'
         view = getMultiAdapter(
             (self.context, self.request),
