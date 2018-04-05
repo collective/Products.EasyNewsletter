@@ -37,7 +37,7 @@
   <permission value="Modify portal content"/>
  </action>
  <action title="Send" action_id="send" category="easynewsletter"
-    condition_expr="python:object.portal_type == 'ENLIssue'"
+    condition_expr="python: portal.portal_workflow.getInfoFor(object, 'review_state') == 'draft' and object.portal_type == 'ENLIssue'"
     url_expr="string:${folder_url}/send-issue-form"
     visible="True" i18n:domain="plone" i18n:attributes="title">
   <permission value="Modify portal content"/>

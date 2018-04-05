@@ -5,7 +5,8 @@ Changelog
 3.0.7 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Allow send action only in draft state to prevent side effects for users.
+  [agitator]
 
 
 3.0.6 (2018-02-18)
