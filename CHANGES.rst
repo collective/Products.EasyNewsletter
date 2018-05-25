@@ -8,6 +8,9 @@ Changelog
 - Allow send action only in draft state to prevent side effects for users.
   [agitator]
 
+- Fix unsubscribe_view and add some checks/tests for security
+  [MrTango]
+
 
 3.0.6 (2018-02-18)
 ------------------

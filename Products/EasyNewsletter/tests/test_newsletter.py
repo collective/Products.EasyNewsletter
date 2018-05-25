@@ -280,10 +280,10 @@ class EasyNewsletterTests(unittest.TestCase):
             self.newsletter.issue.title = \
                 "This is a very long newsletter issue title with special "\
                 "characters such as äüö. Will this really work?"
-            self.newsletter.issue.setText(u'''
+            self.newsletter.issue.setText(u"""
                 <h1>PHP is cool</h1>
                 {{SUBSCRIBER_SALUTATION}}
-                ''')
+                """)
             self.portal.REQUEST.form.update({
                 'sender_name': self.newsletter.senderName,
                 'sender_email': self.newsletter.senderEmail,

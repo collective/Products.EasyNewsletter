@@ -82,10 +82,10 @@ class IssuedatafetcherIntegrationTests(unittest.TestCase):
                 'salutation': 'Dear Mr.',
                 'nl_language': 'de'
             }
-            html = '''
+            html = """
             <h1>PHP ist toll!</h1>
             {{SUBSCRIBER_SALUTATION}}
-            '''
+            """
             issue_data_fetcher = IIssueDataFetcher(self.newsletter.issue)
             issue_data = issue_data_fetcher._personalize(receiver, html)
             self.assertIn('Dear Ms. Jane Doe', issue_data)

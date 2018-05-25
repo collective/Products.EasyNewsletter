@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from App.Common import package_home
+from plone import api
 from plone.app.testing import login
+from plone.app.testing import logout
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
@@ -36,6 +38,9 @@ class RegistrationIntegrationTests(unittest.TestCase):
         self.portal_url = self.portal.portal_url()
         # create EasyNewsletter instance and add some subscribers
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
+        self.portal.portal_workflow.setDefaultChain(
+            "simple_publication_workflow",
+        )
         login(self.portal, TEST_USER_NAME)
         self.portal.invokeFactory('EasyNewsletter', 'enl1', title=u"ENL 1")
         self.newsletter = self.portal.get('enl1')
@@ -178,6 +183,13 @@ class RegistrationIntegrationTests(unittest.TestCase):
             "max@example.com",
         )
 
+        # check that anonymous can't access the subscriber object
+        subscriber_uid = subscriber.UID()
+        logout()
+        subscriber_obj = api.content.get(UID=subscriber_uid)
+        self.assertFalse(subscriber_obj)
+        login(self.portal, TEST_USER_NAME)
+
 
 class RegistrationFunctionalTests(unittest.TestCase):
 
@@ -202,6 +214,9 @@ class RegistrationFunctionalTests(unittest.TestCase):
 
         # create EasyNewsletter instance and add some subscribers
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
+        # self.portal.portal_workflow.setDefaultChain(
+        #     "simple_publication_workflow",
+        # )
         self.portal.invokeFactory('EasyNewsletter', 'enl1', title=u"ENL 1")
         self.newsletter = self.portal.get('enl1')
         self.newsletter.senderEmail = "newsletter@acme.com"
