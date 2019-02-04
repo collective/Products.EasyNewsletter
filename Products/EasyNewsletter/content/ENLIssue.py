@@ -631,6 +631,8 @@ class ENLIssue(ATTopic, atapi.BaseContent):
                 if image is not None:
                     image["Content-ID"] = "<image_%s>" % image_number
                     # attach images only to html parts
+                else:
+                    continue
                 images_to_attach.append(image)
             # Numbers have to match what we replaced in html
             image_number += 1
