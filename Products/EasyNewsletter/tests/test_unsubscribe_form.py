@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from App.Common import package_home
+from plone import api
 from plone.app.testing import login
+from plone.app.testing import logout
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
@@ -37,6 +39,9 @@ class UnsubscribeFormIntegrationTests(unittest.TestCase):
 
         # create EasyNewsletter instance and add some subscribers
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
+        self.portal.portal_workflow.setDefaultChain(
+            "simple_publication_workflow",
+        )
         login(self.portal, TEST_USER_NAME)
         if IS_PLONE_5:
             registry = getUtility(IRegistry)
@@ -68,6 +73,7 @@ class UnsubscribeFormIntegrationTests(unittest.TestCase):
         sm.registerUtility(mailhost, provided=IMailHost)
         # We need to fake a valid mail setup
         self.mailhost = self.portal.MailHost
+        logout()
 
     def test_submit_unsubscribe_form(self):
         self.assertSequenceEqual(self.mailhost.messages, [])
@@ -102,6 +108,15 @@ class UnsubscribeFormFunctionalTests(unittest.TestCase):
 
         # create EasyNewsletter instance and add some subscribers
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
+        self.portal.portal_workflow.setDefaultChain(
+            "simple_publication_workflow",
+        )
+        self.dummy_page = api.content.create(
+            type='Document',
+            id='dummy_page',
+            title=u"Dummy page",
+            container=self.portal,
+        )
         self.portal.invokeFactory('EasyNewsletter', 'enl1', title=u"ENL 1")
         self.newsletter = self.portal.get('enl1')
         self.newsletter.senderEmail = "newsletter@acme.com"
@@ -117,6 +132,7 @@ class UnsubscribeFormFunctionalTests(unittest.TestCase):
         # Commit so that the test browser sees these changes
         import transaction as zt
         zt.commit()
+        logout()
 
     def test_render_unsubscribe_form(self):
         self.browser.open(self.unsubscribe_form_url)
@@ -135,3 +151,10 @@ class UnsubscribeFormFunctionalTests(unittest.TestCase):
         self.assertTrue(
             subscriber1_id not in self.newsletter.objectIds(),
             'Subscriber should be delete now!')
+
+        self.browser.open(
+            self.unsubscribe_view_url + '?subscriber=' +
+            self.dummy_page.UID())
+        self.assertTrue(
+            self.dummy_page.id in self.portal.objectIds(),
+            'Dummy page should not be deleted by unsubscribe form!')

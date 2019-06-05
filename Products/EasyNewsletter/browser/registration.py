@@ -7,7 +7,9 @@ from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.CMFCore.utils import getToolByName
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
 from Products.EasyNewsletter.config import MESSAGE_CODE
+from Products.EasyNewsletter.interfaces import IEasyNewsletter
 from Products.EasyNewsletter.interfaces import IENLRegistrationTool
+from Products.EasyNewsletter.interfaces import IENLSubscriber
 from Products.EasyNewsletter.utils.mail import get_email_charset
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.Five.browser import BrowserView
@@ -268,18 +270,25 @@ class UnsubscribeView(BrowserView):
         if IDisableCSRFProtection is not None:
             alsoProvides(self.request, IDisableCSRFProtection)
         putils = getToolByName(self.context, "plone_utils")
-        catalog = getToolByName(self.context, "reference_catalog")
         uid = self.request.get("subscriber")
 
-        subscriber = catalog.lookupObject(uid)
-        if subscriber is None:
+        newsletter = self.context
+        if not IEasyNewsletter.providedBy(newsletter):
+            putils.addPortalMessage(
+                _("Please use the correct unsubscribe url!"),
+                "error",
+            )
+            return self.request.response.redirect(
+                api.portal.get_navigation_root(self).absolute_url())
+
+        # We do the deletion as the owner of the newsletter object
+        # so that this is possible without login.
+        owner = newsletter.getWrappedOwner()
+        newSecurityManager(newsletter, owner)
+        subscriber = api.content.get(UID=uid)
+        if subscriber is None or not IENLSubscriber.providedBy(subscriber):
             putils.addPortalMessage(_("An error occured"), "error")
         else:
-            newsletter = self.context
-            # We do the deletion as the owner of the newsletter object
-            # so that this is possible without login.
-            owner = newsletter.getWrappedOwner()
-            newSecurityManager(newsletter, owner)
             del newsletter[subscriber.id]
             putils.addPortalMessage(_("You have been unsubscribed."))
 
