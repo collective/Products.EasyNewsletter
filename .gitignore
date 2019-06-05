@@ -48,3 +48,4 @@ docs/Makefile
 /Products.EasyNewsletter_plone4.sublime-project
 
 /extends/
+/.vscode/settings.json

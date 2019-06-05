@@ -72,4 +72,8 @@ setup(
             'collective.taskqueue[redis]',
         ],
     ),
+    entry_points="""
+    [console_scripts]
+    update_locale = Products.EasyNewsletter.locales.update:update_locale
+    """,
 )

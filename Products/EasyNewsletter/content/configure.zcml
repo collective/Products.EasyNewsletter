@@ -4,4 +4,6 @@
   xmlns:cmf="http://namespaces.zope.org/cmf"
   i18n_domain="EasyNewsletter">
 
+ -*- extra stuff goes here -*-
+
 </configure>
