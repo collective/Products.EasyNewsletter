@@ -99,3 +99,6 @@ class ENLHTMLParser(HTMLParser.HTMLParser):
                 self.html += self._encode(' %s="%s"' % attr)
 
         self.html += " />"
+
+    def unescape(self, s):
+        return HTMLParser.HTMLParser.unescape(self, s.decode('utf8')).encode('utf8')
