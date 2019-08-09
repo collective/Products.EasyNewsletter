@@ -24,14 +24,14 @@ before_install:
   - pip install --upgrade virtualenv
   - ./bootstrap-travis.sh
   - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
+#  - sh -e /etc/init.d/xvfb start
 install:
   - sed -ie "s#plone-4.3.x.cfg#plone-$PLONE_VERSION.x.cfg#" travis.cfg
   - bin/python --version
   - bin/buildout -N -t 3 -c travis.cfg
 script:
   - bin/code-analysis
-  - bin/test --all
+  - bin/test
 after_success:
   - bin/createcoverage
   - pip install -q coveralls
