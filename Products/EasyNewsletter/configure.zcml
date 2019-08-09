@@ -10,6 +10,9 @@
 
     <includeDependencies package="." />
 
+  <include package="Products.CMFPlone" file="meta-bbb.zcml"
+    zcml:condition="have plone-51"/>
+
   <include
       file="permissions.zcml"
       package="Products.CMFCore"

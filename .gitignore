@@ -48,3 +48,5 @@ docs/Makefile
 /Products.EasyNewsletter_plone4.sublime-project
 
 /extends/
+/.vscode/
+/Products.EasyNewsletter_plone51.sublime-project

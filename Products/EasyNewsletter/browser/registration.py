@@ -169,7 +169,6 @@ class SubscriberView(BrowserView):
                 regdataobj.salutation,
             )
             if valid_email:
-
                 # now delete the regobj
                 del enl_registration_tool[hashkey]
                 messages.addStatusMessage(
@@ -271,7 +270,7 @@ class UnsubscribeView(BrowserView):
     def unsubscribe(self):
         """
         """
-        if IDisableCSRFProtection is not None:
+        if protect is not None:
             alsoProvides(self.request, protect.interfaces.IDisableCSRFProtection)
         putils = getToolByName(self.context, "plone_utils")
         catalog = getToolByName(self.context, "reference_catalog")
