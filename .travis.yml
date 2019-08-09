@@ -22,12 +22,14 @@ before_install:
   - python --version
   - virtualenv --version
   - pip install --upgrade virtualenv
+  - pip install configparser
   - ./bootstrap-travis.sh
   - export DISPLAY=:99.0
 #  - sh -e /etc/init.d/xvfb start
 install:
   - sed -ie "s#plone-4.3.x.cfg#plone-$PLONE_VERSION.x.cfg#" travis.cfg
   - bin/python --version
+  - bin/pip install configparser
   - bin/buildout -N -t 3 -c travis.cfg
 script:
   - bin/code-analysis
