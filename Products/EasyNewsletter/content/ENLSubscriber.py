@@ -99,7 +99,7 @@ schema = atapi.BaseSchema + atapi.Schema((
         ),
     ),
 
-), )
+))
 
 
 @implementer(IENLSubscriber)

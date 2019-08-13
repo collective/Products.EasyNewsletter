@@ -51,7 +51,7 @@ schema = atapi.BaseSchema + atapi.Schema((
         ),
     ),
 
-), )
+))
 
 
 # schema['body'].widget.visible = {
