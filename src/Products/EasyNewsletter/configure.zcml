@@ -21,6 +21,7 @@
   <include file="profiles.zcml" />
   <include file="vocabularies.zcml" />
   <include file="upgrades.zcml" />
+  <include file="permissions.zcml" />
 
   <i18n:registerTranslations directory="locales" />
 

@@ -42,6 +42,7 @@ src/Products/EasyNewsletter/content/ENLSubscriber.py
 src/Products/EasyNewsletter/content/ENLTemplate.py
 src/Products/EasyNewsletter/content/EasyNewsletter.py
 src/Products/EasyNewsletter/content/__init__.py
+src/Products/EasyNewsletter/content/newsletter.py
 src/Products/EasyNewsletter/portlets/__init__.py
 src/Products/EasyNewsletter/portlets/subscriber.py
 src/Products/EasyNewsletter/queue/__init__.py
@@ -53,6 +54,7 @@ src/Products/EasyNewsletter/queue/zamqp/__init__.py
 src/Products/EasyNewsletter/queue/zamqp/handler.py
 src/Products/EasyNewsletter/tests/__init__.py
 src/Products/EasyNewsletter/tests/base.py
+src/Products/EasyNewsletter/tests/test_ct_newsletter.py
 src/Products/EasyNewsletter/tests/test_daily_issue.py
 src/Products/EasyNewsletter/tests/test_issuedatafetcher.py
 src/Products/EasyNewsletter/tests/test_newsletter.py
