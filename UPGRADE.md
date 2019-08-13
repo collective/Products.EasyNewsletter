@@ -4,7 +4,7 @@ Python3 and Dexterity upgrade notes
 Plone 5.1 / Python 2.7
 ----------------------
 
-- Create new DX CT's
+- Create new DX CT's: Newletter, Newsletter Issue, Newletter Subscriber
 - Add DX schema fields mostly like the current AT fields
 - Implement CT's methods mostly as views/utilities instead of instance methods
 - Move aggregation templates into a behavior for Collections, so that every selected collection can have a different aggregation template. This makes the ENLTemplate CT obsolet.
