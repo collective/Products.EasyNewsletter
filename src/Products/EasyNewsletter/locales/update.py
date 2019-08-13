@@ -5,10 +5,10 @@ import pkg_resources
 import subprocess
 
 
-domain = 'collective.consent'
+domain = 'Products.EasyNewsletter'
 os.chdir(pkg_resources.resource_filename(domain, ''))
 os.chdir('../../../')
-target_path = 'src/collective/consent/'
+target_path = 'src/Products/EasyNewsletter/'
 locale_path = target_path + 'locales/'
 i18ndude = './bin/i18ndude'
 

@@ -2,8 +2,8 @@ Adding and updating locales
 ---------------------------
 
 For every language you want to translate into you need a
-locales/[language]/LC_MESSAGES/collective.task.po
-(e.g. locales/de/LC_MESSAGES/collective.task.po)
+locales/[language]/LC_MESSAGES/Products.EasyNewsletter.po
+(e.g. locales/de/LC_MESSAGES/Products.EasyNewsletter.po)
 
 For German
 
