@@ -1,7 +1,7 @@
 Python3 and Dexterity upgrade notes
 ===================================
 
-Plone 5.2 / Python 2.7
+Plone 5.1 / Python 2.7
 ----------------------
 
 - Create new DX CT's
@@ -13,8 +13,8 @@ Plone 5.2 / Python 2.7
 - Upgrade step: Remove old AT content
 
 
-plone 5.2 / Python 3.7
-----------------------
+plone 5.2 / Python 2.7/3.7
+--------------------------
 
 - Update code for Py3
 - Remove AMQP Code

@@ -4,6 +4,7 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:zcml="http://namespaces.zope.org/zcml">
+
   <utility
       factory=".setuphandlers.HiddenProfiles"
       name="Products.EasyNewsletter-hiddenprofiles"
@@ -11,19 +12,10 @@
 
   <genericsetup:registerProfile
       description="Installs Products.EasyNewsLetter"
-      directory="profiles/plone4"
-      name="default"
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      title="EasyNewsletter"
-      zcml:condition="not-have plone-5"
-  />
-  <genericsetup:registerProfile
-      description="Installs Products.EasyNewsLetter"
       directory="profiles/plone5"
       name="default"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       title="EasyNewsletter"
-      zcml:condition="have plone-5"
   />
   <genericsetup:registerProfile
       description="An easy to use Newsletter for Plone."

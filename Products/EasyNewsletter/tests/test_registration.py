@@ -80,7 +80,6 @@ class RegistrationIntegrationTests(unittest.TestCase):
         view = getMultiAdapter(
             (self.portal, self.portal.REQUEST),
             name="register-subscriber")
-        view = view.__of__(self.portal)
         view.__call__()
         self.assertEqual(len(self.mailhost.messages), 1)
         self.assertTrue(self.mailhost.messages[0])
@@ -137,7 +136,6 @@ class RegistrationIntegrationTests(unittest.TestCase):
         view = getMultiAdapter(
             (self.portal, self.portal.REQUEST),
             name="register-subscriber")
-        view = view.__of__(self.portal)
         view.__call__()
 
         enl_reg_entry = self.enl_reg_tool.values()[0]
@@ -147,7 +145,6 @@ class RegistrationIntegrationTests(unittest.TestCase):
         view = getMultiAdapter(
             (self.portal, self.portal.REQUEST),
             name="confirm-subscriber")
-        view = view.__of__(self.portal)
         view.__call__()
         catalog = self.portal.portal_catalog
         query = {'portal_type': 'ENLSubscriber'}

@@ -84,7 +84,6 @@ class UnsubscribeFormIntegrationTests(unittest.TestCase):
         view = getMultiAdapter(
             (self.newsletter, self.portal.REQUEST),
             name="unsubscribe_form")
-        view = view.__of__(self.portal)
         view.__call__()
 
         self.assertEqual(len(self.mailhost.messages), 1)

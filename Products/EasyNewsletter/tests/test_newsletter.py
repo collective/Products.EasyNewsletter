@@ -111,7 +111,6 @@ class EasyNewsletterTests(unittest.TestCase):
         view = getMultiAdapter(
             (self.newsletter.issue, self.portal.REQUEST),
             name="send-issue")
-        view = view.__of__(self.portal)
 
         view.send_issue()
 
@@ -147,7 +146,6 @@ class EasyNewsletterTests(unittest.TestCase):
         view = getMultiAdapter(
             (self.newsletter.issue, self.portal.REQUEST),
             name="send-issue")
-        view = view.__of__(self.portal)
 
         view.send_issue()
         self.assertEqual(len(self.mailhost.messages), 1)
@@ -216,7 +214,6 @@ class EasyNewsletterTests(unittest.TestCase):
         view = getMultiAdapter(
             (self.newsletter.issue, self.portal.REQUEST),
             name="send-issue")
-        view = view.__of__(self.portal)
         view.send_issue()
 
         self.assertEqual(len(self.mailhost.messages), 5)
@@ -295,7 +292,6 @@ class EasyNewsletterTests(unittest.TestCase):
             view = getMultiAdapter(
                 (self.newsletter.issue, self.portal.REQUEST),
                 name="send-issue")
-            view = view.__of__(self.portal)
             view.send_issue()
 
             # pers_events = getEvents(IBeforePersonalizationFilter)
@@ -317,7 +313,7 @@ class EasyNewsletterTests(unittest.TestCase):
             self.image.absolute_url_path())
         msg = self.send_sample_message(body)
 
-        self.assertIn('<img src=3D"cid:image_', msg)
+        self.assertIn('src=3D"cid:image_', msg)
         self.assertIn('Content-ID: <image_', msg)
         self.assertIn('Content-Type: image/png;', msg)
 
@@ -335,7 +331,7 @@ class EasyNewsletterTests(unittest.TestCase):
         zt.commit()
 
         msg = self.send_sample_message(body)
-        self.assertIn('<img src=3D"cid:image_', msg)
+        self.assertIn('src=3D"cid:image_', msg)
         self.assertIn('Content-ID: <image_', msg)
         self.assertIn('Content-Type: image/png;', msg)
 
@@ -352,7 +348,7 @@ class EasyNewsletterTests(unittest.TestCase):
         msg = self.send_sample_message(body)
 
         self.assertNotIn('resolveuid', msg)
-        self.assertIn('<img src=3D"cid:image_', msg)
+        self.assertIn('src=3D"cid:image_', msg)
         self.assertIn('Content-ID: <image_', msg)
         self.assertIn('Content-Type: image/png;', msg)
 
@@ -381,7 +377,7 @@ class EasyNewsletterTests(unittest.TestCase):
         msg = self.send_sample_message(body)
 
         self.assertNotIn('resolveuid', msg)
-        self.assertIn('<img src=3D"cid:image_', msg)
+        self.assertIn('src=3D"cid:image_', msg)
         self.assertIn('Content-ID: <image_', msg)
         self.assertIn('Content-Type: image/png;', msg)
 
@@ -396,7 +392,6 @@ class EasyNewsletterTests(unittest.TestCase):
         view = getMultiAdapter(
             (self.newsletter.issue, self.portal.REQUEST),
             name="get-public-body")
-        view = view.__of__(self.portal)
         view_result = view()
 
         self.assertTrue(

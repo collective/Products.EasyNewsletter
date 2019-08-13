@@ -9,6 +9,12 @@ EasyNewsletter
 
 EasyNewsletter is a simple but powerful newsletter/mailing product for Plone.
 
+Compatibility
+-------------
+
+EasyNewsletter versions >= 4.x are Plone 5.1 only.
+For Plone versions < 5.1, use the 3.x branch and releases of EasyNewsletter!
+
 
 Features
 ========
@@ -28,11 +34,11 @@ Features
 
 * personalized emails
 
-* synchronous/ asynchronous sendout (also test emails),
+* synchronous/ asynchronous send out (also test emails),
 
 * subscribing/ unsubscribing,
 
-* import/export subscribers via csv
+* import/export subscribers via CSV
 
 * use Plone Members/Groups as receivers (works also with Membrane),
 
@@ -46,19 +52,18 @@ Features
 Requirements
 ============
 
-* Plone 4.3, 5.0 and 5.1 (tested)
-* Archetypes
-* ATContentTypes (base profile only)
+* Plone 5.1 (tested)
+* Dexterity
 
 Optional:
 
-* ``collective.taskqueue`` for asynchronous sendout.
+* ``collective.taskqueue`` for asynchronous send out.
   Use either ``Products.EasyNewsletter[taskqueue]`` or ``Products.EasyNewsletter[taskqueue_redis]`` extra.
   Configure a named task queue ``Products.EasyNewsletter.queue``.
   Read carefully the documentation of ``collective.taskqueue``.
-* ``collective.zamqp`` for asynchronous sendout.
+* ``collective.zamqp`` for asynchronous send out.
   Configure a queue named ``Products.EasyNewsletter.queue`` (DEPRECATED).
-* For asynchronous sendout use the one or the other, both together will crash Plone.
+* For asynchronous send out use the one or the other, both together will crash Plone.
   ``collective.taskqueue`` is recommended unless you know why you want to use AMQP.
 
 
@@ -87,13 +92,13 @@ Known Issues
 Source Code
 ===========
 
-Source code is at Github: https://github.com/collective/Products.EasyNewsletter
+Source code is at GitHub: https://github.com/collective/Products.EasyNewsletter
 
 
-Bugtracker
-==========
+Bug tracker
+===========
 
-Issue tracker is at Github: https://github.com/collective/Products.EasyNewsletter/issues
+Issue tracker is at GitHub: https://github.com/collective/Products.EasyNewsletter/issues
 
 
 Authors

@@ -3,7 +3,7 @@
 from setuptools import find_packages
 from setuptools import setup
 
-version = '3.0.7.dev0'
+version = '4.0.0.dev0'
 long_description = (
     open('README.rst').read() + '\n' +
     open('CHANGES.rst').read()
@@ -17,9 +17,7 @@ setup(
     classifiers=[
         'Development Status :: 4 - Beta',
         'Framework :: Plone',
-        'Framework :: Plone :: 4.3',
-        'Framework :: Plone :: 5.0',
-        'Framework :: Plone :: 5.1',
+        'Framework :: Plone :: 5.2',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7',
         'Topic :: Software Development :: Libraries :: Python Modules',
@@ -35,6 +33,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
+        'Plone',
         'BeautifulSoup',
         'zope.formlib',
         'jinja2',
@@ -58,7 +57,10 @@ setup(
         test=[
             'Pillow',
             'plone.app.testing',
-            'plone.dexterity',
+            'plone.testing',
+            'plone.app.contenttypes',
+            'plone.app.robotframework[debug]',
+            'pdbpp'
         ],
         fmp=['inqbus.plone.fastmemberproperties'],
         zamqp=[

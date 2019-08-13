@@ -3,7 +3,7 @@ from AccessControl import ClassSecurityInfo
 from AccessControl import getSecurityManager
 from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import setSecurityManager
-from AccessControl.User import UnrestrictedUser as BaseUnrestrictedUser
+from AccessControl.User import Super as BaseUnrestrictedUser
 from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 from plone.app.blob.field import ImageField
 from plone.registry.interfaces import IRegistry

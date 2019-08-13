@@ -451,13 +451,13 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         return receivers
 
     def getText(self):
-        output_html = self.getRawText()
+        output_html = safe_unicode(self.getRawText()).encode('utf8')
         # we want pnly apply plone-outputfilters here,
         # but not the safe-html filter!
-        resolved_html = str(self.portal_transforms.convertTo(
+        resolved_html = self.portal_transforms.convertTo(
             'text/x-plone-outputfilters-html',
             output_html, encoding="utf8",
-            mimetype='text/html', context=self))
+            mimetype='text/html', context=self).getData()
         return resolved_html
 
     @property

@@ -10,17 +10,6 @@
 
     <includeDependencies package="." />
 
-  <include
-      file="permissions.zcml"
-      package="Products.CMFCore"
-      zcml:condition="have plone-41"
-  />
-
-  <include
-      package="inqbus.plone.fastmemberproperties"
-      zcml:condition="installed inqbus.plone.fastmemberproperties"
-  />
-
   <include package=".browser" />
   <include package=".content" />
   <include package=".portlets" />

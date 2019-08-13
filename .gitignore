@@ -49,3 +49,6 @@ docs/Makefile
 
 /extends/
 /.vscode/settings.json
+/version_report.html
+/versions.cfg.1
+/versions.cfg.2
