@@ -2,6 +2,7 @@
 from AccessControl.SecurityManagement import newSecurityManager
 from Acquisition import aq_inner
 from email.MIMEText import MIMEText
+from logging import getLogger
 from plone import api
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.CMFCore.utils import getToolByName
@@ -24,11 +25,13 @@ import re
 
 
 try:
-    from plone.protect.interfaces import IDisableCSRFProtection
+    from plone import protect
 except ImportError:
     # BBB for old plone.protect, default until at least Plone 4.3.7.
-    IDisableCSRFProtection = None
+    protect = None
 
+
+logger = getLogger("ENL Registration")
 EMAIL_RE = "^" + EMAIL_RE
 
 
@@ -40,17 +43,13 @@ class SubscriberView(BrowserView):
         """To also display messages for anon users
         """
         if api.user.is_anonymous():
-            return self.request.response.redirect(
-                self.context.absolute_url()
-            )
+            return self.request.response.redirect(self.context.absolute_url())
         else:
-            return self.request.response.redirect(
-                newsletter.absolute_url())
+            self.request.response.redirect(newsletter.absolute_url())
 
     def portal_state(self):
         context = aq_inner(self.context)
-        return getMultiAdapter(
-            (context, self.request), name=u'plone_portal_state')
+        return getMultiAdapter((context, self.request), name=u"plone_portal_state")
 
     @property
     def portal(self):
@@ -71,8 +70,7 @@ class SubscriberView(BrowserView):
         firstname = self.request.get("firstname", "")
         name_prefix = self.request.get("name_prefix", "")
         portal_state = getMultiAdapter(
-            (self.context.aq_inner, self.request),
-            name=u'plone_portal_state'
+            (self.context.aq_inner, self.request), name=u"plone_portal_state"
         )
         current_language = portal_state.language()
         nl_language = self.request.get("nl_language", current_language)
@@ -80,26 +78,24 @@ class SubscriberView(BrowserView):
         organization = self.request.get("organization", "")
         path_to_easynewsletter = self.request.get("newsletter")
         # remove leading slash from paths like: /mynewsletter
-        path_to_easynewsletter = path_to_easynewsletter.strip('/')
-        newsletter_container = self.portal.unrestrictedTraverse(
-            path_to_easynewsletter)
+        path_to_easynewsletter = path_to_easynewsletter.strip("/")
+        newsletter_container = self.portal.unrestrictedTraverse(path_to_easynewsletter)
         messages = IStatusMessage(self.request)
 
         if not subscriber:
-            messages.addStatusMessage(
-                _("Please enter a valid email address."), "error")
+            messages.addStatusMessage(_("Please enter a valid email address."), "error")
             return self._msg_redirect(newsletter_container)
 
         mo = re.search(EMAIL_RE, subscriber)
         if not mo:
-            messages.addStatusMessage(
-                _("Please enter a valid email address."), "error")
+            messages.addStatusMessage(_("Please enter a valid email address."), "error")
             return self._msg_redirect(newsletter_container)
         norm = queryUtility(IIDNormalizer)
         normalized_subscriber = norm.normalize(subscriber)
         if normalized_subscriber in newsletter_container.objectIds():
             messages.addStatusMessage(
-                _("Your email address is already registered."), "error")
+                _("Your email address is already registered."), "error"
+            )
             return self._msg_redirect(newsletter_container)
         subscriber_data = {}
         subscriber_data["subscriber"] = subscriber
@@ -113,48 +109,58 @@ class SubscriberView(BrowserView):
 
         # use password reset tool to create a hash
         pwr_data = self._requestReset(subscriber)
-        hashkey = pwr_data['randomstring']
+        hashkey = pwr_data["randomstring"]
         enl_registration_tool = queryUtility(
-            IENLRegistrationTool, 'enl_registration_tool')
+            IENLRegistrationTool, "enl_registration_tool"
+        )
         if hashkey not in enl_registration_tool.objectIds():
             enl_registration_tool[hashkey] = RegistrationData(
-                hashkey, **subscriber_data)
-            msg_subject = newsletter_container\
-                .getRawSubscriber_confirmation_mail_subject().replace(
-                    "${portal_url}", self.portal_url.strip('http://'))
-            confirmation_url = self.portal_url + '/confirm-subscriber?hkey=' +\
-                str(hashkey)
-            msg_text = newsletter_container\
-                .getRawSubscriber_confirmation_mail_text().replace(
-                    "${newsletter_title}", newsletter_container.Title())
+                hashkey, **subscriber_data
+            )
+            msg_subject = newsletter_container.getRawSubscriber_confirmation_mail_subject().replace(
+                "${portal_url}", self.portal_url.strip("http://")
+            )
+            confirmation_url = (
+                self.portal_url + "/confirm-subscriber?hkey=" + str(hashkey)
+            )
+            confirmation_url = protect.utils.addTokenToUrl(confirmation_url)
+            msg_text = newsletter_container.getRawSubscriber_confirmation_mail_text().replace(
+                "${newsletter_title}", newsletter_container.Title()
+            )
             msg_text = msg_text.replace("${subscriber_email}", subscriber)
-            msg_text = msg_text.replace(
-                "${confirmation_url}", confirmation_url)
+            msg_text = msg_text.replace("${confirmation_url}", confirmation_url)
             settings = get_portal_mail_settings()
             msg_sender = settings.email_from_address
             msg_receiver = subscriber
             msg = MIMEText(msg_text, "plain", charset)
-            msg['To'] = msg_receiver
-            msg['From'] = msg_sender
-            msg['Subject'] = msg_subject
+            msg["To"] = msg_receiver
+            msg["From"] = msg_sender
+            msg["Subject"] = msg_subject
             # msg.epilogue   = ''
             self.portal.MailHost.send(msg.as_string())
 
-            messages.addStatusMessage(_("Your email has been registered. \
+            messages.addStatusMessage(
+                _(
+                    "Your email has been registered. \
                 A confirmation email was sent to your address. Please check \
                 your inbox and click on the link in the email in order to \
-                confirm your subscription."), "info")
+                confirm your subscription."
+                ),
+                "info",
+            )
             return self._msg_redirect(newsletter_container)
 
     def confirm_subscriber(self):
-        hashkey = self.request.get('hkey')
+        hashkey = self.request.get("hkey")
         enl_registration_tool = queryUtility(
-            IENLRegistrationTool, 'enl_registration_tool')
+            IENLRegistrationTool, "enl_registration_tool"
+        )
         regdataobj = enl_registration_tool.get(hashkey)
         messages = IStatusMessage(self.request)
         if regdataobj:
             easynewsletter = self.portal.unrestrictedTraverse(
-                regdataobj.path_to_easynewsletter)
+                regdataobj.path_to_easynewsletter
+            )
             valid_email, error_code = easynewsletter.addSubscriber(
                 regdataobj.subscriber,
                 regdataobj.firstname,
@@ -162,20 +168,19 @@ class SubscriberView(BrowserView):
                 regdataobj.name_prefix,
                 regdataobj.nl_language,
                 regdataobj.organization,
-                regdataobj.salutation
+                regdataobj.salutation,
             )
             if valid_email:
-
                 # now delete the regobj
                 del enl_registration_tool[hashkey]
                 messages.addStatusMessage(
-                    _("Your subscription was successfully confirmed."), "info")
+                    _("Your subscription was successfully confirmed."), "info"
+                )
             else:
                 messages.addStatusMessage(MESSAGE_CODE[error_code], "error")
-            self._msg_redirect(easynewsletter)
+            return self._msg_redirect(easynewsletter)
         else:
-            messages.addStatusMessage(
-                _("Please enter a valid email address."), "error")
+            messages.addStatusMessage(_("Please enter a valid email address."), "error")
         return self.request.response.redirect(self.context.absolute_url())
 
     def _requestReset(self, userid):  # noqa
@@ -188,7 +193,7 @@ class SubscriberView(BrowserView):
         'userid'.
         # taken from Products.PasswordResetTool but without getValidUser check!
         """
-        pwrtool = getToolByName(self.context, 'portal_password_reset')
+        pwrtool = getToolByName(self.context, "portal_password_reset")
         randomstring = pwrtool.uniqueString(userid)
         expiry = pwrtool.expirationDate()
         pwrtool._requests[randomstring] = (userid, expiry)
@@ -197,14 +202,14 @@ class SubscriberView(BrowserView):
         pwrtool.clearExpired(10)
         pwrtool._p_changed = 1
         retval = {}
-        retval['randomstring'] = randomstring
-        retval['expires'] = expiry
-        retval['userid'] = userid
+        retval["randomstring"] = randomstring
+        retval["expires"] = expiry
+        retval["userid"] = userid
         return retval
 
 
 class RegistrationData(OFS.SimpleItem.SimpleItem):
-    """ holds data from OnlineMemberSignupForm
+    """ holds data from ENL registration form
     """
 
     def __init__(self, id, **kw):
@@ -215,22 +220,19 @@ class RegistrationData(OFS.SimpleItem.SimpleItem):
 
     @property
     def title(self):
-        return "%s - %s" % (' '.join([self.firstname, self.lastname]),
-                            self.subscriber)
+        return "%s - %s" % (" ".join([self.firstname, self.lastname]), self.subscriber)
 
 
 class UnsubscribeView(BrowserView):
-
     def __call__(self):
         self.newsletter_url = self.context.absolute_url()
-        subscriber = self.request.get('subscriber')
+        subscriber = self.request.get("subscriber")
 
         if subscriber:
             self.send_unsubscribe_email(subscriber)
-            return self.request.response.redirect(
-                self.newsletter_url)
+            return self.request.response.redirect(self.newsletter_url)
         else:
-            self.form_action = self.newsletter_url + '/unsubscribe'
+            self.form_action = self.newsletter_url + "/unsubscribe"
             return self.index()
 
     def send_unsubscribe_email(self, subscriber):
@@ -243,10 +245,13 @@ class UnsubscribeView(BrowserView):
         messages = IStatusMessage(self.request)
         if results:
             subscriber_brain = results[0]
-            unsubscribe_url = self.newsletter_url +\
-                '/unsubscribe?subscriber=' + subscriber_brain.UID
+            unsubscribe_url = (
+                self.newsletter_url + "/unsubscribe?subscriber=" + subscriber_brain.UID
+            )
             msg_text = """%s: %s""" % (
-                newsletter.getUnsubscribe_string(), unsubscribe_url)
+                newsletter.getUnsubscribe_string(),
+                unsubscribe_url,
+            )
             settings = get_portal_mail_settings()
             api.portal.send_email(
                 recipient=subscriber,
@@ -255,20 +260,20 @@ class UnsubscribeView(BrowserView):
                 body=msg_text,
             )
             messages.addStatusMessage(
-                _("We send you an email, please confirm this unsubscription."),
-                "info")
+                _("We send you an email, please confirm this unsubscription."), "info"
+            )
         else:
             # todo: write an extra error msg if a plone user wants to
             # unsubscribe himself
             messages.addStatusMessage(
-                _("Your email address could not be found in subscribers."),
-                "error")
+                _("Your email address could not be found in subscribers."), "error"
+            )
 
     def unsubscribe(self):
         """
         """
-        if IDisableCSRFProtection is not None:
-            alsoProvides(self.request, IDisableCSRFProtection)
+        if protect is not None:
+            alsoProvides(self.request, protect.interfaces.IDisableCSRFProtection)
         putils = getToolByName(self.context, "plone_utils")
         uid = self.request.get("subscriber")
 
@@ -293,4 +298,5 @@ class UnsubscribeView(BrowserView):
             putils.addPortalMessage(_("You have been unsubscribed."))
 
         return self.request.response.redirect(
-            api.portal.get_navigation_root(self).absolute_url())
+            api.portal.get_navigation_root(self).absolute_url()
+        )

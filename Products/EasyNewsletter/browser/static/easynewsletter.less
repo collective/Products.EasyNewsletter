@@ -1,4 +1,7 @@
-@import url("https://raw.githubusercontent.com/plone/plonetheme.barceloneta/master/plonetheme/barceloneta/theme/less/variables.plone.less");
+// vs code ext: Easy Less:
+// out: easynewsletter.css, compress: true, sourceMap: true
+
+@import url("https://github.com/plone/plonetheme.barceloneta/raw/master/plonetheme/barceloneta/theme/less/barceloneta.plone.local.less");
 
 
 @font-face {
@@ -101,8 +104,17 @@ input.easynewsletter_text {
   margin: 0 1em 0 0;
 }
 
-.portletNewsletterSubscriber div.field span.required::after {
-  position: absolute;
+.portletNewsletterSubscriber {
+  .portletItem {
+    padding: 10px 15px 26px 15px;
+    form {
+      border-top: 2px solid #ddd;
+      padding: 0.4em 2px 0 2px;
+    }
+  }
+  div.field span.required::after {
+    position: absolute;
+  }
 }
 
 .template-atct_edit.portaltype-enltemplate #archetypes-fieldname-body textarea{

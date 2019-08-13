@@ -52,3 +52,5 @@ docs/Makefile
 /version_report.html
 /versions.cfg.1
 /versions.cfg.2
+/.vscode/
+/Products.EasyNewsletter_plone51.sublime-project

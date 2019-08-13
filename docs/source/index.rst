@@ -351,8 +351,14 @@ Aggregation templates
 We provide some content aggregation templates, but you can add more. A aggregation template has to be global available template.
 The default templates are in the skins folder. They have to be registered in the Plone registry, see below for an example how to do that with GenericSetup.
 
+TTW
+---
+
 You can add your aggregation templates TTW in /portal_skins/custom/manage_main and add them to the registry in /portal_registry.
 Search there for EasyNewsletter, you will find ``Products EasyNewsletter content_aggregation_templates`` where you can add your templates.
+
+Add-on
+------
 
 To do it with your addon product, add this to your registry.xml in your profiles.
 
@@ -376,8 +382,14 @@ Output templates
 We provide some output templates, but you can add more. A output template has to be global available template.
 The default templates are in the skins folder. They have to be registered in the Plone registry, see below for an example how to do that with GenericSetup.
 
+TTW
+---
+
 You can add your output templates TTW in /portal_skins/custom/manage_main and add them to the registry in /portal_registry.
 Search there for EasyNewsletter, you will find ``Products EasyNewsletter output_templates`` where you can add your templates.
+
+Add-on
+------
 
 To do it with your addon product, add this to your registry.xml in your profiles.
 

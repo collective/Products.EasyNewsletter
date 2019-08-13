@@ -23,7 +23,7 @@
         </h1>
 
         <p i18n:translate="easynewsletter_templates_description">
-            With templates you can customise the generation of the easynewsletter html
+            With templates you can customize the generation of the easynewsletter html
             output and create different output for the same content.
         </p>
         <div tal:define="templates python:context.portal_catalog(portal_type = 'ENLTemplate',
