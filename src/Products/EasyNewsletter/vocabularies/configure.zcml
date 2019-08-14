@@ -1,0 +1,13 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="Products.EasyNewsletter">
+
+    <!-- -*- extra stuff goes here -*- -->
+
+    <utility
+        component=".output_templates.OutputTemplatesFactory"
+        name="Products.EasyNewsletter.OutputTemplates"
+    />
+
+
+</configure>
