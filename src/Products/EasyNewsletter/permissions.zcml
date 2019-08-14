@@ -7,6 +7,12 @@
   <!-- -*- extra stuff goes here -*- -->
 
     <permission
+        id="Products.EasyNewsletter.AddNewsletterSubscriber"
+        title="Products.EasyNewsletter: Add NewsletterSubscriber"
+    />
+
+
+    <permission
         id="Products.EasyNewsletter.AddNewsletterIssue"
         title="Products.EasyNewsletter: Add NewsletterIssue"
     />

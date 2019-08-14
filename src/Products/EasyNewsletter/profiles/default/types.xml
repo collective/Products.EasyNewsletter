@@ -7,4 +7,5 @@
   <object meta_type="Factory-based Type Information with dynamic views" name="ENLTemplate"/>
   <object meta_type="Dexterity FTI" name="Newsletter"/>
   <object meta_type="Dexterity FTI" name="Newsletter Issue"/>
+  <object meta_type="Dexterity FTI" name="Newsletter Subscriber"/>
 </object>

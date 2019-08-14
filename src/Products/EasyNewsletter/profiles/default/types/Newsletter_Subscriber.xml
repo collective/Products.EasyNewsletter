@@ -1,39 +1,30 @@
 <?xml version="1.0"?>
 <object xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-    name="Newsletter"
+    name="Newsletter Subscriber"
     meta_type="Dexterity FTI"
     i18n:domain="Products.EasyNewsletter">
 
   <!-- Basic properties -->
   <property
       i18n:translate=""
-      name="title">Newsletter</property>
+      name="title">Newsletter Subscriber</property>
   <property
       i18n:translate=""
-      name="description">Newsletter container which holds Newsletter Issues and Subscribers.</property>
+      name="description">A Newsletter Subscriber.</property>
 
   <property name="allow_discussion">False</property>
-  <property name="factory">Newsletter</property>
+  <property name="factory">Newsletter Subscriber</property>
   <property name="icon_expr"></property>
   <property name="link_target"></property>
 
   <!-- Hierarchy control -->
-  <property name="global_allow">True</property>
-  <property name="filter_content_types">True</property>
-  <property name="allowed_content_types">
-    <element value="Newsletter Subscriber" />
-        <element value="Newsletter Issue" />
-      <!--
-    <element value="Document" />
-    <element value="File" />
-  -->
-  </property>
+  <property name="global_allow">False</property>
   <!-- Schema, class and security -->
-  <property name="add_permission">Products.EasyNewsletter.AddNewsletter</property>
-  <property name="klass">Products.EasyNewsletter.content.newsletter.Newsletter</property>
+  <property name="add_permission">Products.EasyNewsletter.AddNewsletterSubscriber</property>
+  <property name="klass">Products.EasyNewsletter.content.newsletter_subscriber.NewsletterSubscriber</property>
   <property name="model_file"></property>
   <property name="model_source"></property>
-  <property name="schema">Products.EasyNewsletter.content.newsletter.INewsletter</property>
+  <property name="schema">Products.EasyNewsletter.content.newsletter_subscriber.INewsletterSubscriber</property>
 
   <!-- Enabled behaviors -->
   <property name="behaviors" purge="false">
@@ -56,14 +47,10 @@
     <!--<element value="plone.tableofcontents"/>-->
     <!--<element value="plone.versionable" />-->
     <!--<element value="plone.translatable" />-->
-    <!--<element value="plone.nextprevioustoggle" />-->
-    <!--<element value="plone.nextpreviousenabled" />-->
-    <!--<element value="plone.navigationroot" />-->
-    <!--<element value="plone.selectablecontrainstypes" />-->
   </property>
 
   <!-- View information -->
-  <property name="add_view_expr">string:${folder_url}/++add++Newsletter</property>
+  <property name="add_view_expr">string:${folder_url}/++add++Newsletter Subscriber</property>
   <property name="default_view">view</property>
   <property name="default_view_fallback">False</property>
   <property name="immediate_view">view</property>
