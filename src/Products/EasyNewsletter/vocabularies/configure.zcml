@@ -2,6 +2,11 @@
     xmlns="http://namespaces.zope.org/zope"
     i18n_domain="Products.EasyNewsletter">
 
+    <utility
+        component=".newsletters.NewslettersVocabularyFactory"
+        name="Products.EasyNewsletter.newsletters"
+       />
+
     <!-- -*- extra stuff goes here -*- -->
 
     <utility

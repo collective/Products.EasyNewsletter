@@ -15,13 +15,16 @@
   <include package=".portlets" />
   <include package=".queue" />
   <include package=".utils" />
+  <include package=".vocabularies" />
   <include package='plone.app.referenceablebehavior' />
 
   <include file="indexers.zcml" />
   <include file="profiles.zcml" />
-  <include file="vocabularies.zcml" />
   <include file="upgrades.zcml" />
   <include file="permissions.zcml" />
+
+<!-- -*- extra stuff goes here -*- -->
+
 
   <i18n:registerTranslations directory="locales" />
 

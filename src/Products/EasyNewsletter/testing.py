@@ -37,7 +37,7 @@ class EasyNewsletter(PloneSandboxLayer):
             applyProfile(portal, 'plone.app.contenttypes:default')
         # Install into Plone site using portal_setup
         applyProfile(portal, 'Products.EasyNewsletter:default')
-        applyProfile(portal, 'Products.EasyNewsletter:install-base')
+        # applyProfile(portal, 'Products.EasyNewsletter:install-base')
 
     def tearDownZope(self, app):
         # Uninstall product

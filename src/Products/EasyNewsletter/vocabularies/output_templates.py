@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
-# from plone import api
-from Products.EasyNewsletter import _
 from plone.dexterity.interfaces import IDexterityContent
+# from plone import api
+from plone.registry.interfaces import IRegistry
+from Products.EasyNewsletter import _
+from zope.component import getUtility
 from zope.globalrequest import getRequest
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
@@ -24,10 +26,19 @@ class OutputTemplates(object):
     def __call__(self, context):
         # Just an example list of content for our vocabulary,
         # this can be any static or dynamic data, a catalog result for example.
-        items = [
-            VocabItem(u'sony-a7r-iii', _(u'Sony Aplha 7R III')),
-            VocabItem(u'canon-5d-iv', _(u'Canon 5D IV')),
-        ]
+        items = []
+
+        registry = getUtility(IRegistry)
+        output_templates = registry.get("Products.EasyNewsletter.output_templates")
+        for key, value in output_templates.items():
+            items.append(VocabItem(key, value))
+        if not len(items):
+            items.append(
+                VocabItem(
+                    u"output_default",
+                    _(u"enl_label_default_output_template", u"Default output template"),
+                )
+            )
 
         # Fix context if you are using the vocabulary in DataGridField.
         # See https://github.com/collective/collective.z3cform.datagridfield/issues/31:  # NOQA: 501
@@ -39,11 +50,7 @@ class OutputTemplates(object):
         terms = []
         for item in items:
             terms.append(
-                SimpleTerm(
-                    value=item.token,
-                    token=str(item.token),
-                    title=item.value,
-                )
+                SimpleTerm(value=item.token, token=str(item.token), title=item.value)
             )
         # Create a SimpleVocabulary from the terms list and return it:
         return SimpleVocabulary(terms)
