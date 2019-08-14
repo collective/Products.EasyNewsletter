@@ -25,7 +25,6 @@ src/Products/EasyNewsletter/issuedatafetcher.py
 src/Products/EasyNewsletter/setuphandlers.py
 src/Products/EasyNewsletter/testing.py
 src/Products/EasyNewsletter/upgrades.py
-src/Products/EasyNewsletter/vocabularies.py
 src/Products/EasyNewsletter/browser/__init__.py
 src/Products/EasyNewsletter/browser/actions_menu.py
 src/Products/EasyNewsletter/browser/controlpanel.py
@@ -43,6 +42,10 @@ src/Products/EasyNewsletter/content/ENLTemplate.py
 src/Products/EasyNewsletter/content/EasyNewsletter.py
 src/Products/EasyNewsletter/content/__init__.py
 src/Products/EasyNewsletter/content/newsletter.py
+src/Products/EasyNewsletter/content/newsletter_issue.py
+src/Products/EasyNewsletter/content/newsletter_subscriber.py
+src/Products/EasyNewsletter/locales/__init__.py
+src/Products/EasyNewsletter/locales/update.py
 src/Products/EasyNewsletter/portlets/__init__.py
 src/Products/EasyNewsletter/portlets/subscriber.py
 src/Products/EasyNewsletter/queue/__init__.py
@@ -55,6 +58,8 @@ src/Products/EasyNewsletter/queue/zamqp/handler.py
 src/Products/EasyNewsletter/tests/__init__.py
 src/Products/EasyNewsletter/tests/base.py
 src/Products/EasyNewsletter/tests/test_ct_newsletter.py
+src/Products/EasyNewsletter/tests/test_ct_newsletter_issue.py
+src/Products/EasyNewsletter/tests/test_ct_newsletter_subscriber.py
 src/Products/EasyNewsletter/tests/test_daily_issue.py
 src/Products/EasyNewsletter/tests/test_issuedatafetcher.py
 src/Products/EasyNewsletter/tests/test_newsletter.py
@@ -62,8 +67,12 @@ src/Products/EasyNewsletter/tests/test_registration.py
 src/Products/EasyNewsletter/tests/test_setup.py
 src/Products/EasyNewsletter/tests/test_unsubscribe_form.py
 src/Products/EasyNewsletter/tests/test_utils.py
+src/Products/EasyNewsletter/tests/test_vocab_output_templates.py
 src/Products/EasyNewsletter/utils/ENLHTMLParser.py
 src/Products/EasyNewsletter/utils/__init__.py
 src/Products/EasyNewsletter/utils/base.py
 src/Products/EasyNewsletter/utils/enl.py
 src/Products/EasyNewsletter/utils/mail.py
+src/Products/EasyNewsletter/vocabularies/__init__.py
+src/Products/EasyNewsletter/vocabularies/newsletters.py
+src/Products/EasyNewsletter/vocabularies/output_templates.py

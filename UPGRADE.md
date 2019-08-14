@@ -7,7 +7,11 @@ Plone 5.1 / Python 2.7
 - Create new DX CT's: Newletter, Newsletter Issue, Newletter Subscriber
 - Add DX schema fields mostly like the current AT fields
 
-### Schema differences
+### Differences
+
+#### Newsletter
+
+##### Schema
 
     old : new
 
@@ -18,12 +22,16 @@ Plone 5.1 / Python 2.7
 - default_header : default_prologue
 - default_footer : default_epilogue
 - excludeAllSubscribers : exclude_all_subscribers
+- outputTemplate : output_template
+- template : aggregation_template
 
-### Behaviors
+##### Behaviors
 
 - Newsletter: Plone users/groups as recipients
 - Newsletter: External subscriber sources
 - Newsletter: External delivery services
+
+
 
 
 - Implement CT's methods mostly as views/utilities instead of instance methods
