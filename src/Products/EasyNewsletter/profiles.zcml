@@ -11,18 +11,11 @@
   />
 
   <genericsetup:registerProfile
-      description="Installs Products.EasyNewsLetter"
-      directory="profiles/plone5"
+      title="Products.EasyNewsletter"
+      description="A Newsletter/Mailing addon for Plone."
+      directory="profiles/default"
       name="default"
       provides="Products.GenericSetup.interfaces.EXTENSION"
-      title="EasyNewsletter"
-  />
-  <genericsetup:registerProfile
-      description="An easy to use Newsletter for Plone."
-      directory="profiles/base"
-      name="install-base"
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      title="EasyNewsletter (BASE)"
   />
   <genericsetup:registerProfile
       description="Removes the EasyNewsLetter."
@@ -31,6 +24,7 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       title="uninstall EasyNewsletter"
   />
+
   <!-- Register the import step -->
   <genericsetup:importStep
       description=""

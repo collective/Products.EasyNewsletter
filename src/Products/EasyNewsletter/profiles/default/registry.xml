@@ -1,6 +1,40 @@
 <?xml version="1.0"?>
 <registry>
 
+  <records interface="Products.EasyNewsletter.browser.controlpanel.IENLSettings"
+      prefix="Products.EasyNewsletter">
+  </records>
+
+  <record name="Products.EasyNewsletter.allowed_content_aggregation_types"
+      interface="Products.EasyNewsletter.browser.controlpanel.IENLSettings"
+      field="allowed_content_aggregation_types">
+    <value purge="false"><element>Collection</element></value>
+  </record>
+
+  <record name="Products.EasyNewsletter.content_aggregation_templates">
+      <field type="plone.registry.field.Dict">
+          <title>ENL Content aggregation templates</title>
+          <key_type type="plone.registry.field.TextLine" />
+          <value_type type="plone.registry.field.TextLine" />
+      </field>
+      <value>
+          <element key="aggregation_news_events_listing">Default Listing with lead images</element>
+          <element key="aggregation_news_events_rich">News, Events, Images Listing</element>
+      </value>
+  </record>
+
+  <record name="Products.EasyNewsletter.output_templates">
+      <field type="plone.registry.field.Dict">
+          <title>ENL Output templates</title>
+          <key_type type="plone.registry.field.TextLine" />
+          <value_type type="plone.registry.field.TextLine" />
+      </field>
+      <value>
+          <element key="output_default">Default output template</element>
+          <element key="output_blacksea">Blacksea output template</element>
+      </value>
+  </record>
+
   <records prefix="plone.resources/easynewsletter"
            interface='Products.CMFPlone.interfaces.IResourceRegistry'>
     <value key="css">
@@ -36,4 +70,5 @@
   <record name="plone.types_not_searched" interface="Products.CMFPlone.interfaces.controlpanel.ISearchSchema" field="types_not_searched">
     <value purge="false"><element>ENLSubscriber</element></value>
   </record>
+
 </registry>

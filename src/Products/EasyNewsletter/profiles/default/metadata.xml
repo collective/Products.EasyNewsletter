@@ -1,8 +1,10 @@
 <?xml version="1.0"?>
 <metadata>
-  <!-- PLONE 5 -->
   <version>3016</version>
   <dependencies>
+    <!-- <dependency>profile-inqbus.plone.fastmemberproperties:default</dependency> -->
+    <dependency>profile-archetypes.referencebrowserwidget:default</dependency>
+    <dependency>profile-plone.app.referenceablebehavior:default</dependency>
     <dependency>profile-Products.Archetypes:Archetypes</dependency>
     <dependency>profile-Products.ATContentTypes:base</dependency>
     <dependency>profile-Products.EasyNewsletter:install-base</dependency>
