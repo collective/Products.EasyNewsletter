@@ -382,6 +382,7 @@ schema = atapi.Schema((
         )
     ),
 
+    # use aggregation_behavior for collections, instead
     atapi.StringField(
         'template',
         schemata='settings',

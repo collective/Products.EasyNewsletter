@@ -61,7 +61,7 @@ DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT = _(
     u'Confirm your subscription on ${portal_url}'
 )
 
-DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_TEXT = """\
+DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_TEXT = u"""\
 You subscribe to the ${newsletter_title}.\n\n
 Your registered email is: ${subscriber_email}\n
 Please click on the link to confirm your subscription: \n
