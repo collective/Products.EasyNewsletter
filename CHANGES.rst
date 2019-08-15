@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-3.0.7 (unreleased)
+3.0.7 (2019-08-15)
 ------------------
 
 - Allow send action only in draft state to prevent side effects for users.
