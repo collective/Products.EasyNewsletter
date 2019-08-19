@@ -50,3 +50,4 @@ docs/Makefile
 /extends/
 /.vscode/
 /Products.EasyNewsletter_plone51.sublime-project
+*.sublime-project

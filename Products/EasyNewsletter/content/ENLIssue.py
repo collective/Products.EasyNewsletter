@@ -281,7 +281,7 @@ schema['allowDiscussion'].widget.visible = {
 schema['subject'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
 schema['location'].widget.visible = {'view': 'invisible', 'edit': 'invisible'}
 schema['effectiveDate'].widget.visible = {
-    'view': 'invisible', 'edit': 'invisible'}
+    'view': 'invisible', 'edit': 'visible'}
 schema['expirationDate'].widget.visible = {
     'view': 'invisible', 'edit': 'invisible'}
 schema['creators'].widget.visible = {
