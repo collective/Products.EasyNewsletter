@@ -5,7 +5,8 @@ Changelog
 3.0.8 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Make effectiveDate visible on ENLIssue and use it in Newsletter archive view instead of modified date for sorting
+  [MrTango]
 
 
 3.0.7 (2019-08-15)
