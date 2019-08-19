@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-3.0.8 (unreleased)
+3.0.8 (2019-08-19)
 ------------------
 
 - Make effectiveDate visible on ENLIssue and use it in Newsletter archive view instead of modified date for sorting
