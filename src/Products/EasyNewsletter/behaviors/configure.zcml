@@ -11,8 +11,8 @@
 
     <plone:behavior
         name="Products.EasyNewsletter.external_delivery_service"
-        title="ExternalDeliveryService"
-        description="Newsletter: External delivery service"
+        title="Newsletter: External delivery service"
+        description="External delivery service for EasyNewsletter."
         provides=".external_delivery_service.IExternalDeliveryService"
         factory=".external_delivery_service.ExternalDeliveryService"
         marker=".external_delivery_service.IExternalDeliveryServiceMarker"
@@ -21,8 +21,8 @@
 
     <plone:behavior
         name="Products.EasyNewsletter.external_subscriber_sources"
-        title="ExternalSubscriberSources"
-        description="Newsletter: External subscriber sources."
+        title="Newsletter: External subscriber sources"
+        description="External subscriber sources for EasyNewsletter."
         provides=".external_subscriber_sources.IExternalSubscriberSources"
         factory=".external_subscriber_sources.ExternalSubscriberSources"
         marker=".external_subscriber_sources.IExternalSubscriberSourcesMarker"
@@ -31,8 +31,8 @@
 
     <plone:behavior
         name="Products.EasyNewsletter.plone_user_group_recipients"
-        title="PloneUserGroupRecipients"
-        description="Newsletter: Plone user/groups as recipients."
+        title="Newsletter: Plone user group recipients"
+        description="Plone user/groups as recipients for EasyNewsletter."
         provides=".plone_user_group_recipients.IPloneUserGroupRecipients"
         factory=".plone_user_group_recipients.PloneUserGroupRecipients"
         marker=".plone_user_group_recipients.IPloneUserGroupRecipientsMarker"
