@@ -10,6 +10,16 @@
     <!-- -*- extra stuff goes here -*- -->
 
     <plone:behavior
+        name="Products.EasyNewsletter.external_delivery_service"
+        title="ExternalDeliveryService"
+        description="Newsletter: External delivery service"
+        provides=".external_delivery_service.IExternalDeliveryService"
+        factory=".external_delivery_service.ExternalDeliveryService"
+        marker=".external_delivery_service.IExternalDeliveryServiceMarker"
+        />
+
+
+    <plone:behavior
         name="Products.EasyNewsletter.external_subscriber_sources"
         title="ExternalSubscriberSources"
         description="Newsletter: External subscriber sources."
