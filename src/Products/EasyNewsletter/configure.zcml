@@ -25,9 +25,6 @@
 
 <!-- -*- extra stuff goes here -*- -->
 
-    <include package=".behaviors" />
-
-
 
   <i18n:registerTranslations directory="locales" />
 
