@@ -39,11 +39,9 @@ class IPloneUserGroupRecipients(model.Schema):
                     the newsletter. Changing this setting does not affect \
                     already existing issues.",
         ),
-        value_type=schema.Choice(vocabulary=u"plone.app.vocabularies.PortalTypes"),
+        value_type=schema.Choice(vocabulary=u"plone.app.vocabularies.Users"),
         required=False,
-        default=set(["Folder", "Image"]),
         # defaultFactory=get_default_plone_receiver_members,
-        readonly=False,
     )
 
     plone_receiver_groups = schema.Set(
@@ -57,11 +55,9 @@ class IPloneUserGroupRecipients(model.Schema):
                     the newsletter. Changing this setting does not affect \
                     already existing issues.",
         ),
-        value_type=schema.Choice(vocabulary=u"plone.app.vocabularies.PortalTypes"),
+        value_type=schema.Choice(vocabulary=u"plone.app.vocabularies.Groups"),
         required=False,
-        default=set(["Folder", "Image"]),
         # defaultFactory=get_default_plone_receiver_members,
-        readonly=False,
     )
 
 
