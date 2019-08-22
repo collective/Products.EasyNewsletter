@@ -13,7 +13,7 @@ from Products.EasyNewsletter.config import IS_PLONE_5
 from Products.EasyNewsletter.interfaces import IBeforePersonalizationEvent
 from Products.EasyNewsletter.interfaces import IEasyNewsletter
 from Products.EasyNewsletter.interfaces import IENLIssue
-from Products.EasyNewsletter.testing import EASYNEWSLETTER_FUNCTIONAL_TESTING
+from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.MailHost.interfaces import IMailHost
 from zExceptions import Forbidden
@@ -58,7 +58,7 @@ def dummy_image(image=None):
 
 
 class EasyNewsletterTests(unittest.TestCase):
-    layer = EASYNEWSLETTER_FUNCTIONAL_TESTING
+    layer = PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
 
     def setUp(self):
         self.mail_settings = get_portal_mail_settings()

@@ -2,7 +2,7 @@
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from Products.EasyNewsletter.config import IS_PLONE_5
-from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
+from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 
 import unittest
 
@@ -15,7 +15,7 @@ if IS_PLONE_5:
 
 class EasyNewsletterSetupTests(unittest.TestCase):
 
-    layer = EASYNEWSLETTER_INTEGRATION_TESTING
+    layer = PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 
     def setUp(self):
         self.portal = self.layer['portal']

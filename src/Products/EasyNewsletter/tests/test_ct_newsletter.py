@@ -12,8 +12,6 @@ from zope.component import queryUtility
 import unittest
 
 
-
-
 class NewsletterIntegrationTest(unittest.TestCase):
 
     layer = PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
@@ -59,9 +57,12 @@ class NewsletterIntegrationTest(unittest.TestCase):
             ),
         )
 
+        parent = obj.__parent__
+        self.assertIn('newsletter', parent.objectIds())
+
         # check that deleting the object works too
         api.content.delete(obj=obj)
-        self.assertIn('newsletter', self.parent.objectIds())
+        self.assertNotIn('newsletter', parent.objectIds())
 
     def test_ct_newsletter_globally_addable(self):
         setRoles(self.portal, TEST_USER_ID, ['Contributor'])
@@ -81,10 +82,10 @@ class NewsletterIntegrationTest(unittest.TestCase):
             'newsletter_id',
             title='Newsletter container',
          )
-        self.parent = self.portal[parent_id]
+        parent = self.portal[parent_id]
         with self.assertRaises(InvalidParameterError):
             api.content.create(
-                container=self.parent,
+                container=parent,
                 type='Document',
                 title='My Content',
             )

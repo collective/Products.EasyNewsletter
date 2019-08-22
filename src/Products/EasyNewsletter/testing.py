@@ -46,12 +46,12 @@ class EasyNewsletter(PloneSandboxLayer):
 
 EASYNEWSLETTER_FIXTURE = EasyNewsletter()
 
-EASYNEWSLETTER_INTEGRATION_TESTING = IntegrationTesting(
+PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING = IntegrationTesting(
     bases=(EASYNEWSLETTER_FIXTURE, ),
     name="EasyNewsletter:Integration"
 )
 
-EASYNEWSLETTER_FUNCTIONAL_TESTING = FunctionalTesting(
+PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(EASYNEWSLETTER_FIXTURE, ),
     name="EasyNewsletter:Functional"
 )

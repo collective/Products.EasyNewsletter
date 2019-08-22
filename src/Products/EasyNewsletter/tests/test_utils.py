@@ -6,7 +6,7 @@ from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.EasyNewsletter.config import IS_PLONE_5
-from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
+from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.MailHost.interfaces import IMailHost
 from zope.component import getSiteManager
@@ -24,7 +24,7 @@ TESTS_HOME = package_home(GLOBALS)
 
 
 class UtilsIntegrationTests(unittest.TestCase):
-    layer = EASYNEWSLETTER_INTEGRATION_TESTING
+    layer = PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 
     def setUp(self):
         self.portal = self.layer['portal']

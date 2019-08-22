@@ -8,7 +8,7 @@ from Products.CMFPlone.tests.utils import MockMailHost
 from Products.EasyNewsletter.config import IS_PLONE_5
 from Products.EasyNewsletter.interfaces import IBeforePersonalizationEvent
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
-from Products.EasyNewsletter.testing import EASYNEWSLETTER_FUNCTIONAL_TESTING
+from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.MailHost.interfaces import IMailHost
 from zope.component import getGlobalSiteManager
@@ -29,7 +29,7 @@ if IS_PLONE_5:
 
 
 class IssuedatafetcherIntegrationTests(unittest.TestCase):
-    layer = EASYNEWSLETTER_FUNCTIONAL_TESTING
+    layer = PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
 
     def setUp(self):
         self.portal = self.layer['portal']

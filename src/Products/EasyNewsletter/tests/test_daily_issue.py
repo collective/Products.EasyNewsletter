@@ -10,7 +10,7 @@ from plone.uuid.interfaces import IUUID
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.EasyNewsletter.interfaces import IENLIssue
-from Products.EasyNewsletter.testing import EASYNEWSLETTER_FUNCTIONAL_TESTING
+from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.MailHost.interfaces import IMailHost
 from zExceptions import BadRequest
@@ -23,7 +23,7 @@ import unittest
 class DailyIssueBaseTestCase(unittest.TestCase):
     """Test case sending a daily Newsletter issue"""
 
-    layer = EASYNEWSLETTER_FUNCTIONAL_TESTING
+    layer = PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
 
     def setUp(self):
         self.portal = self.layer["portal"]

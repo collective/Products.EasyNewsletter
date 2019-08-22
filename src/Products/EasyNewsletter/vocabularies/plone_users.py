@@ -1,19 +1,24 @@
 # -*- coding: utf-8 -*-
 
-# from plone import api
-from Products.EasyNewsletter import _
+from plone import api
 from plone.dexterity.interfaces import IDexterityContent
+from Products.CMFPlone.utils import safe_unicode
+from Products.EasyNewsletter import _
+from Products.EasyNewsletter import config
+# from Products.EasyNewsletter.interfaces import IReceiversGroupFilter
+from Products.EasyNewsletter.interfaces import IReceiversMemberFilter
+# from Products.EasyNewsletter.interfaces import ISubscriberSource
+from zope.component import subscribers
 from zope.globalrequest import getRequest
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
 
+import logging
 
-class VocabItem(object):
-    def __init__(self, token, value):
-        self.token = token
-        self.value = value
+
+log = logging.getLogger("Products.EasyNewsletter")
 
 
 @implementer(IVocabularyFactory)
@@ -24,10 +29,34 @@ class PloneUsers(object):
     def __call__(self, context):
         # Just an example list of content for our vocabulary,
         # this can be any static or dynamic data, a catalog result for example.
-        items = [
-            VocabItem(u'sony-a7r-iii', _(u'Sony Aplha 7R III')),
-            VocabItem(u'canon-5d-iv', _(u'Canon 5D IV')),
-        ]
+        results = []
+        member_properties = dict()
+        users = api.user.get_users()
+        for user in users:
+            info = dict()
+            info["id"] = user.getUserId()
+            info["email"] = user.getProperty("email")
+            info["fullname"] = safe_unicode(user.getProperty("fullname"))
+            member_properties[info["id"]] = info
+
+        try:
+            for id, property in member_properties.items():
+                if config.EMAIL_RE.findall(property['email']):
+                    results.append(
+                        (id, property['fullname'] + ' - ' + property['email']))
+                else:
+                    log.error(
+                        _("Property email: \"{0}\" is not an email!").format(property['email'])
+                    )
+        except TypeError, e:  # noqa
+            log.error(
+                ":get_plone_members: error in member_properties {0} \
+                properties:'{1}'".format(e, member_properties.items())
+            )
+
+        # run registered member filter
+        for subscriber in subscribers([self], IReceiversMemberFilter):
+            results = subscriber.filter(results)
 
         # Fix context if you are using the vocabulary in DataGridField.
         # See https://github.com/collective/collective.z3cform.datagridfield/issues/31:  # NOQA: 501
@@ -37,13 +66,9 @@ class PloneUsers(object):
 
         # create a list of SimpleTerm items:
         terms = []
-        for item in items:
+        for item in results:
             terms.append(
-                SimpleTerm(
-                    value=item.token,
-                    token=str(item.token),
-                    title=item.value,
-                )
+                SimpleTerm(value=item[0], token=item[0], title=item[1])
             )
         # Create a SimpleVocabulary from the terms list and return it:
         return SimpleVocabulary(terms)

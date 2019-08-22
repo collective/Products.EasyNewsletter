@@ -39,7 +39,7 @@ class IPloneUserGroupRecipients(model.Schema):
                     the newsletter. Changing this setting does not affect \
                     already existing issues.",
         ),
-        value_type=schema.Choice(vocabulary=u"plone.app.vocabularies.Users"),
+        value_type=schema.Choice(vocabulary=u"Products.EasyNewsletter.PloneUsers"),
         required=False,
         # defaultFactory=get_default_plone_receiver_members,
     )

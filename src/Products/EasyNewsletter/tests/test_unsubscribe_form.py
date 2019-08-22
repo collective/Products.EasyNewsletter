@@ -11,8 +11,8 @@ from plone.testing.z2 import Browser
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter.config import IS_PLONE_5
-from Products.EasyNewsletter.testing import EASYNEWSLETTER_FUNCTIONAL_TESTING
-from Products.EasyNewsletter.testing import EASYNEWSLETTER_INTEGRATION_TESTING
+from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
+from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 from Products.MailHost.interfaces import IMailHost
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
@@ -31,7 +31,7 @@ if IS_PLONE_5:
 
 class UnsubscribeFormIntegrationTests(unittest.TestCase):
 
-    layer = EASYNEWSLETTER_INTEGRATION_TESTING
+    layer = PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 
     def setUp(self):
         self.portal = self.layer['portal']
@@ -95,7 +95,7 @@ class UnsubscribeFormIntegrationTests(unittest.TestCase):
 
 class UnsubscribeFormFunctionalTests(unittest.TestCase):
 
-    layer = EASYNEWSLETTER_FUNCTIONAL_TESTING
+    layer = PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
 
     def setUp(self):
         self.portal = self.layer['portal']
