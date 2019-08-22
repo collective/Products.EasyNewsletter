@@ -1,14 +1,29 @@
 # -*- coding: utf-8 -*-
 
-from Products.EasyNewsletter import _
+from ..content.newsletter import INewsletter
 from plone import schema
 from plone.autoform.interfaces import IFormFieldProvider
-from plone.dexterity.interfaces import IDexterityContent
 from plone.supermodel import model
+from Products.EasyNewsletter import _
 from zope.component import adapter
-from zope.interface import Interface
 from zope.interface import implementer
+from zope.interface import Interface
 from zope.interface import provider
+from zope.schema.interfaces import IContextAwareDefaultFactory
+
+
+@provider(IContextAwareDefaultFactory)
+def get_default_plone_receiver_members(context):
+    if not INewsletter.providedBy(context):
+        return []
+    return context.plone_receiver_members
+
+
+@provider(IContextAwareDefaultFactory)
+def get_default_plone_receiver_groups(context):
+    if not INewsletter.providedBy(context):
+        return []
+    return context.plone_receiver_groups
 
 
 class IPloneUserGroupRecipientsMarker(Interface):
@@ -21,7 +36,7 @@ class IPloneUserGroupRecipients(model.Schema):
     """
     model.fieldset(
         "recipients",
-        label=_(u"recipients"),
+        label=_(u"Recipients"),
         fields=[
             "plone_receiver_members",
             "plone_receiver_groups",
@@ -41,7 +56,7 @@ class IPloneUserGroupRecipients(model.Schema):
         ),
         value_type=schema.Choice(vocabulary=u"Products.EasyNewsletter.PloneUsers"),
         required=False,
-        # defaultFactory=get_default_plone_receiver_members,
+        defaultFactory=get_default_plone_receiver_members,
     )
 
     plone_receiver_groups = schema.Set(
@@ -57,7 +72,7 @@ class IPloneUserGroupRecipients(model.Schema):
         ),
         value_type=schema.Choice(vocabulary=u"Products.EasyNewsletter.PloneGroups"),
         required=False,
-        # defaultFactory=get_default_plone_receiver_members,
+        defaultFactory=get_default_plone_receiver_groups,
     )
 
 
