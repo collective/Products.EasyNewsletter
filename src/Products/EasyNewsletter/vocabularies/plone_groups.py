@@ -1,19 +1,15 @@
 # -*- coding: utf-8 -*-
 
-# from plone import api
-from Products.EasyNewsletter import _
+from plone import api
 from plone.dexterity.interfaces import IDexterityContent
+from Products.EasyNewsletter import _
+from Products.EasyNewsletter.interfaces import IReceiversGroupFilter
+from zope.component import subscribers
 from zope.globalrequest import getRequest
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
-
-
-class VocabItem(object):
-    def __init__(self, token, value):
-        self.token = token
-        self.value = value
 
 
 @implementer(IVocabularyFactory)
@@ -22,12 +18,10 @@ class PloneGroups(object):
     """
 
     def __call__(self, context):
-        # Just an example list of content for our vocabulary,
-        # this can be any static or dynamic data, a catalog result for example.
-        items = [
-            VocabItem(u'sony-a7r-iii', _(u'Sony Aplha 7R III')),
-            VocabItem(u'canon-5d-iv', _(u'Canon 5D IV')),
-        ]
+
+        results = []
+        group_properties = dict()
+        groups = api.group.get_groups()
 
         # Fix context if you are using the vocabulary in DataGridField.
         # See https://github.com/collective/collective.z3cform.datagridfield/issues/31:  # NOQA: 501
@@ -35,14 +29,28 @@ class PloneGroups(object):
             req = getRequest()
             context = req.PARENTS[0]
 
+        for group in groups:
+            group_id = group.getId()
+            group_properties[group_id] = {
+                'title': group.getGroupTitleOrName(),
+                'email': group.getProperty('email'),
+            }
+        results = [
+            (id, property['title'])
+            for id, property in group_properties.items()]
+
+        # run registered group filter:
+        for subscriber in subscribers([self], IReceiversGroupFilter):
+            results = subscriber.filter(results)
+
         # create a list of SimpleTerm items:
         terms = []
-        for item in items:
+        for item in results:
             terms.append(
                 SimpleTerm(
-                    value=item.token,
-                    token=str(item.token),
-                    title=item.value,
+                    value=item[0],
+                    token=item[0],
+                    title=item[1],
                 )
             )
         # Create a SimpleVocabulary from the terms list and return it:
