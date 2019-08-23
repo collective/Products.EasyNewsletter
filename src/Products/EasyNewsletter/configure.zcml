@@ -16,6 +16,7 @@
   <include package=".queue" />
   <include package=".utils" />
   <include package=".vocabularies" />
+  <include package=".views" />
   <include package='plone.app.referenceablebehavior' />
 
   <include file="indexers.zcml" />
@@ -23,7 +24,7 @@
   <include file="upgrades.zcml" />
   <include file="permissions.zcml" />
 
-<!-- -*- extra stuff goes here -*- -->
+  <!-- -*- extra stuff goes here -*- -->
 
     <include package=".vocabularies" />
 

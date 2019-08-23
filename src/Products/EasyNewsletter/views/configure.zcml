@@ -8,7 +8,7 @@
 
   <browser:page
      name="view"
-     for="Products.CMFCore.interfaces.IFolderish"
+     for="Products.EasyNewsletter.content.newsletter.INewsletter"
      class=".newsletter.Newsletter"
      template="newsletter.pt"
      permission="zope2.View"
