@@ -11,11 +11,13 @@ from Products.EasyNewsletter.config import MESSAGE_CODE
 from Products.EasyNewsletter.interfaces import IEasyNewsletter
 from Products.EasyNewsletter.interfaces import IENLRegistrationTool
 from Products.EasyNewsletter.interfaces import IENLSubscriber
+from Products.EasyNewsletter.utils.base import execute_under_special_role
 from Products.EasyNewsletter.utils.mail import get_email_charset
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.validation.validators.BaseValidators import EMAIL_RE
+from zExceptions import BadRequest
 from zope.component import getMultiAdapter
 from zope.component import queryUtility
 from zope.interface import alsoProvides
@@ -158,26 +160,38 @@ class SubscriberView(BrowserView):
         regdataobj = enl_registration_tool.get(hashkey)
         messages = IStatusMessage(self.request)
         if regdataobj:
-            easynewsletter = self.portal.unrestrictedTraverse(
-                regdataobj.path_to_easynewsletter
-            )
-            valid_email, error_code = easynewsletter.addSubscriber(
-                regdataobj.subscriber,
-                regdataobj.firstname,
-                regdataobj.lastname,
-                regdataobj.name_prefix,
-                regdataobj.nl_language,
-                regdataobj.organization,
-                regdataobj.salutation,
-            )
-            if valid_email:
+            email = regdataobj.subscriber
+            plone_utils = api.portal.get_tool(name="plone_utils")
+            subscriber_id = plone_utils.normalizeString(email)
+            portal = api.portal.get()
+            try:
+                execute_under_special_role(
+                    portal,
+                    "Contributor",
+                    api.content.create,
+                    type="ENLSubscriber",
+                    id=subscriber_id,
+                    language=self.Language(),
+                    email=email,
+                    firstname=regdataobj.firstname,
+                    lastname=regdataobj.lastname,
+                    name_prefix=regdataobj.name_prefix,
+                    nl_language=regdataobj.nl_language,
+                    organization=regdataobj.organization,
+                    salutation=regdataobj.salutation,
+                )
+            except BadRequest:
+                error_code = u"email_exists"
+                messages.addStatusMessage(MESSAGE_CODE[error_code], "error")
+            else:
                 # now delete the regobj
                 del enl_registration_tool[hashkey]
                 messages.addStatusMessage(
                     _("Your subscription was successfully confirmed."), "info"
                 )
-            else:
-                messages.addStatusMessage(MESSAGE_CODE[error_code], "error")
+            easynewsletter = self.portal.unrestrictedTraverse(
+                regdataobj.path_to_easynewsletter
+            )
             return self._msg_redirect(easynewsletter)
         else:
             messages.addStatusMessage(_("Please enter a valid email address."), "error")
@@ -280,11 +294,11 @@ class UnsubscribeView(BrowserView):
         newsletter = self.context
         if not IEasyNewsletter.providedBy(newsletter):
             putils.addPortalMessage(
-                _("Please use the correct unsubscribe url!"),
-                "error",
+                _("Please use the correct unsubscribe url!"), "error"
             )
             return self.request.response.redirect(
-                api.portal.get_navigation_root(self).absolute_url())
+                api.portal.get_navigation_root(self).absolute_url()
+            )
 
         # We do the deletion as the owner of the newsletter object
         # so that this is possible without login.

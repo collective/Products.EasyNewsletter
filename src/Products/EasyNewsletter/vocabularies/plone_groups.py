@@ -21,7 +21,7 @@ class PloneGroups(object):
 
         results = []
         group_properties = dict()
-        groups = api.group.get_groups()
+        groups = api.plone.get_groups()
 
         # Fix context if you are using the vocabulary in DataGridField.
         # See https://github.com/collective/collective.z3cform.datagridfield/issues/31:  # NOQA: 501
@@ -32,12 +32,10 @@ class PloneGroups(object):
         for group in groups:
             group_id = group.getId()
             group_properties[group_id] = {
-                'title': group.getGroupTitleOrName(),
-                'email': group.getProperty('email'),
+                "title": group.getGroupTitleOrName(),
+                "email": group.getProperty("email"),
             }
-        results = [
-            (id, property['title'])
-            for id, property in group_properties.items()]
+        results = [(id, property["title"]) for id, property in group_properties.items()]
 
         # run registered group filter:
         for subscriber in subscribers([self], IReceiversGroupFilter):
@@ -46,13 +44,7 @@ class PloneGroups(object):
         # create a list of SimpleTerm items:
         terms = []
         for item in results:
-            terms.append(
-                SimpleTerm(
-                    value=item[0],
-                    token=item[0],
-                    title=item[1],
-                )
-            )
+            terms.append(SimpleTerm(value=item[0], token=item[0], title=item[1]))
         # Create a SimpleVocabulary from the terms list and return it:
         return SimpleVocabulary(terms)
 
