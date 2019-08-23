@@ -10,6 +10,12 @@
     <!-- -*- extra stuff goes here -*- -->
 
     <utility
+        component=".salutations.SalutationsFactory"
+        name="Products.EasyNewsletter.Salutations"
+    />
+
+
+    <utility
         component=".plone_groups.PloneGroupsFactory"
         name="Products.EasyNewsletter.PloneGroups"
     />
