@@ -21,7 +21,7 @@ class PloneGroups(object):
 
         results = []
         group_properties = dict()
-        groups = api.plone.get_groups()
+        groups = api.group.get_groups()
 
         # Fix context if you are using the vocabulary in DataGridField.
         # See https://github.com/collective/collective.z3cform.datagridfield/issues/31:  # NOQA: 501
