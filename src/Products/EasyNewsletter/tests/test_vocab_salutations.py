@@ -27,6 +27,6 @@ class SalutationsIntegrationTest(unittest.TestCase):
         vocabulary = factory(self.portal)
         self.assertTrue(IVocabularyTokenized.providedBy(vocabulary))
         self.assertEqual(
-            vocabulary.getTerm('sony-a7r-iii').title,
-            _(u'Sony Aplha 7R III'),
+            vocabulary.getTerm('ms').title,
+            _(u'Ms'),
         )

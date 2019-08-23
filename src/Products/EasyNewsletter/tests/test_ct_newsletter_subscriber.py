@@ -11,8 +11,6 @@ from zope.component import queryUtility
 import unittest
 
 
-
-
 class NewsletterSubscriberIntegrationTest(unittest.TestCase):
 
     layer = PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
@@ -25,7 +23,7 @@ class NewsletterSubscriberIntegrationTest(unittest.TestCase):
         parent_id = portal_types.constructContent(
             'Newsletter',
             self.portal,
-            'newsletter_subscriber',
+            'parent_container',
             title='Parent container',
         )
         self.parent = self.portal[parent_id]
@@ -66,9 +64,11 @@ class NewsletterSubscriberIntegrationTest(unittest.TestCase):
             ),
         )
 
+        self.assertIn('newsletter_subscriber', self.parent.objectIds())
+
         # check that deleting the object works too
         api.content.delete(obj=obj)
-        self.assertIn('newsletter_subscriber', self.parent.objectIds())
+        self.assertNotIn('newsletter_subscriber', self.parent.objectIds())
 
     def test_ct_newsletter_subscriber_globally_not_addable(self):
         setRoles(self.portal, TEST_USER_ID, ['Contributor'])
