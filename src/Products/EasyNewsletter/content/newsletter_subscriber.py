@@ -1,24 +1,64 @@
 # -*- coding: utf-8 -*-
-# from plone.app.textfield import RichText
-# from plone.autoform import directives
+from plone import api
+from plone import schema
+from plone.autoform import directives
 from plone.dexterity.content import Item
-# from plone.namedfile import field as namedfile
 from plone.supermodel import model
-# from plone.supermodel.directives import fieldset
-# from z3c.form.browser.radio import RadioFieldWidget
-# from zope import schema
+from Products.EasyNewsletter import _
 from zope.interface import implementer
-
-
-# from Products.EasyNewsletter import _
 
 
 class INewsletterSubscriber(model.Schema):
     """ Marker interface and Dexterity Python Schema for NewsletterSubscriber
     """
 
+    salutation = schema.Choice(
+        title=_(u"EasyNewsletter_label_salutation", default="Salutation"),
+        description=_(u"EasyNewsletter_help_salutation", default=u""),
+        vocabulary=u"plone.app.vocabularies.PortalTypes",
+        default=u"",
+        # defaultFactory=get_default_salutation,
+        required=False,
+    )
+
+    name_prefix = schema.TextLine(
+        title=_(u"EasyNewsletter_label_name_prefix", default=u"Name Prefix"),
+        description=_(u"EasyNewsletter_help_name_prefix", default=u""),
+        default=u"",
+        required=False,
+    )
+
+    firstname = schema.TextLine(
+        title=_(u"EasyNewsletter_label_firstname", default=u"First Name"),
+        required=False,
+    )
+
+    lastname = schema.TextLine(
+        title=_(u"EasyNewsletter_label_lastname", default=u"Last Name"), required=False
+    )
+
+    organization = schema.TextLine(
+        title=_(u"EasyNewsletter_label_organization", default=u"Organization"),
+        required=False,
+    )
+
+    email = schema.TextLine(
+        title=_(u"EasyNewsletter_label_email", default=u"Email"), required=True
+    )
+
 
 @implementer(INewsletterSubscriber)
 class NewsletterSubscriber(Item):
     """
     """
+
+    @property
+    def title(self):
+        title = self.email
+        if self.firstname or self.lastname:
+            title += " ".join(self.name_prefix, self.firstname, self.lastname)
+        return title
+
+    @title.setter
+    def title(self, value):
+        return
