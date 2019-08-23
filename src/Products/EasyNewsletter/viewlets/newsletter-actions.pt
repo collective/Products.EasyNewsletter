@@ -1,0 +1,3 @@
+<div class="days_to_conf">
+    ${view/message}
+</div>
