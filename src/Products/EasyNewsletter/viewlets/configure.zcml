@@ -8,7 +8,7 @@
 
   <browser:viewlet
      name="newsletter-actions"
-     for="plone.app.contenttypes.interfaces.IDocument"
+     for="Products.EasyNewsletter.content.newsletter.INewsletter"
      manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
      layer="Products.EasyNewsletter.interfaces.IProductsEasyNewsletterLayer"
      class=".newsletter_actions.NewsletterActions"

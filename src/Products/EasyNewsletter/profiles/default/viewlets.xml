@@ -3,4 +3,7 @@
   <order manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle">
     <viewlet name="enl.newsletter_actions" insert-before="*" />
   </order>
+  <order manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle">
+    <viewlet name="newsletter-actions" insert-before="*" />
+  </order>
 </object>

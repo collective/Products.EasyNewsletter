@@ -17,6 +17,8 @@
   <include package=".utils" />
   <include package=".vocabularies" />
   <include package=".views" />
+  <include package=".viewlets" />
+
   <include package='plone.app.referenceablebehavior' />
 
   <include file="indexers.zcml" />

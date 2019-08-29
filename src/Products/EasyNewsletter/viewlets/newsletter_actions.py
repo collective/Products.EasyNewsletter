@@ -6,10 +6,10 @@ from plone.app.layout.viewlets import ViewletBase
 class NewsletterActions(ViewletBase):
 
     def update(self):
-        self.message = self.get_message()
-
-    def get_message(self):
-        return u'My message'
+        """
+        """
+        self.id = self.context.id
+        self.enl_url = self.context.absolute_url()
 
     def render(self):
         return super(NewsletterActions, self).render()
