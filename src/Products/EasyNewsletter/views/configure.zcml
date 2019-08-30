@@ -18,7 +18,7 @@
      name="newsletter-drafts"
      for="Products.EasyNewsletter.content.newsletter.INewsletter"
      class=".newsletter_drafts.NewsletterDrafts"
-     template="newsletter-drafts.pt"
+     template="newsletter_drafts.pt"
      permission="zope2.View"
      />
 
@@ -27,6 +27,14 @@
      for="Products.EasyNewsletter.content.newsletter.INewsletter"
      class=".newsletter.Newsletter"
      template="newsletter.pt"
+     permission="zope2.View"
+     />
+
+  <browser:page
+     name="view"
+     for="Products.EasyNewsletter.content.newsletter.INewsletterIssue"
+     class=".newsletter.NewsletterIssue"
+     template="newsletter_issue.pt"
      permission="zope2.View"
      />
 
