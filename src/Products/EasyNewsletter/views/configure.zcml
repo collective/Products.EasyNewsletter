@@ -7,6 +7,14 @@
   -*- extra stuff goes here -*-
 
   <browser:page
+     name="newsletter-masters"
+     for="Products.CMFCore.interfaces.IFolderish"
+     class=".newsletter_masters.NewsletterMasters"
+     template="newsletter_masters.pt"
+     permission="zope2.View"
+     />
+
+  <browser:page
      name="newsletter-drafts"
      for="Products.EasyNewsletter.content.newsletter.INewsletter"
      class=".newsletter_drafts.NewsletterDrafts"
