@@ -7,14 +7,6 @@
   -*- extra stuff goes here -*-
 
   <browser:page
-     name="view"
-     for="Products.CMFCore.interfaces.IFolderish"
-     class=".newsletter_subscriber.NewsletterSubscriber"
-     template="newsletter_subscriber.pt"
-     permission="zope2.View"
-     />
-
-  <browser:page
      name="newsletter-masters"
      for="Products.CMFCore.interfaces.IFolderish"
      class=".newsletter_masters.NewsletterMasters"
@@ -43,6 +35,14 @@
      for="Products.EasyNewsletter.content.newsletter.INewsletterIssue"
      class=".newsletter.NewsletterIssue"
      template="newsletter_issue.pt"
+     permission="zope2.View"
+     />
+
+  <browser:page
+     name="view"
+     for="Products.EasyNewsletter.content.newsletter.INewsletterSubscriber"
+     class=".newsletter_subscriber.NewsletterSubscriber"
+     template="newsletter_subscriber.pt"
      permission="zope2.View"
      />
 
