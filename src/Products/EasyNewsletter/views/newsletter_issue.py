@@ -1,17 +1,28 @@
 # -*- coding: utf-8 -*-
 
-from Products.EasyNewsletter import _
+from plone import api
+from plone.protect import PostOnly
+from plone.protect.interfaces import IDisableCSRFProtection
+from Products.CMFPlone.resources import add_resource_on_request
+from Products.EasyNewsletter import _  # noqa
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
+from Products.EasyNewsletter.config import IS_PLONE_5
+from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.Five.browser import BrowserView
-
-# from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 
 class NewsletterIssue(BrowserView):
-    # If you want to define a template here, please remove the template from
-    # the configure.zcml registration of this view.
-    # template = ViewPageTemplateFile('newsletter-issue.pt')
-
     def __call__(self):
-        # Implement your own actions:
-        self.msg = _(u'A small message')
+        add_resource_on_request(self.request, "iframeResizer")
         return self.index()
+
+    @property
+    def here_url(self):
+        return self.context.absolute_url()
+
+    def refresh_issue(self, REQUEST=None):  # noqa
+        """Refresh the aggregate body when using collections.
+        """
+        alsoProvides(self.request, IDisableCSRFProtection)
+        self.context.loadContent()
+        self.request.response.redirect(self.context.absolute_url())

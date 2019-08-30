@@ -55,6 +55,11 @@
       for=".interfaces.IENLIssue"
   />
 
+  <adapter
+      factory=".issuedatafetcher.DefaultIssueDataFetcher"
+      for=".content.newsletter_issue.INewsletterIssue"
+  />
+
   <subscriber
      for="Products.EasyNewsletter.interfaces.IENLTemplate
           Products.Archetypes.interfaces.IObjectEditedEvent"

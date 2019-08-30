@@ -40,15 +40,15 @@
 
   <browser:page
      name="view"
-     for="Products.EasyNewsletter.content.newsletter.INewsletterIssue"
-     class=".newsletter.NewsletterIssue"
+     for="Products.EasyNewsletter.content.newsletter_issue.INewsletterIssue"
+     class=".newsletter_issue.NewsletterIssue"
      template="newsletter_issue.pt"
      permission="zope2.View"
      />
 
   <browser:page
      name="view"
-     for="Products.EasyNewsletter.content.newsletter.INewsletterSubscriber"
+     for="Products.EasyNewsletter.content.newsletter_subscriber.INewsletterSubscriber"
      class=".newsletter_subscriber.NewsletterSubscriber"
      template="newsletter_subscriber.pt"
      permission="zope2.View"

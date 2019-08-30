@@ -28,6 +28,7 @@ class IssueView(BrowserView):
     def here_url(self):
         return self.context.absolute_url()
 
+    # TODO: >> new AggregateContent view
     def refresh_issue(self, REQUEST=None):  # noqa
         """Refresh the aggregate body when using collections.
         """
@@ -35,6 +36,7 @@ class IssueView(BrowserView):
         self.context.loadContent()
         self.request.response.redirect(self.context.absolute_url())
 
+    # TODO: >> SendIssue view
     def _send_issue_prepare(self):
         self.request['enlwf_guard'] = True
         api.content.transition(obj=self.context, transition='send')
@@ -43,6 +45,7 @@ class IssueView(BrowserView):
         transaction.commit()
         self.request['enlwf_guard'] = False
 
+    # TODO: >> SendIssue view
     def send_issue(self):
         """
         sets workflow state to sending and then redirects to step2 with UID as
@@ -78,6 +81,7 @@ class IssueView(BrowserView):
         )
         return self.request.response.redirect(self.context.absolute_url())
 
+    # TODO: >> SendIssueImmediately view
     def send_issue_immediately(self):
         """convinience view for cron and similar
 
@@ -87,6 +91,7 @@ class IssueView(BrowserView):
         self._send_issue_prepare()
         self.context.send()
 
+    # TODO: >> newsletter_online_view view
     def get_public_body(self):
         """ Return the rendered HTML version without placeholders.
         """
@@ -94,6 +99,7 @@ class IssueView(BrowserView):
         preview_html = issuedatafetcher.preview_html()
         return preview_html
 
+    # TODO: >> issue_preview_view view
     def get_preview(self):
         """ Return the rendered HTML version with all placeholder,
             for admin preview.
@@ -113,6 +119,7 @@ class IssueView(BrowserView):
             disable_filter=True, receiver=test_receiver)
         return preview_html
 
+    # TODO: >> IssueCopyAsDraft view
     def copy_as_draft(self):
         newsletter = self.context.aq_parent
         master_id = self.context.getId()
@@ -133,6 +140,7 @@ class IssueView(BrowserView):
             draft_obj.absolute_url() + '/edit'
         )
 
+    # TODO: >> IssueCopyAsMaster view
     def copy_as_master(self):
         request = self.context.REQUEST
         newsletter = self.context.aq_parent

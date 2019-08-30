@@ -50,8 +50,8 @@ class INewsletterIssue(model.Schema):
         "customizations",
         label=_(u"Customizations"),
         fields=[
-            "default_prologue",
-            "default_epilogue",
+            "prologue",
+            "epilogue",
             "content_aggregation_source",
             "exclude_all_subscribers",
             "image",
@@ -110,7 +110,7 @@ class INewsletterIssue(model.Schema):
     )
 
     # Make sure to import: plone.app.textfield
-    default_prologue = textfield.RichText(
+    prologue = textfield.RichText(
         title=_(u"ENL_label_default_header", default=u"Prologue"),
         description=_(
             u"ENL_description_text_header",
@@ -123,7 +123,7 @@ class INewsletterIssue(model.Schema):
     )
 
     # Make sure to import: plone.app.textfield
-    default_epilogue = textfield.RichText(
+    epilogue = textfield.RichText(
         title=_(u"ENL_label_default_footer", default=u"Epilogue"),
         description=_(
             u"ENL_description_text_footer",
@@ -176,3 +176,38 @@ class NewsletterIssue(Container):
 
     # bbb to support ATCT way, needs to be removed in v5.x:
     getNewsletter = get_newsletter
+
+    def has_image(self):
+        has_image = bool(self.get_image_src())
+        return has_image
+
+    def has_logo(self):
+        enl = self.get_newsletter()
+        has_logo = getattr(enl.aq_explicit, 'logo', None)
+        return has_logo
+
+    def get_image_src(self):
+        img_src = ""
+        if self.hide_image:
+            return img_src
+        scales = self.restrictedTraverse('@@images')
+        if scales.scale('image', scale='mini'):
+            img_src = self.absolute_url() + "/image"
+            return img_src
+        enl = self.get_newsletter()
+        scales = enl.restrictedTraverse('@@images')
+        if scales.scale('image', scale='mini'):
+            img_src = enl.absolute_url() + "/image"
+        return img_src
+
+    # bbb: we should print a deprecation message here
+    def getHeader(self):
+        return self.prologue
+
+    # bbb: we should print a deprecation message here
+    def getFooter(self):
+        return self.epilogue
+
+    # bbb: we should print a deprecation message here
+    def getOutputTemplate(self):
+        return self.output_template

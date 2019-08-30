@@ -142,7 +142,7 @@ class DefaultIssueDataFetcher(object):
             with header+body+footer (raw html).
         """
         output_tmpl_id = self.issue.getOutputTemplate()
-        issue_tmpl = self.issue.restrictedTraverse(output_tmpl_id)
+        issue_tmpl = self.issue.restrictedTraverse(str(output_tmpl_id))
         output_html = issue_tmpl.render()
         output_html = safe_portal_encoding(output_html)
         # output_html = compactify(output_html, filter_tags=False)
@@ -155,11 +155,11 @@ class DefaultIssueDataFetcher(object):
         data['html'] = html
         data['context'] = {}
         data['context']['receiver'] = receiver
-        data['context']['language'] = self.enl.Language()
+        data['context']['language'] = self.enl.language
         data['context']['fullname'] = self._fullname(receiver)
         data['context']['salutation'] = self._salutation(receiver)
-        data['context']['issue_title'] = self.issue.Title()
-        data['context']['issue_description'] = self.issue.Description()
+        data['context']['issue_title'] = self.issue.title
+        data['context']['issue_description'] = self.issue.description
         data['context']['banner_src'] = self.issue.get_image_src()
         scales = self.enl.restrictedTraverse('@@images')
         logo_src = ""
