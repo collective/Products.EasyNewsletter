@@ -65,10 +65,12 @@
 
   <record name="plone.displayed_types" interface="Products.CMFPlone.interfaces.controlpanel.INavigationSchema" field="displayed_types">
     <value purge="false"><element>EasyNewsletter</element></value>
+    <value purge="false"><element>Newsletter</element></value>
   </record>
 
   <record name="plone.types_not_searched" interface="Products.CMFPlone.interfaces.controlpanel.ISearchSchema" field="types_not_searched">
     <value purge="false"><element>ENLSubscriber</element></value>
+    <value purge="false"><element>Newsletter Subscriber</element></value>
   </record>
 
 </registry>

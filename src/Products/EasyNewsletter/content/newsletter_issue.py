@@ -170,3 +170,9 @@ class INewsletterIssue(model.Schema):
 class NewsletterIssue(Container):
     """
     """
+
+    def get_newsletter(self):
+        return self.__parent__
+
+    # bbb to support ATCT way, needs to be removed in v5.x:
+    getNewsletter = get_newsletter

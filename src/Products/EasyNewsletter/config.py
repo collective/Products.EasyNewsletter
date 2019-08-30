@@ -14,8 +14,8 @@ IS_PLONE_4 = api.env.plone_version().startswith('4')
 
 PROJECTNAME = 'EasyNewsletter'
 
-ENL_ISSUE_TYPES = ['ENLIssue']
-ENL_EDITHELPER_TYPES = ['EasyNewsletter', 'ENLIssue']
+ENL_ISSUE_TYPES = ['ENLIssue', 'Newsletter Issue']
+ENL_EDITHELPER_TYPES = ['EasyNewsletter', 'ENLIssue', 'Newsletter', 'Newsletter Issue']
 
 PLACEHOLDERS = ['UNSUBSCRIBE', 'SUBSCRIBER_SALUTATION']
 
