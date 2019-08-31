@@ -17,7 +17,7 @@
 		</a>
 	</li>
 	<li>
-		<a tal:attributes="href string:${view/enl_url}/enl_masters_view;"
+		<a tal:attributes="href string:${view/enl_url}/newsletter-masters;"
 			title="Issue masters"
 			i18n:attributes="title"
 			i18n:translate="">
@@ -25,7 +25,7 @@
 		</a>
 	</li>
 	<li>
-		<a tal:attributes="href string:${view/enl_url}/enl_subscribers_view;"
+		<a tal:attributes="href string:${view/enl_url}/newsletter-subscribers;"
 			title="Subscriberlist"
 			i18n:attributes="title"
 			i18n:translate="">

@@ -1,17 +1,22 @@
 # -*- coding: utf-8 -*-
-
+from plone import api
 from Products.EasyNewsletter import _
+from Products.EasyNewsletter import config
 from Products.Five.browser import BrowserView
-
-# from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 
 class NewsletterMasters(BrowserView):
-    # If you want to define a template here, please remove the template from
-    # the configure.zcml registration of this view.
-    # template = ViewPageTemplateFile('newsletter_masters.pt')
-
     def __call__(self):
-        # Implement your own actions:
-        self.msg = _(u'A small message')
         return self.index()
+
+    def get_master_issues(self):
+        """ return issues brains of issues in review state master"""
+        enl = self.context.get_newsletter()
+        issues = api.content.find(
+            portal_type=config.ENL_ISSUE_TYPES,
+            review_state="master",
+            sort_on="modified",
+            sort_order="reverse",
+            context=enl,
+        )
+        return issues

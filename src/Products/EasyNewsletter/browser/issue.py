@@ -91,7 +91,6 @@ class IssueView(BrowserView):
         self._send_issue_prepare()
         self.context.send()
 
-    # TODO: >> newsletter_online_view view
     def get_public_body(self):
         """ Return the rendered HTML version without placeholders.
         """
@@ -99,7 +98,6 @@ class IssueView(BrowserView):
         preview_html = issuedatafetcher.preview_html()
         return preview_html
 
-    # TODO: >> issue_preview_view view
     def get_preview(self):
         """ Return the rendered HTML version with all placeholder,
             for admin preview.

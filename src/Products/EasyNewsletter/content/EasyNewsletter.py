@@ -737,19 +737,6 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
         )
         return issues
 
-    def get_master_issues(self):
-        """ return issues brains of issues in review state master"""
-        enl = self.getNewsletter()
-        issues = self.portal_catalog(
-            portal_type=config.ENL_ISSUE_TYPES,
-            review_state='master',
-            sort_on='modified',
-            sort_order='reverse',
-            path='/'.join(enl.getPhysicalPath())
-        )
-        return issues
-
-
 atapi.registerType(EasyNewsletter, config.PROJECTNAME)
 
 
