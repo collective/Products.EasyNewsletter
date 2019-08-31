@@ -7,6 +7,14 @@
   -*- extra stuff goes here -*-
 
   <browser:page
+    name="subscribers-download"
+    for="Products.CMFCore.interfaces.IFolderish"
+    class=".newsletter_subscribers_download.NewsletterSubscribersDownload"
+    template="newsletter_subscribers_download.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
     name="subscribers-upload"
     for="Products.CMFCore.interfaces.IFolderish"
     class=".newsletter_subscribers_upload.NewsletterSubscribersUpload"
