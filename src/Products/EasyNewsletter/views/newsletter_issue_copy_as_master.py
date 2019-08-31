@@ -1,17 +1,24 @@
 # -*- coding: utf-8 -*-
-
+from plone import api
 from Products.EasyNewsletter import _
 from Products.Five.browser import BrowserView
 
-# from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-
 
 class NewsletterIssueCopyAsMaster(BrowserView):
-    # If you want to define a template here, please remove the template from
-    # the configure.zcml registration of this view.
-    # template = ViewPageTemplateFile('newsletter_issue_copy_as_master.pt')
-
     def __call__(self):
-        # Implement your own actions:
-        self.msg = _(u'A small message')
-        return self.index()
+        return self.copy_as_master()
+
+    def copy_as_master(self):
+        request = self.request
+        newsletter = self.context.get_newsletter()
+        master_id = "master_" + self.context.id
+
+        master_obj = api.content.copy(
+            source=self.context, target=newsletter, safe_id=True, id=master_id
+        )
+
+        request["enlwf_guard"] = True
+        api.content.transition(obj=master_obj, transition="make_master")
+        request["enlwf_guard"] = False
+
+        return self.request.response.redirect(master_obj.absolute_url() + "/edit")

@@ -8,17 +8,15 @@
 
   <browser:page
     name="copy-as-draft"
-    for="Products.CMFCore.interfaces.IFolderish"
+    for="Products.EasyNewsletter.content.newsletter_issue.INewsletterIssue"
     class=".newsletter_issue_copy_as_draft.NewsletterIssueCopyAsDraft"
-    template="newsletter_issue_copy_as_draft.pt"
     permission="zope2.View"
     />
 
   <browser:page
     name="copy-as-master"
-    for="Products.CMFCore.interfaces.IFolderish"
+    for="Products.EasyNewsletter.content.newsletter_issue.INewsletterIssue"
     class=".newsletter_issue_copy_as_master.NewsletterIssueCopyAsMaster"
-    template="newsletter_issue_copy_as_master.pt"
     permission="zope2.View"
     />
 

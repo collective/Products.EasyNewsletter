@@ -1,17 +1,31 @@
 # -*- coding: utf-8 -*-
 
+from plone import api
 from Products.EasyNewsletter import _
 from Products.Five.browser import BrowserView
 
-# from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-
 
 class NewsletterIssueCopyAsDraft(BrowserView):
-    # If you want to define a template here, please remove the template from
-    # the configure.zcml registration of this view.
-    # template = ViewPageTemplateFile('newsletter_issue_copy_as_draft.pt')
 
     def __call__(self):
-        # Implement your own actions:
-        self.msg = _(u'A small message')
-        return self.index()
+        return self.copy_as_draft()
+
+    def copy_as_draft(self):
+        newsletter = self.context.get_newsletter()
+        master_id = self.context.id
+
+        if master_id.startswith('master_'):
+            draft_id = master_id.replace('master_', '')
+        else:
+            draft_id = master_id
+
+        draft_obj = api.content.copy(
+            source=self.context,
+            target=newsletter,
+            safe_id=True,
+            id=draft_id
+        )
+
+        return self.request.response.redirect(
+            draft_obj.absolute_url() + '/edit'
+        )

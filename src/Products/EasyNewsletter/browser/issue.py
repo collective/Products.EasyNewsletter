@@ -117,7 +117,7 @@ class IssueView(BrowserView):
             disable_filter=True, receiver=test_receiver)
         return preview_html
 
-    # TODO: >> IssueCopyAsDraft view
+    # BBB: can be removed in 5.x
     def copy_as_draft(self):
         newsletter = self.context.aq_parent
         master_id = self.context.getId()
@@ -138,7 +138,7 @@ class IssueView(BrowserView):
             draft_obj.absolute_url() + '/edit'
         )
 
-    # TODO: >> IssueCopyAsMaster view
+    # BBB: can be removed in 5.x
     def copy_as_master(self):
         request = self.context.REQUEST
         newsletter = self.context.aq_parent
