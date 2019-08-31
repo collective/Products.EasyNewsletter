@@ -1,6 +1,6 @@
-<ul id="enl_actions"
+<nav class="toc-nav newsletter"
 	i18n:domain="EasyNewsletter">
-	<li>
+	<li tal:attributes="class python: view.view_name == 'view' and 'active' or ''">
 		<a tal:attributes="href string:${view/enl_url}/;"
 			title="Issue archive"
 			i18n:attributes="title"
@@ -8,7 +8,7 @@
 			Archive
 		</a>
 	</li>
-	<li>
+	<li tal:attributes="class python: view.view_name == 'newsletter-drafts' and 'active' or ''">
 		<a tal:attributes="href string:${view/enl_url}/newsletter-drafts;"
 			title="Issue drafts"
 			i18n:attributes="title"
@@ -16,7 +16,7 @@
 			Drafts
 		</a>
 	</li>
-	<li>
+	<li tal:attributes="class python: view.view_name == 'newsletter-masters' and 'active' or ''">
 		<a tal:attributes="href string:${view/enl_url}/newsletter-masters;"
 			title="Issue masters"
 			i18n:attributes="title"
@@ -24,7 +24,7 @@
 			Masters
 		</a>
 	</li>
-	<li>
+	<li tal:attributes="class python: view.view_name == 'newsletter-subscribers' and 'active' or ''">
 		<a tal:attributes="href string:${view/enl_url}/newsletter-subscribers;"
 			title="Subscriberlist"
 			i18n:attributes="title"
@@ -32,4 +32,4 @@
 			Subscribers
 		</a>
 	</li>
-</ul>
+</nav>

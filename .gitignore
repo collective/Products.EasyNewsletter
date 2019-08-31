@@ -54,3 +54,4 @@ docs/Makefile
 /versions.cfg.2
 /.vscode/
 /Products.EasyNewsletter_plone51.sublime-project
+/package-lock.json

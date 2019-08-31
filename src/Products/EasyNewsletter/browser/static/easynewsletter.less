@@ -3,14 +3,13 @@
 
 @import url("https://github.com/plone/plonetheme.barceloneta/raw/master/plonetheme/barceloneta/theme/less/barceloneta.plone.local.less");
 
-
 @font-face {
-  font-family: 'easynewsletter';
-  src: url('./font/fontello.eot?54032556');
-  src: url('./font/fontello.eot?54032556#iefix') format('embedded-opentype'),
-       url('./font/fontello.woff?54032556') format('woff'),
-       url('./font/fontello.ttf?54032556') format('truetype'),
-       url('./font/fontello.svg?54032556#fontello') format('svg');
+  font-family: "easynewsletter";
+  src: url("./font/fontello.eot?54032556");
+  src: url("./font/fontello.eot?54032556#iefix") format("embedded-opentype"),
+    url("./font/fontello.woff?54032556") format("woff"),
+    url("./font/fontello.ttf?54032556") format("truetype"),
+    url("./font/fontello.svg?54032556#fontello") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -36,72 +35,84 @@
 
 // type icons
 .icon-easynewsletter-actions::before {
-  font-family: 'easynewsletter'!important;
-  content: '\e800'!important;
+  font-family: "easynewsletter" !important;
+  content: "\e800" !important;
 }
 body#visual-portal-wrapper.pat-plone .outer-wrapper {
   .contenttype-easynewsletter:before {
-    font-family: 'easynewsletter'!important;
-    content: '\e800'!important;
+    font-family: "easynewsletter" !important;
+    content: "\e800" !important;
   }
   .contenttype-enlissue:before {
-    font-family: 'easynewsletter'!important;
-    content: '\e802'!important;
+    font-family: "easynewsletter" !important;
+    content: "\e802" !important;
   }
   .contenttype-enlsubscriber:before {
-    font-family: 'easynewsletter'!important;
-    content: '\e803'!important;
+    font-family: "easynewsletter" !important;
+    content: "\e803" !important;
   }
   .contenttype-enltemplate:before {
-    font-family: 'easynewsletter'!important;
-    content: '\e804'!important;
+    font-family: "easynewsletter" !important;
+    content: "\e804" !important;
   }
 }
 // on right on toolbar
 body#visual-portal-wrapper.pat-plone #edit-zone {
   .contenttype-easynewsletter:after {
-    font-family: 'easynewsletter'!important;
-    content: '\e800'!important;
+    font-family: "easynewsletter" !important;
+    content: "\e800" !important;
   }
   .contenttype-enlissue:after {
-    font-family: 'easynewsletter'!important;
-    content: '\e802'!important;
+    font-family: "easynewsletter" !important;
+    content: "\e802" !important;
   }
   .contenttype-enlsubscriber:after {
-    font-family: 'easynewsletter'!important;
-    content: '\e803'!important;
+    font-family: "easynewsletter" !important;
+    content: "\e803" !important;
   }
   .contenttype-enltemplate:after {
-    font-family: 'easynewsletter'!important;
-    content: '\e804'!important;
+    font-family: "easynewsletter" !important;
+    content: "\e804" !important;
   }
 }
 
 // states
-.state-draft          {color: @plone-default-draft-color;
-  &:hover, &:active, &:focus    {color: darken(@plone-default-draft-color,15%)}}
-.state-master          {color: @plone-default-internal-color;
-  &:hover, &:active, &:focus    {color: darken(@plone-default-internal-color,15%)}}
-.state-sending          {color: @plone-default-pending-color;
-  &:hover, &:active, &:focus    {color: darken(@plone-default-pending-color,15%)}}
-.state-sent         {color: @plone-default-published-color;
-  &:hover, &:active, &:focus    {color: darken(@plone-default-published-color,15%)}}
-
+.state-draft {
+  color: @plone-default-draft-color;
+  &:hover,
+  &:active,
+  &:focus {
+    color: darken(@plone-default-draft-color, 15%);
+  }
+}
+.state-master {
+  color: @plone-default-internal-color;
+  &:hover,
+  &:active,
+  &:focus {
+    color: darken(@plone-default-internal-color, 15%);
+  }
+}
+.state-sending {
+  color: @plone-default-pending-color;
+  &:hover,
+  &:active,
+  &:focus {
+    color: darken(@plone-default-pending-color, 15%);
+  }
+}
+.state-sent {
+  color: @plone-default-published-color;
+  &:hover,
+  &:active,
+  &:focus {
+    color: darken(@plone-default-published-color, 15%);
+  }
+}
 
 input.easynewsletter_text {
   width: 96%;
   margin-right: 0;
-}
-
-#enl_actions{
-  margin: 1em 0 2em 0;
-  padding:0.5em;
-  border-bottom: 1px solid @plone-link-color;
-}
-
-#enl_actions li{
-  display: inline;
-  margin: 0 1em 0 0;
 }
 
 .portletNewsletterSubscriber {
@@ -117,7 +128,7 @@ input.easynewsletter_text {
   }
 }
 
-.template-atct_edit.portaltype-enltemplate #archetypes-fieldname-body textarea{
+.template-atct_edit.portaltype-enltemplate #archetypes-fieldname-body textarea {
   height: 850px;
   min-width: 800px;
   font-family: Courier New;
@@ -137,4 +148,59 @@ input.easynewsletter_text {
     width: unset;
     display: inline-block;
   }
+}
+
+.portaltype-newsletter,
+.portaltype-newsletter-issue,
+.portaltype-newsletter-subscriber {
+  #content-core {
+    form {
+      display: inline-block;
+      input {
+        display: inline;
+      }
+      &.fullwith {
+        display: block;
+      }
+      input[name="SearchableText"] {
+        width: auto;
+      }
+    }
+  }
+}
+
+#enl_actions {
+  margin: 1em 0 2em 0;
+  padding: 0.5em;
+  border-bottom: 1px solid @plone-link-color;
+}
+
+#enl_actions li {
+  display: inline;
+  margin: 0 1em 0 0;
+}
+
+.newsletter.toc-nav {
+  margin: 1em 0 1em 0;
+  border-bottom: 4px solid #eee;
+  > * {
+    border-width: 0px;
+    padding: 4px 10px 4px 10px;
+    text-decoration: none;
+    border-radius: 4px 4px 0 0;
+    border-bottom: 0px solid #fff;
+    background-color: #fff;
+    &.active {
+      border: 1px solid #eee;
+      border-bottom: 0px solid #eee;
+      background-color: #eee;
+    }
+  }
+  li {
+    display: inline-block;
+  }
+}
+
+.newsletter.sub-nav {
+  margin-bottom: 1em;
 }

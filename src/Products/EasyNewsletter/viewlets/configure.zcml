@@ -9,10 +9,10 @@
   <browser:viewlet
      name="newsletter-actions"
      for="Products.EasyNewsletter.content.newsletter.INewsletter"
-     manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+     manager="plone.app.layout.viewlets.interfaces.IAboveContentBody"
      layer="Products.EasyNewsletter.interfaces.IProductsEasyNewsletterLayer"
      class=".newsletter_actions.NewsletterActions"
-     template="newsletter-actions.pt"
+     template="newsletter_actions.pt"
      permission="zope2.View"
      />
 
