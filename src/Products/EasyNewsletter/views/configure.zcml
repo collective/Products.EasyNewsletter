@@ -10,7 +10,6 @@
     name="subscribers-download"
     for="Products.CMFCore.interfaces.IFolderish"
     class=".newsletter_subscribers_download.NewsletterSubscribersDownload"
-    template="newsletter_subscribers_download.pt"
     permission="zope2.View"
     />
 

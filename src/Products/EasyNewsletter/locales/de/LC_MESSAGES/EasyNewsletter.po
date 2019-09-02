@@ -1051,7 +1051,7 @@ msgstr "Ihre Anmeldung wurde erfolgreich bestätigt."
 #. Default: "Sucessfully created Subscribers"
 #: ./browser/upload_csv.pt:117
 msgid "sucessfully_created_subscribers"
-msgstr "Erfolgreich angelegte Abonnenten"
+msgstr "Erfolgreich angelegte/aktualisierte Abonnenten"
 
 #. Default: "Content listing"
 #: ./skins/EasyNewsletter/enl_subtopics.pt:78
