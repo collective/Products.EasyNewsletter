@@ -1,0 +1,64 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    lang="en"
+    i18n:domain="plone">
+<body>
+<metal:block use-macro="context/nl_listing/macros/listing">
+<div tal:define="lview context/@@listing_view;
+                         batch lview/batch">
+
+</div>
+  <metal:entries fill-slot="entries">
+    <metal:block use-macro="context/nl_listing/macros/entries"
+        tal:define="portal context/@@plone_portal_state/portal;
+                    image_scale portal/@@image_scale">
+      <metal:entry fill-slot="entry">
+
+        <article class="tileItem">
+          <h2 class="tileHeadline" metal:define-macro="listitem">
+            <a class="summary url"
+                tal:attributes="href item_link;
+                                title item_type"
+                tal:content="item_title">
+              Item Title
+            </a>
+          </h2>
+
+          <div metal:use-macro="context/nl_listing/macros/document_byline"></div>
+
+          <div tal:define="thumb_url python:item_url + '/@@images/image/' + thumb_scale_summary;"
+               tal:condition="python: item_has_image and thumb_scale_summary"
+               tal:attributes="class python: 'tileImage' if item_description else 'tileImageNoFloat'">
+            <a tal:attributes="href item_link">
+              <img tal:replace="structure python:image_scale.tag(item, 'image', scale=thumb_scale_summary, css_class='thumb-' + thumb_scale_summary)" />
+
+            </a>
+          </div>
+
+          <div class="tileBody" tal:condition="item_description">
+            <span class="description" tal:content="item_description">
+              description
+            </span>
+          </div>
+
+          <div class="tileFooter">
+            <a tal:attributes="href item_link"
+                i18n:translate="read_more">
+              Read More&hellip;
+            </a>
+          </div>
+
+          <div class="visualClear"><!-- --></div>
+
+        </article>
+
+      </metal:entry>
+    </metal:block>
+  </metal:entries>
+
+</metal:block>
+
+</body>
+</html>

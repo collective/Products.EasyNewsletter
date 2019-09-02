@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
+from plone.dexterity.interfaces import IDexterityContent
+from plone.registry.interfaces import IRegistry
 # from plone import api
 from Products.EasyNewsletter import _
-from plone.dexterity.interfaces import IDexterityContent
+from zope.component import getUtility
 from zope.globalrequest import getRequest
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
@@ -22,12 +24,13 @@ class AggregationTemplates(object):
     """
 
     def __call__(self, context):
-        # Just an example list of content for our vocabulary,
-        # this can be any static or dynamic data, a catalog result for example.
-        items = [
-            VocabItem(u'sony-a7r-iii', _(u'Sony Aplha 7R III')),
-            VocabItem(u'canon-5d-iv', _(u'Canon 5D IV')),
-        ]
+        items = []
+
+        registry = getUtility(IRegistry)
+        aggregation_templates = registry.get(
+            'Products.EasyNewsletter.content_aggregation_templates')
+        for key, value in aggregation_templates.items():
+            items.append(VocabItem(key, value))
 
         # Fix context if you are using the vocabulary in DataGridField.
         # See https://github.com/collective/collective.z3cform.datagridfield/issues/31:  # NOQA: 501

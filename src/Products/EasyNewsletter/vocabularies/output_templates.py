@@ -24,8 +24,6 @@ class OutputTemplates(object):
     """
 
     def __call__(self, context):
-        # Just an example list of content for our vocabulary,
-        # this can be any static or dynamic data, a catalog result for example.
         items = []
 
         registry = getUtility(IRegistry)

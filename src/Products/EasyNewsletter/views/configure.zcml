@@ -4,6 +4,7 @@
     xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="Products.EasyNewsletter">
 
+
   -*- extra stuff goes here -*-
 
   <browser:page
