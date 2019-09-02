@@ -8,6 +8,14 @@
   -*- extra stuff goes here -*-
 
   <browser:page
+    name="newsletter-aggregation-base"
+    for="Products.CMFCore.interfaces.IFolderish"
+    class=".newsletter_aggregation_base.NewsletterAggregationBase"
+    template="newsletter_aggregation_base.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
     name="subscribers-download"
     for="Products.CMFCore.interfaces.IFolderish"
     class=".newsletter_subscribers_download.NewsletterSubscribersDownload"
