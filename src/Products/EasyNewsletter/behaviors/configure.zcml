@@ -10,6 +10,16 @@
     <!-- -*- extra stuff goes here -*- -->
 
     <plone:behavior
+        name="Products.EasyNewsletter.collection_as_newsletter_aggregation_source"
+        title="CollectionAsNewsletterAggregationSource"
+        description="A behavior for Collections to allow definition of Newsletter aggregation source templates on Collections."
+        provides=".collection_as_newsletter_aggregation_source.ICollectionAsNewsletterAggregationSource"
+        factory=".collection_as_newsletter_aggregation_source.CollectionAsNewsletterAggregationSource"
+        marker=".collection_as_newsletter_aggregation_source.ICollectionAsNewsletterAggregationSourceMarker"
+        />
+
+
+    <plone:behavior
         name="Products.EasyNewsletter.external_delivery_service"
         title="Newsletter: External delivery service"
         description="External delivery service for EasyNewsletter."
