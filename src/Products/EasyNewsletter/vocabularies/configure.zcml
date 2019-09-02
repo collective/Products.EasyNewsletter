@@ -10,6 +10,12 @@
     <!-- -*- extra stuff goes here -*- -->
 
     <utility
+        component=".aggregation_templates.AggregationTemplatesFactory"
+        name="Products.EasyNewsletter.AggregationTemplates"
+    />
+
+
+    <utility
         component=".salutations.SalutationsFactory"
         name="Products.EasyNewsletter.Salutations"
     />
