@@ -452,7 +452,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
 
     def getText(self):
         output_html = safe_unicode(self.getRawText()).encode('utf8')
-        # we want pnly apply plone-outputfilters here,
+        # we want only apply plone-outputfilters here,
         # but not the safe-html filter!
         resolved_html = self.portal_transforms.convertTo(
             'text/x-plone-outputfilters-html',

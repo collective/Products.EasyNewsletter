@@ -1,17 +1,12 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-    xmlns:tal="http://xml.zope.org/namespaces/tal"
-    xmlns:metal="http://xml.zope.org/namespaces/metal"
-    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-    lang="en"
-    metal:use-macro="context/main_template/macros/master"
-    i18n:domain="plone">
-<body>
-
-<metal:content-core fill-slot="content-core">
-<metal:block define-macro="content-core">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="Products.EasyNewsletter">
+  <body>
 
   <metal:listingmacro define-macro="listing">
-    <tal:results define="view here/@@listing_view;
+    <tal:results define="view context/@@newsletter-aggregation-base;
                          batch view/batch;
                          thumb_scale_list view/get_thumb_scale_list;
                          thumb_scale_table view/get_thumb_scale_table;
@@ -131,8 +126,5 @@
     </tal:results>
   </metal:listingmacro>
 
-</metal:block>
-</metal:content-core>
-
-</body>
+  </body>
 </html>

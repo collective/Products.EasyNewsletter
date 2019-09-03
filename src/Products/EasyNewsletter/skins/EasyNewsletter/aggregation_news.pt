@@ -5,13 +5,10 @@
     lang="en"
     i18n:domain="plone">
 <body>
-<metal:block use-macro="context/nl_listing/macros/listing">
-<div tal:define="lview context/@@listing_view;
-                         batch lview/batch">
+<metal:block use-macro="context/newsletter_aggregation_base/macros/listing">
 
-</div>
   <metal:entries fill-slot="entries">
-    <metal:block use-macro="context/nl_listing/macros/entries"
+    <metal:block use-macro="context/newsletter_aggregation_base/macros/entries"
         tal:define="portal context/@@plone_portal_state/portal;
                     image_scale portal/@@image_scale">
       <metal:entry fill-slot="entry">
@@ -26,7 +23,7 @@
             </a>
           </h2>
 
-          <div metal:use-macro="context/nl_listing/macros/document_byline"></div>
+          <div metal:use-macro="context/newsletter_aggregation_base/macros/document_byline"></div>
 
           <div tal:define="thumb_url python:item_url + '/@@images/image/' + thumb_scale_summary;"
                tal:condition="python: item_has_image and thumb_scale_summary"
@@ -59,6 +56,5 @@
   </metal:entries>
 
 </metal:block>
-
 </body>
 </html>

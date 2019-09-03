@@ -9,10 +9,10 @@
 
   <browser:page
     name="newsletter-aggregation-base"
-    for="Products.CMFCore.interfaces.IFolderish"
+    for="plone.app.contenttypes.behaviors.collection.ISyndicatableCollection"
     class=".newsletter_aggregation_base.NewsletterAggregationBase"
-    template="newsletter_aggregation_base.pt"
-    permission="zope2.View"
+    permission="zope.Public"
+    allowed_interface=".newsletter_aggregation_base.INewsletterAggregationBase"
     />
 
   <browser:page
