@@ -7,6 +7,13 @@
 
   -*- extra stuff goes here -*-
 
+    <browser:page
+       name="send-issue-from-form"
+       for="Products.CMFCore.interfaces.IFolderish"
+       class=".newsletter_issue_send_from_form.NewsletterIssueSendFromForm"
+       permission="zope2.View"
+       />
+
   <browser:page
      name="send-issue-form"
     for="Products.EasyNewsletter.content.newsletter_issue.INewsletterIssue"
