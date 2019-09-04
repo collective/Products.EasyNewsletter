@@ -8,10 +8,10 @@
   -*- extra stuff goes here -*-
 
   <browser:page
-     name="newsletter-issue-send-form"
-     for="Products.CMFCore.interfaces.IFolderish"
+     name="send-issue-form"
+    for="Products.EasyNewsletter.content.newsletter_issue.INewsletterIssue"
      class=".newsletter_issue_send_form.NewsletterIssueSendForm"
-     template="issue-send-form.pt"
+     template="newsletter_issue_send_form.pt"
      permission="zope2.View"
      />
 
