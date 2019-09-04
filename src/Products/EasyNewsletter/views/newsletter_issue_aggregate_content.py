@@ -1,11 +1,48 @@
 # -*- coding: utf-8 -*-
-
+from plone import api
+from plone.app.textfield import RichTextValue
 from Products.Five.browser import BrowserView
 
 
 class NewsletterIssueAggregateContent(BrowserView):
     def __call__(self):
-        template = '''<li class="heading" i18n:translate="">
-          Sample View
-        </li>'''
-        return template
+        text = self.render_aggregation_sources()
+        self.context.text = RichTextValue(
+            raw=text,
+            mimeType="text/html",
+            outputMimeType="text/x-plone-outputfilters-html",
+            encoding="utf-8",
+        )
+        return self.request.response.redirect(self.context.absolute_url(), status=301)
+
+    def get_aggregation_sources(self):
+        """
+        """
+        return self.context.content_aggregation_sources
+
+    def render_aggregation_sources(self):
+        """
+        """
+        results_text = u""
+        portal = api.portal.get()
+        sources = self.get_aggregation_sources()
+        for source in sources:
+            source_obj = source.to_object
+            sresults = source_obj.queryCatalog()
+            if not sresults:
+                continue
+            result_info = {
+                "id": source_obj.id,
+                "title": source_obj.Title(),
+                "description": source_obj.Description(),
+                "uid": source_obj.UID(),
+                "portal_type": sresults[0].portal_type,
+                "brains": sresults,
+                "brains_count": len(sresults),
+            }
+
+            template_id = source_obj.aggregation_template
+            template_obj = portal.restrictedTraverse(str(template_id))
+            results_text += template_obj(result_info=result_info)
+        print(results_text)
+        return results_text

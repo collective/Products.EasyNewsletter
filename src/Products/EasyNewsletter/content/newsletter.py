@@ -38,7 +38,7 @@ def _get_base_path(path):
     return base_path
 
 
-def get_content_aggregation_source_base_path(context):
+def get_content_aggregation_sources_base_path(context):
     return _get_base_path("/")
 
 
@@ -53,7 +53,7 @@ class INewsletter(model.Schema):
     #         'sender_email',
     #         'sender_name',
     #         'test_email',
-    #         'content_aggregation_source',
+    #         'content_aggregation_sources',
     #         'output_template',
     #     ],
     # )
@@ -105,13 +105,13 @@ class INewsletter(model.Schema):
     )
 
     directives.widget(
-        "content_aggregation_source",
+        "content_aggregation_sources",
         pattern_options={
-            "basePath": get_content_aggregation_source_base_path,
+            "basePath": get_content_aggregation_sources_base_path,
             "selectableTypes": ["Collection"],
         },
     )
-    content_aggregation_source = relationfield.schema.RelationList(
+    content_aggregation_sources = relationfield.schema.RelationList(
         title=_(
             u"ENL_content_aggregation_sources_label",
             default=u"Content aggregation sources",
@@ -273,7 +273,7 @@ class INewsletter(model.Schema):
         required=True,
     )
 
-    directives.order_after(content_aggregation_source="IBasic.title")
+    directives.order_after(content_aggregation_sources="IBasic.title")
     directives.order_after(test_email="IBasic.title")
     directives.order_after(sender_name="IBasic.title")
     directives.order_after(sender_email="IBasic.title")

@@ -17,6 +17,10 @@ class HiddenProfiles(object):
             'Products.EasyNewsletter:uninstall',
         ]
 
+    def getNonInstallableProducts(self):
+        return [
+            'Products.EasyNewsletter.upgrades',
+        ]
 
 # The profile id of your package:
 # PROFILE_ID = 'profile-Products.EasyNewsletter:install-base'

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from .newsletter import get_content_aggregation_source_base_path
+from .newsletter import get_content_aggregation_sources_base_path
 from .newsletter import INewsletter
 from plone import api
 from plone import schema
@@ -42,6 +42,14 @@ def get_default_epilogue(context):
         return context.default_epilogue
 
 
+@provider(IContextAwareDefaultFactory)
+def get_default_content_aggregation_sources(context):
+    """ get content_aggregation_sources from parent Newsletter
+    """
+    if INewsletter.providedBy(context):
+        return context.content_aggregation_sources
+
+
 class INewsletterIssue(model.Schema):
     """ Marker interface and Dexterity Python Schema for NewsletterIssue
     """
@@ -52,7 +60,7 @@ class INewsletterIssue(model.Schema):
         fields=[
             "prologue",
             "epilogue",
-            "content_aggregation_source",
+            "content_aggregation_sources",
             "exclude_all_subscribers",
             "image",
             "hide_image",
@@ -61,13 +69,13 @@ class INewsletterIssue(model.Schema):
     )
 
     directives.widget(
-        "content_aggregation_source",
+        "content_aggregation_sources",
         pattern_options={
-            "basePath": get_content_aggregation_source_base_path,
+            "basePath": get_content_aggregation_sources_base_path,
             "selectableTypes": ["Collection"],
         },
     )
-    content_aggregation_source = relationfield.schema.RelationList(
+    content_aggregation_sources = relationfield.schema.RelationList(
         title=_(
             u"ENL_content_aggregation_sources_label",
             default=u"Content aggregation sources",
@@ -80,6 +88,7 @@ class INewsletterIssue(model.Schema):
             title=u"content_aggretation_source",
             source=vocabs.catalog.CatalogSource(),
         ),
+        defaultFactory=get_default_content_aggregation_sources,
         required=False,
     )
 
@@ -192,21 +201,37 @@ class NewsletterIssue(Container):
             return img_src
         scales = self.restrictedTraverse('@@images')
         if scales.scale('image', scale='mini'):
-            img_src = self.absolute_url() + "/image"
+            img_src = self.absolute_url() + "/@@images/image"
             return img_src
         enl = self.get_newsletter()
         scales = enl.restrictedTraverse('@@images')
         if scales.scale('image', scale='mini'):
-            img_src = enl.absolute_url() + "/image"
+            img_src = enl.absolute_url() + "/@@images/image"
         return img_src
 
     # bbb: we should print a deprecation message here
     def getHeader(self):
-        return self.prologue
+        if self.prologue:
+            text = self.prologue.output
+        else:
+            text = u''
+        return text
 
     # bbb: we should print a deprecation message here
     def getFooter(self):
-        return self.epilogue
+        if self.epilogue:
+            text = self.epilogue.output
+        else:
+            text = u''
+        return text
+
+    # bbb: we should print a deprecation message here
+    def getText(self):
+        if self.text:
+            text = self.text.output
+        else:
+            text = u''
+        return text
 
     # bbb: we should print a deprecation message here
     def getOutputTemplate(self):

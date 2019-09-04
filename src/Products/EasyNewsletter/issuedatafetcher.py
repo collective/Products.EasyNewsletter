@@ -164,7 +164,7 @@ class DefaultIssueDataFetcher(object):
         scales = self.enl.restrictedTraverse('@@images')
         logo_src = ""
         if scales.scale('logo', scale='mini'):
-            logo_src = self.enl.absolute_url() + "/logo"
+            logo_src = self.enl.absolute_url() + "/@@images/logo"
         data['context']['logo_src'] = logo_src
         data['context']['date'] = plone_view.toLocalizedTime(
             self.issue.modified(), long_format=0)

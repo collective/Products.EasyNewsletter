@@ -9,6 +9,7 @@ from zope.i18nmessageid import MessageFactory
 EasyNewsletterMessageFactory = MessageFactory('EasyNewsletter')
 _ = EasyNewsletterMessageFactory
 
+
 def initialize(context):
     """Intializer called when used as a Zope 2 product.
     """

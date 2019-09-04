@@ -16,6 +16,7 @@
   <include package=".queue" />
   <include package=".utils" />
   <include package=".vocabularies" />
+  <include package=".upgrades" />
   <include package=".views" />
   <include package=".viewlets" />
 

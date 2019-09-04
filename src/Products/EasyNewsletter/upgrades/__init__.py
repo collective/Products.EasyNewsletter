@@ -9,6 +9,10 @@ from Products.CMFCore.utils import getToolByName
 logger = getLogger('Products.EasyNewsletter')
 
 
+# XXX: don't use this place to add upgrade steps, this is just for BBB, use plonecli
+# to create new upgrade step files and folders!
+
+
 def reinstall_gs_profile(context):
     loadMigrationProfile(
         context,

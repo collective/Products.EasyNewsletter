@@ -172,4 +172,14 @@
           destination="4000"
           handler=".upgrades.reinstall_gs_profile"
           profile="Products.EasyNewsletter:default"/>
+
+  <!-- <genericsetup:upgradeSteps source="4000"
+    destination="4001"
+    profile="Products.EasyNewsletter:default">
+        <genericsetup:upgradeDepends title="Run GS upgrade profile"
+            description=""
+            import_profile="Products.EasyNewsletter.upgrades.v2019090301:default"
+            />
+
+  </genericsetup:upgradeSteps> -->
 </configure>

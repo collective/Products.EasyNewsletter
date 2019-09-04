@@ -9,22 +9,14 @@
 
   <browser:page
     name="aggregate-content"
-    for="Products.CMFCore.interfaces.IFolderish"
+    for="Products.EasyNewsletter.content.newsletter_issue.INewsletterIssue"
     class=".newsletter_issue_aggregate_content.NewsletterIssueAggregateContent"
     permission="zope2.View"
     />
 
   <browser:page
-    name="newsletter-aggregation-base"
-    for="plone.app.contenttypes.behaviors.collection.ISyndicatableCollection"
-    class=".newsletter_aggregation_base.NewsletterAggregationBase"
-    permission="zope.Public"
-    allowed_interface=".newsletter_aggregation_base.INewsletterAggregationBase"
-    />
-
-  <browser:page
     name="subscribers-download"
-    for="Products.CMFCore.interfaces.IFolderish"
+     for="Products.EasyNewsletter.content.newsletter.INewsletter"
     class=".newsletter_subscribers_download.NewsletterSubscribersDownload"
     permission="zope2.View"
     />
@@ -53,7 +45,7 @@
 
   <browser:page
      name="newsletter-subscribers"
-     for="Products.CMFCore.interfaces.IFolderish"
+     for="Products.EasyNewsletter.content.newsletter.INewsletter"
      class=".newsletter_subscribers.NewsletterSubscribers"
      template="newsletter_subscribers.pt"
      permission="zope2.View"
@@ -61,7 +53,7 @@
 
   <browser:page
      name="newsletter-masters"
-     for="Products.CMFCore.interfaces.IFolderish"
+     for="Products.EasyNewsletter.content.newsletter.INewsletter"
      class=".newsletter_masters.NewsletterMasters"
      template="newsletter_masters.pt"
      permission="zope2.View"

@@ -1,0 +1,4 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+  <include file="2019090300.zcml" />
+  <include file="2019090400.zcml" />
+</configure>

@@ -1,0 +1,27 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+  xmlns:gs="http://namespaces.zope.org/genericsetup"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
+  i18n_domain="Products.EasyNewsletter">
+
+  <gs:registerProfile
+      name="2019090400"
+      title="Products.EasyNewsletter (2019090400)"
+      directory="2019090400"
+      for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+      description='Configuration for version 2019090400'
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <gs:upgradeSteps source="2019090300"
+    destination="2019090400"
+    profile="Products.EasyNewsletter:default">
+
+    <gs:upgradeStep title="Run Python upgrade steps" description="" handler=".2019090400.upgrade" /> -->
+
+    <gs:upgradeDepends title="Run GS upgrade profile"
+      description=""
+      import_profile="Products.EasyNewsletter.upgrades:2019090400"
+      />
+
+  </gs:upgradeSteps>
+</configure>
