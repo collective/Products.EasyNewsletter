@@ -90,6 +90,18 @@
     attribute="send_issue_immediately"
     permission="cmf.ManagePortal" />
 
+ <browser:page
+    name="daily-issue"
+    for="..interfaces.IEasyNewsletter"
+    class=".daily_issue.DailyIssueView"
+    permission="cmf.ModifyPortalContent" />
+
+ <browser:page
+    name="trigger-daily-issue"
+    for="..interfaces.IEasyNewsletter"
+    class=".daily_issue.TriggerDailyIssueView"
+    permission="cmf.ModifyPortalContent" />
+
   <browser:page
     name="refresh-issue"
     for="..interfaces.IENLIssue"
@@ -117,18 +129,6 @@
     class=".issue.IssueView"
     attribute="copy_as_master"
     permission="zope2.CopyOrMove" />
-
- <browser:page
-    name="daily-issue"
-    for="..interfaces.IEasyNewsletter"
-    class=".daily_issue.DailyIssueView"
-    permission="cmf.ModifyPortalContent" />
-
- <browser:page
-    name="trigger-daily-issue"
-    for="..interfaces.IEasyNewsletter"
-    class=".daily_issue.TriggerDailyIssueView"
-    permission="cmf.ModifyPortalContent" />
 
   <browser:page
     name="unsubscribe_form"

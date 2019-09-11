@@ -3,6 +3,7 @@
 from setuptools import find_packages
 from setuptools import setup
 
+
 version = '4.0.0.dev0'
 long_description = (
     open('README.rst').read() + '\n' +
@@ -53,6 +54,9 @@ setup(
         'stoneagehtml',
         'plone.protect>=3.1.1',
         'plone4.csrffixes>=1.1',
+        'emails',
+        'premailer',
+        'html2text',
     ],
     extras_require=dict(
         test=[

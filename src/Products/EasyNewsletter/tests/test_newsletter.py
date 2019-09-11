@@ -7,12 +7,13 @@ from plone.app.testing import login
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
+from plone.app.textfield import RichTextValue
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.EasyNewsletter.config import IS_PLONE_4
 from Products.EasyNewsletter.config import IS_PLONE_5
+from Products.EasyNewsletter.content.newsletter import INewsletter
+from Products.EasyNewsletter.content.newsletter_issue import INewsletterIssue
 from Products.EasyNewsletter.interfaces import IBeforePersonalizationEvent
-from Products.EasyNewsletter.interfaces import IEasyNewsletter
-from Products.EasyNewsletter.interfaces import IENLIssue
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.MailHost.interfaces import IMailHost
@@ -31,11 +32,12 @@ import unittest
 
 
 try:
-    pkg_resources.get_distribution('Products.TinyMCE')
+    pkg_resources.get_distribution("Products.TinyMCE")
 except pkg_resources.DistributionNotFound:
 
     class ITinyMCE(Interface):
         pass
+
 
 else:
     from Products.TinyMCE.interfaces.utility import ITinyMCE
@@ -46,15 +48,13 @@ TESTS_HOME = package_home(GLOBALS)
 
 def dummy_image(image=None):
     from plone.namedfile.file import NamedBlobImage
+
     # filename = open(os.path.join(TESTS_HOME, 'img1.png'), 'rb')
-    filename = os.path.join(os.path.dirname(__file__), u'img1.png')
+    filename = os.path.join(os.path.dirname(__file__), u"img1.png")
     if not IS_PLONE_5:  # BBB
-        image.edit(image=open(filename, 'r').read())
+        image.edit(image=open(filename, "r").read())
     else:
-        return NamedBlobImage(
-            data=open(filename, 'r').read(),
-            filename=filename
-        )
+        return NamedBlobImage(data=open(filename, "r").read(), filename=filename)
 
 
 class EasyNewsletterTests(unittest.TestCase):
@@ -62,21 +62,21 @@ class EasyNewsletterTests(unittest.TestCase):
 
     def setUp(self):
         self.mail_settings = get_portal_mail_settings()
-        self.portal = self.layer['portal']
-        setRoles(self.portal, TEST_USER_ID, ['Manager'])
+        self.portal = self.layer["portal"]
+        setRoles(self.portal, TEST_USER_ID, ["Manager"])
         login(self.portal, TEST_USER_NAME)
-        self.portal.invokeFactory('Folder', 'test-folder')
-        self.folder = self.portal['test-folder']
-        self.portal = self.layer['portal']
-        self.folder.invokeFactory("EasyNewsletter", "newsletter")
+        self.portal.invokeFactory("Folder", "test-folder")
+        self.folder = self.portal["test-folder"]
+        self.portal = self.layer["portal"]
+        self.folder.invokeFactory("Newsletter", "newsletter")
         self.newsletter = self.folder.newsletter
-        self.newsletter.senderEmail = "newsletter@acme.com"
-        self.newsletter.senderName = "ACME newsletter"
-        self.newsletter.testEmail = "test@acme.com"
+        self.newsletter.sender_email = "newsletter@acme.com"
+        self.newsletter.sender_name = "ACME newsletter"
+        self.newsletter.test_email = "test@acme.com"
 
         # Set up a mock mailhost
         self.portal._original_MailHost = self.portal.MailHost
-        self.portal.MailHost = mailhost = MockMailHost('MailHost')
+        self.portal.MailHost = mailhost = MockMailHost("MailHost")
         sm = getSiteManager(context=self.portal)
         sm.unregisterUtility(provided=IMailHost)
         sm.registerUtility(mailhost, provided=IMailHost)
@@ -86,254 +86,271 @@ class EasyNewsletterTests(unittest.TestCase):
         # image for image testing
         self.folder.invokeFactory("Image", "image")
         self.image = self.folder.image
-        image = self.folder['image']
-        image.title = 'My Image'
-        image.description = 'This is my image.'
+        image = self.folder["image"]
+        image.title = "My Image"
+        image.description = "This is my image."
         image.image = dummy_image(image)
         self.image = image
 
     def send_sample_message(self, body):
         self.assertSequenceEqual(self.mailhost.messages, [])
-        self.newsletter.invokeFactory(
-            "ENLIssue",
-            id="issue")
+        self.newsletter.invokeFactory("Newsletter Issue", id="issue")
         self.newsletter.issue.title = "with image"
-        self.newsletter.issue.setText(body, mimetype='text/html')
+        self.newsletter.issue.text = RichTextValue(
+            raw=body,
+            mimeType="text/html",
+            outputMimeType="text/x-plone-outputfilters-html",
+            encoding="utf-8",
+        )
 
-        self.portal.REQUEST.form.update({
-            'sender_name': self.newsletter.senderName,
-            'sender_email': self.newsletter.senderEmail,
-            'test_receiver': self.newsletter.testEmail,
-            'subject': self.newsletter.issue.title,
-            'test': 'submit',
-        })
-        self.portal.REQUEST['REQUEST_METHOD'] = 'POST'
+        self.newsletter.issue.output_template = 'output_default'
+
+        self.portal.REQUEST.form.update(
+            {
+                "sender_name": self.newsletter.sender_name,
+                "sender_email": self.newsletter.sender_email,
+                "test_receiver": self.newsletter.test_email,
+                "subject": self.newsletter.issue.title,
+                "test": "submit",
+            }
+        )
+        self.portal.REQUEST["REQUEST_METHOD"] = "POST"
         view = getMultiAdapter(
-            (self.newsletter.issue, self.portal.REQUEST),
-            name="send-issue")
+            (self.newsletter.issue, self.portal.REQUEST), name="send-issue"
+        )
 
-        view.send_issue()
+        view()
 
         self.assertEqual(len(self.mailhost.messages), 1)
         self.assertTrue(self.mailhost.messages[0])
         return str(self.mailhost.messages[0])
 
     def test_create_newsletter(self):
-        self.assertTrue(IEasyNewsletter.providedBy(self.newsletter))
+        self.assertTrue(INewsletter.providedBy(self.newsletter))
 
     def test_create_issue(self):
-        self.newsletter.invokeFactory(
-            "ENLIssue",
-            id="issue",
-            title="Issue 1")
-        self.assertTrue(IENLIssue.providedBy(self.newsletter.issue))
+        self.newsletter.invokeFactory("Newsletter Issue", id="issue", title="Issue 1")
+        self.assertTrue(INewsletterIssue.providedBy(self.newsletter.issue))
 
-    def test_send_test_issue(self):
-        self.newsletter.invokeFactory(
-            "ENLIssue",
-            id="issue")
-        self.newsletter.issue.title = \
-            "This is a very long newsletter issue title with special "\
+    def test_issue_send_test(self):
+        self.newsletter.invokeFactory("Newsletter Issue", id="issue")
+        self.newsletter.issue.title = (
+            "This is a very long newsletter issue title with special "
             "characters such as äüö. Will this really work?"
-        self.portal.REQUEST.form.update({
-            'sender_name': self.newsletter.senderName,
-            'sender_email': self.newsletter.senderEmail,
-            'test_receiver': self.newsletter.testEmail,
-            'subject': self.newsletter.issue.title,
-            'test': 'submit',
-        })
-        self.portal.REQUEST['REQUEST_METHOD'] = 'POST'
+        )
+        # self.newsletter.issue.text = RichTextValue(
+        #     raw=u'nothing',
+        #     mimeType="text/html",
+        #     outputMimeType="text/x-plone-outputfilters-html",
+        #     encoding="utf-8",
+        # )
+        self.newsletter.issue.output_template = 'output_default'
+        self.portal.REQUEST.form.update(
+            {
+                "sender_name": self.newsletter.sender_name,
+                "sender_email": self.newsletter.sender_email,
+                "test_receiver": self.newsletter.test_email,
+                "subject": self.newsletter.issue.title,
+                "test": "submit",
+            }
+        )
+        self.portal.REQUEST["REQUEST_METHOD"] = "POST"
         view = getMultiAdapter(
-            (self.newsletter.issue, self.portal.REQUEST),
-            name="send-issue")
+            (self.newsletter.issue, self.portal.REQUEST), name="send-issue"
+        )
 
-        view.send_issue()
+        view()
         self.assertEqual(len(self.mailhost.messages), 1)
         self.assertTrue(self.mailhost.messages[0])
         msg = str(self.mailhost.messages[0])
-        self.assertIn('To: <test@acme.com>', msg)
-        self.assertIn('From: ACME newsletter <newsletter@acme.com>', msg)
+        self.assertIn("To: Test Member <test@acme.com>", msg)
+        self.assertIn("From: ACME newsletter <newsletter@acme.com>", msg)
 
     def test_send_test_personalization(self):
         # with all infos
         api.content.create(
-            type='ENLSubscriber',
+            type="Newsletter Subscriber",
             container=self.newsletter,
-            salutation='ms',
-            title='jane@example.com',
-            firstname='Jane',
-            lastname='Doe',
-            email='jane@example.com'
+            salutation="ms",
+            title="jane@example.com",
+            firstname="Jane",
+            lastname="Doe",
+            email="jane@example.com",
         )
         # without salutation
         api.content.create(
-            type='ENLSubscriber',
+            type="Newsletter Subscriber",
             container=self.newsletter,
-            title='john@example.com',
-            firstname='John',
-            lastname='Doe',
-            email='john@example.com'
+            title="john@example.com",
+            firstname="John",
+            lastname="Doe",
+            email="john@example.com",
         )
         # without firstname
         api.content.create(
-            type='ENLSubscriber',
+            type="Newsletter Subscriber",
             container=self.newsletter,
-            title='max@example.com',
-            lastname='Mustermann',
-            email='max@example.com'
+            title="max@example.com",
+            lastname="Mustermann",
+            email="max@example.com",
         )
         # without lastname
         api.content.create(
-            type='ENLSubscriber',
+            type="Newsletter Subscriber",
             container=self.newsletter,
-            title='maxima@example.com',
-            firstname='Maxima',
-            email='maxima@example.com'
+            title="maxima@example.com",
+            firstname="Maxima",
+            email="maxima@example.com",
         )
         # without firstname and lastname
         api.content.create(
-            type='ENLSubscriber',
+            type="Newsletter Subscriber",
             container=self.newsletter,
-            title='leo@example.com',
-            email='leo@example.com'
+            title="leo@example.com",
+            email="leo@example.com",
         )
 
-        self.newsletter.invokeFactory(
-            "ENLIssue",
-            id="issue")
-        self.newsletter.issue.title = \
-            "This is a very long newsletter issue title with special "\
+        self.newsletter.invokeFactory("Newsletter Issue", id="issue")
+        self.newsletter.issue.title = (
+            "This is a very long newsletter issue title with special "
             "characters such as äüö. Will this really work?"
-        self.portal.REQUEST.form.update({
-            'sender_name': self.newsletter.senderName,
-            'sender_email': self.newsletter.senderEmail,
-            'test_receiver': self.newsletter.testEmail,
-            'subject': self.newsletter.issue.title,
-        })
-        self.portal.REQUEST['REQUEST_METHOD'] = 'POST'
+        )
+        self.newsletter.issue.output_template = 'output_default'
+        self.portal.REQUEST.form.update(
+            {
+                "sender_name": self.newsletter.sender_name,
+                "sender_email": self.newsletter.sender_email,
+                "test_receiver": self.newsletter.test_email,
+                "subject": self.newsletter.issue.title,
+            }
+        )
+        self.portal.REQUEST["REQUEST_METHOD"] = "POST"
         view = getMultiAdapter(
-            (self.newsletter.issue, self.portal.REQUEST),
-            name="send-issue")
-        view.send_issue()
+            (self.newsletter.issue, self.portal.REQUEST), name="send-issue"
+        )
+        view()
 
         self.assertEqual(len(self.mailhost.messages), 5)
         self.assertTrue(self.mailhost.messages[0])
         self.assertTrue(self.mailhost.messages[1])
 
         msg1 = str(self.mailhost.messages[0])
-        self.assertIn('To: <jane@example.com>', msg1)
-        self.assertIn('Dear Ms. Jane Doe', msg1)
+        self.assertIn("To: <jane@example.com>", msg1)
+        self.assertIn("Dear Ms. Jane Doe", msg1)
 
         msg2 = str(self.mailhost.messages[1])
-        self.assertIn('To: <john@example.com>', msg2)
-        self.assertIn('Dear John Doe', msg2)
+        self.assertIn("To: <john@example.com>", msg2)
+        self.assertIn("Dear John Doe", msg2)
 
         msg3 = str(self.mailhost.messages[2])
-        self.assertIn('To: <max@example.com>', msg3)
-        self.assertIn('Dear Mustermann', msg3)
+        self.assertIn("To: <max@example.com>", msg3)
+        self.assertIn("Dear Mustermann", msg3)
 
         msg4 = str(self.mailhost.messages[3])
-        self.assertIn('To: <maxima@example.com>', msg4)
-        self.assertIn('Dear Maxima', msg4)
+        self.assertIn("To: <maxima@example.com>", msg4)
+        self.assertIn("Dear Maxima", msg4)
 
         msg5 = str(self.mailhost.messages[4])
-        self.assertIn('To: <leo@example.com>', msg5)
-        self.assertIn('Sir or Madam', msg5)
+        self.assertIn("To: <leo@example.com>", msg5)
+        self.assertIn("Sir or Madam", msg5)
 
     def test_before_the_personalization_filter(self):
         def _personalize(event):
-            edc = event.data['context']
-            event.data['html'] = event.data['html'].replace('PHP', 'Python')
-            firstname = edc['receiver'].get('firstname')
-            lastname = edc['receiver'].get('lastname')
+            edc = event.data["context"]
+            event.data["html"] = event.data["html"].replace("PHP", "Python")
+            firstname = edc["receiver"].get("firstname")
+            lastname = edc["receiver"].get("lastname")
             if not firstname and not lastname:
-                edc['SUBSCRIBER_SALUTATION'] = u'Dear {0}'.format(
-                    edc['receiver']['email']
+                edc["SUBSCRIBER_SALUTATION"] = u"Dear {0}".format(
+                    edc["receiver"]["email"]
                 )
+
         provideHandler(_personalize, [IBeforePersonalizationEvent])
         try:
             # with all infos
             api.content.create(
-                type='ENLSubscriber',
+                type="Newsletter Subscriber",
                 container=self.newsletter,
-                salutation='ms',
-                title='jane@example.com',
-                firstname='Jane',
-                lastname='Doe',
-                email='jane@example.com'
+                salutation="ms",
+                title="jane@example.com",
+                firstname="Jane",
+                lastname="Doe",
+                email="jane@example.com",
             )
             # without firstname and lastname
             api.content.create(
-                type='ENLSubscriber',
+                type="Newsletter Subscriber",
                 container=self.newsletter,
-                salutation='mr',
-                title='john@example.com',
-                email='john@example.com'
+                salutation="mr",
+                title="john@example.com",
+                email="john@example.com",
             )
 
-            self.newsletter.invokeFactory(
-                "ENLIssue",
-                id="issue")
-            self.newsletter.issue.title = \
-                "This is a very long newsletter issue title with special "\
+            self.newsletter.invokeFactory("Newsletter Issue", id="issue")
+            self.newsletter.issue.title = (
+                "This is a very long newsletter issue title with special "
                 "characters such as äüö. Will this really work?"
-            self.newsletter.issue.setText(u"""
+            )
+            self.newsletter.issue.text = u"""
                 <h1>PHP is cool</h1>
                 {{SUBSCRIBER_SALUTATION}}
-                """)
-            self.portal.REQUEST.form.update({
-                'sender_name': self.newsletter.senderName,
-                'sender_email': self.newsletter.senderEmail,
-                'test_receiver': self.newsletter.testEmail,
-                'subject': self.newsletter.issue.title,
-            })
-            self.portal.REQUEST['REQUEST_METHOD'] = 'POST'
+                """
+            self.newsletter.issue.output_template = 'output_default'
+            self.portal.REQUEST.form.update(
+                {
+                    "sender_name": self.newsletter.sender_name,
+                    "sender_email": self.newsletter.sender_email,
+                    "test_receiver": self.newsletter.test_email,
+                    "subject": self.newsletter.issue.title,
+                }
+            )
+            self.portal.REQUEST["REQUEST_METHOD"] = "POST"
             # clearEvents()  # noqa
             view = getMultiAdapter(
-                (self.newsletter.issue, self.portal.REQUEST),
-                name="send-issue")
-            view.send_issue()
+                (self.newsletter.issue, self.portal.REQUEST), name="send-issue"
+            )
+            view()
 
             # pers_events = getEvents(IBeforePersonalizationFilter)
             # print(pers_events)
             self.assertEqual(len(self.mailhost.messages), 2)
             msg1 = str(self.mailhost.messages[0])
-            self.assertIn('To: <jane@example.com>', msg1)
-            self.assertIn('Dear Ms. Jane Doe', msg1)
+            self.assertIn("To: <jane@example.com>", msg1)
+            self.assertIn("Dear Ms. Jane Doe", msg1)
 
             msg2 = str(self.mailhost.messages[1])
-            self.assertIn('To: <john@example.com>', msg2)
-            self.assertIn('Dear john@example.com', msg2)
+            self.assertIn("To: <john@example.com>", msg2)
+            self.assertIn("Dear john@example.com", msg2)
         finally:
             getGlobalSiteManager().unregisterHandler(
-                _personalize, [IBeforePersonalizationEvent])
+                _personalize, [IBeforePersonalizationEvent]
+            )
 
     def test_send_test_issue_with_image(self):
-        body = "<img src=\"{0}\"/>".format(
-            self.image.absolute_url_path())
+        body = '<img src="{0}"/>'.format(self.image.absolute_url_path())
         msg = self.send_sample_message(body)
 
         self.assertIn('src=3D"cid:image_', msg)
-        self.assertIn('Content-ID: <image_', msg)
-        self.assertIn('Content-Type: image/png;', msg)
+        self.assertIn("Content-ID: <image_", msg)
+        self.assertIn("Content-Type: image/png;", msg)
 
     def test_send_test_issue_with_scale_image(self):
         body = '<img src="{0}/@@images/image/thumb"/>'.format(
-            self.image.absolute_url_path())
+            self.image.absolute_url_path()
+        )
 
         # trigger scale generation:
-        image_scales_url = '{0}/@@images'.format(
-            self.image.absolute_url_path())
+        image_scales_url = "{0}/@@images".format(self.image.absolute_url_path())
         scales = self.portal.restrictedTraverse(image_scales_url)
-        scale_view = scales.scale(fieldname='image', scale='thumb')
+        scale_view = scales.scale(fieldname="image", scale="thumb")
         scale_view()
         # scale_view.index_html()
         zt.commit()
 
         msg = self.send_sample_message(body)
         self.assertIn('src=3D"cid:image_', msg)
-        self.assertIn('Content-ID: <image_', msg)
-        self.assertIn('Content-Type: image/png;', msg)
+        self.assertIn("Content-ID: <image_", msg)
+        self.assertIn("Content-Type: image/png;", msg)
 
     def test_send_test_issue_with_resolveuid_image(self):
         if IS_PLONE_4:
@@ -347,10 +364,10 @@ class EasyNewsletterTests(unittest.TestCase):
 
         msg = self.send_sample_message(body)
 
-        self.assertNotIn('resolveuid', msg)
+        self.assertNotIn("resolveuid", msg)
         self.assertIn('src=3D"cid:image_', msg)
-        self.assertIn('Content-ID: <image_', msg)
-        self.assertIn('Content-Type: image/png;', msg)
+        self.assertIn("Content-ID: <image_", msg)
+        self.assertIn("Content-Type: image/png;", msg)
 
     # TODO: find a way to get the uid-based images in tests
     def test_send_test_issue_with_resolveuid_scale_image(self):
@@ -362,13 +379,13 @@ class EasyNewsletterTests(unittest.TestCase):
             tinymce.link_using_uids = True
 
         path = "image/thumb"
-        stack = path.split('/')
+        stack = path.split("/")
         body = '<img src="../../resolveuid/{0}/@@images/{1}"/>'.format(
-            self.image.UID(), path)
+            self.image.UID(), path
+        )
 
         # trigger scale generation:
-        image_scales_url = '{0}/@@images'.format(
-            self.image.absolute_url_path())
+        image_scales_url = "{0}/@@images".format(self.image.absolute_url_path())
         scales = self.portal.restrictedTraverse(image_scales_url)
         scale_view = scales.scale(fieldname=stack[0], scale=stack[1])
         scale_view()
@@ -376,46 +393,46 @@ class EasyNewsletterTests(unittest.TestCase):
 
         msg = self.send_sample_message(body)
 
-        self.assertNotIn('resolveuid', msg)
+        self.assertNotIn("resolveuid", msg)
         self.assertIn('src=3D"cid:image_', msg)
-        self.assertIn('Content-ID: <image_', msg)
-        self.assertIn('Content-Type: image/png;', msg)
+        self.assertIn("Content-ID: <image_", msg)
+        self.assertIn("Content-Type: image/png;", msg)
 
     def test_mailonly_filter_in_issue_public_view(self):
-        self.newsletter.invokeFactory(
-            "ENLIssue",
-            id="issue")
+        self.newsletter.invokeFactory("Newsletter Issue", id="issue")
         self.newsletter.issue.title = "Test Newsletter Issue"
-        self.newsletter.issue.setText(
-            "<h1>This is the newsletter body!</h1><div class=\"mailonly\">"
-            "This test should only visible in mails not in public view!</div>")
+        self.newsletter.issue.text = (
+            '<h1>This is the newsletter body!</h1><div class="mailonly">'
+            "This test should only visible in mails not in public view!</div>"
+        )
+        self.newsletter.issue.output_template = 'output_default'
         view = getMultiAdapter(
-            (self.newsletter.issue, self.portal.REQUEST),
-            name="get-public-body")
+            (self.newsletter.issue, self.portal.REQUEST), name="get-public-body"
+        )
         view_result = view()
 
         self.assertTrue(
-            'mailonly' not in view_result,
-            'get-public-body view contains mailonly elements,'
-            ' this should filtert out!')
+            "mailonly" not in view_result,
+            "get-public-body view contains mailonly elements,"
+            " this should filtert out!",
+        )
 
     def test_permission(self):
-        setRoles(self.portal, TEST_USER_ID, ['Editor'])
-        self.portal.REQUEST.set('ACTUAL_URL', 'http://nohost')
-        self.newsletter.invokeFactory(
-            "ENLIssue",
-            id="issue")
+        setRoles(self.portal, TEST_USER_ID, ["Editor"])
+        self.portal.REQUEST.set("ACTUAL_URL", "http://nohost")
+        self.newsletter.invokeFactory("Newsletter Issue", id="issue")
         self.newsletter.issue.title = "Test Newsletter Issue"
-        self.newsletter.issue.setText("<h1>This is the newsletter body!")
+        self.newsletter.issue.text = "<h1>This is the newsletter body!"
+        self.newsletter.issue.output_template = 'output_default'
 
         view = self.newsletter.restrictedTraverse("enl_drafts_view")
         view_result = view()
-        self.assertIn('test-folder/newsletter/issue', view_result)
+        self.assertIn("test-folder/newsletter/issue", view_result)
 
         view = self.newsletter.restrictedTraverse("issue/send-issue-form")
         view_result = view()
 
-        self.assertIn('Test Newsletter', view_result)
+        self.assertIn("Test Newsletter", view_result)
 
         # Editor is not allowed to call the one-step send-issue meant for cron
         with self.assertRaises(Unauthorized):

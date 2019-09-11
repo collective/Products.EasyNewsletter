@@ -60,7 +60,7 @@
   />
 
   <adapter
-      factory=".issuedatafetcher.DefaultIssueDataFetcher"
+      factory=".issuedatafetcher.DefaultDXIssueDataFetcher"
       for=".content.newsletter_issue.INewsletterIssue"
   />
 

@@ -84,21 +84,6 @@ def get_email_charset():
         return registry.get('plone.email_charset', 'utf-8')
 
 
-class IDispatch(Interface):
-    """Dispatchers adapt message *payloads* and send them."""
-
-    def __call__():
-        """Attempt to send message.
-
-        Must return a tuple ``(status, status_message)``.  See
-        ``MESSAGE_STATES`` for possible choices for the status.  The
-        status message may be None or a text containing details about
-        the status, e.g. why it failed.
-
-        If this method raises an exception, an 'error' is assumed.
-        """
-
-
 def create_html_mail(subject, html, text=None, from_addr=None, to_addr=None,
                      headers=None, encoding='UTF-8'):
     """Create a mime-message that will render HTML in popular
@@ -153,6 +138,21 @@ def create_html_mail(subject, html, text=None, from_addr=None, to_addr=None,
     alternatives.attach(MIMEText(html, 'html', _charset=encoding))
 
     return msg
+
+
+class IDispatch(Interface):
+    """Dispatchers adapt message *payloads* and send them."""
+
+    def __call__():
+        """Attempt to send message.
+
+        Must return a tuple ``(status, status_message)``.  See
+        ``MESSAGE_STATES`` for possible choices for the status.  The
+        status message may be None or a text containing details about
+        the status, e.g. why it failed.
+
+        If this method raises an exception, an 'error' is assumed.
+        """
 
 
 # XXX verify if this is in use, seems not the case

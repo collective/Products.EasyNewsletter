@@ -55,3 +55,4 @@ docs/Makefile
 /.vscode/
 /Products.EasyNewsletter_plone51.sublime-project
 /package-lock.json
+/src/Products.EasyNewsletter.egg-info/*

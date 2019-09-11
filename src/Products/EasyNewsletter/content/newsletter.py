@@ -23,7 +23,7 @@ def get_default_output_template():
     templates_keys = registry.get("Products.EasyNewsletter.output_templates").keys()
     if not templates_keys:
         return
-    if "output_default" in templates_keys:
+    if "output_default" not in templates_keys:
         default_tmpl_key = "output_default"
     else:
         default_tmpl_key = templates_keys[0]

@@ -123,7 +123,7 @@
                   <tr>
                     <td valign="top" width="600">
                       <div class="mailonly">
-                        <a tal:attributes="href string:${context/absolute_url}/preview" target="_blank" i18n:translate="">Click here</a>&nbsp;<span i18n:translate="">to view in browser.</span>
+                        <a tal:attributes="href string:${context/absolute_url}/preview" target="_blank" i18n:translate="">Click here to view in browser.</a>
                       </div>
                     </td>
                   </tr>
