@@ -11,7 +11,7 @@
      name="send-issue"
      for="Products.EasyNewsletter.content.newsletter_issue.INewsletterIssue"
      class=".newsletter_issue_send.NewsletterIssueSend"
-     permission="zope2.View"
+     permission="cmf.ModifyPortalContent"
      />
 
   <browser:page
@@ -19,7 +19,7 @@
     for="Products.EasyNewsletter.content.newsletter_issue.INewsletterIssue"
      class=".newsletter_issue_send_form.NewsletterIssueSendForm"
      template="newsletter_issue_send_form.pt"
-     permission="zope2.View"
+     permission="cmf.ModifyPortalContent"
      />
 
   <browser:page

@@ -125,7 +125,7 @@ class DefaultDXIssueDataFetcher(object):
         output_tmpl_id = self.issue.output_template
         issue_tmpl = self.issue.restrictedTraverse(str(output_tmpl_id))
         output_html = issue_tmpl.render()
-        output_html = safe_portal_encoding(output_html)
+        # output_html = safe_portal_encoding(output_html)
         premailer = Premailer(base_url=self.issue.absolute_url())
         output_html = premailer.transform(output_html)
         return output_html

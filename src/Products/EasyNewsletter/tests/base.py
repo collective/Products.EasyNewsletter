@@ -1,19 +1,10 @@
 # -*- coding: utf-8 -*-
-from Products.Five import fiveconfigure
-from Products.Five import zcml
-from Products.PloneTestCase import PloneTestCase as ptc
-from Products.PloneTestCase.layer import onsetup
-from Testing import ZopeTestCase as ztc
+from plone import api
 
 
-@onsetup
-def setup_registration():
-    fiveconfigure.debug_mode = True
-    import Products.EasyNewsletter
-    zcml.load_config('configure.zcml', Products.EasyNewsletter)
-    fiveconfigure.debug_mode = False
-
-
-ztc.installProduct('EasyNewsletter')
-setup_registration()
-ptc.setupPloneSite(products=['EasyNewsletter'])
+def enable_behavior(content_type=None, behavior=None):
+    types_tool = api.portal.get_tool('portal_types')
+    fti = types_tool.getTypeInfo(content_type)
+    behaviors = fti.getProperty('behaviors')
+    behaviors = behaviors + (behavior,)
+    return fti.manage_changeProperties(behaviors=behaviors)

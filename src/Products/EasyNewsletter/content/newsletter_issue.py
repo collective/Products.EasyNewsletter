@@ -19,35 +19,51 @@ from zope.schema.interfaces import IContextAwareDefaultFactory
 
 
 @provider(IContextAwareDefaultFactory)
-def get_default_output_template(context):
+def get_default_output_template(parent):
     """ get ouput template from parent Newsletter
     """
-    if INewsletter.providedBy(context):
-        return context.output_template
+    if INewsletter.providedBy(parent):
+        return parent.output_template
 
 
 @provider(IContextAwareDefaultFactory)
-def get_default_prologue(context):
+def get_default_prologue(parent):
     """ get prologue from parent Newsletter
     """
-    if INewsletter.providedBy(context):
-        return context.default_prologue
+    prologue_output = u""
+    if INewsletter.providedBy(parent):
+        prologue_output = parent.default_prologue.output
+    default_prologue = textfield.RichTextValue(
+        raw=prologue_output,
+        mimeType="text/html",
+        outputMimeType="text/x-plone-outputfilters-html",
+        encoding="utf-8",
+    )
+    return default_prologue
 
 
 @provider(IContextAwareDefaultFactory)
-def get_default_epilogue(context):
+def get_default_epilogue(parent):
     """ get epilogue from parent Newsletter
     """
-    if INewsletter.providedBy(context):
-        return context.default_epilogue
+    epilogue_output = u""
+    if INewsletter.providedBy(parent):
+        epilogue_output = parent.default_epilogue.output
+    default_epilogue = textfield.RichTextValue(
+        raw=epilogue_output,
+        mimeType="text/html",
+        outputMimeType="text/x-plone-outputfilters-html",
+        encoding="utf-8",
+    )
+    return default_epilogue
 
 
 @provider(IContextAwareDefaultFactory)
-def get_default_content_aggregation_sources(context):
+def get_default_content_aggregation_sources(parent):
     """ get content_aggregation_sources from parent Newsletter
     """
-    if INewsletter.providedBy(context):
-        return context.content_aggregation_sources
+    if INewsletter.providedBy(parent):
+        return parent.content_aggregation_sources
 
 
 class INewsletterIssue(model.Schema):

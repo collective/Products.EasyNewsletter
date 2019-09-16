@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
+from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
 from plone.testing import z2
+from Products.EasyNewsletter.tests.base import enable_behavior
 
 import pkg_resources
 
@@ -38,6 +40,12 @@ class EasyNewsletter(PloneSandboxLayer):
         # Install into Plone site using portal_setup
         applyProfile(portal, 'Products.EasyNewsletter:default')
         # applyProfile(portal, 'Products.EasyNewsletter:install-base')
+        enable_behavior(
+            "Newsletter", "Products.EasyNewsletter.plone_user_group_recipients"
+        )
+        enable_behavior(
+            "Newsletter Issue", "Products.EasyNewsletter.plone_user_group_recipients"
+        )
 
     def tearDownZope(self, app):
         # Uninstall product
@@ -52,6 +60,6 @@ PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING = IntegrationTesting(
 )
 
 PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(EASYNEWSLETTER_FIXTURE, ),
+    bases=(EASYNEWSLETTER_FIXTURE, REMOTE_LIBRARY_BUNDLE_FIXTURE, z2.ZSERVER_FIXTURE),
     name="EasyNewsletter:Functional"
 )

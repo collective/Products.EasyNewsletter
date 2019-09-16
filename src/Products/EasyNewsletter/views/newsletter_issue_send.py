@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
+from DateTime import DateTime
+from emails.exc import HTTPLoaderError
 from plone import api
 from plone.protect import PostOnly
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
-from Products.EasyNewsletter.utils.mail import get_email_charset
+# from Products.EasyNewsletter.utils.mail import get_email_charset
 from Products.Five.browser import BrowserView
 from Products.MailHost.interfaces import IMailHost
 from zope.component import getUtility
 
 import emails
+import emails.loader
 import logging
 import transaction
 
@@ -131,26 +134,10 @@ class NewsletterIssueSend(BrowserView):
                 mail_from=(sender_name, sender_email),
                 mail_to=(receiver['fullname'], receiver['email']),
             )
-            # # create multipart mail
-            # outer = MIMEMultipart('alternative')
-            # outer['To'] = Header(u'<%s>' % safe_unicode(receiver['email']))
-            # outer['From'] = from_header
-            # outer['Subject'] = issue_data['subject_header']
-            # outer.epilogue = ''
-
-            # # Attach text part
-            # text_part = MIMEText(issue_data['body_plain'], 'plain', charset)
-
-            # # Attach html part with images
-            # html_part = MIMEMultipart('related')
-            # html_text = MIMEText(issue_data['body_html'], 'html', charset)
-            # html_part.attach(html_text)
-            # # Add images to the message
-            # for image in issue_data['images_to_attach']:
-            #     html_part.attach(image)
-            # outer.attach(text_part)
-            # outer.attach(html_part)
-
+            m.transform(images_inline=True, base_url=self.context.absolute_url())
+            if 'HTTPLoaderError' in m.as_string():
+                log.exception(u"Transform message failed: {0}".format(m.as_string()))
+                import pdb; pdb.set_trace()  # NOQA: E702
             try:
                 self.mail_host.send(m.as_string())
                 log.info('Send newsletter to "%s"' % receiver['email'])
@@ -168,10 +155,10 @@ class NewsletterIssueSend(BrowserView):
         # change status only for a 'regular' send operation (not 'is_test')
         if not self.is_test:
             self.request['enlwf_guard'] = True
-            api.content.transition(obj=self, transition='sending_completed')
+            api.content.transition(obj=self.context, transition='sending_completed')
             self.request['enlwf_guard'] = False
-            self.setEffectiveDate(DateTime())
-            self.reindexObject(idxs=['effective'])
+            self.context.setEffectiveDate(DateTime())
+            self.context.reindexObject(idxs=['effective'])
 
     @property
     def salutation_mappings(self):
@@ -189,6 +176,16 @@ class NewsletterIssueSend(BrowserView):
             key, value = line.split('|')
             result[key.strip()] = {lang: value.strip()}
         return result
+
+    def _unique_receivers(self, receivers_raw):
+        receivers = []
+        mails = []
+        for receiver in receivers_raw:
+            if receiver['email'] in mails:
+                continue
+            mails.append(receiver['email'])
+            receivers.append(receiver)
+        return receivers
 
     def _get_recipients(self):
         """ return list of recipients """
@@ -213,21 +210,24 @@ class NewsletterIssueSend(BrowserView):
         # checkbox, was not set.
         # get ENLSubscribers
         enl_receivers = []
-        if not self.exclude_all_subscribers:
-            for subscriber in enl.objectValues('ENLSubscriber'):
-                salutation_key = subscriber.getSalutation() or 'default'
+        if not self.context.exclude_all_subscribers:
+            for subscriber_brain in api.content.find(portal_type='Newsletter Subscriber', context=enl):
+                if not subscriber_brain:
+                    continue
+                subscriber = subscriber_brain.getObject()
+                salutation_key = subscriber.salutation or 'default'
                 salutation = salutation_mappings.get(salutation_key, {})
                 enl_receiver = {
-                    'email': subscriber.getEmail(),
-                    'gender': subscriber.getSalutation(),
-                    'name_prefix': subscriber.getName_prefix(),
-                    'firstname': subscriber.getFirstname(),
-                    'lastname': subscriber.getLastname(),
-                    'fullname': ' '.join([subscriber.getFirstname(),
-                                          subscriber.getLastname()]),
+                    'email': subscriber.email,
+                    'gender': subscriber.salutation,
+                    'name_prefix': subscriber.name_prefix,
+                    'firstname': subscriber.firstname or u'',
+                    'lastname': subscriber.lastname or u'',
+                    'fullname': ' '.join([subscriber.firstname or u'',
+                                          subscriber.lastname or u'']),
                     'salutation': salutation.get(
-                        # subscriber.getNl_language(),
-                        salutation.get(self.language or 'en', '')
+                        None,  # subscriber.getNl_language(),
+                        salutation.get(self.context.language or 'en', '')
                     ),
                     'uid': subscriber.UID(),
                     # 'nl_language': subscriber.getNl_language()
@@ -235,11 +235,13 @@ class NewsletterIssueSend(BrowserView):
 
                 enl_receivers.append(enl_receiver)
 
-        # get subscribers over selected plone members and groups
-        plone_receivers = self.get_plone_subscribers()
-        external_subscribers = self._get_external_source_subscribers(enl)
-        receivers_raw = plone_receivers + enl_receivers + \
-            external_subscribers
+        # get subscribers over selected plone members anpid groups
+        # plone_receivers = self.context.plone_subscribers
+        # XXX implement this with the behavior
+        # external_subscribers = self._get_external_source_subscribers(enl)
+        # receivers_raw = plone_receivers + enl_receivers  # + \
+        #    external_subscribers
+        receivers_raw = enl_receivers
         receivers = self._unique_receivers(receivers_raw)
 
         return receivers

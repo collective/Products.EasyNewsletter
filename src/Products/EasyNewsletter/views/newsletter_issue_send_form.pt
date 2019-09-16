@@ -13,7 +13,7 @@
       </a>
 
       <br />
-      <form tal:attributes="action string:${context/absolute_url}/send-issue-from-form"
+      <form tal:attributes="action string:${context/absolute_url}/send-issue"
         tal:define="wtool context/@@plone_tools/workflow;
                     sent python:wtool.getInfoFor(context, 'review_state') in ['sent', 'master', 'sending'] "
         method="post"

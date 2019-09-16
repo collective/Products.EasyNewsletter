@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from Products.EasyNewsletter import _
 from plone import schema
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.dexterity.interfaces import IDexterityContent
 from plone.supermodel import model
+from Products.EasyNewsletter import _
 from zope.component import adapter
-from zope.interface import Interface
 from zope.interface import implementer
+from zope.interface import Interface
 from zope.interface import provider
 
 
