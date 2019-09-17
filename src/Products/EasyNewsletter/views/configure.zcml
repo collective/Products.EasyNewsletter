@@ -31,14 +31,14 @@
 
   <browser:page
     name="subscribers-download"
-     for="Products.EasyNewsletter.content.newsletter.INewsletter"
+    for="Products.EasyNewsletter.content.newsletter.INewsletter"
     class=".newsletter_subscribers_download.NewsletterSubscribersDownload"
     permission="zope2.View"
     />
 
   <browser:page
     name="subscribers-upload"
-    for="Products.CMFCore.interfaces.IFolderish"
+    for="Products.EasyNewsletter.content.newsletter.INewsletter"
     class=".newsletter_subscribers_upload.NewsletterSubscribersUpload"
     template="newsletter_subscribers_upload.pt"
     permission="zope2.View"

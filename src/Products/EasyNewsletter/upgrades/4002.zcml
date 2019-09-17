@@ -4,23 +4,23 @@
   i18n_domain="Products.EasyNewsletter">
 
   <gs:registerProfile
-      name="2019090300"
-      title="Products.EasyNewsletter (2019090300)"
-      directory="2019090300"
+      name="4002"
+      title="Products.EasyNewsletter (4002)"
+      directory="4002"
       for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
-      description='Configuration for version 2019090300'
+      description='Configuration for version 4002'
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
-  <gs:upgradeSteps source="*"
-    destination="2019090300"
+  <gs:upgradeSteps source="4001"
+    destination="4002"
     profile="Products.EasyNewsletter:default">
 
-    <gs:upgradeStep title="Run Python upgrade steps" description="" handler=".2019090300.upgrade" /> -->
+    <gs:upgradeStep title="Run Python upgrade steps" description="" handler=".4002.upgrade" /> -->
 
     <gs:upgradeDepends title="Run GS upgrade profile"
       description=""
-      import_profile="Products.EasyNewsletter.upgrades:2019090300"
+      import_profile="Products.EasyNewsletter.upgrades:4002"
       />
 
   </gs:upgradeSteps>

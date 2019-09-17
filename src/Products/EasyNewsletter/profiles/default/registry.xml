@@ -18,8 +18,8 @@
           <value_type type="plone.registry.field.TextLine" />
       </field>
       <value purge="false">
-          <element remove="true" key="aggregation_news_events_listing">Default Listing with lead images</element>
-          <element remove="true" key="aggregation_news_events_rich">News, Events, Images Listing</element>
+          <element key="aggregation_generic_listing">Generic Listing</element>
+          <element key="aggregation_event_listing">Event Listing</element>
       </value>
   </record>
 

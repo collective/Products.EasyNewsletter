@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
+from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 from zope.component import getMultiAdapter
 from zope.component.interfaces import ComponentLookupError
 
@@ -17,24 +17,20 @@ class ViewsIntegrationTest(unittest.TestCase):
     def setUp(self):
         self.portal = self.layer['portal']
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        api.content.create(self.portal, 'Folder', 'other-folder')
-        api.content.create(self.portal, 'Document', 'front-page')
+        self.newsletter = api.content.create(container=self.portal, type='Newsletter', id='newsletter')
+        self.issue = api.content.create(container=self.newsletter, type='Newsletter Issue', id='issue')
 
     def test_aggregate_content_is_registered(self):
         view = getMultiAdapter(
-            (self.portal['other-folder'], self.portal.REQUEST),
+            (self.issue, self.portal.REQUEST),
             name='aggregate-content'
         )
         self.assertTrue(view.__name__ == 'aggregate-content')
-        # self.assertTrue(
-        #     'Sample View' in view(),
-        #     'Sample View is not found in aggregate-content'
-        # )
 
     def test_aggregate_content_not_matching_interface(self):
         with self.assertRaises(ComponentLookupError):
             getMultiAdapter(
-                (self.portal['front-page'], self.portal.REQUEST),
+                (self.portal, self.portal.REQUEST),
                 name='aggregate-content'
             )
 
