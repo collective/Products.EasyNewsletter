@@ -88,7 +88,7 @@ class UnsubscribeFormIntegrationTests(unittest.TestCase):
             {"subscriber": u"max@example.com", "test": "submit"}
         )
         view = getMultiAdapter(
-            (self.newsletter, self.portal.REQUEST), name="unsubscribe_form"
+            (self.newsletter, self.portal.REQUEST), name="unsubscribe-form"
         )
         view.__call__()
 
@@ -106,7 +106,7 @@ class UnsubscribeFormFunctionalTests(unittest.TestCase):
     def setUp(self):
         self.portal = self.layer["portal"]
         self.portal_url = self.portal.absolute_url()
-        self.unsubscribe_form_url = self.portal_url + "/enl1/unsubscribe_form"
+        self.unsubscribe_form_url = self.portal_url + "/enl1/unsubscribe-form"
         self.unsubscribe_view_url = self.portal_url + "/enl1/unsubscribe"
         self.browser = Browser(self.portal)
         self.browser.handleErrors = False
@@ -150,7 +150,7 @@ class UnsubscribeFormFunctionalTests(unittest.TestCase):
 
     def test_render_unsubscribe_form(self):
         self.browser.open(self.unsubscribe_form_url)
-        self.assertTrue(u"unsubscribe_form" in safe_unicode(self.browser.contents))
+        self.assertTrue(u"unsubscribe-form" in safe_unicode(self.browser.contents))
 
     def test_unsubscribe_view(self):
         subscriber1_id = self.newsletter.subscriber1.id

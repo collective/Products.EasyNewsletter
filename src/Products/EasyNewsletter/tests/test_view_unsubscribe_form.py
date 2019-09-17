@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
+from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 from zope.component import getMultiAdapter
 from zope.component.interfaces import ComponentLookupError
 
@@ -17,12 +17,11 @@ class ViewsIntegrationTest(unittest.TestCase):
     def setUp(self):
         self.portal = self.layer['portal']
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        api.content.create(self.portal, 'Folder', 'other-folder')
-        api.content.create(self.portal, 'Document', 'front-page')
+        self.newsletter = api.content.create(container=self.portal, type='Newsletter', id='newsletter')
 
     def test_unsubscribe_form_is_registered(self):
         view = getMultiAdapter(
-            (self.portal['other-folder'], self.portal.REQUEST),
+            (self.newsletter, self.portal.REQUEST),
             name='unsubscribe-form'
         )
         self.assertTrue(view.__name__ == 'unsubscribe-form')
@@ -34,7 +33,7 @@ class ViewsIntegrationTest(unittest.TestCase):
     def test_unsubscribe_form_not_matching_interface(self):
         with self.assertRaises(ComponentLookupError):
             getMultiAdapter(
-                (self.portal['front-page'], self.portal.REQUEST),
+                (self.portal, self.portal.REQUEST),
                 name='unsubscribe-form'
             )
 
