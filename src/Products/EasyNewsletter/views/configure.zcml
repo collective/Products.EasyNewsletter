@@ -8,6 +8,14 @@
   -*- extra stuff goes here -*-
 
   <browser:page
+    name="unsubscribe"
+    for="Products.CMFCore.interfaces.IFolderish"
+    class=".newsletter_unsubscribe.NewsletterUnsubscribe"
+    template="newsletter_unsubscribe.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
     name="unsubscribe-form"
     for="Products.EasyNewsletter.content.newsletter.INewsletter"
     class=".newsletter_unsubscribe_form.NewsletterUnsubscribeForm"
