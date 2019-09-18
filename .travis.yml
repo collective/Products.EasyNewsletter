@@ -10,8 +10,9 @@ addons:
       - google-chrome-stable
 cache:
   pip: true
-  # directories:
-  # - eggs
+  directories:
+   - eggs
+   - /home/travis/build/collective/Products.EasyNewsletter/.tox/
   # - downloads
 python:
   - "2.7"
