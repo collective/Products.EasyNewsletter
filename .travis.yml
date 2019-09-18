@@ -21,12 +21,14 @@ matrix:
     - env: TOXENV=py37-lint
       python: "3.7"
     - env: TOXENV=py27-Plone51
-    # - env: TOXENV=py27-Plone52
+    - env: TOXENV=py27-Plone52
     - env: TOXENV=py37-Plone52
       python: "3.7"
   fast_finish: true
   allow_failures:
+    - env: TOXENV=py37-lint
     - env: TOXENV=py37-Plone52
+    - env: TOXENV=py27-Plone52
 
 before_install:
   - virtualenv -p `which python` .
