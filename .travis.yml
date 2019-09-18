@@ -26,7 +26,6 @@ matrix:
       python: "3.7"
   fast_finish: true
   allow_failures:
-    - env: TOXENV=py37-lint
     - env: TOXENV=py37-Plone52
     - env: TOXENV=py27-Plone52
 
@@ -59,6 +58,6 @@ script:
 #after_script:
 
 after_success:
-  #- python -m coverage.pickle2json
+  - python -m coverage.pickle2json
   - coverage combine
   - coveralls
