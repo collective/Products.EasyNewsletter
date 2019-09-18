@@ -32,11 +32,11 @@ matrix:
 
 before_install:
   - virtualenv -p `which python` .
-  # - mkdir -p $HOME/buildout-cache/{eggs,downloads}
-  # - mkdir $HOME/.buildout
-  # - echo "[buildout]" > $HOME/.buildout/default.cfg
+  - mkdir -p $HOME/buildout-cache/{eggs}
+  - mkdir $HOME/.buildout
+  - echo "[buildout]" > $HOME/.buildout/default.cfg
   # - echo "download-cache = $HOME/buildout-cache/downloads" >> $HOME/.buildout/default.cfg
-  # - echo "eggs-directory = $HOME/buildout-cache/eggs" >> $HOME/.buildout/default.cfg
+  - echo "eggs-directory = $HOME/buildout-cache/eggs" >> $HOME/.buildout/default.cfg
   # - bin/pip install -r requirements.txt -c constraints_plone$PLONE_VERSION.txt
   # - bin/pip install tox
 #  - bin/buildout -N out:download-cache=downloads code-analysis:return-status-codes=True annotate
