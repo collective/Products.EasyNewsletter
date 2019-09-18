@@ -100,6 +100,16 @@ Bug tracker
 
 Issue tracker is at GitHub: https://github.com/collective/Products.EasyNewsletter/issues
 
+ToDo
+====
+
+founding welcome ;)
+
+- async task queue for WGSI as an alternative to collective.taskqueue which will not support WGSI
+- Integration of Mosaico newsletter editor
+- content migration AT >> DX
+
+
 
 Authors
 =======
