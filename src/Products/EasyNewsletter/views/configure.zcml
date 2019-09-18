@@ -9,10 +9,9 @@
 
   <browser:page
     name="unsubscribe"
-    for="Products.CMFCore.interfaces.IFolderish"
+    for="Products.EasyNewsletter.content.newsletter.INewsletter"
     class=".newsletter_unsubscribe.NewsletterUnsubscribe"
-    template="newsletter_unsubscribe.pt"
-    permission="zope2.View"
+    permission="zope2.Public"
     />
 
   <browser:page
@@ -20,7 +19,7 @@
     for="Products.EasyNewsletter.content.newsletter.INewsletter"
     class=".newsletter_unsubscribe_form.NewsletterUnsubscribeForm"
     template="newsletter_unsubscribe_form.pt"
-    permission="zope2.View"
+    permission="zope2.Public"
     />
 
    <browser:page

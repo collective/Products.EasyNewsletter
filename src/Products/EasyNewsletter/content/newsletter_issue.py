@@ -191,10 +191,24 @@ class INewsletterIssue(model.Schema):
     # directives.order_after(output_template="IRichText.text")
 
 
+def context_property(name):
+    def getter(self):
+        return getattr(self.context, name)
+
+    def setter(self, value):
+        setattr(self.context, name, value)
+
+    def deleter(self):
+        delattr(self.context, name)
+    return property(getter, setter, deleter)
+
+
 @implementer(INewsletterIssue)
 class NewsletterIssue(Container):
     """
     """
+
+    context_property('content_aggregation_sources')
 
     def get_newsletter(self):
         return self.__parent__

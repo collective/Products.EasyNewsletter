@@ -65,7 +65,7 @@ class NewsletterIssueSend(BrowserView):
         #     return self.request.response.redirect(self.context.absolute_url())
 
         # No queuing but direct send
-        self._send_issue_prepare()
+        # self._send_issue_prepare()
         self.send_issue_immediately()
         api.portal.show_message(
             message=_("The issue has been generated and sent to the mail server."),
@@ -87,6 +87,7 @@ class NewsletterIssueSend(BrowserView):
         never call this from UI - needs a way to protect
         currently manager only
         """
+        self._send_issue_prepare()
         self.send()
 
     def send(self):
@@ -137,7 +138,6 @@ class NewsletterIssueSend(BrowserView):
             m.transform(images_inline=True, base_url=self.context.absolute_url())
             if 'HTTPLoaderError' in m.as_string():
                 log.exception(u"Transform message failed: {0}".format(m.as_string()))
-                import pdb; pdb.set_trace()  # NOQA: E702
             try:
                 self.mail_host.send(m.as_string())
                 log.info('Send newsletter to "%s"' % receiver['email'])

@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-# from plone.dexterity.interfaces import IDexterityFTI
-# from Products.EasyNewsletter.config import IS_PLONE_5
-# from zope.component import getUtility
 from Acquisition import aq_base
 from plone import api
 from plone.app.testing import setRoles
@@ -9,14 +6,18 @@ from plone.app.testing import TEST_USER_ID
 from plone.uuid.interfaces import IUUID
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.tests.utils import MockMailHost
-from Products.EasyNewsletter.interfaces import IENLIssue
+from Products.EasyNewsletter.content.newsletter_issue import INewsletterIssue
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.MailHost.interfaces import IMailHost
+from z3c.relationfield.relation import RelationValue
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
+from zope.component import getUtility
+from zope.intid.interfaces import IIntIds
 
+import transaction
 import unittest
 
 
@@ -35,36 +36,42 @@ class DailyIssueBaseTestCase(unittest.TestCase):
         self.folder = self.portal["testfolder"]
         self.folder.invokeFactory("News Item", "news01")
 
-        self.folder.invokeFactory("EasyNewsletter", "daily-news")
+        self.folder.invokeFactory("Newsletter", "daily-news")
         self.newsletter = self.folder["daily-news"]
-        self.newsletter.setTitle("Daily News")
-
-        # if IS_PLONE_5:
-        #     # make sure that Collections have the referenceable behavior:
-        #     fti = getUtility(IDexterityFTI, name='Collection')
-        #     referenceable = u'plone.app.referenceablebehavior.referenceable.IReferenceable'  # noqa
-        #     behaviors = list(fti.behaviors)
-        #     if referenceable not in behaviors:
-        #         behaviors.append(referenceable)
-        #         fti.behaviors = tuple(behaviors)
+        self.newsletter.title = "Daily News"
+        # XXX check if we could ovaid this by using defaults from site settings
+        self.newsletter.sender_email = "newsletter@acme.com"
+        self.newsletter.sender_name = "ACME newsletter"
+        self.newsletter.test_email = "test@acme.com"
 
         news_collection = api.content.create(
             type="Collection",
-            id='news-collection',
-            title=u'News Collection',
-            container=self.folder)
-        query = [{
-            'i': 'portal_type',
-            'o': 'plone.app.querystring.operation.selection.is',
-            'v': ['News Item'],
-        }]
+            id="news-collection",
+            title=u"News Collection",
+            container=self.folder,
+        )
+        query = [
+            {
+                "i": "portal_type",
+                "o": "plone.app.querystring.operation.selection.is",
+                "v": ["News Item"],
+            }
+        ]
         news_collection.setQuery(query)
-        self.newsletter.setContentAggregationSources(IUUID(news_collection))
+        news_collection.aggregation_template = "aggregation_generic_listing"
+        transaction.commit()
+        intids = getUtility(IIntIds)
+        to_id = intids.getId(news_collection)
+        self.newsletter.content_aggregation_sources = [RelationValue(to_id)]
 
-        self.newsletter.invokeFactory("ENLSubscriber", "subscriber01")
+        api.content.create(
+            type="Newsletter Subscriber",
+            id="subscriber01",
+            container=self.newsletter,
+            email="jane@example.com",
+        )
         self.view = getMultiAdapter(
-            (self.newsletter, self.layer["request"]),
-            name="daily-issue"
+            (self.newsletter, self.layer["request"]), name="daily-issue"
         )
 
         self.mail_settings = get_portal_mail_settings()
@@ -80,35 +87,27 @@ class DailyIssueBaseTestCase(unittest.TestCase):
         self.portal.MailHost = self.portal._original_MailHost
         sm = getSiteManager(context=self.portal)
         sm.unregisterUtility(provided=IMailHost)
-        sm.registerUtility(
-            aq_base(self.portal._original_MailHost),
-            provided=IMailHost
-        )
+        sm.registerUtility(aq_base(self.portal._original_MailHost), provided=IMailHost)
 
 
 class DailyIssueContent(DailyIssueBaseTestCase):
     def test_create_new_issue(self):
         issues = self.catalog(
-            object_provides=IENLIssue.__identifier__,
-            path="/".join(self.newsletter.getPhysicalPath())
+            object_provides=INewsletterIssue.__identifier__,
+            path="/".join(self.newsletter.getPhysicalPath()),
         )
         self.assertEqual(len(issues), 0)
         self.assertFalse(self.view.already_sent())
         self.view.create_issue()
-        # try:
-        #     self.view.create_issue()
-        # except Exception, e:
-        #     import pdb; pdb.set_trace()
-        #     self.fail("Couldn't create an issue! (%s)" % e)
 
         issues = self.catalog(
-            object_provides=IENLIssue.__identifier__,
-            path="/".join(self.newsletter.getPhysicalPath())
+            object_provides=INewsletterIssue.__identifier__,
+            path="/".join(self.newsletter.getPhysicalPath()),
         )
 
         self.assertTrue(self.view.already_sent())
         self.assertEqual(len(issues), 1)
-        self.assertEqual(self.view.issue.Title(), "Daily News")
+        self.assertEqual(self.view.issue.title, "Daily News")
 
     def test_empty_issue(self):
         self.assertTrue(self.view.has_content())
@@ -126,7 +125,6 @@ class DailyIssueContent(DailyIssueBaseTestCase):
 
 
 class DailyIssueMethodGET(DailyIssueBaseTestCase):
-
     def setUp(self):
         self.layer["request"]["REQUEST_METHOD"] = "GET"
         DailyIssueBaseTestCase.setUp(self)
@@ -147,7 +145,6 @@ class DailyIssueMethodGET(DailyIssueBaseTestCase):
 
 
 class DailyIssueMethodPOST(DailyIssueBaseTestCase):
-
     def setUp(self):
         self.layer["request"]["REQUEST_METHOD"] = "POST"
         DailyIssueBaseTestCase.setUp(self)
@@ -156,8 +153,8 @@ class DailyIssueMethodPOST(DailyIssueBaseTestCase):
         self.folder.manage_delObjects(["news01"])
         self.view()
         issues = self.catalog(
-            object_provides=IENLIssue.__identifier__,
-            path="/".join(self.newsletter.getPhysicalPath())
+            object_provides=INewsletterIssue.__identifier__,
+            path="/".join(self.newsletter.getPhysicalPath()),
         )
         self.assertFalse(issues)
         self.assertEqual(self.view.request.response.getStatus(), 204)
@@ -176,8 +173,21 @@ class DailyIssueMethodPOST(DailyIssueBaseTestCase):
         self.assertEqual(self.view.request.response.getStatus(), 409)
 
 
-class DailyIssueMethodOtherThanGETorPOST(DailyIssueBaseTestCase):
+class TriggerDailyIssueMethodGET(DailyIssueBaseTestCase):
+    def setUp(self):
+        self.layer["request"]["REQUEST_METHOD"] = "GET"
+        DailyIssueBaseTestCase.setUp(self)
+        self.view = getMultiAdapter(
+            (self.newsletter, self.layer["request"]), name="trigger-daily-issue"
+        )
 
+    def test_send_issue_and_check_http_status(self):
+        self.view()
+        self.assertEqual(self.view.request.response.getStatus(), 200)
+        self.assertEqual(len(self.portal.MailHost.messages), 1)
+
+
+class DailyIssueMethodOtherThanGETorPOST(DailyIssueBaseTestCase):
     def setUp(self):
         self.layer["request"]["REQUEST_METHOD"] = "FOOBAR"
         DailyIssueBaseTestCase.setUp(self)
@@ -185,10 +195,7 @@ class DailyIssueMethodOtherThanGETorPOST(DailyIssueBaseTestCase):
     def test_trying_another_method_on_view(self):
         self.view()
         self.assertEqual(self.view.request.response.getStatus(), 405)
-        self.assertEqual(
-            self.view.request.response.getHeader("Allow"),
-            "GET, POST"
-        )
+        self.assertEqual(self.view.request.response.getHeader("Allow"), "GET, POST")
 
 
 def test_suite():

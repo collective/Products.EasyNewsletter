@@ -5,6 +5,8 @@ from plone.app.testing import login
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
+from plone.registry.interfaces import IRegistry
+from Products.CMFPlone.interfaces.controlpanel import IMailSchema
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.EasyNewsletter.config import IS_PLONE_5
 from Products.EasyNewsletter.interfaces import IBeforePersonalizationEvent
@@ -22,11 +24,6 @@ import unittest
 
 GLOBALS = globals()
 TESTS_HOME = package_home(GLOBALS)
-
-
-if IS_PLONE_5:
-    from plone.registry.interfaces import IRegistry
-    from Products.CMFPlone.interfaces.controlpanel import IMailSchema
 
 
 class IssuedatafetcherIntegrationTests(unittest.TestCase):
@@ -52,13 +49,10 @@ class IssuedatafetcherIntegrationTests(unittest.TestCase):
         self.portal._original_MailHost = self.portal.MailHost
         self.portal.MailHost = mailhost = MockMailHost("MailHost")
         self.portal.MailHost.smtp_host = "localhost"
-        if not IS_PLONE_5:  # BBB
-            self.portal.email_from_address = "portal@plone.test"
-        else:
-            registry = getUtility(IRegistry)
-            self.mail_settings = registry.forInterface(IMailSchema, prefix="plone")
-            self.mail_settings.email_from_address = "portal@plone.test"
-            self.mail_settings.smtp_host = u"localhost"
+        registry = getUtility(IRegistry)
+        self.mail_settings = registry.forInterface(IMailSchema, prefix="plone")
+        self.mail_settings.email_from_address = "portal@plone.test"
+        self.mail_settings.smtp_host = u"localhost"
         sm = getSiteManager(context=self.portal)
         sm.unregisterUtility(provided=IMailHost)
         sm.registerUtility(mailhost, provided=IMailHost)
@@ -73,11 +67,11 @@ class IssuedatafetcherIntegrationTests(unittest.TestCase):
         )
 
     def test_before_personalization_filter(self):
-        def _personalize(event):
+        def personalize(event):
             edc = event.data["context"]
             event.data["html"] = event.data["html"].replace("PHP", "Python")
             edc["SUBSCRIBER_SALUTATION"] = "Dear Ms. Jane Doe"
-        provideHandler(_personalize, [IBeforePersonalizationEvent])
+        provideHandler(personalize, [IBeforePersonalizationEvent])
 
         try:
             receiver = {
@@ -93,11 +87,11 @@ class IssuedatafetcherIntegrationTests(unittest.TestCase):
             {{SUBSCRIBER_SALUTATION}}
             """
             issue_data_fetcher = IIssueDataFetcher(self.newsletter.issue)
-            issue_data = issue_data_fetcher._personalize(receiver, html)
+            issue_data = issue_data_fetcher.personalize(receiver, html)
             self.assertIn("Dear Ms. Jane Doe", issue_data)
         finally:
             getGlobalSiteManager().unregisterHandler(
-                _personalize, [IBeforePersonalizationEvent]
+                personalize, [IBeforePersonalizationEvent]
             )
 
     def test_fetching_issue_data(self):
@@ -114,5 +108,5 @@ class IssuedatafetcherIntegrationTests(unittest.TestCase):
         {{SUBSCRIBER_SALUTATION}}
         """
         issue_data_fetcher = IIssueDataFetcher(self.newsletter.issue)
-        issue_data = issue_data_fetcher._personalize(receiver, html)
-        self.assertIn("Dear Ms. Jane Doe", issue_data)
+        issue_data = issue_data_fetcher.personalize(receiver, html)
+        self.assertIn("Dear Mr. John Doe", issue_data)

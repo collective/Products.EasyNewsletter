@@ -92,13 +92,13 @@
 
  <browser:page
     name="daily-issue"
-    for="..interfaces.IEasyNewsletter"
+    for="Products.EasyNewsletter.content.newsletter.INewsletter"
     class=".daily_issue.DailyIssueView"
     permission="cmf.ModifyPortalContent" />
 
  <browser:page
     name="trigger-daily-issue"
-    for="..interfaces.IEasyNewsletter"
+    for="Products.EasyNewsletter.content.newsletter.INewsletter"
     class=".daily_issue.TriggerDailyIssueView"
     permission="cmf.ModifyPortalContent" />
 

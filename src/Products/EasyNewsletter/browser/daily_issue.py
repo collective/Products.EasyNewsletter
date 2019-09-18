@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from plone import api
 from plone.protect.interfaces import IDisableCSRFProtection
 from Products.Five.browser import BrowserView
 from zExceptions import BadRequest
@@ -18,12 +19,9 @@ class DailyIssueView(BrowserView):
     def has_content(self):
         results = []
         enl = self.context
-        enl_template_id = enl.getTemplate()
-        if enl_template_id not in self.context.objectIds():
-            return
-        enl_template = getattr(enl.aq_explicit, enl_template_id, None)
-        sources = enl_template.getContentSources()
+        sources = enl.content_aggregation_sources
         for source in sources:
+            source = source.to_object
             source_results = source.queryCatalog()
             results.extend(source_results)
         return len(results)
@@ -41,15 +39,27 @@ class DailyIssueView(BrowserView):
         id = self.__generate_id()
 
         try:
-            self.context.invokeFactory('ENLIssue', id)
+            self.issue = api.content.create(type='Newsletter Issue', id=id, container=self.context)
         # If issue already exist, don't create it again
         except BadRequest:
             raise
 
-        self.issue = self.context[id]
-        self.issue.setTitle(self.context.Title())
-        self.issue.setDescription(self.context.Description())
-        self.issue.loadContent()
+        self.issue.title = self.context.title
+        self.issue.description = self.context.description
+
+        # workaround because of this:
+        # https://community.plone.org/t/icontextawaredefaultfactory-has-wrong-context-and-no-acquisition-chain-if-called-in-python/9119
+
+        self.issue.prologue = self.context.default_prologue
+        self.issue.epilogue = self.context.default_epilogue
+        self.issue.content_aggregation_sources = self.context.content_aggregation_sources
+        self.issue.output_template = self.context.output_template
+
+        # aggregate content for issue:
+        getMultiAdapter(
+            (self.issue, self.context.REQUEST),
+            name="aggregate-content"
+        )()
 
     def send(self):
         if self.issue:
@@ -59,13 +69,11 @@ class DailyIssueView(BrowserView):
             ).send_issue_immediately()
 
     def __call__(self):
-
         if self.request["REQUEST_METHOD"] == "POST":
             alsoProvides(self.request, IDisableCSRFProtection)
             if self.has_content():
                 try:
                     self.create_issue()
-
                     # Accepted. Sending mails
                     self.send()
                     self.request.response.setStatus(200)

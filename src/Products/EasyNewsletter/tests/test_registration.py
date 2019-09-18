@@ -12,6 +12,7 @@ from Products.EasyNewsletter.config import IS_PLONE_5
 from Products.EasyNewsletter.interfaces import IENLRegistrationTool
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
+from Products.EasyNewsletter.tests.base import parsed_payloads_from_msg
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.MailHost.interfaces import IMailHost
 from zope.component import getMultiAdapter
@@ -42,7 +43,7 @@ class RegistrationIntegrationTests(unittest.TestCase):
             "simple_publication_workflow",
         )
         login(self.portal, TEST_USER_NAME)
-        self.portal.invokeFactory('EasyNewsletter', 'enl1', title=u"ENL 1")
+        self.portal.invokeFactory('Newsletter', 'enl1', title=u"ENL 1")
         self.newsletter = self.portal.get('enl1')
         self.newsletter.senderEmail = "newsletter@acme.com"
         self.newsletter.senderName = "ACME newsletter"
@@ -52,14 +53,11 @@ class RegistrationIntegrationTests(unittest.TestCase):
         self.portal._original_MailHost = self.portal.MailHost
         self.portal.MailHost = mailhost = MockMailHost('MailHost')
         self.portal.MailHost.smtp_host = 'localhost'
-        if not IS_PLONE_5:  # BBB
-            self.portal.email_from_address = "portal@plone.test"
-        else:
-            registry = getUtility(IRegistry)
-            self.mail_settings = registry.forInterface(
-                IMailSchema, prefix='plone')
-            self.mail_settings.email_from_address = "portal@plone.test"
-            self.mail_settings.smtp_host = u"localhost"
+        registry = getUtility(IRegistry)
+        self.mail_settings = registry.forInterface(
+            IMailSchema, prefix='plone')
+        self.mail_settings.email_from_address = "portal@plone.test"
+        self.mail_settings.smtp_host = u"localhost"
         sm = getSiteManager(context=self.portal)
         sm.unregisterUtility(provided=IMailHost)
         sm.registerUtility(mailhost, provided=IMailHost)
@@ -83,10 +81,11 @@ class RegistrationIntegrationTests(unittest.TestCase):
         view.__call__()
         self.assertEqual(len(self.mailhost.messages), 1)
         self.assertTrue(self.mailhost.messages[0])
-        msg = str(self.mailhost.messages[0])
+        msg = self.mailhost.messages[0]
+        parsed_payloads = parsed_payloads_from_msg(msg)
         self.assertIn('To: max@example.com', msg)
         self.assertIn('From: portal@plone.test', msg)
-        self.assertIn('confirm-subscriber?hkey=', msg)
+        self.assertIn('confirm-subscriber?hkey=', parsed_payloads['text/plain'])
 
         enl_reg_entry = self.enl_reg_tool.values()[0]
         self.assertEqual(
@@ -147,37 +146,33 @@ class RegistrationIntegrationTests(unittest.TestCase):
             name="confirm-subscriber")
         view.__call__()
         catalog = self.portal.portal_catalog
-        query = {'portal_type': 'ENLSubscriber'}
+        query = {'portal_type': 'Newsletter Subscriber'}
         results = catalog(query)
         self.assertTrue(len(results) == 1)
         subscriber = results[0].getObject()
         self.assertEqual(
-            subscriber.getFirstname(),
+            subscriber.firstname,
             "Max",
         )
         self.assertEqual(
-            subscriber.getLastname(),
+            subscriber.lastname,
             "Mustermann",
         )
         self.assertEqual(
-            subscriber.getName_prefix(),
+            subscriber.name_prefix,
             "Dr.",
         )
         self.assertEqual(
-            subscriber.getNl_language(),
-            "en",
-        )
-        self.assertEqual(
-            subscriber.getOrganization(),
+            subscriber.organization,
             "Musterfirma",
         )
         self.assertEqual(
-            subscriber.getSalutation(),
+            subscriber.salutation,
             "mr",
         )
         self.assertEqual(
             subscriber.title,
-            "max@example.com",
+            "max@example.com - Dr. Max Mustermann",
         )
 
         # check that anonymous can't access the subscriber object
@@ -214,7 +209,7 @@ class RegistrationFunctionalTests(unittest.TestCase):
         # self.portal.portal_workflow.setDefaultChain(
         #     "simple_publication_workflow",
         # )
-        self.portal.invokeFactory('EasyNewsletter', 'enl1', title=u"ENL 1")
+        self.portal.invokeFactory('Newsletter', 'enl1', title=u"ENL 1")
         self.newsletter = self.portal.get('enl1')
         self.newsletter.senderEmail = "newsletter@acme.com"
         self.newsletter.senderName = "ACME newsletter"

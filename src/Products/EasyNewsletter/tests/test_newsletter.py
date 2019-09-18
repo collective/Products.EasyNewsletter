@@ -14,6 +14,7 @@ from Products.EasyNewsletter.content.newsletter import INewsletter
 from Products.EasyNewsletter.content.newsletter_issue import INewsletterIssue
 from Products.EasyNewsletter.interfaces import IBeforePersonalizationEvent
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
+from Products.EasyNewsletter.tests.base import parsed_payloads_from_msg
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.MailHost.interfaces import IMailHost
 from zExceptions import Forbidden
@@ -110,19 +111,6 @@ class EasyNewsletterTests(unittest.TestCase):
         image.image = dummy_image(image)
         self.image = image
 
-    def parsed_payloads_from_msg(self, msg):
-        parsed_msg = email.message_from_string(msg)
-        parsed_payloads = dict()
-        for part in parsed_msg.walk():
-            if part.get_content_type():  # in ["text/plain", "text/html"]:
-                payload = part.get_payload()
-                if not isinstance(payload, six.string_types):
-                    continue
-                parsed_payloads[part.get_content_type()] = base64.b64decode(
-                    part.get_payload()
-                )
-        return parsed_payloads
-
     def send_sample_message(self, body):
         self.assertSequenceEqual(self.mailhost.messages, [])
         self.issue = api.content.create(
@@ -208,7 +196,7 @@ class EasyNewsletterTests(unittest.TestCase):
         self.assertEqual(len(self.mailhost.messages), 1)
         self.assertTrue(self.mailhost.messages[0])
         msg = str(self.mailhost.messages[0])
-        parsed_payloads = self.parsed_payloads_from_msg(msg)
+        parsed_payloads = parsed_payloads_from_msg(msg)
         self.assertIn("To: Test Member <test@acme.com>", msg)
         self.assertIn("From: ACME newsletter <newsletter@acme.com>", msg)
 
@@ -292,27 +280,27 @@ class EasyNewsletterTests(unittest.TestCase):
         self.assertTrue(self.mailhost.messages[1])
 
         msg1 = str(self.mailhost.messages[0])
-        parsed_payloads1 = self.parsed_payloads_from_msg(msg1)
+        parsed_payloads1 = parsed_payloads_from_msg(msg1)
         self.assertIn("To: Jane Doe <jane@example.com>", msg1)
         self.assertIn("Dear Ms. Jane Doe", parsed_payloads1["text/html"])
 
         msg2 = str(self.mailhost.messages[1])
-        parsed_payloads2 = self.parsed_payloads_from_msg(msg2)
+        parsed_payloads2 = parsed_payloads_from_msg(msg2)
         self.assertIn("To: John Doe <john@example.com>", msg2)
         self.assertIn("Dear John Doe", parsed_payloads2["text/html"])
 
         msg3 = str(self.mailhost.messages[2])
-        parsed_payloads3 = self.parsed_payloads_from_msg(msg3)
+        parsed_payloads3 = parsed_payloads_from_msg(msg3)
         self.assertIn("To: Mustermann <max@example.com>", msg3)
         self.assertIn("Dear Mustermann", parsed_payloads3["text/html"])
 
         msg4 = str(self.mailhost.messages[3])
-        parsed_payloads4 = self.parsed_payloads_from_msg(msg4)
+        parsed_payloads4 = parsed_payloads_from_msg(msg4)
         self.assertIn("To: Maxima <maxima@example.com>", msg4)
         self.assertIn("Dear Maxima", parsed_payloads4["text/html"])
 
         msg5 = str(self.mailhost.messages[4])
-        parsed_payloads5 = self.parsed_payloads_from_msg(msg5)
+        parsed_payloads5 = parsed_payloads_from_msg(msg5)
         self.assertIn("To: leo@example.com", msg5)
         self.assertIn("Sir or Madam", parsed_payloads5["text/html"])
 
@@ -389,12 +377,12 @@ class EasyNewsletterTests(unittest.TestCase):
             # print(pers_events)
             self.assertEqual(len(self.mailhost.messages), 2)
             msg1 = str(self.mailhost.messages[0])
-            parsed_payloads1 = self.parsed_payloads_from_msg(msg1)
+            parsed_payloads1 = parsed_payloads_from_msg(msg1)
             self.assertIn("To: Jane Doe <jane@example.com>", msg1)
             self.assertIn("Dear Ms. Jane Doe", parsed_payloads1["text/html"])
 
             msg2 = str(self.mailhost.messages[1])
-            parsed_payloads2 = self.parsed_payloads_from_msg(msg2)
+            parsed_payloads2 = parsed_payloads_from_msg(msg2)
             self.assertIn("To: john@example.com", msg2)
             self.assertIn("Dear john@example.com", parsed_payloads2["text/html"])
         finally:
@@ -405,7 +393,7 @@ class EasyNewsletterTests(unittest.TestCase):
     def test_send_test_issue_with_image(self):
         body = '<img src="{0}"/>'.format(self.image.absolute_url_path())
         msg = self.send_sample_message(body)
-        parsed_payloads = self.parsed_payloads_from_msg(msg)
+        parsed_payloads = parsed_payloads_from_msg(msg)
 
         self.assertIn('src="cid:image', parsed_payloads["text/html"])
         self.assertIn("Content-ID: <image", msg)
@@ -425,7 +413,7 @@ class EasyNewsletterTests(unittest.TestCase):
         zt.commit()
 
         msg = self.send_sample_message(body)
-        parsed_payloads = self.parsed_payloads_from_msg(msg)
+        parsed_payloads = parsed_payloads_from_msg(msg)
         self.assertIn('src="cid:thumb', parsed_payloads["text/html"])
         self.assertIn("Content-ID: <thumb", msg)
         self.assertIn("Content-Type: image/png;", msg)
@@ -434,7 +422,7 @@ class EasyNewsletterTests(unittest.TestCase):
         body = '<img src="../../resolveuid/{0}"/>'.format(self.image.UID())
 
         msg = self.send_sample_message(body)
-        parsed_payloads = self.parsed_payloads_from_msg(msg)
+        parsed_payloads = parsed_payloads_from_msg(msg)
         self.assertNotIn("resolveuid", parsed_payloads["text/html"])
         self.assertIn('src="cid:image', parsed_payloads["text/html"])
         self.assertIn("Content-ID: <image", msg)
@@ -452,7 +440,7 @@ class EasyNewsletterTests(unittest.TestCase):
         body = '<img src="{0}"/>'.format(image_scale.absolute_url())
         zt.commit()
         msg = self.send_sample_message(body)
-        parsed_payloads = self.parsed_payloads_from_msg(msg)
+        parsed_payloads = parsed_payloads_from_msg(msg)
         self.assertNotIn("resolveuid", parsed_payloads["text/html"])
         self.assertIn('src="cid:{0}"'.format(image_scale.__name__),  parsed_payloads["text/html"])
         self.assertIn("Content-ID: <{0}>".format(image_scale.__name__), msg)

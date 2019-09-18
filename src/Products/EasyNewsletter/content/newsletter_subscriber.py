@@ -57,7 +57,7 @@ class NewsletterSubscriber(Item):
         firstname = self.firstname or u''
         lastname = self.lastname or u''
         if self.firstname or self.lastname:
-            title += " ".join([prefix, firstname, lastname])
+            title += " - " + " ".join([prefix, firstname, lastname])
         return title
 
     @title.setter

@@ -1,17 +1,15 @@
 # -*- coding: utf-8 -*-
-from Products.EasyNewsletter.content.newsletter_issue import INewsletterIssue  # NOQA E501
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING  # noqa
 from plone import api
 from plone.api.exc import InvalidParameterError
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.dexterity.interfaces import IDexterityFTI
+from Products.EasyNewsletter.content.newsletter_issue import INewsletterIssue  # NOQA E501
+from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING  # noqa
 from zope.component import createObject
 from zope.component import queryUtility
 
 import unittest
-
-
 
 
 class NewsletterIssueIntegrationTest(unittest.TestCase):
@@ -26,7 +24,7 @@ class NewsletterIssueIntegrationTest(unittest.TestCase):
         parent_id = portal_types.constructContent(
             'Newsletter',
             self.portal,
-            'newsletter_issue',
+            'newsletter',
             title='Parent container',
         )
         self.parent = self.portal[parent_id]
@@ -67,9 +65,10 @@ class NewsletterIssueIntegrationTest(unittest.TestCase):
             ),
         )
 
+        self.assertIn('newsletter_issue', self.parent.objectIds())
         # check that deleting the object works too
         api.content.delete(obj=obj)
-        self.assertIn('newsletter_issue', self.parent.objectIds())
+        self.assertNotIn('newsletter_issue', self.parent.objectIds())
 
     def test_ct_newsletter_issue_globally_not_addable(self):
         setRoles(self.portal, TEST_USER_ID, ['Contributor'])

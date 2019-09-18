@@ -126,7 +126,7 @@ class UnsubscribeFormFunctionalTests(unittest.TestCase):
         api.content.create(
             type="Newsletter Subscriber",
             container=self.newsletter,
-            id="sub1",
+            id="subscriber1",
             salutation="mr",
             firstname="Max",
             lastname="Mustermann",
@@ -135,7 +135,7 @@ class UnsubscribeFormFunctionalTests(unittest.TestCase):
         api.content.create(
             type="Newsletter Subscriber",
             container=self.newsletter,
-            id="sub2",
+            id="subscriber2",
             salutation="mr",
             firstname="Maxima",
             lastname="Musterfrau",

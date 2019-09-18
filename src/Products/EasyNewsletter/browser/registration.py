@@ -8,9 +8,9 @@ from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.CMFCore.utils import getToolByName
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
 from Products.EasyNewsletter.config import MESSAGE_CODE
-from Products.EasyNewsletter.interfaces import IEasyNewsletter
+from Products.EasyNewsletter.content.newsletter import INewsletter
+from Products.EasyNewsletter.content.newsletter_subscriber import INewsletterSubscriber
 from Products.EasyNewsletter.interfaces import IENLRegistrationTool
-from Products.EasyNewsletter.interfaces import IENLSubscriber
 from Products.EasyNewsletter.utils.base import execute_under_special_role
 from Products.EasyNewsletter.utils.mail import get_email_charset
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
@@ -119,15 +119,15 @@ class SubscriberView(BrowserView):
             enl_registration_tool[hashkey] = RegistrationData(
                 hashkey, **subscriber_data
             )
-            msg_subject = newsletter_container.getRawSubscriber_confirmation_mail_subject().replace(
+            msg_subject = newsletter_container.subscriber_confirmation_mail_subject.replace(
                 "${portal_url}", self.portal_url.strip("http://")
             )
             confirmation_url = (
                 self.portal_url + "/confirm-subscriber?hkey=" + str(hashkey)
             )
             confirmation_url = protect.utils.addTokenToUrl(confirmation_url)
-            msg_text = newsletter_container.getRawSubscriber_confirmation_mail_text().replace(
-                "${newsletter_title}", newsletter_container.Title()
+            msg_text = newsletter_container.subscriber_confirmation_mail_text.replace(
+                "${newsletter_title}", newsletter_container.title
             )
             msg_text = msg_text.replace("${subscriber_email}", subscriber)
             msg_text = msg_text.replace("${confirmation_url}", confirmation_url)
@@ -160,25 +160,29 @@ class SubscriberView(BrowserView):
         regdataobj = enl_registration_tool.get(hashkey)
         messages = IStatusMessage(self.request)
         if regdataobj:
+            portal = api.portal.get()
+            easynewsletter = portal.unrestrictedTraverse(
+                regdataobj.path_to_easynewsletter
+            )
             email = regdataobj.subscriber
             plone_utils = api.portal.get_tool(name="plone_utils")
             subscriber_id = plone_utils.normalizeString(email)
-            portal = api.portal.get()
             try:
                 execute_under_special_role(
                     portal,
                     "Contributor",
                     api.content.create,
-                    type="ENLSubscriber",
+                    type="Newsletter Subscriber",
                     id=subscriber_id,
-                    language=self.Language(),
+                    language=self.context.language,
                     email=email,
                     firstname=regdataobj.firstname,
                     lastname=regdataobj.lastname,
                     name_prefix=regdataobj.name_prefix,
-                    nl_language=regdataobj.nl_language,
+                    # nl_language=regdataobj.nl_language,
                     organization=regdataobj.organization,
                     salutation=regdataobj.salutation,
+                    container=easynewsletter,
                 )
             except BadRequest:
                 error_code = u"email_exists"
@@ -189,9 +193,6 @@ class SubscriberView(BrowserView):
                 messages.addStatusMessage(
                     _("Your subscription was successfully confirmed."), "info"
                 )
-            easynewsletter = self.portal.unrestrictedTraverse(
-                regdataobj.path_to_easynewsletter
-            )
             return self._msg_redirect(easynewsletter)
         else:
             messages.addStatusMessage(_("Please enter a valid email address."), "error")
@@ -253,7 +254,7 @@ class UnsubscribeView(BrowserView):
         newsletter = self.context
         catalog = getToolByName(self.context, "portal_catalog")
         query = {}
-        query["portal_type"] = "ENLSubscriber"
+        query["portal_type"] = "Newsletter Subscriber"
         query["email"] = subscriber
         results = catalog.unrestrictedSearchResults(query)
         messages = IStatusMessage(self.request)
@@ -263,7 +264,7 @@ class UnsubscribeView(BrowserView):
                 self.newsletter_url + "/unsubscribe?subscriber=" + subscriber_brain.UID
             )
             msg_text = """%s: %s""" % (
-                newsletter.getUnsubscribe_string(),
+                newsletter.unsubscribe_string,
                 unsubscribe_url,
             )
             settings = get_portal_mail_settings()
@@ -292,7 +293,7 @@ class UnsubscribeView(BrowserView):
         uid = self.request.get("subscriber")
 
         newsletter = self.context
-        if not IEasyNewsletter.providedBy(newsletter):
+        if not INewsletter.providedBy(newsletter):
             putils.addPortalMessage(
                 _("Please use the correct unsubscribe url!"), "error"
             )
@@ -305,7 +306,7 @@ class UnsubscribeView(BrowserView):
         owner = newsletter.getWrappedOwner()
         newSecurityManager(newsletter, owner)
         subscriber = api.content.get(UID=uid)
-        if subscriber is None or not IENLSubscriber.providedBy(subscriber):
+        if subscriber is None or not INewsletterSubscriber.providedBy(subscriber):
             putils.addPortalMessage(_("An error occured"), "error")
         else:
             del newsletter[subscriber.id]

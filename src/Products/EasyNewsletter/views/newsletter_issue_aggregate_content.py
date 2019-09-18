@@ -15,17 +15,12 @@ class NewsletterIssueAggregateContent(BrowserView):
         )
         return self.request.response.redirect(self.context.absolute_url(), status=301)
 
-    def get_aggregation_sources(self):
-        """
-        """
-        return self.context.content_aggregation_sources
-
     def render_aggregation_sources(self):
         """
         """
         results_text = u""
         portal = api.portal.get()
-        sources = self.get_aggregation_sources()
+        sources = self.context.content_aggregation_sources
         for source in sources:
             source_obj = source.to_object
             sresults = source_obj.queryCatalog()
@@ -44,5 +39,4 @@ class NewsletterIssueAggregateContent(BrowserView):
             template_id = source_obj.aggregation_template
             template_obj = portal.restrictedTraverse(str(template_id))
             results_text += template_obj(result_info=result_info)
-        print(results_text)
         return results_text

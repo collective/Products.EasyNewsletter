@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 from AccessControl import ClassSecurityInfo
-from AccessControl import getSecurityManager
-from AccessControl.SecurityManagement import newSecurityManager
-from AccessControl.SecurityManagement import setSecurityManager
 from AccessControl.User import Super as BaseUnrestrictedUser
 from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 from plone.app.blob.field import ImageField
@@ -738,14 +735,3 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
         return issues
 
 atapi.registerType(EasyNewsletter, config.PROJECTNAME)
-
-
-class UnrestrictedUser(BaseUnrestrictedUser):
-    """Unrestricted user that still has an id.
-    """
-
-    def getId(self):
-        """Return the ID of the user.
-        """
-        return self.getUserName()
-

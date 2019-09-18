@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+from AccessControl import getSecurityManager
+from AccessControl.SecurityManagement import newSecurityManager
+from AccessControl.SecurityManagement import setSecurityManager
+from AccessControl.User import Super as BaseUnrestrictedUser
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter.utils.mail import get_email_charset
 
@@ -46,3 +50,13 @@ def execute_under_special_role(portal, role, function, *args, **kwargs):
     finally:
         # Restore the old security manager
         setSecurityManager(sm)
+
+
+class UnrestrictedUser(BaseUnrestrictedUser):
+    """Unrestricted user that still has an id.
+    """
+
+    def getId(self):
+        """Return the ID of the user.
+        """
+        return self.getUserName()
