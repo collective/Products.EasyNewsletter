@@ -24,10 +24,10 @@ schema = atapi.BaseSchema + atapi.Schema((
                 default="Aggregation template"),
             description=_(
                 u"enl_help_aggregation_template",
-                default=u"Choose the template to render aggregated content. " +
-                        u"Changing this from custom to something else, might" +
-                        u" override the custom " +
-                        u"aggregation template in the field below!"
+                default=u"Choose the template to render aggregated content. "
+                        + u"Changing this from custom to something else, might"
+                        + u" override the custom "
+                        + u"aggregation template in the field below!"
             ),
             i18n_domain='EasyNewsletter',
             size=1,
@@ -42,10 +42,10 @@ schema = atapi.BaseSchema + atapi.Schema((
             description=_(
                 'help_body_zpt',
                 # XXX update translations for this string!
-                default=u'This is a custom Zope Page Template that ' +
-                        u'is used for rendering the aggregated email content' +
-                        u', in case you selected <i>custom</i> for the ' +
-                        u'aggregation template above.'),
+                default=u'This is a custom Zope Page Template that '
+                        + u'is used for rendering the aggregated email content'
+                        + u', in case you selected <i>custom</i> for the '
+                        + u'aggregation template above.'),
             i18n_domain="plone",
             rows=90,
         ),

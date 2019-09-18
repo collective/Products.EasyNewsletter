@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-from plone import api
 from plone import schema
-from plone.autoform import directives
 from plone.dexterity.content import Item
 from plone.supermodel import model
 from Products.EasyNewsletter import _

@@ -50,7 +50,8 @@ before_script:
 - firefox -v
 
 script:
-  - bin/code-analysis
+  - tox -e py27-lint
+  - tox -e py37-lint
   - bin/test --all
 
 #after_script:

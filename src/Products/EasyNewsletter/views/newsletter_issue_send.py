@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 from DateTime import DateTime
-from emails.exc import HTTPLoaderError
 from plone import api
 from plone.protect import PostOnly
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
-# from Products.EasyNewsletter.utils.mail import get_email_charset
 from Products.Five.browser import BrowserView
 from Products.MailHost.interfaces import IMailHost
 from zope.component import getUtility

@@ -2,6 +2,7 @@
 from Products.CMFCore.utils import getToolByName
 
 import HTMLParser
+import six
 import urllib
 import urlparse
 import uuid
@@ -20,7 +21,7 @@ class ENLHTMLParser(HTMLParser.HTMLParser):
         HTMLParser.HTMLParser.__init__(self)
 
     def _encode(self, txt):
-        if isinstance(txt, unicode):
+        if isinstance(txt, six.text_type):
             plone_utils = getToolByName(self.context, 'plone_utils')
             encoding = plone_utils.getSiteEncoding()
             txt = txt.encode(encoding)

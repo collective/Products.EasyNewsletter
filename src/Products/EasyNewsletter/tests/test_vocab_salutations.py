@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-from Products.EasyNewsletter import _
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING  # noqa
+
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from Products.EasyNewsletter import _
+from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING  # noqa
 from zope.component import getUtility
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.interfaces import IVocabularyTokenized

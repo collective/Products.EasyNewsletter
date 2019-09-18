@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from AccessControl import Unauthorized
 from App.Common import package_home
 from plone import api
 from plone.app.testing import login
@@ -22,28 +21,11 @@ from zope.component import getGlobalSiteManager
 from zope.component import getMultiAdapter
 from zope.component import getSiteManager
 from zope.component import provideHandler
-from zope.component import queryUtility
-from zope.interface import Interface
 
-import base64
-import email
 import os
-import pkg_resources
-import six
 import transaction as zt
 import unittest
 
-
-try:
-    pkg_resources.get_distribution("Products.TinyMCE")
-except pkg_resources.DistributionNotFound:
-
-    class ITinyMCE(Interface):
-        pass
-
-
-else:
-    from Products.TinyMCE.interfaces.utility import ITinyMCE
 
 GLOBALS = globals()
 TESTS_HOME = package_home(GLOBALS)
@@ -196,7 +178,7 @@ class EasyNewsletterTests(unittest.TestCase):
         self.assertEqual(len(self.mailhost.messages), 1)
         self.assertTrue(self.mailhost.messages[0])
         msg = str(self.mailhost.messages[0])
-        parsed_payloads = parsed_payloads_from_msg(msg)
+        # parsed_payloads = parsed_payloads_from_msg(msg)
         self.assertIn("To: Test Member <test@acme.com>", msg)
         self.assertIn("From: ACME newsletter <newsletter@acme.com>", msg)
 
@@ -442,7 +424,7 @@ class EasyNewsletterTests(unittest.TestCase):
         msg = self.send_sample_message(body)
         parsed_payloads = parsed_payloads_from_msg(msg)
         self.assertNotIn("resolveuid", parsed_payloads["text/html"])
-        self.assertIn('src="cid:{0}"'.format(image_scale.__name__),  parsed_payloads["text/html"])
+        self.assertIn('src="cid:{0}"'.format(image_scale.__name__), parsed_payloads["text/html"])
         self.assertIn("Content-ID: <{0}>".format(image_scale.__name__), msg)
         self.assertIn("Content-Type: image/png;", msg)
 

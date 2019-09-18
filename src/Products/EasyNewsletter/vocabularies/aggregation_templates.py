@@ -2,8 +2,6 @@
 
 from plone.dexterity.interfaces import IDexterityContent
 from plone.registry.interfaces import IRegistry
-# from plone import api
-from Products.EasyNewsletter import _
 from zope.component import getUtility
 from zope.globalrequest import getRequest
 from zope.interface import implementer

@@ -22,6 +22,7 @@ class HiddenProfiles(object):
             'Products.EasyNewsletter.upgrades',
         ]
 
+
 # The profile id of your package:
 # PROFILE_ID = 'profile-Products.EasyNewsletter:install-base'
 PROFILE_ID = 'profile-Products.EasyNewsletter:default'

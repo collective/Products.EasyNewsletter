@@ -56,3 +56,5 @@ docs/Makefile
 /Products.EasyNewsletter_plone51.sublime-project
 /package-lock.json
 /src/Products.EasyNewsletter.egg-info/*
+/.tox/
+/reports

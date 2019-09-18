@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from plone import api
-from Products.EasyNewsletter import _
 from Products.Five.browser import BrowserView
 
 

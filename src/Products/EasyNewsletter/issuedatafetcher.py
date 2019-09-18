@@ -265,9 +265,9 @@ class DefaultDXIssueDataFetcher(object):
             and attaching links as endnotes
         """
         html_to_text = HTML2Text(baseurl=self.issue.absolute_url())
-        html_to_text.ul_style_dash=True
-        html_to_text.inline_links=False
-        html_to_text.wrap_links=False,
+        html_to_text.ul_style_dash = True
+        html_to_text.inline_links = False
+        html_to_text.wrap_links = False
         plaintext = html_to_text.handle(text)
         return plaintext
         # plain_text_maxcols = 72

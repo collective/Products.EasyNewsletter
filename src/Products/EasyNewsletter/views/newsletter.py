@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from Products.EasyNewsletter import _
 from Products.Five.browser import BrowserView
-
-# from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 
 class Newsletter(BrowserView):

@@ -73,8 +73,8 @@ class NewsletterSubscribersUpload(BrowserView):
             log.info("Got header %s\n Expected:%s" % (
                 header, CSV_HEADER))
             msg = _(
-                'Wrong specification of the CSV file. ' +
-                'Please correct it and retry.')
+                'Wrong specification of the CSV file. '
+                + 'Please correct it and retry.')
             IStatusMessage(self.request).addStatusMessage(msg, type='error')
             return self.request.response.redirect(
                 context.absolute_url() + '/@@upload_csv')
@@ -180,9 +180,9 @@ class NewsletterSubscribersUpload(BrowserView):
                             # 'nl_language': nl_language,
                             'email': email,
                             'organization': organization,
-                            'failure': (
-                                'An error occured while creating ' +
-                                'this subscriber: %s') % str(e)})
+                            'failure':
+                                'An error occured while creating this subscriber: %s' % str(e)
+                        })
 
         return {'success': success, 'fail': fail}
 

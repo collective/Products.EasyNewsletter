@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from AccessControl import ClassSecurityInfo
-from AccessControl.User import Super as BaseUnrestrictedUser
 from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 from plone.app.blob.field import ImageField
 from plone.registry.interfaces import IRegistry
@@ -15,6 +14,7 @@ from Products.EasyNewsletter.interfaces import IEasyNewsletter
 from Products.EasyNewsletter.interfaces import IReceiversGroupFilter
 from Products.EasyNewsletter.interfaces import IReceiversMemberFilter
 from Products.EasyNewsletter.interfaces import ISubscriberSource
+from Products.EasyNewsletter.utils.base import execute_under_special_role
 from Products.EasyNewsletter.utils.enl import IENLUtils
 from Products.MailHost.interfaces import IMailHost
 from Products.TemplateFields import ZPTField
@@ -169,9 +169,9 @@ schema = atapi.Schema((
                 default=u"Banner image"),
             description=_(
                 u"ENL_image_desc",
-                default=u"Banner image, you can include in the templates by" +
-                        u"\n adding the {{banner}} placeholder into it." +
-                        u" By default it should be 600x200 pixel."
+                default=u"Banner image, you can include in the templates by"
+                        + u"\n adding the {{banner}} placeholder into it."
+                        + u" By default it should be 600x200 pixel."
             ),
         ),
     ),
@@ -733,5 +733,6 @@ class EasyNewsletter(ATTopic, atapi.BaseFolder):
             path='/'.join(enl.getPhysicalPath())
         )
         return issues
+
 
 atapi.registerType(EasyNewsletter, config.PROJECTNAME)

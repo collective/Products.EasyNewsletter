@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from plone import schema
-from plone.autoform import directives
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.supermodel import model
 from Products.EasyNewsletter import _
@@ -9,9 +8,6 @@ from zope.component import adapter
 from zope.interface import implementer
 from zope.interface import Interface
 from zope.interface import provider
-from plone.supermodel.interfaces import FIELDSETS_KEY
-from plone.supermodel.model import Fieldset
-from plone.app.dexterity import _ as _DX
 
 
 class ICollectionAsNewsletterAggregationSourceMarker(Interface):

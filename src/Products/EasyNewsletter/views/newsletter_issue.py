@@ -1,14 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from plone import api
-from plone.protect import PostOnly
 from plone.protect.interfaces import IDisableCSRFProtection
 from Products.CMFPlone.resources import add_resource_on_request
 from Products.EasyNewsletter import _  # noqa
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
-from Products.EasyNewsletter.config import IS_PLONE_5
-from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.Five.browser import BrowserView
+from zope.interface import alsoProvides
 
 
 class NewsletterIssue(BrowserView):

@@ -87,7 +87,7 @@ class NewsletterIssueIntegrationTest(unittest.TestCase):
             self.portal,
             'newsletter_issue_id',
             title='Newsletter Issue container',
-         )
+        )
         self.parent = self.portal[parent_id]
         with self.assertRaises(InvalidParameterError):
             api.content.create(

@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 from .newsletter import get_content_aggregation_sources_base_path
 from .newsletter import INewsletter
-from plone import api
 from plone import schema
 from plone.app import textfield
 from plone.app import vocabularies as vocabs
-from plone.app.vocabularies.catalog import CatalogSource
 from plone.app.z3cform.widget import SingleCheckBoxBoolFieldWidget
 from plone.autoform import directives
 from plone.dexterity.content import Container

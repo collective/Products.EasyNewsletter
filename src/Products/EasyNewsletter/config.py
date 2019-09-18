@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 # flake8: noqa
 
+from plone import api
 from Products.Archetypes.atapi import DisplayList
 from zope.i18nmessageid import MessageFactory
-from plone import api
 
 import re
+
 
 _ = MessageFactory('EasyNewsletter')
 

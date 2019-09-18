@@ -2,7 +2,6 @@
 
 from plone import api
 from plone.dexterity.interfaces import IDexterityContent
-from Products.EasyNewsletter import _
 from Products.EasyNewsletter.interfaces import IReceiversGroupFilter
 from zope.component import subscribers
 from zope.globalrequest import getRequest

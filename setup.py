@@ -6,8 +6,8 @@ from setuptools import setup
 
 version = '4.0.0.dev0'
 long_description = (
-    open('README.rst').read() + '\n' +
-    open('CHANGES.rst').read()
+    open('README.rst').read() + '\n'
+    + open('CHANGES.rst').read()
 )
 
 setup(

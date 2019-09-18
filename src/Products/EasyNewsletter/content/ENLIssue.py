@@ -184,9 +184,9 @@ schema = atapi.Schema((
                 default=u"Banner image"),
             description=_(
                 u"ENL_image_desc",
-                default=u"Banner image, you can include in the templates by" +
-                        u"\n adding the {{banner}} placeholder into it." +
-                        u" By default it should be 600x200 pixel."
+                default=u"Banner image, you can include in the templates by"
+                        + u"\n adding the {{banner}} placeholder into it."
+                        + u" By default it should be 600x200 pixel."
             ),
         ),
     ),
@@ -470,7 +470,7 @@ class ENLIssue(ATTopic, atapi.BaseContent):
         """
         queue = self.issue_queue
         if queue is None:
-            raise NotImplemented(
+            raise NotImplementedError(
                 'One need to install and configure a queue in '
                 'order to use the feature of a queued sendout.'
             )
