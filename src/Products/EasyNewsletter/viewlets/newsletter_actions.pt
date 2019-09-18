@@ -1,4 +1,8 @@
-<nav class="toc-nav newsletter"
+
+<nav
+	xmlns:tal="http://xml.zope.org/namespaces/tal"
+	class="toc-nav newsletter"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
 	i18n:domain="EasyNewsletter">
 	<li tal:attributes="class python: view.view_name == 'view' and 'active' or ''">
 		<a tal:attributes="href string:${view/enl_url}/;"

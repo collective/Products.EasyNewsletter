@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from plone import api
-from Products.EasyNewsletter.interfaces import IEasyNewsletter
+from Products.EasyNewsletter.content.newsletter import INewsletter
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
@@ -13,7 +13,7 @@ class NewslettersVocabulary(object):
 
     def __call__(self, context):
         terms = []
-        newsletters = api.content.find(object_provides=IEasyNewsletter)
+        newsletters = api.content.find(object_provides=INewsletter)
         for newsletter in newsletters:
             terms.append(
                 SimpleTerm(
