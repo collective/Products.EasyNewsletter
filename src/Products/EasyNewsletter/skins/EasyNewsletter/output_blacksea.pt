@@ -33,6 +33,7 @@
       h1, h2, h3, h4, h5, h6{color:#3c586d; font-family:Arial, Helvetica; font-size:20px; line-height:125%; text-align:Left;}
       h1{color:#FFFFFF;}
       h2{color:#555555;}
+      .headerDateContent{ text-align: right; padding: 1em; color: #999; font-size: 90%;}
       .headlineBackground{background-color: #3c586d;color:#FFFFFF;}
       .enlLogo{padding:1em;}
       #enl_headlines{list-style-type:none; padding-left:0; margin-top:0; line-height:1.5em;}
@@ -163,6 +164,19 @@
               </td>
             </tr>
 
+            <tr>
+              <td align="center" valign="bottom">
+                <table id="templateDateHeader" width="600" border="0" cellpadding="0" cellspacing="0">
+                  <tbody>
+                    <tr>
+                      <td class="headerDateContent">
+                        {{month}} / {{year}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
 
             <!-- MODULE ROW // -->
             <tr tal:condition="python: context.getHeader()">

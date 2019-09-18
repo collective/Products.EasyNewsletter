@@ -76,7 +76,7 @@ class INewsletterIssue(model.Schema):
             "epilogue",
             "content_aggregation_sources",
             "exclude_all_subscribers",
-            "image",
+            "banner",
             "hide_image",
             "output_template",
         ],
@@ -173,8 +173,7 @@ class INewsletterIssue(model.Schema):
         readonly=False,
     )
 
-    # Make sure you import: plone.namedfile
-    image = namedfile.NamedBlobImage(
+    banner = namedfile.NamedBlobImage(
         title=_(u"ENL_image_label", default=u"Banner image"),
         description=_(
             u"ENL_image_desc",
@@ -223,18 +222,21 @@ class NewsletterIssue(Container):
         has_logo = getattr(enl.aq_explicit, 'logo', None)
         return has_logo
 
+    # XXX we should cache this call, it's called twice
     def get_image_src(self):
+        """ find banner image, if not set on Issue we use the one from the Newsletter
+        """
         img_src = ""
         if self.hide_image:
             return img_src
         scales = self.restrictedTraverse('@@images')
-        if scales.scale('image', scale='mini'):
-            img_src = self.absolute_url() + "/@@images/image"
+        if scales.scale('banner', scale='mini'):
+            img_src = self.absolute_url() + "/@@images/banner"
             return img_src
         enl = self.get_newsletter()
         scales = enl.restrictedTraverse('@@images')
-        if scales.scale('image', scale='mini'):
-            img_src = enl.absolute_url() + "/@@images/image"
+        if scales.scale('banner', scale='mini'):
+            img_src = enl.absolute_url() + "/@@images/banner"
         return img_src
 
     # bbb: we should print a deprecation message here

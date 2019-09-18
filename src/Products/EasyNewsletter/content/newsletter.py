@@ -68,7 +68,7 @@ class INewsletter(model.Schema):
             "subscriber_confirmation_mail_text",
             "default_prologue",
             "default_epilogue",
-            "image",
+            "banner",
             "logo",
         ],
     )
@@ -167,7 +167,7 @@ class INewsletter(model.Schema):
     )
 
     # Make sure you import: plone.namedfile
-    image = namedfile.NamedBlobImage(
+    banner = namedfile.NamedBlobImage(
         title=_(u"ENL_image_label", default=u"Banner image"),
         description=_(
             u"ENL_image_desc",

@@ -31,6 +31,7 @@
       #bodyCell{padding-top:40px; padding-bottom:40px;}
       #emailBody{background-color:#FFFFFF; border:1px solid #DDDDDD; border-collapse:separate; border-radius:6px;}
       h1, h2, h3, h4, h5, h6{color:#202020; font-family:Arial, Helvetica; font-size:20px; line-height:125%; text-align:Left;}
+      .headerDateContent{ float: right; padding: 1em; color: #999; font-size: 90%;}
       .headlineBackground{background-color:#0083be; color:#FFFFFF;}
       .enlLogo{padding:1em;}
       #enl_headlines{list-style-type:none; padding-left:0; margin-top:0; line-height:1.5em;}
@@ -50,6 +51,9 @@
       .footerContent h2,
       .footerContent h3{
         color:#FFFFFF;
+      }
+      .footerContent a{
+        color: #ccc;
       }
       .footerContentDynamic{padding-left: 20px; vertical-align: middle;}
       .footerContentStatic{color:#555555; background-color:#FFFFFF;}
@@ -153,6 +157,9 @@
                   <tbody>
                     <tr tal:condition="has_logo">
                       <td class="headerContent enlLogo">
+                        <span class="headerDateContent">
+                        {{month}} / {{year}}
+                        </span>
                         <img class="flexibleImage" width="200" style="max-width:200px;" src="{{logo_src}}" />
                       </td>
                     </tr>
@@ -211,6 +218,14 @@
             </tr>
             <!-- // MODULE ROW -->
 
+            <!-- MODULE ROW // -->
+            <tr>
+              <td align="center" valign="top">
+                <div style="font-size: 90%;" tal:content="structure context/getFooter"></div>
+              </td>
+            </tr>
+            <!-- // MODULE ROW -->
+
 
             <!-- footer -->
             <tr>
@@ -223,7 +238,6 @@
                      <table border="0" cellpadding="10" cellspacing="0" width="100%">
                         <tr>
                           <td valign="middle" bgcolor="#0083be" style="color:#FFFFFF;" class="footerContentDynamic">
-                            <div style="font-size: 90%;" tal:content="structure context/getFooter"></div>
                           </td>
                         </tr>
                         <tr>

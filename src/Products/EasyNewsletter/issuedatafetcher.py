@@ -125,9 +125,6 @@ class DefaultDXIssueDataFetcher(object):
         output_tmpl_id = self.issue.output_template
         issue_tmpl = self.issue.restrictedTraverse(str(output_tmpl_id))
         output_html = issue_tmpl.render()
-        # output_html = safe_portal_encoding(output_html)
-        premailer = Premailer(base_url=self.issue.absolute_url())
-        output_html = premailer.transform(output_html)
         return output_html
 
     @property
@@ -182,83 +179,8 @@ class DefaultDXIssueDataFetcher(object):
         data["context"]["year"] = issue_data["year"]
 
         notify(BeforePersonalizationEvent(data))
-
         template = jinja2.Template(safe_unicode(data["html"]))
         return template.render(**data["context"])
-
-    def _get_images_to_attach(self, image_urls):  # noqa
-        # this should really be refactored!
-        images_to_attach = []
-        reference_tool = api.portal.get_tool("reference_catalog")
-        for image_url, image_cid in image_urls:
-            if not image_url:
-                continue
-            try:
-                image_url = urlparse(image_url)[2]
-                o = None
-                if "resolveuid" in image_url:
-                    urlparts = image_url.split("resolveuid/")[1:][0]
-                    urlparts = urlparts.split("/")
-                    img_uuid = urlparts.pop(0)
-                    o = reference_tool.lookupObject(img_uuid)
-                    if o and urlparts:
-                        # get thumb
-                        o = o.restrictedTraverse(urlparts[0])
-                        image_url = "/".join(urlparts)
-                if "@@images" in image_url:
-                    # HACK to get around restrictedTraverse not honoring
-                    # ITraversable see
-                    # http://developer.plone.org/serving/traversing.html\
-                    # traversing-by-full-path
-                    image_url_base, image_scale_params = image_url.split("@@images/")
-                    if o is not None:
-                        scales = o
-                    else:
-                        scales = self.issue.restrictedTraverse(
-                            urllib.unquote(
-                                image_url_base.encode("utf8").strip("/") + "/@@images"
-                            )
-                        )
-                    parts = list(reversed(image_scale_params.split("/")))
-                    name = parts.pop()
-                    dummy_request = dict(TraversalRequestNameStack=parts)
-                    o = scales.publishTraverse(dummy_request, name)
-                if o is None:
-                    o = self.issue.restrictedTraverse(
-                        urllib.unquote(image_url).encode("utf8")
-                    )
-            except Exception:
-                log.exception("Could not resolve the image: {0}".format(image_url))
-                continue
-
-            # until here we found some object that ought to be an image
-            if hasattr(o, "_data"):  # file-based
-                image = MIMEImage(o._data)
-            elif hasattr(o, "data"):
-                if isinstance(o, ImageScale):
-                    image = MIMEImage(o.data.data)  # zodb-based dx image
-                else:
-                    image = MIMEImage(o.data)  # zodb-based
-            elif hasattr(o, "GET"):
-                image = MIMEImage(o.GET())  # z3 resource image
-            elif hasattr(o, "image"):
-                image = MIMEImage(o.image.data)  # Plone 5 DX unscaled image
-            else:
-                log.error("Could not get the image data from image object!")
-                image = None
-            if image is not None:
-                # content-id has to be globaly unique
-                image["Content-ID"] = "<image_%s>" % image_cid
-                # attach images only to html parts
-            if image is None:
-                continue
-            images_to_attach.append(image)
-        return images_to_attach
-
-    def get_images_to_attach(self, image_urls):
-        if hasattr(self, "_images_to_attach"):
-            return self._images_to_attach
-        self._images_to_attach = self._get_images_to_attach(image_urls)
 
     def create_plaintext_message(self, text):
         """ Create a plain-text-message by parsing the html
@@ -270,24 +192,6 @@ class DefaultDXIssueDataFetcher(object):
         html_to_text.wrap_links = False
         plaintext = html_to_text.handle(text)
         return plaintext
-        # plain_text_maxcols = 72
-        # textout = cStringIO.StringIO()
-        # formtext = formatter.AbstractFormatter(
-        #     formatter.DumbWriter(textout, plain_text_maxcols)
-        # )
-        # parser = HTMLParser(formtext)
-        # parser.feed(text)
-        # parser.close()
-
-        # append the anchorlist at the bottom of a message
-        # to keep the message readable.
-        # anchorlist = "\n\n" + ("-" * plain_text_maxcols) + "\n\n"
-        # for counter, item in enumerate(parser.anchorlist):
-        #     anchorlist += "[{0:d}] {1:s}\n".format(counter, item)
-
-        # text = textout.getvalue() + anchorlist
-        # del textout, formtext, parser, anchorlist
-        # return text
 
 
 @implementer(IIssueDataFetcher)
@@ -433,7 +337,6 @@ class DefaultIssueDataFetcher(object):
             )
             data["html"] = data["html"].replace("[[", "{{")
             data["html"] = data["html"].replace("]]", "}}")
-
         template = jinja2.Template(safe_unicode(data["html"]))
         return template.render(**data["context"])
 
