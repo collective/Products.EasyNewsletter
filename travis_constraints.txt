@@ -1,0 +1,7 @@
+# Constraints for Python Packages
+# -----------------------------------------------
+# Pin Versions / Version Ranges if necessary.
+
+isort==4.3.4
+tox>=3.6
+pytest>=4.3.0

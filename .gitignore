@@ -58,3 +58,4 @@ docs/Makefile
 /src/Products.EasyNewsletter.egg-info/*
 /.tox/
 /reports
+/.coverage.py27-Plone51

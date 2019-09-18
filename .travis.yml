@@ -6,60 +6,57 @@ addons:
     sources:
       - google-chrome
     packages:
+      - firefox-geckodriver
       - google-chrome-stable
 cache:
   pip: true
-  directories:
-  - eggs
-  - downloads
+  # directories:
+  # - eggs
+  # - downloads
 python:
   - "2.7"
 matrix:
   include:
-    - python: "2.7"
-      env: PLONE_VERSION=51
-#    - python: "3.7"
-#      env: PLONE_VERSION=52
+    - env: TOXENV=py27-lint
+    - env: TOXENV=py37-lint
+      python: "3.7"
+    - env: TOXENV=py27-Plone51
+    # - env: TOXENV=py27-Plone52
+    - env: TOXENV=py37-Plone52
+      python: "3.7"
   fast_finish: true
-#  allow_failures:
-#    - python: "3.7"
+  allow_failures:
+    - env: TOXENV=py37-Plone52
 
 before_install:
-  - mkdir webdriver;
-    wget https://chromedriver.storage.googleapis.com/2.40/chromedriver_linux64.zip;
-    unzip chromedriver_linux64.zip -d webdriver;
-    export PATH=$PATH:$(pwd)/webdriver;
   - virtualenv -p `which python` .
-  - mkdir -p $HOME/buildout-cache/{eggs,downloads}
-  - mkdir $HOME/.buildout
-  - echo "[buildout]" > $HOME/.buildout/default.cfg
-  - echo "download-cache = $HOME/buildout-cache/downloads" >> $HOME/.buildout/default.cfg
-  - echo "eggs-directory = $HOME/buildout-cache/eggs" >> $HOME/.buildout/default.cfg
-  - bin/pip install -r requirements.txt -c constraints_plone$PLONE_VERSION.txt
+  # - mkdir -p $HOME/buildout-cache/{eggs,downloads}
+  # - mkdir $HOME/.buildout
+  # - echo "[buildout]" > $HOME/.buildout/default.cfg
+  # - echo "download-cache = $HOME/buildout-cache/downloads" >> $HOME/.buildout/default.cfg
+  # - echo "eggs-directory = $HOME/buildout-cache/eggs" >> $HOME/.buildout/default.cfg
+  # - bin/pip install -r requirements.txt -c constraints_plone$PLONE_VERSION.txt
+  # - bin/pip install tox
 #  - bin/buildout -N out:download-cache=downloads code-analysis:return-status-codes=True annotate
 #  - bin/buildout -N buildout:download-cache=downloads code-analysis:return-status-codes=True
-  - cp test_plone$PLONE_VERSION.cfg buildout.cfg
+  #- cp test_plone$PLONE_VERSION.cfg buildout.cfg
 install:
-  - bin/buildout -N -t 3 code-analysis:return-status-codes=True annotate
-  - bin/buildout -N -t 3 code-analysis:return-status-codes=True
+  - travis_retry pip install -U tox coveralls coverage -c travis_constraints.txt
+  # - bin/buildout -N -t 3 code-analysis:return-status-codes=True annotate
+  # - bin/buildout -N -t 3 code-analysis:return-status-codes=True
   - mkdir -p parts/test/_screenshotsg
 before_script:
-- 'export DISPLAY=:99.0'
-- Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-- sleep 3
-- firefox -v
+  - 'export DISPLAY=:99.0'
+  - export VERBOSE=true
+  - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+  - sleep 3
 
 script:
-  - tox -e py27-lint
-  - tox -e py37-lint
-  - bin/test --all
+  - tox
 
 #after_script:
 
 after_success:
-  - bin/pip install coverage
-  - bin/python -m coverage.pickle2json
-  - bin/pip install -q coveralls
-#  - bin/createcoverage --output-dir=parts/test/coverage
-  - bin/createcoverage
-  - bin/coveralls
+  #- python -m coverage.pickle2json
+  - coverage combine
+  - coveralls
