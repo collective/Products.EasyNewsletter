@@ -51,6 +51,7 @@ Plone 5.1 / Python 2.7
 - Move aggregation templates into a behavior for Collections, so that every selected collection can have a different aggregation template. This makes the ENLTemplate CT obsolete.
 - Upgrade step: Hide AT CT's from Menu
 - Upgrade step: Migrate AT content to DX
+- Upgrade step: Migrate subscriber portlets to use the new DX objects
 - Upgrade step: Remove old AT content
 
 
