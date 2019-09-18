@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# from stoneagehtml import compactify
 from BeautifulSoup import BeautifulSoup
 from email.Header import Header
 from email.MIMEImage import MIMEImage
@@ -7,7 +6,6 @@ from html2text import HTML2Text
 from htmllib import HTMLParser
 from plone import api
 from plone.namedfile.scaling import ImageScale
-from premailer import Premailer
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter.config import PLACEHOLDERS
 from Products.EasyNewsletter.interfaces import IBeforePersonalizationEvent
