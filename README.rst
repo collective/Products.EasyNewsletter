@@ -103,7 +103,7 @@ Issue tracker is at GitHub: https://github.com/collective/Products.EasyNewslette
 ToDo
 ====
 
-founding welcome ;)
+funding welcome ;)
 
 - async task queue for WGSI as an alternative to collective.taskqueue which will not support WGSI
 - Integration of Mosaico newsletter editor
