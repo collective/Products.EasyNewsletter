@@ -11,6 +11,7 @@ from zope.component import getUtility
 import codecs
 import csv
 import logging
+import six
 
 
 log = logging.getLogger('Products.EasyNewsletter')
@@ -171,7 +172,7 @@ class NewsletterSubscribersUpload(BrowserView):
                             'organization': organization,
                             'success': msg})
 
-                    except Exception, e:
+                    except Exception as e:
                         fail.append({
                             'salutation': salutation,
                             'name_prefix': name_prefix,
@@ -213,7 +214,7 @@ class UnicodeReader:
 
     def next(self):
         row = self.reader.next()
-        return [unicode(s, "utf-8") for s in row]
+        return [six.text_type(s, "utf-8") for s in row]
 
     def __iter__(self):
         return self

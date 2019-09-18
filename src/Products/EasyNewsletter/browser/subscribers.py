@@ -18,6 +18,7 @@ from zope.interface import Interface
 import codecs
 import cStringIO
 import csv
+import six
 import tempfile
 
 
@@ -50,7 +51,7 @@ class UnicodeReader:
 
     def next(self):
         row = self.reader.next()
-        return [unicode(s, "utf-8") for s in row]
+        return [six.text_type(s, "utf-8") for s in row]
 
     def __iter__(self):
         return self
@@ -357,7 +358,7 @@ class UploadCSV(BrowserView):
                             'organization': organization,
                             'success': msg})
 
-                    except Exception, e:
+                    except Exception as e:
                         fail.append({
                             'salutation': salutation,
                             'name_prefix': name_prefix,
