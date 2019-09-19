@@ -12,59 +12,51 @@ EasyNewsletter is a simple but powerful newsletter/mailing product for Plone.
 Compatibility
 -------------
 
-EasyNewsletter versions >= 4.x are Plone 5.1 only.
+EasyNewsletter versions >= 4.x Plone 5.1 only, they are using DX but still have Archetypes dependencies for migration.
+EasyNewsletter versions >= 5.x are Plone 5.2 and above only, they are free of Archetypes and support Python 3.
 For Plone versions < 5.1, use the 3.x branch and releases of EasyNewsletter!
 
 
 Features
 ========
 
-* Plain text and HTML newsletters (including images),
+* Plain text and HTML newsletters (including images)
 
-* manual written newsletters/mailings,
+* manual written newsletters/mailings
 
 * automatic Plonish newsletters/mailings: Utilize Plone's Collections to collect content)
 
 * send out daily/weekly/monthly issues automatically,
   based on collections (by cron or clock-server)
 
-* flexible templates to generate newsletter content
+* flexible templates for Collections, to generate newsletter content
 
 * TTW customizable output template to generate HTML newsletters
 
 * personalized emails
 
-* synchronous/ asynchronous send out (also test emails),
-
-* subscribing/ unsubscribing,
+* subscribing/ unsubscribing
 
 * import/export subscribers via CSV
 
-* use Plone Members/Groups as receivers (works also with Membrane),
+* use Plone Members/Groups as receivers (works also with Membrane)
+
+* external subscriber filtering/manipulation with plugins (filter out or add more subscribers)
+
+* synchronous/ asynchronous send out [currently not reimplemented, if you need this, you have to wait for future versions or fund the work on this feature]
+
 
 * external
 
-  * subscriber sources (configured through a Zope utility),
-  * delivery services (other than Plone MailHost),
+  * subscriber sources (configured through a Zope utility) [currently not reimplemented]
+  * delivery services (other than Plone MailHost) [currently not reimplemented]
 
-* external subscriber filtering/manipulation with plugins (filter out or add more subscribers)
 
 Requirements
 ============
 
 * Plone 5.1 (tested)
-* Dexterity
-
-Optional:
-
-* ``collective.taskqueue`` for asynchronous send out.
-  Use either ``Products.EasyNewsletter[taskqueue]`` or ``Products.EasyNewsletter[taskqueue_redis]`` extra.
-  Configure a named task queue ``Products.EasyNewsletter.queue``.
-  Read carefully the documentation of ``collective.taskqueue``.
-* ``collective.zamqp`` for asynchronous send out.
-  Configure a queue named ``Products.EasyNewsletter.queue`` (DEPRECATED).
-* For asynchronous send out use the one or the other, both together will crash Plone.
-  ``collective.taskqueue`` is recommended unless you know why you want to use AMQP.
+* Dexterity (Archetypes for migration)
 
 
 Installation
@@ -74,7 +66,7 @@ Installation
 2. Run your buildout script
 3. Restart zope
 4. Install EasyNewsletter via Plone Management Interface
-5. Add a "Newsletter Subscriber" portlet and select the EasyNewsletter
+5. Add a "Newsletter Subscriber" portlet and select a Newsletter
    (To this newsletter the subscribers will be added).
 
 Documentation
@@ -107,6 +99,7 @@ funding welcome ;)
 
 - async task queue for WGSI as an alternative to collective.taskqueue which will not support WGSI
 - Integration of Mosaico newsletter editor
+- External subscriber sources / delivery services
 - content migration AT >> DX
 
 
@@ -115,7 +108,7 @@ Authors
 =======
 
 * initial release: Kai Dieffenbach
-* Maik Derstappen
+* Maik Derstappen [MrTango] md@derico.de
 * Andreas Jung
 * Philip Bauer
 * Timo Stollenwerk

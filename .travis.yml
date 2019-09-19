@@ -12,8 +12,6 @@ cache:
   pip: true
   directories:
    - eggs
-   - /home/travis/build/collective/Products.EasyNewsletter/.tox/
-  # - downloads
 python:
   - "2.7"
 matrix:
