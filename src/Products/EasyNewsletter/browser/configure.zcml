@@ -28,32 +28,12 @@
     provides="plone.app.contentmenu.interfaces.IContentMenuItem" />
 
   <browser:page
-    name="send-issue-form"
-    for="..interfaces.IENLIssue"
-    class=".issue.IssueView"
-    template="issue_send_form.pt"
-    permission="cmf.ModifyPortalContent" />
-
-  <browser:page
-    name="get-public-body"
-    for="..interfaces.IENLIssue"
-    class=".issue.IssueView"
-    attribute="get_public_body"
-    permission="zope2.View" />
-
-  <browser:page
     name="get-public-body"
     for="..content.newsletter_issue.INewsletterIssue"
     class=".issue.IssueView"
     attribute="get_public_body"
     permission="zope2.View" />
 
-  <browser:page
-    name="issue-online-view"
-    for="..interfaces.IENLIssue"
-    class=".issue.IssueView"
-    template="issue_online_view.pt"
-    permission="zope2.View" />
 
   <browser:page
     name="issue-online-view"
@@ -62,12 +42,6 @@
     template="issue_online_view.pt"
     permission="zope2.View" />
 
-  <browser:page
-    name="preview"
-    for="..interfaces.IENLIssue"
-    class=".issue.IssueView"
-    template="issue_preview_view.pt"
-    permission="zope2.View" />
 
   <browser:page
     name="preview"
@@ -75,20 +49,6 @@
     class=".issue.IssueView"
     template="issue_preview_view.pt"
     permission="zope2.View" />
-
-  <browser:page
-    name="send-issue-from-form"
-    for="..interfaces.IENLIssue"
-    class=".issue.IssueView"
-    attribute="send_issue"
-    permission="cmf.ModifyPortalContent" />
-
-  <browser:page
-    name="send-issue"
-    for="..interfaces.IENLIssue"
-    class=".issue.IssueView"
-    attribute="send_issue_immediately"
-    permission="cmf.ManagePortal" />
 
  <browser:page
     name="daily-issue"
@@ -102,47 +62,6 @@
     class=".daily_issue.TriggerDailyIssueView"
     permission="cmf.ModifyPortalContent" />
 
-  <browser:page
-    name="refresh-issue"
-    for="..interfaces.IENLIssue"
-    class=".issue.IssueView"
-    attribute="refresh_issue"
-    permission="cmf.ModifyPortalContent" />
-
-  <browser:page
-    name="enl_public_view"
-    for="..interfaces.IENLIssue"
-    class=".issue.IssueView"
-    template="issue_public_view.pt"
-    permission="zope2.View" />
-
-  <browser:page
-    name="copy-as-draft"
-    for="..interfaces.IENLIssue"
-    class=".issue.IssueView"
-    attribute="copy_as_draft"
-    permission="zope2.CopyOrMove" />
-
-  <browser:page
-    name="copy-as-master"
-    for="..interfaces.IENLIssue"
-    class=".issue.IssueView"
-    attribute="copy_as_master"
-    permission="zope2.CopyOrMove" />
-
-  <browser:page
-    name="unsubscribe_form"
-    for="..interfaces.IEasyNewsletter"
-    class=".registration.UnsubscribeView"
-    template="templates/unsubscribe_form.pt"
-    permission="zope2.Public" />
-
-  <browser:page
-    name="unsubscribe"
-    for="..interfaces.IEasyNewsletter"
-    class=".registration.UnsubscribeView"
-    attribute="unsubscribe"
-    permission="zope2.Public" />
 
   <browser:page
     for="*"
@@ -158,19 +77,6 @@
        permission="zope.Public"
       for="*" />
 
-  <browser:page
-    for="..interfaces.IEasyNewsletter"
-    name="all_issues_view"
-    class=".newsletter.NewsletterView"
-    template="all_issues_view.pt"
-    permission="zope2.View" />
-
-  <browser:menuItem
-    for="..interfaces.IEasyNewsletter"
-    menu="plone_displayviews"
-    title="Issues full view"
-    action="all_issues_view"
-    description="Display all issues as fulltext" />
 
   <browser:menuItem
     for="..content.newsletter.INewsletter"
@@ -179,25 +85,6 @@
     action="all_issues_view"
     description="Display all issues as fulltext" />
 
-  <browser:page
-    for="..interfaces.IEasyNewsletter"
-    name="enl_subscribers_view"
-    class=".subscribers.Enl_Subscribers_View"
-    template="enl_subscribers_view.pt"
-    permission="cmf.ModifyPortalContent" />
-
-  <browser:page
-    for="..interfaces.IEasyNewsletter"
-    name="upload_csv"
-    class=".subscribers.UploadCSV"
-    template="upload_csv.pt"
-    permission="cmf.ModifyPortalContent" />
-
-  <browser:page
-    for="..interfaces.IEasyNewsletter"
-    name="download_csv"
-    class=".subscribers.DownloadCSV"
-    permission="cmf.ModifyPortalContent" />
 
   <browser:page
     for="*"
@@ -205,15 +92,6 @@
     class=".helper_views.ENLHelperView"
     allowed_interface=".helper_views.IENLHelperView"
     permission="zope.Public"
-    />
-
-  <browser:viewlet
-    name="enl.newsletter_actions"
-    for="Products.EasyNewsletter.interfaces.IEasyNewsletter"
-    manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
-    class=".viewlets.ENLActionsViewlet"
-    template="templates/enl_actions_viewlet.pt"
-    permission="cmf.ModifyPortalContent"
     />
 
   <browser:resource

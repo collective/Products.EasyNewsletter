@@ -9,31 +9,6 @@ class IProductsEasyNewsletterLayer(IDefaultBrowserLayer):
     """
 
 
-class IENLBase(Interface):
-    """
-    """
-
-
-class IEasyNewsletter(IENLBase):
-    """
-    """
-
-
-class IENLIssue(IENLBase):
-    """
-    """
-
-
-class IENLSubscriber(IENLBase):
-    """
-    """
-
-
-class IENLTemplate(IENLBase):
-    """
-    """
-
-
 class IIssueView(Interface):
     """
     """

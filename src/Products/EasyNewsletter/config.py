@@ -2,7 +2,6 @@
 # flake8: noqa
 
 from plone import api
-from Products.Archetypes.atapi import DisplayList
 from zope.i18nmessageid import MessageFactory
 
 import re
@@ -21,18 +20,12 @@ ENL_EDITHELPER_TYPES = ['EasyNewsletter', 'ENLIssue', 'Newsletter', 'Newsletter 
 PLACEHOLDERS = ['UNSUBSCRIBE', 'SUBSCRIBER_SALUTATION']
 
 
-SALUTATION = DisplayList((
-    ('', _(u'label_choose_saluation', 'Choose salutation...')),
-    ('ms', _(u'label_salutation_ms', 'Ms.')),
-    ('mr', _(u'label_salutation_mr', 'Mr.')),
-))
-
-NL_LANGUAGE = DisplayList((
-    ('', _(u'label_choose_nl_language', 'Choose language...')),
-    ('de', _(u'label_salutation_de', 'DE')),
-    ('en', _(u'label_salutation_en', 'EN')),
-    ('fr', _(u'label_salutation_fr', 'FR')),
-))
+# NL_LANGUAGE = DisplayList((
+#     ('', _(u'label_choose_nl_language', 'Choose language...')),
+#     ('de', _(u'label_salutation_de', 'DE')),
+#     ('en', _(u'label_salutation_en', 'EN')),
+#     ('fr', _(u'label_salutation_fr', 'FR')),
+# ))
 
 MESSAGE_CODE = {
     'email_added': _(

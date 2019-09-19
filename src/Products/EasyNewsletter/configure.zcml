@@ -20,8 +20,6 @@
   <include package=".views" />
   <include package=".viewlets" />
 
-  <include package='plone.app.referenceablebehavior' />
-
   <include file="indexers.zcml" />
   <include file="profiles.zcml" />
   <include file="upgrades.zcml" />
@@ -30,20 +28,7 @@
   <!-- -*- extra stuff goes here -*- -->
 
     <include package=".vocabularies" />
-
-
-    <include package=".vocabularies" />
-
-
-    <include package=".vocabularies" />
-
-
-    <include package=".vocabularies" />
-
-
     <include package=".behaviors" />
-
-
 
   <i18n:registerTranslations directory="locales" />
 
@@ -55,18 +40,8 @@
   />
 
   <adapter
-      factory=".issuedatafetcher.DefaultIssueDataFetcher"
-      for=".interfaces.IENLIssue"
-  />
-
-  <adapter
       factory=".issuedatafetcher.DefaultDXIssueDataFetcher"
       for=".content.newsletter_issue.INewsletterIssue"
   />
-
-  <subscriber
-     for="Products.EasyNewsletter.interfaces.IENLTemplate
-          Products.Archetypes.interfaces.IObjectEditedEvent"
-     handler=".handlers.update_enl_template_body_field" />
 
 </configure>
