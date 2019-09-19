@@ -24,7 +24,7 @@
 
         <div tal:replace="structure provider:plone.belowcontenttitle" />
 
-	<p class="documentDescription">
+	    <p class="documentDescription">
             <metal:field use-macro="python:here.widget('description', mode='view')">
             Description
             </metal:field>
@@ -33,34 +33,34 @@
         <div tal:replace="structure provider:plone.abovecontentbody" />
 
         <div metal:define-macro="text-field-view"
-             id="parent-fieldname-text" class="stx"
-             tal:define="kss_class python:getKssClasses('text',
-                         templateId=templateId, macro='text-field-view');
-                         text here/getText|nothing"
-             tal:condition="text"
-             tal:attributes="class python:test(here.Format() in ('text/structured',
-                                                   'text/x-rst', ), 'stx' + kss_class, 'plain' + kss_class)">
+            id="parent-fieldname-text" class="stx"
+            tal:define="kss_class python:getKssClasses('text',
+                        templateId=templateId, macro='text-field-view');
+                        text here/getText|nothing"
+            tal:condition="text"
+            tal:attributes="class python:test(here.Format() in ('text/structured',
+                           'text/x-rst', ), 'stx' + kss_class, 'plain' + kss_class)">
             <div metal:define-slot="inside" tal:replace="structure text">The body</div>
         </div>
 
         <h2 i18n:translate="issues_label">Issues</h2>
         <tal:block metal:define-macro="folderlisting"
                    tal:define="newsletters context/get_send_issues">
-             <div tal:condition="not: newsletters"
+            <div tal:condition="not: newsletters"
                   i18n:translate="easynewsletter_non_issues_label">
                There are no issues.
-             </div>
+            </div>
 
-              <ul class="newsletterIssues">
+            <ul class="newsletterIssues">
                 <li tal:repeat="newsletter newsletters">
                     <a tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime;
-                                   date python:toLocalizedTime(newsletter.modified, long_format=0)"
+                                   date python:toLocalizedTime(newsletter.effective, long_format=0)"
                        tal:attributes="href newsletter/getURL">
-                       <span class="issueDate"><span tal:replace="date">Date</span>:</span>
-                       <span class="issueTitle" tal:content="newsletter/Title">Newsletter's Title</span>
-                       </a>
-               </li>
-             </ul>
+                        <span class="issueDate"><span tal:replace="date">Date</span>:</span>
+                        <span class="issueTitle" tal:content="newsletter/Title">Newsletter's Title</span>
+                    </a>
+                </li>
+            </ul>
         </tal:block>
 
         <div tal:replace="structure provider:plone.belowcontentbody" />

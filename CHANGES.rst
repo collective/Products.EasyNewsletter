@@ -7,7 +7,20 @@ Changelog
   [MrTango]
 
 
-3.0.7 (unreleased)
+3.0.9 (unreleased)
+------------------
+
+- Nothing changed yet.
+
+
+3.0.8 (2019-08-19)
+------------------
+
+- Make effectiveDate visible on ENLIssue and use it in Newsletter archive view instead of modified date for sorting
+  [MrTango]
+
+
+3.0.7 (2019-08-15)
 ------------------
 
 - Allow send action only in draft state to prevent side effects for users.
