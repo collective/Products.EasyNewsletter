@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-3.0.9 (unreleased)
+3.0.9 (2019-09-19)
 ------------------
 
 - Fix less import from barceloneta, to use import by reference, fixes: #141
