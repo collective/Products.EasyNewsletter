@@ -1,0 +1,185 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="EasyNewsLetter">
+
+
+  <genericsetup:upgradeStep
+      title="Add catalog indexes"
+      description=""
+      source="1"
+      destination="2"
+      handler="Products.EasyNewsletter.setuphandlers.add_catalog_indexes"
+      profile="Products.EasyNewsletter:default" />
+
+  <genericsetup:upgradeStep
+      title="Add firstname and lastname indexes"
+      description=""
+      source="2"
+      destination="3"
+      handler=".setuphandlers.add_catalog_indexes"
+      profile="Products.EasyNewsletter:default" />
+
+  <genericsetup:upgradeStep
+      title="Split fullname into firstname and lastname"
+      description=""
+      source="2"
+      destination="3"
+      handler=".upgrades.fullname_to_first_and_lastname"
+      profile="Products.EasyNewsletter:default"/>
+
+  <genericsetup:upgradeStep
+          title="Add firstname and lastname indexes"
+          description=""
+          source="3"
+          destination="3000"
+          handler=".setuphandlers.add_catalog_indexes"
+          profile="Products.EasyNewsletter:default" />
+
+  <genericsetup:upgradeStep
+          title="Split fullname into firstname and lastname"
+          description=""
+          source="3000"
+          destination="3001"
+          handler=".upgrades.fullname_to_first_and_lastname"
+          profile="Products.EasyNewsletter:default"/>
+
+  <genericsetup:upgradeStep
+          title="Split fullname into firstname and lastname"
+          description=""
+          source="3001"
+          destination="3002"
+          handler=".upgrades.fullname_to_first_and_lastname"
+          profile="Products.EasyNewsletter:default"/>
+
+  <genericsetup:upgradeStep
+          title="Reindex subscribers for SearchableText index"
+          description=""
+          source="3002"
+          destination="3003"
+          handler=".upgrades.reindex_subscribers"
+          profile="Products.EasyNewsletter:default"/>
+
+  <genericsetup:upgradeStep
+          title="Reload profiles to update the registry"
+          description="Fixes settings for Plone 5"
+          source="3003"
+          destination="3004"
+          handler=".upgrades.reinstall_gs_profile"
+          profile="Products.EasyNewsletter:default"/>
+
+  <genericsetup:upgradeStep
+          title="Reload profiles to install archetypes.referencebrowserwidget"
+          description="Add archetypes.referencebrowserwidget"
+          source="3004"
+          destination="3005"
+          handler=".upgrades.reinstall_gs_profile"
+          profile="Products.EasyNewsletter:default"/>
+
+  <genericsetup:upgradeStep
+          title="Reload profiles register ENL settings in plone.registry"
+          description=""
+          source="3005"
+          destination="3006"
+          handler=".upgrades.reinstall_gs_profile"
+          profile="Products.EasyNewsletter:default"/>
+
+  <genericsetup:upgradeStep
+          title="Apply referenceable behavior"
+          description="Makes existing DX CTs referenceable for Archetypes"
+          source="3006"
+          destination="3007"
+          handler=".upgrades.apply_referenceable_behavior"
+          profile="Products.EasyNewsletter:default"/>
+
+  <genericsetup:upgradeStep
+          title="Reload profiles register ENL aggregation templates in plone.registry"
+          description=""
+          source="3007"
+          destination="3008"
+          handler=".upgrades.reinstall_gs_profile"
+          profile="Products.EasyNewsletter:default"/>
+
+  <genericsetup:upgradeStep
+          title="Reload profiles register ENL aggregation templates in plone.registry"
+          description=""
+          source="3008"
+          destination="3009"
+          handler=".upgrades.reinstall_gs_profile"
+          profile="Products.EasyNewsletter:default"/>
+
+  <genericsetup:upgradeStep
+          title="Reload profiles to enable toolbar for Plone 5"
+          description=""
+          source="3009"
+          destination="3010"
+          handler=".upgrades.reinstall_gs_profile"
+          profile="Products.EasyNewsletter:default"/>
+
+  <genericsetup:upgradeStep
+          title="Reload profiles to reload workflow settings"
+          description=""
+          source="3010"
+          destination="3011"
+          handler=".upgrades.reinstall_gs_profile"
+          profile="Products.EasyNewsletter:default"/>
+
+  <genericsetup:upgradeStep
+          title="Reload profiles to update registry"
+          description=""
+          source="3011"
+          destination="3012"
+          handler=".upgrades.reinstall_gs_profile"
+          profile="Products.EasyNewsletter:default"/>
+
+  <genericsetup:upgradeStep
+          title="Reload profiles to update registry"
+          description=""
+          source="3012"
+          destination="3013"
+          handler=".upgrades.reinstall_gs_profile"
+          profile="Products.EasyNewsletter:default"/>
+
+  <genericsetup:upgradeStep
+          title="Reload profiles to update registry"
+          description=""
+          source="3013"
+          destination="3014"
+          handler=".upgrades.reinstall_gs_profile"
+          profile="Products.EasyNewsletter:default"/>
+
+  <genericsetup:upgradeStep
+          title="Reload profiles to update registry"
+          description=""
+          source="3014"
+          destination="3015"
+          handler=".upgrades.reinstall_gs_profile"
+          profile="Products.EasyNewsletter:default"/>
+
+  <genericsetup:upgradeStep
+          title="Reload profiles to update js registry in Plone 4"
+          description=""
+          source="3015"
+          destination="3016"
+          handler=".upgrades.reinstall_gs_profile"
+          profile="Products.EasyNewsletter:default"/>
+
+  <genericsetup:upgradeStep
+          title="Reload profiles to update to 4.0"
+          description=""
+          source="3016"
+          destination="4000"
+          handler=".upgrades.reinstall_gs_profile"
+          profile="Products.EasyNewsletter:default"/>
+
+  <!-- <genericsetup:upgradeSteps source="4000"
+    destination="4001"
+    profile="Products.EasyNewsletter:default">
+        <genericsetup:upgradeDepends title="Run GS upgrade profile"
+            description=""
+            import_profile="Products.EasyNewsletter.upgrades.v2019090301:default"
+            />
+
+  </genericsetup:upgradeSteps> -->
+</configure>

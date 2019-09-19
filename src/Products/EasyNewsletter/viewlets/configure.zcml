@@ -1,0 +1,20 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="Products.EasyNewsletter">
+
+  -*- extra stuff goes here -*-
+
+  <browser:viewlet
+     name="newsletter-actions"
+     for="Products.EasyNewsletter.content.newsletter.INewsletter"
+     manager="plone.app.layout.viewlets.interfaces.IAboveContentBody"
+     layer="Products.EasyNewsletter.interfaces.IProductsEasyNewsletterLayer"
+     class=".newsletter_actions.NewsletterActions"
+     template="newsletter_actions.pt"
+     permission="zope2.View"
+     />
+
+
+</configure>

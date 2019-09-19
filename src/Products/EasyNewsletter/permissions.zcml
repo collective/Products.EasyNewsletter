@@ -1,0 +1,30 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
+  i18n_domain="plone">
+
+  <configure zcml:condition="installed AccessControl.security">
+  <!-- -*- extra stuff goes here -*- -->
+
+    <permission
+        id="Products.EasyNewsletter.AddNewsletterSubscriber"
+        title="Products.EasyNewsletter: Add NewsletterSubscriber"
+    />
+
+
+    <permission
+        id="Products.EasyNewsletter.AddNewsletterIssue"
+        title="Products.EasyNewsletter: Add NewsletterIssue"
+    />
+
+
+    <permission
+        id="Products.EasyNewsletter.AddNewsletter"
+        title="Products.EasyNewsletter: Add Newsletter"
+    />
+
+
+
+  </configure>
+
+</configure>

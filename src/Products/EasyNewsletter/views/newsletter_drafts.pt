@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="Products.EasyNewsletter"
+  metal:use-macro="context/main_template/macros/master">
+  <body>
+    <metal:block fill-slot="content-core">
+
+      <div tal:define="drafts view/draft_issues">
+        <div tal:condition="not: drafts"
+          i18n:translate="easynewsletter_nondrafts_label">
+          There are no drafts.
+        </div>
+
+        <ul>
+          <li tal:repeat="draft drafts">
+            <a tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime;
+                       date python:toLocalizedTime(draft.effective, long_format=0)"
+              tal:content="string:$date ${draft/Title}"
+              tal:attributes="href draft/getURL">Newsletter's title and Date</a>
+            <span class="discreet selectedTag"
+              tal:content="draft/review_state"></span>
+          </li>
+        </ul>
+      </div>
+
+    </metal:block>
+  </body>
+</html>

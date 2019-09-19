@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layers>
+  <layer
+      name="Products.EasyNewsletter"
+      interface="Products.EasyNewsletter.interfaces.IProductsEasyNewsletterLayer"
+      />
+</layers>

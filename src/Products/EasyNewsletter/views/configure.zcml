@@ -1,0 +1,124 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="Products.EasyNewsletter">
+
+
+  -*- extra stuff goes here -*-
+
+  <browser:page
+    name="unsubscribe"
+    for="Products.EasyNewsletter.content.newsletter.INewsletter"
+    class=".newsletter_unsubscribe.NewsletterUnsubscribe"
+    permission="zope2.Public"
+    />
+
+  <browser:page
+    name="unsubscribe-form"
+    for="Products.EasyNewsletter.content.newsletter.INewsletter"
+    class=".newsletter_unsubscribe_form.NewsletterUnsubscribeForm"
+    template="newsletter_unsubscribe_form.pt"
+    permission="zope2.Public"
+    />
+
+   <browser:page
+     name="send-issue"
+     for="Products.EasyNewsletter.content.newsletter_issue.INewsletterIssue"
+     class=".newsletter_issue_send.NewsletterIssueSend"
+     permission="cmf.ModifyPortalContent"
+     />
+
+  <browser:page
+     name="send-issue-form"
+    for="Products.EasyNewsletter.content.newsletter_issue.INewsletterIssue"
+     class=".newsletter_issue_send_form.NewsletterIssueSendForm"
+     template="newsletter_issue_send_form.pt"
+     permission="cmf.ModifyPortalContent"
+     />
+
+  <browser:page
+    name="aggregate-content"
+    for="Products.EasyNewsletter.content.newsletter_issue.INewsletterIssue"
+    class=".newsletter_issue_aggregate_content.NewsletterIssueAggregateContent"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="subscribers-download"
+    for="Products.EasyNewsletter.content.newsletter.INewsletter"
+    class=".newsletter_subscribers_download.NewsletterSubscribersDownload"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="subscribers-upload"
+    for="Products.EasyNewsletter.content.newsletter.INewsletter"
+    class=".newsletter_subscribers_upload.NewsletterSubscribersUpload"
+    template="newsletter_subscribers_upload.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="copy-as-draft"
+    for="Products.EasyNewsletter.content.newsletter_issue.INewsletterIssue"
+    class=".newsletter_issue_copy_as_draft.NewsletterIssueCopyAsDraft"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="copy-as-master"
+    for="Products.EasyNewsletter.content.newsletter_issue.INewsletterIssue"
+    class=".newsletter_issue_copy_as_master.NewsletterIssueCopyAsMaster"
+    permission="zope2.View"
+    />
+
+  <browser:page
+     name="newsletter-subscribers"
+     for="Products.EasyNewsletter.content.newsletter.INewsletter"
+     class=".newsletter_subscribers.NewsletterSubscribers"
+     template="newsletter_subscribers.pt"
+     permission="zope2.View"
+     />
+
+  <browser:page
+     name="newsletter-masters"
+     for="Products.EasyNewsletter.content.newsletter.INewsletter"
+     class=".newsletter_masters.NewsletterMasters"
+     template="newsletter_masters.pt"
+     permission="zope2.View"
+     />
+
+  <browser:page
+     name="newsletter-drafts"
+     for="Products.EasyNewsletter.content.newsletter.INewsletter"
+     class=".newsletter_drafts.NewsletterDrafts"
+     template="newsletter_drafts.pt"
+     permission="zope2.View"
+     />
+
+  <browser:page
+     name="view"
+     for="Products.EasyNewsletter.content.newsletter.INewsletter"
+     class=".newsletter.Newsletter"
+     template="newsletter.pt"
+     permission="zope2.View"
+     />
+
+  <browser:page
+     name="view"
+     for="Products.EasyNewsletter.content.newsletter_issue.INewsletterIssue"
+     class=".newsletter_issue.NewsletterIssue"
+     template="newsletter_issue.pt"
+     permission="zope2.View"
+     />
+
+  <browser:page
+     name="view"
+     for="Products.EasyNewsletter.content.newsletter_subscriber.INewsletterSubscriber"
+     class=".newsletter_subscriber.NewsletterSubscriber"
+     template="newsletter_subscriber.pt"
+     permission="zope2.View"
+     />
+
+</configure>

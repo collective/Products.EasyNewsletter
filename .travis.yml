@@ -1,40 +1,62 @@
+dist: xenial
 language: python
-# sudo: true
-# dist: xenial
+sudo: false
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - firefox-geckodriver
+      - google-chrome-stable
 cache:
   pip: true
   directories:
-    - $HOME/buildout-cache
+   - eggs
 python:
-  - 2.7.14
-env:
-  - PLONE_VERSION=4.3 QA=true
-  - PLONE_VERSION=5.0
-  - PLONE_VERSION=5.1
+  - "2.7"
+matrix:
+  include:
+    - env: TOXENV=py27-lint
+    - env: TOXENV=py37-lint
+      python: "3.7"
+    - env: TOXENV=py27-Plone51
+    - env: TOXENV=py27-Plone52
+    - env: TOXENV=py37-Plone52
+      python: "3.7"
+  fast_finish: true
+  allow_failures:
+    - env: TOXENV=py37-Plone52
+    - env: TOXENV=py27-Plone52
+
 before_install:
-#  - sudo apt-get update -qq
-#  - sudo apt-get install -qq python2.7 python2.7-virtualenv
-  - mkdir -p $HOME/buildout-cache/{eggs,downloads}
+  - virtualenv -p `which python` .
+  - mkdir -p $HOME/buildout-cache/{eggs}
   - mkdir $HOME/.buildout
   - echo "[buildout]" > $HOME/.buildout/default.cfg
-  - echo "download-cache = $HOME/buildout-cache/downloads" >> $HOME/.buildout/default.cfg
+  # - echo "download-cache = $HOME/buildout-cache/downloads" >> $HOME/.buildout/default.cfg
   - echo "eggs-directory = $HOME/buildout-cache/eggs" >> $HOME/.buildout/default.cfg
-  - python --version
-  - virtualenv --version
-  - pip install --upgrade virtualenv
-  - pip install configparser
-  - ./bootstrap-travis.sh
-  - export DISPLAY=:99.0
-#  - sh -e /etc/init.d/xvfb start
+  # - bin/pip install -r requirements.txt -c constraints_plone$PLONE_VERSION.txt
+  # - bin/pip install tox
+#  - bin/buildout -N out:download-cache=downloads code-analysis:return-status-codes=True annotate
+#  - bin/buildout -N buildout:download-cache=downloads code-analysis:return-status-codes=True
+  #- cp test_plone$PLONE_VERSION.cfg buildout.cfg
 install:
-  - sed -ie "s#plone-4.3.x.cfg#plone-$PLONE_VERSION.x.cfg#" travis.cfg
-  - bin/python --version
-  - bin/pip install configparser
-  - bin/buildout -N -t 3 -c travis.cfg
+  - travis_retry pip install -U tox coveralls coverage -c travis_constraints.txt
+  # - bin/buildout -N -t 3 code-analysis:return-status-codes=True annotate
+  # - bin/buildout -N -t 3 code-analysis:return-status-codes=True
+  - mkdir -p parts/test/_screenshotsg
+before_script:
+  - 'export DISPLAY=:99.0'
+  - export VERBOSE=true
+  - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+  - sleep 3
+
 script:
-  - bin/code-analysis
-  - bin/test
+  - tox
+
+#after_script:
+
 after_success:
-  - bin/createcoverage
-  - pip install -q coveralls
+  - python -m coverage.pickle2json
+  - coverage combine
   - coveralls

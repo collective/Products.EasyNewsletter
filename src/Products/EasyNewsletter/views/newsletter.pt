@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="Products.EasyNewsletter"
+  metal:use-macro="context/main_template/macros/master">
+  <body>
+    <metal:block fill-slot="content-core">
+
+      <div id="parent-fieldname-text"
+        tal:condition="context/text"
+        tal:content="structure python:context.text.output_relative_to(view.context)" />
+
+      <h2 i18n:translate="newsletter_archive_label">Newsletter archive</h2>
+      <tal:block metal:define-macro="folderlisting"
+        tal:define="newsletters view/issues">
+        <div tal:condition="not: newsletters"
+          i18n:translate="easynewsletter_non_issues_label">
+          There are no issues in this archive.
+        </div>
+
+        <ul class="newsletterIssues">
+          <li tal:repeat="newsletter newsletters">
+            <a tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime;
+                              date python:toLocalizedTime(newsletter.effective, long_format=0)"
+              tal:attributes="href newsletter/getURL">
+              <span class="issueDate">
+                <span tal:replace="date">Date</span>:
+              </span>
+              <span class="issueTitle"
+                tal:content="newsletter/Title">Newsletter's Title</span>
+            </a>
+          </li>
+        </ul>
+      </tal:block>
+    </metal:block>
+  </body>
+</html>

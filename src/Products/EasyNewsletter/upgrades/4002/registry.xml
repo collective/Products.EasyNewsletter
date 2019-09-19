@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<registry>
+  <record name="Products.EasyNewsletter.content_aggregation_templates">
+      <value purge="false">
+          <element key="aggregation_generic_listing">Generic Listing</element>
+          <element key="aggregation_event_listing">Event Listing</element>
+      </value>
+  </record>
+
+</registry>

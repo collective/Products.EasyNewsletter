@@ -1,0 +1,175 @@
+@media screen and (max-width: 767px) {
+}
+@media (min-width: 768px) {
+}
+@font-face {
+  font-family: "easynewsletter";
+  src: url("font/fontello.eot?54032556");
+  src: url("font/fontello.eot?54032556#iefix") format("embedded-opentype"), url("font/fontello.woff?54032556") format("woff"), url("font/fontello.ttf?54032556") format("truetype"), url("font/fontello.svg?54032556#fontello") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'fontello';
+    src: url('../font/fontello.svg?54032556#fontello') format('svg');
+  }
+}
+*/
+.icon-easynewsletter-actions::before {
+  font-family: "easynewsletter" !important;
+  content: "\e800" !important;
+}
+body#visual-portal-wrapper.pat-plone .outer-wrapper .contenttype-easynewsletter:before {
+  font-family: "easynewsletter" !important;
+  content: "\e800" !important;
+}
+body#visual-portal-wrapper.pat-plone .outer-wrapper .contenttype-enlissue:before {
+  font-family: "easynewsletter" !important;
+  content: "\e802" !important;
+}
+body#visual-portal-wrapper.pat-plone .outer-wrapper .contenttype-enlsubscriber:before {
+  font-family: "easynewsletter" !important;
+  content: "\e803" !important;
+}
+body#visual-portal-wrapper.pat-plone .outer-wrapper .contenttype-enltemplate:before {
+  font-family: "easynewsletter" !important;
+  content: "\e804" !important;
+}
+body#visual-portal-wrapper.pat-plone #edit-zone .contenttype-easynewsletter:after {
+  font-family: "easynewsletter" !important;
+  content: "\e800" !important;
+}
+body#visual-portal-wrapper.pat-plone #edit-zone .contenttype-enlissue:after {
+  font-family: "easynewsletter" !important;
+  content: "\e802" !important;
+}
+body#visual-portal-wrapper.pat-plone #edit-zone .contenttype-enlsubscriber:after {
+  font-family: "easynewsletter" !important;
+  content: "\e803" !important;
+}
+body#visual-portal-wrapper.pat-plone #edit-zone .contenttype-enltemplate:after {
+  font-family: "easynewsletter" !important;
+  content: "\e804" !important;
+}
+.state-draft {
+  color: #d39105;
+}
+.state-draft:hover,
+.state-draft:active,
+.state-draft:focus {
+  color: #885e03;
+}
+.state-master {
+  color: #d39105;
+}
+.state-master:hover,
+.state-master:active,
+.state-master:focus {
+  color: #885e03;
+}
+.state-sending {
+  color: #a5a912;
+}
+.state-sending:hover,
+.state-sending:active,
+.state-sending:focus {
+  color: #62640b;
+}
+.state-sent {
+  color: #007bb1;
+}
+.state-sent:hover,
+.state-sent:active,
+.state-sent:focus {
+  color: #004665;
+}
+input.easynewsletter_text {
+  width: 96%;
+  margin-right: 0;
+}
+.portletNewsletterSubscriber .portletItem {
+  padding: 10px 15px 26px 15px;
+}
+.portletNewsletterSubscriber .portletItem form {
+  border-top: 2px solid #ddd;
+  padding: 0.4em 2px 0 2px;
+}
+.portletNewsletterSubscriber div.field span.required::after {
+  position: absolute;
+}
+.template-atct_edit.portaltype-enltemplate #archetypes-fieldname-body textarea {
+  height: 850px;
+  min-width: 800px;
+  font-family: Courier New;
+  font-size: 90%;
+}
+.template-enl_subscribers_view .search {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+.template-enl_subscribers_view .search legend {
+  margin-bottom: 0;
+  border-bottom: 0;
+  font-size: 24px;
+  font-weight: 400;
+}
+.template-enl_subscribers_view .search input[type="text"] {
+  width: unset;
+  display: inline-block;
+}
+.portaltype-newsletter #content-core form,
+.portaltype-newsletter-issue #content-core form,
+.portaltype-newsletter-subscriber #content-core form {
+  display: inline-block;
+}
+.portaltype-newsletter #content-core form input,
+.portaltype-newsletter-issue #content-core form input,
+.portaltype-newsletter-subscriber #content-core form input {
+  display: inline;
+}
+.portaltype-newsletter #content-core form.fullwith,
+.portaltype-newsletter-issue #content-core form.fullwith,
+.portaltype-newsletter-subscriber #content-core form.fullwith {
+  display: block;
+}
+.portaltype-newsletter #content-core form input[name="SearchableText"],
+.portaltype-newsletter-issue #content-core form input[name="SearchableText"],
+.portaltype-newsletter-subscriber #content-core form input[name="SearchableText"] {
+  width: auto;
+}
+#enl_actions {
+  margin: 1em 0 2em 0;
+  padding: 0.5em;
+  border-bottom: 1px solid #007bb1;
+}
+#enl_actions li {
+  display: inline;
+  margin: 0 1em 0 0;
+}
+.newsletter.toc-nav {
+  margin: 1em 0 1em 0;
+  border-bottom: 4px solid #eee;
+}
+.newsletter.toc-nav > * {
+  border-width: 0px;
+  padding: 4px 10px 4px 10px;
+  text-decoration: none;
+  border-radius: 4px 4px 0 0;
+  border-bottom: 0px solid #fff;
+  background-color: #fff;
+}
+.newsletter.toc-nav > *.active {
+  border: 1px solid #eee;
+  border-bottom: 0px solid #eee;
+  background-color: #eee;
+}
+.newsletter.toc-nav li {
+  display: inline-block;
+}
+.newsletter.sub-nav {
+  margin-bottom: 1em;
+}

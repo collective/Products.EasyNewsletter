@@ -1,0 +1,4 @@
+
+    [console_scripts]
+    update_locale = Products.EasyNewsletter.locales.update:update_locale
+    

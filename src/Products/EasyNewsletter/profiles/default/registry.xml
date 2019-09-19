@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<registry>
+
+  <records interface="Products.EasyNewsletter.browser.controlpanel.IENLSettings"
+      prefix="Products.EasyNewsletter">
+  </records>
+
+  <record name="Products.EasyNewsletter.allowed_content_aggregation_types"
+      interface="Products.EasyNewsletter.browser.controlpanel.IENLSettings"
+      field="allowed_content_aggregation_types">
+    <value purge="false"><element>Collection</element></value>
+  </record>
+
+  <record name="Products.EasyNewsletter.content_aggregation_templates">
+      <field type="plone.registry.field.Dict">
+          <title>ENL Content aggregation templates</title>
+          <key_type type="plone.registry.field.TextLine" />
+          <value_type type="plone.registry.field.TextLine" />
+      </field>
+      <value purge="false">
+          <element key="aggregation_generic_listing">Generic Listing</element>
+          <element key="aggregation_event_listing">Event Listing</element>
+      </value>
+  </record>
+
+  <record name="Products.EasyNewsletter.output_templates">
+      <field type="plone.registry.field.Dict">
+          <title>ENL Output templates</title>
+          <key_type type="plone.registry.field.TextLine" />
+          <value_type type="plone.registry.field.TextLine" />
+      </field>
+      <value>
+          <element key="output_default">Default output template</element>
+          <element key="output_blacksea">Blacksea output template</element>
+      </value>
+  </record>
+
+  <records prefix="plone.resources/easynewsletter"
+           interface='Products.CMFPlone.interfaces.IResourceRegistry'>
+    <value key="css">
+      <element>++plone++easynewsletter/easynewsletter.less</element>
+    </value>
+  </records>
+
+  <records
+      interface="Products.CMFPlone.interfaces.IBundleRegistry"
+      prefix="plone.bundles/easynewsletter">
+    <value key="resources">
+      <element>easynewsletter</element>
+    </value>
+    <value key="enabled">True</value>
+    <value key="csscompilation">++plone++easynewsletter/easynewsletter.css</value>
+    <value key="last_compilation">2018-05-15 00:00:00</value>
+    <value key="compile">True</value>
+    <value key="depends">plone</value>
+    <value key="merge_with">default</value>
+  </records>
+
+  <records prefix="plone.resources/iframeResizer"
+           interface='Products.CMFPlone.interfaces.IResourceRegistry'>
+      <value key="js">++resource++Products.EasyNewsletter.iframeResizer.min.js</value>
+      <value key="deps">jquery</value>
+  </records>
+
+
+  <record name="plone.displayed_types" interface="Products.CMFPlone.interfaces.controlpanel.INavigationSchema" field="displayed_types">
+    <value purge="false">
+      <element>EasyNewsletter</element>
+      <element>Newsletter</element>
+    </value>
+  </record>
+
+  <record name="plone.types_not_searched" interface="Products.CMFPlone.interfaces.controlpanel.ISearchSchema" field="types_not_searched">
+    <value purge="false">
+      <element>ENLSubscriber</element>
+      <element>Newsletter Subscriber</element>
+    </value>
+  </record>
+
+</registry>

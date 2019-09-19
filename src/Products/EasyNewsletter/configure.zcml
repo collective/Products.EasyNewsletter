@@ -1,0 +1,72 @@
+<configure
+    i18n_domain="EasyNewsletter"
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:cmf="http://namespaces.zope.org/cmf"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:zcml="http://namespaces.zope.org/zcml">
+
+    <includeDependencies package="." />
+
+  <include package=".browser" />
+  <include package=".content" />
+  <include package=".portlets" />
+  <include package=".queue" />
+  <include package=".utils" />
+  <include package=".vocabularies" />
+  <include package=".upgrades" />
+  <include package=".views" />
+  <include package=".viewlets" />
+
+  <include package='plone.app.referenceablebehavior' />
+
+  <include file="indexers.zcml" />
+  <include file="profiles.zcml" />
+  <include file="upgrades.zcml" />
+  <include file="permissions.zcml" />
+
+  <!-- -*- extra stuff goes here -*- -->
+
+    <include package=".vocabularies" />
+
+
+    <include package=".vocabularies" />
+
+
+    <include package=".vocabularies" />
+
+
+    <include package=".vocabularies" />
+
+
+    <include package=".behaviors" />
+
+
+
+  <i18n:registerTranslations directory="locales" />
+
+  <!-- File System Directory Views registration -->
+  <cmf:registerDirectory
+      directory="skins/EasyNewsletter"
+      name="EasyNewsletter"
+      recursive="True"
+  />
+
+  <adapter
+      factory=".issuedatafetcher.DefaultIssueDataFetcher"
+      for=".interfaces.IENLIssue"
+  />
+
+  <adapter
+      factory=".issuedatafetcher.DefaultDXIssueDataFetcher"
+      for=".content.newsletter_issue.INewsletterIssue"
+  />
+
+  <subscriber
+     for="Products.EasyNewsletter.interfaces.IENLTemplate
+          Products.Archetypes.interfaces.IObjectEditedEvent"
+     handler=".handlers.update_enl_template_body_field" />
+
+</configure>

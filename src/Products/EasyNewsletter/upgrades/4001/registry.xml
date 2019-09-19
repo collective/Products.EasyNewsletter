@@ -1,0 +1,6 @@
+  <record name="Products.EasyNewsletter.content_aggregation_templates">
+      <value purge="false">
+          <element remove="true" key="aggregation_news_events_listing">Default Listing with lead images</element>
+          <element remove="true" key="aggregation_news_events_rich">News, Events, Images Listing</element>
+      </value>
+  </record>

@@ -1,0 +1,52 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns:plone="http://namespaces.plone.org/plone"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
+  i18n_domain="plone">
+
+    <include package="plone.behavior" file="meta.zcml"/>
+
+    <!-- -*- extra stuff goes here -*- -->
+
+    <plone:behavior
+        name="Products.EasyNewsletter.collection_as_newsletter_aggregation_source"
+        title="CollectionAsNewsletterAggregationSource"
+        description="A behavior for Collections to allow definition of Newsletter aggregation source templates on Collections."
+        provides=".collection_as_newsletter_aggregation_source.ICollectionAsNewsletterAggregationSource"
+        factory=".collection_as_newsletter_aggregation_source.CollectionAsNewsletterAggregationSource"
+        marker=".collection_as_newsletter_aggregation_source.ICollectionAsNewsletterAggregationSourceMarker"
+        />
+
+
+    <plone:behavior
+        name="Products.EasyNewsletter.external_delivery_service"
+        title="Newsletter: External delivery service"
+        description="External delivery service for EasyNewsletter."
+        provides=".external_delivery_service.IExternalDeliveryService"
+        factory=".external_delivery_service.ExternalDeliveryService"
+        marker=".external_delivery_service.IExternalDeliveryServiceMarker"
+        />
+
+
+    <plone:behavior
+        name="Products.EasyNewsletter.external_subscriber_sources"
+        title="Newsletter: External subscriber sources"
+        description="External subscriber sources for EasyNewsletter."
+        provides=".external_subscriber_sources.IExternalSubscriberSources"
+        factory=".external_subscriber_sources.ExternalSubscriberSources"
+        marker=".external_subscriber_sources.IExternalSubscriberSourcesMarker"
+        />
+
+
+    <plone:behavior
+        name="Products.EasyNewsletter.plone_user_group_recipients"
+        title="Newsletter: Plone user group recipients"
+        description="Plone user/groups as recipients for EasyNewsletter."
+        provides=".plone_user_group_recipients.IPloneUserGroupRecipients"
+        factory=".plone_user_group_recipients.PloneUserGroupRecipients"
+        marker=".plone_user_group_recipients.IPloneUserGroupRecipientsMarker"
+        />
+
+
+</configure>

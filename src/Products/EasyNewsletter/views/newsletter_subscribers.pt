@@ -1,0 +1,172 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="Products.EasyNewsletter"
+  metal:use-macro="context/main_template/macros/master">
+  <body>
+    <metal:block fill-slot="content-core">
+      <metal:main tal:define="subscribers python:view.subscribers();
+                         subscribers_number python:len(subscribers) ;
+                         Batch python:modules['Products.CMFPlone'].Batch;
+                         b_start python:request.get('b_start',0);
+                         b_size request/b_size|python:100;
+                         batch_base_url here/@@plone_context_state/current_base_url;
+                         batch python:Batch(subscribers, b_size, int(b_start), orphan=1)">
+
+      <nav class="newsletter sub-nav">
+        <form method="get"
+          tal:attributes="action python:view.addTokenToUrl(context.absolute_url() + '/++add++Newsletter%20Subscriber')">
+          <input type="submit"
+            value="Add subscriber"
+            i18n:attributes="value"
+            i18n:translate="add_subscriber" />
+        </form>
+        <form method="get"
+          tal:attributes="action string:${context/absolute_url}/subscribers-upload">
+          <input type="submit"
+            value="Import subscriber"
+            i18n:attributes="value"
+            i18n:translate="import_subscriber" />
+        </form>
+        <form method="get"
+          tal:attributes="action string:${context/absolute_url}/subscribers-download">
+          <input type="submit"
+            value="Export subscriber"
+            i18n:attributes="value"
+            i18n:translate="export_subscriber" />
+        </form>
+      </nav>
+
+        <div class="search">
+          <fieldset>
+            <legend i18n:translate="">Subscriber Search</legend>
+            <p class="discreet"
+              i18n:translate="subscribers_search_note">
+                  This search affects only local subscribers, not those coming from external sources.
+            </p>
+            <form tal:attributes="action view/__name__" class="fullwith">
+              <input type="text"
+                name="SearchableText"
+                tal:attributes="value request/email|nothing" />
+              <input type="submit"
+                class="standalone"
+                name="submit"
+                value="Search"
+                i18n:attributes="value" />
+            </form>
+          </fieldset>
+        </div>
+
+        <div tal:condition="not: subscribers"
+          i18n:translate="easynewsletter_nosubscribers_label">
+                 There are no subscribers.
+        </div>
+
+        <div metal:use-macro="here/batch_macros/macros/navigation" />
+
+        <form method="post"
+          tal:attributes="action view/__name__">
+
+          <table class="listing"
+            summary="Subscriber Listing">
+            <tr>
+              <th colspan="10">
+                <span class="total"
+                  i18n:translate="">
+                        There are
+                  <span i18n:name="subscribers_count"
+                    tal:replace="subscribers_number" />
+                        subscribers
+                </span>
+              </th>
+            </tr>
+            <tr>
+              <th>
+                <input id="selectall"
+                  type="checkbox"
+                  name="selectall" />
+              </th>
+              <th i18n:translate="mail">Email</th>
+              <th i18n:translate="salutation_listing">Salutation</th>
+              <th i18n:translate="name_prefix_listing">Prefix</th>
+              <th i18n:translate="firstname_listing">First Name</th>
+              <th i18n:translate="lastname_listing">Last Name</th>
+              <th i18n:translate="language">Language</th>
+              <th i18n:translate="organization_listing">Organization</th>
+              <th i18n:translate="source">Source</th>
+              <th i18n:translate="action">Action</th>
+            </tr>
+            <tal:subscriber tal:repeat="subscriber batch">
+              <tr tal:define="oddrow repeat/subscriber/odd;
+                                      isPlone python: subscriber['source']=='plone'"
+                tal:attributes="class python:oddrow and 'odd' or 'even'">
+                <td>
+                  <tal:if condition="isPlone">
+                    <input type="checkbox"
+                      name="subscriber_ids:list"
+                      tal:attributes="value subscriber/id" />
+                  </tal:if>
+                </td>
+                <td>
+                  <tal:if condition="isPlone">
+                    <a tal:attributes="href string:${subscriber/getURL|nothing}"
+                      tal:content="subscriber/email">
+                                   email </a>
+                  </tal:if>
+                  <span tal:condition="not: isPlone"
+                    tal:content="subscriber/email" />
+                </td>
+                <td i18n:translate=""
+                  tal:content="subscriber/salutation" />
+                <td i18n:translate=""
+                  tal:content="subscriber/name_prefix|nothing" />
+                <td i18n:translate=""
+                  tal:content="subscriber/firstname|nothing" />
+                <td i18n:translate=""
+                  tal:content="subscriber/lastname|nothing" />
+                <td i18n:translate=""
+                  tal:content="subscriber/nl_language|nothing" />
+                <td i18n:translate=""
+                  tal:content="subscriber/organization|nothing"></td>
+                <td i18n:translate=""
+                  tal:content="subscriber/source|nothing"></td>
+                <td>
+                  <a href="#"
+                    tal:condition="isPlone"
+                    tal:attributes="href string:${subscriber/getURL|nothing}/delete_confirmation">
+                    <img tal:attributes="alt string:Delete subscriber;
+                                                  title string:Delete subscriber;
+                                                  src string:delete_icon.png" />
+                  </a>
+                </td>
+              </tr>
+            </tal:subscriber>
+          </table>
+
+          <div metal:use-macro="here/batch_macros/macros/navigation" />
+
+          <div class="formControls">
+            <tal:if condition="subscribers">
+              <input type="submit"
+                class="destructive"
+                name="delete"
+                value="Delete"
+                i18n:attributes="value" />
+            </tal:if>
+          </div>
+        </form>
+
+      </metal:main>
+
+      <script type="text/javascript">
+          // select/unselect all subscribers
+          jQuery('#selectall').click(function(){
+            var checked = jQuery(this).is(':checked') ? true : false;
+            jQuery('table.listing :checkbox').attr('checked',checked);
+          })
+      </script>
+
+    </metal:block>
+  </body>
+</html>

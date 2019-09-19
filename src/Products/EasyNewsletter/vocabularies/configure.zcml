@@ -1,0 +1,42 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="Products.EasyNewsletter">
+
+    <utility
+        component=".newsletters.NewslettersVocabularyFactory"
+        name="Products.EasyNewsletter.newsletters"
+       />
+
+    <!-- -*- extra stuff goes here -*- -->
+
+    <utility
+        component=".aggregation_templates.AggregationTemplatesFactory"
+        name="Products.EasyNewsletter.AggregationTemplates"
+    />
+
+
+    <utility
+        component=".salutations.SalutationsFactory"
+        name="Products.EasyNewsletter.Salutations"
+    />
+
+
+    <utility
+        component=".plone_groups.PloneGroupsFactory"
+        name="Products.EasyNewsletter.PloneGroups"
+    />
+
+
+    <utility
+        component=".plone_users.PloneUsersFactory"
+        name="Products.EasyNewsletter.PloneUsers"
+    />
+
+
+    <utility
+        component=".output_templates.OutputTemplatesFactory"
+        name="Products.EasyNewsletter.OutputTemplates"
+    />
+
+
+</configure>

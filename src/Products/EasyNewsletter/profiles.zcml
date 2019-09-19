@@ -1,0 +1,35 @@
+<configure
+    i18n_domain="EasyNewsLetter"
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:zcml="http://namespaces.zope.org/zcml">
+
+  <utility
+      factory=".setuphandlers.HiddenProfiles"
+      name="Products.EasyNewsletter-hiddenprofiles"
+  />
+
+  <genericsetup:registerProfile
+      title="Products.EasyNewsletter"
+      description="A Newsletter/Mailing addon for Plone."
+      directory="profiles/default"
+      name="default"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+  />
+  <genericsetup:registerProfile
+      description="Removes the EasyNewsLetter."
+      directory="profiles/uninstall"
+      name="uninstall"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      title="uninstall EasyNewsletter"
+  />
+
+  <!-- Register the import step -->
+  <genericsetup:importStep
+      description=""
+      handler="Products.EasyNewsletter.setuphandlers.import_various"
+      name="Products.EasyNewsletter-setuphandlers"
+      title="Products.EasyNewsletter special import handlers"
+  />
+</configure>

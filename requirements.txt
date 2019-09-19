@@ -1,7 +1,4 @@
-appdirs==1.4.2
-virtualenv
-packaging==16.8
-pyparsing==2.1.10
-setuptools==33.1.1
-six==1.10.0
-zc.buildout==2.8.0
+-c constraints.txt
+setuptools
+zc.buildout
+pathlib2

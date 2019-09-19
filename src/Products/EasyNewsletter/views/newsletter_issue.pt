@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="Products.EasyNewsletter"
+  metal:use-macro="context/main_template/macros/master">
+  <body>
+    <metal:block fill-slot="content-core"
+      tal:define="is_editable context/@@plone_context_state/is_editable;
+                  token context/@@authenticator/token">
+      <p>
+        <a tal:attributes="href string:${view/here_url}/preview?_authenticator=${token}"
+          tal:condition="is_editable"
+          target="_blank"
+          class="btn btn-info"
+          role="button">Preview email content in new window</a>
+      </p>
+
+      <iframe src="preview_url"
+        name="enl_issue_preview"
+        id="enl-issue-preview"
+        marginwidth="0"
+        marginheight="0"
+        width="100%"
+        scrolling="no"
+        frameborder="0"
+        tal:attributes="src string:${context/absolute_url}/issue-online-view?_authenticator=${token};
+                                    title context/Title;">
+        <a href="#"
+          target="_blank"
+          tal:attributes="href string:${view/here_url}/issue-online-view?_authenticator=${token}"
+          tal:content="string:${view/here_url}/preview">preview url</a>
+      </iframe>
+
+
+      <script type="text/javascript">
+                iFrameResize();
+      </script>
+
+    </metal:block>
+  </body>
+</html>

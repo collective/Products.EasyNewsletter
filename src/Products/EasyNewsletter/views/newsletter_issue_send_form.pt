@@ -1,0 +1,132 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="Products.EasyNewsletter"
+  metal:use-macro="context/main_template/macros/master">
+  <body>
+    <metal:block fill-slot="content-core">
+      <a class="link-parent"
+        tal:attributes="href context/aq_parent/absolute_url"
+        i18n:translate="easynewsletter_backtonewsletter_label">
+  Back to newsletter
+      </a>
+
+      <br />
+      <form tal:attributes="action string:${context/absolute_url}/send-issue"
+        tal:define="wtool context/@@plone_tools/workflow;
+                    sent python:wtool.getInfoFor(context, 'review_state') in ['sent', 'master', 'sending'] "
+        method="post"
+        id="issue_send_form">
+
+        <label for="sender name"
+          i18n:translate="EasyNewsletter_label_senderName">
+           Sender name
+        </label>
+
+        <div i18n:translate="EasyNewsletter_help_senderNameForm"
+          class="formHelp">
+         Sender name of the newsletter email.
+         If you let this field empty, the default sender name will be used.
+        </div>
+
+        <input type="text"
+          name="sender_name"
+          size="40"
+          tal:attributes="value view/sender_name" />
+
+        <br />
+        <br />
+
+        <label for="sender_email"
+          i18n:translate="EasyNewsletter_label_senderEmail">
+           Sender email
+        </label>
+
+        <div i18n:translate="EasyNewsletter_help_senderEmailForm"
+          class="formHelp">
+         Sender address of the newsletter email.
+         If you let this field empty, the default sender email address will be used.
+        </div>
+
+        <input type="text"
+          name="sender_email"
+          size="40"
+          tal:attributes="value view/sender_email" />
+
+        <br />
+        <br />
+
+        <label for="subject"
+          i18n:translate="EasyNewsletter_label_subject">
+           Subject
+        </label>
+
+        <div i18n:translate="EasyNewsletter_help_subject"
+          class="formHelp">
+         Subject of the newsletter email.
+         If you let this field empty, the title of the newsletter will be used.
+        </div>
+
+        <input type="text"
+          name="subject"
+          size="40"
+          tal:attributes="value view/subject" />
+
+        <br />
+        <br />
+
+        <label for="test_receiver"
+          i18n:translate="EasyNewsletter_label_testreceiver">
+           Test email
+        </label>
+
+        <div i18n:translate="EasyNewsletter_help_testreceiverForm"
+          class="formHelp">
+         Test email. If you let this field empty, the default test email address will be used.
+        </div>
+
+        <input type="text"
+          name="test_receiver"
+          size="40"
+          tal:attributes="value view/test_receiver" />
+
+        <span tal:replace="structure context/@@authenticator/authenticator" />
+
+        <input type="submit"
+          class="context"
+          name="test"
+          value="Test Newsletter"
+          i18n:attributes="value easynewsletter_test_button;" />
+        <br />
+        <br />
+        <p tal:condition="not:sent">
+          <input onclick="document.getElementById('form_send').disabled=!document.getElementById('confirm_send').checked;"
+            id="confirm_send"
+            name="confirm_send"
+            value="off"
+            type="checkbox" />
+          <label for="confirm_send"
+            i18n:translate="EasyNewsletter_enablesendbutton_label">
+        Enable sendbutton
+          </label>
+          <br />
+
+          <input id="form_send"
+            disabled="disabled"
+            class="send"
+            type="submit"
+            name="send"
+            value="Send Newsletter"
+            i18n:attributes="value easynewsletter_send_button;" />
+        </p>
+        <div tal:condition="sent"
+          i18n:translate="easynewsletter_newslettersent_label">
+      The newsletter was already sent.
+        </div>
+      </form>
+
+
+    </metal:block>
+  </body>
+</html>

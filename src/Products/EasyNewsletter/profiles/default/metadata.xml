@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<metadata>
+  <version>4002</version>
+  <dependencies>
+    <!-- <dependency>profile-inqbus.plone.fastmemberproperties:default</dependency> -->
+    <dependency>profile-archetypes.referencebrowserwidget:default</dependency>
+    <dependency>profile-plone.app.referenceablebehavior:default</dependency>
+    <dependency>profile-Products.Archetypes:Archetypes</dependency>
+    <dependency>profile-Products.ATContentTypes:base</dependency>
+    <dependency>profile-plone.app.dexterity:default</dependency>
+  </dependencies>
+</metadata>

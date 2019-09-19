@@ -3,10 +3,11 @@
 from setuptools import find_packages
 from setuptools import setup
 
-version = '3.0.9.dev0'
+
+version = '4.0.0.dev0'
 long_description = (
-    open('README.rst').read() + '\n' +
-    open('CHANGES.rst').read()
+    open('README.rst').read() + '\n'
+    + open('CHANGES.rst').read()
 )
 
 setup(
@@ -17,9 +18,7 @@ setup(
     classifiers=[
         'Development Status :: 4 - Beta',
         'Framework :: Plone',
-        'Framework :: Plone :: 4.3',
-        'Framework :: Plone :: 5.0',
-        'Framework :: Plone :: 5.1',
+        'Framework :: Plone :: 5.2',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7',
         'Topic :: Software Development :: Libraries :: Python Modules',
@@ -30,11 +29,13 @@ setup(
     author_email='md@derico.de',
     url='https://github.com/collective/Products.EasyNewsletter',
     license='GPL',
-    packages=find_packages(exclude=['ez_setup']),
+    packages=find_packages('src', exclude=['ez_setup']),
     namespace_packages=['Products'],
+    package_dir={'': 'src'},
     include_package_data=True,
     zip_safe=False,
     install_requires=[
+        'Plone',
         'BeautifulSoup',
         'zope.formlib',
         'jinja2',
@@ -53,12 +54,18 @@ setup(
         'stoneagehtml',
         'plone.protect>=3.1.1',
         'plone4.csrffixes>=1.1',
+        'emails',
+        'premailer',
+        'html2text',
     ],
     extras_require=dict(
         test=[
             'Pillow',
             'plone.app.testing',
-            'plone.dexterity',
+            'plone.testing',
+            'plone.app.contenttypes',
+            'plone.app.robotframework[debug]',
+            'pdbpp'
         ],
         fmp=['inqbus.plone.fastmemberproperties'],
         zamqp=[
@@ -72,4 +79,8 @@ setup(
             'collective.taskqueue[redis]',
         ],
     ),
+    entry_points="""
+    [console_scripts]
+    update_locale = Products.EasyNewsletter.locales.update:update_locale
+    """,
 )

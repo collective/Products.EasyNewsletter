@@ -1,6 +1,29 @@
 Changelog
 =========
 
+4.0.0 (unreleased)
+
+- Implement content types in Dexterity instead of Archetypes
+  [MrTango]
+
+- Refactored sending and personalization, as well as issuedatafetcher adapter
+  [MrTango]
+
+- Implement Plone user/groups sources as behaviors
+  [MrTango]
+
+- Implement Collection behavior which supports aggregation templates on each collection
+  [MrTango]
+
+- Add modern views for most of the existing once, which plonecli, containing basic tests
+  [MrTango]
+
+- Add vocabularies for all Archetypes DisplayLists
+  [MrTango]
+
+- Fix unsubscribe_view and add some checks/tests for security
+  [MrTango]
+
 
 3.0.9 (unreleased)
 ------------------

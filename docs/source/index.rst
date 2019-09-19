@@ -23,9 +23,9 @@ General
 You can use EasyNewsletter to manually create mailings/newsletters
 or you can use the collection criteria to collect content.
 
-EasyNewsletter can use multible Collections to aggregate content for a newsletter issue.
+EasyNewsletter can use multiple Collections to aggregate content for a newsletter issue.
 
-Once the content is generated one can edit the text as usual in Plone. But it's not recommented,
+Once the content is generated one can edit the text as usual in Plone. But it's not recommended,
 because TinyMCE is not very helpful with email markup.
 
 You can create your own templates to structure the selected content. Please refer

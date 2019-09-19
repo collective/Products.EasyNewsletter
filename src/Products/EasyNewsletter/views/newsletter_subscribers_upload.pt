@@ -1,0 +1,142 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="Products.EasyNewsletter"
+      metal:use-macro="context/main_template/macros/master">
+<body>
+  <metal:block fill-slot="content-core">
+        <form method="POST" action="#"  enctype="multipart/form-data"
+                tal:attributes="action request/URL0">
+
+           <fieldset>
+              <legend i18n:translate="">
+                Import
+              </legend>
+
+              <p i18n:translate="">The CSV file must contain the header and follow this format</p>
+              <table class="listing">
+                  <thead>
+                    <tr>
+                      <th>salutation</th>
+                      <th>name_prefix</th>
+                      <th>firstname</th>
+                      <th>lastname</th>
+                      <!-- <th>nl_language</th> -->
+                      <th>email</th>
+                      <th>organization</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                      <td>Mr.</td>
+                      <td>Dr.</td>
+                      <td>John</td>
+                      <td>Doe</td>
+                      <!-- <td>en</td> -->
+                      <td>jd@domain.com</td>
+                      <td>ACME Corp.</td>
+                  </tr>
+                  </tbody>
+              </table>
+
+              <div class="field">
+                <label i18n:translate="">CSV file</label>
+                <div class="formHelp" i18n:translate="">
+                  Select your CSV file here.
+                </div>
+                <input type="file" name="csv_upload" />
+              </div>
+
+              <div class="formControls"
+                   i18n:domain="plone">
+
+                <input class="standalone"
+                       type="submit"
+                       value="Import"
+                       name="form.button.Import"
+                       i18n:attributes="value;"
+                       />
+
+              </div>
+
+            </fieldset>
+        </form>
+        <div tal:define="subscribers view/create_subscribers;
+                         fail subscribers/fail | nothing;
+                         success subscribers/success | nothing;"
+                         tal:condition="python: fail or success">
+
+            <h3 i18n:translate="not_created_subscribers"
+                tal:condition="fail">Not imported subscribers</h3>
+            <table class="listing" tal:condition="fail">
+                <thead>
+                    <tr>
+                        <th i18n:translate="">Salutation</th>
+                        <th i18n:translate="">Prefix</th>
+                        <th i18n:translate="">First Name</th>
+                        <th i18n:translate="">Last Name</th>
+                        <!-- <th i18n:translate="">Language</th> -->
+                        <th i18n:translate="">Email</th>
+                        <th i18n:translate="">Organization</th>
+                        <th i18n:translate="">Reason for failure</th>
+                    </tr>
+                </thead>
+                <tbody tal:repeat="item fail">
+                    <tr>
+                        <td tal:content="item/salutation | nothing" />
+                        <td tal:content="item/name_prefix | nothing" />
+                        <td tal:content="item/firstname | nothing" />
+                        <td tal:content="item/lastname | nothing" />
+                        <!-- <td tal:content="item/nl_language | nothing" /> -->
+                        <td tal:content="item/email | nothing" />
+                        <td tal:content="item/organization | nothing" />
+                        <td tal:content="item/failure" />
+                    </tr>
+                </tbody>
+            </table>
+            <p tal:condition="fail"
+               i18n:translate="">
+               <span tal:define="count python:len(fail)"
+                     tal:content="string: ${count}"
+                     i18n:name="count">Number</span> import(s) failed.
+            </p>
+            <h3 i18n:translate="sucessfully_created_subscribers"
+                tal:condition="success">Sucessfully created/updated Subscribers</h3>
+            <table class="listing" tal:condition="success">
+                <thead>
+                    <tr>
+                        <th i18n:translate="">Salutation</th>
+                        <th i18n:translate="">Prefix</th>
+                        <th i18n:translate="">First Name</th>
+                        <th i18n:translate="">Last Name</th>
+                        <!-- <th i18n:translate="">Language</th> -->
+                        <th i18n:translate="">Email</th>
+                        <th i18n:translate="">Organization</th>
+                        <th i18n:translate="">Action</th>
+                    </tr>
+                </thead>
+                <tbody tal:repeat="item success">
+                    <tr>
+                        <td tal:content="item/salutation | nothing" />
+                        <td tal:content="item/name_prefix | nothing" />
+                        <td tal:content="item/firstname | nothing" />
+                        <td tal:content="item/lastname | nothing" />
+                        <!-- <td tal:content="item/nl_language | nothing" /> -->
+                        <td tal:content="item/email | nothing" />
+                        <td tal:content="item/organization | nothing" />
+                        <td tal:content="item/success" />
+                    </tr>
+                </tbody>
+            </table>
+            <p tal:condition="success"
+               i18n:translate="">
+               <span tal:define="count python:len(success)"
+                     tal:content="string: ${count}"
+                     i18n:name="count">Number</span> import(s) successful.
+            </p>
+        </div>
+
+  </metal:block>
+</body>
+</html>

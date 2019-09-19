@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<object xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    name="Newsletter Subscriber"
+    meta_type="Dexterity FTI"
+    i18n:domain="Products.EasyNewsletter">
+
+  <!-- Basic properties -->
+  <property
+      i18n:translate=""
+      name="title">Newsletter Subscriber</property>
+  <property
+      i18n:translate=""
+      name="description">A Newsletter Subscriber.</property>
+
+  <property name="allow_discussion">False</property>
+  <property name="factory">Newsletter Subscriber</property>
+  <property name="icon_expr"></property>
+  <property name="link_target"></property>
+
+  <!-- Hierarchy control -->
+  <property name="global_allow">False</property>
+  <!-- Schema, class and security -->
+  <property name="add_permission">Products.EasyNewsletter.AddNewsletterSubscriber</property>
+  <property name="klass">Products.EasyNewsletter.content.newsletter_subscriber.NewsletterSubscriber</property>
+  <property name="model_file"></property>
+  <property name="model_source"></property>
+  <property name="schema">Products.EasyNewsletter.content.newsletter_subscriber.INewsletterSubscriber</property>
+
+  <!-- Enabled behaviors -->
+  <property name="behaviors" purge="false">
+    <!-- Details about all standard behaviors following can be read at
+         https://docs.plone.org/external/plone.app.dexterity/docs/reference/standard-behaviours.html
+    -->
+    <!-- <element value="plone.namefromtitle"/> -->
+    <!-- <element value="plone.allowdiscussion"/> -->
+    <!-- <element value="plone.excludefromnavigation"/> -->
+    <!-- <element value="plone.shortname"/> -->
+    <!-- <element value="plone.ownership"/> -->
+    <!-- <element value="plone.publication"/> -->
+    <!-- <element value="plone.categorization"/> -->
+    <!-- <element value="plone.basic"/> -->
+    <!-- <element value="plone.locking" /> -->
+    <!-- <element value="plone.app.referenceablebehavior.referenceable.IReferenceable" />-->
+    <!--<element value="plone.leadimage"/>-->
+    <!--<element value="plone.relateditems"/>-->
+    <!--<element value="plone.richtext"/>-->
+    <!--<element value="plone.tableofcontents"/>-->
+    <!--<element value="plone.versionable" />-->
+    <!--<element value="plone.translatable" />-->
+  </property>
+
+  <!-- View information -->
+  <property name="add_view_expr">string:${folder_url}/++add++Newsletter Subscriber</property>
+  <property name="default_view">view</property>
+  <property name="default_view_fallback">False</property>
+  <property name="immediate_view">view</property>
+  <property name="view_methods">
+    <element value="view"/>
+  </property>
+
+  <!-- Method aliases -->
+  <alias
+      from="(Default)"
+      to="(dynamic view)"
+  />
+  <alias
+      from="edit"
+      to="@@edit"
+  />
+  <alias
+      from="sharing"
+      to="@@sharing"
+  />
+  <alias
+      from="view"
+      to="(selected layout)"
+  />
+
+  <!-- Actions -->
+  <action
+      action_id="view"
+      category="object"
+      condition_expr=""
+      i18n:attributes="title"
+      title="View"
+      url_expr="string:${object_url}"
+      visible="True">
+    <permission value="View"/>
+  </action>
+  <action
+      action_id="edit"
+      category="object"
+      condition_expr=""
+      i18n:attributes="title"
+      title="Edit"
+      url_expr="string:${object_url}/edit"
+      visible="True">
+    <permission value="Modify portal content"/>
+  </action>
+
+</object>
