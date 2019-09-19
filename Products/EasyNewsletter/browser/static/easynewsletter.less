@@ -1,7 +1,7 @@
 // vs code ext: Easy Less:
 // out: easynewsletter.css, compress: true, sourceMap: true
 
-@import url("https://github.com/plone/plonetheme.barceloneta/raw/master/plonetheme/barceloneta/theme/less/barceloneta.plone.local.less");
+@import (reference) url("https://github.com/plone/plonetheme.barceloneta/raw/master/plonetheme/barceloneta/theme/less/barceloneta.plone.local.less");
 
 
 @font-face {
@@ -79,14 +79,15 @@ body#visual-portal-wrapper.pat-plone #edit-zone {
 
 // states
 .state-draft          {color: @plone-default-draft-color;
-  &:hover, &:active, &:focus    {color: darken(@plone-default-draft-color,15%)}}
+  &:hover, &:active, &:focus    {color: darken(@plone-default-draft-color,15%);}}
 .state-master          {color: @plone-default-internal-color;
-  &:hover, &:active, &:focus    {color: darken(@plone-default-internal-color,15%)}}
+  &:hover, &:active, &:focus    {color: darken(@plone-default-internal-color,15%);}}
 .state-sending          {color: @plone-default-pending-color;
-  &:hover, &:active, &:focus    {color: darken(@plone-default-pending-color,15%)}}
+  &:hover, &:active, &:focus    {color: darken(@plone-default-pending-color,15%);}}
 .state-sent         {color: @plone-default-published-color;
-  &:hover, &:active, &:focus    {color: darken(@plone-default-published-color,15%)}}
-
+  &:hover, &:active, &:focus    {color: darken(@plone-default-published-color,15%);}}
+.state-private      {color: @plone-default-private-color;
+    &:hover, &:active, &:focus  {color: darken(@plone-default-private-color, 15%); }}
 
 input.easynewsletter_text {
   width: 96%;

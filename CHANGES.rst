@@ -5,7 +5,8 @@ Changelog
 3.0.9 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix less import from barceloneta, to use import by reference, fixes: #141
+  [MrTango]
 
 
 3.0.8 (2019-08-19)
