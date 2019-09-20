@@ -20,6 +20,11 @@ ENL_EDITHELPER_TYPES = ['EasyNewsletter', 'ENLIssue', 'Newsletter', 'Newsletter 
 PLACEHOLDERS = ['UNSUBSCRIBE', 'SUBSCRIBER_SALUTATION']
 
 
+SALUTATION = {
+    'ms': _(u'label_salutation_ms', 'Ms.'),
+    'mr': _(u'label_salutation_mr', 'Mr.'),
+}
+
 # NL_LANGUAGE = DisplayList((
 #     ('', _(u'label_choose_nl_language', 'Choose language...')),
 #     ('de', _(u'label_salutation_de', 'DE')),

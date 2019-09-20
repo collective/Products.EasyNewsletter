@@ -84,4 +84,3 @@ def import_various(context):
     logger = context.getLogger('Products.EasyNewsletter')
     site = context.getSite()
     add_catalog_indexes(site, logger)
-    upgrades.apply_referenceable_behavior(site)

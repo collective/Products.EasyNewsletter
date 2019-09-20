@@ -206,7 +206,7 @@ class NewsletterIssueSend(BrowserView):
 
         # only send to all subscribers if the exclude all subscribers
         # checkbox, was not set.
-        # get ENLSubscribers
+        # get Subscribers
         enl_receivers = []
         if not self.context.exclude_all_subscribers:
             for subscriber_brain in api.content.find(portal_type='Newsletter Subscriber', context=enl):
