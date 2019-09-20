@@ -5,8 +5,8 @@ from plone import api
 from Products.Five.browser import BrowserView
 
 import codecs
-import cStringIO
 import csv
+import six
 import tempfile
 
 
@@ -74,7 +74,7 @@ class UnicodeWriter:
 
     def __init__(self, f, dialect=csv.excel, encoding="utf-8", **kwds):
         # Redirect output to a queue
-        self.queue = cStringIO.StringIO()
+        self.queue = six.cStringIO.StringIO()
         self.writer = csv.writer(self.queue, dialect=dialect, **kwds)
         self.stream = f
         self.encoder = codecs.getincrementalencoder(encoding)()

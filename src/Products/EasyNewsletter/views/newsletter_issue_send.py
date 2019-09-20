@@ -140,7 +140,7 @@ class NewsletterIssueSend(BrowserView):
                 self.mail_host.send(m.as_string())
                 log.info('Send newsletter to "%s"' % receiver['email'])
                 send_counter += 1
-            except Exception, e:  # noqa
+            except Exception as e:  # noqa
                 log.exception(
                     'Sending newsletter to "%s" failed, with error "%s"!'
                     % (receiver['email'], e))

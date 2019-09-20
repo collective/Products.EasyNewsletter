@@ -3,25 +3,24 @@
   xmlns:zcml="http://namespaces.zope.org/zcml"
   i18n_domain="Products.EasyNewsletter">
 
-  <gs:registerProfile
-      name="4001"
-      title="Products.EasyNewsletter (4001)"
-      directory="4001"
-      for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
-      description='Configuration for version 4001'
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      />
+  <gs:registerProfile name="4001"
+    title="Products.EasyNewsletter (4001)"
+    directory="4001"
+    for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+    description='Configuration for version 4001'
+    provides="Products.GenericSetup.interfaces.EXTENSION" />
 
   <gs:upgradeSteps source="4000"
     destination="4001"
     profile="Products.EasyNewsletter:default">
 
-    <gs:upgradeStep title="Run Python upgrade steps" description="" handler=".4001.upgrade" /> -->
+    <gs:upgradeStep title="Run Python upgrade steps"
+      description=""
+      handler=".v4001.upgrade" />
 
     <gs:upgradeDepends title="Run GS upgrade profile"
       description=""
-      import_profile="Products.EasyNewsletter.upgrades:4001"
-      />
+      import_profile="Products.EasyNewsletter.upgrades:4001" />
 
   </gs:upgradeSteps>
 </configure>

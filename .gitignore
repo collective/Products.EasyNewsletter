@@ -60,3 +60,4 @@ docs/Makefile
 /reports
 /.coverage.py27-Plone51
 *.sublime-project
+/.coverage.*

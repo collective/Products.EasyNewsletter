@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from BeautifulSoup import BeautifulSoup
+from bs4 import BeautifulSoup
 from html2text import HTML2Text
 from plone import api
 from Products.CMFPlone.utils import safe_unicode
@@ -99,9 +99,9 @@ class DefaultDXIssueDataFetcher(object):
             unsubscribe_link, unsubscribe_text
         )
         return {
-            "link": unsubscribe_link.decode("utf8"),
-            "text": unsubscribe_text.decode("utf8"),
-            "html": unsubscribe_markup.decode("utf8"),
+            "link": safe_unicode(unsubscribe_link),
+            "text": safe_unicode(unsubscribe_text),
+            "html": safe_unicode(unsubscribe_markup),
         }
 
     def _render_output_html(self):

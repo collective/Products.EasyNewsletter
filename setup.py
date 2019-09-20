@@ -45,12 +45,13 @@ setup(
         'Products.CMFPlone',
         'plone.app.registry',
         'plone.resource',
+        'beautifulsoup4',
         'setuptools',
-        'stoneagehtml',
         'plone.protect>=3.1.1',
         'emails',
         'premailer',
         'html2text',
+        'email_validator',
     ],
     extras_require=dict(
         test=[

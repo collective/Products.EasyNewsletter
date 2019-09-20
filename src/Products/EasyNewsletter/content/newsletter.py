@@ -19,7 +19,7 @@ from zope.interface import implementer
 
 def get_default_output_template():
     registry = getUtility(IRegistry)
-    templates_keys = registry.get("Products.EasyNewsletter.output_templates").keys()
+    templates_keys = list(registry.get("Products.EasyNewsletter.output_templates"))
     if not templates_keys:
         return
     if "output_default" not in templates_keys:

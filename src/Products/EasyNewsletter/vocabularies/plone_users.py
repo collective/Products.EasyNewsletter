@@ -48,7 +48,7 @@ class PloneUsers(object):
                     log.error(
                         _("Property email: \"{0}\" is not an email!").format(property['email'])
                     )
-        except TypeError, e:  # noqa
+        except TypeError as e:  # noqa
             log.error(
                 ":get_plone_members: error in member_properties {0} \
                 properties:'{1}'".format(e, member_properties.items())
