@@ -228,7 +228,7 @@ class RegistrationData(OFS.SimpleItem.Item):
         self.id = id
         for key, value in kw.items():
             setattr(self, key, value)
-        #super(RegistrationData, self).__init__()
+        # super(RegistrationData, self).__init__()
 
     @property
     def title(self):
