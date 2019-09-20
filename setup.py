@@ -37,7 +37,6 @@ setup(
     zip_safe=False,
     install_requires=[
         'Plone',
-        'BeautifulSoup',
         'zope.formlib',
         'jinja2',
         'nameparser',
@@ -49,7 +48,6 @@ setup(
         'setuptools',
         'stoneagehtml',
         'plone.protect>=3.1.1',
-        'plone4.csrffixes>=1.1',
         'emails',
         'premailer',
         'html2text',
