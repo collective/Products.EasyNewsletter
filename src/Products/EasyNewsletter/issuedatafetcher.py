@@ -54,7 +54,7 @@ class DefaultDXIssueDataFetcher(object):
         html = self.personalize(receiver, html)
         for placeholder in PLACEHOLDERS:
             html = html.replace("[[" + placeholder + "]]", "")
-        soup = BeautifulSoup(html)
+        soup = BeautifulSoup(html, features="lxml")
         if not disable_filter:
             for node in soup.findAll(True, {"class": "mailonly"}):
                 node.extract()
