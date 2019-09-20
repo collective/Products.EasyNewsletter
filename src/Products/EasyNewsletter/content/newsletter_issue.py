@@ -20,7 +20,7 @@ from zope.schema.interfaces import IContextAwareDefaultFactory
 def get_default_output_template(parent):
     """ get ouput template from parent Newsletter
     """
-    if INewsletter.providedBy(parent):
+    if INewsletter.providedBy(parent) and parent.__parent__:
         return parent.output_template
 
 
@@ -29,7 +29,7 @@ def get_default_prologue(parent):
     """ get prologue from parent Newsletter
     """
     prologue_output = u""
-    if INewsletter.providedBy(parent):
+    if INewsletter.providedBy(parent) and parent.__parent__:
         prologue_output = parent.default_prologue.output
     default_prologue = textfield.RichTextValue(
         raw=prologue_output,
@@ -45,7 +45,7 @@ def get_default_epilogue(parent):
     """ get epilogue from parent Newsletter
     """
     epilogue_output = u""
-    if INewsletter.providedBy(parent):
+    if INewsletter.providedBy(parent) and parent.__parent__:
         epilogue_output = parent.default_epilogue.output
     default_epilogue = textfield.RichTextValue(
         raw=epilogue_output,
@@ -60,7 +60,7 @@ def get_default_epilogue(parent):
 def get_default_content_aggregation_sources(parent):
     """ get content_aggregation_sources from parent Newsletter
     """
-    if INewsletter.providedBy(parent):
+    if INewsletter.providedBy(parent) and parent.__parent__:
         return parent.content_aggregation_sources
 
 
@@ -100,7 +100,7 @@ class INewsletterIssue(model.Schema):
         ),
         value_type=relationfield.schema.RelationChoice(
             title=u"content_aggretation_source",
-            source=vocabs.catalog.CatalogSource(),
+            vocabulary="plone.app.vocabularies.Catalog",
         ),
         defaultFactory=get_default_content_aggregation_sources,
         required=False,

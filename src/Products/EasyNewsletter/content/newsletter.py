@@ -4,6 +4,7 @@ from plone import api
 from plone import schema
 from plone.app import textfield
 from plone.app.vocabularies.catalog import CatalogSource
+from plone.app.z3cform.widget import RelatedItemsFieldWidget
 from plone.app.z3cform.widget import SingleCheckBoxBoolFieldWidget
 from plone.autoform import directives
 from plone.dexterity.content import Container
@@ -121,7 +122,7 @@ class INewsletter(model.Schema):
         ),
         value_type=relationfield.schema.RelationChoice(
             title=u"content_aggretation_source",
-            source=CatalogSource(),
+            vocabulary="plone.app.vocabularies.Catalog",
         ),
         required=False,
     )
