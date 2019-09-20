@@ -1,28 +1,16 @@
 # -*- coding: utf-8 -*-
 from BeautifulSoup import BeautifulSoup
-from email.Header import Header
-from email.MIMEImage import MIMEImage
 from html2text import HTML2Text
-from htmllib import HTMLParser
 from plone import api
-from plone.namedfile.scaling import ImageScale
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter.config import PLACEHOLDERS
 from Products.EasyNewsletter.interfaces import IBeforePersonalizationEvent
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
-from Products.EasyNewsletter.utils.base import safe_portal_encoding
-from Products.EasyNewsletter.utils.ENLHTMLParser import ENLHTMLParser
-from urlparse import urlparse
-from zope.component import getMultiAdapter
 from zope.event import notify
 from zope.interface import implementer
 
-import cStringIO
-import formatter
 import jinja2
 import logging
-import urllib
-import warnings
 
 
 log = logging.getLogger("Products.EasyNewsletter")

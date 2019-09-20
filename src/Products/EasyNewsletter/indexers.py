@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from plone.indexer import indexer
+# from plone.indexer import indexer
 
 
 # from Products.EasyNewsletter.interfaces import IENLSubscriber
