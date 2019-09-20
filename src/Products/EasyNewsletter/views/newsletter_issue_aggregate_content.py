@@ -19,7 +19,7 @@ class NewsletterIssueAggregateContent(BrowserView):
     def render_aggregation_sources(self):
         """
         """
-        results_text = u""
+        results_text = b""
         portal = api.portal.get()
         sources = self.context.content_aggregation_sources
         for source in sources:
