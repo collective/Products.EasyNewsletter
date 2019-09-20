@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from plone import api
 from plone.app.textfield import RichTextValue
-from Products.CMFPlone.utils import safe_encode
+from Products.CMFPlone.utils import safe_unicode
 from Products.Five.browser import BrowserView
 
 
@@ -19,7 +19,7 @@ class NewsletterIssueAggregateContent(BrowserView):
     def render_aggregation_sources(self):
         """
         """
-        results_text = b""
+        results_text = u""
         portal = api.portal.get()
         sources = self.context.content_aggregation_sources
         for source in sources:
@@ -40,4 +40,4 @@ class NewsletterIssueAggregateContent(BrowserView):
             template_id = source_obj.aggregation_template
             template_obj = portal.restrictedTraverse(str(template_id))
             results_text += template_obj(result_info=result_info)
-        return safe_encode(results_text)
+        return safe_unicode(results_text)
