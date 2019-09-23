@@ -8,7 +8,6 @@ from plone.autoform import directives
 from plone.dexterity.content import Container
 from plone.namedfile import field as namedfile
 from plone.supermodel import model
-from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter import _
 from z3c import relationfield
 from zope.interface import implementer
