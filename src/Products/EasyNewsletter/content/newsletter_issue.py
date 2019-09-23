@@ -30,12 +30,11 @@ def get_default_prologue(parent):
     """
     prologue_output = u""
     if INewsletter.providedBy(parent) and parent.__parent__:
-        prologue_output = parent.default_prologue.output
+        prologue_output = parent.default_prologue.raw
     default_prologue = textfield.RichTextValue(
         raw=prologue_output,
         mimeType="text/html",
         outputMimeType="text/x-plone-outputfilters-html",
-        encoding="utf-8",
     )
     return default_prologue
 
@@ -46,12 +45,11 @@ def get_default_epilogue(parent):
     """
     epilogue_output = u""
     if INewsletter.providedBy(parent) and parent.__parent__:
-        epilogue_output = parent.default_epilogue.output
+        epilogue_output = parent.default_epilogue.raw
     default_epilogue = textfield.RichTextValue(
         raw=epilogue_output,
         mimeType="text/html",
         outputMimeType="text/x-plone-outputfilters-html",
-        encoding="utf-8",
     )
     return default_epilogue
 
@@ -239,7 +237,6 @@ class NewsletterIssue(Container):
             img_src = enl.absolute_url() + "/@@images/banner"
         return img_src
 
-    # bbb: we should print a deprecation message here
     def getHeader(self):
         if self.prologue:
             text = self.prologue.output
@@ -247,7 +244,6 @@ class NewsletterIssue(Container):
             text = u''
         return text
 
-    # bbb: we should print a deprecation message here
     def getFooter(self):
         if self.epilogue:
             text = self.epilogue.output
@@ -255,10 +251,9 @@ class NewsletterIssue(Container):
             text = u''
         return text
 
-    # bbb: we should print a deprecation message here
     def getText(self):
         if self.text:
-            text = safe_unicode(self.text.output)
+            text = self.text.output
         else:
             text = u''
         return text

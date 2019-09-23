@@ -11,8 +11,7 @@ class NewsletterIssueAggregateContent(BrowserView):
         self.context.text = RichTextValue(
             raw=text,
             mimeType="text/html",
-            outputMimeType="text/x-plone-outputfilters-html",
-            encoding="utf-8",
+            outputMimeType="text/html",
         )
         return self.request.response.redirect(self.context.absolute_url(), status=301)
 

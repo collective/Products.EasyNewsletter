@@ -62,14 +62,12 @@ class EasyNewsletterTests(unittest.TestCase):
             raw=prologue_output,
             mimeType="text/html",
             outputMimeType="text/x-plone-outputfilters-html",
-            encoding="utf-8",
         )
         epilogue_output = self.newsletter.default_epilogue.output
         self.default_epilogue = RichTextValue(
             raw=epilogue_output,
             mimeType="text/html",
             outputMimeType="text/x-plone-outputfilters-html",
-            encoding="utf-8",
         )
 
         # Set up a mock mailhost
@@ -102,7 +100,6 @@ class EasyNewsletterTests(unittest.TestCase):
             raw=body,
             mimeType="text/html",
             outputMimeType="text/x-plone-outputfilters-html",
-            encoding="utf-8",
         )
         self.issue.prologue = self.default_prologue
         self.issue.epilogue = self.default_epilogue
@@ -421,7 +418,7 @@ class EasyNewsletterTests(unittest.TestCase):
         scales = self.portal.restrictedTraverse(image_scales_url)
         scale_view = scales.scale(fieldname=stack[0], scale=stack[1])
         image_scale = scale_view()
-        body = '<img src="{0}"/>'.format(image_scale.absolute_url())
+        body = u'<img src="{0}"/>'.format(image_scale.absolute_url())
         zt.commit()
         msg = self.send_sample_message(body)
         parsed_payloads = parsed_payloads_from_msg(msg)

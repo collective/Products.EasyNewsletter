@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from plone import api
 from plone.protect.interfaces import IDisableCSRFProtection
+from Products.CMFPlone.utils import safe_unicode
 from Products.Five.browser import BrowserView
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
@@ -49,9 +50,8 @@ class DailyIssueView(BrowserView):
 
         # workaround because of this:
         # https://community.plone.org/t/icontextawaredefaultfactory-has-wrong-context-and-no-acquisition-chain-if-called-in-python/9119
-
-        self.issue.prologue = self.context.default_prologue
-        self.issue.epilogue = self.context.default_epilogue
+        self.issue.prologue = safe_unicode(self.context.default_prologue)
+        self.issue.epilogue = safe_unicode(self.context.default_epilogue)
         self.issue.content_aggregation_sources = self.context.content_aggregation_sources
         self.issue.output_template = self.context.output_template
 
