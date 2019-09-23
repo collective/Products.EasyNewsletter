@@ -4,7 +4,6 @@
         i18n:domain="plone" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
   <!-- enabled behaviors -->
   <property name="behaviors" purge="false">
-    <element value="plone.app.referenceablebehavior.referenceable.IReferenceable" />
     <element value="Products.EasyNewsletter.collection_as_newsletter_aggregation_source" />
   </property>
 </object>

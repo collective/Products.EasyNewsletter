@@ -4,7 +4,7 @@ from setuptools import find_packages
 from setuptools import setup
 
 
-version = '4.0.0.dev0'
+version = '5.0.0.dev0'
 long_description = (
     open('README.rst').read() + '\n'
     + open('CHANGES.rst').read()
@@ -21,6 +21,7 @@ setup(
         'Framework :: Plone :: 5.2',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.7',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
     keywords='Plone Newsletter Mailing Email Mailinglist',
@@ -36,27 +37,21 @@ setup(
     zip_safe=False,
     install_requires=[
         'Plone',
-        'BeautifulSoup',
         'zope.formlib',
         'jinja2',
         'nameparser',
         'plone.api',
         'plone.app.upgrade',
-        'Products.Archetypes',
-        'Products.ATContentTypes',
         'Products.CMFPlone',
-        'Products.TemplateFields',
-        'archetypes.referencebrowserwidget',
-        'plone.app.referenceablebehavior',
         'plone.app.registry',
         'plone.resource',
+        'beautifulsoup4',
         'setuptools',
-        'stoneagehtml',
         'plone.protect>=3.1.1',
-        'plone4.csrffixes>=1.1',
         'emails',
         'premailer',
         'html2text',
+        'email_validator',
     ],
     extras_require=dict(
         test=[
@@ -66,17 +61,6 @@ setup(
             'plone.app.contenttypes',
             'plone.app.robotframework[debug]',
             'pdbpp'
-        ],
-        fmp=['inqbus.plone.fastmemberproperties'],
-        zamqp=[
-            'collective.zamqp',
-            'msgpack-python',
-        ],
-        taskqueue=[
-            'collective.taskqueue',
-        ],
-        taskqueue_redis=[
-            'collective.taskqueue[redis]',
         ],
     ),
     entry_points="""

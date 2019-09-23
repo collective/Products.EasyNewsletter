@@ -140,7 +140,7 @@ class NewsletterIssueSend(BrowserView):
                 self.mail_host.send(m.as_string())
                 log.info('Send newsletter to "%s"' % receiver['email'])
                 send_counter += 1
-            except Exception, e:  # noqa
+            except Exception as e:  # noqa
                 log.exception(
                     'Sending newsletter to "%s" failed, with error "%s"!'
                     % (receiver['email'], e))
@@ -206,7 +206,7 @@ class NewsletterIssueSend(BrowserView):
 
         # only send to all subscribers if the exclude all subscribers
         # checkbox, was not set.
-        # get ENLSubscribers
+        # get Subscribers
         enl_receivers = []
         if not self.context.exclude_all_subscribers:
             for subscriber_brain in api.content.find(portal_type='Newsletter Subscriber', context=enl):

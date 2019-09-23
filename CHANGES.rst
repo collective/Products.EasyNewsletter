@@ -1,5 +1,10 @@
 Changelog
 =========
+5.0.0 (unreleased)
+
+- Remove Archetypes from code base and remove Archetypes dependencies
+  [MrTango]
+
 
 4.0.0 (unreleased)
 

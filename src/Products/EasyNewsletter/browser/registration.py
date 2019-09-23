@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from AccessControl.SecurityManagement import newSecurityManager
 from Acquisition import aq_inner
-from email.MIMEText import MIMEText
+from email_validator import EmailNotValidError
+from email_validator import validate_email
 from logging import getLogger
 from plone import api
 from plone.i18n.normalizer.interfaces import IIDNormalizer
@@ -12,18 +13,16 @@ from Products.EasyNewsletter.content.newsletter import INewsletter
 from Products.EasyNewsletter.content.newsletter_subscriber import INewsletterSubscriber
 from Products.EasyNewsletter.interfaces import IENLRegistrationTool
 from Products.EasyNewsletter.utils.base import execute_under_special_role
-from Products.EasyNewsletter.utils.mail import get_email_charset
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
-from Products.validation.validators.BaseValidators import EMAIL_RE
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
 from zope.component import queryUtility
 from zope.interface import alsoProvides
 
+import emails
 import OFS
-import re
 
 
 try:
@@ -34,7 +33,6 @@ except ImportError:
 
 
 logger = getLogger("ENL Registration")
-EMAIL_RE = "^" + EMAIL_RE
 
 
 class SubscriberView(BrowserView):
@@ -66,8 +64,19 @@ class SubscriberView(BrowserView):
     def register_subscriber(self):
         """
         """
-        charset = get_email_charset()
+        messages = IStatusMessage(self.request)
+        path_to_easynewsletter = self.request.get("newsletter")
+        # remove leading slash from paths like: /mynewsletter
+        path_to_easynewsletter = path_to_easynewsletter.strip("/")
+        newsletter_container = self.portal.unrestrictedTraverse(path_to_easynewsletter)
+
         subscriber = self.request.get("subscriber")
+        try:
+            validate_email(subscriber)
+        except EmailNotValidError as e:
+            messages.addStatusMessage(_("Please enter a valid email address.\n{0}".format(e)), "error")
+            return self._msg_redirect(newsletter_container)
+
         lastname = self.request.get("name", "")
         firstname = self.request.get("firstname", "")
         name_prefix = self.request.get("name_prefix", "")
@@ -78,20 +87,7 @@ class SubscriberView(BrowserView):
         nl_language = self.request.get("nl_language", current_language)
         salutation = self.request.get("salutation", "")
         organization = self.request.get("organization", "")
-        path_to_easynewsletter = self.request.get("newsletter")
-        # remove leading slash from paths like: /mynewsletter
-        path_to_easynewsletter = path_to_easynewsletter.strip("/")
-        newsletter_container = self.portal.unrestrictedTraverse(path_to_easynewsletter)
-        messages = IStatusMessage(self.request)
 
-        if not subscriber:
-            messages.addStatusMessage(_("Please enter a valid email address."), "error")
-            return self._msg_redirect(newsletter_container)
-
-        mo = re.search(EMAIL_RE, subscriber)
-        if not mo:
-            messages.addStatusMessage(_("Please enter a valid email address."), "error")
-            return self._msg_redirect(newsletter_container)
         norm = queryUtility(IIDNormalizer)
         normalized_subscriber = norm.normalize(subscriber)
         if normalized_subscriber in newsletter_container.objectIds():
@@ -134,11 +130,12 @@ class SubscriberView(BrowserView):
             settings = get_portal_mail_settings()
             msg_sender = settings.email_from_address
             msg_receiver = subscriber
-            msg = MIMEText(msg_text, "plain", charset)
-            msg["To"] = msg_receiver
-            msg["From"] = msg_sender
-            msg["Subject"] = msg_subject
-            # msg.epilogue   = ''
+            msg = emails.Message(
+                text=msg_text,
+                subject=msg_subject,
+                mail_from=msg_sender,
+                mail_to=msg_receiver,
+            )
             self.portal.MailHost.send(msg.as_string())
 
             messages.addStatusMessage(
@@ -223,7 +220,7 @@ class SubscriberView(BrowserView):
         return retval
 
 
-class RegistrationData(OFS.SimpleItem.SimpleItem):
+class RegistrationData(OFS.SimpleItem.Item):
     """ holds data from ENL registration form
     """
 
@@ -231,7 +228,7 @@ class RegistrationData(OFS.SimpleItem.SimpleItem):
         self.id = id
         for key, value in kw.items():
             setattr(self, key, value)
-        super(RegistrationData, self).__init__(id)
+        # super(RegistrationData, self).__init__()
 
     @property
     def title(self):
@@ -263,10 +260,7 @@ class UnsubscribeView(BrowserView):
             unsubscribe_url = (
                 self.newsletter_url + "/unsubscribe?subscriber=" + subscriber_brain.UID
             )
-            msg_text = """%s: %s""" % (
-                newsletter.unsubscribe_string,
-                unsubscribe_url,
-            )
+            msg_text = """%s: %s""" % (newsletter.unsubscribe_string, unsubscribe_url)
             settings = get_portal_mail_settings()
             api.portal.send_email(
                 recipient=subscriber,

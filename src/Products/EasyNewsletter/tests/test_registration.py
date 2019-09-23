@@ -8,6 +8,7 @@ from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from plone.testing.z2 import Browser
 from Products.CMFPlone.tests.utils import MockMailHost
+from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter.config import IS_PLONE_5
 from Products.EasyNewsletter.interfaces import IENLRegistrationTool
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
@@ -85,7 +86,7 @@ class RegistrationIntegrationTests(unittest.TestCase):
         parsed_payloads = parsed_payloads_from_msg(msg)
         self.assertIn('To: max@example.com', msg)
         self.assertIn('From: portal@plone.test', msg)
-        self.assertIn('confirm-subscriber?hkey=', parsed_payloads['text/plain'])
+        self.assertIn('confirm-subscriber?hkey=', safe_unicode(parsed_payloads['text/plain']))
 
         enl_reg_entry = self.enl_reg_tool.values()[0]
         self.assertEqual(

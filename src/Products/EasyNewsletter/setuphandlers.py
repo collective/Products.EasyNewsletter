@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import INonInstallable
-from Products.EasyNewsletter import upgrades
 from zope.interface import implementer
 
 import logging
@@ -84,4 +83,3 @@ def import_various(context):
     logger = context.getLogger('Products.EasyNewsletter')
     site = context.getSite()
     add_catalog_indexes(site, logger)
-    upgrades.apply_referenceable_behavior(site)

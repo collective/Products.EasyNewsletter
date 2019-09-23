@@ -22,14 +22,14 @@ log = logging.getLogger("Products.EasyNewsletter")
 
 @provider(IContextAwareDefaultFactory)
 def get_default_plone_receiver_members(parent):
-    if not INewsletter.providedBy(parent):
+    if not INewsletter.providedBy(parent) or not parent.__parent__:
         return set()
     return parent.plone_receiver_members
 
 
 @provider(IContextAwareDefaultFactory)
 def get_default_plone_receiver_groups(parent):
-    if not INewsletter.providedBy(parent):
+    if not INewsletter.providedBy(parent) or not parent.__parent__:
         return set()
     return parent.plone_receiver_groups
 

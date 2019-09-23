@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from plone import api
 from plone.app.textfield import RichTextValue
+from Products.CMFPlone.utils import safe_unicode
 from Products.Five.browser import BrowserView
 
 
@@ -10,8 +11,7 @@ class NewsletterIssueAggregateContent(BrowserView):
         self.context.text = RichTextValue(
             raw=text,
             mimeType="text/html",
-            outputMimeType="text/x-plone-outputfilters-html",
-            encoding="utf-8",
+            outputMimeType="text/html",
         )
         return self.request.response.redirect(self.context.absolute_url(), status=301)
 
@@ -39,4 +39,4 @@ class NewsletterIssueAggregateContent(BrowserView):
             template_id = source_obj.aggregation_template
             template_obj = portal.restrictedTraverse(str(template_id))
             results_text += template_obj(result_info=result_info)
-        return results_text
+        return safe_unicode(results_text)

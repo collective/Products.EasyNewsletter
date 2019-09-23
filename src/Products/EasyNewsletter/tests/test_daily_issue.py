@@ -37,11 +37,11 @@ class DailyIssueBaseTestCase(unittest.TestCase):
 
         self.folder.invokeFactory("Newsletter", "daily-news")
         self.newsletter = self.folder["daily-news"]
-        self.newsletter.title = "Daily News"
+        self.newsletter.title = u"Daily News"
         # XXX check if we could ovaid this by using defaults from site settings
-        self.newsletter.sender_email = "newsletter@acme.com"
-        self.newsletter.sender_name = "ACME newsletter"
-        self.newsletter.test_email = "test@acme.com"
+        self.newsletter.sender_email = u"newsletter@acme.com"
+        self.newsletter.sender_name = u"ACME newsletter"
+        self.newsletter.test_email = u"test@acme.com"
 
         news_collection = api.content.create(
             type="Collection",
@@ -67,7 +67,7 @@ class DailyIssueBaseTestCase(unittest.TestCase):
             type="Newsletter Subscriber",
             id="subscriber01",
             container=self.newsletter,
-            email="jane@example.com",
+            email=u"jane@example.com",
         )
         self.view = getMultiAdapter(
             (self.newsletter, self.layer["request"]), name="daily-issue"

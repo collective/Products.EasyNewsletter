@@ -8,7 +8,7 @@ from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from plone.app.textfield import RichTextValue
 from Products.CMFPlone.tests.utils import MockMailHost
-from Products.EasyNewsletter.config import IS_PLONE_5
+from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter.content.newsletter import INewsletter
 from Products.EasyNewsletter.content.newsletter_issue import INewsletterIssue
 from Products.EasyNewsletter.interfaces import IBeforePersonalizationEvent
@@ -36,10 +36,7 @@ def dummy_image(image=None):
 
     # filename = open(os.path.join(TESTS_HOME, 'img1.png'), 'rb')
     filename = os.path.join(os.path.dirname(__file__), u"img1.png")
-    if not IS_PLONE_5:  # BBB
-        image.edit(image=open(filename, "r").read())
-    else:
-        return NamedBlobImage(data=open(filename, "r").read(), filename=filename)
+    return NamedBlobImage(data=open(filename, "rb").read(), filename=filename)
 
 
 class EasyNewsletterTests(unittest.TestCase):
@@ -65,14 +62,12 @@ class EasyNewsletterTests(unittest.TestCase):
             raw=prologue_output,
             mimeType="text/html",
             outputMimeType="text/x-plone-outputfilters-html",
-            encoding="utf-8",
         )
         epilogue_output = self.newsletter.default_epilogue.output
         self.default_epilogue = RichTextValue(
             raw=epilogue_output,
             mimeType="text/html",
             outputMimeType="text/x-plone-outputfilters-html",
-            encoding="utf-8",
         )
 
         # Set up a mock mailhost
@@ -105,7 +100,6 @@ class EasyNewsletterTests(unittest.TestCase):
             raw=body,
             mimeType="text/html",
             outputMimeType="text/x-plone-outputfilters-html",
-            encoding="utf-8",
         )
         self.issue.prologue = self.default_prologue
         self.issue.epilogue = self.default_epilogue
@@ -177,10 +171,12 @@ class EasyNewsletterTests(unittest.TestCase):
         view()
         self.assertEqual(len(self.mailhost.messages), 1)
         self.assertTrue(self.mailhost.messages[0])
-        msg = str(self.mailhost.messages[0])
-        # parsed_payloads = parsed_payloads_from_msg(msg)
-        self.assertIn("To: Test Member <test@acme.com>", msg)
-        self.assertIn("From: ACME newsletter <newsletter@acme.com>", msg)
+        msg = safe_unicode(self.mailhost.messages[0])
+        parsed_payloads = parsed_payloads_from_msg(msg)
+        self.assertIn(u"Test Member", parsed_payloads['to'])
+        self.assertIn(u"<test@acme.com>", parsed_payloads['to'])
+        self.assertIn(u"<newsletter@acme.com>", parsed_payloads['from'])
+        self.assertIn(u"ACME newsletter", parsed_payloads['from'])
 
     def test_send_test_personalization(self):
         # with all infos
@@ -263,28 +259,31 @@ class EasyNewsletterTests(unittest.TestCase):
 
         msg1 = str(self.mailhost.messages[0])
         parsed_payloads1 = parsed_payloads_from_msg(msg1)
-        self.assertIn("To: Jane Doe <jane@example.com>", msg1)
-        self.assertIn("Dear Ms. Jane Doe", parsed_payloads1["text/html"])
+        self.assertIn(u"Jane Doe", parsed_payloads1['to'])
+        self.assertIn(u"<jane@example.com>", parsed_payloads1['to'])
+        self.assertIn(u"Dear Ms. Jane Doe", safe_unicode(parsed_payloads1["text/html"]))
 
         msg2 = str(self.mailhost.messages[1])
         parsed_payloads2 = parsed_payloads_from_msg(msg2)
-        self.assertIn("To: John Doe <john@example.com>", msg2)
-        self.assertIn("Dear John Doe", parsed_payloads2["text/html"])
+        self.assertIn(u"John Doe", parsed_payloads2['to'])
+        self.assertIn(u"Dear John Doe", safe_unicode(parsed_payloads2["text/html"]))
 
         msg3 = str(self.mailhost.messages[2])
         parsed_payloads3 = parsed_payloads_from_msg(msg3)
-        self.assertIn("To: Mustermann <max@example.com>", msg3)
-        self.assertIn("Dear Mustermann", parsed_payloads3["text/html"])
+        self.assertIn(u"Mustermann", parsed_payloads3['to'])
+        self.assertIn(u"<max@example.com>", parsed_payloads3['to'])
+        self.assertIn(u"Dear Mustermann", safe_unicode(parsed_payloads3["text/html"]))
 
         msg4 = str(self.mailhost.messages[3])
         parsed_payloads4 = parsed_payloads_from_msg(msg4)
-        self.assertIn("To: Maxima <maxima@example.com>", msg4)
-        self.assertIn("Dear Maxima", parsed_payloads4["text/html"])
+        self.assertIn(u"Maxima", parsed_payloads4['to'])
+        self.assertIn(u"<maxima@example.com>", parsed_payloads4['to'])
+        self.assertIn(u"Dear Maxima", safe_unicode(parsed_payloads4["text/html"]))
 
         msg5 = str(self.mailhost.messages[4])
         parsed_payloads5 = parsed_payloads_from_msg(msg5)
-        self.assertIn("To: leo@example.com", msg5)
-        self.assertIn("Sir or Madam", parsed_payloads5["text/html"])
+        self.assertIn(u"leo@example.com", parsed_payloads5['to'])
+        self.assertIn(u"Sir or Madam", safe_unicode(parsed_payloads5["text/html"]))
 
     def test_before_the_personalization_filter(self):
         def _personalize(event):
@@ -360,26 +359,26 @@ class EasyNewsletterTests(unittest.TestCase):
             self.assertEqual(len(self.mailhost.messages), 2)
             msg1 = str(self.mailhost.messages[0])
             parsed_payloads1 = parsed_payloads_from_msg(msg1)
-            self.assertIn("To: Jane Doe <jane@example.com>", msg1)
-            self.assertIn("Dear Ms. Jane Doe", parsed_payloads1["text/html"])
+            self.assertIn(u"Jane Doe", parsed_payloads1['to'])
+            self.assertIn(u"<jane@example.com>", parsed_payloads1['to'])
+            self.assertIn(u"Dear Ms. Jane Doe", safe_unicode(parsed_payloads1["text/html"]))
 
             msg2 = str(self.mailhost.messages[1])
             parsed_payloads2 = parsed_payloads_from_msg(msg2)
-            self.assertIn("To: john@example.com", msg2)
-            self.assertIn("Dear john@example.com", parsed_payloads2["text/html"])
+            self.assertIn(u"john@example.com", parsed_payloads2['to'])
+            self.assertIn(u"Dear john@example.com", safe_unicode(parsed_payloads2["text/html"]))
         finally:
             getGlobalSiteManager().unregisterHandler(
                 _personalize, [IBeforePersonalizationEvent]
             )
 
     def test_send_test_issue_with_image(self):
-        body = '<img src="{0}"/>'.format(self.image.absolute_url_path())
+        body = u'<img src="{0}"/>'.format(self.image.absolute_url_path())
         msg = self.send_sample_message(body)
         parsed_payloads = parsed_payloads_from_msg(msg)
-
-        self.assertIn('src="cid:image', parsed_payloads["text/html"])
-        self.assertIn("Content-ID: <image", msg)
-        self.assertIn("Content-Type: image/png;", msg)
+        self.assertIn(u'src="cid:image', safe_unicode(parsed_payloads["text/html"]))
+        self.assertIn(u"Content-ID: <image", safe_unicode(msg))
+        self.assertIn(u"Content-Type: image/png;", safe_unicode(msg))
 
     def test_send_test_issue_with_scale_image(self):
         body = '<img src="{0}/@@images/image/thumb"/>'.format(
@@ -396,19 +395,19 @@ class EasyNewsletterTests(unittest.TestCase):
 
         msg = self.send_sample_message(body)
         parsed_payloads = parsed_payloads_from_msg(msg)
-        self.assertIn('src="cid:thumb', parsed_payloads["text/html"])
-        self.assertIn("Content-ID: <thumb", msg)
-        self.assertIn("Content-Type: image/png;", msg)
+        self.assertIn(u'src="cid:thumb', safe_unicode(parsed_payloads["text/html"]))
+        self.assertIn(u"Content-ID: <thumb", safe_unicode(msg))
+        self.assertIn(u"Content-Type: image/png;", safe_unicode(msg))
 
     def test_send_test_issue_with_resolveuid_image(self):
         body = '<img src="../../resolveuid/{0}"/>'.format(self.image.UID())
 
         msg = self.send_sample_message(body)
         parsed_payloads = parsed_payloads_from_msg(msg)
-        self.assertNotIn("resolveuid", parsed_payloads["text/html"])
-        self.assertIn('src="cid:image', parsed_payloads["text/html"])
-        self.assertIn("Content-ID: <image", msg)
-        self.assertIn("Content-Type: image/png;", msg)
+        self.assertNotIn("resolveuid", safe_unicode(parsed_payloads["text/html"]))
+        self.assertIn(u'src="cid:image', safe_unicode(parsed_payloads["text/html"]))
+        self.assertIn(u"Content-ID: <image", msg)
+        self.assertIn(u"Content-Type: image/png;", msg)
 
     def test_send_test_issue_with_resolveuid_scale_image(self):
         path = "image/thumb"
@@ -419,14 +418,14 @@ class EasyNewsletterTests(unittest.TestCase):
         scales = self.portal.restrictedTraverse(image_scales_url)
         scale_view = scales.scale(fieldname=stack[0], scale=stack[1])
         image_scale = scale_view()
-        body = '<img src="{0}"/>'.format(image_scale.absolute_url())
+        body = u'<img src="{0}"/>'.format(image_scale.absolute_url())
         zt.commit()
         msg = self.send_sample_message(body)
         parsed_payloads = parsed_payloads_from_msg(msg)
-        self.assertNotIn("resolveuid", parsed_payloads["text/html"])
-        self.assertIn('src="cid:{0}"'.format(image_scale.__name__), parsed_payloads["text/html"])
-        self.assertIn("Content-ID: <{0}>".format(image_scale.__name__), msg)
-        self.assertIn("Content-Type: image/png;", msg)
+        self.assertNotIn(u"resolveuid", safe_unicode(parsed_payloads["text/html"]))
+        self.assertIn(u'src="cid:{0}"'.format(image_scale.__name__), safe_unicode(parsed_payloads["text/html"]))
+        self.assertIn(u"Content-ID: <{0}>".format(image_scale.__name__), msg)
+        self.assertIn(u"Content-Type: image/png;", msg)
 
     def test_mailonly_filter_in_issue_public_view(self):
         self.issue = api.content.create(
@@ -456,7 +455,7 @@ class EasyNewsletterTests(unittest.TestCase):
         view_result = view()
 
         self.assertTrue(
-            "mailonly" not in view_result,
+            u"mailonly" not in safe_unicode(view_result),
             "get-public-body view contains mailonly elements,"
             " this should filtert out!",
         )

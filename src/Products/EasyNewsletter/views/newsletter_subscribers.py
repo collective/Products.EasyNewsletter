@@ -46,7 +46,7 @@ class NewsletterSubscribers(BrowserView):
         # Plone subscribers
         for brain in api.content.find(**query):
             if brain.salutation:
-                salutation = config.SALUTATION.getValue(brain.salutation, "")
+                salutation = config.SALUTATION.get(brain.salutation, "")
             else:
                 salutation = ""
             subscribers.append(

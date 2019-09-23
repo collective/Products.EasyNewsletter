@@ -1,4 +1,6 @@
 <configure xmlns="http://namespaces.zope.org/zope">
   <include file="4001.zcml" />
   <include file="4002.zcml" />
+  <include file="4003.zcml" />
+  <include file="4004.zcml" />
 </configure>

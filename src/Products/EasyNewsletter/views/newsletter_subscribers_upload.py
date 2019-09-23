@@ -69,7 +69,7 @@ class NewsletterSubscribersUpload(BrowserView):
 
         # Show error if no data has been provided in the file
         reader = UnicodeReader(filename)
-        header = reader.next()
+        header = next(reader)
         if header != [x for x in CSV_HEADER]:
             log.info("Got header %s\n Expected:%s" % (
                 header, CSV_HEADER))
@@ -213,7 +213,7 @@ class UnicodeReader:
         self.reader = csv.reader(f, dialect=dialect, **kwds)
 
     def next(self):
-        row = self.reader.next()
+        row = next(self.reader)
         return [six.text_type(s, "utf-8") for s in row]
 
     def __iter__(self):

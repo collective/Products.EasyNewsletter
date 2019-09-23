@@ -217,7 +217,7 @@
             <!-- MODULE ROW // -->
             <tr>
               <td align="center" valign="top">
-                <span tal:replace="structure context/getText" />
+                <span tal:replace="structure python:context.getText()" />
               </td>
             </tr>
             <!-- // MODULE ROW -->

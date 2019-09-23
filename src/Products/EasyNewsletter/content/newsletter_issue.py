@@ -3,7 +3,6 @@ from .newsletter import get_content_aggregation_sources_base_path
 from .newsletter import INewsletter
 from plone import schema
 from plone.app import textfield
-from plone.app import vocabularies as vocabs
 from plone.app.z3cform.widget import SingleCheckBoxBoolFieldWidget
 from plone.autoform import directives
 from plone.dexterity.content import Container
@@ -20,7 +19,7 @@ from zope.schema.interfaces import IContextAwareDefaultFactory
 def get_default_output_template(parent):
     """ get ouput template from parent Newsletter
     """
-    if INewsletter.providedBy(parent):
+    if INewsletter.providedBy(parent) and parent.__parent__:
         return parent.output_template
 
 
@@ -29,13 +28,12 @@ def get_default_prologue(parent):
     """ get prologue from parent Newsletter
     """
     prologue_output = u""
-    if INewsletter.providedBy(parent):
-        prologue_output = parent.default_prologue.output
+    if INewsletter.providedBy(parent) and parent.__parent__:
+        prologue_output = parent.default_prologue.raw
     default_prologue = textfield.RichTextValue(
         raw=prologue_output,
         mimeType="text/html",
         outputMimeType="text/x-plone-outputfilters-html",
-        encoding="utf-8",
     )
     return default_prologue
 
@@ -45,13 +43,12 @@ def get_default_epilogue(parent):
     """ get epilogue from parent Newsletter
     """
     epilogue_output = u""
-    if INewsletter.providedBy(parent):
-        epilogue_output = parent.default_epilogue.output
+    if INewsletter.providedBy(parent) and parent.__parent__:
+        epilogue_output = parent.default_epilogue.raw
     default_epilogue = textfield.RichTextValue(
         raw=epilogue_output,
         mimeType="text/html",
         outputMimeType="text/x-plone-outputfilters-html",
-        encoding="utf-8",
     )
     return default_epilogue
 
@@ -60,7 +57,7 @@ def get_default_epilogue(parent):
 def get_default_content_aggregation_sources(parent):
     """ get content_aggregation_sources from parent Newsletter
     """
-    if INewsletter.providedBy(parent):
+    if INewsletter.providedBy(parent) and parent.__parent__:
         return parent.content_aggregation_sources
 
 
@@ -100,7 +97,7 @@ class INewsletterIssue(model.Schema):
         ),
         value_type=relationfield.schema.RelationChoice(
             title=u"content_aggretation_source",
-            source=vocabs.catalog.CatalogSource(),
+            vocabulary="plone.app.vocabularies.Catalog",
         ),
         defaultFactory=get_default_content_aggregation_sources,
         required=False,
@@ -239,7 +236,6 @@ class NewsletterIssue(Container):
             img_src = enl.absolute_url() + "/@@images/banner"
         return img_src
 
-    # bbb: we should print a deprecation message here
     def getHeader(self):
         if self.prologue:
             text = self.prologue.output
@@ -247,7 +243,6 @@ class NewsletterIssue(Container):
             text = u''
         return text
 
-    # bbb: we should print a deprecation message here
     def getFooter(self):
         if self.epilogue:
             text = self.epilogue.output
@@ -255,7 +250,6 @@ class NewsletterIssue(Container):
             text = u''
         return text
 
-    # bbb: we should print a deprecation message here
     def getText(self):
         if self.text:
             text = self.text.output

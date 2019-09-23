@@ -44,7 +44,7 @@ Plone 5.1 / Python 2.7
 ##### Behaviors
 
 - Newsletter: Plone users/groups as recipients
-- Newsletter: Collection as source
+- Newsletter: Collection as source   [make sure existing Collections have the behavior set with values]
 
 
 - Implement CT's methods mostly as views/utilities instead of instance methods
