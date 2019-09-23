@@ -5,6 +5,9 @@ Changelog
 - Remove Archetypes from code base and remove Archetypes dependencies
   [MrTango]
 
+- Make code compatible with Python 3.7/2.7
+  [MrTango]
+
 
 4.0.0 (unreleased)
 
