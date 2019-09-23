@@ -1,5 +1,11 @@
 Changelog
 =========
+5.0.0a2 (unreleased)
+--------------------
+
+- Nothing changed yet.
+
+
 5.0.0a1 (2019-09-23)
 
 - Remove Archetypes from code base and remove Archetypes dependencies
