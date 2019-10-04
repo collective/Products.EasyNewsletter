@@ -1,6 +1,12 @@
 Changelog
 =========
 
+5.0.0a3 (unreleased)
+--------------------
+
+- Nothing changed yet.
+
+
 5.0.0a2 (2019-10-04)
 
 - Fix setup.py by providing z3c.autoinclude entrypoint
