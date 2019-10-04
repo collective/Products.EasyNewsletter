@@ -1,6 +1,12 @@
 Changelog
 =========
-5.0.0 (unreleased)
+
+5.0.0a2 (2019-10-04)
+
+- Fix setup.py by providing z3c.autoinclude entrypoint
+  [MrTango]
+
+5.0.0a1 (2019-09-23)
 
 - Remove Archetypes from code base and remove Archetypes dependencies
   [MrTango]
