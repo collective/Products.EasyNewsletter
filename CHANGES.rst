@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.0a4 (unreleased)
+5.0.0a4 (2019-10-04)
 --------------------
 
 - Fix upgrade step 4004
