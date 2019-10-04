@@ -1,6 +1,6 @@
 include *.rst
 
-graft Products
+graft src
 graft docs
 
 global-exclude *.pyc

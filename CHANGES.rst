@@ -1,10 +1,11 @@
 Changelog
 =========
 
-5.0.0a3 (unreleased)
+5.0.0a3 (2019-10-04)
 --------------------
 
-- Nothing changed yet.
+- Fix MANIFEST after changing package structure
+  [MrTango]
 
 
 5.0.0a2 (2019-10-04)
