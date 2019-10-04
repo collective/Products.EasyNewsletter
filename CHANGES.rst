@@ -4,7 +4,8 @@ Changelog
 5.0.0a4 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Fix upgrade step 4004
+  MrTango
 
 
 5.0.0a3 (2019-10-04)
