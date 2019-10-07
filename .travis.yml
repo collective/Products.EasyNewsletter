@@ -57,6 +57,7 @@ script:
 #after_script:
 
 after_success:
+  - coverage run bin/test
   - python -m coverage.pickle2json
   - coverage combine
   - coveralls

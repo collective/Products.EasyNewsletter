@@ -1,5 +1,5 @@
 [report]
-include = Products/EasyNewsletter/*
+include = src/Products/EasyNewsletter/*
 omit =
     /home/*/.buildout/eggs/*
     /usr/*
