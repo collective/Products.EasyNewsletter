@@ -136,10 +136,11 @@ class DefaultDXIssueDataFetcher(object):
             logo_src = self.enl.absolute_url() + "/@@images/logo"
         self._issue_data["logo_src"] = logo_src
         self._issue_data["date"] = self.plone_view.toLocalizedTime(
-            self.issue.modified(), long_format=0
+            self.issue.effective(), long_format=0
         )
-        self._issue_data["month"] = self.issue.modified().month()
-        self._issue_data["year"] = self.issue.modified().year()
+        self._issue_data["month"] = self.issue.effective().month()
+        self._issue_data["year"] = self.issue.effective().year()
+        self._issue_data["calendar_week"] = self.issue.effective().strftime("%V")
         return self._issue_data
 
     def personalize(self, receiver, html):
@@ -163,6 +164,7 @@ class DefaultDXIssueDataFetcher(object):
         data["context"]["date"] = issue_data["date"]
         data["context"]["month"] = issue_data["month"]
         data["context"]["year"] = issue_data["year"]
+        data["context"]["calendar_week"] = issue_data["calendar_week"]
 
         notify(BeforePersonalizationEvent(data))
         template = jinja2.Template(safe_unicode(data["html"]))

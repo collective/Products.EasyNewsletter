@@ -1,10 +1,11 @@
 Changelog
 =========
 
-5.0.0a5 (unreleased)
+5.0.0a5 (2019-10-07)
 --------------------
 
-- Nothing changed yet.
+- Add placeholder for calendar_week
+  [MrTango]
 
 
 5.0.0a4 (2019-10-04)
