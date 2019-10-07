@@ -154,7 +154,7 @@ class DefaultDXIssueDataFetcher(object):
         data["context"]["fullname"] = self._fullname(receiver)
         data["context"]["salutation"] = self._salutation(receiver)
         data["context"]["unsubscribe_info"] = self._unsubscribe_info(receiver)
-        data["context"]["unsubscribe"] = data["context"]["unsubscribe"]["html"]
+        data["context"]["unsubscribe"] = data["context"]["unsubscribe_info"]["html"]
         data["context"]["UNSUBSCRIBE"] = data["context"]["unsubscribe"]
         data["context"]["subscriber_salutation"] = self._subscriber_salutation(receiver)
         data["context"]["SUBSCRIBER_SALUTATION"] = data["context"]["subscriber_salutation"]
