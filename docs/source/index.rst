@@ -302,19 +302,20 @@ Allowed placeholders
 
 The following placeholder can be used in the header, body and footer fields or the aggregation and output templates:
 
-* ``{{SUBSCRIBER_SALUTATION}}`` example: Dear Ms.
-* ``{{salutation}}`` example: Ms.
-* ``{{unsubscribe}}`` unsubscribe link to be included in emails
-* ``{{receiver}}``  example: ``{'salutation': 'Guten Tag', 'nl_language': 'de', 'fullname': 'Test Member', 'email': 'maik@planetcrazy.de'}``
-* ``{{language}}``  example: de
-* ``{{fullname}}``
-* ``{{issue_title}}``
-* ``{{issue_description}}``
-* ``{{banner_src}}``  Banner src url
-* ``{{logo_src}}``  Logo src url
-* ``{{date}}``  example: 30.05.2017
-* ``{{month}}``  example: 5
-* ``{{year}}``  example: 2017
+* ``{{ SUBSCRIBER_SALUTATION }}`` example: Dear Ms.
+* ``{{ salutation }}`` example: Ms.
+* ``{{ unsubscribe }}`` unsubscribe link to be included in emails
+* ``{{ receiver }}``  example: ``{'salutation': 'Guten Tag', 'nl_language': 'de', 'fullname': 'Test Member', 'email': 'maik@planetcrazy.de'}``
+* ``{{ language }}``  example: de
+* ``{{ fullname }}``
+* ``{{ issue_title }}``
+* ``{{ issue_description }}``
+* ``{{ banner_src }}``  Banner src url
+* ``{{ logo_src }}``  Logo src url
+* ``{{ date }}``  example: 30.05.2017
+* ``{{ month }}``  example: 5
+* ``{{ year }}``  example: 2017
+* ``{{ calendar_week }}``  example: 41
 
 
 Customize personalization (placeholders)
