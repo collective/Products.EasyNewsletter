@@ -26,7 +26,7 @@ matrix:
   fast_finish: true
   allow_failures:
     # - env: TOXENV=py37-Plone52
-    - env: TOXENV=py27-Plone52
+    # - env: TOXENV=py27-Plone52
 
 before_install:
   - virtualenv -p `which python` .
