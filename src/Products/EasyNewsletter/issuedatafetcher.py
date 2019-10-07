@@ -95,7 +95,7 @@ class DefaultDXIssueDataFetcher(object):
         unsubscribe_link = "{0}/unsubscribe?subscriber={1}".format(
             self.enl.absolute_url(), receiver["uid"]
         )
-        unsubscribe_markup = """<a href="{0}">{1}.</a>""".format(
+        unsubscribe_markup = """<a href="{0}" class="enl_unsubscribe_link">{1}.</a>""".format(
             unsubscribe_link, unsubscribe_text
         )
         return {
@@ -153,9 +153,11 @@ class DefaultDXIssueDataFetcher(object):
         data["context"]["language"] = self.enl.language
         data["context"]["fullname"] = self._fullname(receiver)
         data["context"]["salutation"] = self._salutation(receiver)
-        data["context"]["unsubscribe"] = self._unsubscribe_info(receiver)
-        data["context"]["UNSUBSCRIBE"] = data["context"]["unsubscribe"]["html"]
-        data["context"]["SUBSCRIBER_SALUTATION"] = self._subscriber_salutation(receiver)
+        data["context"]["unsubscribe_info"] = self._unsubscribe_info(receiver)
+        data["context"]["unsubscribe"] = data["context"]["unsubscribe"]["html"]
+        data["context"]["UNSUBSCRIBE"] = data["context"]["unsubscribe"]
+        data["context"]["subscriber_salutation"] = self._subscriber_salutation(receiver)
+        data["context"]["SUBSCRIBER_SALUTATION"] = data["context"]["subscriber_salutation"]
         # issue_data:
         data["context"]["issue_title"] = issue_data["title"]
         data["context"]["issue_description"] = issue_data["description"]

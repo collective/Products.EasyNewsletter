@@ -4,7 +4,8 @@ Changelog
 5.0.0a6 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Improve placeholder docs and implementation, only use lower case placeholders from now on
+  [MrTango]
 
 
 5.0.0a5 (2019-10-07)

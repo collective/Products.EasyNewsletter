@@ -302,9 +302,10 @@ Allowed placeholders
 
 The following placeholder can be used in the header, body and footer fields or the aggregation and output templates:
 
-* ``{{ SUBSCRIBER_SALUTATION }}`` example: Dear Ms.
+* ``{{ subscriber_salutation }}`` example: Dear Ms.
 * ``{{ salutation }}`` example: Ms.
 * ``{{ unsubscribe }}`` unsubscribe link to be included in emails
+* ``{{ unsubscribe_info }}`` unsubscribe info dict, provides: link, text and rendered html, which equals the unsubscribe placeholder.
 * ``{{ receiver }}``  example: ``{'salutation': 'Guten Tag', 'nl_language': 'de', 'fullname': 'Test Member', 'email': 'maik@planetcrazy.de'}``
 * ``{{ language }}``  example: de
 * ``{{ fullname }}``
