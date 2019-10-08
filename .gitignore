@@ -61,3 +61,4 @@ docs/Makefile
 /.coverage.py27-Plone51
 *.sublime-project
 /.coverage.*
+/coverage.xml
