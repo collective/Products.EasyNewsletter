@@ -1,10 +1,13 @@
 Changelog
 =========
 
-5.0.0a6 (unreleased)
+5.0.0a6 (2019-10-08)
 --------------------
 
 - Improve placeholder docs and implementation, only use lower case placeholders from now on
+  [MrTango]
+
+- remove old entries in portal_types registration from uninstall profile
   [MrTango]
 
 
