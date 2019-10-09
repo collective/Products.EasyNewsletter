@@ -1,10 +1,11 @@
 Changelog
 =========
 
-5.0.0a7 (unreleased)
+5.0.0a7 (2019-10-09)
 --------------------
 
-- Nothing changed yet.
+- Fix subscribers csv download/export (Py3/Py27)
+  [MrTango]
 
 
 5.0.0a6 (2019-10-08)

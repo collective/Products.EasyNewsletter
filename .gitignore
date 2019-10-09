@@ -62,3 +62,4 @@ docs/Makefile
 *.sublime-project
 /.coverage.*
 /coverage.xml
+/src/Products/EasyNewsletter/tests/easynewsletter-subscribers.csv
