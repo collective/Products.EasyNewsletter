@@ -52,6 +52,7 @@ setup(
         'premailer',
         'html2text',
         'email_validator',
+        'six',
     ],
     extras_require=dict(
         test=[

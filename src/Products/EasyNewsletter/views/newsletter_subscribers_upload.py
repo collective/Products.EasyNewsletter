@@ -3,16 +3,22 @@
 from Acquisition import aq_inner
 from plone import api
 from plone.i18n.normalizer.interfaces import IIDNormalizer
+from Products.CMFPlone.utils import safe_encode
+from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter import _
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 from zope.component import getUtility
 
-import codecs
 import csv
 import logging
 import six
 
+
+if six.PY2:
+    import codecs
+else:
+    from io import TextIOWrapper
 
 log = logging.getLogger('Products.EasyNewsletter')
 
@@ -37,10 +43,9 @@ class NewsletterSubscribersUpload(BrowserView):
     def __call__(self):
         return self.index()
 
-    def create_subscribers(self, csv_data=None):
+    def create_subscribers(self):
         """Create newsletter subscribers from uploaded CSV file.
         """
-
         # Do nothing if no submit button was hit
         if 'form.button.Import' not in self.request.form:
             return
@@ -67,7 +72,6 @@ class NewsletterSubscribersUpload(BrowserView):
             return self.request.response.redirect(
                 context.absolute_url() + '/@@upload_csv')
 
-        # Show error if no data has been provided in the file
         reader = UnicodeReader(filename)
         header = next(reader)
         if header != [x for x in CSV_HEADER]:
@@ -193,13 +197,20 @@ class UTF8Recoder:
     Iterator that reads an encoded stream and reencodes the input to UTF-8
     """
     def __init__(self, f, encoding):
-        self.reader = codecs.getreader(encoding)(f)
+        if six.PY2:
+            self.reader = codecs.getreader(encoding)(f)
+        else:
+            self.reader = TextIOWrapper(f, encoding=encoding)
 
     def __iter__(self):
         return self
 
-    def next(self):
-        return self.reader.next().encode("utf-8")
+    def __next__(self):
+        data = next(self.reader)
+        if six.PY2:
+            data = data.encode("utf-8")
+        return data
+    next = __next__  # BBB for Python2
 
 
 class UnicodeReader:
@@ -212,9 +223,11 @@ class UnicodeReader:
         f = UTF8Recoder(f, encoding)
         self.reader = csv.reader(f, dialect=dialect, **kwds)
 
-    def next(self):
+    def __next__(self):
         row = next(self.reader)
-        return [six.text_type(s, "utf-8") for s in row]
+        return row
+
+    next = __next__  # BBB for Python2
 
     def __iter__(self):
         return self

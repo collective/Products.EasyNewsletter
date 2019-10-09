@@ -2,6 +2,8 @@
 
 from Acquisition import aq_inner
 from plone import api
+from Products.CMFPlone.utils import safe_encode
+from Products.CMFPlone.utils import safe_unicode
 from Products.Five.browser import BrowserView
 
 import codecs
@@ -26,10 +28,21 @@ class NewsletterSubscribersDownload(BrowserView):
         context = aq_inner(self.context)
         # Create CSV file
         filename = tempfile.mktemp()
-        file = open(filename, "wb")
-        csvWriter = UnicodeWriter(
-            file, {"delimiter": ",", "quotechar": '"', "quoting": csv.QUOTE_MINIMAL}
-        )
+        if six.PY2:
+            file = open(filename, "wb")
+            csvWriter = UnicodeWriter(
+                file, {"delimiter": ",", "quotechar": '"', "quoting": csv.QUOTE_MINIMAL}
+            )
+        else:
+            file = open(filename, "w", newline="")
+            csvWriter = csv.writer(
+                file,
+                dialect="excel",
+                delimiter=",",
+                quotechar='"',
+                quoting=csv.QUOTE_MINIMAL,
+            )
+
         csvWriter.writerow([x for x in CSV_HEADER])
         for subscriber in api.content.find(
             portal_type="Newsletter Subscriber", context=self.context, sort_on="email"
@@ -47,8 +60,10 @@ class NewsletterSubscribersDownload(BrowserView):
                 ]
             )
         file.close()
-        data = open(filename, "r").read()
 
+        with open(filename, "r") as f:
+            data = f.read()
+        data = safe_encode(data)
         # Create response
         response = context.REQUEST.response
         response.addHeader(
@@ -74,19 +89,18 @@ class UnicodeWriter:
 
     def __init__(self, f, dialect=csv.excel, encoding="utf-8", **kwds):
         # Redirect output to a queue
-        self.queue = six.cStringIO.StringIO()
+        self.queue = six.StringIO()
         self.writer = csv.writer(self.queue, dialect=dialect, **kwds)
         self.stream = f
         self.encoder = codecs.getincrementalencoder(encoding)()
 
     def writerow(self, row):
-        row = [s or u'' for s in row]
-        self.writer.writerow([s.encode("utf-8") for s in row])
-        # Fetch UTF-8 output from the queue ...
+        # row = [s or '' for s in row]
+        row = [safe_encode(s) or b"" for s in row]
+        self.writer.writerow(row)
         data = self.queue.getvalue()
-        data = data.decode("utf-8")
-        # ... and reencode it into the target encoding
-        data = self.encoder.encode(data)
+        data = safe_unicode(data)
+        data = self.encoder.encode(safe_unicode(data))
         # write to the target stream
         self.stream.write(data)
         # empty queue
