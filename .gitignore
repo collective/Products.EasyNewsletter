@@ -63,3 +63,4 @@ docs/Makefile
 /.coverage.*
 /coverage.xml
 /src/Products/EasyNewsletter/tests/easynewsletter-subscribers.csv
+/htmlcov_manuell
