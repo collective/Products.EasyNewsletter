@@ -5,7 +5,6 @@ from plone import schema
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.supermodel import model
 from Products.EasyNewsletter import _
-from Products.EasyNewsletter.config import EMAIL_RE
 from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter
 from zope.component import adapter
 from zope.component import subscribers
@@ -85,14 +84,13 @@ class IPloneUserGroupRecipients(model.Schema):
 @implementer(IPloneUserGroupRecipients)
 @adapter(IPloneUserGroupRecipientsMarker)
 class PloneUserGroupRecipients(object):
+
     def __init__(self, context):
         self.context = context
 
     @property
     def plone_receiver_members(self):
-        if hasattr(self.context, 'plone_receiver_members'):
-            return self.context.plone_receiver_members
-        return set()
+        return getattr(self.context, 'plone_receiver_members', set())
 
     @plone_receiver_members.setter
     def plone_receiver_members(self, value):
@@ -100,87 +98,77 @@ class PloneUserGroupRecipients(object):
 
     @property
     def plone_receiver_groups(self):
-        if hasattr(self.context, 'plone_receiver_groups'):
-            return self.context.plone_receiver_groups
-        return set()
+        return getattr(self.context, 'plone_receiver_groups', set())
 
     @plone_receiver_groups.setter
     def plone_receiver_groups(self, value):
         self.context.plone_receiver_groups = value
 
+    def _get_salutation_mappings(self):
+        """
+        returns mapping of salutations. Each salutation itself is a dict
+        with key as language. (prepared for multilingual newsletter)
+        """
+        enl = self.context.get_newsletter()
+        result = {}
+        lang = self.context.language or 'en'
+
+        for line in enl.salutations:
+            if "|" not in line:
+                continue
+            key, value = line.split('|')
+            result[key.strip()] = {lang: value.strip()}
+        return result
+
     def get_plone_subscribers(self):
         """ Search for all selected Members and Groups
             and return a filtered list of subscribers as dicts.
         """
-        enl = self.get_newsletter()
+        enl = self.context.get_newsletter()
         plone_subscribers = []
-        if self.send_to_all_plone_members:
-            log.info(
-                "send_to_all_plone_members is true, so we add all existing"
-                " members to receiver_member_list!"
-            )
-            receiver_member_list = enl.plone_receiver_members
-            # if all members are receivers we don't need group relations:
-            receiver_group_list = []
-        else:
-            receiver_member_list = self.plone_receiver_members
-            receiver_group_list = self.plone_receiver_groups
-        gtool = api.portal.get_tool(name="portal_groups")
-        acl_userfolder = api.portal.get_tool(self, "acl_users")
-        member_objs = acl_userfolder.getUsers()
-        member_properties = {}
-        for member in member_objs:
-            probdict = {}
-            probdict["id"] = member.getUserId()
-            probdict["email"] = member.getProperty("email")
-            # probdict["gender"] = member.getProperty("nl_gender", "default")
-            # try last name first
-            probdict["fullname"] = member.getProperty(
-                "last_name", member.getProperty("fullname")
-            )
-            probdict["language"] = member.getProperty("language")
-            # fallback for default plone users without a enl language
-            if not probdict["language"]:
-                probdict["language"] = self.language
-            member_properties[probdict["id"]] = probdict
-        if not member_properties:
-            return []
-        selected_group_members = []
+        receiver_list = set()
+        receiver_member_list = self.plone_receiver_members
+        receiver_group_list = self.plone_receiver_groups
+
+        for member_id in receiver_member_list:
+            try:
+                member = api.user.get(userid=member_id)
+            except (AttributeError, api.exc.PloneApiError):
+                continue
+            else:
+                receiver_list.add(member)
+
         for group in receiver_group_list:
-            selected_group_members.extend(gtool.getGroupMembers(group))
-        receiver_member_list = receiver_member_list + tuple(selected_group_members)
+            try:
+                members = api.user.get_users(groupname=group)
+            except (AttributeError, api.exc.PloneApiError):
+                continue
+            else:
+                receiver_list.update(members)
 
         # get salutation mappings
         salutation_mappings = self._get_salutation_mappings()
+
         # get all selected member properties
-        for receiver_id in set(receiver_member_list):
-            if receiver_id not in member_properties:
-                log.debug(
-                    'Ignore reveiver "%s", because we have '
-                    "no properties for this member!" % receiver_id
-                )
+        for member in receiver_list:
+            email = member.getProperty("email")
+            if not email:
                 continue
-            member_property = member_properties[receiver_id]
-            if EMAIL_RE.findall(member_property["email"]):
-                salutation = salutation_mappings[
-                    member_property.get("gender", "default")
-                ]
-                plone_subscribers.append(
-                    {
-                        "fullname": member_property["fullname"],
-                        "email": member_property["email"],
-                        "salutation": salutation.get(
-                            member_property.get("language", ""),
-                            salutation.get(self.language or "en", "unset"),
-                        ),
-                        "nl_language": member_property.get("language", ""),
-                    }
-                )
-            else:
-                log.debug(
-                    "Skip '%s' because \"%s\" is not a real email!"
-                    % (receiver_id, member_property["email"])
-                )
+            salutation = salutation_mappings[
+                member.getProperty("nl_gender", "default")
+            ]
+            language = member.getProperty("language") or self.context.language
+            plone_subscribers.append(
+                {
+                    "fullname": member.getProperty("fullname"),
+                    "email": email,
+                    "salutation": salutation.get(
+                        language,
+                        salutation.get(self.context.language or "en", "unset"),
+                    ),
+                    "nl_language": language,
+                }
+            )
         # run registered receivers post sending filters:
         for subscriber in subscribers([enl], IReceiversPostSendingFilter):
             plone_subscribers = subscriber.filter(plone_subscribers)

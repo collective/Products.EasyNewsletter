@@ -3,6 +3,7 @@ from DateTime import DateTime
 from plone import api
 from plone.protect import PostOnly
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
+from Products.EasyNewsletter.behaviors.plone_user_group_recipients import IPloneUserGroupRecipients  # noqa: E501
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.Five.browser import BrowserView
 from Products.MailHost.interfaces import IMailHost
@@ -233,13 +234,25 @@ class NewsletterIssueSend(BrowserView):
 
                 enl_receivers.append(enl_receiver)
 
+        receivers_raw = enl_receivers
+
         # get subscribers over selected plone members anpid groups
-        # plone_receivers = self.context.plone_subscribers
+        plone_receivers = []
+        try:
+            plone_receivers_adapter = IPloneUserGroupRecipients(self.context)
+        except TypeError:
+            plone_receivers_adapter = None
+        if not plone_receivers_adapter:
+            try:
+                plone_receivers_adapter = IPloneUserGroupRecipients(enl)
+            except TypeError:
+                plone_receivers_adapter = None
+        if plone_receivers_adapter:
+            plone_receivers = plone_receivers_adapter.get_plone_subscribers()
+        receivers_raw += plone_receivers
         # XXX implement this with the behavior
         # external_subscribers = self._get_external_source_subscribers(enl)
-        # receivers_raw = plone_receivers + enl_receivers  # + \
-        #    external_subscribers
-        receivers_raw = enl_receivers
+        # receivers_raw += external_subscribers
         receivers = self._unique_receivers(receivers_raw)
 
         return receivers
