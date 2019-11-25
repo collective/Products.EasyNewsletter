@@ -28,7 +28,7 @@ def get_default_prologue(parent):
     """ get prologue from parent Newsletter
     """
     prologue_output = u""
-    if INewsletter.providedBy(parent) and parent.__parent__:
+    if INewsletter.providedBy(parent) and parent.__parent__ and parent.default_prologue:
         prologue_output = parent.default_prologue.raw
     default_prologue = textfield.RichTextValue(
         raw=prologue_output,
