@@ -1,86 +1,61 @@
 <tal:block i18n:domain="EasyNewsletter">
-<dl class="portlet portletNewsletterSubscriber"
-  tal:define="portal_url context/@@plone_portal_state/portal_url;
+  <dl class="portlet portletNewsletterSubscriber" tal:define="portal_url context/@@plone_portal_state/portal_url;
               newsletter_path view/get_newsletter">
 
     <dt class="portletHeader">
-        <span class="portletTopLeft"></span>
-        <a tal:attributes="href string: ${portal_url}${newsletter_path}"><span
-            tal:content="view/header|nothing">Newsletter</span></a>
-        <span class="portletTopRight"></span>
+      <span class="portletTopLeft"></span>
+      <a tal:attributes="href string: ${portal_url}${newsletter_path}">
+        <span tal:content="view/header|nothing">Newsletter</span>
+      </a>
+      <span class="portletTopRight"></span>
     </dt>
 
     <dd class="portletItem lastItem">
-  	    <p tal:content="view/description|nothing"
-            tal:omit-tag="not:view/description"/>
+      <p tal:content="view/description|nothing" tal:omit-tag="not:view/description"/>
 
-        <form tal:attributes="action string:${portal_url}/@@register-subscriber">
-            <input type="hidden"
-                   name="newsletter"
-                   value="newsletter"
-                   tal:attributes="value newsletter_path" />
+      <form tal:attributes="action string:${portal_url}/@@register-subscriber">
+        <input type="hidden" name="newsletter" value="newsletter" tal:attributes="value newsletter_path" />
 
-            <div id="salutation_fields" class="field" tal:condition="view/data/query_salutation|nothing">
-              <input
-                  type="radio"
-                  name="salutation"
-                  value="ms"
-                  required="required"
-                  id="ms"/>
-              <label for="ms" i18n:translate="ms">Ms</label>
-              <input
-                  type="radio"
-                  name="salutation"
-                  value="mr"
-                  required="required"
-                  id="mr"/>
-              <label for="mr" i18n:translate="mr">Mr</label><span class="required"></span>
-            </div>
-            <div
-              tal:define="query_firstname view/data/query_firstname|nothing"
-              tal:attributes="class python:query_firstname and 'withFirstname' or ''"
-              id="name_fields">
-              <div class="field" tal:condition="view/data/query_name_prefix|nothing">
-                <label for="name_prefix" i18n:translate="">Title</label>
-                <input class="easynewsletter_text name_prefix"
-                       name="name_prefix"/>
-              </div>
-              <div class="field" tal:condition="view/data/query_firstname|nothing">
-                <label for="firstname" i18n:translate="">First Name</label>
-                <input class="easynewsletter_text firstname"
-                       name="firstname"/>
-              </div>
-              <div class="field">
-                <label for="name" i18n:translate="name">Name</label><span class="required"></span>
-                <input class="easynewsletter_text name"
-                       name="name"
-                       required="required"/>
-              </div>
-            </div>
-            <div class="field" tal:condition="view/data/query_organization|nothing">
-              <label for="name" i18n:translate="organization_portlet">Organization</label>
-              <input class="easynewsletter_text"
-                     name="organization"/>
-            </div>
-            <div class="field">
-              <label for="subscriber" i18n:translate="">E-Mail</label><span class="required"></span>
-              <input class="easynewsletter_text"
-                     name="subscriber"
-                     required="required"/>
-            </div>
-            <input class="standalone easynewsletter_button"
-                   type="submit"
-                   value="subscribe"
-                   i18n:attributes="value easynewsletter_button_label;" />
-        </form>
+        <div id="salutation_fields" class="field" tal:condition="view/data/query_salutation|nothing">
+          <input type="radio" name="salutation" value="ms" required="required" id="ms"/>
+          <label for="ms" i18n:translate="ms">Ms</label>
+          <input type="radio" name="salutation" value="mr" required="required" id="mr"/>
+          <label for="mr" i18n:translate="mr">Mr</label>
+          <span class="required"></span>
+        </div>
+        <div tal:define="query_firstname view/data/query_firstname|nothing" tal:attributes="class python:query_firstname and 'withFirstname' or ''" id="name_fields">
+          <div class="field" tal:condition="view/data/query_name_prefix|nothing">
+            <label for="name_prefix" i18n:translate="">Title</label>
+            <input class="easynewsletter_text name_prefix" name="name_prefix"/>
+          </div>
+          <div class="field" tal:condition="view/data/query_firstname|nothing">
+            <label for="firstname" i18n:translate="">First Name</label>
+            <input class="easynewsletter_text firstname" name="firstname"/>
+          </div>
+          <div class="field">
+            <label for="name" i18n:translate="name">Name</label>
+            <input class="easynewsletter_text name" name="name" />
+          </div>
+        </div>
+        <div class="field" tal:condition="view/data/query_organization|nothing">
+          <label for="name" i18n:translate="organization_portlet">Organization</label>
+          <input class="easynewsletter_text" name="organization"/>
+        </div>
+        <div class="field">
+          <label for="subscriber" i18n:translate="">E-Mail</label>
+          <span class="required"></span>
+          <input class="easynewsletter_text" name="subscriber" required="required"/>
+        </div>
+        <input class="standalone easynewsletter_button" type="submit" value="subscribe" i18n:attributes="value easynewsletter_button_label;" />
+      </form>
 
-        <span class="portletBottomLeft"></span>
-        <span class="portletBottomRight"></span>
+      <span class="portletBottomLeft"></span>
+      <span class="portletBottomRight"></span>
     </dd>
     <dd class="portletFooter" tal:condition="view/data/show_unsubscribe|nothing">
       <span class="portletBottomLeft"></span>
       <a tal:attributes="href string:${portal_url}${newsletter_path}/@@unsubscribe-form" i18n:translate="">unsubscribe</a>
       <span class="portletBottomRight"></span>
     </dd>
-</dl>
+  </dl>
 </tal:block>

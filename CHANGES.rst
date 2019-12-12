@@ -7,6 +7,9 @@ Changelog
 - Fix unsubscribe url in subscriber portlet
   [MrTango]
 
+- Allow subscribers to not fill-in the Name, when subscribing
+  [MrTango]
+
 
 5.0.0a7 (2019-10-09)
 --------------------
