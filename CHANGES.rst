@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.0a8 (unreleased)
+5.0.0a8 (2019-12-12)
 --------------------
 
 - Fix unsubscribe url in subscriber portlet
