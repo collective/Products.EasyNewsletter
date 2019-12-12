@@ -4,7 +4,8 @@ Changelog
 5.0.0a8 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Fix unsubscribe url in subscriber portlet
+  [MrTango]
 
 
 5.0.0a7 (2019-10-09)

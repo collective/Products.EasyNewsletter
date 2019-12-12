@@ -79,8 +79,7 @@
     </dd>
     <dd class="portletFooter" tal:condition="view/data/show_unsubscribe|nothing">
       <span class="portletBottomLeft"></span>
-      <a tal:attributes="href string:${portal_url}${newsletter_path}/unsubscribe_form"
-        i18n:translate="">unsubscribe</a>
+      <a tal:attributes="href string:${portal_url}${newsletter_path}/@@unsubscribe-form" i18n:translate="">unsubscribe</a>
       <span class="portletBottomRight"></span>
     </dd>
 </dl>
