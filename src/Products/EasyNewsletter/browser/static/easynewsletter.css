@@ -1,8 +1,6 @@
 @media screen and (max-width: 767px) {
-}
-@media (min-width: 768px) {
-}
-@font-face {
+}@media (min-width: 768px) {
+}@font-face {
   font-family: "easynewsletter";
   src: url("font/fontello.eot?54032556");
   src: url("font/fontello.eot?54032556#iefix") format("embedded-opentype"), url("font/fontello.woff?54032556") format("woff"), url("font/fontello.ttf?54032556") format("truetype"), url("font/fontello.svg?54032556#fontello") format("svg");
@@ -100,6 +98,9 @@ input.easynewsletter_text {
 }
 .portletNewsletterSubscriber div.field span.required::after {
   position: absolute;
+}
+.portletNewsletterSubscriber .easynewsletter_additional_info {
+  padding: 1em 0;
 }
 .template-atct_edit.portaltype-enltemplate #archetypes-fieldname-body textarea {
   height: 850px;

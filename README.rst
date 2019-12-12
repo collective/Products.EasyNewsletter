@@ -107,15 +107,20 @@ funding welcome ;)
 - content migration AT >> DX
 
 
-
 Authors
 =======
 
 * initial release: Kai Dieffenbach
 * Maik Derstappen [MrTango] md@derico.de
+
+
+Contributors
+============
+
 * Andreas Jung
-* Philip Bauer
-* Timo Stollenwerk
 * Dinu Gherman
-* Peter Holzer
 * Jens W. Klein
+* Peter Holzer
+* Philip Bauer
+* Thomas Massman [tmassmann]
+* Timo Stollenwerk

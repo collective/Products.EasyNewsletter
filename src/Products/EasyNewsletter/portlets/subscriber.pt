@@ -47,6 +47,7 @@
           <input class="easynewsletter_text" name="subscriber" required="required"/>
         </div>
         <input class="standalone easynewsletter_button" type="submit" value="subscribe" i18n:attributes="value easynewsletter_button_label;" />
+        <div class="easynewsletter_additional_info" tal:condition="view/data/additional_info|nothing" tal:content="structure view/get_additional_info"></div>
       </form>
 
       <span class="portletBottomLeft"></span>

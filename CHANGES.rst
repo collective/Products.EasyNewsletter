@@ -10,6 +10,12 @@ Changelog
 - Allow subscribers to not fill-in the Name, when subscribing
   [MrTango]
 
+- Add additional_info field to subscriber portlet, useful for things like terms and conditions
+  [MrTango]
+
+- Allow local Plone users and groups to be used as recipients
+  [tmassman]
+
 
 5.0.0a7 (2019-10-09)
 --------------------
@@ -50,17 +56,20 @@ Changelog
 
 
 5.0.0a2 (2019-10-04)
+--------------------
 
 - Fix setup.py by providing z3c.autoinclude entrypoint
   [MrTango]
 
 5.0.0a1 (2019-09-23)
+--------------------
 
 - Remove Archetypes from code base and remove Archetypes dependencies
   [MrTango]
 
 
 4.0.0 (unreleased)
+--------------------
 
 - Implement content types in Dexterity instead of Archetypes
   [MrTango]
