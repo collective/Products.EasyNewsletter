@@ -2,11 +2,11 @@
 # Wim Boucquaert - wimbou <wim.boucquaert@gmail.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Products.EasyNewsletter\n"
 "POT-Creation-Date: 2011-08-08 11:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: Wim Boucquaert - wimbou <wim.boucquaert@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Last-Translator: Maik Derstappen <md@derico.de>\n"
+"Language-Team: LANGUAGE <md@derico.de>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,11 +16,5 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: EasyNewsletter\n"
 
-msgid "Issues full view"
-msgstr ""
-
-msgid "Sent"
-msgstr ""
-
-msgid "enl_action_subscribers"
+msgid "Tester"
 msgstr ""

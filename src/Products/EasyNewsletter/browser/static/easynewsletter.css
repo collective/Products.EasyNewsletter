@@ -102,6 +102,13 @@ input.easynewsletter_text {
 .portletNewsletterSubscriber .easynewsletter_additional_info {
   padding: 1em 0;
 }
+.portletNewsletterSubscriber #salutation_fields label {
+  margin-right: 1em;
+}
+.portletNewsletterSubscriber input[type="radio"] {
+  margin-top: -3px;
+  vertical-align: middle;
+}
 .template-atct_edit.portaltype-enltemplate #archetypes-fieldname-body textarea {
   height: 850px;
   min-width: 800px;

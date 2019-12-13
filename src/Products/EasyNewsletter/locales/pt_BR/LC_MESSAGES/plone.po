@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-07-18 16:25+0000\n"
+"POT-Creation-Date: 2019-12-13 19:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,78 +14,65 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 
-#: ./profiles/default/workflows/enl_issue_workflow/definition.xml
-msgid "- Essentially a workflow with no transitions, but has a Published state, so portlets and applications that expect that state will continue to work."
-msgstr ""
-
-#: ./profiles/default/types/ENLIssue.xml
+#: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "Aggregate content"
 msgstr ""
 
-#: ./profiles/default/types/ENLIssue.xml
+#: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "Copy as draft"
 msgstr ""
 
-#: ./profiles/default/types/ENLIssue.xml
+#: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "Copy as master"
 msgstr ""
 
-#: ./profiles/default/workflows/enl_issue_workflow/definition.xml
+#: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Draft"
 msgstr ""
 
-#: ./profiles/default/types/ENLIssue.xml
-msgid "Edit criteria"
-msgstr ""
-
-#: ./profiles/default/workflows/enl_issue_workflow/definition.xml
+#: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Make draft"
 msgstr ""
 
-#: ./profiles/default/workflows/enl_issue_workflow/definition.xml
+#: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Make master"
 msgstr ""
 
-#: ./profiles/default/types/ENLIssue.xml
-msgid "Manage subcollections"
-msgstr ""
-
-#: ./profiles/default/workflows/enl_issue_workflow/definition.xml
+#: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Master"
 msgstr ""
 
-#: ./profiles/default/workflows/enl_issue_workflow/definition.xml
+#: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Revert sending"
 msgstr ""
 
-#: ./profiles/default/types/ENLIssue.xml
-#: ./profiles/default/workflows/enl_issue_workflow/definition.xml
+#: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
+#: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Send"
 msgstr ""
 
-#: ./profiles/default/workflows/enl_issue_workflow/definition.xml
+#: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Sending"
 msgstr ""
 
-#: ./profiles/default/workflows/enl_issue_workflow/definition.xml
+#: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Sending Completed"
 msgstr ""
 
-#: ./profiles/default/workflows/enl_issue_workflow/definition.xml
+#: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Sent"
 msgstr ""
 
-#: ./profiles/default/workflows/enl_issue_workflow/definition.xml
-msgid "Single State Workflow for a EasyNewsletter Issue"
+#: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
+msgid "Workflow for an EasyNewsletter Issue"
 msgstr ""
 
 #. Default: "Portlet to add subscribers."
-#: ./profiles/default/portlets.xml
+#: EasyNewsletter/profiles/default/portlets.xml
 msgid "description_newsletter_subscriber_portlet"
 msgstr ""
 
 #. Default: "Newsletter subscriber portlet"
-#: ./profiles/default/portlets.xml
+#: EasyNewsletter/profiles/default/portlets.xml
 msgid "title_newsletter_subscriber_portlet"
 msgstr ""
-
