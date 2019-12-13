@@ -17,11 +17,12 @@
         <input type="hidden" name="newsletter" value="newsletter" tal:attributes="value newsletter_path" />
 
         <div id="salutation_fields" class="field" tal:condition="view/data/query_salutation|nothing">
-          <input type="radio" name="salutation" value="ms" required="required" id="ms"/>
+          <input type="radio" name="salutation" value="ms" id="ms"/>
           <label for="ms" i18n:translate="ms">Ms</label>
-          <input type="radio" name="salutation" value="mr" required="required" id="mr"/>
+          <input type="radio" name="salutation" value="mr" id="mr"/>
           <label for="mr" i18n:translate="mr">Mr</label>
-          <span class="required"></span>
+          <input type="radio" name="salutation" value="mx" id="mx"/>
+          <label for="mx" i18n:translate="mx">Mx</label>
         </div>
         <div tal:define="query_firstname view/data/query_firstname|nothing" tal:attributes="class python:query_firstname and 'withFirstname' or ''" id="name_fields">
           <div class="field" tal:condition="view/data/query_name_prefix|nothing">
