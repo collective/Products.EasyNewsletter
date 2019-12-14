@@ -49,7 +49,7 @@ msgstr "Senden rückgängig machen"
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Send"
-msgstr "Gesendet"
+msgstr "Versenden"
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Sending"

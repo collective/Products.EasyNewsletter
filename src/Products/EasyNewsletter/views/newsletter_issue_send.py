@@ -138,7 +138,7 @@ class NewsletterIssueSend(BrowserView):
             if 'HTTPLoaderError' in m.as_string():
                 log.exception(u"Transform message failed: {0}".format(m.as_string()))
             try:
-                self.mail_host.send(m.as_string())
+                self.mail_host.send(m.as_string(), immediate=True)
                 log.info('Send newsletter to "%s"' % receiver['email'])
                 send_counter += 1
             except Exception as e:  # noqa
@@ -158,6 +158,22 @@ class NewsletterIssueSend(BrowserView):
             self.request['enlwf_guard'] = False
             self.context.setEffectiveDate(DateTime())
             self.context.reindexObject(idxs=['effective'])
+            msg_type = "info"
+            additional_warning = ""
+            if send_error_counter:
+                msg_type = "warn"
+                additional_warning = _(
+                    "\nPlease check the log files, for more details!"
+                )
+            api.portal.show_message(
+                message=_(
+                    'Newsletter was sent to ({0}) receivers. ({1}) errors occurred!{2}'.format(
+                        send_counter, send_error_counter, additional_warning
+                    )
+                ),
+                request=self.request,
+                type=msg_type,
+            )
 
     @property
     def salutation_mappings(self):
