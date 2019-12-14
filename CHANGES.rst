@@ -4,7 +4,17 @@ Changelog
 5.0.0a9 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Force immediate sending in MailHost
+  [MrTango]
+
+- Add portal messages with send_counter/send_error_counter
+  [MrTango]
+
+- Add divers for salutation and make salutation optional in subscriber portlet
+  [MrTango]
+
+- Refacture locales/update.py and fix german translations
+  [MrTango]
 
 
 5.0.0a8 (2019-12-12)
