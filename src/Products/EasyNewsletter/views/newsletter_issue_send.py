@@ -3,7 +3,9 @@ from DateTime import DateTime
 from plone import api
 from plone.protect import PostOnly
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
-from Products.EasyNewsletter.behaviors.plone_user_group_recipients import IPloneUserGroupRecipients  # noqa: E501
+from Products.EasyNewsletter.behaviors.plone_user_group_recipients import (
+    IPloneUserGroupRecipients,
+)  # noqa: E501
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.Five.browser import BrowserView
 from Products.MailHost.interfaces import IMailHost
@@ -18,14 +20,21 @@ import transaction
 log = logging.getLogger('Products.EasyNewsletter')
 
 
-class PloneMessageSendMixin():
+class PloneMessageSendMixin:
     """
     """
+
     def __init__(self):
         pass
 
 
-class Message(PloneMessageSendMixin, emails.message.MessageTransformerMixin, emails.message.MessageSignMixin, emails.message.MessageBuildMixin, emails.message.BaseMessage):
+class Message(
+    PloneMessageSendMixin,
+    emails.message.MessageTransformerMixin,
+    emails.message.MessageSignMixin,
+    emails.message.MessageBuildMixin,
+    emails.message.BaseMessage,
+):
     """
     Email message with:
     - DKIM signer
@@ -121,7 +130,9 @@ class NewsletterIssueSend(BrowserView):
         # get issue data
         issue_data = issue_data_fetcher()
         for receiver in receivers:
-            personalized_html = issue_data_fetcher.personalize(receiver, issue_data['body_html'])
+            personalized_html = issue_data_fetcher.personalize(
+                receiver, issue_data['body_html']
+            )
             # get plain text version
             personalized_plaintext = issue_data_fetcher.create_plaintext_message(
                 personalized_html
@@ -144,12 +155,14 @@ class NewsletterIssueSend(BrowserView):
             except Exception as e:  # noqa
                 log.exception(
                     'Sending newsletter to "%s" failed, with error "%s"!'
-                    % (receiver['email'], e))
+                    % (receiver['email'], e)
+                )
                 send_error_counter += 1
 
         log.info(
             'Newsletter was sent to (%s) receivers. (%s) errors occurred!'
-            % (send_counter, send_error_counter))
+            % (send_counter, send_error_counter)
+        )
 
         # change status only for a 'regular' send operation (not 'is_test')
         if not self.is_test:
@@ -213,12 +226,14 @@ class NewsletterIssueSend(BrowserView):
             if test_receiver == "":
                 test_receiver = enl.test_email
             salutation = salutation_mappings.get('default', '')
-            receivers = [{
-                'email': test_receiver,
-                'fullname': 'Test Member',
-                'salutation': salutation.get(self.context.language, ''),
-                # 'nl_language': self.language
-            }]
+            receivers = [
+                {
+                    'email': test_receiver,
+                    'fullname': 'Test Member',
+                    'salutation': salutation.get(self.context.language, ''),
+                    # 'nl_language': self.language
+                }
+            ]
             return receivers
 
         # only send to all subscribers if the exclude all subscribers
@@ -226,7 +241,9 @@ class NewsletterIssueSend(BrowserView):
         # get Subscribers
         enl_receivers = []
         if not self.context.exclude_all_subscribers:
-            for subscriber_brain in api.content.find(portal_type='Newsletter Subscriber', context=enl):
+            for subscriber_brain in api.content.find(
+                portal_type='Newsletter Subscriber', context=enl
+            ):
                 if not subscriber_brain:
                     continue
                 subscriber = subscriber_brain.getObject()
@@ -238,11 +255,12 @@ class NewsletterIssueSend(BrowserView):
                     'name_prefix': subscriber.name_prefix,
                     'firstname': subscriber.firstname or u'',
                     'lastname': subscriber.lastname or u'',
-                    'fullname': ' '.join([subscriber.firstname or u'',
-                                          subscriber.lastname or u'']),
+                    'fullname': ' '.join(
+                        [subscriber.firstname or u'', subscriber.lastname or u'']
+                    ),
                     'salutation': salutation.get(
                         None,  # subscriber.getNl_language(),
-                        salutation.get(self.context.language or 'en', '')
+                        salutation.get(self.context.language or 'en', ''),
                     ),
                     'uid': subscriber.UID(),
                     # 'nl_language': subscriber.getNl_language()
