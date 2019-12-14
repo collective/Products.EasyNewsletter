@@ -3,9 +3,7 @@ from DateTime import DateTime
 from plone import api
 from plone.protect import PostOnly
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
-from Products.EasyNewsletter.behaviors.plone_user_group_recipients import (
-    IPloneUserGroupRecipients,
-)  # noqa: E501
+from Products.EasyNewsletter.behaviors.plone_user_group_recipients import IPloneUserGroupRecipients  # noqa: E501
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.Five.browser import BrowserView
 from Products.MailHost.interfaces import IMailHost
