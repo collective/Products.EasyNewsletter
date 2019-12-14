@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.0a9 (unreleased)
+5.0.0a9 (2019-12-14)
 --------------------
 
 - Force immediate sending in MailHost
