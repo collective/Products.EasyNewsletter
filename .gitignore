@@ -64,3 +64,4 @@ docs/Makefile
 /coverage.xml
 /src/Products/EasyNewsletter/tests/easynewsletter-subscribers.csv
 /htmlcov_manuell
+**/__pycache__/**
