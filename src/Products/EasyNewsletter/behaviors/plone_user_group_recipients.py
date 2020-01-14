@@ -160,6 +160,7 @@ class PloneUserGroupRecipients(object):
             language = member.getProperty("language") or self.context.language
             plone_subscribers.append(
                 {
+                    "userid": member.getUserId(),
                     "fullname": member.getProperty("fullname"),
                     "email": email,
                     "salutation": salutation.get(
