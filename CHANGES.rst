@@ -4,7 +4,8 @@ Changelog
 5.0.0a10 (unreleased)
 ---------------------
 
-- Nothing changed yet.
+- Add userid to member property dict for plone subscribers.
+  [thomasmassmann]
 
 
 5.0.0a9 (2019-12-14)
