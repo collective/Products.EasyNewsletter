@@ -307,7 +307,11 @@ class NewsletterIssueSend(BrowserView):
         # receivers_raw += external_subscribers
         receivers = self._unique_receivers(receivers_raw)
 
-        # run registered receivers post sending filters:
+        # Run registered receivers post sending filters for INewsletter.
+        for subscriber in subscribers([enl], IReceiversPostSendingFilter):
+            receivers = subscriber.filter(receivers)
+
+        # Run registered receivers post sending filters for INewsletterIssue.
         for subscriber in subscribers([self.context], IReceiversPostSendingFilter):
             receivers = subscriber.filter(receivers)
 
