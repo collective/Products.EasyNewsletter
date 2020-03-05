@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from .newsletter import get_content_aggregation_sources_base_path
 from .newsletter import INewsletter
+from persistent.dict import PersistentDict
 from plone import schema
 from plone.app import textfield
 from plone.app.z3cform.widget import SingleCheckBoxBoolFieldWidget
@@ -10,9 +11,14 @@ from plone.namedfile import field as namedfile
 from plone.supermodel import model
 from Products.EasyNewsletter import _
 from z3c import relationfield
+from zope.annotation.interfaces import IAnnotations
 from zope.interface import implementer
+from zope.interface import Interface
 from zope.interface import provider
 from zope.schema.interfaces import IContextAwareDefaultFactory
+
+
+SEND_STATUS_KEY = 'PRODUCTS_EASYNEWSLETTER_SEND_STATUS'
 
 
 @provider(IContextAwareDefaultFactory)
@@ -260,3 +266,40 @@ class NewsletterIssue(Container):
     # bbb: we should print a deprecation message here
     def getOutputTemplate(self):
         return self.output_template
+
+
+class ISendStatus(Interface):
+    """Manage send status for newsletter issues."""
+
+    def add_records(records):  # noqa: N805
+        """Add new records."""
+
+    def get_records(status=None):  # noqa: N805
+        """Return a list of all status information records."""
+
+
+@implementer(ISendStatus)
+class SendStatus(object):
+    def __init__(self, context):
+        self.context = context
+
+    def add_records(self, records, key='email'):
+        """Add new records."""
+        annotations = IAnnotations(self.context)
+        if SEND_STATUS_KEY not in annotations:
+            annotations[SEND_STATUS_KEY] = PersistentDict()
+        data = {data.get(key): data for data in records if data.get(key) is not None}
+        annotations[SEND_STATUS_KEY].update(data)
+
+    def get_records(self, successfull=None):
+        """Return a list of all status information records."""
+        annotations = IAnnotations(self.context)
+        if SEND_STATUS_KEY not in annotations:
+            return []
+        items = annotations[SEND_STATUS_KEY].items()
+        if successfull is not None:
+            items = [
+                item for item in items if
+                item.get('status', {}).get('successful', None) == successfull
+            ]
+        return items

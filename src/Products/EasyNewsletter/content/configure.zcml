@@ -5,5 +5,9 @@
   i18n_domain="EasyNewsletter">
 
  -*- extra stuff goes here -*-
+  <adapter
+      factory=".newsletter_issue.SendStatus"
+      for="Products.EasyNewsletter.content.newsletter_issue.INewsletterIssue"
+      />
 
 </configure>
