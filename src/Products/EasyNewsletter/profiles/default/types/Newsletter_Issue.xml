@@ -35,7 +35,6 @@
          https://docs.plone.org/external/plone.app.dexterity/docs/reference/standard-behaviours.html
     -->
     <element value="plone.namefromtitle" />
- -->
     <element value="plone.shortname" />
     <element value="plone.ownership" />
     <element value="plone.publication" />
@@ -135,6 +134,16 @@
     i18n:domain="plone"
     i18n:attributes="title">
     <permission value="Copy or Move" />
+  </action>
+  <action title="View Statistics"
+    action_id="statistics"
+    category="easynewsletter"
+    condition_expr="python: portal.portal_workflow.getInfoFor(object, 'review_state') in ['sent'] and object.portal_type == 'Newsletter Issue'"
+    url_expr="string:${folder_url}/statistics"
+    visible="True"
+    i18n:domain="plone"
+    i18n:attributes="title">
+    <permission value="Modify portal content" />
   </action>
 
 </object>
