@@ -121,4 +121,12 @@
      permission="zope2.View"
      />
 
+  <browser:page
+     name="statistics"
+     for="Products.EasyNewsletter.content.newsletter_issue.INewsletterIssue"
+     class=".newsletter_issue_statistics.NewsletterIssueStatistics"
+     template="newsletter_issue_statistics.pt"
+     permission="cmf.ModifyPortalContent"
+     />
+
 </configure>
