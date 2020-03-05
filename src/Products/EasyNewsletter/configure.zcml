@@ -51,5 +51,8 @@
       provides=".interfaces.IReceiversPostSendingFilter"
       />
 
+  <subscriber
+      handler=".subscriber.reset_send_status"
+      />
 
 </configure>

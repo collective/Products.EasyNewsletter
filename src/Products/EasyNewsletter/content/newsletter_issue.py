@@ -271,17 +271,29 @@ class NewsletterIssue(Container):
 class ISendStatus(Interface):
     """Manage send status for newsletter issues."""
 
+    def clear():  # noqa: N805
+        """Clear all records."""
+
     def add_records(records):  # noqa: N805
         """Add new records."""
 
     def get_records(status=None):  # noqa: N805
         """Return a list of all status information records."""
 
+    def get_keys(status=None):  # noqa: N805
+        """Return a list of all status information keys."""
+
 
 @implementer(ISendStatus)
 class SendStatus(object):
     def __init__(self, context):
         self.context = context
+
+    def clear(self):
+        """Clear all records."""
+        annotations = IAnnotations(self.context)
+        if SEND_STATUS_KEY in annotations:
+            del annotations[SEND_STATUS_KEY]
 
     def add_records(self, records, key='email'):
         """Add new records."""
