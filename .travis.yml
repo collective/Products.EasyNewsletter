@@ -5,11 +5,8 @@ addons:
   chrome: stable
   apt:
     update: true
-    sources:
-      - google-chrome
     packages:
       - firefox-geckodriver
-      - google-chrome-stable
 cache:
   pip: true
   directories:
