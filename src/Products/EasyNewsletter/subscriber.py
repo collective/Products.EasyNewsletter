@@ -27,7 +27,7 @@ class FilterAlreadySentReceivers(object):
 def reset_send_status(event):
     if not INewsletterIssue.providedBy(event.object):
         return
-    if event.new_state.id in ['draft', 'master']:
+    if event.new_state.id in ['master']:
         status_adapter = ISendStatus(event.object)
         status_adapter.clear()
     return
