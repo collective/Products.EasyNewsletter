@@ -5,9 +5,7 @@ from plone import schema
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.supermodel import model
 from Products.EasyNewsletter import _
-from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter
 from zope.component import adapter
-from zope.component import subscribers
 from zope.interface import implementer
 from zope.interface import Interface
 from zope.interface import provider
@@ -170,7 +168,4 @@ class PloneUserGroupRecipients(object):
                     "nl_language": language,
                 }
             )
-        # run registered receivers post sending filters:
-        for subscriber in subscribers([enl], IReceiversPostSendingFilter):
-            plone_subscribers = subscriber.filter(plone_subscribers)
         return plone_subscribers

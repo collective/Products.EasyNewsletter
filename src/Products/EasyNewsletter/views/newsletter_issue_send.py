@@ -7,9 +7,11 @@ from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
 from Products.EasyNewsletter.behaviors.plone_user_group_recipients import IPloneUserGroupRecipients  # noqa: E501
 from Products.EasyNewsletter.content.newsletter_issue import ISendStatus
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
+from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter
 from Products.Five.browser import BrowserView
 from Products.MailHost.interfaces import IMailHost
 from zope.component import getUtility
+from zope.component import subscribers
 
 import emails
 import emails.loader
@@ -304,5 +306,9 @@ class NewsletterIssueSend(BrowserView):
         # external_subscribers = self._get_external_source_subscribers(enl)
         # receivers_raw += external_subscribers
         receivers = self._unique_receivers(receivers_raw)
+
+        # run registered receivers post sending filters:
+        for subscriber in subscribers([self.context], IReceiversPostSendingFilter):
+            receivers = subscriber.filter(receivers)
 
         return receivers
