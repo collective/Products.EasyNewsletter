@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from DateTime import DateTime
+from datetime import datetime
 from plone import api
 from plone.protect import PostOnly
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
 from Products.EasyNewsletter.behaviors.plone_user_group_recipients import IPloneUserGroupRecipients  # noqa: E501
+from Products.EasyNewsletter.content.newsletter_issue import ISendStatus
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.Five.browser import BrowserView
 from Products.MailHost.interfaces import IMailHost
@@ -150,17 +152,29 @@ class NewsletterIssueSend(BrowserView):
             )
             if 'HTTPLoaderError' in m.as_string():
                 log.exception(u"Transform message failed: {0}".format(m.as_string()))
+            send_status = {
+                'successful': None,
+                'error': None,
+                'datetime': datetime.now(),
+            }
             try:
                 self.mail_host.send(m.as_string(), immediate=True)
+                send_status['successful'] = True
                 log.info('Send newsletter to "%s"' % receiver['email'])
                 send_counter += 1
             except Exception as e:  # noqa
+                send_status['successful'] = False
+                send_status['error'] = e
                 log.exception(
                     'Sending newsletter to "%s" failed, with error "%s"!'
                     % (receiver['email'], e)
                 )
                 send_error_counter += 1
-
+            finally:
+                receiver['status'] = send_status
+        # Add information to annotations
+        status_adapter = ISendStatus(self.context)
+        status_adapter.add_records(receivers)
         log.info(
             'Newsletter was sent to (%s) receivers. (%s) errors occurred!'
             % (send_counter, send_error_counter)
