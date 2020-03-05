@@ -143,7 +143,11 @@ class NewsletterIssueSend(BrowserView):
                 mail_from=(sender_name, sender_email),
                 mail_to=(receiver['fullname'], receiver['email']),
             )
-            m.transform(images_inline=True, base_url=self.context.absolute_url())
+            m.transform(
+                images_inline=True,
+                base_url=self.context.absolute_url(),
+                cssutils_logging_level=logging.ERROR,
+            )
             if 'HTTPLoaderError' in m.as_string():
                 log.exception(u"Transform message failed: {0}".format(m.as_string()))
             try:
