@@ -122,7 +122,6 @@ class PloneUserGroupRecipients(object):
         """ Search for all selected Members and Groups
             and return a filtered list of subscribers as dicts.
         """
-        enl = self.context.get_newsletter()
         plone_subscribers = []
         receiver_list = set()
         receiver_member_list = self.plone_receiver_members

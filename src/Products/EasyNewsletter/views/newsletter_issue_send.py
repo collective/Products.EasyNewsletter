@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from DateTime import DateTime
 from datetime import datetime
+from DateTime import DateTime
 from plone import api
 from plone.protect import PostOnly
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
