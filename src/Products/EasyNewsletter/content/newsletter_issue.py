@@ -291,15 +291,28 @@ class SendStatus(object):
         data = {data.get(key): data for data in records if data.get(key) is not None}
         annotations[SEND_STATUS_KEY].update(data)
 
-    def get_records(self, successfull=None):
+    def get_records(self, successful=None):
         """Return a list of all status information records."""
         annotations = IAnnotations(self.context)
         if SEND_STATUS_KEY not in annotations:
             return []
-        items = annotations[SEND_STATUS_KEY].items()
-        if successfull is not None:
+        items = annotations[SEND_STATUS_KEY].values()
+        if successful is not None:
             items = [
                 item for item in items if
-                item.get('status', {}).get('successful', None) == successfull
+                item.get('status', {}).get('successful', None) == successful
+            ]
+        return items
+
+    def get_keys(self, successful=None):
+        """Return a list of all status information keys."""
+        annotations = IAnnotations(self.context)
+        if SEND_STATUS_KEY not in annotations:
+            return []
+        items = annotations[SEND_STATUS_KEY].items()
+        if successful is not None:
+            items = [
+                key for key, item in items if
+                item.get('status', {}).get('successful', None) == successful
             ]
         return items
