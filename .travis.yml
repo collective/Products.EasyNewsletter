@@ -4,6 +4,7 @@ sudo: false
 addons:
   chrome: stable
   apt:
+    update: true
     sources:
       - google-chrome
     packages:
