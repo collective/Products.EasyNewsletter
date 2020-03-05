@@ -1,0 +1,22 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+  xmlns:gs="http://namespaces.zope.org/genericsetup"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
+  i18n_domain="Products.EasyNewsletter">
+
+  <gs:registerProfile name="4005"
+    title="Products.EasyNewsletter (4005)"
+    directory="4005"
+    for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+    description='Configuration for version 4005'
+    provides="Products.GenericSetup.interfaces.EXTENSION" />
+
+  <gs:upgradeSteps source="4004"
+    destination="4005"
+    profile="Products.EasyNewsletter:default">
+
+    <gs:upgradeDepends title="Run GS upgrade profile"
+      description=""
+      import_profile="Products.EasyNewsletter.upgrades:4005" />
+
+  </gs:upgradeSteps>
+</configure>
