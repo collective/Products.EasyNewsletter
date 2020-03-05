@@ -176,7 +176,8 @@ class NewsletterIssueSend(BrowserView):
                 receiver['status'] = send_status
         # Add information to annotations
         status_adapter = ISendStatus(self.context)
-        status_adapter.add_records(receivers)
+        if status_adapter:
+            status_adapter.add_records(receivers)
         log.info(
             'Newsletter was sent to (%s) receivers. (%s) errors occurred!'
             % (send_counter, send_error_counter)

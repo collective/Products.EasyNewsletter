@@ -15,6 +15,8 @@ class FilterAlreadySentReceivers(object):
 
     def filter(self, receivers):
         status_adapter = ISendStatus(self.context)
+        if not status_adapter:
+            return receivers
         successful = status_adapter.get_keys(successful=True)
 
         return [
@@ -29,5 +31,7 @@ def reset_send_status(event):
         return
     if event.new_state.id in ['master']:
         status_adapter = ISendStatus(event.object)
+        if not status_adapter:
+            return
         status_adapter.clear()
     return
