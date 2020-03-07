@@ -5,7 +5,6 @@ from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from Products.EasyNewsletter.content.newsletter_issue import ISendStatus
-from Products.EasyNewsletter.subscriber import FilterAlreadySentReceivers
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 
 import unittest
