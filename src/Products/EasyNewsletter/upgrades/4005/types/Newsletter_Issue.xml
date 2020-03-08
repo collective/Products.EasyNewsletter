@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<object xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  name="Newsletter Issue"
+  meta_type="Dexterity FTI"
+  i18n:domain="Products.EasyNewsletter">
+
+  <action title="View Statistics"
+    action_id="statistics"
+    category="easynewsletter"
+    condition_expr="python: portal.portal_workflow.getInfoFor(object, 'review_state') in ['draft', 'sent'] and object.portal_type == 'Newsletter Issue'"
+    url_expr="string:${folder_url}/statistics"
+    visible="True"
+    i18n:domain="plone"
+    i18n:attributes="title">
+    <permission value="Modify portal content" />
+  </action>
+
+</object>

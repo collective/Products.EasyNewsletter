@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
 from DateTime import DateTime
 from plone import api
 from plone.protect import PostOnly
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
 from Products.EasyNewsletter.behaviors.plone_user_group_recipients import IPloneUserGroupRecipients  # noqa: E501
+from Products.EasyNewsletter.content.newsletter_issue import ISendStatus
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
+from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter
 from Products.Five.browser import BrowserView
 from Products.MailHost.interfaces import IMailHost
 from zope.component import getUtility
+from zope.component import subscribers
 
 import emails
 import emails.loader
@@ -143,20 +147,37 @@ class NewsletterIssueSend(BrowserView):
                 mail_from=(sender_name, sender_email),
                 mail_to=(receiver['fullname'], receiver['email']),
             )
-            m.transform(images_inline=True, base_url=self.context.absolute_url())
+            m.transform(
+                images_inline=True,
+                base_url=self.context.absolute_url(),
+                cssutils_logging_level=logging.ERROR,
+            )
             if 'HTTPLoaderError' in m.as_string():
                 log.exception(u"Transform message failed: {0}".format(m.as_string()))
+            send_status = {
+                'successful': None,
+                'error': None,
+                'datetime': datetime.now(),
+            }
             try:
                 self.mail_host.send(m.as_string(), immediate=True)
+                send_status['successful'] = True
                 log.info('Send newsletter to "%s"' % receiver['email'])
                 send_counter += 1
             except Exception as e:  # noqa
+                send_status['successful'] = False
+                send_status['error'] = e
                 log.exception(
                     'Sending newsletter to "%s" failed, with error "%s"!'
                     % (receiver['email'], e)
                 )
                 send_error_counter += 1
-
+            finally:
+                receiver['status'] = send_status
+        # Add information to annotations
+        status_adapter = ISendStatus(self.context)
+        if status_adapter:
+            status_adapter.add_records(receivers)
         log.info(
             'Newsletter was sent to (%s) receivers. (%s) errors occurred!'
             % (send_counter, send_error_counter)
@@ -286,5 +307,13 @@ class NewsletterIssueSend(BrowserView):
         # external_subscribers = self._get_external_source_subscribers(enl)
         # receivers_raw += external_subscribers
         receivers = self._unique_receivers(receivers_raw)
+
+        # Run registered receivers post sending filters for INewsletter.
+        for subscriber in subscribers([enl], IReceiversPostSendingFilter):
+            receivers = subscriber.filter(receivers)
+
+        # Run registered receivers post sending filters for INewsletterIssue.
+        for subscriber in subscribers([self.context], IReceiversPostSendingFilter):
+            receivers = subscriber.filter(receivers)
 
         return receivers

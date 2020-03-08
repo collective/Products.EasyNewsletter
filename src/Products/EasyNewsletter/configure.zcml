@@ -44,4 +44,15 @@
       for=".content.newsletter_issue.INewsletterIssue"
   />
 
+
+  <subscriber
+      factory=".subscriber.FilterAlreadySentReceivers"
+      for=".content.newsletter_issue.INewsletterIssue"
+      provides=".interfaces.IReceiversPostSendingFilter"
+      />
+
+  <subscriber
+      handler=".subscriber.reset_send_status"
+      />
+
 </configure>

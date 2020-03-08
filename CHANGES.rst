@@ -6,6 +6,8 @@ Changelog
 
 - Add userid to member property dict for plone subscribers.
   [thomasmassmann]
+- Add information about sent emails to Newsletter Issue.
+  [thomasmassmann]
 
 
 5.0.0a9 (2019-12-14)
