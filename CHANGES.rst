@@ -1,11 +1,12 @@
 Changelog
 =========
 
-5.0.0a10 (unreleased)
+5.0.0b1 (unreleased)
 ---------------------
 
 - Add userid to member property dict for plone subscribers.
   [thomasmassmann]
+
 - Add information about sent emails to Newsletter Issue.
   [thomasmassmann]
 
