@@ -1,8 +1,8 @@
 Changelog
 =========
 
-5.0.0b1 (unreleased)
----------------------
+5.0.0b1 (2020-03-08)
+--------------------
 
 - Add userid to member property dict for plone subscribers.
   [thomasmassmann]
