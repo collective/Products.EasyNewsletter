@@ -22,6 +22,7 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.7',
+        "Framework :: Plone :: Addon",
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
     keywords='Plone Newsletter Mailing Email Mailinglist',
