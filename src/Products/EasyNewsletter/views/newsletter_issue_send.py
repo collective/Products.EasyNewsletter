@@ -185,7 +185,7 @@ class NewsletterIssueSend(BrowserView):
                 receiver['status'] = send_status
 
         if not self.is_test:
-        # Add information to annotations
+            # Add information to annotations
             status_adapter = ISendStatus(self.context)
             if status_adapter:
                 status_adapter.add_records(receivers)
