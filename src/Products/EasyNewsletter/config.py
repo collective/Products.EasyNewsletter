@@ -53,7 +53,7 @@ MESSAGE_CODE = {
 
 
 EMAIL_RE = re.compile(
-    r"(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,6}(?:\s|$)", re.IGNORECASE)
+    r"(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,63}(?:\s|$)", re.IGNORECASE)
 
 
 DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT = _(
