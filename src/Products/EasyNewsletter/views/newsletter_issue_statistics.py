@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from datetime import datetime
 from plone import api
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
 from Products.EasyNewsletter.content.newsletter_issue import ISendStatus
@@ -29,8 +30,9 @@ class NewsletterIssueStatistics(BrowserView):
         status_adapter = ISendStatus(self.context)
         if not status_adapter:
             return
+        now = datetime.now()
         records = status_adapter.get_records()
-        records = sorted(records, key=lambda x: x.get('status', {}).get('datetime'))
+        records = sorted(records, key=lambda x: x.get('status', {}).get('datetime', now))
         self.failed = len(status_adapter.get_keys(successful=False))
         self.successful = len(status_adapter.get_keys(successful=True))
         self.total = len(records)
