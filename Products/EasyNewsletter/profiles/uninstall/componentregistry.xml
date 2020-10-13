@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<componentregistry>
+  <utilities>
+    <utility
+      interface="Products.EasyNewsletter.interfaces.IENLRegistrationTool"
+      factory="Products.EasyNewsletter.enl_registration_tool.ENLRegistrationTool"
+      name="enl_registration_tool"
+      remove="true" />
+  </utilities>
+
+</componentregistry>

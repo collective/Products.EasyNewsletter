@@ -2,5 +2,5 @@
 <object name="portal_workflow" meta_type="Plone Workflow Tool">
  <property
     name="title">Contains workflow definitions for your portal</property>
- <object name="enl_issue_workflow" meta_type="Workflow" remove="true"/>
+ <object name="enl_issue_workflow" meta_type="Workflow" remove="True"/>
 </object>

@@ -5,7 +5,7 @@ Changelog
 3.0.10 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Add more items to uninstall profile. [fredvd]
 
 
 3.0.9 (2019-09-19)

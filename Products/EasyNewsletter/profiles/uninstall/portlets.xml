@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<portlets
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="plone">
+
+  <portlet 
+    addview="portlets.Subscriber"
+    title="Newsletter subscriber portlet"
+    description="Portlet to add subscribers."
+    i18n:attributes="title title_newsletter_subscriber_portlet;
+                     description description_newsletter_subscriber_portlet"
+    remove="True"/>
+
+</portlets>

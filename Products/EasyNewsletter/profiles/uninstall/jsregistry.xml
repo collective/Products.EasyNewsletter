@@ -1,0 +1,20 @@
+<object name="portal_javascripts" meta_type="JavaScripts Registry" autogroup="False">
+
+  <javascript id="++resource++Products.EasyNewsletter.enl_edithelper.js"
+    compression="safe"
+    cookable="False"
+    inline="False"
+    enabled="1"
+    expression="context/@@load_enl_edithelper"
+    remove="True"
+    />
+
+  <javascript id="++resource++Products.EasyNewsletter.iframeResizer.min.js"
+    compression="none"
+    cookable="False"
+    inline="False"
+    enabled="1"
+    remove="True" 
+    />
+
+</object>
