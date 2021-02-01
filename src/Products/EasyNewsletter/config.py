@@ -7,7 +7,7 @@ from zope.i18nmessageid import MessageFactory
 import re
 
 
-_ = MessageFactory('EasyNewsletter')
+_ = MessageFactory('Products.EasyNewsletter')
 
 IS_PLONE_5 = api.env.plone_version().startswith('5')
 IS_PLONE_4 = api.env.plone_version().startswith('4')

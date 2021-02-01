@@ -13,6 +13,7 @@
           tal:condition="is_editable"
           target="_blank"
           class="btn btn-info"
+          i18n:translate=""
           role="button">Preview email content in new window</a>
       </p>
 

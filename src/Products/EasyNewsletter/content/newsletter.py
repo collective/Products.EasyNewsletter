@@ -195,9 +195,9 @@ class INewsletter(model.Schema):
             u"ENL_description_text_header",
             default=u"The default prologue text. This is used as a default \
                 for new issues. You can use placeholders like\
-                {{SUBSCRIBER_SALUTATION}} and {{UNSUBSCRIBE}} here.",
+                {{subscriber_salutation}} and {{unsubscribe}} here.",
         ),
-        default=_(u"{{SUBSCRIBER_SALUTATION}}<br />"),
+        default=_(u"{{subscriber_salutation}}<br />"),
         required=False,
     )
 
@@ -208,9 +208,9 @@ class INewsletter(model.Schema):
             u"ENL_description_text_footer",
             default=u"The default epilogue text. This is used as a default \
                 for new issues. You can use placeholders like\
-                {{SUBSCRIBER_SALUTATION}} and {{UNSUBSCRIBE}} here.",
+                {{subscriber_salutation}} and {{unsubscribe}} here.",
         ),
-        default=_(u"<h1>Community Newsletter for Plone</h1>\n{{UNSUBSCRIBE}}"),
+        default=_(u"<h1>Community Newsletter for Plone</h1>\n{{unsubscribe}}"),
         required=False,
     )
 

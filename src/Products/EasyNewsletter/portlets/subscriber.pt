@@ -1,4 +1,4 @@
-<tal:block i18n:domain="EasyNewsletter">
+<tal:block i18n:domain="Products.EasyNewsletter">
   <dl class="portlet portletNewsletterSubscriber" tal:define="portal_url context/@@plone_portal_state/portal_url;
               newsletter_path view/get_newsletter">
 

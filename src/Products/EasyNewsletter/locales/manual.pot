@@ -14,7 +14,7 @@ msgstr ""
 "Language-Code: en\n"
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: EasyNewsletter\n"
+"Domain: Products.EasyNewsletter\n"
 
 msgid "Tester"
 msgstr ""
