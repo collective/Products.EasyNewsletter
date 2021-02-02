@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from AccessControl.SecurityManagement import newSecurityManager
 from Acquisition import aq_inner
-from email_validator import EmailNotValidError
-from email_validator import validate_email
+from email_validator import EmailNotValidError, validate_email
 from logging import getLogger
 from plone import api
 from plone.i18n.normalizer.interfaces import IIDNormalizer
@@ -17,8 +16,7 @@ from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 from zExceptions import BadRequest
-from zope.component import getMultiAdapter
-from zope.component import queryUtility
+from zope.component import getMultiAdapter, queryUtility
 from zope.interface import alsoProvides
 
 import emails

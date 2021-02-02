@@ -2,15 +2,16 @@
 
 from plone import api
 from plone.protect.utils import addTokenToUrl
-from Products.EasyNewsletter import _
-from Products.EasyNewsletter import config
+from Products.EasyNewsletter import _, config
 from Products.EasyNewsletter.interfaces import ISubscriberSource
 from Products.Five.browser import BrowserView
 from zope.component import getUtility
 from zope.component.interfaces import ComponentLookupError
-# from zope.interface.interfaces import ComponentLookupError # activate this in next major version, which drops zope2
 
 import logging
+
+
+# from zope.interface.interfaces import ComponentLookupError # activate this in next major version, which drops zope2
 
 
 log = logging.getLogger("Products.EasyNewsletter")
@@ -28,9 +29,7 @@ class NewsletterSubscribers(BrowserView):
 
     def subscribers(self):
         query = dict(
-            portal_type="Newsletter Subscriber",
-            context=self.context,
-            sort_on="email",
+            portal_type="Newsletter Subscriber", context=self.context, sort_on="email",
         )
         form = self.request.form
         for k in self.searchable_params:
@@ -67,7 +66,7 @@ class NewsletterSubscribers(BrowserView):
             )
 
         # External subscribers
-        ext_subcriber_source = self.context.get('subscriber_source')
+        ext_subcriber_source = self.context.get("subscriber_source")
         if ext_subcriber_source:
             if ext_subcriber_source != "default":
                 try:
@@ -75,7 +74,12 @@ class NewsletterSubscribers(BrowserView):
                         ISubscriberSource, name=ext_subcriber_source
                     )
                 except ComponentLookupError:
-                    log.warn(_(u'label_ext_subcriber_source_failed', default=u"External subscriber lookup failed"))
+                    log.warn(
+                        _(
+                            u"label_ext_subcriber_source_failed",
+                            default=u"External subscriber lookup failed",
+                        )
+                    )
                 else:
                     for subscriber in external_source.getSubscribers(self.context):
                         subscriber["source"] = ext_subcriber_source

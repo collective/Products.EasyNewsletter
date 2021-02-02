@@ -2,3 +2,4 @@
 setuptools
 zc.buildout
 pathlib2
+isort

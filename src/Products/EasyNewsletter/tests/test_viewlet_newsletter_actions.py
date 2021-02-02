@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from plone import api
-from plone.app.testing import logout
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
+from plone.app.testing import logout, setRoles, TEST_USER_ID
 from Products.EasyNewsletter.interfaces import IProductsEasyNewsletterLayer
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
+from Products.EasyNewsletter.testing import (
+    PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING,
+    PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING,
+)
 from Products.Five.browser import BrowserView
 from zope.component import queryMultiAdapter
 from zope.interface import alsoProvides

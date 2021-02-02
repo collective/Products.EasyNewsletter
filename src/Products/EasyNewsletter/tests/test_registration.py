@@ -1,24 +1,21 @@
 # -*- coding: utf-8 -*-
+from AccessControl import Unauthorized
 from App.Common import package_home
 from plone import api
-from plone.app.testing import login
-from plone.app.testing import logout
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
-from plone.app.testing import TEST_USER_NAME
+from plone.app.testing import login, logout, setRoles, TEST_USER_ID, TEST_USER_NAME
 from plone.testing.z2 import Browser
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter.config import IS_PLONE_5
 from Products.EasyNewsletter.interfaces import IENLRegistrationTool
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
+from Products.EasyNewsletter.testing import (
+    PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING,
+    PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING,
+)
 from Products.EasyNewsletter.tests.base import parsed_payloads_from_msg
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.MailHost.interfaces import IMailHost
-from zope.component import getMultiAdapter
-from zope.component import getSiteManager
-from zope.component import getUtility
+from zope.component import getMultiAdapter, getSiteManager, getUtility
 
 import unittest
 
@@ -82,7 +79,7 @@ class RegistrationIntegrationTests(unittest.TestCase):
         view.__call__()
         self.assertEqual(len(self.mailhost.messages), 1)
         self.assertTrue(self.mailhost.messages[0])
-        msg = self.mailhost.messages[0]
+        msg = safe_unicode(self.mailhost.messages[0])
         parsed_payloads = parsed_payloads_from_msg(msg)
         self.assertIn('To: max@example.com', msg)
         self.assertIn('From: portal@plone.test', msg)
@@ -179,8 +176,15 @@ class RegistrationIntegrationTests(unittest.TestCase):
         # check that anonymous can't access the subscriber object
         subscriber_uid = subscriber.UID()
         logout()
-        subscriber_obj = api.content.get(UID=subscriber_uid)
-        self.assertFalse(subscriber_obj)
+        # Unauthorized gets raised in > 5.1
+        # with self.assertRaises(Unauthorized):
+        try:
+            subscriber_obj = api.content.get(UID=subscriber_uid)
+        except Unauthorized as e:
+            pass
+        else:
+            # in Plone < 5.2 subscriber_obj has to be None:
+            self.assertFalse(subscriber_obj)
         login(self.portal, TEST_USER_NAME)
 
 

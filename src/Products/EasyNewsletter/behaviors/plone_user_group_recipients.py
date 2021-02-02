@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
 from ..content.newsletter import INewsletter
-from plone import api
-from plone import schema
+from plone import api, schema
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.supermodel import model
 from Products.EasyNewsletter import _
 from zope.component import adapter
-from zope.interface import implementer
-from zope.interface import Interface
-from zope.interface import provider
+from zope.interface import implementer, Interface, provider
 from zope.schema.interfaces import IContextAwareDefaultFactory
 
 import logging

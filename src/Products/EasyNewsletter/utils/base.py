@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from AccessControl import getSecurityManager
-from AccessControl.SecurityManagement import newSecurityManager
-from AccessControl.SecurityManagement import setSecurityManager
+from AccessControl.SecurityManagement import newSecurityManager, setSecurityManager
 from AccessControl.User import Super as BaseUnrestrictedUser
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter.utils.mail import get_email_charset

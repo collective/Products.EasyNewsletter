@@ -2,8 +2,7 @@
 
 from Acquisition import aq_inner
 from plone import api
-from Products.CMFPlone.utils import safe_encode
-from Products.CMFPlone.utils import safe_unicode
+from Products.CMFPlone.utils import safe_encode, safe_unicode
 from Products.Five.browser import BrowserView
 
 import codecs

@@ -4,8 +4,10 @@ from html2text import HTML2Text
 from plone import api
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter.config import PLACEHOLDERS
-from Products.EasyNewsletter.interfaces import IBeforePersonalizationEvent
-from Products.EasyNewsletter.interfaces import IIssueDataFetcher
+from Products.EasyNewsletter.interfaces import (
+    IBeforePersonalizationEvent,
+    IIssueDataFetcher,
+)
 from zope.event import notify
 from zope.interface import implementer
 

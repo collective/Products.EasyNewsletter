@@ -5,8 +5,7 @@ from collective.zamqp.producer import Producer
 from plone import api
 from Products.EasyNewsletter.queue.interfaces import IIssueQueue
 from zope.component import getUtility
-from zope.interface import implementer
-from zope.interface import Interface
+from zope.interface import implementer, Interface
 
 
 QUEUE_NAME = 'Products.EasyNewsletter.queue'

@@ -7,6 +7,9 @@ Changelog
 - Don't fail sending process when one email fails.
   [thomasmassmann]
 
+- Switch from travis to Github-Actions and fix tests
+  [MrTango]
+
 - Fixed empty epilog error. #162
   [iham]
 

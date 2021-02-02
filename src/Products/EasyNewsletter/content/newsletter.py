@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # from z3c.form.browser.radio import RadioFieldWidget
-from plone import api
-from plone import schema
+from plone import api, schema
 from plone.app import textfield
 from plone.app.z3cform.widget import SingleCheckBoxBoolFieldWidget
 from plone.autoform import directives
@@ -9,8 +8,7 @@ from plone.dexterity.content import Container
 from plone.namedfile import field as namedfile
 from plone.registry.interfaces import IRegistry
 from plone.supermodel import model
-from Products.EasyNewsletter import _
-from Products.EasyNewsletter import config
+from Products.EasyNewsletter import _, config
 from z3c import relationfield
 from zope.component import getUtility
 from zope.interface import implementer

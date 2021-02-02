@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from plone import api
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
+from plone.app.testing import setRoles, TEST_USER_ID
 from plone.dexterity.interfaces import IDexterityFTI
-from Products.EasyNewsletter.content.newsletter_subscriber import INewsletterSubscriber  # NOQA E501
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING  # noqa
-from zope.component import createObject
-from zope.component import queryUtility
+from Products.EasyNewsletter.content.newsletter_subscriber import INewsletterSubscriber
+from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
+from zope.component import createObject, queryUtility
 
 import unittest
 

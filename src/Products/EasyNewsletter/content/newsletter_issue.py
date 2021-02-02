@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-from .newsletter import get_content_aggregation_sources_base_path
-from .newsletter import INewsletter
+from .newsletter import get_content_aggregation_sources_base_path, INewsletter
 from persistent.dict import PersistentDict
 from plone import schema
 from plone.app import textfield
@@ -12,9 +11,7 @@ from plone.supermodel import model
 from Products.EasyNewsletter import _
 from z3c import relationfield
 from zope.annotation.interfaces import IAnnotations
-from zope.interface import implementer
-from zope.interface import Interface
-from zope.interface import provider
+from zope.interface import implementer, Interface, provider
 from zope.schema.interfaces import IContextAwareDefaultFactory
 
 

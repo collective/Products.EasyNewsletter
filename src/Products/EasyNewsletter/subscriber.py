@@ -2,8 +2,10 @@
 """Newsletter subscriber."""
 
 from Products.DCWorkflow.interfaces import IAfterTransitionEvent
-from Products.EasyNewsletter.content.newsletter_issue import INewsletterIssue
-from Products.EasyNewsletter.content.newsletter_issue import ISendStatus
+from Products.EasyNewsletter.content.newsletter_issue import (
+    INewsletterIssue,
+    ISendStatus,
+)
 from zope.component import adapter
 
 
