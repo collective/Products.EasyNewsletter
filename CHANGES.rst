@@ -4,10 +4,10 @@ Changelog
 5.0.0b2 (unreleased)
 --------------------
 
-- Don't fail sending process when one email fails.
+- Don't fail sending process when one email fails
   [thomasmassmann]
 
-- Fix helper method: get_results_from_aggregation_sources, which can be used for a table of contents.
+- Fix helper method: get_results_from_aggregation_sources, which can be used for a table of contents
   [MrTango]
 
 - Update output_blacksee template with a TOC and some CSS cleanup
@@ -16,8 +16,12 @@ Changelog
 - Switch from travis to Github-Actions and fix tests
   [MrTango]
 
-- Fixed empty epilog error. #162
+- Fixed empty epilog error #162
   [iham]
+
+- Add Newsletter title to the unsubscribe email subject #131
+  [MrTango]
+
 
 5.0.0b1 (2020-03-08)
 --------------------
