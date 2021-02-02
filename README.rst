@@ -1,8 +1,8 @@
 EasyNewsletter
 ==============
 
-.. image:: https://secure.travis-ci.org/collective/Products.EasyNewsletter.png?branch=master
-    :target: http://travis-ci.org/collective/Products.EasyNewsletter
+.. image:: https://github.com/collective/Products.EasyNewsletter/workflows/Plone%20package/badge.svg
+    :target: https://github.com/collective/Products.EasyNewsletter/actions
 
 .. image:: https://coveralls.io/repos/github/collective/Products.EasyNewsletter/badge.svg?branch=master
     :target: https://coveralls.io/github/collective/Products.EasyNewsletter?branch=master
