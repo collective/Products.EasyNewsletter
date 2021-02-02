@@ -19,6 +19,7 @@ ENL_EDITHELPER_TYPES = ['EasyNewsletter', 'ENLIssue', 'Newsletter', 'Newsletter 
 
 PLACEHOLDERS = ['UNSUBSCRIBE', 'SUBSCRIBER_SALUTATION']
 
+AGG_SOURCES_INFOS = "agg_sources_infos"
 
 SALUTATION = {
     'ms': _(u'label_salutation_ms', 'Ms.'),

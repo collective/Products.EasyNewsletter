@@ -33,8 +33,15 @@
       h1, h2, h3, h4, h5, h6{color:#3c586d; font-family:Arial, Helvetica; font-size:20px; line-height:125%; text-align:Left;}
       h1{color:#FFFFFF;}
       h2{color:#555555;}
-      .headerDateContent{ text-align: right; padding: 1em; color: #999; font-size: 90%;}
+
+
+      #headerSummaryWrapper{
+        background-color:#3c586d;
+        color: #FFFFFF;
+      }
+      .headerSummaryDate{ font-weight: bold; color: #FFFFFF;}
       .headlineBackground{background-color: #3c586d;color:#FFFFFF;}
+
       .enlLogo{padding:1em;}
       #enl_headlines{list-style-type:none; padding-left:0; margin-top:0; line-height:1.5em;}
       #enl_headlines a{color:#FFFFFF;font-family:Arial, Helvetica;}
@@ -44,9 +51,11 @@
       .emailButton{background-color:#2C9AB7; border-collapse:separate; border-radius:4px;}
       .buttonContent{color:#FFFFFF; font-family:Arial, Helvetica; font-size:18px; font-weight:bold; line-height:100%; padding:15px; text-align:center;}
       .buttonContent a{color:#FFFFFF; display:block; text-decoration:none;}
+
       .emailCalendar{background-color:#FFFFFF; border:1px solid #CCCCCC;}
       .emailCalendarMonth{background-color:#2C9AB7; color:#FFFFFF; font-family:Arial, Helvetica, sans-serif; font-size:16px; font-weight:bold; padding-top:10px; padding-bottom:10px; text-align:center;}
       .emailCalendarDay{color:#2C9AB7; font-family:Arial, Helvetica, sans-serif; font-size:60px; font-weight:bold; line-height:100%; padding-top:20px; padding-bottom:20px; text-align:center;}
+
       .footerContent h1, .footerContent h2, .footerContent h3{color:#3c586d;}
       .footerContentStatic{color:#FFFFFF;}
 
@@ -111,6 +120,7 @@
   <![endif]-->
 </head>
 <body>
+<tal:main define="enl_helpers here/@@enl_helpers">
   <center>
     <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
       <tr>
@@ -164,13 +174,22 @@
               </td>
             </tr>
 
-            <tr>
-              <td align="center" valign="bottom">
-                <table id="templateDateHeader" width="600" border="0" cellpadding="0" cellspacing="0">
+            <tr id="headerSummaryWrapper">
+              <td width="600" align="center" valign="bottom" class="flexibleContainerCell">
+                <table id="headerSummary" width="560" border="0" cellpadding="0" cellspacing="0">
                   <tbody>
                     <tr>
-                      <td class="headerDateContent">
-                        {{month}} / {{year}}
+                      <td align="left" valign="top" class="headerSummaryDate">
+                        Ausgabe {{month}} / {{year}}
+                      </td>
+                      <td alight="left" valign="top" class="headerSummaryHeadlines">
+                        <ul id="enl_headlines">
+                        <tal:blockHeadline tal:repeat="source python: enl_helpers.get_results_from_aggregation_sources(context)">
+                          <li tal:condition="source/brains_count">
+                            <a tal:content="source/title" tal:attributes="href string:#source_${source/uid}"></a>
+                          </li>
+                        </tal:blockHeadline>
+                        </ul>
                       </td>
                     </tr>
                   </tbody>
@@ -286,6 +305,6 @@
 
     </table>
   </center>
-
+</tal:main>
 </body>
 </html>
