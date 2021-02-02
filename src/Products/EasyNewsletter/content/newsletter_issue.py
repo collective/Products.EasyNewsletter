@@ -49,7 +49,7 @@ def get_default_epilogue(parent):
     """ get epilogue from parent Newsletter
     """
     epilogue_output = u""
-    if INewsletter.providedBy(parent) and parent.__parent__:
+    if INewsletter.providedBy(parent) and parent.__parent__ and parent.default_epilogue:
         epilogue_output = parent.default_epilogue.raw
     default_epilogue = textfield.RichTextValue(
         raw=epilogue_output,

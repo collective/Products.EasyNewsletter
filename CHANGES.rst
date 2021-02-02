@@ -4,8 +4,11 @@ Changelog
 5.0.0b2 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Don't fail sending process when one email fails.
+  [thomasmassmann]
 
+- Fixed empty epilog error. #162
+  [iham]
 
 5.0.0b1 (2020-03-08)
 --------------------

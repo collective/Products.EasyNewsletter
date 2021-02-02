@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from datetime import datetime
 from DateTime import DateTime
 from plone import api
@@ -132,52 +133,63 @@ class NewsletterIssueSend(BrowserView):
         # get issue data
         issue_data = issue_data_fetcher()
         for receiver in receivers:
-            personalized_html = issue_data_fetcher.personalize(
-                receiver, issue_data['body_html']
-            )
-            # get plain text version
-            personalized_plaintext = issue_data_fetcher.create_plaintext_message(
-                personalized_html
-            )
-
-            m = emails.Message(
-                html=personalized_html,
-                text=personalized_plaintext,
-                subject=issue_data['subject'],
-                mail_from=(sender_name, sender_email),
-                mail_to=(receiver['fullname'], receiver['email']),
-            )
-            m.transform(
-                images_inline=True,
-                base_url=self.context.absolute_url(),
-                cssutils_logging_level=logging.ERROR,
-            )
-            if 'HTTPLoaderError' in m.as_string():
-                log.exception(u"Transform message failed: {0}".format(m.as_string()))
             send_status = {
                 'successful': None,
                 'error': None,
                 'datetime': datetime.now(),
             }
             try:
-                self.mail_host.send(m.as_string(), immediate=True)
-                send_status['successful'] = True
-                log.info('Send newsletter to "%s"' % receiver['email'])
-                send_counter += 1
-            except Exception as e:  # noqa
+                personalized_html = issue_data_fetcher.personalize(
+                    receiver, issue_data['body_html']
+                )
+                # get plain text version
+                personalized_plaintext = issue_data_fetcher.create_plaintext_message(
+                    personalized_html
+                )
+
+                m = emails.Message(
+                    html=personalized_html,
+                    text=personalized_plaintext,
+                    subject=issue_data['subject'],
+                    mail_from=(sender_name, sender_email),
+                    mail_to=(receiver['fullname'], receiver['email']),
+                )
+                m.transform(
+                    images_inline=True,
+                    base_url=self.context.absolute_url(),
+                    cssutils_logging_level=logging.ERROR,
+                )
+                message_string = m.as_string()
+                if 'HTTPLoaderError' in message_string:
+                    log.exception(u"Transform message failed: {0}".format(message_string))
+                try:
+                    self.mail_host.send(message_string, immediate=True)
+                    send_status['successful'] = True
+                    log.info('Send newsletter to "%s"' % receiver['email'])
+                    send_counter += 1
+                except Exception as e:  # noqa
+                    send_status['successful'] = False
+                    send_status['error'] = e
+                    log.exception(
+                        'Sending newsletter to "%s" failed, with error "%s"!'
+                        % (receiver['email'], e)
+                    )
+                    send_error_counter += 1
+            except Exception as e:
                 send_status['successful'] = False
                 send_status['error'] = e
                 log.exception(
-                    'Sending newsletter to "%s" failed, with error "%s"!'
-                    % (receiver['email'], e)
+                    'Sending newsletter failed, with error "{0}"!'.format(e)
                 )
                 send_error_counter += 1
             finally:
                 receiver['status'] = send_status
-        # Add information to annotations
-        status_adapter = ISendStatus(self.context)
-        if status_adapter:
-            status_adapter.add_records(receivers)
+
+        if not self.is_test:
+            # Add information to annotations
+            status_adapter = ISendStatus(self.context)
+            if status_adapter:
+                status_adapter.add_records(receivers)
         log.info(
             'Newsletter was sent to (%s) receivers. (%s) errors occurred!'
             % (send_counter, send_error_counter)
