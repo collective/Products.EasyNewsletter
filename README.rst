@@ -68,10 +68,11 @@ Installation
 
 1. Add ``Products.EasyNewsletter`` to your buildout
 2. Run your buildout script
-3. Restart zope
+3. Restart Plone
 4. Install EasyNewsletter via Plone Management Interface
+5. Add a Newsletter to the Plone site
 5. Add a "Newsletter Subscriber" portlet and select a Newsletter
-   (To this newsletter the subscribers will be added).
+   (To this newsletter, the subscribers will be added).
 
 Documentation
 =============
@@ -107,16 +108,16 @@ funding welcome ;)
 - content migration AT >> DX
 
 
-Authors
-=======
+Maintainer
+==========
 
-* initial release: Kai Dieffenbach
 * Maik Derstappen [MrTango] md@derico.de
 
 
 Contributors
 ============
 
+* Kai Dieffenbach: initial release
 * Andreas Jung
 * Dinu Gherman
 * Jens W. Klein

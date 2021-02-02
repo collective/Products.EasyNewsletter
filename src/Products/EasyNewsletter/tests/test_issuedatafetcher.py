@@ -1,22 +1,23 @@
 # -*- coding: utf-8 -*-
 from App.Common import package_home
 from plone import api
-from plone.app.testing import login
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
-from plone.app.testing import TEST_USER_NAME
+from plone.app.testing import login, setRoles, TEST_USER_ID, TEST_USER_NAME
 from plone.registry.interfaces import IRegistry
 from Products.CMFPlone.interfaces.controlpanel import IMailSchema
 from Products.CMFPlone.tests.utils import MockMailHost
-from Products.EasyNewsletter.interfaces import IBeforePersonalizationEvent
-from Products.EasyNewsletter.interfaces import IIssueDataFetcher
+from Products.EasyNewsletter.interfaces import (
+    IBeforePersonalizationEvent,
+    IIssueDataFetcher,
+)
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.MailHost.interfaces import IMailHost
-from zope.component import getGlobalSiteManager
-from zope.component import getSiteManager
-from zope.component import getUtility
-from zope.component import provideHandler
+from zope.component import (
+    getGlobalSiteManager,
+    getSiteManager,
+    getUtility,
+    provideHandler,
+)
 
 import unittest
 

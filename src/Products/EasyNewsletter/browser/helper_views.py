@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from plone import api
+from Products.EasyNewsletter.config import AGG_SOURCES_INFOS
 from Products.Five.browser import BrowserView
+from zope.annotation import IAnnotations
 from zope.interface import Interface
 from zope.interface.declarations import implementer
 
@@ -62,19 +64,12 @@ class ENLHelperView(BrowserView):
     def get_results_from_aggregation_sources(self, context):
         """ Returns a list of sources and it's results
         """
-        sources = context.getContentSources()
-        results = []
-        for source in sources:
-            sresults = source.queryCatalog()
-            if not sresults:
-                continue
-            results.append({
-                'id': source.id,
-                'title': source.Title(),
-                'description': source.Description(),
-                'uid': source.UID(),
-                'portal_type': sresults[0].portal_type,
-                'brains': sresults,
-                'brains_count': len(sresults),
-            })
-        return results
+        return self._get_source_infos_from_annotation(context)
+
+    def _get_source_infos_from_annotation(self, context):
+        """
+        """
+        annotations = IAnnotations(context)
+        if AGG_SOURCES_INFOS not in annotations:
+            return []
+        return annotations[AGG_SOURCES_INFOS]

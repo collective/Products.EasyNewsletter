@@ -26,7 +26,8 @@ or you can use the collection criteria to collect content.
 EasyNewsletter can use multiple Collections to aggregate content for a newsletter issue.
 
 Once the content is generated one can edit the text as usual in Plone. But it's not recommended,
-because TinyMCE is not very helpful with email markup.
+because TinyMCE is not very helpful with email markup. This will change when we integrated the `Mosaico-Newsletter-Editor`_. (Budget welcome!)
+.. _Mosaico-Newsletter-Editor: https://mosaico.io/
 
 You can create your own templates to structure the selected content. Please refer
 to the provided templates to see how it works.
@@ -43,7 +44,7 @@ Step by step
 4. You can select more than one Collection to build categories like news, events and pictures in your newsletter.
    Empty Collections will be ignored in default aggregations templates.
 
-5. Go to the view tab and call ``Aggregate body content`` from the action or Newsletter menu (>= Plone 5) menu.
+5. Go to the view tab and call ``Aggregate body content`` from the action or Newsletter menu menu.
 
 6. You can also select `Content aggregation sources`` on Issue level. Then only the issue Collections are used.
 
@@ -136,13 +137,132 @@ Using cron4plone to send it out
 You can now use cron4plone to call the new trigger ``@@trigger-daily-issue`` which will make a POST request to the ``@@daily-issue``.
 
 
+Allowed placeholders
+--------------------
+
+The following placeholder can be used in the header, body and footer fields or the aggregation and output templates:
+
+* ``{{ subscriber_salutation }}`` example: Dear Ms.
+* ``{{ salutation }}`` example: Ms.
+* ``{{ unsubscribe }}`` unsubscribe link to be included in emails
+* ``{{ unsubscribe_info }}`` unsubscribe info dict, provides: link, text and rendered html, which equals the unsubscribe placeholder.
+* ``{{ receiver }}``  example: ``{'salutation': 'Guten Tag', 'nl_language': 'de', 'fullname': 'Test Member', 'email': 'maik@planetcrazy.de'}``
+* ``{{ language }}``  example: de
+* ``{{ fullname }}``
+* ``{{ issue_title }}``
+* ``{{ issue_description }}``
+* ``{{ banner_src }}``  Banner src url
+* ``{{ logo_src }}``  Logo src url
+* ``{{ date }}``  example: 30.05.2017
+* ``{{ month }}``  example: 5
+* ``{{ year }}``  example: 2017
+* ``{{ calendar_week }}``  example: 41
+
+
+Customize personalization (placeholders)
+----------------------------------------
+
+You can use the BeforePersonalizeEvent to override placeholder values or even manipulate the html before the placeholder are filled.
+
+First define a event handler somewhere in you package.
+::
+
+   def enl_personalize(event):
+       edc = event.data['context']
+       event.data['html'] = event.data['html'].replace('PHP', 'Python')
+       firstname = edc['receiver'].get('firstname')
+       lastname = edc['receiver'].get('lastname')
+       if not firstname and not lastname:
+           edc['SUBSCRIBER_SALUTATION'] = u'Dear {0}'.format(
+               edc['receiver']['email']
+           )
+
+Then register the event handler for the BeforePersonalizeEvent::
+
+   <subscriber
+     for="Products.EasyNewsletter.interfaces.IBeforePersonalizationEvent"
+     handler=".subscribers.enl_personalize"
+     />
+
+For a working example see ``test_before_the_personalization_filter`` in ``test_newsletter.py``.
+
+
+Output templates
+----------------
+
+Output templates define the general frame (layout) for your newsletter.
+We provide some output templates, but you can add more. A output template has to be global available template.
+The default templates are in the skins folder. They have to be registered in the Plone registry, see below for an example how to do that with GenericSetup.
+
+TTW
++++
+
+You can add your output templates TTW in /portal_skins/custom/manage_main and add them to the registry in /portal_registry.
+Search there for EasyNewsletter, you will find ``Products EasyNewsletter output_templates`` where you can add your templates.
+
+Add-on
+++++++
+
+To do it with your addon product, add this to your registry.xml in your profiles.
+
+.. code-block :: xml
+
+    <record name="Products.EasyNewsletter.output_templates">
+        <field type="plone.registry.field.Dict">
+            <title>ENL Output templates</title>
+            <key_type type="plone.registry.field.TextLine" />
+            <value_type type="plone.registry.field.TextLine" />
+        </field>
+        <value purge="false">
+            <element key="output_green_energy">Green energy output template</element>
+        </value>
+    </record>
+
+You can use methods like ``get_results_from_aggregation_sources`` in helper_views to get some useful infos about collections used to aggregate content. You can use them to create a table of contents for example.
+
+
+Aggregation templates
+---------------------
+
+An aggregation template defines how the from collections aggregated content is rendered in the newsletter issue.
+We provide some content aggregation templates, but you can add more. A aggregation template has to be global available template.
+The default templates are in the skins folder. They have to be registered in the Plone registry, see below for an example how to do that with GenericSetup.
+
+TTW
++++
+
+You can add your aggregation templates TTW in /portal_skins/custom/manage_main and add them to the registry in /portal_registry.
+Search there for EasyNewsletter, you will find ``Products EasyNewsletter content_aggregation_templates`` where you can add your templates.
+
+Add-on
+++++++
+
+To do it with your addon product, add this to your registry.xml in your profiles.
+
+.. code-block :: xml
+
+    <record name="Products.EasyNewsletter.content_aggregation_templates">
+        <field type="plone.registry.field.Dict">
+            <title>ENL Content aggregation templates</title>
+            <key_type type="plone.registry.field.TextLine" />
+            <value_type type="plone.registry.field.TextLine" />
+        </field>
+        <value purge="false">
+            <element key="aggregation_fancy_pictures">Fancy pictures listing</element>
+        </value>
+    </record>
+
+You can use methods like ``brain_has_lead_image`` in helper_views to use them in the templates logic.
+
+
 Filtering Users, Groups and Receivers
 -------------------------------------
 
 EasyNewsletter provide a flexible way to filter the Plone members, Plone groups and the recivers list. You can provide smal funtion in your add-on and register it as IReceiversMemberFilter, IReceiversGroupFilter or IReceiversPostSendingFilter. The filter get the list and can filter out some entries or even add some entries.
 
 IReceiversMemberFilter filters
-""""""""""""""""""""""""""""""
+++++++++++++++++++++++++++++++
+
 ``Interface: Products.EasyNewsletter.interfaces.IReceiversMemberFilter``
 
 The IReceiversMemberFilter filters can be used to filter the list of Plone members which a user can select in newsletters and issues.
@@ -180,7 +300,8 @@ The IReceiversMemberFilter filters can be used to filter the list of Plone membe
 
 
 IReceiversGroupFilter filters
-"""""""""""""""""""""""""""""
++++++++++++++++++++++++++++++
+
 ``Interface: Products.EasyNewsletter.interfaces.IReceiversGroupFilter``
 
 The IReceiversGroupFilter filters can be used to filter the list of Plone groups which a user can select in newsletters and issues.
@@ -217,7 +338,8 @@ The IReceiversGroupFilter filters can be used to filter the list of Plone groups
 
 
 IReceiversPostSendingFilter filters
-"""""""""""""""""""""""""""""""""""
++++++++++++++++++++++++++++++++++++
+
 ``Interface: Products.EasyNewsletter.interfaces.IReceiversMemberFilter``
 
 The IReceiversPostSendingFilter can be used to filter the list of reveivers before sending emails to all receivers.
@@ -258,7 +380,7 @@ The IReceiversPostSendingFilter can be used to filter the list of reveivers befo
 
 
 Configuring external subscriber sources
----------------------------------------
++++++++++++++++++++++++++++++++++++++++
 
 An external subscriber sources provides (additional) subscriber to a newsletter instance.
 
@@ -297,118 +419,6 @@ Inside the ``Edit`` view of the instance under the ``External`` tab you should f
 ``MyInfo subscribers`` under the option ``External subscriber source``.
 
 
-Allowed placeholders
-====================
-
-The following placeholder can be used in the header, body and footer fields or the aggregation and output templates:
-
-* ``{{ subscriber_salutation }}`` example: Dear Ms.
-* ``{{ salutation }}`` example: Ms.
-* ``{{ unsubscribe }}`` unsubscribe link to be included in emails
-* ``{{ unsubscribe_info }}`` unsubscribe info dict, provides: link, text and rendered html, which equals the unsubscribe placeholder.
-* ``{{ receiver }}``  example: ``{'salutation': 'Guten Tag', 'nl_language': 'de', 'fullname': 'Test Member', 'email': 'maik@planetcrazy.de'}``
-* ``{{ language }}``  example: de
-* ``{{ fullname }}``
-* ``{{ issue_title }}``
-* ``{{ issue_description }}``
-* ``{{ banner_src }}``  Banner src url
-* ``{{ logo_src }}``  Logo src url
-* ``{{ date }}``  example: 30.05.2017
-* ``{{ month }}``  example: 5
-* ``{{ year }}``  example: 2017
-* ``{{ calendar_week }}``  example: 41
-
-
-Customize personalization (placeholders)
-========================================
-
-You can use the BeforePersonalizeEvent to override placeholder values or even manipulate the html before the placeholder are filled.
-
-First define a event handler somewhere in you package.
-::
-
-   def enl_personalize(event):
-       edc = event.data['context']
-       event.data['html'] = event.data['html'].replace('PHP', 'Python')
-       firstname = edc['receiver'].get('firstname')
-       lastname = edc['receiver'].get('lastname')
-       if not firstname and not lastname:
-           edc['SUBSCRIBER_SALUTATION'] = u'Dear {0}'.format(
-               edc['receiver']['email']
-           )
-
-Then register the event handler for the BeforePersonalizeEvent::
-
-   <subscriber
-     for="Products.EasyNewsletter.interfaces.IBeforePersonalizationEvent"
-     handler=".subscribers.enl_personalize"
-     />
-
-For a working example see ``test_before_the_personalization_filter`` in ``test_newsletter.py``.
-
-
-Aggregation templates
-=====================
-
-We provide some content aggregation templates, but you can add more. A aggregation template has to be global available template.
-The default templates are in the skins folder. They have to be registered in the Plone registry, see below for an example how to do that with GenericSetup.
-
-TTW
----
-
-You can add your aggregation templates TTW in /portal_skins/custom/manage_main and add them to the registry in /portal_registry.
-Search there for EasyNewsletter, you will find ``Products EasyNewsletter content_aggregation_templates`` where you can add your templates.
-
-Add-on
-------
-
-To do it with your addon product, add this to your registry.xml in your profiles.
-
-.. code-block :: xml
-
-    <record name="Products.EasyNewsletter.content_aggregation_templates">
-        <field type="plone.registry.field.Dict">
-            <title>ENL Content aggregation templates</title>
-            <key_type type="plone.registry.field.TextLine" />
-            <value_type type="plone.registry.field.TextLine" />
-        </field>
-        <value purge="false">
-            <element key="aggregation_fancy_pictures">Fancy pictures listing</element>
-        </value>
-    </record>
-
-
-Output templates
-================
-
-We provide some output templates, but you can add more. A output template has to be global available template.
-The default templates are in the skins folder. They have to be registered in the Plone registry, see below for an example how to do that with GenericSetup.
-
-TTW
----
-
-You can add your output templates TTW in /portal_skins/custom/manage_main and add them to the registry in /portal_registry.
-Search there for EasyNewsletter, you will find ``Products EasyNewsletter output_templates`` where you can add your templates.
-
-Add-on
-------
-
-To do it with your addon product, add this to your registry.xml in your profiles.
-
-.. code-block :: xml
-
-    <record name="Products.EasyNewsletter.output_templates">
-        <field type="plone.registry.field.Dict">
-            <title>ENL Output templates</title>
-            <key_type type="plone.registry.field.TextLine" />
-            <value_type type="plone.registry.field.TextLine" />
-        </field>
-        <value purge="false">
-            <element key="output_green_energy">Green energy output template</element>
-        </value>
-    </record>
-
-
 
 Documentation
 =============
@@ -426,6 +436,12 @@ Bugtracker
 ==========
 
 * https://github.com/collective/Products.EasyNewsletter/issues
+
+
+Maintainers
+===========
+
+* Maik Derstappen
 
 
 Authors

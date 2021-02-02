@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # from z3c.form.browser.radio import RadioFieldWidget
-from plone import api
-from plone import schema
+from plone import api, schema
 from plone.app import textfield
 from plone.app.z3cform.widget import SingleCheckBoxBoolFieldWidget
 from plone.autoform import directives
@@ -9,8 +8,7 @@ from plone.dexterity.content import Container
 from plone.namedfile import field as namedfile
 from plone.registry.interfaces import IRegistry
 from plone.supermodel import model
-from Products.EasyNewsletter import _
-from Products.EasyNewsletter import config
+from Products.EasyNewsletter import _, config
 from z3c import relationfield
 from zope.component import getUtility
 from zope.interface import implementer
@@ -195,9 +193,9 @@ class INewsletter(model.Schema):
             u"ENL_description_text_header",
             default=u"The default prologue text. This is used as a default \
                 for new issues. You can use placeholders like\
-                {{SUBSCRIBER_SALUTATION}} and {{UNSUBSCRIBE}} here.",
+                {{subscriber_salutation}} and {{unsubscribe}} here.",
         ),
-        default=_(u"{{SUBSCRIBER_SALUTATION}}<br />"),
+        default=_(u"{{subscriber_salutation}}<br />"),
         required=False,
     )
 
@@ -208,9 +206,9 @@ class INewsletter(model.Schema):
             u"ENL_description_text_footer",
             default=u"The default epilogue text. This is used as a default \
                 for new issues. You can use placeholders like\
-                {{SUBSCRIBER_SALUTATION}} and {{UNSUBSCRIBE}} here.",
+                {{subscriber_salutation}} and {{unsubscribe}} here.",
         ),
-        default=_(u"<h1>Community Newsletter for Plone</h1>\n{{UNSUBSCRIBE}}"),
+        default=_(u"<h1>Community Newsletter for Plone</h1>\n{{unsubscribe}}"),
         required=False,
     )
 

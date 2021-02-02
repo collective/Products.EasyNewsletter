@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from AccessControl.SecurityManagement import newSecurityManager
-from plone import api
-from plone import protect
+from plone import api, protect
 from Products.EasyNewsletter import _
 from Products.EasyNewsletter.content.newsletter import INewsletter
 from Products.EasyNewsletter.content.newsletter_subscriber import INewsletterSubscriber

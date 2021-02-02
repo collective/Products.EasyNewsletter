@@ -5,7 +5,7 @@
       xml:lang="en"
       lang="en"
       metal:use-macro="here/main_template/macros/master"
-      i18n:domain="EasyNewsletter">
+      i18n:domain="Products.EasyNewsletter">
 <body>
 
 <div metal:fill-slot="main">

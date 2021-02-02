@@ -3,8 +3,7 @@
 from plone import api
 from plone.dexterity.interfaces import IDexterityContent
 from Products.CMFPlone.utils import safe_unicode
-from Products.EasyNewsletter import _
-from Products.EasyNewsletter import config
+from Products.EasyNewsletter import _, config
 # from Products.EasyNewsletter.interfaces import IReceiversGroupFilter
 from Products.EasyNewsletter.interfaces import IReceiversMemberFilter
 # from Products.EasyNewsletter.interfaces import ISubscriberSource
@@ -12,8 +11,7 @@ from zope.component import subscribers
 from zope.globalrequest import getRequest
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
-from zope.schema.vocabulary import SimpleTerm
-from zope.schema.vocabulary import SimpleVocabulary
+from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 
 import logging
 

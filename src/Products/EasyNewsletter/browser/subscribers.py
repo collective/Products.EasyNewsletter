@@ -12,8 +12,7 @@ from Products.Five import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 from zope.component import getUtility
 from zope.component.interfaces import ComponentLookupError
-from zope.interface import implementer
-from zope.interface import Interface
+from zope.interface import implementer, Interface
 
 import codecs
 import cStringIO

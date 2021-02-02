@@ -62,7 +62,8 @@ setup(
             'plone.testing',
             'plone.app.contenttypes',
             'plone.app.robotframework[debug]',
-            'pdbpp'
+            'pdbpp',
+            'isort<5'
         ],
     ),
     entry_points="""

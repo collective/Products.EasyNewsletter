@@ -1,5 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="Products.EasyNewsletter">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width"/>
@@ -29,24 +31,36 @@
       /*////// GENERAL STYLES //////*/
       body, #bodyTable{background-color:#F5F5F5;font-family:Arial, Helvetica;}
       #bodyCell{padding-top:40px; padding-bottom:40px;}
+
+      .preheaderContent{
+        text-align: center;
+      }
+
       #emailBody{background-color:#FFFFFF; border:1px solid #DDDDDD; border-collapse:separate; border-radius:6px;}
+
       h1, h2, h3, h4, h5, h6{color:#202020; font-family:Arial, Helvetica; font-size:20px; line-height:125%; text-align:Left;}
       .headerDateContent{ float: right; padding: 1em; color: #999; font-size: 90%;}
       .headlineBackground{background-color:#0083be; color:#FFFFFF;}
+
       .enlLogo{padding:1em;}
       #enl_headlines{list-style-type:none; padding-left:0; margin-top:0; line-height:1.5em;}
       #enl_headlines a{color:#FFFFFF;font-family:Arial, Helvetica;}
+
       h1{color:#FFFFFF;}
       h2{color:#555555;}
+
       .textContent, .textContentLast{color:#404040; font-family:Arial, Helvetica; font-size:16px; line-height:125%; text-align:Left; padding-bottom:20px;}
       .textContent a, .textContentLast a{color:#2C9AB7; text-decoration:underline;}
       .nestedContainer{background-color:#E5E5E5; border:1px solid #CCCCCC;}
+
       .emailButton{background-color:#2C9AB7; border-collapse:separate; border-radius:4px;}
       .buttonContent{color:#FFFFFF; font-family:Arial, Helvetica; font-size:18px; font-weight:bold; line-height:100%; padding:15px; text-align:center;}
       .buttonContent a{color:#FFFFFF; display:block; text-decoration:none;}
+
       .emailCalendar{background-color:#FFFFFF; border:1px solid #CCCCCC;}
       .emailCalendarMonth{background-color:#2C9AB7; color:#FFFFFF; font-family:Arial, Helvetica, sans-serif; font-size:16px; font-weight:bold; padding-top:10px; padding-bottom:10px; text-align:center;}
       .emailCalendarDay{color:#2C9AB7; font-family:Arial, Helvetica, sans-serif; font-size:60px; font-weight:bold; line-height:100%; padding-top:20px; padding-bottom:20px; text-align:center;}
+
       .footerContent h1,
       .footerContent h2,
       .footerContent h3{
@@ -130,11 +144,21 @@
 
                 <table border="0" cellpadding="10" cellspacing="0" width="100%">
                   <tr>
-                    <td valign="top" width="600">
+                    <td valign="top" width="400">
                       <div class="mailonly">
-                        <a tal:attributes="href string:${context/absolute_url}" target="_blank" i18n:translate="">Click here to view in browser.</a>
+                        <a tal:attributes="href string:${context/absolute_url}" target="_blank" i18n:translate="read_in_browser">Read this in your web browser.</a>
                       </div>
                     </td>
+                    <td valight="top" with="200">
+                    <a tal:attributes="href string:https://getpocket.com/save?url=${context/absolute_url}"
+                      i18n:translate="save_in_pocket"
+                      i18n:attributes="title"
+                      target="_blank"
+                      title="Read it later with Pocket"
+                      rel="nofollow noopener noreferrer">
+                      Save in Pocket</a>
+                    </td>
+
                   </tr>
                 </table>
 

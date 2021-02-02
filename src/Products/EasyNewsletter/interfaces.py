@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-from zope.interface import Attribute
-from zope.interface import Interface
+from zope.interface import Attribute, Interface
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 
 
@@ -88,4 +87,4 @@ class IIssueDataFetcher(Interface):
 
 class IBeforePersonalizationEvent(Interface):
 
-    data = Attribute('issue specific data')
+    data = Attribute("issue specific data")

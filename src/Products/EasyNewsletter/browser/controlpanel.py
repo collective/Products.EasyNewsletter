@@ -13,7 +13,7 @@ class IENLSettings(Interface):
         required=False,
         title=_(u'Allowed content aggregation types'),
         description=_(
-            u'Content types which will be visbile in the Content'
+            u'Content types which will be visible in the Content'
             u' aggregation sources reference field.'),
         value_type=schema.TextLine(
             title=_('Content type')

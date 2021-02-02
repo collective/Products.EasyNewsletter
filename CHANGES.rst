@@ -7,6 +7,15 @@ Changelog
 - Don't fail sending process when one email fails.
   [thomasmassmann]
 
+- Fix helper method: get_results_from_aggregation_sources, which can be used for a table of contents.
+  [MrTango]
+
+- Update output_blacksee template with a TOC and some CSS cleanup
+  [MrTango]
+
+- Switch from travis to Github-Actions and fix tests
+  [MrTango]
+
 - Fixed empty epilog error. #162
   [iham]
 

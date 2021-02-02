@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from Acquisition import aq_base
 from plone import api
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
+from plone.app.testing import setRoles, TEST_USER_ID
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.EasyNewsletter.content.newsletter_issue import INewsletterIssue
@@ -11,9 +10,7 @@ from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.MailHost.interfaces import IMailHost
 from z3c.relationfield.relation import RelationValue
 from zExceptions import BadRequest
-from zope.component import getMultiAdapter
-from zope.component import getSiteManager
-from zope.component import getUtility
+from zope.component import getMultiAdapter, getSiteManager, getUtility
 from zope.intid.interfaces import IIntIds
 
 import transaction

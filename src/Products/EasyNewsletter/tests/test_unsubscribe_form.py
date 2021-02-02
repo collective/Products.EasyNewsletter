@@ -2,21 +2,17 @@
 
 from App.Common import package_home
 from plone import api
-from plone.app.testing import login
-from plone.app.testing import logout
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
-from plone.app.testing import TEST_USER_NAME
+from plone.app.testing import login, logout, setRoles, TEST_USER_ID, TEST_USER_NAME
 from plone.testing.z2 import Browser
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter.config import IS_PLONE_5
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
+from Products.EasyNewsletter.testing import (
+    PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING,
+    PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING,
+)
 from Products.MailHost.interfaces import IMailHost
-from zope.component import getMultiAdapter
-from zope.component import getSiteManager
-from zope.component import getUtility
+from zope.component import getMultiAdapter, getSiteManager, getUtility
 
 import unittest
 

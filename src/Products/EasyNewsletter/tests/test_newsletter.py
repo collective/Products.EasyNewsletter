@@ -2,10 +2,7 @@
 
 from App.Common import package_home
 from plone import api
-from plone.app.testing import login
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
-from plone.app.testing import TEST_USER_NAME
+from plone.app.testing import login, setRoles, TEST_USER_ID, TEST_USER_NAME
 from plone.app.textfield import RichTextValue
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.CMFPlone.utils import safe_unicode
@@ -17,10 +14,12 @@ from Products.EasyNewsletter.tests.base import parsed_payloads_from_msg
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.MailHost.interfaces import IMailHost
 from zExceptions import Forbidden
-from zope.component import getGlobalSiteManager
-from zope.component import getMultiAdapter
-from zope.component import getSiteManager
-from zope.component import provideHandler
+from zope.component import (
+    getGlobalSiteManager,
+    getMultiAdapter,
+    getSiteManager,
+    provideHandler,
+)
 
 import os
 import transaction as zt
@@ -122,7 +121,7 @@ class EasyNewsletterTests(unittest.TestCase):
 
         self.assertEqual(len(self.mailhost.messages), 1)
         self.assertTrue(self.mailhost.messages[0])
-        return str(self.mailhost.messages[0])
+        return safe_unicode(self.mailhost.messages[0])
 
     def test_create_newsletter(self):
         self.assertTrue(INewsletter.providedBy(self.newsletter))
@@ -257,30 +256,30 @@ class EasyNewsletterTests(unittest.TestCase):
         self.assertTrue(self.mailhost.messages[0])
         self.assertTrue(self.mailhost.messages[1])
 
-        msg1 = str(self.mailhost.messages[0])
+        msg1 = safe_unicode(self.mailhost.messages[0])
         parsed_payloads1 = parsed_payloads_from_msg(msg1)
         self.assertIn(u"Jane Doe", parsed_payloads1['to'])
         self.assertIn(u"<jane@example.com>", parsed_payloads1['to'])
         self.assertIn(u"Dear Ms. Jane Doe", safe_unicode(parsed_payloads1["text/html"]))
 
-        msg2 = str(self.mailhost.messages[1])
+        msg2 = safe_unicode(self.mailhost.messages[1])
         parsed_payloads2 = parsed_payloads_from_msg(msg2)
         self.assertIn(u"John Doe", parsed_payloads2['to'])
         self.assertIn(u"Dear John Doe", safe_unicode(parsed_payloads2["text/html"]))
 
-        msg3 = str(self.mailhost.messages[2])
+        msg3 = safe_unicode(self.mailhost.messages[2])
         parsed_payloads3 = parsed_payloads_from_msg(msg3)
         self.assertIn(u"Mustermann", parsed_payloads3['to'])
         self.assertIn(u"<max@example.com>", parsed_payloads3['to'])
         self.assertIn(u"Dear Mustermann", safe_unicode(parsed_payloads3["text/html"]))
 
-        msg4 = str(self.mailhost.messages[3])
+        msg4 = safe_unicode(self.mailhost.messages[3])
         parsed_payloads4 = parsed_payloads_from_msg(msg4)
         self.assertIn(u"Maxima", parsed_payloads4['to'])
         self.assertIn(u"<maxima@example.com>", parsed_payloads4['to'])
         self.assertIn(u"Dear Maxima", safe_unicode(parsed_payloads4["text/html"]))
 
-        msg5 = str(self.mailhost.messages[4])
+        msg5 = safe_unicode(self.mailhost.messages[4])
         parsed_payloads5 = parsed_payloads_from_msg(msg5)
         self.assertIn(u"leo@example.com", parsed_payloads5['to'])
         self.assertIn(u"Sir or Madam", safe_unicode(parsed_payloads5["text/html"]))
@@ -357,13 +356,13 @@ class EasyNewsletterTests(unittest.TestCase):
             # pers_events = getEvents(IBeforePersonalizationFilter)
             # print(pers_events)
             self.assertEqual(len(self.mailhost.messages), 2)
-            msg1 = str(self.mailhost.messages[0])
+            msg1 = safe_unicode(self.mailhost.messages[0])
             parsed_payloads1 = parsed_payloads_from_msg(msg1)
             self.assertIn(u"Jane Doe", parsed_payloads1['to'])
             self.assertIn(u"<jane@example.com>", parsed_payloads1['to'])
             self.assertIn(u"Dear Ms. Jane Doe", safe_unicode(parsed_payloads1["text/html"]))
 
-            msg2 = str(self.mailhost.messages[1])
+            msg2 = safe_unicode(self.mailhost.messages[1])
             parsed_payloads2 = parsed_payloads_from_msg(msg2)
             self.assertIn(u"john@example.com", parsed_payloads2['to'])
             self.assertIn(u"Dear john@example.com", safe_unicode(parsed_payloads2["text/html"]))

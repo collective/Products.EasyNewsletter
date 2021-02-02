@@ -3,8 +3,7 @@ from plone import api
 from Products.EasyNewsletter.content.newsletter import INewsletter
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
-from zope.schema.vocabulary import SimpleTerm
-from zope.schema.vocabulary import SimpleVocabulary
+from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 
 
 @implementer(IVocabularyFactory)

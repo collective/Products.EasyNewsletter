@@ -4,7 +4,7 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       metal:use-macro="here/main_template/macros/master"
-      i18n:domain="EasyNewsletter">
+      i18n:domain="Products.EasyNewsletter">
 <body>
 
 <metal:main fill-slot="main">
@@ -31,7 +31,7 @@
 
             <a href="createObject?type_name=ENLSubscriber"
                tal:attributes="href python:view.addTokenToUrl(context.absolute_url() + '/createObject?type_name=ENLSubscriber')"
-               i18n:translate="add_subscriber">Add subscriber</a>&nbsp;&nbsp;&nbsp;&nbsp;
+               i18n:translate="add_subscriber">Add subscriber</a> &nbsp;&nbsp;&nbsp;&nbsp;
             <span i18n:translate="import_export">Import / Export</span>:
             <a href="" tal:attributes="href string:${context/absolute_url}/@@upload_csv"
                i18n:translate="easynewsletter_label_import_subscribers">Import subscribers</a> /

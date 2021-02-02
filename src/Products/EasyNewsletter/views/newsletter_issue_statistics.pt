@@ -8,7 +8,7 @@
     <metal:block fill-slot="content-core"
         tal:define="records view/receivers | nothing">
       <p tal:condition="not: records"
-        i18n:translate="easynewsletter_nonrecords_label">
+        i18n:translate="easynewsletter_nonstats_label">
         There are no statistics available.
       </p>
 

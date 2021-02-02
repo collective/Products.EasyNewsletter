@@ -65,3 +65,4 @@ docs/Makefile
 /src/Products/EasyNewsletter/tests/easynewsletter-subscribers.csv
 /htmlcov_manuell
 **/__pycache__/**
+/venv

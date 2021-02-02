@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       lang="en"
-      i18n:domain="EasyNewsletter">
+      i18n:domain="Products.EasyNewsletter">
 <body>
 
     <div tal:content="structure view/get_preview" />

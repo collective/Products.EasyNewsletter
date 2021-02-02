@@ -5,7 +5,7 @@ import subprocess
 
 package_name = 'Products.EasyNewsletter'
 # domain = package_name
-package_domain = 'EasyNewsletter'
+package_domain = 'Products.EasyNewsletter'
 locale_path = os.path.dirname(os.path.realpath(__file__))
 target_path = os.path.abspath(os.path.join(locale_path, os.pardir))
 i18ndude = './bin/i18ndude'
@@ -15,7 +15,7 @@ def locale_folder_setup(domain=None):
     languages = [
         d
         for d in os.listdir(locale_path)
-        if os.path.isdir(os.path.join(locale_path, d))
+        if os.path.isdir(os.path.join(locale_path, d) and d != "__pycache__")
     ]
     for lang in languages:
         lc_message_dir_path = os.path.join(locale_path, lang, 'LC_MESSAGES')
@@ -25,6 +25,7 @@ def locale_folder_setup(domain=None):
             locale_path, lang, 'LC_MESSAGES', domain + '.po'
         )
         if not os.path.isfile(domain_po_file_path):
+            import pdb; pdb.set_trace()  # NOQA: E702
             cmd = 'msginit --locale={0} --input={2}/manual.pot --output={2}/{0}/LC_MESSAGES/{1}.po'.format(  # NOQA: E501
                 lang, domain, locale_path
             )
