@@ -2,7 +2,7 @@ EasyNewsletter
 ==============
 
 .. image:: https://github.com/collective/Products.EasyNewsletter/workflows/Plone%20package/badge.svg
-    :target: https://github.com/collective/Products.EasyNewsletter
+    :target: https://github.com/collective/Products.EasyNewsletter/actions
 
 .. image:: https://coveralls.io/repos/github/collective/Products.EasyNewsletter/badge.svg?branch=master
     :target: https://coveralls.io/github/collective/Products.EasyNewsletter?branch=master
