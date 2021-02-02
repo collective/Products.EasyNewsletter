@@ -87,10 +87,9 @@ class UnsubscribeFormIntegrationTests(unittest.TestCase):
             (self.newsletter, self.portal.REQUEST), name="unsubscribe-form"
         )
         view.__call__()
-
         self.assertEqual(len(self.mailhost.messages), 1)
         self.assertTrue(self.mailhost.messages[0])
-        msg = str(self.mailhost.messages[0])
+        msg = safe_unicode(self.mailhost.messages[0])
         self.assertIn("To: max@example.com", msg)
         self.assertIn("From: portal@plone.test", msg)
 
