@@ -25,7 +25,7 @@ jobs:
                     ~/.cache/pip
                     ~/buildout-cache
                     ~/extends
-                  key: ${{ runner.os }}-tox-${{ hashFiles('**/Products.EasyNewsletter/setup.py') }}-${{ hashFiles('**/Products.EasyNewsletter/requirements.txt') }}-${{ hashFiles('**/Products.EasyNewsletter/tox.ini') }}
+                  key: ${{ runner.os }}-tox-${{ matrix.python-version }}-${{ hashFiles('**/Products.EasyNewsletter/setup.py') }}-${{ hashFiles('**/Products.EasyNewsletter/requirements.txt') }}-${{ hashFiles('**/Products.EasyNewsletter/tox.ini') }}
                   # restore-keys: |
                   #   ${{ runner.os }}-tox-
             - name: Set up Python ${{ matrix.python-version }}
