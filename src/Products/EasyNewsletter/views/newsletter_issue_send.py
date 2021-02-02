@@ -4,8 +4,8 @@ from datetime import datetime
 from DateTime import DateTime
 from plone import api
 from plone.protect import PostOnly
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
-from Products.EasyNewsletter.behaviors.plone_user_group_recipients import (  # noqa: E501
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
+from Products.EasyNewsletter.behaviors.plone_user_group_recipients import (
     IPloneUserGroupRecipients,
 )
 from Products.EasyNewsletter.content.newsletter_issue import ISendStatus

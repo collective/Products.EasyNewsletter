@@ -180,7 +180,7 @@ class RegistrationIntegrationTests(unittest.TestCase):
         # with self.assertRaises(Unauthorized):
         try:
             subscriber_obj = api.content.get(UID=subscriber_uid)
-        except Unauthorized as e:
+        except Unauthorized:
             pass
         else:
             # in Plone < 5.2 subscriber_obj has to be None:
