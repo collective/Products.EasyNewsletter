@@ -25,14 +25,14 @@ jobs:
                     ~/.cache/pip
                     ~/buildout-cache
                     ~/extends
-                  key: ${{ runner.os }}-tox-${{ hashFiles('**/tox.ini') }}
-                  restore-keys: |
-                    ${{ runner.os }}-tox-
+                  key: ${{ runner.os }}-tox-${{ hashFiles('**/Products.EasyNewsletter/setup.py') }}-${{ hashFiles('**/Products.EasyNewsletter/requirements.txt') }}-${{ hashFiles('**/Products.EasyNewsletter/tox.ini') }}
+                  # restore-keys: |
+                  #   ${{ runner.os }}-tox-
             - name: Set up Python ${{ matrix.python-version }}
               uses: actions/setup-python@v2
               with:
                   python-version: ${{ matrix.python-version }}
-            - name: Install xmllint
+            - name: Install system libraries...
               run: sudo apt-get install libxml2-dev libxslt1-dev libjpeg-dev
             - name: setup buildout cache
               run: |
@@ -48,4 +48,4 @@ jobs:
                   # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
             - name: Test with tox
               run: |
-                  tox
+                  tox -r

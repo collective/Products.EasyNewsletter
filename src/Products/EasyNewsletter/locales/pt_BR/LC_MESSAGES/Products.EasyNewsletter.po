@@ -50,8 +50,8 @@ msgstr ""
 msgid "Allowed content aggregation types"
 msgstr ""
 
-#: EasyNewsletter/browser/registration.py:304
-#: EasyNewsletter/views/newsletter_unsubscribe.py:39
+#: EasyNewsletter/browser/registration.py:302
+#: EasyNewsletter/views/newsletter_unsubscribe.py:38
 msgid "An error occured"
 msgstr "Ocorreu um erro"
 
@@ -84,7 +84,7 @@ msgstr ""
 msgid "Configuration for version 4005"
 msgstr ""
 
-#: EasyNewsletter/config.py:60
+#: EasyNewsletter/config.py:67
 msgid "Confirm your subscription on ${portal_url}"
 msgstr ""
 
@@ -96,16 +96,12 @@ msgstr ""
 msgid "Content types which will be visible in the Content aggregation sources reference field."
 msgstr ""
 
-#: EasyNewsletter/content/newsletter_issue.py:76
+#: EasyNewsletter/content/newsletter_issue.py:73
 msgid "Customizations"
 msgstr ""
 
 #: EasyNewsletter/views/newsletter_issue_statistics.pt:23
 msgid "Date"
-msgstr ""
-
-#: EasyNewsletter/tests/test_vocab_output_templates.py:31
-msgid "Default output template"
 msgstr ""
 
 #: EasyNewsletter/browser/enl_subscribers_view.pt:135
@@ -122,152 +118,152 @@ msgid "E-Mail"
 msgstr ""
 
 #. Default: "Choose sources to aggregate newsletter content from."
-#: EasyNewsletter/content/newsletter.py:117
-#: EasyNewsletter/content/newsletter_issue.py:100
+#: EasyNewsletter/content/newsletter.py:115
+#: EasyNewsletter/content/newsletter_issue.py:97
 msgid "ENL_content_aggregation_sources_desc"
 msgstr ""
 
 #. Default: "Content aggregation sources"
-#: EasyNewsletter/content/newsletter.py:113
-#: EasyNewsletter/content/newsletter_issue.py:96
+#: EasyNewsletter/content/newsletter.py:111
+#: EasyNewsletter/content/newsletter_issue.py:93
 msgid "ENL_content_aggregation_sources_label"
 msgstr ""
 
 #. Default: "Text used for confirmation email subject. You can                 customize the text, but it should include the                 placeholder: ${portal_url}!"
-#: EasyNewsletter/content/newsletter.py:248
+#: EasyNewsletter/content/newsletter.py:246
 msgid "ENL_description_subscriber_confirmation_mail_subject"
 msgstr ""
 
 #. Default: "Text used for confirmation email. You can customize                 the text, but it should include the placeholders:                 ${portal_url}, ${subscriber_email} and                 ${confirmation_url}!"
-#: EasyNewsletter/content/newsletter.py:263
+#: EasyNewsletter/content/newsletter.py:261
 msgid "ENL_description_subscriber_confirmation_mail_text"
 msgstr ""
 
 #. Default: "The default epilogue text. This is used as a default                 for new issues. You can use placeholders like                {{subscriber_salutation}} and {{unsubscribe}} here."
-#: EasyNewsletter/content/newsletter.py:207
-#: EasyNewsletter/content/newsletter_issue.py:154
+#: EasyNewsletter/content/newsletter.py:205
+#: EasyNewsletter/content/newsletter_issue.py:151
 msgid "ENL_description_text_footer"
 msgstr ""
 
 #. Default: "The default prologue text. This is used as a default                 for new issues. You can use placeholders like                {{subscriber_salutation}} and {{unsubscribe}} here."
-#: EasyNewsletter/content/newsletter.py:194
-#: EasyNewsletter/content/newsletter_issue.py:141
+#: EasyNewsletter/content/newsletter.py:192
+#: EasyNewsletter/content/newsletter_issue.py:138
 msgid "ENL_description_text_header"
 msgstr ""
 
 #. Default: "If checked, the newsletter/mailing will not be send                  to all subscribers inside the newsletter. Changing this                 setting does not affect already existing issues."
-#: EasyNewsletter/content/newsletter.py:222
-#: EasyNewsletter/content/newsletter_issue.py:117
+#: EasyNewsletter/content/newsletter.py:220
+#: EasyNewsletter/content/newsletter_issue.py:114
 msgid "ENL_help_excludeAllSubscribers"
 msgstr ""
 
 #. Default: "This will be used if the subscriber has no fullname."
-#: EasyNewsletter/content/newsletter.py:148
+#: EasyNewsletter/content/newsletter.py:146
 msgid "ENL_help_fullname_fallback"
 msgstr ""
 
 #. Default: "Define here possible salutations for subscriber.                 One salutation per line in the form of: \"mr|Dear Mr.\".                 The left hand value \"mr\" or \"ms\" is mapped to salutation                 of each subscriber and then the right hand value, which                 you can customize is used as salutation."
-#: EasyNewsletter/content/newsletter.py:130
+#: EasyNewsletter/content/newsletter.py:128
 msgid "ENL_help_salutations"
 msgstr ""
 
 #. Default: "Default for the sender address of the newsletters."
-#: EasyNewsletter/content/newsletter.py:81
+#: EasyNewsletter/content/newsletter.py:79
 msgid "ENL_help_senderEmail"
 msgstr ""
 
 #. Default: "Default for the sender name of the newsletters."
-#: EasyNewsletter/content/newsletter.py:90
+#: EasyNewsletter/content/newsletter.py:88
 msgid "ENL_help_senderName"
 msgstr ""
 
 #. Default: "Default for the test email address."
-#: EasyNewsletter/content/newsletter.py:99
+#: EasyNewsletter/content/newsletter.py:97
 msgid "ENL_help_testEmail"
 msgstr ""
 
 #. Default: "This will replace the placeholder {{UNSUBSCRIBE}}."
-#: EasyNewsletter/content/newsletter.py:160
+#: EasyNewsletter/content/newsletter.py:158
 msgid "ENL_help_unsubscribe_string"
 msgstr ""
 
 #. Default: "Banner image, you can include in the templates by\n adding the {{banner}} placeholder into it. By default it should be 600x200 pixel."
-#: EasyNewsletter/content/newsletter.py:171
-#: EasyNewsletter/content/newsletter_issue.py:181
+#: EasyNewsletter/content/newsletter.py:169
+#: EasyNewsletter/content/newsletter_issue.py:178
 msgid "ENL_image_desc"
 msgstr ""
 
 #. Default: "Banner image"
-#: EasyNewsletter/content/newsletter.py:170
-#: EasyNewsletter/content/newsletter_issue.py:180
+#: EasyNewsletter/content/newsletter.py:168
+#: EasyNewsletter/content/newsletter_issue.py:177
 msgid "ENL_image_label"
 msgstr ""
 
 #. Default: "Epilogue"
-#: EasyNewsletter/content/newsletter.py:206
-#: EasyNewsletter/content/newsletter_issue.py:153
+#: EasyNewsletter/content/newsletter.py:204
+#: EasyNewsletter/content/newsletter_issue.py:150
 msgid "ENL_label_default_footer"
 msgstr ""
 
 #. Default: "Prologue"
-#: EasyNewsletter/content/newsletter.py:193
-#: EasyNewsletter/content/newsletter_issue.py:140
+#: EasyNewsletter/content/newsletter.py:191
+#: EasyNewsletter/content/newsletter_issue.py:137
 msgid "ENL_label_default_header"
 msgstr ""
 
 #. Default: "Exclude all subscribers"
-#: EasyNewsletter/content/newsletter.py:221
-#: EasyNewsletter/content/newsletter_issue.py:116
+#: EasyNewsletter/content/newsletter.py:219
+#: EasyNewsletter/content/newsletter_issue.py:113
 msgid "ENL_label_excludeAllSubscribers"
 msgstr ""
 
 #. Default: "Fallback for subscribers without a name."
-#: EasyNewsletter/content/newsletter.py:144
+#: EasyNewsletter/content/newsletter.py:142
 msgid "ENL_label_fullname_fallback"
 msgstr ""
 
 #. Default: "Subscriber Salutations."
-#: EasyNewsletter/content/newsletter.py:129
+#: EasyNewsletter/content/newsletter.py:127
 msgid "ENL_label_salutations"
 msgstr ""
 
 #. Default: "Sender email"
-#: EasyNewsletter/content/newsletter.py:80
+#: EasyNewsletter/content/newsletter.py:78
 msgid "ENL_label_senderEmail"
 msgstr ""
 
 #. Default: "Sender name"
-#: EasyNewsletter/content/newsletter.py:89
+#: EasyNewsletter/content/newsletter.py:87
 msgid "ENL_label_senderName"
 msgstr ""
 
 #. Default: "Subscriber confirmation mail subject"
-#: EasyNewsletter/content/newsletter.py:244
+#: EasyNewsletter/content/newsletter.py:242
 msgid "ENL_label_subscriber_confirmation_mail_subject"
 msgstr ""
 
 #. Default: "Subscriber confirmation mail text"
-#: EasyNewsletter/content/newsletter.py:259
+#: EasyNewsletter/content/newsletter.py:257
 msgid "ENL_label_subscriber_confirmation_mail_text"
 msgstr ""
 
 #. Default: "Test email"
-#: EasyNewsletter/content/newsletter.py:98
+#: EasyNewsletter/content/newsletter.py:96
 msgid "ENL_label_testEmail"
 msgstr ""
 
 #. Default: "Text for the 'unsubscribe' link"
-#: EasyNewsletter/content/newsletter.py:157
+#: EasyNewsletter/content/newsletter.py:155
 msgid "ENL_label_unsubscribe_string"
 msgstr ""
 
 #. Default: "Logo image, you can include in the templates by\n adding the {{logo}} placeholder into it."
-#: EasyNewsletter/content/newsletter.py:183
+#: EasyNewsletter/content/newsletter.py:181
 msgid "ENL_logo_desc"
 msgstr ""
 
 #. Default: "Logo image"
-#: EasyNewsletter/content/newsletter.py:182
+#: EasyNewsletter/content/newsletter.py:180
 msgid "ENL_logo_label"
 msgstr ""
 
@@ -282,13 +278,13 @@ msgid "EasyNewsletter_help_name_prefix"
 msgstr ""
 
 #. Default: "Choose Plone Groups which should receive                     the newsletter. Changing this setting does not affect                     already existing issues."
-#: EasyNewsletter/behaviors/plone_user_group_recipients.py:70
+#: EasyNewsletter/behaviors/plone_user_group_recipients.py:67
 #, fuzzy
 msgid "EasyNewsletter_help_ploneReceiverGroups"
 msgstr "Escolha os grupos do Plone que devem receber o boletim."
 
 #. Default: "Choose Plone Members which should receive                     the newsletter. Changing this setting does not affect                     already existing issues."
-#: EasyNewsletter/behaviors/plone_user_group_recipients.py:54
+#: EasyNewsletter/behaviors/plone_user_group_recipients.py:51
 #, fuzzy
 msgid "EasyNewsletter_help_ploneReceiverMembers"
 msgstr "Escolha os membros do Plone que devem receber o boletim."
@@ -347,12 +343,12 @@ msgid "EasyNewsletter_label_organization"
 msgstr "Empresa/Organização"
 
 #. Default: "Plone Groups to receive the newsletter"
-#: EasyNewsletter/behaviors/plone_user_group_recipients.py:66
+#: EasyNewsletter/behaviors/plone_user_group_recipients.py:63
 msgid "EasyNewsletter_label_ploneReceiverGroups"
 msgstr "Grupos do Plone que devem receber o boletim"
 
 #. Default: "Plone Members to receive the newsletter"
-#: EasyNewsletter/behaviors/plone_user_group_recipients.py:50
+#: EasyNewsletter/behaviors/plone_user_group_recipients.py:47
 msgid "EasyNewsletter_label_ploneReceiverMembers"
 msgstr "Membros do Plone que devem receber o boletim"
 
@@ -401,7 +397,7 @@ msgstr "Editar portlet de newsletter"
 msgid "Email"
 msgstr "Email"
 
-#: EasyNewsletter/browser/subscribers.py:317
+#: EasyNewsletter/browser/subscribers.py:316
 #: EasyNewsletter/views/newsletter_subscribers_upload.py:132
 msgid "Email existed, updated subscriber."
 msgstr ""
@@ -422,10 +418,6 @@ msgstr ""
 #: EasyNewsletter/portlets/subscriber.pt:33
 #: EasyNewsletter/views/newsletter_subscribers_upload.pt:77
 msgid "First Name"
-msgstr ""
-
-#: EasyNewsletter/tests/test_vocab_aggregation_templates.py:31
-msgid "Generic Listing"
 msgstr ""
 
 #: EasyNewsletter/browser/upload_csv.pt:28
@@ -449,10 +441,6 @@ msgstr "Rascunhos de edições"
 msgid "Issue masters"
 msgstr ""
 
-#: EasyNewsletter/tests/test_vocab_plone_users.py:38
-msgid "Jane Doe - jane@plone.org"
-msgstr ""
-
 #: EasyNewsletter/browser/upload_csv.pt:94
 msgid "Language"
 msgstr ""
@@ -466,17 +454,16 @@ msgstr ""
 msgid "Masters"
 msgstr ""
 
-#: EasyNewsletter/browser/subscribers.py:293
+#: EasyNewsletter/browser/subscribers.py:292
 #: EasyNewsletter/views/newsletter_subscribers_upload.py:108
 msgid "More than one subscriber with this email address existed, subscriber info was NOT updated. Check manually!"
 msgstr ""
 
-#: EasyNewsletter/vocabularies/salutations.py:26
+#: EasyNewsletter/vocabularies/salutations.py:25
 msgid "Mr"
 msgstr ""
 
-#: EasyNewsletter/tests/test_vocab_salutations.py:32
-#: EasyNewsletter/vocabularies/salutations.py:25
+#: EasyNewsletter/vocabularies/salutations.py:24
 msgid "Ms"
 msgstr ""
 
@@ -492,7 +479,7 @@ msgstr ""
 msgid "Newsletter Subscriber"
 msgstr ""
 
-#: EasyNewsletter/behaviors/collection_as_newsletter_aggregation_source.py:29
+#: EasyNewsletter/behaviors/collection_as_newsletter_aggregation_source.py:27
 msgid "Newsletter aggregation template"
 msgstr ""
 
@@ -504,7 +491,7 @@ msgstr ""
 msgid "Newsletter content successfully aggregated."
 msgstr ""
 
-#: EasyNewsletter/views/newsletter_issue_statistics.py:22
+#: EasyNewsletter/views/newsletter_issue_statistics.py:23
 msgid "Newsletter issue statistics have been reset."
 msgstr ""
 
@@ -512,17 +499,17 @@ msgstr ""
 msgid "Newsletter subscriber portlet"
 msgstr "Portlet de assinatura de Boletim"
 
-#: EasyNewsletter/views/newsletter_issue_send.py:201
+#: EasyNewsletter/views/newsletter_issue_send.py:205
 msgid "Newsletter was sent to ({0}) receivers. ({1}) errors occurred!{2}"
 msgstr ""
 
-#: EasyNewsletter/browser/subscribers.py:254
+#: EasyNewsletter/browser/subscribers.py:253
 #: EasyNewsletter/views/newsletter_subscribers_upload.py:68
 msgid "No file specified."
 msgstr "Nenhum arquivo informado."
 
-#: EasyNewsletter/browser/subscribers.py:208
-#: EasyNewsletter/views/newsletter_subscribers.py:96
+#: EasyNewsletter/browser/subscribers.py:207
+#: EasyNewsletter/views/newsletter_subscribers.py:100
 msgid "No subscriber selected!"
 msgstr "Nenhum assinante selecionado!"
 
@@ -531,16 +518,16 @@ msgstr "Nenhum assinante selecionado!"
 msgid "Organization"
 msgstr "Organização"
 
-#: EasyNewsletter/content/newsletter.py:61
+#: EasyNewsletter/content/newsletter.py:59
 msgid "Personalization"
 msgstr ""
 
-#: EasyNewsletter/browser/registration.py:195
+#: EasyNewsletter/browser/registration.py:193
 msgid "Please enter a valid email address."
 msgstr "Por favor informe um endereço de email válido."
 
-#: EasyNewsletter/browser/registration.py:292
-#: EasyNewsletter/views/newsletter_unsubscribe.py:24
+#: EasyNewsletter/browser/registration.py:290
+#: EasyNewsletter/views/newsletter_unsubscribe.py:23
 msgid "Please use the correct unsubscribe url!"
 msgstr ""
 
@@ -573,7 +560,7 @@ msgstr ""
 msgid "Products.EasyNewsletter (4005)"
 msgstr ""
 
-#: EasyNewsletter/vocabularies/plone_users.py:49
+#: EasyNewsletter/vocabularies/plone_users.py:47
 msgid "Property email: \"{0}\" is not an email!"
 msgstr ""
 
@@ -586,8 +573,8 @@ msgstr ""
 msgid "Reason for failure"
 msgstr "Motivo da falha"
 
-#: EasyNewsletter/behaviors/plone_user_group_recipients.py:45
-#: EasyNewsletter/content/newsletter.py:76
+#: EasyNewsletter/behaviors/plone_user_group_recipients.py:42
+#: EasyNewsletter/content/newsletter.py:74
 msgid "Recipients"
 msgstr ""
 
@@ -610,7 +597,7 @@ msgstr ""
 msgid "Select your CSV file here."
 msgstr "Infomr aqui seu arquivo CSV."
 
-#: EasyNewsletter/behaviors/collection_as_newsletter_aggregation_source.py:24
+#: EasyNewsletter/behaviors/collection_as_newsletter_aggregation_source.py:22
 msgid "Settings"
 msgstr ""
 
@@ -623,7 +610,7 @@ msgstr ""
 msgid "Subscriber Search"
 msgstr ""
 
-#: EasyNewsletter/browser/subscribers.py:350
+#: EasyNewsletter/browser/subscribers.py:349
 #: EasyNewsletter/views/newsletter_subscribers_upload.py:166
 msgid "Subscriber created."
 msgstr ""
@@ -647,7 +634,7 @@ msgstr ""
 msgid "Tester"
 msgstr ""
 
-#: EasyNewsletter/behaviors/collection_as_newsletter_aggregation_source.py:30
+#: EasyNewsletter/behaviors/collection_as_newsletter_aggregation_source.py:28
 msgid "The <a href=\"https://productseasynewsletter.readthedocs.io/en/latest/#aggregation-templates\">aggregation template</a> used by the Newsletter to render Collection items for the Newsletter."
 msgstr ""
 
@@ -657,7 +644,7 @@ msgid "The CSV file must contain the header and follow this format"
 msgstr "O arquivo CSV deve conter um cabeçalho com o seguinte formato"
 
 #: EasyNewsletter/browser/issue.py:74
-#: EasyNewsletter/views/newsletter_issue_send.py:81
+#: EasyNewsletter/views/newsletter_issue_send.py:85
 msgid "The issue has been generated and sent to the mail server."
 msgstr ""
 
@@ -666,11 +653,11 @@ msgid "The issue sending has been initiated in the background."
 msgstr ""
 
 #: EasyNewsletter/browser/issue.py:55
-#: EasyNewsletter/views/newsletter_issue_send.py:62
+#: EasyNewsletter/views/newsletter_issue_send.py:66
 msgid "The issue test sending has been initiated."
 msgstr ""
 
-#: EasyNewsletter/browser/subscribers.py:275
+#: EasyNewsletter/browser/subscribers.py:274
 msgid "The number of items in the line is not correct.                         It should be 7. Check your CSV file."
 msgstr ""
 
@@ -691,28 +678,24 @@ msgstr ""
 msgid "Title for the portlet."
 msgstr "Título do portlet"
 
-#: EasyNewsletter/tests/test_vocab_plone_groups.py:35
-msgid "VIP"
-msgstr ""
-
 #: EasyNewsletter/profiles/default/types/Newsletter.xml
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 #: EasyNewsletter/profiles/default/types/Newsletter_Subscriber.xml
 msgid "View"
 msgstr ""
 
-#: EasyNewsletter/browser/registration.py:272
-#: EasyNewsletter/views/newsletter_unsubscribe_form.py:48
+#: EasyNewsletter/browser/registration.py:270
+#: EasyNewsletter/views/newsletter_unsubscribe_form.py:58
 msgid "We send you an email, please confirm this unsubscription."
 msgstr ""
 
-#: EasyNewsletter/browser/subscribers.py:265
+#: EasyNewsletter/browser/subscribers.py:264
 #: EasyNewsletter/views/newsletter_subscribers_upload.py:78
 msgid "Wrong specification of the CSV file. Please correct it and retry."
 msgstr "Especificação inválida do arquivo CSV. Por favor corrija e tente novamente."
 
-#: EasyNewsletter/browser/registration.py:307
-#: EasyNewsletter/views/newsletter_unsubscribe.py:46
+#: EasyNewsletter/browser/registration.py:305
+#: EasyNewsletter/views/newsletter_unsubscribe.py:45
 msgid "You have been unsubscribed."
 msgstr "Você foi descadastrado."
 
@@ -720,16 +703,16 @@ msgstr "Você foi descadastrado."
 msgid "You want to unsubscribe from this Newsletter?"
 msgstr ""
 
-#: EasyNewsletter/browser/registration.py:278
-#: EasyNewsletter/views/newsletter_unsubscribe_form.py:56
+#: EasyNewsletter/browser/registration.py:276
+#: EasyNewsletter/views/newsletter_unsubscribe_form.py:66
 msgid "Your email address could not be found in subscribers."
 msgstr ""
 
-#: EasyNewsletter/browser/registration.py:95
+#: EasyNewsletter/browser/registration.py:93
 msgid "Your email address is already registered."
 msgstr "Seu endereço de email já está cadastrado."
 
-#: EasyNewsletter/browser/registration.py:142
+#: EasyNewsletter/browser/registration.py:140
 msgid "Your email has been registered.                 A confirmation email was sent to your address. Please check                 your inbox and click on the link in the email in order to                 confirm your subscription."
 msgstr "Seu email foi registrado. Um email de confirmação foi enviado para seu endereço. Por favor verifique sua caixa de entrada e clique no link no email recebido a fim de confirmarmos o seu cadastro."
 
@@ -737,7 +720,7 @@ msgstr "Seu email foi registrado. Um email de confirmação foi enviado para seu
 msgid "Your registered E-Mail address:"
 msgstr ""
 
-#: EasyNewsletter/browser/registration.py:191
+#: EasyNewsletter/browser/registration.py:189
 msgid "Your subscription was successfully confirmed."
 msgstr "Sua inscrição foi confirmada com sucesso"
 
@@ -757,8 +740,8 @@ msgstr "Adicionar assinante"
 msgid "cancel"
 msgstr ""
 
-#: EasyNewsletter/browser/registration.py:268
-#: EasyNewsletter/views/newsletter_unsubscribe_form.py:44
+#: EasyNewsletter/browser/registration.py:266
+#: EasyNewsletter/views/newsletter_unsubscribe_form.py:53
 msgid "confirm newsletter unsubscription"
 msgstr ""
 
@@ -856,34 +839,34 @@ msgid "easynewsletter_unsubscribe_button"
 msgstr ""
 
 #. Default: "Your email has been registered. A confirmation email was sent to your address. Please check your inbox and click  on the link in the email in order to confirm your subscription."
-#: EasyNewsletter/config.py:37
+#: EasyNewsletter/config.py:39
 msgid "email_added"
 msgstr ""
 
 #. Default: "Your email address is already registered."
-#: EasyNewsletter/config.py:46
+#: EasyNewsletter/config.py:49
 msgid "email_exists"
 msgstr ""
 
 #. Default: "Choose the template to render the email. "
-#: EasyNewsletter/content/newsletter.py:234
-#: EasyNewsletter/content/newsletter_issue.py:129
+#: EasyNewsletter/content/newsletter.py:232
+#: EasyNewsletter/content/newsletter_issue.py:126
 msgid "enl_help_output_template"
 msgstr ""
 
 #. Default: "If checked, the banner image defined on newsletter                     or on this issue will not be used."
-#: EasyNewsletter/content/newsletter_issue.py:169
+#: EasyNewsletter/content/newsletter_issue.py:166
 msgid "enl_issue_help_hide_image"
 msgstr ""
 
 #. Default: "Default output template"
-#: EasyNewsletter/vocabularies/output_templates.py:37
+#: EasyNewsletter/vocabularies/output_templates.py:36
 msgid "enl_label_default_output_template"
 msgstr ""
 
 #. Default: "Output template"
-#: EasyNewsletter/content/newsletter.py:233
-#: EasyNewsletter/content/newsletter_issue.py:128
+#: EasyNewsletter/content/newsletter.py:231
+#: EasyNewsletter/content/newsletter_issue.py:125
 msgid "enl_label_output_template"
 msgstr ""
 
@@ -917,12 +900,12 @@ msgid "import_subscriber"
 msgstr ""
 
 #. Default: "Please enter a valid email address."
-#: EasyNewsletter/config.py:44
+#: EasyNewsletter/config.py:46
 msgid "invalid_email"
 msgstr ""
 
 #. Default: "Please enter a valid email address."
-#: EasyNewsletter/config.py:48
+#: EasyNewsletter/config.py:52
 msgid "invalid_hashkey"
 msgstr ""
 
@@ -932,7 +915,7 @@ msgid "label_ext_subcriber_source_failed"
 msgstr ""
 
 #. Default: "Hide banner image."
-#: EasyNewsletter/content/newsletter_issue.py:168
+#: EasyNewsletter/content/newsletter_issue.py:165
 msgid "label_issueHideImage"
 msgstr ""
 
@@ -972,12 +955,12 @@ msgid "label_newsletter_path"
 msgstr ""
 
 #. Default: "Mr."
-#: EasyNewsletter/config.py:26
+#: EasyNewsletter/config.py:28
 msgid "label_salutation_mr"
 msgstr "Sr."
 
 #. Default: "Ms."
-#: EasyNewsletter/config.py:25
+#: EasyNewsletter/config.py:27
 msgid "label_salutation_ms"
 msgstr "Sra."
 
@@ -1080,8 +1063,8 @@ msgstr ""
 msgid "source"
 msgstr "Origem"
 
-#: EasyNewsletter/browser/subscribers.py:215
-#: EasyNewsletter/views/newsletter_subscribers.py:103
+#: EasyNewsletter/browser/subscribers.py:214
+#: EasyNewsletter/views/newsletter_subscribers.py:107
 msgid "subscriber/s deleted successfully"
 msgstr "assinante(s) apagado(s) com sucesso"
 
@@ -1092,7 +1075,7 @@ msgid "subscribers_search_note"
 msgstr ""
 
 #. Default: "Your subscription was successfully confirmed."
-#: EasyNewsletter/config.py:50
+#: EasyNewsletter/config.py:55
 msgid "subscription_confirmed"
 msgstr ""
 
@@ -1107,6 +1090,11 @@ msgstr "Assinantes criados com sucesso"
 msgid "unsubscribe"
 msgstr ""
 
-#: EasyNewsletter/content/newsletter.py:200
+#. Default: "You requested to unsubscribe from the following newsletter: ${title}"
+#: EasyNewsletter/views/newsletter_unsubscribe_form.py:37
+msgid "you_requested_to_unsubscribe"
+msgstr ""
+
+#: EasyNewsletter/content/newsletter.py:198
 msgid "{{subscriber_salutation}}<br />"
 msgstr ""

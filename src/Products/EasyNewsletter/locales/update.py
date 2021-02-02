@@ -15,7 +15,7 @@ def locale_folder_setup(domain=None):
     languages = [
         d
         for d in os.listdir(locale_path)
-        if os.path.isdir(os.path.join(locale_path, d) and d != "__pycache__")
+        if os.path.isdir(os.path.join(locale_path, d)) and d != "__pycache__"
     ]
     for lang in languages:
         lc_message_dir_path = os.path.join(locale_path, lang, 'LC_MESSAGES')
