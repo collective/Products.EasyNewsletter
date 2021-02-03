@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.0b2 (unreleased)
+5.0.0b2 (2021-02-03)
 --------------------
 
 - Don't fail sending process when one email fails
