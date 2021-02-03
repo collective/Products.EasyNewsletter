@@ -36,10 +36,6 @@ msgstr ""
 msgid "A Newsletter Subscriber."
 msgstr ""
 
-#: EasyNewsletter/views/newsletter_subscriber.py:14
-msgid "A small message"
-msgstr ""
-
 #: EasyNewsletter/browser/upload_csv.pt:131
 #: EasyNewsletter/views/newsletter_subscribers_upload.pt:116
 msgid "Action"
@@ -587,10 +583,6 @@ msgstr ""
 msgid "Salutation"
 msgstr "Salutation"
 
-#: EasyNewsletter/views/newsletter_subscriber.pt:9
-msgid "Sample View"
-msgstr ""
-
 #: EasyNewsletter/browser/enl_subscribers_view.pt:50
 #: EasyNewsletter/views/newsletter_subscribers.pt:52
 msgid "Search"
@@ -689,7 +681,7 @@ msgid "View"
 msgstr ""
 
 #: EasyNewsletter/browser/registration.py:270
-#: EasyNewsletter/views/newsletter_unsubscribe_form.py:58
+#: EasyNewsletter/views/newsletter_unsubscribe_form.py:57
 msgid "We send you an email, please confirm this unsubscription."
 msgstr ""
 
@@ -708,7 +700,7 @@ msgid "You want to unsubscribe from this Newsletter?"
 msgstr "Vous désirez vous désabonner de cette lettre?"
 
 #: EasyNewsletter/browser/registration.py:276
-#: EasyNewsletter/views/newsletter_unsubscribe_form.py:66
+#: EasyNewsletter/views/newsletter_unsubscribe_form.py:65
 msgid "Your email address could not be found in subscribers."
 msgstr ""
 
@@ -736,7 +728,6 @@ msgstr "action"
 
 #. Default: "Add subscriber"
 #: EasyNewsletter/browser/enl_subscribers_view.pt:32
-#: EasyNewsletter/views/newsletter_subscribers.pt:20
 msgid "add_subscriber"
 msgstr "ajouter un abonné"
 
@@ -745,7 +736,7 @@ msgid "cancel"
 msgstr "Annuler"
 
 #: EasyNewsletter/browser/registration.py:266
-#: EasyNewsletter/views/newsletter_unsubscribe_form.py:53
+#: EasyNewsletter/views/newsletter_unsubscribe_form.py:52
 msgid "confirm newsletter unsubscription"
 msgstr ""
 
@@ -880,10 +871,6 @@ msgstr ""
 msgid "enl_subscriber_upload_wrong_number_of_columns"
 msgstr ""
 
-#: EasyNewsletter/views/newsletter_subscribers.pt:34
-msgid "export_subscriber"
-msgstr ""
-
 #. Default: "First Name"
 #: EasyNewsletter/browser/enl_subscribers_view.pt:85
 #: EasyNewsletter/views/newsletter_subscribers.pt:93
@@ -899,10 +886,6 @@ msgstr ""
 #: EasyNewsletter/browser/enl_subscribers_view.pt:35
 msgid "import_export"
 msgstr "Import / Export"
-
-#: EasyNewsletter/views/newsletter_subscribers.pt:27
-msgid "import_subscriber"
-msgstr ""
 
 #. Default: "Please enter a valid email address."
 #: EasyNewsletter/config.py:46

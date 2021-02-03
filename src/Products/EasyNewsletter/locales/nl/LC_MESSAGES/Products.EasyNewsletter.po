@@ -33,10 +33,6 @@ msgstr ""
 msgid "A Newsletter Subscriber."
 msgstr ""
 
-#: EasyNewsletter/views/newsletter_subscriber.py:14
-msgid "A small message"
-msgstr ""
-
 #: EasyNewsletter/browser/upload_csv.pt:131
 #: EasyNewsletter/views/newsletter_subscribers_upload.pt:116
 msgid "Action"
@@ -582,10 +578,6 @@ msgstr ""
 msgid "Salutation"
 msgstr "Aanspreking"
 
-#: EasyNewsletter/views/newsletter_subscriber.pt:9
-msgid "Sample View"
-msgstr ""
-
 #: EasyNewsletter/browser/enl_subscribers_view.pt:50
 #: EasyNewsletter/views/newsletter_subscribers.pt:52
 msgid "Search"
@@ -684,7 +676,7 @@ msgid "View"
 msgstr ""
 
 #: EasyNewsletter/browser/registration.py:270
-#: EasyNewsletter/views/newsletter_unsubscribe_form.py:58
+#: EasyNewsletter/views/newsletter_unsubscribe_form.py:57
 msgid "We send you an email, please confirm this unsubscription."
 msgstr "Wij hebben u een e-mail met een afmeldlink verzonden."
 
@@ -703,7 +695,7 @@ msgid "You want to unsubscribe from this Newsletter?"
 msgstr "Wilt u zich afmelden voor deze nieuwsbrief?"
 
 #: EasyNewsletter/browser/registration.py:276
-#: EasyNewsletter/views/newsletter_unsubscribe_form.py:66
+#: EasyNewsletter/views/newsletter_unsubscribe_form.py:65
 msgid "Your email address could not be found in subscribers."
 msgstr "Uw e-mail kon niet worden gevonden in de abonnees."
 
@@ -731,7 +723,6 @@ msgstr "Actie"
 
 #. Default: "Add subscriber"
 #: EasyNewsletter/browser/enl_subscribers_view.pt:32
-#: EasyNewsletter/views/newsletter_subscribers.pt:20
 msgid "add_subscriber"
 msgstr "Abonnee toevoegen"
 
@@ -740,7 +731,7 @@ msgid "cancel"
 msgstr "annuleren"
 
 #: EasyNewsletter/browser/registration.py:266
-#: EasyNewsletter/views/newsletter_unsubscribe_form.py:53
+#: EasyNewsletter/views/newsletter_unsubscribe_form.py:52
 msgid "confirm newsletter unsubscription"
 msgstr "bevestig afmelding van de nieuwsbrief"
 
@@ -873,10 +864,6 @@ msgstr ""
 msgid "enl_subscriber_upload_wrong_number_of_columns"
 msgstr ""
 
-#: EasyNewsletter/views/newsletter_subscribers.pt:34
-msgid "export_subscriber"
-msgstr ""
-
 #. Default: "First Name"
 #: EasyNewsletter/browser/enl_subscribers_view.pt:85
 #: EasyNewsletter/views/newsletter_subscribers.pt:93
@@ -892,10 +879,6 @@ msgstr "Zoek de betreffende nieuwsbrief en selecteer deze."
 #: EasyNewsletter/browser/enl_subscribers_view.pt:35
 msgid "import_export"
 msgstr "Importeer / Exporteer"
-
-#: EasyNewsletter/views/newsletter_subscribers.pt:27
-msgid "import_subscriber"
-msgstr ""
 
 #. Default: "Please enter a valid email address."
 #: EasyNewsletter/config.py:46

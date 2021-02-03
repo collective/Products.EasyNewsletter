@@ -20,21 +20,21 @@
           <input type="submit"
             value="Add subscriber"
             i18n:attributes="value"
-            i18n:translate="add_subscriber" />
+            />
         </form>
         <form method="get"
           tal:attributes="action string:${context/absolute_url}/subscribers-upload">
           <input type="submit"
             value="Import subscriber"
             i18n:attributes="value"
-            i18n:translate="import_subscriber" />
+            />
         </form>
         <form method="get"
           tal:attributes="action string:${context/absolute_url}/subscribers-download">
           <input type="submit"
             value="Export subscriber"
             i18n:attributes="value"
-            i18n:translate="export_subscriber" />
+            />
         </form>
       </nav>
 
