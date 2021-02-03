@@ -52,4 +52,5 @@ jobs:
                   python3 --version
             - name: Test with tox
               run: |
+                  tox -l
                   tox -r
