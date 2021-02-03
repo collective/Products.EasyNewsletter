@@ -66,3 +66,4 @@ docs/Makefile
 /htmlcov_manuell
 **/__pycache__/**
 /venv
+/docs/_build
