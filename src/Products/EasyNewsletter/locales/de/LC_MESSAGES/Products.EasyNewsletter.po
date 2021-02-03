@@ -32,10 +32,6 @@ msgstr "Eine Newsletter-Ausgabe"
 msgid "A Newsletter Subscriber."
 msgstr "Ein Newsletter-Abonnent"
 
-#: EasyNewsletter/views/newsletter_subscriber.py:14
-msgid "A small message"
-msgstr ""
-
 #: EasyNewsletter/browser/upload_csv.pt:131
 #: EasyNewsletter/views/newsletter_subscribers_upload.pt:116
 msgid "Action"
@@ -581,10 +577,6 @@ msgstr "Empfänger"
 msgid "Salutation"
 msgstr "Anrede"
 
-#: EasyNewsletter/views/newsletter_subscriber.pt:9
-msgid "Sample View"
-msgstr ""
-
 #: EasyNewsletter/browser/enl_subscribers_view.pt:50
 #: EasyNewsletter/views/newsletter_subscribers.pt:52
 msgid "Search"
@@ -683,7 +675,7 @@ msgid "View"
 msgstr "Ansicht"
 
 #: EasyNewsletter/browser/registration.py:270
-#: EasyNewsletter/views/newsletter_unsubscribe_form.py:58
+#: EasyNewsletter/views/newsletter_unsubscribe_form.py:57
 msgid "We send you an email, please confirm this unsubscription."
 msgstr "Wir haben Ihnen eine E-Mail mit einem Abmeldelink geschickt."
 
@@ -702,7 +694,7 @@ msgid "You want to unsubscribe from this Newsletter?"
 msgstr "Sie möchten das Newsletter Abonnement kündigen?"
 
 #: EasyNewsletter/browser/registration.py:276
-#: EasyNewsletter/views/newsletter_unsubscribe_form.py:66
+#: EasyNewsletter/views/newsletter_unsubscribe_form.py:65
 msgid "Your email address could not be found in subscribers."
 msgstr "Wir konnten Ihre E-Mail-Adresse nicht in den Abonnenten dieses Newsletters finden."
 
@@ -730,7 +722,6 @@ msgstr "Aktion"
 
 #. Default: "Add subscriber"
 #: EasyNewsletter/browser/enl_subscribers_view.pt:32
-#: EasyNewsletter/views/newsletter_subscribers.pt:20
 msgid "add_subscriber"
 msgstr "Abonnent hinzufügen"
 
@@ -739,7 +730,7 @@ msgid "cancel"
 msgstr "Abbrechen"
 
 #: EasyNewsletter/browser/registration.py:266
-#: EasyNewsletter/views/newsletter_unsubscribe_form.py:53
+#: EasyNewsletter/views/newsletter_unsubscribe_form.py:52
 msgid "confirm newsletter unsubscription"
 msgstr "Newsletter-Abmeldung bestätigen"
 
@@ -871,10 +862,6 @@ msgstr "Ausgabe-Template"
 msgid "enl_subscriber_upload_wrong_number_of_columns"
 msgstr "Die Anzahl der Zeilen stimmt nicht mit dem Import-Format überein!"
 
-#: EasyNewsletter/views/newsletter_subscribers.pt:34
-msgid "export_subscriber"
-msgstr "Abonnenten exportieren"
-
 #. Default: "First Name"
 #: EasyNewsletter/browser/enl_subscribers_view.pt:85
 #: EasyNewsletter/views/newsletter_subscribers.pt:93
@@ -890,10 +877,6 @@ msgstr "Suchen sie den gewünschten Newsletter und wählen sie diesen aus."
 #: EasyNewsletter/browser/enl_subscribers_view.pt:35
 msgid "import_export"
 msgstr "Import / Export"
-
-#: EasyNewsletter/views/newsletter_subscribers.pt:27
-msgid "import_subscriber"
-msgstr "Abonnenten importieren"
 
 #. Default: "Please enter a valid email address."
 #: EasyNewsletter/config.py:46

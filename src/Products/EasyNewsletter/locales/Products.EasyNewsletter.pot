@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Products.EasyNewsletter\n"
-"POT-Creation-Date: 2021-02-02 19:02+0000\n"
+"POT-Creation-Date: 2021-02-03 15:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Maik Derstappen <md@derico.de>\n"
 "Language-Team: LANGUAGE <md@derico.de>\n"
@@ -42,10 +42,6 @@ msgstr ""
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Subscriber.xml
 msgid "A Newsletter Subscriber."
-msgstr ""
-
-#: EasyNewsletter/views/newsletter_subscriber.py:14
-msgid "A small message"
 msgstr ""
 
 #: EasyNewsletter/browser/upload_csv.pt:131
@@ -597,10 +593,6 @@ msgstr ""
 msgid "Salutation"
 msgstr ""
 
-#: EasyNewsletter/views/newsletter_subscriber.pt:9
-msgid "Sample View"
-msgstr ""
-
 #: EasyNewsletter/browser/enl_subscribers_view.pt:50
 #: EasyNewsletter/views/newsletter_subscribers.pt:52
 msgid "Search"
@@ -699,7 +691,7 @@ msgid "View"
 msgstr ""
 
 #: EasyNewsletter/browser/registration.py:270
-#: EasyNewsletter/views/newsletter_unsubscribe_form.py:58
+#: EasyNewsletter/views/newsletter_unsubscribe_form.py:57
 msgid "We send you an email, please confirm this unsubscription."
 msgstr ""
 
@@ -718,7 +710,7 @@ msgid "You want to unsubscribe from this Newsletter?"
 msgstr ""
 
 #: EasyNewsletter/browser/registration.py:276
-#: EasyNewsletter/views/newsletter_unsubscribe_form.py:66
+#: EasyNewsletter/views/newsletter_unsubscribe_form.py:65
 msgid "Your email address could not be found in subscribers."
 msgstr ""
 
@@ -746,7 +738,6 @@ msgstr ""
 
 #. Default: "Add subscriber"
 #: EasyNewsletter/browser/enl_subscribers_view.pt:32
-#: EasyNewsletter/views/newsletter_subscribers.pt:20
 msgid "add_subscriber"
 msgstr ""
 
@@ -755,7 +746,7 @@ msgid "cancel"
 msgstr ""
 
 #: EasyNewsletter/browser/registration.py:266
-#: EasyNewsletter/views/newsletter_unsubscribe_form.py:53
+#: EasyNewsletter/views/newsletter_unsubscribe_form.py:52
 msgid "confirm newsletter unsubscription"
 msgstr ""
 
@@ -887,10 +878,6 @@ msgstr ""
 msgid "enl_subscriber_upload_wrong_number_of_columns"
 msgstr ""
 
-#: EasyNewsletter/views/newsletter_subscribers.pt:34
-msgid "export_subscriber"
-msgstr ""
-
 #. Default: "First Name"
 #: EasyNewsletter/browser/enl_subscribers_view.pt:85
 #: EasyNewsletter/views/newsletter_subscribers.pt:93
@@ -905,10 +892,6 @@ msgstr ""
 #. Default: "Import / Export"
 #: EasyNewsletter/browser/enl_subscribers_view.pt:35
 msgid "import_export"
-msgstr ""
-
-#: EasyNewsletter/views/newsletter_subscribers.pt:27
-msgid "import_subscriber"
 msgstr ""
 
 #. Default: "Please enter a valid email address."

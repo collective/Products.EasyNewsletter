@@ -1,10 +1,12 @@
 Changelog
 =========
 
+
 5.0.0b3 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Fix dublicate text in action buttons on newsletter-subscribers view.
+  [MrTango]
 
 
 5.0.0b2 (2021-02-03)
