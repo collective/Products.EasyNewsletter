@@ -49,7 +49,6 @@ Features
 
 * synchronous/ asynchronous send out [currently not reimplemented, if you need this, you have to wait for future versions or fund the work on this feature]
 
-
 * external
 
   * subscriber sources (configured through a Zope utility) [currently not reimplemented]
@@ -71,8 +70,9 @@ Installation
 3. Restart Plone
 4. Install EasyNewsletter via Plone Management Interface
 5. Add a Newsletter to the Plone site
-5. Add a "Newsletter Subscriber" portlet and select a Newsletter
+6. Add a "Newsletter Subscriber" portlet and select a Newsletter
    (To this newsletter, the subscribers will be added).
+
 
 Documentation
 =============
