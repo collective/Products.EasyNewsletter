@@ -46,6 +46,10 @@ jobs:
                   python -m pip install --upgrade pip
                   pip install tox tox-gh-actions
                   # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+            - name: python version
+              run: |
+                  python --version
+                  python3 --version
             - name: Test with tox
               run: |
                   tox -r
