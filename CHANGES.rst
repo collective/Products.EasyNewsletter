@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-5.0.0b3 (unreleased)
+5.0.0b3 (2021-02-03)
 --------------------
 
 - Fix dublicate text in action buttons on newsletter-subscribers view.
