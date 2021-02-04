@@ -12,9 +12,9 @@ EasyNewsletter is a simple but powerful newsletter/mailing product for Plone.
 Compatibility
 -------------
 
-EasyNewsletter versions >= 4.x Plone 5.1 only, they are using DX but still have Archetypes dependencies for migration.
-EasyNewsletter versions >= 5.x are Plone 5.1 above only, they are free of Archetypes and support Python 3.
-For Plone versions < 5.1, use the 3.x branch and releases of EasyNewsletter!
+* EasyNewsletter versions >= 5.x are Plone 5.1 and above only, they are free of Archetypes and **support Python 3**.
+* EasyNewsletter versions >= 4.x Plone 5.1 only, they are using DX but still have Archetypes dependencies for migration.
+* For Plone versions < 5.1, use the 3.x branch and releases of EasyNewsletter!
 
 For Python 2.7 you have to pin down html2text:
 
