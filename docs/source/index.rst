@@ -83,60 +83,6 @@ Elements for mails only
 If you want some elements, let's say a logo only in mails but not in the public view, you can add a class ``mailonly``. All elements with class ``mailonly`` are filtered out in the public view.
 
 
-Asyncronous sendout
--------------------
-
-Products.EasyNewsletter supports asyncronous sendout using `collective.taskqueue`_
-
-.. _collective.taskqueue: https://pypi.python.org/pypi/collective.taskqueue
-
-Add this to your instance section in your buildout config::
-
-   zope-conf-additional =
-       <taskqueue>
-         queue Products.EasyNewsletter.queue
-       </taskqueue>
-       <taskqueue-server>
-         queue Products.EasyNewsletter.queue
-       </taskqueue-server>
-
-In your eggs list you should add the following install extra ``[taskqueue]``::
-
-   Products.EasyNewsletter[taskqueue]
-
-This will install collective.taskqeue as requirement. If you have configured your buildout according accordingly, Products.EasyNewsletter will automatically delegate the sendout to your worker instance.
-
-
-Sending a daily issue automatically
------------------------------------
-EasyNewsletter can create and send daily issues, using the default template and
-default criteria. Beside those, you just need to configure your crontab (or
-clock server) to send a `POST` on `@@daily-issue` view.
-Eg::
-    #Sends a newsletter, from Mon to Fri, at 0:00AM
-    0 0 * * 1-5 curl -X POST http://user:passwd@example.org/mynewsletter/@@daily-issue
-
-`@@daily-issue` returns a HTTP status code indicating what just happened (you
-can also test it with a GET, instead). In the table below, you can check the
-responses codes.
-
-===================  ============  =====  ============
-@@daily-issue responses
-------------------------------------------------------
-Method/Precondition  Not yet sent  Empty  Already Sent
-===================  ============  =====  ============
-GET                     100         204       200
-POST                    200 [*]_    204       409
-===================  ============  =====  ============
-
-.. [*] It sends the issue first.
-
-Using cron4plone to send it out
-...............................
-
-You can now use cron4plone to call the new trigger ``@@trigger-daily-issue`` which will make a POST request to the ``@@daily-issue``.
-
-
 Allowed placeholders
 --------------------
 
@@ -417,6 +363,60 @@ The utility must be registered using ZCML::
 
 Inside the ``Edit`` view of the instance under the ``External`` tab you should find
 ``MyInfo subscribers`` under the option ``External subscriber source``.
+
+
+Asyncronous sendout
+-------------------
+
+Products.EasyNewsletter supports asyncronous sendout using `collective.taskqueue`_
+
+.. _collective.taskqueue: https://pypi.python.org/pypi/collective.taskqueue
+
+Add this to your instance section in your buildout config::
+
+   zope-conf-additional =
+       <taskqueue>
+         queue Products.EasyNewsletter.queue
+       </taskqueue>
+       <taskqueue-server>
+         queue Products.EasyNewsletter.queue
+       </taskqueue-server>
+
+In your eggs list you should add the following install extra ``[taskqueue]``::
+
+   Products.EasyNewsletter[taskqueue]
+
+This will install collective.taskqeue as requirement. If you have configured your buildout according accordingly, Products.EasyNewsletter will automatically delegate the sendout to your worker instance.
+
+
+Sending a daily issue automatically
+-----------------------------------
+EasyNewsletter can create and send daily issues, using the default template and
+default criteria. Beside those, you just need to configure your crontab (or
+clock server) to send a `POST` on `@@daily-issue` view.
+Eg::
+    #Sends a newsletter, from Mon to Fri, at 0:00AM
+    0 0 * * 1-5 curl -X POST http://user:passwd@example.org/mynewsletter/@@daily-issue
+
+`@@daily-issue` returns a HTTP status code indicating what just happened (you
+can also test it with a GET, instead). In the table below, you can check the
+responses codes.
+
+===================  ============  =====  ============
+@@daily-issue responses
+------------------------------------------------------
+Method/Precondition  Not yet sent  Empty  Already Sent
+===================  ============  =====  ============
+GET                     100         204       200
+POST                    200 [*]_    204       409
+===================  ============  =====  ============
+
+.. [*] It sends the issue first.
+
+Using cron4plone to send it out
+...............................
+
+You can now use cron4plone to call the new trigger ``@@trigger-daily-issue`` which will make a POST request to the ``@@daily-issue``.
 
 
 
