@@ -7,6 +7,9 @@ EasyNewsletter
 .. image:: https://coveralls.io/repos/github/collective/Products.EasyNewsletter/badge.svg?branch=master
     :target: https://coveralls.io/github/collective/Products.EasyNewsletter?branch=master
 
+.. image:: http://github-actions.40ants.com/collective/Products.EasyNewsletter/matrix.svg
+    :target: https://github.com/collective/Products.EasyNewsletter
+
 EasyNewsletter is a simple but powerful newsletter/mailing product for Plone.
 
 Compatibility
