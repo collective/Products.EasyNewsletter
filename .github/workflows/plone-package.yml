@@ -58,11 +58,22 @@ jobs:
               run: |
                   python --version
                   python3 --version
+            # - name: Lint and test Plone package with tox
+            #   run: tox -r
+            #   env:
+            #     PLONE-VERSION: ${{ matrix.plone-version }}
+            #     PYTHON-VERSION: ${{ matrix.python-version }}
             - name: Lint and test Plone package with tox
-              run: tox -r
-              env:
-                PLONE-VERSION: ${{ matrix.plone-version }}
-                PYTHON-VERSION: ${{ matrix.python-version }}
+              uses: nick-invision/retry@v2
+              with:
+                timeout_seconds: 15
+                max_attempts: 3
+                retry_on: error
+                command: tox -r
+                  env:
+                    PLONE-VERSION: ${{ matrix.plone-version }}
+                    PYTHON-VERSION: ${{ matrix.python-version }}
+
             - name: coverage report on python3.7
               run: tox -r -e coverage-report
               if: matrix.python-version == '3.7'
