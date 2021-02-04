@@ -2,10 +2,11 @@ Changelog
 =========
 
 
-5.0.0b4 (unreleased)
+5.0.0 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- use email_validator.validate_email in plone_user vocab, fixes #159
+  [MrTango]
 
 
 5.0.0b3 (2021-02-03)
