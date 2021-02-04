@@ -17,7 +17,7 @@ jobs:
             matrix:
                 plone-version:
                   - 'Plone52'
-                python-version: [3.7, 3.8]
+                python-version: [3.6, 3.7, 3.8]
                 include:
                   - plone-version: Plone52
                     python-version: 2.7
