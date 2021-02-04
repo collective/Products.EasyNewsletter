@@ -15,7 +15,7 @@ EasyNewsletter
     :target: https://pypi.python.org/pypi/Products.EasyNewsletter/
     :alt: Egg Status
 
-.. image:: https://img.shields.io/pypi/pyversions/Products.EasyNewsletter.svg?style=plastic
+.. image:: https://img.shields.io/pypi/pyversions/Products.EasyNewsletter.svg
     :alt: Supported - Python Versions
 
 .. image:: https://img.shields.io/pypi/l/Products.EasyNewsletter.svg
