@@ -16,6 +16,9 @@ jobs:
             fail-fast: false
             matrix:
                 python-version: [3.7, 2.7]
+                plone-version:
+                  - '5.1'
+                  - '5.2'
 
         steps:
             - uses: actions/checkout@v2
@@ -51,6 +54,5 @@ jobs:
                   python --version
                   python3 --version
             - name: Test with tox
-              run: |
-                  tox -l
-                  tox -r
+              run: tox
+              env: ${{ matrix.plone-version }}
