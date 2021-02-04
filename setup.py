@@ -52,7 +52,7 @@ setup(
         'emails',
         'premailer',
         'html2text',
-        'email_validator',
+        'email-validator>=1.1.2',
         'six',
     ],
     extras_require=dict(

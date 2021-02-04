@@ -70,7 +70,7 @@ class SubscriberView(BrowserView):
 
         subscriber = self.request.get("subscriber")
         try:
-            validate_email(subscriber)
+            valid_subscriber = validate_email(subscriber)
         except EmailNotValidError as e:
             messages.addStatusMessage(_("Please enter a valid email address.\n{0}".format(e)), "error")
             return self._msg_redirect(newsletter_container)
@@ -87,14 +87,14 @@ class SubscriberView(BrowserView):
         organization = self.request.get("organization", "")
 
         norm = queryUtility(IIDNormalizer)
-        normalized_subscriber = norm.normalize(subscriber)
+        normalized_subscriber = norm.normalize(valid_subscriber.email)
         if normalized_subscriber in newsletter_container.objectIds():
             messages.addStatusMessage(
                 _("Your email address is already registered."), "error"
             )
             return self._msg_redirect(newsletter_container)
         subscriber_data = {}
-        subscriber_data["subscriber"] = subscriber
+        subscriber_data["subscriber"] = valid_subscriber.email
         subscriber_data["lastname"] = lastname
         subscriber_data["firstname"] = firstname
         subscriber_data["name_prefix"] = name_prefix
@@ -104,7 +104,7 @@ class SubscriberView(BrowserView):
         subscriber_data["path_to_easynewsletter"] = path_to_easynewsletter
 
         # use password reset tool to create a hash
-        pwr_data = self._requestReset(subscriber)
+        pwr_data = self._requestReset(subscriber_data["subscriber"])
         hashkey = pwr_data["randomstring"]
         enl_registration_tool = queryUtility(
             IENLRegistrationTool, "enl_registration_tool"
@@ -123,7 +123,7 @@ class SubscriberView(BrowserView):
             msg_text = newsletter_container.subscriber_confirmation_mail_text.replace(
                 "${newsletter_title}", newsletter_container.title
             )
-            msg_text = msg_text.replace("${subscriber_email}", subscriber)
+            msg_text = msg_text.replace("${subscriber_email}", subscriber_data["subscriber"])
             msg_text = msg_text.replace("${confirmation_url}", confirmation_url)
             settings = get_portal_mail_settings()
             msg_sender = settings.email_from_address

@@ -39,7 +39,7 @@ class PloneUsers(object):
         try:
             for id, property in member_properties.items():
                 try:
-                    valid_email = validate_email(property["email"])
+                    vemail = validate_email(property["email"])
                 except EmailNotValidError as e:
                     log.error(
                         _('Property email: "{0}" is not an email!').format(
@@ -48,7 +48,9 @@ class PloneUsers(object):
                         e,
                     )
                 else:
-                    results.append((id, property["fullname"] + " - " + valid_email))
+                    results.append(
+                        (id, u"{0} - {1}".format(property["fullname"], vemail.email))
+                    )
         except TypeError as e:  # noqa
             log.error(
                 ":get_plone_members: error in member_properties {0} \
