@@ -23,7 +23,7 @@ EasyNewsletter
     :target: https://pypi.python.org/pypi/Products.EasyNewsletter/
     :alt: License
 
-EasyNewsletter is a simple but powerful newsletter/mailing product for Plone.
+EasyNewsletter is a simple but powerful newsletter/mailing add-on for Plone.
 
 Compatibility
 -------------
