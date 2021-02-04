@@ -6,7 +6,7 @@ EasyNewsletter
 
 .. image:: https://coveralls.io/repos/github/collective/Products.EasyNewsletter/badge.svg?branch=master
     :target: https://coveralls.io/github/collective/Products.EasyNewsletter?branch=master
-    
+
 .. image:: https://img.shields.io/pypi/v/Products.EasyNewsletter.svg
     :target: https://pypi.python.org/pypi/Products.EasyNewsletter/
     :alt: Latest Version
@@ -15,15 +15,12 @@ EasyNewsletter
     :target: https://pypi.python.org/pypi/Products.EasyNewsletter/
     :alt: Egg Status
 
-.. image:: https://img.shields.io/pypi/pyversions/Products.EasyNewsletter.svg?style=plastic   
+.. image:: https://img.shields.io/pypi/pyversions/Products.EasyNewsletter.svg?style=plastic
     :alt: Supported - Python Versions
 
 .. image:: https://img.shields.io/pypi/l/Products.EasyNewsletter.svg
     :target: https://pypi.python.org/pypi/Products.EasyNewsletter/
     :alt: License
-    
-.. image:: http://github-actions.40ants.com/collective/Products.EasyNewsletter/matrix.svg
-    :target: https://github.com/collective/Products.EasyNewsletter
 
 EasyNewsletter is a simple but powerful newsletter/mailing product for Plone.
 
