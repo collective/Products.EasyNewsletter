@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime
-from DateTime import DateTime
 from plone import api
 from plone.protect import PostOnly
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
@@ -192,7 +191,7 @@ class NewsletterIssueSend(BrowserView):
             self.request["enlwf_guard"] = True
             api.content.transition(obj=self.context, transition="sending_completed")
             self.request["enlwf_guard"] = False
-            self.context.setEffectiveDate(DateTime())
+            self.context.setEffectiveDate(datetime.now())
             self.context.reindexObject(idxs=["effective"])
             msg_type = "info"
             additional_warning = ""
