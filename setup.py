@@ -4,7 +4,7 @@ from setuptools import find_packages
 from setuptools import setup
 
 
-version = '5.0.0b4.dev0'
+version = '5.0.0'
 long_description = (
     open('README.rst').read() + '\n'
     + open('CHANGES.rst').read()
@@ -16,7 +16,7 @@ setup(
     description="Powerful newsletter/mailing addon for Plone",
     long_description=long_description,
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Framework :: Plone',
         'Framework :: Plone :: 5.2',
         'Programming Language :: Python',
