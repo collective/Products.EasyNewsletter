@@ -15,10 +15,15 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                python-version: [3.7, 2.7]
                 plone-version:
-                  - '5.1'
-                  - '5.2'
+                  - 'Plone52'
+                python-version: [3.7, 3.8]
+                include:
+                  - plone-version: Plone52
+                    python-version: 2.7
+                  - plone-version: Plone51
+                    python-version: 2.7
+
 
         steps:
             - uses: actions/checkout@v2
@@ -28,7 +33,7 @@ jobs:
                     ~/.cache/pip
                     ~/buildout-cache
                     ~/extends
-                  key: ${{ runner.os }}-tox-${{ matrix.python-version }}-${{ hashFiles('**/setup.py') }}-${{ hashFiles('**/requirements.txt') }}-${{ hashFiles('**/tox.ini') }}
+                  key: ${{ runner.os }}-tox-${{ matrix.python-version }}-${{ matrix.plone-version }}-${{ hashFiles('**/setup.py') }}-${{ hashFiles('**/requirements.txt') }}-${{ hashFiles('**/tox.ini') }}
                   # restore-keys: |
                   #   ${{ runner.os }}-tox-
             - name: Set up Python ${{ matrix.python-version }}
@@ -49,10 +54,15 @@ jobs:
                   python -m pip install --upgrade pip
                   pip install tox tox-gh-actions
                   # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-            - name: python version
+            - name: python versions
               run: |
                   python --version
                   python3 --version
-            - name: Test with tox
-              run: tox
-              env: ${{ matrix.plone-version }}
+            - name: Lint and test Plone package with tox
+              run: tox -r
+              env:
+                PLONE-VERSION: ${{ matrix.plone-version }}
+                PYTHON-VERSION: ${{ matrix.python-version }}
+            - name: coverage report on python3.7
+              run: tox -r -e coverage-report
+              if: matrix.python-version == '3.7'
