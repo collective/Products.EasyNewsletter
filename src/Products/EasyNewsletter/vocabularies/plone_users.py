@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 
+from email_validator import EmailNotValidError, validate_email
 from plone import api
 from plone.dexterity.interfaces import IDexterityContent
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter import _, config
-# from Products.EasyNewsletter.interfaces import IReceiversGroupFilter
 from Products.EasyNewsletter.interfaces import IReceiversMemberFilter
-# from Products.EasyNewsletter.interfaces import ISubscriberSource
 from zope.component import subscribers
 from zope.globalrequest import getRequest
 from zope.interface import implementer
@@ -39,17 +38,23 @@ class PloneUsers(object):
 
         try:
             for id, property in member_properties.items():
-                if config.EMAIL_RE.findall(property['email']):
-                    results.append(
-                        (id, property['fullname'] + ' - ' + property['email']))
-                else:
+                try:
+                    valid_email = validate_email(property["email"])
+                except EmailNotValidError as e:
                     log.error(
-                        _("Property email: \"{0}\" is not an email!").format(property['email'])
+                        _('Property email: "{0}" is not an email!').format(
+                            property["email"]
+                        ),
+                        e,
                     )
+                else:
+                    results.append((id, property["fullname"] + " - " + valid_email))
         except TypeError as e:  # noqa
             log.error(
                 ":get_plone_members: error in member_properties {0} \
-                properties:'{1}'".format(e, member_properties.items())
+                properties:'{1}'".format(
+                    e, member_properties.items()
+                )
             )
 
         # run registered member filter
@@ -65,9 +70,7 @@ class PloneUsers(object):
         # create a list of SimpleTerm items:
         terms = []
         for item in results:
-            terms.append(
-                SimpleTerm(value=item[0], token=item[0], title=item[1])
-            )
+            terms.append(SimpleTerm(value=item[0], token=item[0], title=item[1]))
         # Create a SimpleVocabulary from the terms list and return it:
         return SimpleVocabulary(terms)
 
