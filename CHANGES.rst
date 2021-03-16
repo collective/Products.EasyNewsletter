@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-5.0.1 (unreleased)
+5.0.1 (2021-03-16)
 ------------------
 
 - Add preview parameter to _render_output_html, which can be used to distinguish preview from email rendering
