@@ -132,7 +132,7 @@ class NewsletterIssueSend(BrowserView):
         send_error_counter = 0
 
         issue_data_fetcher = IIssueDataFetcher(self.context)
-        # get issue data
+        # get issue subject an rendered output data
         issue_data = issue_data_fetcher()
         for receiver in receivers:
             personalized_html = issue_data_fetcher.personalize(
