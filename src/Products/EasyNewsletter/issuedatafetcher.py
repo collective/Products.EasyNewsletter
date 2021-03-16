@@ -36,28 +36,19 @@ class DefaultDXIssueDataFetcher(object):
         make it more hookable.
         """
         data = {}
-
         request = self.issue.REQUEST
         data["subject"] = safe_unicode(request.get("subject")) or safe_unicode(self.issue.title)
         data["body_html"] = safe_unicode(self._render_output_html())
-
-        # personalize (fire also event before personalization)
-        # XXX this should be done outside of issue fetcher
-        # html = self._personalize(receiver, html)
-
-        # handle image attachments
-        # data["images_to_attach"] = self.get_images_to_attach(parser.image_urls)
-
         return data
 
     def preview_html(self, disable_filter=False, receiver=None):
         receiver = receiver or {}
-        html = self._render_output_html()
+        html = self._render_output_html(preview=True)
         html = self.personalize(receiver, html)
         for placeholder in PLACEHOLDERS:
             html = html.replace(u"[[" + placeholder + u"]]", u"")
-        soup = BeautifulSoup(html, features="lxml")
         if not disable_filter:
+            soup = BeautifulSoup(html, features="lxml")
             for node in soup.findAll(True, {"class": "mailonly"}):
                 node.extract()
         return soup.renderContents()
@@ -106,7 +97,7 @@ class DefaultDXIssueDataFetcher(object):
             "html": safe_unicode(unsubscribe_markup),
         }
 
-    def _render_output_html(self):
+    def _render_output_html(self, preview=False):
         """ Return rendered newsletter
             with header+body+footer (raw html).
         """

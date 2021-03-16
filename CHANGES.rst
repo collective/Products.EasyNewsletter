@@ -5,7 +5,8 @@ Changelog
 5.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add preview parameter to _render_output_html, which can be used to distinguish preview from email rendering
+  [MrTango]
 
 
 5.0.0 (2021-02-04)
