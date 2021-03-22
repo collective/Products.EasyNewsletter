@@ -68,7 +68,7 @@ class NewsletterSubscribersUpload(BrowserView):
             msg = _('No file specified.')
             IStatusMessage(self.request).addStatusMessage(msg, type='error')
             return self.request.response.redirect(
-                context.absolute_url() + '/@@upload_csv')
+                context.absolute_url() + '/subscribers-upload')
 
         reader = UnicodeReader(filename)
         header = next(reader)
@@ -80,7 +80,7 @@ class NewsletterSubscribersUpload(BrowserView):
                 + 'Please correct it and retry.')
             IStatusMessage(self.request).addStatusMessage(msg, type='error')
             return self.request.response.redirect(
-                context.absolute_url() + '/@@upload_csv')
+                context.absolute_url() + '/subscribers-upload')
 
         for subscriber in reader:
             # Check the length of the line
