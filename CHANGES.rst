@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-5.0.2 (unreleased)
+5.0.2 (2021-03-22)
 ------------------
 
 - Fix wrong redirect urls for error redirects in subscribers-upload form
