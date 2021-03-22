@@ -5,7 +5,8 @@ Changelog
 5.0.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix wrong redirect urls for error redirects in subscribers-upload form
+  [MrTango]
 
 
 5.0.1 (2021-03-16)
