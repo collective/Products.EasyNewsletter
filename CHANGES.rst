@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-5.0.3 (unreleased)
+5.0.3 (2021-04-14)
 ------------------
 
 - Fix image handling in aggregation templates
