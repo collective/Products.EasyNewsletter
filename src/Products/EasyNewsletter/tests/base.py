@@ -35,3 +35,15 @@ def parsed_payloads_from_msg(msg):
                 part.get_payload()
             )
     return parsed_payloads
+
+def parsed_attachments_from_msg(msg):
+    parsed_msg = email.message_from_string(msg)
+    parsed_attachments = dict()
+    for part in parsed_msg.walk():
+        if part.get_content_type():  # in ["text/plain", "text/html"]:
+            payload = part.get_payload()
+            if not isinstance(payload, six.string_types):
+                continue
+            parsed_attachments[part.get_filename()] = part['Content-Length']
+
+    return parsed_attachments

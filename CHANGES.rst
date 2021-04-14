@@ -5,7 +5,8 @@ Changelog
 5.0.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix image handling in aggregation templates
+  [MrTango]
 
 
 5.0.2 (2021-03-22)

@@ -57,14 +57,13 @@
     <!-- // MODULE ROW -->
 
 
-    <tal:blockitems repeat="brain source/brains"
+  <tal:blockitems repeat="brain source/brains"
+    i18n:domain="EasyNewsletter">
 
-      i18n:domain="EasyNewsletter">
-
-        <!-- MODULE ROW // -->
-        <tr tal:define="item_obj brain/getObject">
-          <td align="center"
-            valign="top">
+    <!-- MODULE ROW // -->
+    <tr tal:define="item_obj brain/getObject">
+      <td align="center"
+          valign="top">
 
             <!-- CENTERING TABLE // -->
             <table border="0"
@@ -95,7 +94,10 @@
                             <td valign="top"
                               class="nestedContainerCell"
                               tal:define="has_image python: enl_helpers.brain_has_lead_image(brain);
-    														             obj_url brain/getURL">
+                                          scale_func item_obj/@@images;
+                                          scaled_image python: getattr(item_obj.aq_explicit, 'image', False) and scale_func.scale('image', scale='mini');
+    														          obj_url brain/getURL"
+                                          >
 
                               <!-- CONTENT TABLE // -->
                               <table tal:condition="has_image"
@@ -111,10 +113,7 @@
                                     class="imageContent">
                                     <a tal:attributes="href obj_url"
                                       target="_top">
-                                      <img class="flexibleImage"
-                                        width="200"
-                                        style="max-width:200px;"
-                                        tal:attributes="src string:${obj_url}/@@images/image/mini" />
+                                      <img tal:replace="structure python: scaled_image.tag(css_class='flexibleImage')" />
                                     </a>
                                   </td>
                                 </tr>
@@ -146,7 +145,8 @@
                                     Description
                                     </span>
                                     <br tal:condition="brain/Description" />
-                                    <span tal:replace="structure item_obj/@@event_summary"></span>
+                                    <span tal:condition="python: item_obj.portal_type == 'Event'"
+                                          tal:replace="structure item_obj/@@event_summary"></span>
                                     <a i18n:translate="read_more"
                                       tal:attributes="href obj_url"
                                       target="_top">Read More&hellip;</a>
@@ -166,10 +166,10 @@
               </tr>
             </table>
             <!-- // CENTERING TABLE -->
-          </td>
-        </tr>
+      </td>
+    </tr>
 
-    </tal:blockitems>
+  </tal:blockitems>
 
   </table>
 </tal:blockmain>
