@@ -23,7 +23,8 @@
         marginwidth="0"
         marginheight="0"
         width="100%"
-        scrolling="no"
+        height="800px"
+        scrolling="auto"
         frameborder="0"
         tal:attributes="src string:${context/absolute_url}/issue-online-view?_authenticator=${token};
                                     title context/Title;">
@@ -35,7 +36,19 @@
 
 
       <script type="text/javascript">
-                iFrameResize();
+        if(typeof define !== 'undefined'){
+            var _old_define = define;
+            var _old_require = require;
+            define = undefined;
+            require = undefined;
+        }
+
+        iFrameResize();
+
+        if(typeof _old_define !== 'undefined'){
+            define = _old_define;
+            require = _old_require;
+        }
       </script>
 
     </metal:block>

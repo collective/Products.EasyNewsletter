@@ -5,7 +5,8 @@ Changelog
 5.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Improve iframe reziser handling for online view of newsletter issues. Works now better even if JS is broken. Also disable requireJS for the injected JS.
+  [MrTango]
 
 
 5.0.3 (2021-04-14)
