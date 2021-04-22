@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-5.0.4 (unreleased)
+5.0.4 (2021-04-22)
 ------------------
 
 - Improve iframe reziser handling for online view of newsletter issues. Works now better even if JS is broken. Also disable requireJS for the injected JS.
