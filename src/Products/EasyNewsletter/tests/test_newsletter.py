@@ -6,13 +6,11 @@ from plone.app.testing import login, setRoles, TEST_USER_ID, TEST_USER_NAME
 from plone.app.textfield import RichTextValue
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.CMFPlone.utils import safe_unicode
-from Products.EasyNewsletter.content.newsletter import INewsletter
-from Products.EasyNewsletter.content.newsletter_issue import INewsletterIssue
 from Products.EasyNewsletter.interfaces import IBeforePersonalizationEvent
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
 from Products.EasyNewsletter.tests.base import (
-    parsed_payloads_from_msg,
     parsed_attachments_from_msg,
+    parsed_payloads_from_msg,
 )
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.MailHost.interfaces import IMailHost
@@ -102,9 +100,7 @@ class EasyNewsletterTests(unittest.TestCase):
         image2.image = dummy_image(imgname=u"img2.jpg")
         self.image2 = image2
         image2_images = api.content.get_view("images", self.image2, self.request)
-        self.image2_scale = image2_images.scale(
-            "image", "thumb"
-        )
+        self.image2_scale = image2_images.scale("image", "thumb")
         self.image2_url = self.image2_scale.url
         self.image2_uid = self.image2_scale.uid
         # image3 for image testing
@@ -116,9 +112,7 @@ class EasyNewsletterTests(unittest.TestCase):
         image3.image = dummy_image(imgname=u"img3.jpg")
         self.image3 = image3
         image3_images = api.content.get_view("images", self.image3, self.request)
-        self.image3_scale = image3_images.scale(
-            "image", "thumb"
-        )
+        self.image3_scale = image3_images.scale("image", "thumb")
         self.image3_url = self.image3_scale.url
         self.image3_uid = self.image3_scale.uid
 
@@ -495,16 +489,21 @@ class EasyNewsletterTests(unittest.TestCase):
         <img src="{1}" />
         <img src="{2}" />
         """.format(
-            self.image1_tag,
-            self.image2_url,
-            self.image3_url,
+            self.image1_tag, self.image2_url, self.image3_url,
         )
         msg = self.send_sample_message(body)
         print(msg)
         parsed_payloads = parsed_payloads_from_msg(msg)
-        self.assertIn(u'src="cid:{0}'.format(self.image3_uid), safe_unicode(parsed_payloads["text/html"]))
-        self.assertIn(u"Content-ID: <{0}.jpeg>".format(self.image2_uid), safe_unicode(msg))
-        self.assertIn(u"Content-ID: <{0}.jpeg>".format(self.image3_uid), safe_unicode(msg))
+        self.assertIn(
+            u'src="cid:{0}'.format(self.image3_uid),
+            safe_unicode(parsed_payloads["text/html"]),
+        )
+        self.assertIn(
+            u"Content-ID: <{0}.jpeg>".format(self.image2_uid), safe_unicode(msg)
+        )
+        self.assertIn(
+            u"Content-ID: <{0}.jpeg>".format(self.image3_uid), safe_unicode(msg)
+        )
         self.assertIn(u"Content-Type: image/jpeg;", safe_unicode(msg))
 
         attachments = parsed_attachments_from_msg(msg)
