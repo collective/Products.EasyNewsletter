@@ -51,7 +51,8 @@ class DefaultDXIssueDataFetcher(object):
             soup = BeautifulSoup(html, features="lxml")
             for node in soup.findAll(True, {"class": "mailonly"}):
                 node.extract()
-        return soup.renderContents()
+            return soup.renderContents()
+        return html
 
     @property
     def enl(self):
