@@ -5,7 +5,8 @@ Changelog
 5.0.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Use min-height for iframe "enl-issue-preview" instead of fixed height in tag.
+  [MrTango]
 
 
 5.0.4 (2021-04-22)

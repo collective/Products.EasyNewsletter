@@ -23,7 +23,6 @@
         marginwidth="0"
         marginheight="0"
         width="100%"
-        height="800px"
         scrolling="auto"
         frameborder="0"
         tal:attributes="src string:${context/absolute_url}/issue-online-view?_authenticator=${token};

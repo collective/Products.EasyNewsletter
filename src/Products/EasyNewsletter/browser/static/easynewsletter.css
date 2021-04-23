@@ -1,6 +1,4 @@
-@media screen and (max-width: 767px) {
-}@media (min-width: 768px) {
-}@font-face {
+@font-face {
   font-family: "easynewsletter";
   src: url("font/fontello.eot?54032556");
   src: url("font/fontello.eot?54032556#iefix") format("embedded-opentype"), url("font/fontello.woff?54032556") format("woff"), url("font/fontello.ttf?54032556") format("truetype"), url("font/fontello.svg?54032556#fontello") format("svg");
@@ -53,41 +51,12 @@ body#visual-portal-wrapper.pat-plone #edit-zone .contenttype-enltemplate:after {
   font-family: "easynewsletter" !important;
   content: "\e804" !important;
 }
-.state-draft {
-  color: #d39105;
-}
-.state-draft:hover,
-.state-draft:active,
-.state-draft:focus {
-  color: #885e03;
-}
-.state-master {
-  color: #d39105;
-}
-.state-master:hover,
-.state-master:active,
-.state-master:focus {
-  color: #885e03;
-}
-.state-sending {
-  color: #a5a912;
-}
-.state-sending:hover,
-.state-sending:active,
-.state-sending:focus {
-  color: #62640b;
-}
-.state-sent {
-  color: #007bb1;
-}
-.state-sent:hover,
-.state-sent:active,
-.state-sent:focus {
-  color: #004665;
-}
 input.easynewsletter_text {
   width: 96%;
   margin-right: 0;
+}
+#enl-issue-preview {
+  min-height: 600px;
 }
 .portletNewsletterSubscriber .portletItem {
   padding: 10px 15px 26px 15px;
@@ -122,8 +91,8 @@ input.easynewsletter_text {
 .template-enl_subscribers_view .search legend {
   margin-bottom: 0;
   border-bottom: 0;
-  font-size: 24px;
-  font-weight: 400;
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 .template-enl_subscribers_view .search input[type="text"] {
   width: unset;
@@ -152,7 +121,7 @@ input.easynewsletter_text {
 #enl_actions {
   margin: 1em 0 2em 0;
   padding: 0.5em;
-  border-bottom: 1px solid #007bb1;
+  border-bottom: 1px solid #007bb3;
 }
 #enl_actions li {
   display: inline;

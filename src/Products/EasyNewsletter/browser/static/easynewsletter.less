@@ -1,7 +1,7 @@
 // vs code ext: Easy Less:
 // out: easynewsletter.css, compress: true, sourceMap: true
 
-@import (reference) url("https://github.com/plone/plonetheme.barceloneta/raw/master/plonetheme/barceloneta/theme/less/barceloneta.plone.local.less");
+@import (reference) url("https://raw.githubusercontent.com/plone/mockup/master/mockup/patterns/toolbar/variables.less");
 
 @font-face {
   font-family: "easynewsletter";
@@ -76,43 +76,48 @@ body#visual-portal-wrapper.pat-plone #edit-zone {
   }
 }
 
-// states
-.state-draft {
-  color: @plone-default-draft-color;
-  &:hover,
-  &:active,
-  &:focus {
-    color: darken(@plone-default-draft-color, 15%);
-  }
-}
-.state-master {
-  color: @plone-default-internal-color;
-  &:hover,
-  &:active,
-  &:focus {
-    color: darken(@plone-default-internal-color, 15%);
-  }
-}
-.state-sending {
-  color: @plone-default-pending-color;
-  &:hover,
-  &:active,
-  &:focus {
-    color: darken(@plone-default-pending-color, 15%);
-  }
-}
-.state-sent {
-  color: @plone-default-published-color;
-  &:hover,
-  &:active,
-  &:focus {
-    color: darken(@plone-default-published-color, 15%);
-  }
-}
+// // states
+// .state-draft {
+//   color: @plone-default-draft-color;
+//   &:hover,
+//   &:active,
+//   &:focus {
+//     color: darken(@plone-default-draft-color, 15%);
+//   }
+// }
+// .state-master {
+//   color: @plone-default-internal-color;
+//   &:hover,
+//   &:active,
+//   &:focus {
+//     color: darken(@plone-default-internal-color, 15%);
+//   }
+// }
+// .state-sending {
+//   color: @plone-default-pending-color;
+//   &:hover,
+//   &:active,
+//   &:focus {
+//     color: darken(@plone-default-pending-color, 15%);
+//   }
+// }
+// .state-sent {
+//   color: @plone-default-published-color;
+//   &:hover,
+//   &:active,
+//   &:focus {
+//     color: darken(@plone-default-published-color, 15%);
+//   }
+// }
 
 input.easynewsletter_text {
   width: 96%;
   margin-right: 0;
+}
+
+
+#enl-issue-preview{
+  min-height: 600px;
 }
 
 .portletNewsletterSubscriber {
@@ -152,8 +157,8 @@ input.easynewsletter_text {
   legend {
     margin-bottom: 0;
     border-bottom: 0;
-    font-size: @plone-font-size-h3;
-    font-weight: @plone-font-weight-regular;
+    font-size: 1.2rem;
+    font-weight: 600;
   }
   input[type="text"] {
     width: unset;
