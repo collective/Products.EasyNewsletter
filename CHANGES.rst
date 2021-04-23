@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-5.0.5 (unreleased)
+5.0.5 (2021-04-23)
 ------------------
 
 - Use min-height for iframe "enl-issue-preview" instead of fixed height in tag.
