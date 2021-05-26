@@ -107,6 +107,16 @@ Source Code
 
 Source code is at GitHub: https://github.com/collective/Products.EasyNewsletter
 
+Translations
+============
+
+<a href="https://hosted.weblate.org/engage/products-easynewsletter/">
+<img src="https://hosted.weblate.org/widgets/products-easynewsletter/-/products-easynewsletter/multi-auto.svg" alt="Übersetzungsstatus" />
+</a>
+
+<a href="https://hosted.weblate.org/engage/products-easynewsletter/">
+Please help us to improve translations with weblate.
+</a>
 
 Bug tracker
 ===========
