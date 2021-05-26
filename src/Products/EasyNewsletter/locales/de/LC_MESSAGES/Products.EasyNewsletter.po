@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"PO-Revision-Date: 2021-05-26 14:33+0000\n"
+"PO-Revision-Date: 2021-05-26 16:23+0000\n"
 "Last-Translator: Maik Derstappen <md@derico.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/"
 "products-easynewsletter/products-easynewsletter/de/>\n"
@@ -64,23 +64,23 @@ msgstr "CSV-Datei"
 
 #: EasyNewsletter/upgrades/4001.zcml:11
 msgid "Configuration for version 4001"
-msgstr ""
+msgstr "Konfiguration für Version 4001"
 
 #: EasyNewsletter/upgrades/4002.zcml:11
 msgid "Configuration for version 4002"
-msgstr ""
+msgstr "Konfiguration für Version 4002"
 
 #: EasyNewsletter/upgrades/4003.zcml:11
 msgid "Configuration for version 4003"
-msgstr ""
+msgstr "Konfiguration für Version 4003"
 
 #: EasyNewsletter/upgrades/4004.zcml:11
 msgid "Configuration for version 4004"
-msgstr ""
+msgstr "Konfiguration für Version 4004"
 
 #: EasyNewsletter/upgrades/4005.zcml:11
 msgid "Configuration for version 4005"
-msgstr ""
+msgstr "Konfiguration für Version 4005"
 
 #: EasyNewsletter/config.py:67
 msgid "Confirm your subscription on ${portal_url}"
@@ -528,7 +528,7 @@ msgstr "Bitte geben Sie eine gültige Email-Adresse ein."
 #: EasyNewsletter/browser/registration.py:290
 #: EasyNewsletter/views/newsletter_unsubscribe.py:23
 msgid "Please use the correct unsubscribe url!"
-msgstr "Bitte einen gültigen Abmeldelink verwenden! "
+msgstr "Bitte einen gültigen Abmeldelink verwenden!"
 
 #: EasyNewsletter/browser/upload_csv.pt:91
 #: EasyNewsletter/views/newsletter_subscribers_upload.pt:76
