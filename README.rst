@@ -110,13 +110,12 @@ Source code is at GitHub: https://github.com/collective/Products.EasyNewsletter
 Translations
 ============
 
-<a href="https://hosted.weblate.org/engage/products-easynewsletter/">
-<img src="https://hosted.weblate.org/widgets/products-easynewsletter/-/products-easynewsletter/multi-auto.svg" alt="Übersetzungsstatus" />
-</a>
-
-<a href="https://hosted.weblate.org/engage/products-easynewsletter/">
+.. image:: https://hosted.weblate.org/widgets/products-easynewsletter/-/products-easynewsletter/multi-auto.svg
+    :target: https://hosted.weblate.org/engage/products-easynewsletter/
+    :alt: translation status
+    
 Please help us to improve translations with weblate.
-</a>
+https://hosted.weblate.org/engage/products-easynewsletter/
 
 Bug tracker
 ===========
