@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"PO-Revision-Date: 2021-05-26 16:23+0000\n"
+"PO-Revision-Date: 2021-05-26 17:06+0000\n"
 "Last-Translator: Maik Derstappen <md@derico.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/"
 "products-easynewsletter/products-easynewsletter/de/>\n"
@@ -468,7 +468,7 @@ msgstr "Frau"
 
 #: EasyNewsletter/profiles/default/types/Newsletter.xml
 msgid "Newsletter"
-msgstr ""
+msgstr "Newsletter"
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "Newsletter Issue"
@@ -505,7 +505,7 @@ msgstr "Der Newsletter wurde versendet an ({0}) Empfänger. ({1}) Fehler aufgetr
 #: EasyNewsletter/browser/subscribers.py:253
 #: EasyNewsletter/views/newsletter_subscribers_upload.py:68
 msgid "No file specified."
-msgstr "Es wurde keine Datei angegeben!"
+msgstr "Es wurde keine Datei angegeben."
 
 #: EasyNewsletter/browser/subscribers.py:207
 #: EasyNewsletter/views/newsletter_subscribers.py:100
@@ -537,7 +537,7 @@ msgstr "Präfix"
 
 #: EasyNewsletter/views/newsletter_issue.pt:12
 msgid "Preview email content in new window"
-msgstr "Vorschau der E-Mail-Inhalte in einem neuen Fenster ansehen."
+msgstr "Vorschau der E-Mail-Inhalte in einem neuen Fenster ansehen"
 
 #: EasyNewsletter/upgrades/4001.zcml:11
 msgid "Products.EasyNewsletter (4001)"
@@ -608,7 +608,7 @@ msgstr "Abonnentensuche"
 #: EasyNewsletter/browser/subscribers.py:349
 #: EasyNewsletter/views/newsletter_subscribers_upload.py:166
 msgid "Subscriber created."
-msgstr "Abonnenten angelegt"
+msgstr "Abonnenten angelegt."
 
 #: EasyNewsletter/viewlets/newsletter_actions.pt:32
 msgid "Subscriberlist"
@@ -671,7 +671,7 @@ msgstr "Titel"
 
 #: EasyNewsletter/portlets/subscriber.py:52
 msgid "Title for the portlet."
-msgstr "Titel des Portlets"
+msgstr "Titel des Portlets."
 
 #: EasyNewsletter/profiles/default/types/Newsletter.xml
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
