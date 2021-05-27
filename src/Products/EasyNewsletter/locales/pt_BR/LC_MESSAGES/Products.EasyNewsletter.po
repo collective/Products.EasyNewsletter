@@ -2,13 +2,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"PO-Revision-Date: 2011-07-17 09:05-0000\n"
-"Last-Translator: Érico Andrei <erico@simplesconsultoria.com.br>\n"
-"Language-Team: Simples Consultoria <contato@simplesconsultoria.com.br>\n"
+"PO-Revision-Date: 2021-05-28 20:33+0000\n"
+"Last-Translator: Érico Andrei <ericof@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
+"products-easynewsletter/products-easynewsletter/pt_BR/>\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.7-dev\n"
 "Language-Code: pt-br\n"
 "Language-Name: Brazilian Portuguese\n"
 "Preferred-Encodings: utf-8 latin1\n"
@@ -27,24 +30,24 @@ msgstr "${count} importações foram bem sucedidas."
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "A Newsletter Issue."
-msgstr ""
+msgstr "Uma edição da newsletter."
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Subscriber.xml
 msgid "A Newsletter Subscriber."
-msgstr ""
+msgstr "Um assinante da newsletter."
 
 #: EasyNewsletter/browser/upload_csv.pt:131
 #: EasyNewsletter/views/newsletter_subscribers_upload.pt:116
 msgid "Action"
-msgstr ""
+msgstr "Ação"
 
 #: EasyNewsletter/views/newsletter_subscribers.pt:20
 msgid "Add subscriber"
-msgstr ""
+msgstr "Adicionar assinante"
 
 #: EasyNewsletter/browser/controlpanel.py:14
 msgid "Allowed content aggregation types"
-msgstr ""
+msgstr "Tipos de conteúdo agregados permitidos"
 
 #: EasyNewsletter/browser/registration.py:302
 #: EasyNewsletter/views/newsletter_unsubscribe.py:38
@@ -62,31 +65,31 @@ msgstr "Arquivo CSV"
 
 #: EasyNewsletter/upgrades/4001.zcml:11
 msgid "Configuration for version 4001"
-msgstr ""
+msgstr "Configurações para versão 4001"
 
 #: EasyNewsletter/upgrades/4002.zcml:11
 msgid "Configuration for version 4002"
-msgstr ""
+msgstr "Configurações para versão 4002"
 
 #: EasyNewsletter/upgrades/4003.zcml:11
 msgid "Configuration for version 4003"
-msgstr ""
+msgstr "Configurações para versão 4003"
 
 #: EasyNewsletter/upgrades/4004.zcml:11
 msgid "Configuration for version 4004"
-msgstr ""
+msgstr "Configurações para versão 4004"
 
 #: EasyNewsletter/upgrades/4005.zcml:11
 msgid "Configuration for version 4005"
-msgstr ""
+msgstr "Configurações para versão 4005"
 
 #: EasyNewsletter/config.py:67
 msgid "Confirm your subscription on ${portal_url}"
-msgstr ""
+msgstr "Confirme sua assinatura em ${portal_url}"
 
 #: EasyNewsletter/browser/controlpanel.py:19
 msgid "Content type"
-msgstr ""
+msgstr "Tipo de conteúdo"
 
 #: EasyNewsletter/browser/controlpanel.py:15
 msgid "Content types which will be visible in the Content aggregation sources reference field."
