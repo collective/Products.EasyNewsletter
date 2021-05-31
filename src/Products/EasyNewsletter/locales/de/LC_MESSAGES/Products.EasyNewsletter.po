@@ -2,13 +2,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"PO-Revision-Date: 2011-01-04 22:46+0100\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2021-05-26 17:06+0000\n"
+"Last-Translator: Maik Derstappen <md@derico.de>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/"
+"products-easynewsletter/products-easynewsletter/de/>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.7-dev\n"
 "Language-Code: en\n"
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
@@ -26,11 +29,11 @@ msgstr "${count} import(s) erfolgreich."
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "A Newsletter Issue."
-msgstr "Eine Newsletter-Ausgabe"
+msgstr "Eine Newsletter-Ausgabe."
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Subscriber.xml
 msgid "A Newsletter Subscriber."
-msgstr "Ein Newsletter-Abonnent"
+msgstr "Ein Newsletter-Abonnent."
 
 #: EasyNewsletter/browser/upload_csv.pt:131
 #: EasyNewsletter/views/newsletter_subscribers_upload.pt:116
@@ -61,23 +64,23 @@ msgstr "CSV-Datei"
 
 #: EasyNewsletter/upgrades/4001.zcml:11
 msgid "Configuration for version 4001"
-msgstr ""
+msgstr "Konfiguration für Version 4001"
 
 #: EasyNewsletter/upgrades/4002.zcml:11
 msgid "Configuration for version 4002"
-msgstr ""
+msgstr "Konfiguration für Version 4002"
 
 #: EasyNewsletter/upgrades/4003.zcml:11
 msgid "Configuration for version 4003"
-msgstr ""
+msgstr "Konfiguration für Version 4003"
 
 #: EasyNewsletter/upgrades/4004.zcml:11
 msgid "Configuration for version 4004"
-msgstr ""
+msgstr "Konfiguration für Version 4004"
 
 #: EasyNewsletter/upgrades/4005.zcml:11
 msgid "Configuration for version 4005"
-msgstr ""
+msgstr "Konfiguration für Version 4005"
 
 #: EasyNewsletter/config.py:67
 msgid "Confirm your subscription on ${portal_url}"
@@ -89,7 +92,9 @@ msgstr "Inhaltstyp"
 
 #: EasyNewsletter/browser/controlpanel.py:15
 msgid "Content types which will be visible in the Content aggregation sources reference field."
-msgstr "Inhaltstypen die im Feld "
+msgstr ""
+"Inhaltstypen die im Feld Quellen für die Aggregation von Inhalten angezeigt "
+"werden."
 
 #: EasyNewsletter/content/newsletter_issue.py:73
 msgid "Customizations"
@@ -110,7 +115,7 @@ msgstr "Entwürfe"
 
 #: EasyNewsletter/portlets/subscriber.pt:46
 msgid "E-Mail"
-msgstr ""
+msgstr "E-Mail"
 
 #. Default: "Choose sources to aggregate newsletter content from."
 #: EasyNewsletter/content/newsletter.py:115
@@ -122,7 +127,7 @@ msgstr "Quellen für die Inhaltsaggregation auswählen."
 #: EasyNewsletter/content/newsletter.py:111
 #: EasyNewsletter/content/newsletter_issue.py:93
 msgid "ENL_content_aggregation_sources_label"
-msgstr "Quellen für die Inhaltsaggregation"
+msgstr "Quellen für die Aggregation von Inhalten"
 
 #. Default: "Text used for confirmation email subject. You can                 customize the text, but it should include the                 placeholder: ${portal_url}!"
 #: EasyNewsletter/content/newsletter.py:246
@@ -285,7 +290,7 @@ msgstr "Wählen Sie hier die Plone-Nutzer aus, die den Newsletter erhalten solle
 #. No translation needed
 #: EasyNewsletter/content/newsletter_subscriber.py:15
 msgid "EasyNewsletter_help_salutation"
-msgstr ""
+msgstr "Anrede"
 
 #. Default: "Sender address of the newsletter email. If you let this field empty, the default sender email address will be used."
 #: EasyNewsletter/browser/issue_send_form.pt:54
@@ -463,7 +468,7 @@ msgstr "Frau"
 
 #: EasyNewsletter/profiles/default/types/Newsletter.xml
 msgid "Newsletter"
-msgstr ""
+msgstr "Newsletter"
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "Newsletter Issue"
@@ -500,7 +505,7 @@ msgstr "Der Newsletter wurde versendet an ({0}) Empfänger. ({1}) Fehler aufgetr
 #: EasyNewsletter/browser/subscribers.py:253
 #: EasyNewsletter/views/newsletter_subscribers_upload.py:68
 msgid "No file specified."
-msgstr "Es wurde keine Datei angegeben!"
+msgstr "Es wurde keine Datei angegeben."
 
 #: EasyNewsletter/browser/subscribers.py:207
 #: EasyNewsletter/views/newsletter_subscribers.py:100
@@ -523,7 +528,7 @@ msgstr "Bitte geben Sie eine gültige Email-Adresse ein."
 #: EasyNewsletter/browser/registration.py:290
 #: EasyNewsletter/views/newsletter_unsubscribe.py:23
 msgid "Please use the correct unsubscribe url!"
-msgstr "Bitte einen gültigen Abmeldelink verwenden! "
+msgstr "Bitte einen gültigen Abmeldelink verwenden!"
 
 #: EasyNewsletter/browser/upload_csv.pt:91
 #: EasyNewsletter/views/newsletter_subscribers_upload.pt:76
@@ -532,7 +537,7 @@ msgstr "Präfix"
 
 #: EasyNewsletter/views/newsletter_issue.pt:12
 msgid "Preview email content in new window"
-msgstr "Vorschau der E-Mail-Inhalte in einem neuen Fenster ansehen."
+msgstr "Vorschau der E-Mail-Inhalte in einem neuen Fenster ansehen"
 
 #: EasyNewsletter/upgrades/4001.zcml:11
 msgid "Products.EasyNewsletter (4001)"
@@ -603,7 +608,7 @@ msgstr "Abonnentensuche"
 #: EasyNewsletter/browser/subscribers.py:349
 #: EasyNewsletter/views/newsletter_subscribers_upload.py:166
 msgid "Subscriber created."
-msgstr "Abonnenten angelegt"
+msgstr "Abonnenten angelegt."
 
 #: EasyNewsletter/viewlets/newsletter_actions.pt:32
 msgid "Subscriberlist"
@@ -666,7 +671,7 @@ msgstr "Titel"
 
 #: EasyNewsletter/portlets/subscriber.py:52
 msgid "Title for the portlet."
-msgstr "Titel des Portlets"
+msgstr "Titel des Portlets."
 
 #: EasyNewsletter/profiles/default/types/Newsletter.xml
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
