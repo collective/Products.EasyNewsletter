@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"PO-Revision-Date: 2021-05-28 20:33+0000\n"
+"PO-Revision-Date: 2021-06-11 19:33+0000\n"
 "Last-Translator: Érico Andrei <ericof@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "products-easynewsletter/products-easynewsletter/pt_BR/>\n"
@@ -94,14 +94,16 @@ msgstr "Tipo de conteúdo"
 #: EasyNewsletter/browser/controlpanel.py:15
 msgid "Content types which will be visible in the Content aggregation sources reference field."
 msgstr ""
+"Tipos de conteúdo que serão visíveis no campo de referência de fontes de "
+"agregação de conteúdo."
 
 #: EasyNewsletter/content/newsletter_issue.py:73
 msgid "Customizations"
-msgstr ""
+msgstr "Personalizações"
 
 #: EasyNewsletter/views/newsletter_issue_statistics.pt:23
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: EasyNewsletter/browser/enl_subscribers_view.pt:135
 #: EasyNewsletter/views/newsletter_subscribers.pt:151
@@ -114,19 +116,19 @@ msgstr "Esboços"
 
 #: EasyNewsletter/portlets/subscriber.pt:46
 msgid "E-Mail"
-msgstr ""
+msgstr "E-Mail"
 
 #. Default: "Choose sources to aggregate newsletter content from."
 #: EasyNewsletter/content/newsletter.py:115
 #: EasyNewsletter/content/newsletter_issue.py:97
 msgid "ENL_content_aggregation_sources_desc"
-msgstr ""
+msgstr "Escolha fontes para agregar conteúdo para a newsletter."
 
 #. Default: "Content aggregation sources"
 #: EasyNewsletter/content/newsletter.py:111
 #: EasyNewsletter/content/newsletter_issue.py:93
 msgid "ENL_content_aggregation_sources_label"
-msgstr ""
+msgstr "Fontes de agregação de conteúdo"
 
 #. Default: "Text used for confirmation email subject. You can                 customize the text, but it should include the                 placeholder: ${portal_url}!"
 #: EasyNewsletter/content/newsletter.py:246
