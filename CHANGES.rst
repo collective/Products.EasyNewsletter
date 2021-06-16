@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-5.0.6 (unreleased)
+5.0.6 (2021-06-16)
 ------------------
 
 - Improve error handling on email building and sending.
