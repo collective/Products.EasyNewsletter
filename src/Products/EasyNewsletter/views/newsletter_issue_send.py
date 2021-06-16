@@ -29,9 +29,6 @@ class PloneMessageSendMixin:
     """
     """
 
-    def __init__(self):
-        pass
-
 
 class Message(
     PloneMessageSendMixin,
@@ -143,7 +140,7 @@ class NewsletterIssueSend(BrowserView):
                 personalized_html
             )
 
-            m = emails.Message(
+            m = Message(
                 html=personalized_html,
                 text=personalized_plaintext,
                 subject=issue_data["subject"],
@@ -155,15 +152,32 @@ class NewsletterIssueSend(BrowserView):
                 base_url=self.context.absolute_url(),
                 cssutils_logging_level=logging.ERROR,
             )
-            if "HTTPLoaderError" in m.as_string():
-                log.exception(u"Transform message failed: {0}".format(m.as_string()))
+
             send_status = {
                 "successful": None,
                 "error": None,
                 "datetime": datetime.now(),
             }
+
+            msg_string = ""
             try:
-                self.mail_host.send(m.as_string(), immediate=True)
+                msg_string = m.as_string()
+            except Exception as e:  # noqa
+                send_status["successful"] = False
+                send_status["error"] = e
+                log.exception(
+                    'Building newsletter email for "%s" failed, with error "%s"!'
+                    % (receiver["email"], e)
+                )
+                send_error_counter += 1
+                continue
+
+
+            if "HTTPLoaderError" in msg_string:
+                log.exception(u"Transform message failed: {0}".format(m.as_string()))
+
+            try:
+                self.mail_host.send(msg_string, immediate=True)
                 send_status["successful"] = True
                 log.info('Send newsletter to "%s"' % receiver["email"])
                 send_counter += 1

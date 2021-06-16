@@ -5,7 +5,8 @@ Changelog
 5.0.6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Improve error handling on email building and sending.
+  [MrTango]
 
 
 5.0.5 (2021-04-23)
