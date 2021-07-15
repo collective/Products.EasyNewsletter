@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"PO-Revision-Date: 2021-05-26 17:06+0000\n"
-"Last-Translator: Maik Derstappen <md@derico.de>\n"
+"PO-Revision-Date: 2021-05-28 20:33+0000\n"
+"Last-Translator: Jens W. Klein <jk@kleinundpartner.at>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/"
 "products-easynewsletter/products-easynewsletter/de/>\n"
 "Language: de\n"
@@ -598,7 +598,7 @@ msgstr "Einstellungen"
 
 #: EasyNewsletter/views/newsletter_issue_statistics.pt:25
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: EasyNewsletter/browser/enl_subscribers_view.pt:43
 #: EasyNewsletter/views/newsletter_subscribers.pt:43
