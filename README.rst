@@ -4,8 +4,8 @@ EasyNewsletter
 .. image:: https://github.com/collective/Products.EasyNewsletter/workflows/Plone%20package/badge.svg
     :target: https://github.com/collective/Products.EasyNewsletter/actions
 
-.. image:: https://coveralls.io/repos/github/collective/Products.EasyNewsletter/badge.svg?branch=master
-    :target: https://coveralls.io/github/collective/Products.EasyNewsletter?branch=master
+.. image:: https://codecov.io/gh/collective/Products.EasyNewsletter/branch/master/graph/badge.svg?token=xEu330kMw5
+    :target: https://codecov.io/gh/collective/Products.EasyNewsletter   
 
 .. image:: https://img.shields.io/pypi/v/Products.EasyNewsletter.svg
     :target: https://pypi.python.org/pypi/Products.EasyNewsletter/
