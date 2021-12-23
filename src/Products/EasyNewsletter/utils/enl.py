@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# from Products.EasyNewsletter.config import IS_PLONE_5
 from plone.registry.interfaces import IRegistry
 from Products.EasyNewsletter.browser.controlpanel import IENLSettings
 from zope.component import getUtility

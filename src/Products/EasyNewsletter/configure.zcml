@@ -8,6 +8,8 @@
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:zcml="http://namespaces.zope.org/zcml">
 
+  <include package="plone.app.registry" />
+
   <include package=".browser" />
   <include package=".content" />
   <include package=".portlets" />

@@ -4,14 +4,9 @@ from bs4 import BeautifulSoup
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
-from Products.EasyNewsletter.config import IS_PLONE_5
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope import schema
 from zope.interface import implementer
-
-
-if not IS_PLONE_5:  # BBB
-    from zope.formlib import form
 
 
 VALID_TAGS = [
@@ -214,10 +209,7 @@ class AddForm(base.AddForm):
     """
     """
 
-    if IS_PLONE_5:
-        schema = INewsletterSubscriberPortlet
-    else:  # BBB
-        form_fields = form.Fields(INewsletterSubscriberPortlet)
+    schema = INewsletterSubscriberPortlet
 
     def create(self, data):
         """
@@ -240,10 +232,6 @@ class EditForm(base.EditForm):
     """
     """
 
-    if IS_PLONE_5:
-        schema = INewsletterSubscriberPortlet
-    else:  # BBB
-        form_fields = form.Fields(INewsletterSubscriberPortlet)
-
+    schema = INewsletterSubscriberPortlet
     label = _(u"Edit Newsletter portlet")
     description = _(u"This portlet displays the subscriber add form of a newsletter.")
