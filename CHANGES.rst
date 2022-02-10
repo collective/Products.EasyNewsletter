@@ -5,7 +5,8 @@ Changelog
 5.0.7 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add marker classes aggregatedContentSlot/aggregatedContent
+  [MrTango]
 
 
 5.0.6 (2021-06-16)
