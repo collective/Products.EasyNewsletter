@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-6.0.0a1 (unreleased)
-------------------
+6.0.0a1 (2022-02-10)
+--------------------
 
 - Plone 6 compatibility
   [MrTango]
