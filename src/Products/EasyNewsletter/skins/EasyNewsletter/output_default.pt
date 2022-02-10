@@ -236,7 +236,7 @@
 
             <!-- MODULE ROW // -->
             <tr>
-              <td align="center" valign="top">
+              <td align="center" valign="top" class="aggregatedContentSlot">
                 <span tal:replace="structure context/getText" />
               </td>
             </tr>
