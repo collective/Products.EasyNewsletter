@@ -5,14 +5,12 @@ Changelog
 6.0.0a2 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Plone 6 compatibility
+  [MrTango]
 
 
 6.0.0a1 (2022-02-10)
 --------------------
-
-- Plone 6 compatibility
-  [MrTango]
 
 - Drop Python 2 and Plone < 5.2 support
   [MrTango]
