@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-5.0.7 (unreleased)
+5.0.7 (2022-02-10)
 ------------------
 
 - Add marker classes aggregatedContentSlot/aggregatedContent
