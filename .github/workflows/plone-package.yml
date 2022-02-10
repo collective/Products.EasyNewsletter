@@ -11,19 +11,13 @@ on:
 
 jobs:
     build:
-        runs-on: ubuntu-18.04
+        runs-on: ubuntu-latest
         strategy:
             fail-fast: false
             matrix:
                 plone-version:
                   - 'Plone52'
-                python-version: [3.6, 3.7, 3.8]
-                include:
-                  - plone-version: Plone52
-                    python-version: 2.7
-                  - plone-version: Plone51
-                    python-version: 2.7
-
+                python-version: [3.7, 3.8, 3.9]
 
         steps:
             - uses: actions/checkout@v2
@@ -64,12 +58,12 @@ jobs:
                 PLONE-VERSION: ${{ matrix.plone-version }}
                 PYTHON-VERSION: ${{ matrix.python-version }}
 
-            - name: coverage report on python3.7
+            - name: coverage report on python3.9
               run: tox -r -e coverage-report
-              if: matrix.python-version == '3.7'
+              if: matrix.python-version == '3.9'
 
             - name: "Upload coverage to Codecov"
               uses: "codecov/codecov-action@v1"
               with:
                 fail_ci_if_error: true
-              if: matrix.python-version == '3.7'
+              if: matrix.python-version == '3.9'

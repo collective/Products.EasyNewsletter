@@ -2,10 +2,17 @@ Changelog
 =========
 
 
-5.0.7 (unreleased)
+6.0.0a1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Plone 6 compatibility
+  [MrTango]
+
+- Drop Python 2 and Plone < 5.2 support
+  [MrTango]
+
+- Add marker classes aggregatedContentSlot/aggregatedContent
+  [MrTango]
 
 
 5.0.6 (2021-06-16)
