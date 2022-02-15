@@ -4,7 +4,7 @@ from setuptools import find_packages
 from setuptools import setup
 
 
-version = '5.0.7.dev0'
+version = '6.0.0a3.dev0'
 long_description = (
     open('README.rst').read() + '\n'
     + open('CHANGES.rst').read()
@@ -19,11 +19,11 @@ setup(
         'Development Status :: 5 - Production/Stable',
         'Framework :: Plone',
         'Framework :: Plone :: 5.2',
+        'Framework :: Plone :: 6.0',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         "Framework :: Plone :: Addon",
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
@@ -37,6 +37,7 @@ setup(
     namespace_packages=['Products'],
     package_dir={'': 'src'},
     include_package_data=True,
+    python_requires=">=3.7",
     zip_safe=False,
     install_requires=[
         'Plone',
@@ -65,7 +66,7 @@ setup(
             'plone.app.contenttypes',
             'plone.app.robotframework[debug]',
             'pdbpp',
-            'isort<5'
+            'isort'
         ],
     ),
     entry_points="""

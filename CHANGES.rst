@@ -2,11 +2,28 @@ Changelog
 =========
 
 
-5.0.7 (unreleased)
-------------------
+6.0.0a3 (unreleased)
+--------------------
 
 - Plone 6: Remove `<includeDependencies />`
   [petschki]
+
+
+6.0.0a2 (2022-02-10)
+--------------------
+
+- Plone 6 compatibility
+  [MrTango]
+
+
+6.0.0a1 (2022-02-10)
+--------------------
+
+- Drop Python 2 and Plone < 5.2 support
+  [MrTango]
+
+- Add marker classes aggregatedContentSlot/aggregatedContent
+  [MrTango]
 
 
 5.0.6 (2021-06-16)
