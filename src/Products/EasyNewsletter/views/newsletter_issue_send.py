@@ -2,6 +2,7 @@
 
 from datetime import datetime
 from plone import api
+from plone.namedfile.scaling import ImageScale, ImageScaling
 from plone.protect import PostOnly
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.behaviors.plone_user_group_recipients import (
@@ -14,20 +15,35 @@ from Products.EasyNewsletter.interfaces import (
 )
 from Products.Five.browser import BrowserView
 from Products.MailHost.interfaces import IMailHost
-from zope.component import getUtility, subscribers
+from zope.component import getMultiAdapter, getUtility, subscribers
+from zope.component.hooks import getSite
 
 import emails
 import emails.loader
 import logging
+import re
 import transaction
 
 
 log = logging.getLogger("Products.EasyNewsletter")
 
 
+image_base_url = re.compile("(.*@@images)\/([a-zA-Z0-9.-]*)")
+
+
+class ENLImageScale(ImageScale):
+    """override validate_access method to allow access of privat objects"""
+
+    def validate_access(self):
+        return True
+
+
+class ENLImageScaling(ImageScaling):
+    _scale_view_class = ENLImageScale
+
+
 class PloneMessageSendMixin:
-    """
-    """
+    """ """
 
 
 class Message(
@@ -43,6 +59,45 @@ class Message(
     - mailhost compatible send
     - Message.transformer object
     """
+
+
+class LocalLoader(object):
+    """ """
+
+    def __getitem__(self, uri):
+        image_file = None
+        portal = getSite()
+        pstate = getMultiAdapter((portal, portal.REQUEST), name="plone_portal_state")
+        purl = pstate.portal_url()
+        url_match = image_base_url.match(uri)
+        if url_match:
+            groups = url_match.groups()
+            print(groups)
+            base_url = u""
+            # url = "{0}/image/{1}".format(groups[0], groups[1])
+            base_url = groups[0]
+            image_scale = groups[1]
+            scaling_view = portal.unrestrictedTraverse(
+                base_url.replace(purl, "").lstrip("/")
+            )
+            scaled_image = scaling_view.scale("image", scale=image_scale)
+            if not scaled_image:
+                return
+            image_file = scaled_image.data.open()
+        else:
+            # get the original image:
+            image_obj = portal.unrestrictedTraverse(uri.replace(purl, "").lstrip("/"))
+            if not image_obj:
+                return
+            if hasattr(image_obj, "image"):
+                image_file = image_obj.image.open()
+            elif hasattr(image_obj, "_data"):
+                # OFS FSImage:
+                image_file = image_obj._data
+        return image_file
+
+    def __contains__(self, uri):
+        return self.__getitem__(uri)
 
 
 class NewsletterIssueSend(BrowserView):
@@ -101,8 +156,7 @@ class NewsletterIssueSend(BrowserView):
         self.send()
 
     def send(self):
-        """Sends the newsletter, sending might be queued for async send out.
-        """
+        """Sends the newsletter, sending might be queued for async send out."""
 
         # check for workflow
         current_state = api.content.get_state(obj=self.context)
@@ -147,8 +201,10 @@ class NewsletterIssueSend(BrowserView):
                 mail_from=(sender_name, sender_email),
                 mail_to=(receiver["fullname"], receiver["email"]),
             )
+            m.transformer.local_loader = LocalLoader()
             m.transform(
                 images_inline=True,
+                load_images=True,
                 base_url=self.context.absolute_url(),
                 cssutils_logging_level=logging.ERROR,
             )
@@ -171,7 +227,6 @@ class NewsletterIssueSend(BrowserView):
                 )
                 send_error_counter += 1
                 continue
-
 
             if "HTTPLoaderError" in msg_string:
                 log.exception(u"Transform message failed: {0}".format(m.as_string()))
@@ -252,7 +307,7 @@ class NewsletterIssueSend(BrowserView):
         return receivers
 
     def _get_recipients(self):
-        """ return list of recipients """
+        """return list of recipients"""
         request = self.request
         enl = self.context.get_newsletter()
         salutation_mappings = self.salutation_mappings
