@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from App.Common import package_home
-from datetime import datetime
+from datetime import datetime, timedelta
 from plone import api
 from plone.app.testing import login, setRoles, TEST_USER_ID, TEST_USER_NAME
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
@@ -53,7 +53,7 @@ class PlaceholderIntegrationTests(unittest.TestCase):
         {{ month }}/{{ year }}
         """
         now = datetime.now()
-        effective_date = datetime(year=now.year, month=now.month, day=now.day + 2)
+        effective_date = now + timedelta(2)
         self.newsletter.issue.effective_date = effective_date
         self.assertNotEqual(
             self.newsletter.issue.modified(), self.newsletter.issue.effective()
@@ -82,7 +82,7 @@ class PlaceholderIntegrationTests(unittest.TestCase):
         {{ calendar_week }}
         """
         now = datetime.now()
-        effective_date = datetime(year=now.year, month=now.month, day=now.day + 2)
+        effective_date = now + timedelta(2)
         self.newsletter.issue.effective_date = effective_date
         self.assertNotEqual(
             self.newsletter.issue.modified(), self.newsletter.issue.effective()
