@@ -8,6 +8,9 @@ Changelog
 - Plone 6: Remove `<includeDependencies />`
   [petschki]
 
+- use custom LocalLoader for emails.transformer, to load images instead of doing this via request
+  [MrTango]
+
 
 6.0.0a2 (2022-02-10)
 --------------------

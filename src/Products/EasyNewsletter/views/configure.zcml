@@ -129,4 +129,13 @@
      permission="cmf.ModifyPortalContent"
      />
 
+  <browser:page
+      allowed_attributes="scale tag"
+      class=".newsletter_issue_send.ENLImageScaling"
+      for="plone.namedfile.interfaces.IImageScaleTraversable"
+      name="images"
+      permission="zope2.View"
+      layer="Products.EasyNewsletter.interfaces.IProductsEasyNewsletterLayer"
+  />
+
 </configure>
