@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-5.0.8 (unreleased)
+5.0.8 (2022-02-28)
 ------------------
 
 - use custom LocalLoader for emails.transformer, to load images instead of doing this via request
