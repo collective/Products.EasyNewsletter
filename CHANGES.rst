@@ -5,7 +5,8 @@ Changelog
 6.0.0a3 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- use custom LocalLoader for emails.transformer, to load images instead of doing this via request
+  [MrTango]
 
 
 6.0.0a2 (2022-02-10)
