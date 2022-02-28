@@ -1,0 +1,5 @@
+-c constraints_plone52.txt
+setuptools
+zc.buildout
+pathlib2
+isort
