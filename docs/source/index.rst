@@ -3,6 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+==========================================
 Welcome to EasyNewsletter's documentation!
 ==========================================
 
@@ -395,8 +396,9 @@ EasyNewsletter can create and send daily issues, using the default template and
 default criteria. Beside those, you just need to configure your crontab (or
 clock server) to send a `POST` on `@@daily-issue` view.
 Eg::
-    #Sends a newsletter, from Mon to Fri, at 0:00AM
-    0 0 * * 1-5 curl -X POST http://user:passwd@example.org/mynewsletter/@@daily-issue
+
+   #Sends a newsletter, from Mon to Fri, at 0:00AM
+   0 0 * * 1-5 curl -X POST http://user:passwd@example.org/mynewsletter/@@daily-issue
 
 `@@daily-issue` returns a HTTP status code indicating what just happened (you
 can also test it with a GET, instead). In the table below, you can check the
@@ -414,7 +416,7 @@ POST                    200 [*]_    204       409
 .. [*] It sends the issue first.
 
 Using cron4plone to send it out
-...............................
++++++++++++++++++++++++++++++++
 
 You can now use cron4plone to call the new trigger ``@@trigger-daily-issue`` which will make a POST request to the ``@@daily-issue``.
 
