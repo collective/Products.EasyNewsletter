@@ -1,2 +1,5 @@
--c https://dist.plone.org/release/5.2-latest/requirements.txt
+#-c https://dist.plone.org/release/5.2-latest/requirements.txt
+zc.buildout==2.13.4
+wheel==0.36.2
+setuptools==45.0.0
 isort
