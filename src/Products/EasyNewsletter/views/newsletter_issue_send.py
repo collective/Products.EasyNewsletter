@@ -28,11 +28,7 @@ import transaction
 log = logging.getLogger("Products.EasyNewsletter")
 
 
-<<<<<<< HEAD
-image_base_url = re.compile("(.*@@images)\/([a-zA-Z0-9.-]*)")
-=======
 image_base_url = re.compile(r"(.*@@images)\/([a-zA-Z0-9.-]*)\/?([a-zA-Z]*)")
->>>>>>> d02256d (Improve LocalLoader and fix tests)
 
 
 class ENLImageScale(ImageScale):
@@ -78,14 +74,7 @@ class LocalLoader(object):
             # @@images/71d2fe96-e930-4265-9cd8-e3d4123d75f5.jpeg
             # @@images/image
             groups = url_match.groups()
-<<<<<<< HEAD
-            print(groups)
-            base_url = u""
-            # url = "{0}/image/{1}".format(groups[0], groups[1])
-=======
-            # print(groups)
             base_url = ""
->>>>>>> d02256d (Improve LocalLoader and fix tests)
             base_url = groups[0]
             image_fieldname = groups[1]
             # @@images/image/thumb > thumb
