@@ -1,30 +1,29 @@
 # -*- coding: utf-8 -*-
+import logging
+
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import INonInstallable
 from zope.interface import implementer
 
-import logging
-
 
 @implementer(INonInstallable)
 class HiddenProfiles(object):
-
     def getNonInstallableProfiles(self):  # noqa
         """Hide uninstall profile from site-creation and quickinstaller"""
         return [
             # 'Products.EasyNewsletter:install-base',
-            'Products.EasyNewsletter:uninstall',
+            "Products.EasyNewsletter:uninstall",
         ]
 
     def getNonInstallableProducts(self):
         return [
-            'Products.EasyNewsletter.upgrades',
+            "Products.EasyNewsletter.upgrades",
         ]
 
 
 # The profile id of your package:
 # PROFILE_ID = 'profile-Products.EasyNewsletter:install-base'
-PROFILE_ID = 'profile-Products.EasyNewsletter:default'
+PROFILE_ID = "profile-Products.EasyNewsletter:default"
 
 
 def add_catalog_indexes(context, logger=None):
@@ -39,7 +38,7 @@ def add_catalog_indexes(context, logger=None):
     """
     if logger is None:
         # Called as upgrade step: define our own logger.
-        logger = logging.getLogger('Products.EasyNewsletter')
+        logger = logging.getLogger("Products.EasyNewsletter")
 
     # Run the catalog.xml step as that may have defined new metadata
     # columns.  We could instead add <depends name="catalog"/> to
@@ -47,20 +46,20 @@ def add_catalog_indexes(context, logger=None):
     # code makes this method usable as upgrade step as well.  Note that
     # this silently does nothing when there is no catalog.xml, so it
     # is quite safe.
-    setup = getToolByName(context, 'portal_setup')
-    setup.runImportStepFromProfile(PROFILE_ID, 'catalog')
+    setup = getToolByName(context, "portal_setup")
+    setup.runImportStepFromProfile(PROFILE_ID, "catalog")
 
-    catalog = getToolByName(context, 'portal_catalog')
+    catalog = getToolByName(context, "portal_catalog")
     indexes = catalog.indexes()
     # Specify the indexes you want, with ('index_name', 'index_type')
 
     wanted = (
-        ('fullname', 'FieldIndex'),
-        ('firstname', 'FieldIndex'),
-        ('lastname', 'FieldIndex'),
-        ('nl_language', 'FieldIndex'),
-        ('email', 'FieldIndex'),
-        ('organization', 'FieldIndex'),
+        ("fullname", "FieldIndex"),
+        ("firstname", "FieldIndex"),
+        ("lastname", "FieldIndex"),
+        ("nl_language", "FieldIndex"),
+        ("email", "FieldIndex"),
+        ("organization", "FieldIndex"),
     )
 
     indexables = []
@@ -70,16 +69,15 @@ def add_catalog_indexes(context, logger=None):
             indexables.append(name)
             logger.info("Added %s for field %s.", meta_type, name)
     if len(indexables) > 0:
-        logger.info("Indexing new indexes %s.", ', '.join(indexables))
+        logger.info("Indexing new indexes %s.", ", ".join(indexables))
         catalog.manage_reindexIndex(ids=indexables)
 
 
 def import_various(context):
-    """Import step for configuration that is not handled in xml files.
-    """
+    """Import step for configuration that is not handled in xml files."""
     # Only run step if a flag file is present
-    if context.readDataFile('Products.EasyNewsletter-default.txt') is None:
+    if context.readDataFile("Products.EasyNewsletter-default.txt") is None:
         return
-    logger = context.getLogger('Products.EasyNewsletter')
+    logger = context.getLogger("Products.EasyNewsletter")
     site = context.getSite()
     add_catalog_indexes(site, logger)

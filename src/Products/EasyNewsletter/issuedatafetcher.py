@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
+import logging
+
+import jinja2
 from bs4 import BeautifulSoup
 from html2text import HTML2Text
 from plone import api
 from Products.CMFPlone.utils import safe_unicode
+from zope.event import notify
+from zope.interface import implementer
+
 from Products.EasyNewsletter.config import PLACEHOLDERS
 from Products.EasyNewsletter.interfaces import (
     IBeforePersonalizationEvent,
     IIssueDataFetcher,
 )
-from zope.event import notify
-from zope.interface import implementer
-
-import jinja2
-import logging
-
 
 log = logging.getLogger("Products.EasyNewsletter")
 
@@ -37,7 +37,9 @@ class DefaultDXIssueDataFetcher(object):
         """
         data = {}
         request = self.issue.REQUEST
-        data["subject"] = safe_unicode(request.get("subject")) or safe_unicode(self.issue.title)
+        data["subject"] = safe_unicode(request.get("subject")) or safe_unicode(
+            self.issue.title
+        )
         data["body_html"] = safe_unicode(self._render_output_html())
         return data
 
@@ -46,7 +48,7 @@ class DefaultDXIssueDataFetcher(object):
         html = self._render_output_html(preview=True)
         html = self.personalize(receiver, html)
         for placeholder in PLACEHOLDERS:
-            html = html.replace(u"[[" + placeholder + u"]]", u"")
+            html = html.replace("[[" + placeholder + "]]", "")
         if not disable_filter:
             soup = BeautifulSoup(html, features="lxml")
             for node in soup.findAll(True, {"class": "mailonly"}):
@@ -67,21 +69,21 @@ class DefaultDXIssueDataFetcher(object):
             try:
                 return self.enl.fullname_fallback
             except AttributeError:
-                return u"Sir or Madam"
+                return "Sir or Madam"
         return fullname
 
     def _salutation(self, receiver):
-        return receiver.get("salutation") or u""
+        return receiver.get("salutation") or ""
 
     def _subscriber_salutation(self, receiver):
-        return u"{0} {1}".format(
+        return "{0} {1}".format(
             safe_unicode(self._salutation(receiver)),
             safe_unicode(self._fullname(receiver)),
         )
 
     def _unsubscribe_info(self, receiver):
         if "uid" not in receiver:
-            return {"link": u"", "text": u"", "html": u""}
+            return {"link": "", "text": "", "html": ""}
         try:
             unsubscribe_text = self.enl.unsubscribe_string
         except AttributeError:
@@ -89,8 +91,10 @@ class DefaultDXIssueDataFetcher(object):
         unsubscribe_link = "{0}/unsubscribe?subscriber={1}".format(
             self.enl.absolute_url(), receiver["uid"]
         )
-        unsubscribe_markup = """<a href="{0}" class="enl_unsubscribe_link">{1}.</a>""".format(
-            unsubscribe_link, unsubscribe_text
+        unsubscribe_markup = (
+            """<a href="{0}" class="enl_unsubscribe_link">{1}.</a>""".format(
+                unsubscribe_link, unsubscribe_text
+            )
         )
         return {
             "link": safe_unicode(unsubscribe_link),
@@ -99,8 +103,8 @@ class DefaultDXIssueDataFetcher(object):
         }
 
     def _render_output_html(self, preview=False):
-        """ Return rendered newsletter
-            with header+body+footer (raw html).
+        """Return rendered newsletter
+        with header+body+footer (raw html).
         """
         output_tmpl_id = self.issue.output_template
         issue_tmpl = self.issue.restrictedTraverse(str(output_tmpl_id))
@@ -151,7 +155,9 @@ class DefaultDXIssueDataFetcher(object):
         data["context"]["unsubscribe"] = data["context"]["unsubscribe_info"]["html"]
         data["context"]["UNSUBSCRIBE"] = data["context"]["unsubscribe"]
         data["context"]["subscriber_salutation"] = self._subscriber_salutation(receiver)
-        data["context"]["SUBSCRIBER_SALUTATION"] = data["context"]["subscriber_salutation"]
+        data["context"]["SUBSCRIBER_SALUTATION"] = data["context"][
+            "subscriber_salutation"
+        ]
         # issue_data:
         data["context"]["issue_title"] = issue_data["title"]
         data["context"]["issue_description"] = issue_data["description"]
@@ -167,8 +173,8 @@ class DefaultDXIssueDataFetcher(object):
         return template.render(**data["context"])
 
     def create_plaintext_message(self, text):
-        """ Create a plain-text-message by parsing the html
-            and attaching links as endnotes
+        """Create a plain-text-message by parsing the html
+        and attaching links as endnotes
         """
         html_to_text = HTML2Text(baseurl=self.issue.absolute_url())
         html_to_text.ul_style_dash = True

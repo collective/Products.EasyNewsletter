@@ -3,6 +3,7 @@ from AccessControl import getSecurityManager
 from AccessControl.SecurityManagement import newSecurityManager, setSecurityManager
 from AccessControl.User import Super as BaseUnrestrictedUser
 from Products.CMFPlone.utils import safe_unicode
+
 from Products.EasyNewsletter.utils.mail import get_email_charset
 
 
@@ -33,8 +34,7 @@ def execute_under_special_role(portal, role, function, *args, **kwargs):
             # for him/her. Note that the username (getId()) is left in
             # exception tracebacks in error_log
             # so it is important thing to store
-            tmp_user = UnrestrictedUser(
-                sm.getUser().getId(), '', [role], '')
+            tmp_user = UnrestrictedUser(sm.getUser().getId(), "", [role], "")
 
             # Act as user of the portal
             tmp_user = tmp_user.__of__(portal.acl_users)
@@ -52,10 +52,8 @@ def execute_under_special_role(portal, role, function, *args, **kwargs):
 
 
 class UnrestrictedUser(BaseUnrestrictedUser):
-    """Unrestricted user that still has an id.
-    """
+    """Unrestricted user that still has an id."""
 
     def getId(self):
-        """Return the ID of the user.
-        """
+        """Return the ID of the user."""
         return self.getUserName()

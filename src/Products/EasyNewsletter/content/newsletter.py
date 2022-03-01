@@ -8,10 +8,11 @@ from plone.dexterity.content import Container
 from plone.namedfile import field as namedfile
 from plone.registry.interfaces import IRegistry
 from plone.supermodel import model
-from Products.EasyNewsletter import _, config
 from z3c import relationfield
 from zope.component import getUtility
 from zope.interface import implementer
+
+from Products.EasyNewsletter import _, config
 
 
 def get_default_output_template():
@@ -39,8 +40,7 @@ def get_content_aggregation_sources_base_path(context):
 
 
 class INewsletter(model.Schema):
-    """ Marker interface and Dexterity Python Schema for Newsletter
-    """
+    """Marker interface and Dexterity Python Schema for Newsletter"""
 
     # model.fieldset(
     #     'default',
@@ -56,7 +56,7 @@ class INewsletter(model.Schema):
 
     model.fieldset(
         "personalization",
-        label=_(u"Personalization"),
+        label=_("Personalization"),
         fields=[
             "salutations",
             "fullname_fallback",
@@ -71,31 +71,31 @@ class INewsletter(model.Schema):
     )
 
     model.fieldset(
-        "recipients", label=_(u"Recipients"), fields=["exclude_all_subscribers"]
+        "recipients", label=_("Recipients"), fields=["exclude_all_subscribers"]
     )
 
     sender_email = schema.TextLine(
-        title=_(u"ENL_label_senderEmail", default=u"Sender email"),
+        title=_("ENL_label_senderEmail", default="Sender email"),
         description=_(
-            u"ENL_help_senderEmail",
-            default=u"Default for the sender address of the newsletters.",
+            "ENL_help_senderEmail",
+            default="Default for the sender address of the newsletters.",
         ),
         required=True,
     )
 
     sender_name = schema.TextLine(
-        title=_(u"ENL_label_senderName", default=u"Sender name"),
+        title=_("ENL_label_senderName", default="Sender name"),
         description=_(
-            u"ENL_help_senderName",
-            default=u"Default for the sender name of the newsletters.",
+            "ENL_help_senderName",
+            default="Default for the sender name of the newsletters.",
         ),
         required=True,
     )
 
     test_email = schema.TextLine(
-        title=_(u"ENL_label_testEmail", default=u"Test email"),
+        title=_("ENL_label_testEmail", default="Test email"),
         description=_(
-            u"ENL_help_testEmail", default=u"Default for the test email address."
+            "ENL_help_testEmail", default="Default for the test email address."
         ),
         required=True,
     )
@@ -109,106 +109,106 @@ class INewsletter(model.Schema):
     )
     content_aggregation_sources = relationfield.schema.RelationList(
         title=_(
-            u"ENL_content_aggregation_sources_label",
-            default=u"Content aggregation sources",
+            "ENL_content_aggregation_sources_label",
+            default="Content aggregation sources",
         ),
         description=_(
-            u"ENL_content_aggregation_sources_desc",
-            default=u"Choose sources to aggregate newsletter content from.",
+            "ENL_content_aggregation_sources_desc",
+            default="Choose sources to aggregate newsletter content from.",
         ),
         value_type=relationfield.schema.RelationChoice(
-            title=u"content_aggretation_source",
+            title="content_aggretation_source",
             vocabulary="plone.app.vocabularies.Catalog",
         ),
         required=False,
     )
 
     salutations = schema.List(
-        title=_(u"ENL_label_salutations", default=u"Subscriber Salutations."),
+        title=_("ENL_label_salutations", default="Subscriber Salutations."),
         description=_(
-            u"ENL_help_salutations",
-            default=u'Define here possible salutations for subscriber. \
+            "ENL_help_salutations",
+            default='Define here possible salutations for subscriber. \
                 One salutation per line in the form of: "mr|Dear Mr.". \
                 The left hand value "mr" or "ms" is mapped to salutation \
                 of each subscriber and then the right hand value, which \
                 you can customize is used as salutation.',
         ),
-        default=[u"mr|Dear Mr.", u"ms|Dear Ms.", u"default|Dear"],
-        value_type=schema.TextLine(title=u"salutation"),
+        default=["mr|Dear Mr.", "ms|Dear Ms.", "default|Dear"],
+        value_type=schema.TextLine(title="salutation"),
         required=True,
     )
 
     fullname_fallback = schema.TextLine(
         title=_(
-            u"ENL_label_fullname_fallback",
-            default=u"Fallback for subscribers without a name.",
+            "ENL_label_fullname_fallback",
+            default="Fallback for subscribers without a name.",
         ),
         description=_(
-            u"ENL_help_fullname_fallback",
-            default=u"This will be used if the subscriber has no fullname.",
+            "ENL_help_fullname_fallback",
+            default="This will be used if the subscriber has no fullname.",
         ),
-        default=u"Sir or Madam",
+        default="Sir or Madam",
         required=True,
     )
 
     unsubscribe_string = schema.TextLine(
         title=_(
-            u"ENL_label_unsubscribe_string", default=u"Text for the 'unsubscribe' link"
+            "ENL_label_unsubscribe_string", default="Text for the 'unsubscribe' link"
         ),
         description=_(
-            u"ENL_help_unsubscribe_string",
-            default=u"This will replace the placeholder {{UNSUBSCRIBE}}.",
+            "ENL_help_unsubscribe_string",
+            default="This will replace the placeholder {{UNSUBSCRIBE}}.",
         ),
-        default=u"Click here to unsubscribe",
+        default="Click here to unsubscribe",
         required=True,
     )
 
     # Make sure you import: plone.namedfile
     banner = namedfile.NamedBlobImage(
-        title=_(u"ENL_image_label", default=u"Banner image"),
+        title=_("ENL_image_label", default="Banner image"),
         description=_(
-            u"ENL_image_desc",
-            default=u"Banner image, you can include in the templates by"
-            + u"\n adding the {{banner}} placeholder into it."
-            + u" By default it should be 600x200 pixel.",
+            "ENL_image_desc",
+            default="Banner image, you can include in the templates by"
+            + "\n adding the {{banner}} placeholder into it."
+            + " By default it should be 600x200 pixel.",
         ),
         required=False,
     )
 
     # Make sure you import: plone.namedfile
     logo = namedfile.NamedBlobImage(
-        title=_(u"ENL_logo_label", default=u"Logo image"),
+        title=_("ENL_logo_label", default="Logo image"),
         description=_(
-            u"ENL_logo_desc",
-            default=u"Logo image, you can include in the templates by\n"
-            + u" adding the {{logo}} placeholder into it.",
+            "ENL_logo_desc",
+            default="Logo image, you can include in the templates by\n"
+            + " adding the {{logo}} placeholder into it.",
         ),
         required=False,
     )
 
     # Make sure to import: plone.app.textfield
     default_prologue = textfield.RichText(
-        title=_(u"ENL_label_default_header", default=u"Prologue"),
+        title=_("ENL_label_default_header", default="Prologue"),
         description=_(
-            u"ENL_description_text_header",
-            default=u"The default prologue text. This is used as a default \
+            "ENL_description_text_header",
+            default="The default prologue text. This is used as a default \
                 for new issues. You can use placeholders like\
                 {{subscriber_salutation}} and {{unsubscribe}} here.",
         ),
-        default=_(u"{{subscriber_salutation}}<br />"),
+        default=_("{{subscriber_salutation}}<br />"),
         required=False,
     )
 
     # Make sure to import: plone.app.textfield
     default_epilogue = textfield.RichText(
-        title=_(u"ENL_label_default_footer", default=u"Epilogue"),
+        title=_("ENL_label_default_footer", default="Epilogue"),
         description=_(
-            u"ENL_description_text_footer",
-            default=u"The default epilogue text. This is used as a default \
+            "ENL_description_text_footer",
+            default="The default epilogue text. This is used as a default \
                 for new issues. You can use placeholders like\
                 {{subscriber_salutation}} and {{unsubscribe}} here.",
         ),
-        default=_(u"<h1>Community Newsletter for Plone</h1>\n{{unsubscribe}}"),
+        default=_("<h1>Community Newsletter for Plone</h1>\n{{unsubscribe}}"),
         required=False,
     )
 
@@ -216,10 +216,10 @@ class INewsletter(model.Schema):
     # plone.app.z3cform.widget.SingleCheckBoxBoolFieldWidget
     directives.widget(exclude_all_subscribers=SingleCheckBoxBoolFieldWidget)
     exclude_all_subscribers = schema.Bool(
-        title=_(u"ENL_label_excludeAllSubscribers", default=u"Exclude all subscribers"),
+        title=_("ENL_label_excludeAllSubscribers", default="Exclude all subscribers"),
         description=_(
-            u"ENL_help_excludeAllSubscribers",
-            default=u"If checked, the newsletter/mailing will not be send  \
+            "ENL_help_excludeAllSubscribers",
+            default="If checked, the newsletter/mailing will not be send  \
                 to all subscribers inside the newsletter. Changing this \
                 setting does not affect already existing issues.",
         ),
@@ -228,24 +228,24 @@ class INewsletter(model.Schema):
     )
 
     output_template = schema.Choice(
-        title=_(u"enl_label_output_template", default="Output template"),
+        title=_("enl_label_output_template", default="Output template"),
         description=_(
-            u"enl_help_output_template",
-            default=u"Choose the template to render the email. ",
+            "enl_help_output_template",
+            default="Choose the template to render the email. ",
         ),
-        vocabulary=u"Products.EasyNewsletter.OutputTemplates",
+        vocabulary="Products.EasyNewsletter.OutputTemplates",
         defaultFactory=get_default_output_template,
         required=True,
     )
 
     subscriber_confirmation_mail_subject = schema.TextLine(
         title=_(
-            u"ENL_label_subscriber_confirmation_mail_subject",
-            default=u"Subscriber confirmation mail subject",
+            "ENL_label_subscriber_confirmation_mail_subject",
+            default="Subscriber confirmation mail subject",
         ),
         description=_(
-            u"ENL_description_subscriber_confirmation_mail_subject",
-            default=u"Text used for confirmation email subject. You can \
+            "ENL_description_subscriber_confirmation_mail_subject",
+            default="Text used for confirmation email subject. You can \
                 customize the text, but it should include the \
                 placeholder: ${portal_url}!",
         ),
@@ -255,12 +255,12 @@ class INewsletter(model.Schema):
 
     subscriber_confirmation_mail_text = schema.Text(
         title=_(
-            u"ENL_label_subscriber_confirmation_mail_text",
-            default=u"Subscriber confirmation mail text",
+            "ENL_label_subscriber_confirmation_mail_text",
+            default="Subscriber confirmation mail text",
         ),
         description=_(
-            u"ENL_description_subscriber_confirmation_mail_text",
-            default=u"Text used for confirmation email. You can customize \
+            "ENL_description_subscriber_confirmation_mail_text",
+            default="Text used for confirmation email. You can customize \
                 the text, but it should include the placeholders: \
                 ${portal_url}, ${subscriber_email} and \
                 ${confirmation_url}!",
@@ -278,8 +278,7 @@ class INewsletter(model.Schema):
 
 @implementer(INewsletter)
 class Newsletter(Container):
-    """
-    """
+    """ """
 
     def get_newsletter(self):
         return self

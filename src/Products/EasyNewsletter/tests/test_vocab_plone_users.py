@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
+import unittest
+
 from plone import api
-from plone.app.testing import setRoles, TEST_USER_ID
-from Products.EasyNewsletter import _
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
+from plone.app.testing import TEST_USER_ID, setRoles
 from zope.component import getUtility
 from zope.schema.interfaces import IVocabularyFactory, IVocabularyTokenized
 
-import unittest
+from Products.EasyNewsletter import _
+from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 
 
 class PloneUsersIntegrationTest(unittest.TestCase):
@@ -33,5 +34,5 @@ class PloneUsersIntegrationTest(unittest.TestCase):
         vocabulary = factory(self.portal)
         self.assertTrue(IVocabularyTokenized.providedBy(vocabulary))
         self.assertEqual(
-            vocabulary.getTerm(self.jane.getId()).title, _(u"Jane Doe - jane@plone.org")
+            vocabulary.getTerm(self.jane.getId()).title, _("Jane Doe - jane@plone.org")
         )

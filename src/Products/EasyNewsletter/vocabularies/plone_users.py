@@ -1,27 +1,26 @@
 # -*- coding: utf-8 -*-
 
+import logging
+
 from email_validator import EmailNotValidError, validate_email
 from plone import api
 from plone.dexterity.interfaces import IDexterityContent
 from Products.CMFPlone.utils import safe_unicode
-from Products.EasyNewsletter import _
-from Products.EasyNewsletter.interfaces import IReceiversMemberFilter
 from zope.component import subscribers
 from zope.globalrequest import getRequest
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 
-import logging
-
+from Products.EasyNewsletter import _
+from Products.EasyNewsletter.interfaces import IReceiversMemberFilter
 
 log = logging.getLogger("Products.EasyNewsletter")
 
 
 @implementer(IVocabularyFactory)
 class PloneUsers(object):
-    """
-    """
+    """ """
 
     def __call__(self, context):
         # Just an example list of content for our vocabulary,
@@ -49,7 +48,7 @@ class PloneUsers(object):
                     )
                 else:
                     results.append(
-                        (id, u"{0} - {1}".format(property["fullname"], vemail.email))
+                        (id, "{0} - {1}".format(property["fullname"], vemail.email))
                     )
         except TypeError as e:  # noqa
             log.error(

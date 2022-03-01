@@ -3,28 +3,28 @@
 from bs4 import BeautifulSoup
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope import schema
 from zope.interface import implementer
 
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
 
 VALID_TAGS = [
-    'strong',
-    'b',
-    'em',
-    'p',
-    'a',
-    'ul',
-    'ol',
-    'li',
-    'br',
-    'h1',
-    'h2',
-    'h3',
-    'h4',
-    'h5',
-    'h6',
+    "strong",
+    "b",
+    "em",
+    "p",
+    "a",
+    "ul",
+    "ol",
+    "li",
+    "br",
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "h6",
 ]
 
 
@@ -40,24 +40,23 @@ def sanitize_html(value):
 
 
 class INewsletterSubscriberPortlet(IPortletDataProvider):
-    """
-    """
+    """ """
 
     portlet_title = schema.TextLine(
-        title=_(u"Title for the portlet."), default=u"Newsletter", required=True
+        title=_("Title for the portlet."), default="Newsletter", required=True
     )
 
     portlet_description = schema.Text(
-        title=_(u"label_subscriber_portlet_description", default=u"Description"),
-        default=u"",
+        title=_("label_subscriber_portlet_description", default="Description"),
+        default="",
         required=False,
     )
 
     newsletter = schema.Choice(
-        title=_(u"label_newsletter_path", default=u"Path to Newsletter"),
+        title=_("label_newsletter_path", default="Path to Newsletter"),
         description=_(
-            u"help_newsletter_path",
-            default=u"Search for the accordingly newsletter, choose one and " u"apply.",
+            "help_newsletter_path",
+            default="Search for the accordingly newsletter, choose one and " "apply.",
         ),
         vocabulary="Products.EasyNewsletter.newsletters",
         required=True,
@@ -65,8 +64,8 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
 
     query_salutation = schema.Bool(
         title=_(
-            u"label_newletter_show_salutation",
-            default=u"Ask for the salutation of the subscriber",
+            "label_newletter_show_salutation",
+            default="Ask for the salutation of the subscriber",
         ),
         default=True,
         required=False,
@@ -74,7 +73,7 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
 
     query_name = schema.Bool(
         title=_(
-            u"label_newletter_show_name", default=u"Ask for the name of the subscriber"
+            "label_newletter_show_name", default="Ask for the name of the subscriber"
         ),
         default=True,
         required=False,
@@ -82,7 +81,7 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
 
     query_firstname = schema.Bool(
         title=_(
-            u"label_newletter_show_firstname", default=u"Ask for the firstname as well"
+            "label_newletter_show_firstname", default="Ask for the firstname as well"
         ),
         default=False,
         required=False,
@@ -90,8 +89,8 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
 
     query_name_prefix = schema.Bool(
         title=_(
-            u"label_newletter_show_name_prefix",
-            default=u"Ask for the name prefix (aka title) as well",
+            "label_newletter_show_name_prefix",
+            default="Ask for the name prefix (aka title) as well",
         ),
         default=False,
         required=False,
@@ -99,8 +98,8 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
 
     query_organization = schema.Bool(
         title=_(
-            u"label_newletter_show_organization",
-            default=u"Display field to enter company/organization of " "subscriber",
+            "label_newletter_show_organization",
+            default="Display field to enter company/organization of " "subscriber",
         ),
         default=False,
         required=False,
@@ -108,8 +107,8 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
 
     show_unsubscribe = schema.Bool(
         title=_(
-            u"label_newletter_show_unsubscribe_link",
-            default=u"Display an unsubscribe link in portlet footer",
+            "label_newletter_show_unsubscribe_link",
+            default="Display an unsubscribe link in portlet footer",
         ),
         default=True,
         required=False,
@@ -117,39 +116,38 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
 
     additional_info = schema.Text(
         title=_(
-            u"label_subscriber_portlet_additional_info",
+            "label_subscriber_portlet_additional_info",
             default=(
-                u"Additional info, like terms and conditions.\n"
-                u"It can contain HTML, the following tags are allowed: {0}".format(
+                "Additional info, like terms and conditions.\n"
+                "It can contain HTML, the following tags are allowed: {0}".format(
                     ", ".join(VALID_TAGS)
                 )
             ),
         ),
-        default=u"",
+        default="",
         required=False,
     )
 
 
 @implementer(INewsletterSubscriberPortlet)
 class Assignment(base.Assignment):
-    """
-    """
+    """ """
 
     portlet_title = "Newsletter"
-    portlet_description = u""
-    newsletter = u""
+    portlet_description = ""
+    newsletter = ""
     query_name = True
     query_firstname = False
     query_salutation = True
     query_name_prefix = False
     query_organization = False
     show_unsubscribe = True
-    additional_info = u""
+    additional_info = ""
 
     def __init__(
         self,
-        portlet_title=u"",
-        portlet_description=u"",
+        portlet_title="",
+        portlet_description="",
         newsletter="",
         query_name=True,
         query_firstname=False,
@@ -157,7 +155,7 @@ class Assignment(base.Assignment):
         query_name_prefix=False,
         query_organization=False,
         show_unsubscribe=True,
-        additional_info=u"",
+        additional_info="",
     ):
 
         self.portlet_title = portlet_title
@@ -173,21 +171,18 @@ class Assignment(base.Assignment):
 
     @property
     def title(self):
-        """
-        """
-        return _(u"Newsletter subscriber portlet")
+        """ """
+        return _("Newsletter subscriber portlet")
 
 
 class Renderer(base.Renderer):
-    """
-    """
+    """ """
 
-    render = ViewPageTemplateFile('subscriber.pt')
+    render = ViewPageTemplateFile("subscriber.pt")
 
     @property
     def available(self):
-        """
-        """
+        """ """
         return True
 
     def header(self):
@@ -197,8 +192,7 @@ class Renderer(base.Renderer):
         return self.data.portlet_description
 
     def get_newsletter(self):
-        """
-        """
+        """ """
         return self.data.newsletter
 
     def get_additional_info(self):
@@ -206,17 +200,15 @@ class Renderer(base.Renderer):
 
 
 class AddForm(base.AddForm):
-    """
-    """
+    """ """
 
     schema = INewsletterSubscriberPortlet
 
     def create(self, data):
-        """
-        """
+        """ """
         return Assignment(
-            portlet_title=data.get("portlet_title", u""),
-            portlet_description=data.get("portlet_description", u""),
+            portlet_title=data.get("portlet_title", ""),
+            portlet_description=data.get("portlet_description", ""),
             newsletter=data.get("newsletter", ""),
             query_name=data.get("query_name", ""),
             query_firstname=data.get("query_firstname", ""),
@@ -229,9 +221,8 @@ class AddForm(base.AddForm):
 
 
 class EditForm(base.EditForm):
-    """
-    """
+    """ """
 
     schema = INewsletterSubscriberPortlet
-    label = _(u"Edit Newsletter portlet")
-    description = _(u"This portlet displays the subscriber add form of a newsletter.")
+    label = _("Edit Newsletter portlet")
+    description = _("This portlet displays the subscriber add form of a newsletter.")

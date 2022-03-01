@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
-from ..content.newsletter import INewsletter
+import logging
+
 from plone import api, schema
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.supermodel import model
-from Products.EasyNewsletter import _
 from zope.component import adapter
-from zope.interface import implementer, Interface, provider
+from zope.interface import Interface, implementer, provider
 from zope.schema.interfaces import IContextAwareDefaultFactory
 
-import logging
+from Products.EasyNewsletter import _
 
+from ..content.newsletter import INewsletter
 
 log = logging.getLogger("Products.EasyNewsletter")
 
@@ -34,43 +35,42 @@ class IPloneUserGroupRecipientsMarker(Interface):
 
 @provider(IFormFieldProvider)
 class IPloneUserGroupRecipients(model.Schema):
-    """
-    """
+    """ """
 
     model.fieldset(
         "recipients",
-        label=_(u"Recipients"),
+        label=_("Recipients"),
         fields=["plone_receiver_members", "plone_receiver_groups"],
     )
 
     plone_receiver_members = schema.Set(
         title=_(
-            u"EasyNewsletter_label_ploneReceiverMembers",
-            default=u"Plone Members to receive the newsletter",
+            "EasyNewsletter_label_ploneReceiverMembers",
+            default="Plone Members to receive the newsletter",
         ),
         description=_(
-            u"EasyNewsletter_help_ploneReceiverMembers",
-            default=u"Choose Plone Members which should receive \
+            "EasyNewsletter_help_ploneReceiverMembers",
+            default="Choose Plone Members which should receive \
                     the newsletter. Changing this setting does not affect \
                     already existing issues.",
         ),
-        value_type=schema.Choice(vocabulary=u"Products.EasyNewsletter.PloneUsers"),
+        value_type=schema.Choice(vocabulary="Products.EasyNewsletter.PloneUsers"),
         required=False,
         defaultFactory=get_default_plone_receiver_members,
     )
 
     plone_receiver_groups = schema.Set(
         title=_(
-            u"EasyNewsletter_label_ploneReceiverGroups",
-            default=u"Plone Groups to receive the newsletter",
+            "EasyNewsletter_label_ploneReceiverGroups",
+            default="Plone Groups to receive the newsletter",
         ),
         description=_(
-            u"EasyNewsletter_help_ploneReceiverGroups",
-            default=u"Choose Plone Groups which should receive \
+            "EasyNewsletter_help_ploneReceiverGroups",
+            default="Choose Plone Groups which should receive \
                     the newsletter. Changing this setting does not affect \
                     already existing issues.",
         ),
-        value_type=schema.Choice(vocabulary=u"Products.EasyNewsletter.PloneGroups"),
+        value_type=schema.Choice(vocabulary="Products.EasyNewsletter.PloneGroups"),
         required=False,
         defaultFactory=get_default_plone_receiver_groups,
     )
@@ -79,13 +79,12 @@ class IPloneUserGroupRecipients(model.Schema):
 @implementer(IPloneUserGroupRecipients)
 @adapter(IPloneUserGroupRecipientsMarker)
 class PloneUserGroupRecipients(object):
-
     def __init__(self, context):
         self.context = context
 
     @property
     def plone_receiver_members(self):
-        return getattr(self.context, 'plone_receiver_members', set())
+        return getattr(self.context, "plone_receiver_members", set())
 
     @plone_receiver_members.setter
     def plone_receiver_members(self, value):
@@ -93,7 +92,7 @@ class PloneUserGroupRecipients(object):
 
     @property
     def plone_receiver_groups(self):
-        return getattr(self.context, 'plone_receiver_groups', set())
+        return getattr(self.context, "plone_receiver_groups", set())
 
     @plone_receiver_groups.setter
     def plone_receiver_groups(self, value):
@@ -106,18 +105,18 @@ class PloneUserGroupRecipients(object):
         """
         enl = self.context.get_newsletter()
         result = {}
-        lang = self.context.language or 'en'
+        lang = self.context.language or "en"
 
         for line in enl.salutations:
             if "|" not in line:
                 continue
-            key, value = line.split('|')
+            key, value = line.split("|")
             result[key.strip()] = {lang: value.strip()}
         return result
 
     def get_plone_subscribers(self):
-        """ Search for all selected Members and Groups
-            and return a filtered list of subscribers as dicts.
+        """Search for all selected Members and Groups
+        and return a filtered list of subscribers as dicts.
         """
         plone_subscribers = []
         receiver_list = set()
@@ -148,9 +147,7 @@ class PloneUserGroupRecipients(object):
             email = member.getProperty("email")
             if not email:
                 continue
-            salutation = salutation_mappings[
-                member.getProperty("nl_gender", "default")
-            ]
+            salutation = salutation_mappings[member.getProperty("nl_gender", "default")]
             language = member.getProperty("language") or self.context.language
             plone_subscribers.append(
                 {

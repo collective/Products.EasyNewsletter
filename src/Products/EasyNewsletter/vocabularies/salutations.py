@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from plone.dexterity.interfaces import IDexterityContent
-from Products.EasyNewsletter import _
 from zope.globalrequest import getRequest
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
+
+from Products.EasyNewsletter import _
 
 
 class VocabItem(object):
@@ -16,13 +17,12 @@ class VocabItem(object):
 
 @implementer(IVocabularyFactory)
 class Salutations(object):
-    """
-    """
+    """ """
 
     def __call__(self, context):
         items = [
-            VocabItem(u'ms', _(u'Ms')),
-            VocabItem(u'mr', _(u'Mr')),
+            VocabItem("ms", _("Ms")),
+            VocabItem("mr", _("Mr")),
         ]
 
         # Fix context if you are using the vocabulary in DataGridField.

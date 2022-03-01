@@ -2,11 +2,12 @@
 """Newsletter subscriber."""
 
 from Products.DCWorkflow.interfaces import IAfterTransitionEvent
+from zope.component import adapter
+
 from Products.EasyNewsletter.content.newsletter_issue import (
     INewsletterIssue,
     ISendStatus,
 )
-from zope.component import adapter
 
 
 class FilterAlreadySentReceivers(object):
@@ -22,8 +23,9 @@ class FilterAlreadySentReceivers(object):
         successful = status_adapter.get_keys(successful=True)
 
         return [
-            receiver for receiver in receivers if
-            receiver.get('email') not in successful
+            receiver
+            for receiver in receivers
+            if receiver.get("email") not in successful
         ]
 
 
@@ -31,7 +33,7 @@ class FilterAlreadySentReceivers(object):
 def reset_send_status(event):
     if not INewsletterIssue.providedBy(event.object):
         return
-    if event.new_state.id in ['master']:
+    if event.new_state.id in ["master"]:
         status_adapter = ISendStatus(event.object)
         if not status_adapter:
             return

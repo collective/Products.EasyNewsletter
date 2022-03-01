@@ -2,18 +2,17 @@
 
 from AccessControl.SecurityManagement import newSecurityManager
 from plone import api, protect
-from Products.EasyNewsletter import _
-from Products.EasyNewsletter.content.newsletter import INewsletter
-from Products.EasyNewsletter.content.newsletter_subscriber import INewsletterSubscriber
 from Products.Five.browser import BrowserView
 from zope.interface import alsoProvides
 
+from Products.EasyNewsletter import _
+from Products.EasyNewsletter.content.newsletter import INewsletter
+from Products.EasyNewsletter.content.newsletter_subscriber import INewsletterSubscriber
+
 
 class NewsletterUnsubscribe(BrowserView):
-
     def __call__(self):
-        """
-        """
+        """ """
         alsoProvides(self.request, protect.interfaces.IDisableCSRFProtection)
         uid = self.request.get("subscriber")
 

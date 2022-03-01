@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
+import unittest
+
+import six
 from plone import api
-from plone.app.testing import setRoles, TEST_USER_ID
+from plone.app.testing import TEST_USER_ID, setRoles
+from zope.component import getMultiAdapter
+from zope.component.interfaces import ComponentLookupError
+
 from Products.EasyNewsletter.testing import (
     PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING,
     PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING,
 )
-from zope.component import getMultiAdapter
-from zope.component.interfaces import ComponentLookupError
-
-import six
-import unittest
 
 
 class ViewsIntegrationTest(unittest.TestCase):
@@ -51,7 +52,7 @@ class ViewsIntegrationTest(unittest.TestCase):
         result = view()
         self.assertEqual(
             b"salutation,name_prefix,firstname,lastname,email,organization\n,,Jane,Doe,jane@example.com,Doe C\xc3\xb6rp\n",
-            result.replace(b'\r', b''),
+            result.replace(b"\r", b""),
         )
         self.assertTrue(
             isinstance(result, six.binary_type), "result must be binary_type!"

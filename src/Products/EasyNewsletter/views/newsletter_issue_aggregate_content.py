@@ -1,35 +1,39 @@
 # -*- coding: utf-8 -*-
-from Acquisition import aq_inner
 from copy import copy
+
+from Acquisition import aq_inner
 from plone import api
 from plone.app.textfield import RichTextValue
 from Products.CMFPlone.utils import safe_unicode
-from Products.EasyNewsletter import _
-from Products.EasyNewsletter.config import AGG_SOURCES_INFOS
 from Products.Five.browser import BrowserView
+
 # from transaction import commit
 from zope.annotation import IAnnotations
+
+from Products.EasyNewsletter import _
+from Products.EasyNewsletter.config import AGG_SOURCES_INFOS
 
 
 class NewsletterIssueAggregateContent(BrowserView):
     def __call__(self):
         text = self.render_aggregation_sources()
         self.context.text = RichTextValue(
-            raw=text, mimeType="text/html", outputMimeType="text/html",
+            raw=text,
+            mimeType="text/html",
+            outputMimeType="text/html",
         )
         api.portal.show_message(
             message=_("Newsletter content successfully aggregated."),
             request=self.request,
             type="info",
         )
-        self.request.response.setHeader('Pragma', 'no-cache')
-        self.request.response.setHeader('Cache-Control', 'no-cache')
+        self.request.response.setHeader("Pragma", "no-cache")
+        self.request.response.setHeader("Cache-Control", "no-cache")
         return self.request.response.redirect(self.context.absolute_url(), status=301)
 
     def render_aggregation_sources(self):
-        """
-        """
-        results_text = u""
+        """ """
+        results_text = ""
         portal = api.portal.get()
         sources = self.context.content_aggregation_sources
 
@@ -62,13 +66,12 @@ class NewsletterIssueAggregateContent(BrowserView):
         return safe_unicode(results_text)
 
     def store_source_info_in_annotation(self, source_info):
-        """
-        """
+        """ """
         # import pdb; pdb.set_trace()
         annotations = IAnnotations(aq_inner(self.context))
         if AGG_SOURCES_INFOS not in annotations:
             annotations[AGG_SOURCES_INFOS] = []
         sinfo = copy(source_info)
         # remove brains, we can't pickle them
-        del sinfo['brains']
+        del sinfo["brains"]
         annotations[AGG_SOURCES_INFOS].append(sinfo)

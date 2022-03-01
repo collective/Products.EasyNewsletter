@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from plone import api
-from Products.EasyNewsletter import config
 from Products.Five.browser import BrowserView
+
+from Products.EasyNewsletter import config
 
 
 class Newsletter(BrowserView):
@@ -13,13 +14,13 @@ class Newsletter(BrowserView):
         return self.index()
 
     def get_send_issues(self):
-        """ return sended issues brains"""
+        """return sended issues brains"""
         enl = self.context.get_newsletter()
         issues = api.content.find(
             portal_type=config.ENL_ISSUE_TYPES,
-            review_state='sent',
-            sort_on='effective',
-            sort_order='reverse',
-            path='/'.join(enl.getPhysicalPath())
+            review_state="sent",
+            sort_on="effective",
+            sort_order="reverse",
+            path="/".join(enl.getPhysicalPath()),
         )
         return issues

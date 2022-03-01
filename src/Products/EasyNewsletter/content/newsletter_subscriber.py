@@ -2,58 +2,57 @@
 from plone import schema
 from plone.dexterity.content import Item
 from plone.supermodel import model
-from Products.EasyNewsletter import _
 from zope.interface import implementer
+
+from Products.EasyNewsletter import _
 
 
 class INewsletterSubscriber(model.Schema):
-    """ Marker interface and Dexterity Python Schema for NewsletterSubscriber
-    """
+    """Marker interface and Dexterity Python Schema for NewsletterSubscriber"""
 
     salutation = schema.Choice(
-        title=_(u"EasyNewsletter_label_salutation", default="Salutation"),
-        description=_(u"EasyNewsletter_help_salutation", default=u""),
-        vocabulary=u"Products.EasyNewsletter.Salutations",
+        title=_("EasyNewsletter_label_salutation", default="Salutation"),
+        description=_("EasyNewsletter_help_salutation", default=""),
+        vocabulary="Products.EasyNewsletter.Salutations",
         required=False,
     )
 
     name_prefix = schema.TextLine(
-        title=_(u"EasyNewsletter_label_name_prefix", default=u"Name Prefix"),
-        description=_(u"EasyNewsletter_help_name_prefix", default=u""),
-        default=u"",
+        title=_("EasyNewsletter_label_name_prefix", default="Name Prefix"),
+        description=_("EasyNewsletter_help_name_prefix", default=""),
+        default="",
         required=False,
     )
 
     firstname = schema.TextLine(
-        title=_(u"EasyNewsletter_label_firstname", default=u"First Name"),
+        title=_("EasyNewsletter_label_firstname", default="First Name"),
         required=False,
     )
 
     lastname = schema.TextLine(
-        title=_(u"EasyNewsletter_label_lastname", default=u"Last Name"), required=False
+        title=_("EasyNewsletter_label_lastname", default="Last Name"), required=False
     )
 
     organization = schema.TextLine(
-        title=_(u"EasyNewsletter_label_organization", default=u"Organization"),
+        title=_("EasyNewsletter_label_organization", default="Organization"),
         required=False,
     )
 
     email = schema.TextLine(
-        title=_(u"EasyNewsletter_label_email", default=u"Email"), required=True
+        title=_("EasyNewsletter_label_email", default="Email"), required=True
     )
 
 
 @implementer(INewsletterSubscriber)
 class NewsletterSubscriber(Item):
-    """
-    """
+    """ """
 
     @property
     def title(self):
         title = self.email
-        prefix = self.name_prefix or u''
-        firstname = self.firstname or u''
-        lastname = self.lastname or u''
+        prefix = self.name_prefix or ""
+        firstname = self.firstname or ""
+        lastname = self.lastname or ""
         if self.firstname or self.lastname:
             title += " - " + " ".join([prefix, firstname, lastname])
         return title

@@ -2,18 +2,18 @@
 
 from plone import api
 from plone.dexterity.interfaces import IDexterityContent
-from Products.EasyNewsletter.interfaces import IReceiversGroupFilter
 from zope.component import subscribers
 from zope.globalrequest import getRequest
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 
+from Products.EasyNewsletter.interfaces import IReceiversGroupFilter
+
 
 @implementer(IVocabularyFactory)
 class PloneGroups(object):
-    """
-    """
+    """ """
 
     def __call__(self, context):
 

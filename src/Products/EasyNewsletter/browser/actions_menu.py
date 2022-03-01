@@ -2,22 +2,23 @@
 from plone.app.contentmenu.interfaces import IActionsMenu, IActionsSubMenuItem
 from plone.app.contentmenu.menu import BrowserMenu, BrowserSubMenuItem
 from plone.protect.utils import addTokenToUrl
-from Products.EasyNewsletter.content.newsletter import INewsletter
-from Products.EasyNewsletter.content.newsletter_issue import INewsletterIssue
 from zope.component import getMultiAdapter
 from zope.interface import implementer
 from zope.security import checkPermission
+
+from Products.EasyNewsletter.content.newsletter import INewsletter
+from Products.EasyNewsletter.content.newsletter_issue import INewsletterIssue
 
 
 @implementer(IActionsSubMenuItem)
 class EasyNewsletterActionsSubMenuItem(BrowserSubMenuItem):
 
-    title = 'Newsletter'
-    submenuId = 'easynewsletter-actions'
+    title = "Newsletter"
+    submenuId = "easynewsletter-actions"
 
     extra = {
-        'id': 'easynewsletter-actions',
-        'li_class': 'plonetoolbar-easynewsletter-action'
+        "id": "easynewsletter-actions",
+        "li_class": "plonetoolbar-easynewsletter-action",
     }
 
     order = 40
@@ -27,9 +28,13 @@ class EasyNewsletterActionsSubMenuItem(BrowserSubMenuItem):
         return self.context.getNewsletter().absolute_url()
 
     def available(self):
-        if (checkPermission('cmf.ModifyPortalContent', self.context)
-            or checkPermission('cmf.ReviewPortalContent', self.context)) and \
-                (INewsletterIssue.providedBy(self.context) or INewsletter.providedBy(self.context)):
+        if (
+            checkPermission("cmf.ModifyPortalContent", self.context)
+            or checkPermission("cmf.ReviewPortalContent", self.context)
+        ) and (
+            INewsletterIssue.providedBy(self.context)
+            or INewsletter.providedBy(self.context)
+        ):
             return True
         return False
 
@@ -39,36 +44,38 @@ class EasyNewsletterActionsSubMenuItem(BrowserSubMenuItem):
 
 @implementer(IActionsMenu)
 class EasyNewsletterActionsMenu(BrowserMenu):
-
     def getMenuItems(self, context, request):  # flack8: noqa
         """Return menu item entries in a TAL-friendly form."""
         results = []
 
-        context_state = getMultiAdapter((context, request),
-                                        name='plone_context_state')
-        edit_actions = context_state.actions('easynewsletter')
+        context_state = getMultiAdapter((context, request), name="plone_context_state")
+        edit_actions = context_state.actions("easynewsletter")
         if not edit_actions:
             return results
 
         for action in edit_actions:
-            if action['allowed']:
-                aid = action['id']
-                css_class = 'actionicon-object_buttons-%s' % aid
-                icon = action.get('icon', None)
-                modal = action.get('modal', None)
+            if action["allowed"]:
+                aid = action["id"]
+                css_class = "actionicon-object_buttons-%s" % aid
+                icon = action.get("icon", None)
+                modal = action.get("modal", None)
                 if modal:
-                    css_class += ' pat-plone-modal'
+                    css_class += " pat-plone-modal"
 
-                results.append({
-                    'title': action['title'],
-                    'description': '',
-                    'action': addTokenToUrl(action['url'], request),
-                    'selected': False,
-                    'icon': icon,
-                    'extra': {'id': 'plone-contentmenu-actions-' + aid,
-                              'separator': None,
-                              'class': css_class,
-                              'modal': modal},
-                    'submenu': None,
-                })
+                results.append(
+                    {
+                        "title": action["title"],
+                        "description": "",
+                        "action": addTokenToUrl(action["url"], request),
+                        "selected": False,
+                        "icon": icon,
+                        "extra": {
+                            "id": "plone-contentmenu-actions-" + aid,
+                            "separator": None,
+                            "class": css_class,
+                            "modal": modal,
+                        },
+                        "submenu": None,
+                    }
+                )
         return results

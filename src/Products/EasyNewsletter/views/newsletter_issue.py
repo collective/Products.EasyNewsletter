@@ -2,9 +2,10 @@
 
 from plone.protect.interfaces import IDisableCSRFProtection
 from Products.CMFPlone.resources import add_resource_on_request
-from Products.EasyNewsletter import _  # noqa
 from Products.Five.browser import BrowserView
 from zope.interface import alsoProvides
+
+from Products.EasyNewsletter import _  # noqa
 
 
 class NewsletterIssue(BrowserView):
@@ -17,8 +18,7 @@ class NewsletterIssue(BrowserView):
         return self.context.absolute_url()
 
     def refresh_issue(self, REQUEST=None):  # noqa
-        """Refresh the aggregate body when using collections.
-        """
+        """Refresh the aggregate body when using collections."""
         alsoProvides(self.request, IDisableCSRFProtection)
         self.context.loadContent()
         self.request.response.redirect(self.context.absolute_url())

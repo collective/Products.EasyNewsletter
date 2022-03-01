@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 
 from plone.dexterity.interfaces import IDexterityContent
+
 # from plone import api
 from plone.registry.interfaces import IRegistry
-from Products.EasyNewsletter import _
 from zope.component import getUtility
 from zope.globalrequest import getRequest
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
+
+from Products.EasyNewsletter import _
 
 
 class VocabItem(object):
@@ -19,8 +21,7 @@ class VocabItem(object):
 
 @implementer(IVocabularyFactory)
 class OutputTemplates(object):
-    """
-    """
+    """ """
 
     def __call__(self, context):
         items = []
@@ -32,8 +33,8 @@ class OutputTemplates(object):
         if not len(items):
             items.append(
                 VocabItem(
-                    u"output_default",
-                    _(u"enl_label_default_output_template", u"Default output template"),
+                    "output_default",
+                    _("enl_label_default_output_template", "Default output template"),
                 )
             )
 

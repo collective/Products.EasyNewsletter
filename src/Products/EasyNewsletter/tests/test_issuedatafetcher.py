@@ -1,16 +1,12 @@
 # -*- coding: utf-8 -*-
+import unittest
+
 from App.Common import package_home
 from plone import api
-from plone.app.testing import login, setRoles, TEST_USER_ID, TEST_USER_NAME
+from plone.app.testing import TEST_USER_ID, TEST_USER_NAME, login, setRoles
 from plone.registry.interfaces import IRegistry
 from Products.CMFPlone.interfaces.controlpanel import IMailSchema
 from Products.CMFPlone.tests.utils import MockMailHost
-from Products.EasyNewsletter.interfaces import (
-    IBeforePersonalizationEvent,
-    IIssueDataFetcher,
-)
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
-from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.MailHost.interfaces import IMailHost
 from zope.component import (
     getGlobalSiteManager,
@@ -19,8 +15,12 @@ from zope.component import (
     provideHandler,
 )
 
-import unittest
-
+from Products.EasyNewsletter.interfaces import (
+    IBeforePersonalizationEvent,
+    IIssueDataFetcher,
+)
+from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
+from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 
 GLOBALS = globals()
 TESTS_HOME = package_home(GLOBALS)
@@ -39,10 +39,10 @@ class IssuedatafetcherIntegrationTests(unittest.TestCase):
             container=self.portal,
             type="Newsletter",
             id="enl1",
-            title=u"ENL 1",
-            sneder_email=u"newsletter@acme.com",
-            sender_name=u"ACME newsletter",
-            test_email=u"test@acme.com",
+            title="ENL 1",
+            sneder_email="newsletter@acme.com",
+            sender_name="ACME newsletter",
+            test_email="test@acme.com",
         )
         self.mail_settings = get_portal_mail_settings()
         # Set up a mock mailhost
@@ -52,7 +52,7 @@ class IssuedatafetcherIntegrationTests(unittest.TestCase):
         registry = getUtility(IRegistry)
         self.mail_settings = registry.forInterface(IMailSchema, prefix="plone")
         self.mail_settings.email_from_address = "portal@plone.test"
-        self.mail_settings.smtp_host = u"localhost"
+        self.mail_settings.smtp_host = "localhost"
         sm = getSiteManager(context=self.portal)
         sm.unregisterUtility(provided=IMailHost)
         sm.registerUtility(mailhost, provided=IMailHost)
@@ -62,8 +62,8 @@ class IssuedatafetcherIntegrationTests(unittest.TestCase):
             container=self.newsletter,
             type="Newsletter Issue",
             id="issue",
-            title=u"This is a very long newsletter issue title with special "
-            u"characters such as äüö. Will this really work?",
+            title="This is a very long newsletter issue title with special "
+            "characters such as äüö. Will this really work?",
         )
 
     def test_before_personalization_filter(self):
@@ -71,6 +71,7 @@ class IssuedatafetcherIntegrationTests(unittest.TestCase):
             edc = event.data["context"]
             event.data["html"] = event.data["html"].replace("PHP", "Python")
             edc["SUBSCRIBER_SALUTATION"] = "Dear Ms. Jane Doe"
+
         provideHandler(personalize, [IBeforePersonalizationEvent])
 
         try:

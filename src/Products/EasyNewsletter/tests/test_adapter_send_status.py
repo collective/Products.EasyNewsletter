@@ -1,61 +1,67 @@
 # -*- coding: utf-8 -*-
 
+import unittest
 from datetime import datetime
+
 from plone import api
-from plone.app.testing import setRoles, TEST_USER_ID
+from plone.app.testing import TEST_USER_ID, setRoles
+
 from Products.EasyNewsletter.content.newsletter_issue import ISendStatus
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
-
-import unittest
 
 
 class SendStatusTests(unittest.TestCase):
     """"""
+
     layer = PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 
     def setUp(self):
-        self.portal = self.layer['portal']
-        setRoles(self.portal, TEST_USER_ID, ['Manager'])
+        self.portal = self.layer["portal"]
+        setRoles(self.portal, TEST_USER_ID, ["Manager"])
         self.newsletter = api.content.create(
-            container=self.portal, type='Newsletter', id='newsletter',
+            container=self.portal,
+            type="Newsletter",
+            id="newsletter",
         )
         self.issue = api.content.create(
-            container=self.newsletter, type='Newsletter Issue', id='issue',
+            container=self.newsletter,
+            type="Newsletter Issue",
+            id="issue",
         )
 
     @property
     def receivers(self):
         return [
             {
-                'email': 'john@example.com',
-                'fullname': 'John Doe',
-                'firstname': 'John',
-                'lastname': 'Doe',
-                'salutation': 'Dear Mr.',
-                'status': {
-                    'successful': True,
-                    'error': None,
-                    'datetime': datetime.now(),
+                "email": "john@example.com",
+                "fullname": "John Doe",
+                "firstname": "John",
+                "lastname": "Doe",
+                "salutation": "Dear Mr.",
+                "status": {
+                    "successful": True,
+                    "error": None,
+                    "datetime": datetime.now(),
                 },
             },
             {
-                'email': 'Joe@example.com',
-                'fullname': 'Joe Doe',
-                'firstname': 'Joe',
-                'lastname': 'Doe',
-                'salutation': 'Dear Mr.',
-                'status': {
-                    'successful': False,
-                    'error': 'Some error message',
-                    'datetime': datetime.now(),
+                "email": "Joe@example.com",
+                "fullname": "Joe Doe",
+                "firstname": "Joe",
+                "lastname": "Doe",
+                "salutation": "Dear Mr.",
+                "status": {
+                    "successful": False,
+                    "error": "Some error message",
+                    "datetime": datetime.now(),
                 },
             },
             {
-                'email': 'mary@example.com',
-                'fullname': 'Mary Doe',
-                'firstname': 'Mary',
-                'lastname': 'Doe',
-                'salutation': 'Dear Mrs.',
+                "email": "mary@example.com",
+                "fullname": "Mary Doe",
+                "firstname": "Mary",
+                "lastname": "Doe",
+                "salutation": "Dear Mrs.",
             },
         ]
 
@@ -70,7 +76,7 @@ class SendStatusTests(unittest.TestCase):
         self.assertEquals(len(status_adapter.get_keys()), 3)
 
         # Adding a new record will reurn more items.
-        status_adapter.add_records([{'email': 'info@example.com'}])
+        status_adapter.add_records([{"email": "info@example.com"}])
         self.assertEquals(len(status_adapter.get_keys()), 4)
 
     def test_get_records(self):
@@ -95,7 +101,7 @@ class SendStatusTests(unittest.TestCase):
         status_adapter.add_records(self.receivers)
         self.assertEquals(len(status_adapter.get_keys()), 3)
         request = self.issue.REQUEST
-        request['enlwf_guard'] = True
-        api.content.transition(obj=self.issue, transition='make_master')
+        request["enlwf_guard"] = True
+        api.content.transition(obj=self.issue, transition="make_master")
         self.assertEquals(len(status_adapter.get_keys()), 0)
-        request['enlwf_guard'] = False
+        request["enlwf_guard"] = False

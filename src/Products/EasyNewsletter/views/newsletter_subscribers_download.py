@@ -1,24 +1,23 @@
 # -*- coding: utf-8 -*-
 
+import codecs
+import csv
+import tempfile
+
+import six
 from Acquisition import aq_inner
 from plone import api
 from Products.CMFPlone.utils import safe_encode, safe_unicode
 from Products.Five.browser import BrowserView
 
-import codecs
-import csv
-import six
-import tempfile
-
-
 CSV_HEADER = [
-    u"salutation",
-    u"name_prefix",
-    u"firstname",
-    u"lastname",
+    "salutation",
+    "name_prefix",
+    "firstname",
+    "lastname",
     # u"nl_language",
-    u"email",
-    u"organization",
+    "email",
+    "organization",
 ]
 
 

@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 
+import logging
+
 from plone import api
 from plone.protect.utils import addTokenToUrl
-from Products.EasyNewsletter import _, config
-from Products.EasyNewsletter.interfaces import ISubscriberSource
 from Products.Five.browser import BrowserView
 from zope.component import getUtility
 from zope.component.interfaces import ComponentLookupError
 
-import logging
-
+from Products.EasyNewsletter import _, config
+from Products.EasyNewsletter.interfaces import ISubscriberSource
 
 # from zope.interface.interfaces import ComponentLookupError # activate this in next major version, which drops zope2
 
@@ -29,7 +29,9 @@ class NewsletterSubscribers(BrowserView):
 
     def subscribers(self):
         query = dict(
-            portal_type="Newsletter Subscriber", context=self.context, sort_on="email",
+            portal_type="Newsletter Subscriber",
+            context=self.context,
+            sort_on="email",
         )
         form = self.request.form
         for k in self.searchable_params:
@@ -76,8 +78,8 @@ class NewsletterSubscribers(BrowserView):
                 except ComponentLookupError:
                     log.warn(
                         _(
-                            u"label_ext_subcriber_source_failed",
-                            default=u"External subscriber lookup failed",
+                            "label_ext_subcriber_source_failed",
+                            default="External subscriber lookup failed",
                         )
                     )
                 else:
@@ -93,18 +95,17 @@ class NewsletterSubscribers(BrowserView):
         return meth.lower() == "post" and delete_button
 
     def delete(self):
-        """ delete all the selected subscribers
-        """
+        """delete all the selected subscribers"""
         ids = self.request.get("subscriber_ids", [])
         if not ids:
-            msg = _(u"No subscriber selected!")
+            msg = _("No subscriber selected!")
             api.portal.show_message(msg, request=self.request, type="error")
             return False
         existing = self.context.objectIds()
         # avoid wrong id to be submitted
         to_remove = [i for i in ids if i in existing]
         self.context.manage_delObjects(to_remove)
-        msg = _(u"subscriber/s deleted successfully")
+        msg = _("subscriber/s deleted successfully")
         api.portal.show_message(msg, request=self.request, type="info")
         return True
 

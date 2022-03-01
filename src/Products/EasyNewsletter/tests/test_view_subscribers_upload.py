@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
+import os
+import unittest
+
+import six
 from plone import api
-from plone.app.testing import setRoles, TEST_USER_ID
+from plone.app.testing import TEST_USER_ID, setRoles
 from Products.CMFPlone.utils import safe_encode, safe_unicode
+from zope.component import getMultiAdapter
+from zope.component.interfaces import ComponentLookupError
+
 from Products.EasyNewsletter.testing import (
     PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING,
     PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING,
 )
-from zope.component import getMultiAdapter
-from zope.component.interfaces import ComponentLookupError
-
-import os
-import six
-import unittest
 
 
 class ViewsIntegrationTest(unittest.TestCase):
@@ -42,7 +43,9 @@ class ViewsIntegrationTest(unittest.TestCase):
 Ms,PhD,Jane,Doe,jane@example.com,Doe Cörp
 Mr,PhD,John,Doe,john@example.com,Doe Cörp
 """
-        filename = os.path.join(os.path.dirname(__file__), "easynewsletter-subscribers.csv")
+        filename = os.path.join(
+            os.path.dirname(__file__), "easynewsletter-subscribers.csv"
+        )
         if six.PY2:
             with open(filename, "wb") as f:
                 f.write(safe_encode(template))
@@ -54,10 +57,12 @@ Mr,PhD,John,Doe,john@example.com,Doe Cörp
         else:
             file = open(filename, "rb")
 
-        self.portal.REQUEST.form.update({
-            'form.button.Import': 'submit',
-            'csv_upload': file,
-        })
+        self.portal.REQUEST.form.update(
+            {
+                "form.button.Import": "submit",
+                "csv_upload": file,
+            }
+        )
         view = getMultiAdapter(
             (self.newsletter, self.portal.REQUEST), name="subscribers-upload"
         )

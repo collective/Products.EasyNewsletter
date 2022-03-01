@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
+import unittest
+
 from plone import api
-from plone.app.testing import setRoles, TEST_USER_ID
+from plone.app.testing import TEST_USER_ID, setRoles
+from zope.component import getMultiAdapter
+from zope.component.interfaces import ComponentLookupError
+
 from Products.EasyNewsletter.testing import (
     PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING,
     PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING,
 )
-from zope.component import getMultiAdapter
-from zope.component.interfaces import ComponentLookupError
-
-import unittest
 
 
 class ViewsIntegrationTest(unittest.TestCase):

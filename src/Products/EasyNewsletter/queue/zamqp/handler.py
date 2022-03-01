@@ -3,12 +3,12 @@ from collective.zamqp.consumer import Consumer
 from collective.zamqp.interfaces import IProducer
 from collective.zamqp.producer import Producer
 from plone import api
-from Products.EasyNewsletter.queue.interfaces import IIssueQueue
 from zope.component import getUtility
-from zope.interface import implementer, Interface
+from zope.interface import Interface, implementer
 
+from Products.EasyNewsletter.queue.interfaces import IIssueQueue
 
-QUEUE_NAME = 'Products.EasyNewsletter.queue'
+QUEUE_NAME = "Products.EasyNewsletter.queue"
 
 
 class IMailProcessingMessage(Interface):
@@ -18,8 +18,8 @@ class IMailProcessingMessage(Interface):
 class MailProcessingProducer(Producer):
     """Produces Mail processing tasks"""
 
-    connection_id = 'superuser'
-    serializer = 'msgpack'
+    connection_id = "superuser"
+    serializer = "msgpack"
     queue = QUEUE_NAME
     routing_key = QUEUE_NAME
 
@@ -29,7 +29,7 @@ class MailProcessingProducer(Producer):
 class MailProcessingConsumer(Consumer):
     """Consumes Mail processing tasks"""
 
-    connection_id = 'superuser'
+    connection_id = "superuser"
     marker = IMailProcessingMessage
     queue = QUEUE_NAME
     routing_key = QUEUE_NAME
@@ -51,10 +51,8 @@ def process_message(message, event):
 
 @implementer(IIssueQueue)
 class ZAMQPIssueQueue(object):
-
     def start(self, context):
-        """Queues issue for sendout through collective.zamqp.
-        """
+        """Queues issue for sendout through collective.zamqp."""
         kwargs = {}
         producer = getUtility(IProducer, name=QUEUE_NAME)
         producer.register()

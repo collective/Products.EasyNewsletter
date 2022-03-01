@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from plone.app.testing import setRoles, TEST_USER_ID
+import unittest
+
+from plone.app.testing import TEST_USER_ID, setRoles
 from plone.behavior.interfaces import IBehavior
+from zope.component import getUtility
+
 from Products.EasyNewsletter.behaviors.collection_as_newsletter_aggregation_source import (
     ICollectionAsNewsletterAggregationSourceMarker,
 )
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
-from zope.component import getUtility
-
-import unittest
 
 
 class CollectionAsNewsletterAggregationSourceIntegrationTest(unittest.TestCase):
@@ -26,5 +27,6 @@ class CollectionAsNewsletterAggregationSourceIntegrationTest(unittest.TestCase):
             "Products.EasyNewsletter.collection_as_newsletter_aggregation_source",
         )
         self.assertEqual(
-            behavior.marker, ICollectionAsNewsletterAggregationSourceMarker,
+            behavior.marker,
+            ICollectionAsNewsletterAggregationSourceMarker,
         )

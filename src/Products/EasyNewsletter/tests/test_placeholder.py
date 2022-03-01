@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-from App.Common import package_home
+import unittest
 from datetime import datetime, timedelta
+
+from App.Common import package_home
 from plone import api
-from plone.app.testing import login, setRoles, TEST_USER_ID, TEST_USER_NAME
+from plone.app.testing import TEST_USER_ID, TEST_USER_NAME, login, setRoles
+
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
-
-import unittest
-
 
 GLOBALS = globals()
 TESTS_HOME = package_home(GLOBALS)
@@ -26,17 +26,17 @@ class PlaceholderIntegrationTests(unittest.TestCase):
             container=self.portal,
             type="Newsletter",
             id="enl1",
-            title=u"ENL 1",
-            sneder_email=u"newsletter@acme.com",
-            sender_name=u"ACME newsletter",
-            test_email=u"test@acme.com",
+            title="ENL 1",
+            sneder_email="newsletter@acme.com",
+            sender_name="ACME newsletter",
+            test_email="test@acme.com",
         )
         api.content.create(
             container=self.newsletter,
             type="Newsletter Issue",
             id="issue",
-            title=u"This is a very long newsletter issue title with special "
-            u"characters such as äüö. Will this really work?",
+            title="This is a very long newsletter issue title with special "
+            "characters such as äüö. Will this really work?",
         )
 
     def test_placeholder_month_year(self):

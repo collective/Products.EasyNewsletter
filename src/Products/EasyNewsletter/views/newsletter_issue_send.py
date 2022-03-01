@@ -1,9 +1,20 @@
 # -*- coding: utf-8 -*-
 
+import logging
+import re
 from datetime import datetime
+
+import emails
+import emails.loader
+import transaction
 from plone import api
 from plone.namedfile.scaling import ImageScale, ImageScaling
 from plone.protect import PostOnly
+from Products.Five.browser import BrowserView
+from Products.MailHost.interfaces import IMailHost
+from zope.component import getMultiAdapter, getUtility, subscribers
+from zope.component.hooks import getSite
+
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.behaviors.plone_user_group_recipients import (
     IPloneUserGroupRecipients,
@@ -13,22 +24,11 @@ from Products.EasyNewsletter.interfaces import (
     IIssueDataFetcher,
     IReceiversPostSendingFilter,
 )
-from Products.Five.browser import BrowserView
-from Products.MailHost.interfaces import IMailHost
-from zope.component import getMultiAdapter, getUtility, subscribers
-from zope.component.hooks import getSite
-
-import emails
-import emails.loader
-import logging
-import re
-import transaction
-
 
 log = logging.getLogger("Products.EasyNewsletter")
 
 
-image_base_url = re.compile("(.*@@images)\/([a-zA-Z0-9.-]*)")
+image_base_url = re.compile(r"(.*@@images)\/([a-zA-Z0-9.-]*)")
 
 
 class ENLImageScale(ImageScale):
@@ -73,7 +73,7 @@ class LocalLoader(object):
         if url_match:
             groups = url_match.groups()
             print(groups)
-            base_url = u""
+            base_url = ""
             # url = "{0}/image/{1}".format(groups[0], groups[1])
             base_url = groups[0]
             image_scale = groups[1]
@@ -229,7 +229,7 @@ class NewsletterIssueSend(BrowserView):
                 continue
 
             if "HTTPLoaderError" in msg_string:
-                log.exception(u"Transform message failed: {0}".format(m.as_string()))
+                log.exception("Transform message failed: {0}".format(m.as_string()))
 
             try:
                 self.mail_host.send(msg_string, immediate=True)
@@ -344,10 +344,10 @@ class NewsletterIssueSend(BrowserView):
                     "email": subscriber.email,
                     "gender": subscriber.salutation,
                     "name_prefix": subscriber.name_prefix,
-                    "firstname": subscriber.firstname or u"",
-                    "lastname": subscriber.lastname or u"",
+                    "firstname": subscriber.firstname or "",
+                    "lastname": subscriber.lastname or "",
                     "fullname": " ".join(
-                        [subscriber.firstname or u"", subscriber.lastname or u""]
+                        [subscriber.firstname or "", subscriber.lastname or ""]
                     ),
                     "salutation": salutation.get(
                         None,  # subscriber.getNl_language(),

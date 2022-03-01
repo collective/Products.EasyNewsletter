@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from plone import api
-from Products.EasyNewsletter import config
 from Products.Five.browser import BrowserView
+
+from Products.EasyNewsletter import config
 
 
 class NewsletterMasters(BrowserView):
@@ -9,7 +10,7 @@ class NewsletterMasters(BrowserView):
         return self.index()
 
     def get_master_issues(self):
-        """ return issues brains of issues in review state master"""
+        """return issues brains of issues in review state master"""
         enl = self.context.get_newsletter()
         issues = api.content.find(
             portal_type=config.ENL_ISSUE_TYPES,

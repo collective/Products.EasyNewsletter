@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
-from email.header import decode_header
-from plone import api
-from Products.CMFPlone.utils import safe_unicode
-
 import base64
-import cssutils
 import email
 import logging
-import six
+from email.header import decode_header
 
+import cssutils
+import six
+from plone import api
+from Products.CMFPlone.utils import safe_unicode
 
 cssutils.log.setLevel(logging.CRITICAL)
 
@@ -24,10 +23,10 @@ def enable_behavior(content_type=None, behavior=None):
 def parsed_payloads_from_msg(msg):
     parsed_msg = email.message_from_string(msg)
     parsed_payloads = dict()
-    parsed_payloads["to"] = u"".join(
+    parsed_payloads["to"] = "".join(
         [safe_unicode(h[0].strip()) for h in decode_header(parsed_msg.get("To"))]
     )
-    parsed_payloads["from"] = u"".join(
+    parsed_payloads["from"] = "".join(
         [safe_unicode(h[0].strip()) for h in decode_header(parsed_msg.get("From"))]
     )
     for part in parsed_msg.walk():

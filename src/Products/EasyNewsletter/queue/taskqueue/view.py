@@ -5,7 +5,6 @@ from zope.interface import alsoProvides
 
 
 class ProcessQueue(BrowserView):
-
     def __call__(self):
         alsoProvides(self.request, IDisableCSRFProtection)
         self.context.send()

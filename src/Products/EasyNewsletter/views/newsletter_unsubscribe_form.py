@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from plone import api
-from Products.EasyNewsletter import _
-from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.Five.browser import BrowserView
 from zope.i18n import translate
 
+from Products.EasyNewsletter import _
+from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 
 # from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
@@ -35,9 +35,9 @@ class NewsletterUnsubscribeForm(BrowserView):
                 self.newsletter_url + "/unsubscribe?subscriber=" + subscriber_brain.UID
             )
             unsubscribe_header_msgid = _(
-                u"you_requested_to_unsubscribe",
-                default=u"You requested to unsubscribe from the following newsletter: ${title}",
-                mapping={u"title": newsletter.title},
+                "you_requested_to_unsubscribe",
+                default="You requested to unsubscribe from the following newsletter: ${title}",
+                mapping={"title": newsletter.title},
             )
             msg_text = "{0}\n{1}: {2}".format(
                 translate(unsubscribe_header_msgid),
@@ -48,8 +48,8 @@ class NewsletterUnsubscribeForm(BrowserView):
             api.portal.send_email(
                 recipient=subscriber,
                 sender=settings.email_from_address,
-                subject=u"{0}: {1}".format(
-                    newsletter.title, _(u"confirm newsletter unsubscription")
+                subject="{0}: {1}".format(
+                    newsletter.title, _("confirm newsletter unsubscription")
                 ),
                 body=msg_text,
             )

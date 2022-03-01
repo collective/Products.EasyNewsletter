@@ -1,20 +1,21 @@
 # -*- coding: utf-8 -*-
+import unittest
+
+import transaction
 from Acquisition import aq_base
 from plone import api
-from plone.app.testing import setRoles, TEST_USER_ID
+from plone.app.testing import TEST_USER_ID, setRoles
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.tests.utils import MockMailHost
-from Products.EasyNewsletter.content.newsletter_issue import INewsletterIssue
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
-from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.MailHost.interfaces import IMailHost
 from z3c.relationfield.relation import RelationValue
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter, getSiteManager, getUtility
 from zope.intid.interfaces import IIntIds
 
-import transaction
-import unittest
+from Products.EasyNewsletter.content.newsletter_issue import INewsletterIssue
+from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
+from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 
 
 class DailyIssueBaseTestCase(unittest.TestCase):
@@ -34,16 +35,16 @@ class DailyIssueBaseTestCase(unittest.TestCase):
 
         self.folder.invokeFactory("Newsletter", "daily-news")
         self.newsletter = self.folder["daily-news"]
-        self.newsletter.title = u"Daily News"
+        self.newsletter.title = "Daily News"
         # XXX check if we could ovaid this by using defaults from site settings
-        self.newsletter.sender_email = u"newsletter@acme.com"
-        self.newsletter.sender_name = u"ACME newsletter"
-        self.newsletter.test_email = u"test@acme.com"
+        self.newsletter.sender_email = "newsletter@acme.com"
+        self.newsletter.sender_name = "ACME newsletter"
+        self.newsletter.test_email = "test@acme.com"
 
         news_collection = api.content.create(
             type="Collection",
             id="news-collection",
-            title=u"News Collection",
+            title="News Collection",
             container=self.folder,
         )
         query = [
@@ -64,7 +65,7 @@ class DailyIssueBaseTestCase(unittest.TestCase):
             type="Newsletter Subscriber",
             id="subscriber01",
             container=self.newsletter,
-            email=u"jane@example.com",
+            email="jane@example.com",
         )
         self.view = getMultiAdapter(
             (self.newsletter, self.layer["request"]), name="daily-issue"

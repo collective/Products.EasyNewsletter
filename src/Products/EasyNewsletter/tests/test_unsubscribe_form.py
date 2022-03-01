@@ -1,30 +1,25 @@
 # -*- coding: utf-8 -*-
 
+import unittest
+
 from App.Common import package_home
 from plone import api
-from plone.app.testing import login
-from plone.app.testing import logout
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
-from plone.app.testing import TEST_USER_NAME
+from plone.app.testing import TEST_USER_ID, TEST_USER_NAME, login, logout, setRoles
 from plone.registry.interfaces import IRegistry
 from plone.testing.z2 import Browser
 from Products.CMFPlone.interfaces.controlpanel import IMailSchema
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.CMFPlone.utils import safe_unicode
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 from Products.MailHost.interfaces import IMailHost
-from zope.component import getMultiAdapter
-from zope.component import getSiteManager
-from zope.component import getUtility
+from zope.component import getMultiAdapter, getSiteManager, getUtility
 
-import unittest
-
+from Products.EasyNewsletter.testing import (
+    PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING,
+    PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING,
+)
 
 GLOBALS = globals()
 TESTS_HOME = package_home(GLOBALS)
-
 
 
 class UnsubscribeFormIntegrationTests(unittest.TestCase):
@@ -41,7 +36,7 @@ class UnsubscribeFormIntegrationTests(unittest.TestCase):
         login(self.portal, TEST_USER_NAME)
         registry = getUtility(IRegistry)
         self.mail_settings = registry.forInterface(IMailSchema, prefix="plone")
-        self.mail_settings.smtp_host = u"localhost"
+        self.mail_settings.smtp_host = "localhost"
         self.mail_settings.email_from_address = "portal@plone.test"
 
         self.newsletter = api.content.create(
@@ -83,7 +78,7 @@ class UnsubscribeFormIntegrationTests(unittest.TestCase):
     def test_submit_unsubscribe_form(self):
         self.assertSequenceEqual(self.mailhost.messages, [])
         self.portal.REQUEST.form.update(
-            {"subscriber": u"max@example.com", "test": "submit"}
+            {"subscriber": "max@example.com", "test": "submit"}
         )
         view = getMultiAdapter(
             (self.newsletter, self.portal.REQUEST), name="unsubscribe-form"
@@ -112,7 +107,7 @@ class UnsubscribeFormFunctionalTests(unittest.TestCase):
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
         self.portal.portal_workflow.setDefaultChain("simple_publication_workflow")
         self.dummy_page = api.content.create(
-            type="Document", id="dummy_page", title=u"Dummy page", container=self.portal
+            type="Document", id="dummy_page", title="Dummy page", container=self.portal
         )
         self.newsletter = api.content.create(
             container=self.portal, type="Newsletter", title="ENL 1", id="enl1"
@@ -147,7 +142,7 @@ class UnsubscribeFormFunctionalTests(unittest.TestCase):
 
     def test_render_unsubscribe_form(self):
         self.browser.open(self.unsubscribe_form_url)
-        self.assertTrue(u"unsubscribe-form" in safe_unicode(self.browser.contents))
+        self.assertTrue("unsubscribe-form" in safe_unicode(self.browser.contents))
 
     def test_unsubscribe_view(self):
         subscriber1_id = self.newsletter.subscriber1.id
@@ -157,7 +152,7 @@ class UnsubscribeFormFunctionalTests(unittest.TestCase):
             + self.newsletter.subscriber1.UID()
         )
         self.assertTrue(
-            u"You have been unsubscribed." in safe_unicode(self.browser.contents),
+            "You have been unsubscribed." in safe_unicode(self.browser.contents),
             "There should be a portal message!",
         )
         self.assertTrue(

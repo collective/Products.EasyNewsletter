@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from .newsletter import get_content_aggregation_sources_base_path, INewsletter
 from persistent.dict import PersistentDict
 from plone import schema
 from plone.app import textfield
@@ -8,29 +7,29 @@ from plone.autoform import directives
 from plone.dexterity.content import Container
 from plone.namedfile import field as namedfile
 from plone.supermodel import model
-from Products.EasyNewsletter import _
 from z3c import relationfield
 from zope.annotation.interfaces import IAnnotations
-from zope.interface import implementer, Interface, provider
+from zope.interface import Interface, implementer, provider
 from zope.schema.interfaces import IContextAwareDefaultFactory
 
+from Products.EasyNewsletter import _
 
-SEND_STATUS_KEY = 'PRODUCTS_EASYNEWSLETTER_SEND_STATUS'
+from .newsletter import INewsletter, get_content_aggregation_sources_base_path
+
+SEND_STATUS_KEY = "PRODUCTS_EASYNEWSLETTER_SEND_STATUS"
 
 
 @provider(IContextAwareDefaultFactory)
 def get_default_output_template(parent):
-    """ get ouput template from parent Newsletter
-    """
+    """get ouput template from parent Newsletter"""
     if INewsletter.providedBy(parent) and parent.__parent__:
         return parent.output_template
 
 
 @provider(IContextAwareDefaultFactory)
 def get_default_prologue(parent):
-    """ get prologue from parent Newsletter
-    """
-    prologue_output = u""
+    """get prologue from parent Newsletter"""
+    prologue_output = ""
     if INewsletter.providedBy(parent) and parent.__parent__ and parent.default_prologue:
         prologue_output = parent.default_prologue.raw
     default_prologue = textfield.RichTextValue(
@@ -43,9 +42,8 @@ def get_default_prologue(parent):
 
 @provider(IContextAwareDefaultFactory)
 def get_default_epilogue(parent):
-    """ get epilogue from parent Newsletter
-    """
-    epilogue_output = u""
+    """get epilogue from parent Newsletter"""
+    epilogue_output = ""
     if INewsletter.providedBy(parent) and parent.__parent__ and parent.default_epilogue:
         epilogue_output = parent.default_epilogue.raw
     default_epilogue = textfield.RichTextValue(
@@ -58,19 +56,17 @@ def get_default_epilogue(parent):
 
 @provider(IContextAwareDefaultFactory)
 def get_default_content_aggregation_sources(parent):
-    """ get content_aggregation_sources from parent Newsletter
-    """
+    """get content_aggregation_sources from parent Newsletter"""
     if INewsletter.providedBy(parent) and parent.__parent__:
         return parent.content_aggregation_sources
 
 
 class INewsletterIssue(model.Schema):
-    """ Marker interface and Dexterity Python Schema for NewsletterIssue
-    """
+    """Marker interface and Dexterity Python Schema for NewsletterIssue"""
 
     model.fieldset(
         "customizations",
-        label=_(u"Customizations"),
+        label=_("Customizations"),
         fields=[
             "prologue",
             "epilogue",
@@ -91,15 +87,15 @@ class INewsletterIssue(model.Schema):
     )
     content_aggregation_sources = relationfield.schema.RelationList(
         title=_(
-            u"ENL_content_aggregation_sources_label",
-            default=u"Content aggregation sources",
+            "ENL_content_aggregation_sources_label",
+            default="Content aggregation sources",
         ),
         description=_(
-            u"ENL_content_aggregation_sources_desc",
-            default=u"Choose sources to aggregate newsletter content from.",
+            "ENL_content_aggregation_sources_desc",
+            default="Choose sources to aggregate newsletter content from.",
         ),
         value_type=relationfield.schema.RelationChoice(
-            title=u"content_aggretation_source",
+            title="content_aggretation_source",
             vocabulary="plone.app.vocabularies.Catalog",
         ),
         defaultFactory=get_default_content_aggregation_sources,
@@ -110,10 +106,10 @@ class INewsletterIssue(model.Schema):
     # plone.app.z3cform.widget.SingleCheckBoxBoolFieldWidget
     directives.widget(exclude_all_subscribers=SingleCheckBoxBoolFieldWidget)
     exclude_all_subscribers = schema.Bool(
-        title=_(u"ENL_label_excludeAllSubscribers", default=u"Exclude all subscribers"),
+        title=_("ENL_label_excludeAllSubscribers", default="Exclude all subscribers"),
         description=_(
-            u"ENL_help_excludeAllSubscribers",
-            default=u"If checked, the newsletter/mailing will not be send  \
+            "ENL_help_excludeAllSubscribers",
+            default="If checked, the newsletter/mailing will not be send  \
                 to all subscribers inside the newsletter. Changing this \
                 setting does not affect already existing issues.",
         ),
@@ -122,22 +118,22 @@ class INewsletterIssue(model.Schema):
     )
 
     output_template = schema.Choice(
-        title=_(u"enl_label_output_template", default="Output template"),
+        title=_("enl_label_output_template", default="Output template"),
         description=_(
-            u"enl_help_output_template",
-            default=u"Choose the template to render the email. ",
+            "enl_help_output_template",
+            default="Choose the template to render the email. ",
         ),
-        vocabulary=u"Products.EasyNewsletter.OutputTemplates",
+        vocabulary="Products.EasyNewsletter.OutputTemplates",
         defaultFactory=get_default_output_template,
         required=True,
     )
 
     # Make sure to import: plone.app.textfield
     prologue = textfield.RichText(
-        title=_(u"ENL_label_default_header", default=u"Prologue"),
+        title=_("ENL_label_default_header", default="Prologue"),
         description=_(
-            u"ENL_description_text_header",
-            default=u"The default prologue text. This is used as a default \
+            "ENL_description_text_header",
+            default="The default prologue text. This is used as a default \
                 for new issues. You can use placeholders like\
                 {{subscriber_salutation}} and {{unsubscribe}} here.",
         ),
@@ -147,10 +143,10 @@ class INewsletterIssue(model.Schema):
 
     # Make sure to import: plone.app.textfield
     epilogue = textfield.RichText(
-        title=_(u"ENL_label_default_footer", default=u"Epilogue"),
+        title=_("ENL_label_default_footer", default="Epilogue"),
         description=_(
-            u"ENL_description_text_footer",
-            default=u"The default epilogue text. This is used as a default \
+            "ENL_description_text_footer",
+            default="The default epilogue text. This is used as a default \
                 for new issues. You can use placeholders like\
                 {{subscriber_salutation}} and {{unsubscribe}} here.",
         ),
@@ -162,10 +158,10 @@ class INewsletterIssue(model.Schema):
     # plone.app.z3cform.widget.SingleCheckBoxBoolFieldWidget
     directives.widget(hide_image=SingleCheckBoxBoolFieldWidget)
     hide_image = schema.Bool(
-        title=_(u"label_issueHideImage", default=u"Hide banner image."),
+        title=_("label_issueHideImage", default="Hide banner image."),
         description=_(
-            u"enl_issue_help_hide_image",
-            default=u"If checked, the banner image defined on newsletter \
+            "enl_issue_help_hide_image",
+            default="If checked, the banner image defined on newsletter \
                     or on this issue will not be used.",
         ),
         required=False,
@@ -174,12 +170,12 @@ class INewsletterIssue(model.Schema):
     )
 
     banner = namedfile.NamedBlobImage(
-        title=_(u"ENL_image_label", default=u"Banner image"),
+        title=_("ENL_image_label", default="Banner image"),
         description=_(
-            u"ENL_image_desc",
-            default=u"Banner image, you can include in the templates by"
-            + u"\n adding the {{banner}} placeholder into it."
-            + u" By default it should be 600x200 pixel.",
+            "ENL_image_desc",
+            default="Banner image, you can include in the templates by"
+            + "\n adding the {{banner}} placeholder into it."
+            + " By default it should be 600x200 pixel.",
         ),
         required=False,
     )
@@ -197,15 +193,15 @@ def context_property(name):
 
     def deleter(self):
         delattr(self.context, name)
+
     return property(getter, setter, deleter)
 
 
 @implementer(INewsletterIssue)
 class NewsletterIssue(Container):
-    """
-    """
+    """ """
 
-    context_property('content_aggregation_sources')
+    context_property("content_aggregation_sources")
 
     def get_newsletter(self):
         return self.__parent__
@@ -219,23 +215,22 @@ class NewsletterIssue(Container):
 
     def has_logo(self):
         enl = self.get_newsletter()
-        has_logo = getattr(enl.aq_explicit, 'logo', None)
+        has_logo = getattr(enl.aq_explicit, "logo", None)
         return has_logo
 
     # XXX we should cache this call, it's called twice
     def get_image_src(self):
-        """ find banner image, if not set on Issue we use the one from the Newsletter
-        """
+        """find banner image, if not set on Issue we use the one from the Newsletter"""
         img_src = ""
         if self.hide_image:
             return img_src
-        scales = self.restrictedTraverse('@@images')
-        if scales.scale('banner', scale='mini'):
+        scales = self.restrictedTraverse("@@images")
+        if scales.scale("banner", scale="mini"):
             img_src = self.absolute_url() + "/@@images/banner"
             return img_src
         enl = self.get_newsletter()
-        scales = enl.restrictedTraverse('@@images')
-        if scales.scale('banner', scale='mini'):
+        scales = enl.restrictedTraverse("@@images")
+        if scales.scale("banner", scale="mini"):
             img_src = enl.absolute_url() + "/@@images/banner"
         return img_src
 
@@ -243,21 +238,21 @@ class NewsletterIssue(Container):
         if self.prologue:
             text = self.prologue.output
         else:
-            text = u''
+            text = ""
         return text
 
     def getFooter(self):
         if self.epilogue:
             text = self.epilogue.output
         else:
-            text = u''
+            text = ""
         return text
 
     def getText(self):
         if self.text:
             text = self.text.output
         else:
-            text = u''
+            text = ""
         return text
 
     # bbb: we should print a deprecation message here
@@ -292,7 +287,7 @@ class SendStatus(object):
         if SEND_STATUS_KEY in annotations:
             del annotations[SEND_STATUS_KEY]
 
-    def add_records(self, records, key='email'):
+    def add_records(self, records, key="email"):
         """Add new records."""
         annotations = IAnnotations(self.context)
         if SEND_STATUS_KEY not in annotations:
@@ -308,8 +303,9 @@ class SendStatus(object):
         items = annotations[SEND_STATUS_KEY].values()
         if successful is not None:
             items = [
-                item for item in items if
-                item.get('status', {}).get('successful', None) == successful
+                item
+                for item in items
+                if item.get("status", {}).get("successful", None) == successful
             ]
         return items
 
@@ -321,7 +317,8 @@ class SendStatus(object):
         items = annotations[SEND_STATUS_KEY].items()
         if successful is not None:
             items = [
-                key for key, item in items if
-                item.get('status', {}).get('successful', None) == successful
+                key
+                for key, item in items
+                if item.get("status", {}).get("successful", None) == successful
             ]
         return items

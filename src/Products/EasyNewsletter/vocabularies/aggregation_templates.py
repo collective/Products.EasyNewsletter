@@ -17,15 +17,15 @@ class VocabItem(object):
 
 @implementer(IVocabularyFactory)
 class AggregationTemplates(object):
-    """
-    """
+    """ """
 
     def __call__(self, context):
         items = []
 
         registry = getUtility(IRegistry)
         aggregation_templates = registry.get(
-            'Products.EasyNewsletter.content_aggregation_templates')
+            "Products.EasyNewsletter.content_aggregation_templates"
+        )
         for key, value in aggregation_templates.items():
             items.append(VocabItem(key, value))
 

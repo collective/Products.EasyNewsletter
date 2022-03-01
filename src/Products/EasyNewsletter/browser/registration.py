@@ -1,11 +1,20 @@
 # -*- coding: utf-8 -*-
+from logging import getLogger
+
+import emails
+import OFS
 from AccessControl.SecurityManagement import newSecurityManager
 from Acquisition import aq_inner
 from email_validator import EmailNotValidError, validate_email
-from logging import getLogger
 from plone import api
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.CMFCore.utils import getToolByName
+from Products.Five.browser import BrowserView
+from Products.statusmessages.interfaces import IStatusMessage
+from zExceptions import BadRequest
+from zope.component import getMultiAdapter, queryUtility
+from zope.interface import alsoProvides
+
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
 from Products.EasyNewsletter.config import MESSAGE_CODE
 from Products.EasyNewsletter.content.newsletter import INewsletter
@@ -13,15 +22,6 @@ from Products.EasyNewsletter.content.newsletter_subscriber import INewsletterSub
 from Products.EasyNewsletter.interfaces import IENLRegistrationTool
 from Products.EasyNewsletter.utils.base import execute_under_special_role
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
-from Products.Five.browser import BrowserView
-from Products.statusmessages.interfaces import IStatusMessage
-from zExceptions import BadRequest
-from zope.component import getMultiAdapter, queryUtility
-from zope.interface import alsoProvides
-
-import emails
-import OFS
-
 
 try:
     from plone import protect
@@ -34,12 +34,10 @@ logger = getLogger("ENL Registration")
 
 
 class SubscriberView(BrowserView):
-    """
-    """
+    """ """
 
     def _msg_redirect(self, newsletter):
-        """To also display messages for anon users
-        """
+        """To also display messages for anon users"""
         if api.user.is_anonymous():
             return self.request.response.redirect(self.context.absolute_url())
         else:
@@ -47,7 +45,7 @@ class SubscriberView(BrowserView):
 
     def portal_state(self):
         context = aq_inner(self.context)
-        return getMultiAdapter((context, self.request), name=u"plone_portal_state")
+        return getMultiAdapter((context, self.request), name="plone_portal_state")
 
     @property
     def portal(self):
@@ -60,8 +58,7 @@ class SubscriberView(BrowserView):
         return pstate.portal_url()
 
     def register_subscriber(self):
-        """
-        """
+        """ """
         messages = IStatusMessage(self.request)
         path_to_easynewsletter = self.request.get("newsletter")
         # remove leading slash from paths like: /mynewsletter
@@ -72,14 +69,16 @@ class SubscriberView(BrowserView):
         try:
             valid_subscriber = validate_email(subscriber)
         except EmailNotValidError as e:
-            messages.addStatusMessage(_("Please enter a valid email address.\n{0}".format(e)), "error")
+            messages.addStatusMessage(
+                _("Please enter a valid email address.\n{0}".format(e)), "error"
+            )
             return self._msg_redirect(newsletter_container)
 
         lastname = self.request.get("name", "")
         firstname = self.request.get("firstname", "")
         name_prefix = self.request.get("name_prefix", "")
         portal_state = getMultiAdapter(
-            (self.context.aq_inner, self.request), name=u"plone_portal_state"
+            (self.context.aq_inner, self.request), name="plone_portal_state"
         )
         current_language = portal_state.language()
         nl_language = self.request.get("nl_language", current_language)
@@ -113,8 +112,10 @@ class SubscriberView(BrowserView):
             enl_registration_tool[hashkey] = RegistrationData(
                 hashkey, **subscriber_data
             )
-            msg_subject = newsletter_container.subscriber_confirmation_mail_subject.replace(
-                "${portal_url}", self.portal_url.strip("http://")
+            msg_subject = (
+                newsletter_container.subscriber_confirmation_mail_subject.replace(
+                    "${portal_url}", self.portal_url.strip("http://")
+                )
             )
             confirmation_url = (
                 self.portal_url + "/confirm-subscriber?hkey=" + str(hashkey)
@@ -123,7 +124,9 @@ class SubscriberView(BrowserView):
             msg_text = newsletter_container.subscriber_confirmation_mail_text.replace(
                 "${newsletter_title}", newsletter_container.title
             )
-            msg_text = msg_text.replace("${subscriber_email}", subscriber_data["subscriber"])
+            msg_text = msg_text.replace(
+                "${subscriber_email}", subscriber_data["subscriber"]
+            )
             msg_text = msg_text.replace("${confirmation_url}", confirmation_url)
             settings = get_portal_mail_settings()
             msg_sender = settings.email_from_address
@@ -180,7 +183,7 @@ class SubscriberView(BrowserView):
                     container=easynewsletter,
                 )
             except BadRequest:
-                error_code = u"email_exists"
+                error_code = "email_exists"
                 messages.addStatusMessage(MESSAGE_CODE[error_code], "error")
             else:
                 # now delete the regobj
@@ -219,8 +222,7 @@ class SubscriberView(BrowserView):
 
 
 class RegistrationData(OFS.SimpleItem.Item):
-    """ holds data from ENL registration form
-    """
+    """holds data from ENL registration form"""
 
     def __init__(self, id, **kw):
         self.id = id
@@ -263,7 +265,7 @@ class UnsubscribeView(BrowserView):
             api.portal.send_email(
                 recipient=subscriber,
                 sender=settings.email_from_address,
-                subject=_(u"confirm newsletter unsubscription"),
+                subject=_("confirm newsletter unsubscription"),
                 body=msg_text,
             )
             messages.addStatusMessage(
@@ -277,8 +279,7 @@ class UnsubscribeView(BrowserView):
             )
 
     def unsubscribe(self):
-        """
-        """
+        """ """
         if protect is not None:
             alsoProvides(self.request, protect.interfaces.IDisableCSRFProtection)
         putils = getToolByName(self.context, "plone_utils")
