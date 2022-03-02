@@ -103,6 +103,7 @@ class EasyNewsletterTests(unittest.TestCase):
         self.image2_scale = image2_images.scale("image", "thumb")
         self.image2_url = self.image2_scale.url
         self.image2_uid = self.image2_scale.uid
+
         # image3 for image testing
         self.folder.invokeFactory("Image", "image3")
         self.image3 = self.folder.image3
@@ -147,7 +148,6 @@ class EasyNewsletterTests(unittest.TestCase):
         view = getMultiAdapter((self.issue, self.portal.REQUEST), name="send-issue")
 
         view()
-        zt.commit()
 
         self.assertEqual(len(self.mailhost.messages), 1)
         self.assertTrue(self.mailhost.messages[0])
@@ -184,8 +184,8 @@ class EasyNewsletterTests(unittest.TestCase):
         )
         self.portal.REQUEST["REQUEST_METHOD"] = "POST"
         view = getMultiAdapter((self.issue, self.portal.REQUEST), name="send-issue")
-
         view()
+
         self.assertEqual(len(self.mailhost.messages), 1)
         self.assertTrue(self.mailhost.messages[0])
         msg = safe_unicode(self.mailhost.messages[0])
@@ -399,13 +399,15 @@ class EasyNewsletterTests(unittest.TestCase):
         parsed_payloads = parsed_payloads_from_msg(msg)
         self.assertIn('src="cid:image', safe_unicode(parsed_payloads["text/html"]))
         self.assertIn("Content-ID: <image", safe_unicode(msg))
-        self.assertIn("Content-Type: image/jpeg;", safe_unicode(msg))
+        # mimetype is not detected by python-emails because of missing file extension,
+        # until https://github.com/lavr/python-emails/issues/163 is fixed.
+        self.assertIn("Content-Type: application/unknown;", safe_unicode(msg))
+        # self.assertIn("Content-Type: image/jpeg;", safe_unicode(msg))
 
     def test_send_test_issue_with_scale_image(self):
         body = '<img src="{0}/@@images/image/thumb"/>'.format(
             self.image1.absolute_url_path()
         )
-
         # trigger scale generation:
         image_scales_url = "{0}/@@images".format(self.image1.absolute_url_path())
         scales = self.portal.restrictedTraverse(image_scales_url)
@@ -418,17 +420,43 @@ class EasyNewsletterTests(unittest.TestCase):
         parsed_payloads = parsed_payloads_from_msg(msg)
         self.assertIn('src="cid:thumb', safe_unicode(parsed_payloads["text/html"]))
         self.assertIn("Content-ID: <thumb", safe_unicode(msg))
+        # mimetype is not detected by python-emails because of missing file extension,
+        # until https://github.com/lavr/python-emails/issues/163 is fixed.
+        self.assertIn("Content-Type: application/unknown;", safe_unicode(msg))
+        # self.assertIn("Content-Type: image/jpeg;", safe_unicode(msg))
+
+    def test_send_test_issue_with_hashed_scale_image(self):
+        # trigger scale generation:
+        image_scales_url = "{0}/@@images".format(self.image2.absolute_url_path())
+        scales = self.portal.restrictedTraverse(image_scales_url)
+        scale_view = scales.scale(fieldname="image", scale="thumb")
+        scale_view()
+        # scale_view.index_html()
+        zt.commit()
+
+        # create img tag with hasged image:
+        # @@images/71d2fe96-e930-4265-9cd8-e3d4123d75f5.jpeg
+        body = '<img src="{0}"/>'.format(
+            scale_view.url
+        )
+
+        msg = self.send_sample_message(body)
+        parsed_payloads = parsed_payloads_from_msg(msg)
+        self.assertIn('src="cid:{0}'.format(scale_view.url.split("/")[-1]), safe_unicode(parsed_payloads["text/html"]))
+        self.assertIn("Content-ID: <{0}>".format(scale_view.url.split("/")[-1]), safe_unicode(msg))
         self.assertIn("Content-Type: image/jpeg;", safe_unicode(msg))
 
     def test_send_test_issue_with_resolveuid_image(self):
         body = '<img src="../../resolveuid/{0}"/>'.format(self.image1.UID())
-
         msg = self.send_sample_message(body)
         parsed_payloads = parsed_payloads_from_msg(msg)
         self.assertNotIn("resolveuid", safe_unicode(parsed_payloads["text/html"]))
         self.assertIn('src="cid:image', safe_unicode(parsed_payloads["text/html"]))
         self.assertIn("Content-ID: <image", msg)
-        self.assertIn("Content-Type: image/jpeg;", msg)
+        # mimetype is not detected by python-emails because of missing file extension,
+        # until https://github.com/lavr/python-emails/issues/163 is fixed.
+        self.assertIn("Content-Type: application/unknown;", safe_unicode(msg))
+        # self.assertIn("Content-Type: image/jpeg;", safe_unicode(msg))
 
     def test_send_test_issue_with_resolveuid_scale_image(self):
         path = "image/thumb"
@@ -449,7 +477,7 @@ class EasyNewsletterTests(unittest.TestCase):
             safe_unicode(parsed_payloads["text/html"]),
         )
         self.assertIn("Content-ID: <{0}>".format(image_scale.__name__), msg)
-        self.assertIn("Content-Type: image/jpeg;", msg)
+        self.assertIn("Content-Type: image/jpeg;", safe_unicode(msg))
 
     def test_mailonly_filter_in_issue_public_view(self):
         self.issue = api.content.create(
@@ -495,7 +523,6 @@ class EasyNewsletterTests(unittest.TestCase):
             self.image3_url,
         )
         msg = self.send_sample_message(body)
-        print(msg)
         parsed_payloads = parsed_payloads_from_msg(msg)
         self.assertIn(
             'src="cid:{0}'.format(self.image3_uid),
@@ -512,7 +539,6 @@ class EasyNewsletterTests(unittest.TestCase):
         attachments = parsed_attachments_from_msg(msg)
         self.assertIn("{0}.jpeg".format(self.image2_uid), attachments)
         self.assertIn("{0}.jpeg".format(self.image3_uid), attachments)
-        print(attachments)
 
     def test_permission(self):
         setRoles(self.portal, TEST_USER_ID, ["Editor"])

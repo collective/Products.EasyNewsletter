@@ -28,7 +28,7 @@ from Products.EasyNewsletter.interfaces import (
 log = logging.getLogger("Products.EasyNewsletter")
 
 
-image_base_url = re.compile(r"(.*@@images)\/([a-zA-Z0-9.-]*)")
+image_base_url = re.compile(r"(.*@@images)\/([a-zA-Z0-9.-]*)\/?([a-zA-Z]*)")
 
 
 class ENLImageScale(ImageScale):
@@ -71,19 +71,25 @@ class LocalLoader(object):
         purl = pstate.portal_url()
         url_match = image_base_url.match(uri)
         if url_match:
+            # @@images/71d2fe96-e930-4265-9cd8-e3d4123d75f5.jpeg
+            # @@images/image
             groups = url_match.groups()
-            print(groups)
+            # print(groups)
             base_url = ""
-            # url = "{0}/image/{1}".format(groups[0], groups[1])
             base_url = groups[0]
-            image_scale = groups[1]
+            image_fieldname = groups[1]
+            # @@images/image/thumb > thumb
+            image_scale = groups[2]
+
             scaling_view = portal.unrestrictedTraverse(
                 base_url.replace(purl, "").lstrip("/")
             )
-            scaled_image = scaling_view.scale("image", scale=image_scale)
-            if not scaled_image:
+            image_scale = scaling_view.publishTraverse(portal.REQUEST, image_fieldname)
+            if not image_scale:
                 return
-            image_file = scaled_image.data.open()
+            image_file = image_scale.data.open()
+            image_file_data = image_file.read()
+            image_file.close()
         else:
             # get the original image:
             image_obj = portal.unrestrictedTraverse(uri.replace(purl, "").lstrip("/"))
@@ -91,10 +97,13 @@ class LocalLoader(object):
                 return
             if hasattr(image_obj, "image"):
                 image_file = image_obj.image.open()
+                image_file_data = image_file.read()
+                image_file.close()
             elif hasattr(image_obj, "_data"):
                 # OFS FSImage:
-                image_file = image_obj._data
-        return image_file
+                image_file_data = image_obj._data
+        # print("LocalLoader output: {0}".format(image_file_data))
+        return image_file_data
 
     def __contains__(self, uri):
         return self.__getitem__(uri)
@@ -185,6 +194,7 @@ class NewsletterIssueSend(BrowserView):
         issue_data_fetcher = IIssueDataFetcher(self.context)
         # get issue subject an rendered output data
         issue_data = issue_data_fetcher()
+        # import pdb; pdb.set_trace()  # NOQA: E702
         for receiver in receivers:
             personalized_html = issue_data_fetcher.personalize(
                 receiver, issue_data["body_html"]
