@@ -6,7 +6,9 @@
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:i18n="http://namespaces.zope.org/i18n"
-    xmlns:zcml="http://namespaces.zope.org/zcml">
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    >
 
 
   <include package="plone.app.registry" />
@@ -23,6 +25,10 @@
 
   <include file="indexers.zcml" />
   <include file="profiles.zcml" />
+  <include
+    zcml:condition="installed plone.app.standardtiles"
+    file="tiles.zcml"
+    />
   <include file="upgrades.zcml" />
   <include file="permissions.zcml" />
 
@@ -55,5 +61,6 @@
   <subscriber
       handler=".subscriber.reset_send_status"
       />
+
 
 </configure>
