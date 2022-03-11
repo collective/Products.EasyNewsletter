@@ -11,6 +11,9 @@ Changelog
 - use custom LocalLoader for emails.transformer, to load images instead of doing this via request
   [MrTango]
 
+- provide a proxy tile for Mosaic support of the Newsletter Action viewlet
+  [MrTango]
+
 
 6.0.0a2 (2022-02-10)
 --------------------
