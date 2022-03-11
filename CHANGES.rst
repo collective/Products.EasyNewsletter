@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-6.0.0a3 (unreleased)
+6.0.0a3 (2022-03-11)
 --------------------
 
 - Plone 6: Remove `<includeDependencies />`
