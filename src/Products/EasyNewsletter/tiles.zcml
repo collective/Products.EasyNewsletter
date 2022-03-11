@@ -1,0 +1,22 @@
+<configure
+    i18n_domain="EasyNewsletter"
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:cmf="http://namespaces.zope.org/cmf"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    >
+
+  <include package="plone.app.standardtiles" />
+  <plone:tile
+      name="Products.EasyNewsletter.newsletter_actions"
+      class=".tiles.NewsletterActionsTile"
+      for="*"
+      permission="zope2.View"
+      />
+
+
+</configure>
