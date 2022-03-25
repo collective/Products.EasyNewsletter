@@ -5,7 +5,8 @@ Changelog
 5.0.9 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Optimize banner url, use cached version from plone.namedfile
+  [MrTango]
 
 
 5.0.8 (2022-02-28)

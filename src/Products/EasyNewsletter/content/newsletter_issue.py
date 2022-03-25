@@ -230,13 +230,15 @@ class NewsletterIssue(Container):
         if self.hide_image:
             return img_src
         scales = self.restrictedTraverse('@@images')
-        if scales.scale('banner', scale='mini'):
-            img_src = self.absolute_url() + "/@@images/banner"
+        banner_scale = scales.scale('banner', width=600)
+        if banner_scale:
+            img_src = banner_scale.url
             return img_src
         enl = self.get_newsletter()
         scales = enl.restrictedTraverse('@@images')
-        if scales.scale('banner', scale='mini'):
-            img_src = enl.absolute_url() + "/@@images/banner"
+        banner_scale = scales.scale('banner', width=600)
+        if banner_scale:
+            img_src = banner_scale.url
         return img_src
 
     def getHeader(self):
