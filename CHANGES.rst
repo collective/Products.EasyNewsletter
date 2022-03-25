@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-5.0.9 (unreleased)
+5.0.9 (2022-03-25)
 ------------------
 
 - Optimize banner url, use cached version from plone.namedfile
