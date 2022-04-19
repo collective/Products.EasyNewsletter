@@ -39,6 +39,7 @@
                           <h3 tal:content="source/title">Title</h3>
                           <br />
                           <span tal:replace="source/description"></span>
+                          <span tal:condition="source/text|nothing" tal:replace="structure source/text"></span>
                         </td>
                       </tr>
                     </table>

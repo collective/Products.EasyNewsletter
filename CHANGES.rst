@@ -5,7 +5,8 @@ Changelog
 6.0.0a4 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- add Collection text to result_info usable in aggregation templates
+  [MrTango]
 
 
 6.0.0a3 (2022-03-11)
