@@ -371,6 +371,10 @@ Asyncronous sendout
 
 Products.EasyNewsletter supports asyncronous sendout using `collective.taskqueue`_
 
+.. note::
+    Be aware that collective.taskqueue is only available for Python 2 and ZServer installations.
+    If you need async support for Plone >= 5.2 with Python 3, get in contact with us.
+
 .. _collective.taskqueue: https://pypi.python.org/pypi/collective.taskqueue
 
 Add this to your instance section in your buildout config::
