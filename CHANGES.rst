@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-6.0.0a5 (unreleased)
+6.0.0a5 (2022-04-20)
 --------------------
 
 - Fix  when Collection has not text
