@@ -51,7 +51,7 @@ class NewsletterIssueAggregateContent(BrowserView):
                 "id": source_obj.id,
                 "title": source_obj.Title(),
                 "description": source_obj.Description(),
-                "text": source_obj.text.output,
+                "text": source_obj.text and source_obj.text.output,
                 "uid": source_obj.UID(),
                 "portal_type": sresults[0].portal_type,
                 "brains": sresults,

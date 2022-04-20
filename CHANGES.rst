@@ -5,7 +5,8 @@ Changelog
 6.0.0a5 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Fix  when Collection has not text
+  [MrTango]
 
 
 6.0.0a4 (2022-04-19)
