@@ -50,7 +50,6 @@ class EasyNewsletterActionsMenu(BrowserMenu):
 
         context_state = getMultiAdapter((context, request), name="plone_context_state")
         edit_actions = context_state.actions("folder_easynewsletter")
-        print(edit_actions)
         if not edit_actions:
             return results
 
