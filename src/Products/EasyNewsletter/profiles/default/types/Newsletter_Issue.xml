@@ -97,7 +97,7 @@
 
   <action title="Send"
     action_id="send"
-    category="easynewsletter"
+    category="folder_easynewsletter"
     condition_expr="python: portal.portal_workflow.getInfoFor(object, 'review_state') == 'draft' and object.portal_type == 'Newsletter Issue'"
     url_expr="string:${folder_url}/send-issue-form"
     visible="True"
@@ -107,7 +107,7 @@
   </action>
   <action title="Aggregate content"
     action_id="refresh"
-    category="easynewsletter"
+    category="folder_easynewsletter"
     condition_expr="python: portal.portal_workflow.getInfoFor(object, 'review_state') == 'draft' and object.portal_type == 'Newsletter Issue'"
     url_expr="string:${folder_url}/@@aggregate-content"
     visible="True"
@@ -117,7 +117,7 @@
   </action>
   <action title="Copy as draft"
     action_id="copy_as_draft"
-    category="easynewsletter"
+    category="folder_easynewsletter"
     condition_expr="python: portal.portal_workflow.getInfoFor(object, 'review_state') == 'master' and object.portal_type == 'Newsletter Issue'"
     url_expr="string:${folder_url}/copy-as-draft"
     visible="True"
@@ -127,7 +127,7 @@
   </action>
   <action title="Copy as master"
     action_id="copy_as_master"
-    category="easynewsletter"
+    category="folder_easynewsletter"
     condition_expr="python: portal.portal_workflow.getInfoFor(object, 'review_state') in ['draft','sent'] and object.portal_type == 'Newsletter Issue'"
     url_expr="string:${folder_url}/copy-as-master"
     visible="True"
@@ -137,7 +137,7 @@
   </action>
   <action title="View Statistics"
     action_id="statistics"
-    category="easynewsletter"
+    category="folder_easynewsletter"
     condition_expr="python: portal.portal_workflow.getInfoFor(object, 'review_state') in ['draft', 'sent'] and object.portal_type == 'Newsletter Issue'"
     url_expr="string:${folder_url}/statistics"
     visible="True"
