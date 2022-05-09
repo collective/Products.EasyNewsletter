@@ -5,7 +5,15 @@ Changelog
 6.0.0a6 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- fix actions category name, we need to have a prefix here, otherwise permission check will not work correctly
+  [MrTango]
+
+- Fix default value when no salution was found in salutation_mappings
+  [MrTango]
+
+- Remove plone-5 zmcl conditions
+  [MrTango]
+
 
 
 6.0.0a5 (2022-04-20)
