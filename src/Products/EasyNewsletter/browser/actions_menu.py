@@ -39,14 +39,12 @@ class EasyNewsletterActionsSubMenuItem(BrowserSubMenuItem):
 
 @implementer(IActionsMenu)
 class EasyNewsletterActionsMenu(BrowserMenu):
-
-    def getMenuItems(self, context, request):  # flack8: noqa
+    def getMenuItems(self, context, request):
         """Return menu item entries in a TAL-friendly form."""
         results = []
 
-        context_state = getMultiAdapter((context, request),
-                                        name='plone_context_state')
-        edit_actions = context_state.actions('easynewsletter')
+        context_state = getMultiAdapter((context, request), name="plone_context_state")
+        edit_actions = context_state.actions("folder_easynewsletter")
         if not edit_actions:
             return results
 
