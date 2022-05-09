@@ -326,7 +326,7 @@ class NewsletterIssueSend(BrowserView):
             test_receiver = request.get("test_receiver", "")
             if test_receiver == "":
                 test_receiver = enl.test_email
-            salutation = salutation_mappings.get("default", "")
+            salutation = salutation_mappings.get("default", {})
             receivers = [
                 {
                     "email": test_receiver,
