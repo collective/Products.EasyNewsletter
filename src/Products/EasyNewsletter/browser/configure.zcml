@@ -16,13 +16,11 @@
 
   <!-- toolbar menu -->
   <browser:menu
-    zcml:condition="have plone-5"
     id="easynewsletter-actions"
     title=""
     class=".actions_menu.EasyNewsletterActionsMenu" />
 
   <adapter for="* *"
-    zcml:condition="have plone-5"
     name="easynewsletter-actions"
     factory=".actions_menu.EasyNewsletterActionsSubMenuItem"
     provides="plone.app.contentmenu.interfaces.IContentMenuItem" />
