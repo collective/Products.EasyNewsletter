@@ -5,7 +5,11 @@ Changelog
 5.0.10 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- fix actions category name, we need to have a prefix here, otherwise permission check will not work correctly
+  [MrTango]
+
+- Fix default value when no salution was found in salutation_mappings
+  [MrTango]
 
 
 5.0.9 (2022-03-25)
