@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-5.0.10 (unreleased)
+5.0.10 (2022-05-09)
 -------------------
 
 - fix actions category name, we need to have a prefix here, otherwise permission check will not work correctly
