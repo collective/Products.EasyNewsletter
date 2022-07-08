@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-6.0.0a7 (unreleased)
+6.0.0a7 (2022-07-08)
 --------------------
 
 - add missing upgrade step to upgrade easynewsletter portal_types action category names
