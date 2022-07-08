@@ -35,7 +35,7 @@ def locale_folder_setup(domain=None):
 
 def _rebuild(domain=None, target_path=None):
     print("rebuild-pot domain: {0} target_path: {1}".format(domain, target_path))
-    cmd = "{0} rebuild-pot --no-wrap --pot {1}/{2}.pot --create {2} {3}".format(
+    cmd = "{0} rebuild-pot --no-wrap --pot {1}/{2}.pot --create {2} {3} --merge {1}/manual.pot".format(
         i18ndude, locale_path, domain, target_path
     )
     if domain == package_domain:

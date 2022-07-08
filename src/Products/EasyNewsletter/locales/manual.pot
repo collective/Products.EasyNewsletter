@@ -16,5 +16,5 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: Products.EasyNewsletter\n"
 
-msgid "Tester"
+msgid "read_more"
 msgstr ""

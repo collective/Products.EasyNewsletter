@@ -56,13 +56,15 @@ class NewsletterIssueAggregateContent(BrowserView):
                 "portal_type": sresults[0].portal_type,
                 "brains": sresults,
                 "brains_count": len(sresults),
+                "lang": "de",
+                "LANGUAGE": "de",
             }
 
             template_id = source_obj.aggregation_template
             if not template_id:
                 template_id = "aggregation_generic_listing"
             template_obj = portal.restrictedTraverse(str(template_id))
-            results_text += template_obj(result_info=result_info)
+            results_text += template_obj.render(result_info=result_info)
             self.store_source_info_in_annotation(result_info)
         return safe_unicode(results_text)
 
