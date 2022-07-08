@@ -5,7 +5,8 @@ Changelog
 6.0.0a7 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- add missing upgrade step to upgrade easynewsletter portal_types action category names
+  [MrTango]
 
 
 6.0.0a6 (2022-05-09)
