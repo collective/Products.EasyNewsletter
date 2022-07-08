@@ -1,2 +1,2 @@
--c constraints_plone52.txt
+-c constraints_plone60.txt
 i18ndude>=5.3.1

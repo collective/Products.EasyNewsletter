@@ -14,7 +14,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 from zope.component import getUtility
-from zope.component.interfaces import ComponentLookupError
+from zope.interface.interfaces import ComponentLookupError
 from zope.interface import Interface, implementer
 
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _

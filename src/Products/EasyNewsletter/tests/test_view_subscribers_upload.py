@@ -7,7 +7,7 @@ from plone import api
 from plone.app.testing import TEST_USER_ID, setRoles
 from Products.CMFPlone.utils import safe_encode, safe_unicode
 from zope.component import getMultiAdapter
-from zope.component.interfaces import ComponentLookupError
+from zope.interface.interfaces import ComponentLookupError
 
 from Products.EasyNewsletter.testing import (
     PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING,

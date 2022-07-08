@@ -6,12 +6,11 @@ from plone import api
 from plone.protect.utils import addTokenToUrl
 from Products.Five.browser import BrowserView
 from zope.component import getUtility
-from zope.component.interfaces import ComponentLookupError
 
 from Products.EasyNewsletter import _, config
 from Products.EasyNewsletter.interfaces import ISubscriberSource
 
-# from zope.interface.interfaces import ComponentLookupError # activate this in next major version, which drops zope2
+from zope.interface.interfaces import ComponentLookupError
 
 
 log = logging.getLogger("Products.EasyNewsletter")

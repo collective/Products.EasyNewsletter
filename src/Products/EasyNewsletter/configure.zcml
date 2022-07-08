@@ -29,7 +29,7 @@
     zcml:condition="installed plone.app.standardtiles"
     file="tiles.zcml"
     />
-  <include file="upgrades.zcml" />
+  <!-- <include file="upgrades.zcml" /> -->
   <include file="permissions.zcml" />
 
   <!-- -*- extra stuff goes here -*- -->
