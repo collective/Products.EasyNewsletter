@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from plone import api
-from Products.Five.browser import BrowserView
-
 # from Products.EasyNewsletter import _
 from Products.EasyNewsletter import config
+from Products.Five.browser import BrowserView
 
 
 class NewsletterDrafts(BrowserView):

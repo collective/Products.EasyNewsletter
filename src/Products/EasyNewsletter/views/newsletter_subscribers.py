@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 
-import logging
-
 from plone import api
 from plone.protect.utils import addTokenToUrl
+from Products.EasyNewsletter import _
+from Products.EasyNewsletter import config
+from Products.EasyNewsletter.interfaces import ISubscriberSource
 from Products.Five.browser import BrowserView
 from zope.component import getUtility
-
-from Products.EasyNewsletter import _, config
-from Products.EasyNewsletter.interfaces import ISubscriberSource
-
 from zope.interface.interfaces import ComponentLookupError
+
+import logging
 
 
 log = logging.getLogger("Products.EasyNewsletter")

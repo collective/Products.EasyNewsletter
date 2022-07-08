@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 
-import csv
-import logging
-
-import six
 from Acquisition import aq_inner
 from plone import api
 from plone.i18n.normalizer.interfaces import IIDNormalizer
+from Products.EasyNewsletter import _
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 from zope.component import getUtility
 
-from Products.EasyNewsletter import _
+import csv
+import logging
+import six
+
 
 if six.PY2:
     import codecs

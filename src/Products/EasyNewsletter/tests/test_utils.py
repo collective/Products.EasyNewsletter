@@ -1,16 +1,20 @@
 # -*- coding: utf-8 -*-
-import unittest
-
 from App.Common import package_home
-from plone.app.testing import TEST_USER_ID, TEST_USER_NAME, login, setRoles
+from plone.app.testing import login
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
+from plone.app.testing import TEST_USER_NAME
 from plone.registry.interfaces import IRegistry
 from Products.CMFPlone.interfaces.controlpanel import IMailSchema
 from Products.CMFPlone.tests.utils import MockMailHost
-from Products.MailHost.interfaces import IMailHost
-from zope.component import getSiteManager, getUtility
-
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
+from Products.MailHost.interfaces import IMailHost
+from zope.component import getSiteManager
+from zope.component import getUtility
+
+import unittest
+
 
 GLOBALS = globals()
 TESTS_HOME = package_home(GLOBALS)

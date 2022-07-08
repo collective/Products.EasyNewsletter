@@ -2,12 +2,9 @@
 """Newsletter subscriber."""
 
 from Products.DCWorkflow.interfaces import IAfterTransitionEvent
+from Products.EasyNewsletter.content.newsletter_issue import INewsletterIssue
+from Products.EasyNewsletter.content.newsletter_issue import ISendStatus
 from zope.component import adapter
-
-from Products.EasyNewsletter.content.newsletter_issue import (
-    INewsletterIssue,
-    ISendStatus,
-)
 
 
 class FilterAlreadySentReceivers(object):

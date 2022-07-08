@@ -3,5 +3,6 @@
 # from Products.EasyNewsletter import config  # noqa
 from zope.i18nmessageid import MessageFactory
 
+
 EasyNewsletterMessageFactory = MessageFactory("Products.EasyNewsletter")
 _ = EasyNewsletterMessageFactory

@@ -2,6 +2,7 @@
 
 from plone.dexterity.browser.view import DefaultView
 
+
 # from Products.EasyNewsletter import _
 
 

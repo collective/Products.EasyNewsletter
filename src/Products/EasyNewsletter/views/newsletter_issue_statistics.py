@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime
-
 from plone import api
-from Products.Five.browser import BrowserView
-
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
 from Products.EasyNewsletter.content.newsletter_issue import ISendStatus
+from Products.Five.browser import BrowserView
 
 
 class NewsletterIssueStatistics(BrowserView):

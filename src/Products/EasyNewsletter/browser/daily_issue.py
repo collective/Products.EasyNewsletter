@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-import datetime
-import logging
-
 from plone import api
 from plone.protect.interfaces import IDisableCSRFProtection
 from Products.CMFPlone.utils import safe_unicode
@@ -9,6 +6,10 @@ from Products.Five.browser import BrowserView
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
 from zope.interface import alsoProvides
+
+import datetime
+import logging
+
 
 log = logging.getLogger("Products.EasyNewsletter: daily-issue")
 

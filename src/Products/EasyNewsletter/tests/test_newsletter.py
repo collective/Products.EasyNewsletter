@@ -1,31 +1,30 @@
 # -*- coding: utf-8 -*-
 
-import os
-import unittest
-
-import transaction as zt
 from App.Common import package_home
 from plone import api
-from plone.app.testing import TEST_USER_ID, TEST_USER_NAME, login, setRoles
+from plone.app.testing import login
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
+from plone.app.testing import TEST_USER_NAME
 from plone.app.textfield import RichTextValue
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.CMFPlone.utils import safe_unicode
-from Products.MailHost.interfaces import IMailHost
-from zExceptions import Forbidden
-from zope.component import (
-    getGlobalSiteManager,
-    getMultiAdapter,
-    getSiteManager,
-    provideHandler,
-)
-
 from Products.EasyNewsletter.interfaces import IBeforePersonalizationEvent
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
-from Products.EasyNewsletter.tests.base import (
-    parsed_attachments_from_msg,
-    parsed_payloads_from_msg,
-)
+from Products.EasyNewsletter.tests.base import parsed_attachments_from_msg
+from Products.EasyNewsletter.tests.base import parsed_payloads_from_msg
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
+from Products.MailHost.interfaces import IMailHost
+from zExceptions import Forbidden
+from zope.component import getGlobalSiteManager
+from zope.component import getMultiAdapter
+from zope.component import getSiteManager
+from zope.component import provideHandler
+
+import os
+import transaction as zt
+import unittest
+
 
 GLOBALS = globals()
 TESTS_HOME = package_home(GLOBALS)

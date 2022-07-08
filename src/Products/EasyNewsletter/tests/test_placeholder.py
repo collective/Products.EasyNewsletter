@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
-import unittest
-from datetime import datetime, timedelta
-
 from App.Common import package_home
+from datetime import datetime
+from datetime import timedelta
 from plone import api
-from plone.app.testing import TEST_USER_ID, TEST_USER_NAME, login, setRoles
-
+from plone.app.testing import login
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
+from plone.app.testing import TEST_USER_NAME
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
+
+import unittest
+
 
 GLOBALS = globals()
 TESTS_HOME = package_home(GLOBALS)

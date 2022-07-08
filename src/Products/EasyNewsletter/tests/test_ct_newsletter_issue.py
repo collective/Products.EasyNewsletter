@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
-import unittest
-
 from plone import api
 from plone.api.exc import InvalidParameterError
-from plone.app.testing import TEST_USER_ID, setRoles
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
 from plone.dexterity.interfaces import IDexterityFTI
-from zope.component import createObject, queryUtility
-
 from Products.EasyNewsletter.content.newsletter_issue import INewsletterIssue
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
+from zope.component import createObject
+from zope.component import queryUtility
+
+import unittest
 
 
 class NewsletterIssueIntegrationTest(unittest.TestCase):

@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-import transaction
 from plone import api
 from plone.protect import PostOnly
 from plone.protect.interfaces import IDisableCSRFProtection
 from Products.CMFPlone.resources import add_resource_on_request
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
+from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.Five.browser import BrowserView
 from zope.interface import alsoProvides
 
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
-from Products.EasyNewsletter.interfaces import IIssueDataFetcher
+import transaction
 
 
 class IssueView(BrowserView):

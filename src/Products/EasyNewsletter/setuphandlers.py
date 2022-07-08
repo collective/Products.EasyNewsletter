@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-import logging
-
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import INonInstallable
 from zope.interface import implementer
+
+import logging
 
 
 @implementer(INonInstallable)

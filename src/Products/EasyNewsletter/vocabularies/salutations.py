@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from plone.dexterity.interfaces import IDexterityContent
+from Products.EasyNewsletter import _
 from zope.globalrequest import getRequest
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
-from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
-
-from Products.EasyNewsletter import _
+from zope.schema.vocabulary import SimpleTerm
+from zope.schema.vocabulary import SimpleVocabulary
 
 
 class VocabItem(object):

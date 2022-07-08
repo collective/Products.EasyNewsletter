@@ -2,10 +2,9 @@
 
 from plone.protect.interfaces import IDisableCSRFProtection
 from Products.CMFPlone.resources import add_resource_on_request
+from Products.EasyNewsletter import _  # noqa
 from Products.Five.browser import BrowserView
 from zope.interface import alsoProvides
-
-from Products.EasyNewsletter import _  # noqa
 
 
 class NewsletterIssue(BrowserView):

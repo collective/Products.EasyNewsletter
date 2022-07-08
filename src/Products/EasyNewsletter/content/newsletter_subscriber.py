@@ -2,9 +2,8 @@
 from plone import schema
 from plone.dexterity.content import Item
 from plone.supermodel import model
-from zope.interface import implementer
-
 from Products.EasyNewsletter import _
+from zope.interface import implementer
 
 
 class INewsletterSubscriber(model.Schema):

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from plone import api
+from Products.EasyNewsletter import _
+from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.Five.browser import BrowserView
 from zope.i18n import translate
 
-from Products.EasyNewsletter import _
-from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 
 # from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 

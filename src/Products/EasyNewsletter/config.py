@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # flake8: noqa
 
-import re
-
 from plone import api
+from Products.EasyNewsletter import _
 from zope.i18nmessageid import MessageFactory
 
-from Products.EasyNewsletter import _
+import re
+
 
 # see __init__.py
 # _ = MessageFactory('Products.EasyNewsletter')

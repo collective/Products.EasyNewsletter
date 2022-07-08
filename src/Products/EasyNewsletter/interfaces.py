@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from zope.interface import Attribute, Interface
+from zope.interface import Attribute
+from zope.interface import Interface
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 
 

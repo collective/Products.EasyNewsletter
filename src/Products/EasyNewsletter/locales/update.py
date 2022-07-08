@@ -2,6 +2,7 @@
 import os
 import subprocess
 
+
 package_name = "Products.EasyNewsletter"
 # domain = package_name
 package_domain = "Products.EasyNewsletter"

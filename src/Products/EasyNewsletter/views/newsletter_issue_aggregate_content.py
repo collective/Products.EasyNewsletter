@@ -1,17 +1,14 @@
 # -*- coding: utf-8 -*-
-from copy import copy
-
 from Acquisition import aq_inner
+from copy import copy
 from plone import api
 from plone.app.textfield import RichTextValue
 from Products.CMFPlone.utils import safe_unicode
-from Products.Five.browser import BrowserView
-
-# from transaction import commit
-from zope.annotation import IAnnotations
-
 from Products.EasyNewsletter import _
 from Products.EasyNewsletter.config import AGG_SOURCES_INFOS
+from Products.Five.browser import BrowserView
+# from transaction import commit
+from zope.annotation import IAnnotations
 
 
 class NewsletterIssueAggregateContent(BrowserView):

@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 from plone.registry.interfaces import IRegistry
+from Products.EasyNewsletter.browser.controlpanel import IENLSettings
 from zope.component import getUtility
 from zope.interface import Interface
-
-from Products.EasyNewsletter.browser.controlpanel import IENLSettings
 
 
 class IENLUtils(Interface):

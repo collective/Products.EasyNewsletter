@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 from plone import api
+from Products.EasyNewsletter.config import AGG_SOURCES_INFOS
 from Products.Five.browser import BrowserView
 from zope.annotation import IAnnotations
 from zope.interface import Interface
 from zope.interface.declarations import implementer
-
-from Products.EasyNewsletter.config import AGG_SOURCES_INFOS
 
 
 class IENLHelperView(Interface):

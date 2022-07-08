@@ -1,18 +1,17 @@
 # -*- coding: utf-8 -*-
-import os
-import unittest
-
-import six
 from plone import api
-from plone.app.testing import TEST_USER_ID, setRoles
-from Products.CMFPlone.utils import safe_encode, safe_unicode
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
+from Products.CMFPlone.utils import safe_encode
+from Products.CMFPlone.utils import safe_unicode
+from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
+from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 from zope.component import getMultiAdapter
 from zope.interface.interfaces import ComponentLookupError
 
-from Products.EasyNewsletter.testing import (
-    PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING,
-    PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING,
-)
+import os
+import six
+import unittest
 
 
 class ViewsIntegrationTest(unittest.TestCase):

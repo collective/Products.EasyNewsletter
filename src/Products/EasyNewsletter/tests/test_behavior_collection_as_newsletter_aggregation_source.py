@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
 
-import unittest
-
-from plone.app.testing import TEST_USER_ID, setRoles
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
 from plone.behavior.interfaces import IBehavior
+from Products.EasyNewsletter.behaviors.collection_as_newsletter_aggregation_source import ICollectionAsNewsletterAggregationSourceMarker
+from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 from zope.component import getUtility
 
-from Products.EasyNewsletter.behaviors.collection_as_newsletter_aggregation_source import (
-    ICollectionAsNewsletterAggregationSourceMarker,
-)
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
+import unittest
 
 
 class CollectionAsNewsletterAggregationSourceIntegrationTest(unittest.TestCase):

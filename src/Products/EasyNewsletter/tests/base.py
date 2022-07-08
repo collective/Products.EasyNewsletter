@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
-import base64
-import email
-import logging
 from email.header import decode_header
-
-import cssutils
-import six
 from plone import api
 from Products.CMFPlone.utils import safe_unicode
+
+import base64
+import cssutils
+import email
+import logging
+import six
+
 
 cssutils.log.setLevel(logging.CRITICAL)
 

@@ -1,20 +1,12 @@
 # -*- coding: utf-8 -*-
-from logging import getLogger
-
-import emails
-import OFS
 from AccessControl.SecurityManagement import newSecurityManager
 from Acquisition import aq_inner
-from email_validator import EmailNotValidError, validate_email
+from email_validator import EmailNotValidError
+from email_validator import validate_email
+from logging import getLogger
 from plone import api
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.CMFCore.utils import getToolByName
-from Products.Five.browser import BrowserView
-from Products.statusmessages.interfaces import IStatusMessage
-from zExceptions import BadRequest
-from zope.component import getMultiAdapter, queryUtility
-from zope.interface import alsoProvides
-
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
 from Products.EasyNewsletter.config import MESSAGE_CODE
 from Products.EasyNewsletter.content.newsletter import INewsletter
@@ -22,6 +14,16 @@ from Products.EasyNewsletter.content.newsletter_subscriber import INewsletterSub
 from Products.EasyNewsletter.interfaces import IENLRegistrationTool
 from Products.EasyNewsletter.utils.base import execute_under_special_role
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
+from Products.Five.browser import BrowserView
+from Products.statusmessages.interfaces import IStatusMessage
+from zExceptions import BadRequest
+from zope.component import getMultiAdapter
+from zope.component import queryUtility
+from zope.interface import alsoProvides
+
+import emails
+import OFS
+
 
 try:
     from plone import protect

@@ -1,29 +1,28 @@
 # -*- coding: utf-8 -*-
 
-import logging
-import re
 from datetime import datetime
+from plone import api
+from plone.namedfile.scaling import ImageScale
+from plone.namedfile.scaling import ImageScaling
+from plone.protect import PostOnly
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
+from Products.EasyNewsletter.behaviors.plone_user_group_recipients import IPloneUserGroupRecipients
+from Products.EasyNewsletter.content.newsletter_issue import ISendStatus
+from Products.EasyNewsletter.interfaces import IIssueDataFetcher
+from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter
+from Products.Five.browser import BrowserView
+from Products.MailHost.interfaces import IMailHost
+from zope.component import getMultiAdapter
+from zope.component import getUtility
+from zope.component import subscribers
+from zope.component.hooks import getSite
 
 import emails
 import emails.loader
+import logging
+import re
 import transaction
-from plone import api
-from plone.namedfile.scaling import ImageScale, ImageScaling
-from plone.protect import PostOnly
-from Products.Five.browser import BrowserView
-from Products.MailHost.interfaces import IMailHost
-from zope.component import getMultiAdapter, getUtility, subscribers
-from zope.component.hooks import getSite
 
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
-from Products.EasyNewsletter.behaviors.plone_user_group_recipients import (
-    IPloneUserGroupRecipients,
-)
-from Products.EasyNewsletter.content.newsletter_issue import ISendStatus
-from Products.EasyNewsletter.interfaces import (
-    IIssueDataFetcher,
-    IReceiversPostSendingFilter,
-)
 
 log = logging.getLogger("Products.EasyNewsletter")
 

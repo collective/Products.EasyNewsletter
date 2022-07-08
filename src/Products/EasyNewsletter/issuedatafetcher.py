@@ -1,19 +1,17 @@
 # -*- coding: utf-8 -*-
-import logging
-
-import jinja2
 from bs4 import BeautifulSoup
 from html2text import HTML2Text
 from plone import api
 from Products.CMFPlone.utils import safe_unicode
+from Products.EasyNewsletter.config import PLACEHOLDERS
+from Products.EasyNewsletter.interfaces import IBeforePersonalizationEvent
+from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from zope.event import notify
 from zope.interface import implementer
 
-from Products.EasyNewsletter.config import PLACEHOLDERS
-from Products.EasyNewsletter.interfaces import (
-    IBeforePersonalizationEvent,
-    IIssueDataFetcher,
-)
+import jinja2
+import logging
+
 
 log = logging.getLogger("Products.EasyNewsletter")
 
