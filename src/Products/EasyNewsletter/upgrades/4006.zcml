@@ -1,0 +1,25 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+  xmlns:gs="http://namespaces.zope.org/genericsetup">
+
+  <gs:registerProfile name="4006"
+    title="upgrade portal_types settings to easynewsletter actions categoryname having a prefix"
+    directory="4006"
+    description='Configuration for version 4006'
+    for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+    provides="Products.GenericSetup.interfaces.EXTENSION" />
+
+  <gs:upgradeSteps source="4005"
+    destination="4006"
+    profile="Products.EasyNewsletter:default">
+
+    <gs:upgradeStep title="upgrade portal_types settings to easynewsletter actions categoryname having a prefix"
+      description=""
+      handler=".v4006.upgrade" />
+
+    <gs:upgradeDepends title="upgrade portal_types settings to easynewsletter actions categoryname having a prefix (GS profile)"
+      description=""
+      import_profile="Products.EasyNewsletter.upgrades:4006" />
+
+  </gs:upgradeSteps>
+
+</configure>
