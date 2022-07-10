@@ -18,7 +18,7 @@ jobs:
                 plone-version:
                   - 'Plone60'
                   - 'Plone52'
-                python-version: [3.7, 3.8, 3.9]
+                python-version: [3.8, 3.9]
 
         steps:
             - uses: actions/checkout@v2
@@ -67,6 +67,5 @@ jobs:
               uses: "codecov/codecov-action@v1"
               with:
                 fail_ci_if_error: true
-
               if: matrix.python-version == '3.9'
 
