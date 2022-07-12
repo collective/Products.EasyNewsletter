@@ -5,7 +5,11 @@ Changelog
 6.0.0a8 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- deactivated old broken upgradestep registration
+  [MrTango]
+
+- fix several ComponentLookupError imports
+  [MrTango]
 
 
 6.0.0a7 (2022-07-08)
