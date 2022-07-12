@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-6.0.0a8 (unreleased)
+6.0.0a8 (2022-07-12)
 --------------------
 
 - deactivated old broken upgradestep registration
