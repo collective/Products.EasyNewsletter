@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-6.0.0a9 (unreleased)
+6.0.0b1 (2022-10-06)
 --------------------
 
 - set batch size in NewsletterIssueAggregateContent queryCatalog to 30000
