@@ -41,7 +41,7 @@ class NewsletterIssueAggregateContent(BrowserView):
 
         for source in sources:
             source_obj = source.to_object
-            sresults = source_obj.queryCatalog()
+            sresults = source_obj.queryCatalog(b_size=30000)
             if not sresults:
                 continue
             result_info = {
@@ -67,7 +67,6 @@ class NewsletterIssueAggregateContent(BrowserView):
 
     def store_source_info_in_annotation(self, source_info):
         """ """
-        # import pdb; pdb.set_trace()
         annotations = IAnnotations(aq_inner(self.context))
         if AGG_SOURCES_INFOS not in annotations:
             annotations[AGG_SOURCES_INFOS] = []

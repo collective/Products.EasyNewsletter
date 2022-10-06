@@ -25,9 +25,6 @@ def locale_folder_setup(domain=None):
             locale_path, lang, "LC_MESSAGES", domain + ".po"
         )
         if not os.path.isfile(domain_po_file_path):
-            import pdb
-
-            pdb.set_trace()  # NOQA: E702
             cmd = "msginit --locale={0} --input={2}/manual.pot --output={2}/{0}/LC_MESSAGES/{1}.po".format(  # NOQA: E501
                 lang, domain, locale_path
             )
