@@ -5,7 +5,8 @@ Changelog
 6.0.0a9 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- set batch size in NewsletterIssueAggregateContent queryCatalog to 30000
+  [MrTango]
 
 
 6.0.0a8 (2022-07-12)
