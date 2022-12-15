@@ -148,9 +148,9 @@ msgstr ""
 #: EasyNewsletter/content/newsletter_issue.py:151
 msgid "ENL_description_text_footer"
 msgstr ""
-"Testo epilogo di default. e' usato come default per le nuove edizioni. Puoi "
+"Testo epilogo di default. e' usato come default per le nuove edizioni. Qui puoi "
 "utilizzare segnaposto come ad es.: {{subscriber_salutation}} e "
-"{{unsubscribe}} qui"
+"{{unsubscribe}}"
 
 #. Default: "The default prologue text. This is used as a default                 for new issues. You can use placeholders like                {{subscriber_salutation}} and {{unsubscribe}} here."
 #: EasyNewsletter/content/newsletter.py:192
@@ -158,8 +158,8 @@ msgstr ""
 msgid "ENL_description_text_header"
 msgstr ""
 "Testo di prologo di default. Questo viene usato come default nelle nuove "
-"edizioni. Puoi utilizzare segnaposto come ad es.: {{subscriber_salutation}} "
-"and {{unsubscribe}} here"
+"edizioni. Qui puoi utilizzare segnaposto come ad es.: {{subscriber_salutation}} "
+"e {{unsubscribe}}"
 
 #. Default: "If checked, the newsletter/mailing will not be send                  to all subscribers inside the newsletter. Changing this                 setting does not affect already existing issues."
 #: EasyNewsletter/content/newsletter.py:220
@@ -454,7 +454,7 @@ msgstr "Importa"
 
 #: EasyNewsletter/views/newsletter_subscribers.pt:27
 msgid "Import subscriber"
-msgstr "Importa iscritto"
+msgstr "Importa iscrizioni"
 
 #: EasyNewsletter/viewlets/newsletter_actions.pt:8
 msgid "Issue archive"
@@ -793,7 +793,7 @@ msgstr "iscriviti"
 #. Default: "Export subscribers"
 #: EasyNewsletter/browser/enl_subscribers_view.pt:38
 msgid "easynewsletter_label_export_subscribers"
-msgstr "Esporta iscritti"
+msgstr "Esporta iscrizioni"
 
 #. Default: "Import subscribers"
 #: EasyNewsletter/browser/enl_subscribers_view.pt:36
@@ -1090,7 +1090,7 @@ msgstr "Forma di saluto"
 #. Default: "Save in Pocket"
 #: EasyNewsletter/skins/EasyNewsletter/output_default.pt:153
 msgid "save_in_pocket"
-msgstr "Salvato in Pocket"
+msgstr "Salva in Pocket"
 
 #. Default: "Source"
 #: EasyNewsletter/browser/enl_subscribers_view.pt:89
