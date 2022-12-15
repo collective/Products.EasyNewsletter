@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"PO-Revision-Date: 2022-12-15 13:14+0000\n"
+"PO-Revision-Date: 2022-12-16 13:47+0000\n"
 "Last-Translator: Alessandro Ceglie <sauzher@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/"
 "products-easynewsletter/products-easynewsletter/it/>\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.15-dev\n"
+"X-Generator: Weblate 4.15\n"
 "Language-Code: it\n"
 "Language-Name: Italiano\n"
 "Preferred-Encodings: utf-8 latin1\n"
@@ -149,9 +149,9 @@ msgstr ""
 #: EasyNewsletter/content/newsletter_issue.py:151
 msgid "ENL_description_text_footer"
 msgstr ""
-"Testo epilogo di default. e' usato come default per le nuove edizioni. Puoi "
-"utilizzare segnaposto come ad es.: {{subscriber_salutation}} e "
-"{{unsubscribe}} qui"
+"Testo epilogo di default. e' usato come default per le nuove edizioni. Qui "
+"puoi utilizzare segnaposto come ad es.: {{subscriber_salutation}} e "
+"{{unsubscribe}}"
 
 #. Default: "The default prologue text. This is used as a default                 for new issues. You can use placeholders like                {{subscriber_salutation}} and {{unsubscribe}} here."
 #: EasyNewsletter/content/newsletter.py:192
@@ -159,8 +159,8 @@ msgstr ""
 msgid "ENL_description_text_header"
 msgstr ""
 "Testo di prologo di default. Questo viene usato come default nelle nuove "
-"edizioni. Puoi utilizzare segnaposto come ad es.: {{subscriber_salutation}} "
-"and {{unsubscribe}} here"
+"edizioni. Qui puoi utilizzare segnaposto come ad es.: "
+"{{subscriber_salutation}} e{{unsubscribe}}"
 
 #. Default: "If checked, the newsletter/mailing will not be send                  to all subscribers inside the newsletter. Changing this                 setting does not affect already existing issues."
 #: EasyNewsletter/content/newsletter.py:220
@@ -436,7 +436,7 @@ msgstr "Messaggio di errore"
 
 #: EasyNewsletter/views/newsletter_subscribers.pt:34
 msgid "Export subscriber"
-msgstr "Esporta iscritto"
+msgstr "Esporta iscrizioni"
 
 #: EasyNewsletter/views/newsletter_issue_statistics.pt:38
 msgid "Failed"
@@ -455,7 +455,7 @@ msgstr "Importa"
 
 #: EasyNewsletter/views/newsletter_subscribers.pt:27
 msgid "Import subscriber"
-msgstr "Importa iscritto"
+msgstr "Importa iscrizioni"
 
 #: EasyNewsletter/viewlets/newsletter_actions.pt:8
 msgid "Issue archive"
@@ -1091,7 +1091,7 @@ msgstr "Forma di saluto"
 #. Default: "Save in Pocket"
 #: EasyNewsletter/skins/EasyNewsletter/output_default.pt:153
 msgid "save_in_pocket"
-msgstr "Salvato in Pocket"
+msgstr "Salva in Pocket"
 
 #. Default: "Source"
 #: EasyNewsletter/browser/enl_subscribers_view.pt:89
