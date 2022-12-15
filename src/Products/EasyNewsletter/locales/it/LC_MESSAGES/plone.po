@@ -16,56 +16,56 @@ msgstr ""
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "Aggregate content"
-msgstr ""
+msgstr "Contenuti Aggregati"
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "Copy as draft"
-msgstr ""
+msgstr "Copia come bozza"
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "Copy as master"
-msgstr ""
+msgstr "Copia come Edizione"
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Draft"
-msgstr ""
+msgstr "Bozza"
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Make draft"
-msgstr ""
+msgstr "Crea Bozza"
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Make master"
-msgstr ""
+msgstr "Crea Edizione"
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Master"
-msgstr ""
+msgstr "Edizione"
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Revert sending"
-msgstr ""
+msgstr "Torna in Bozza"
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Send"
-msgstr ""
+msgstr "Invia"
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Sending"
-msgstr ""
+msgstr Invio...""
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Sending Completed"
-msgstr ""
+msgstr "Invio completato"
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Sent"
-msgstr ""
+msgstr "Inviato"
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "View Statistics"
-msgstr ""
+msgstr "Mostra statistiche"
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Workflow for an EasyNewsletter Issue"
@@ -74,9 +74,9 @@ msgstr ""
 #. Default: "Portlet to add subscribers."
 #: EasyNewsletter/profiles/default/portlets.xml
 msgid "description_newsletter_subscriber_portlet"
-msgstr ""
+msgstr "Portlet per aggiungere subscribers"
 
 #. Default: "Newsletter subscriber portlet"
 #: EasyNewsletter/profiles/default/portlets.xml
 msgid "title_newsletter_subscriber_portlet"
-msgstr ""
+msgstr "Portlet sottoscrizione Newsletter"
