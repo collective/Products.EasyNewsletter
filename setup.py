@@ -54,6 +54,7 @@ setup(
         "html2text",
         "email-validator>=1.1.2",
         "six",
+        "plone.app.standardtiles",
     ],
     extras_require=dict(
         test=[
