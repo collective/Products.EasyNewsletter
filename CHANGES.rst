@@ -1,6 +1,12 @@
 Changelog
 =========
 
+6.0.0b3 (unreleased)
+--------------------
+
+- Nothing changed yet.
+
+
 6.0.0b2 (2023-02-07)
 
 - Add missing dependency of plone.app.standardtiles
