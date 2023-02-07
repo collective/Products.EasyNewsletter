@@ -1,7 +1,7 @@
 Changelog
 =========
 
-6.0.0b2 (unreleased)
+6.0.0b2 (2023-02-07)
 
 - Add missing dependency of plone.app.standardtiles
   [MrTango]
