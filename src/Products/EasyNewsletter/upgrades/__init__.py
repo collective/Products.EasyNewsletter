@@ -29,7 +29,7 @@ def fullname_to_first_and_lastname(context):
     """Migrate subscriber fullname to separate fields."""
 
     catalog = api.portal.get_tool("portal_catalog")
-    subscribers = catalog(portal_type='ENLSubscriber')
+    subscribers = catalog(portal_type='Newsletter Subscriber')
 
     for subscriber in subscribers:
         obj = subscriber.getObject()
@@ -63,7 +63,7 @@ def reindex_subscribers(context):
     """Reindex subscribers"""
 
     catalog = api.portal.get_tool("portal_catalog")
-    subscribers = catalog(portal_type='ENLSubscriber')
+    subscribers = catalog(portal_type='Newsletter Subscriber')
 
     for subscriber in subscribers:
         obj = subscriber.getObject()

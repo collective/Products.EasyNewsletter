@@ -139,7 +139,7 @@ class Enl_Subscribers_View(BrowserView):
     @property
     def query(self):
         query = dict(
-            portal_type='ENLSubscriber',
+            portal_type='Newsletter Subscriber',
             path='/'.join(self.context.getPhysicalPath()),
             sort_on='email'
         )
@@ -239,7 +239,7 @@ class UploadCSV(BrowserView):
         # encoding = plone_utils.getSiteEncoding()
         existing = []
         subscribers = api.content.find(context=self.context,
-                                       portal_type='ENLSubscriber')
+                                       portal_type='Newsletter Subscriber')
         for subscriber in subscribers:
             existing.append(subscriber.email.lower())
 
@@ -330,7 +330,7 @@ class UploadCSV(BrowserView):
                                                       firstname])
                     try:
                         self.context.invokeFactory(
-                            'ENLSubscriber',
+                            'Newsletter Subscriber',
                             id=id,
                             title=title,
                             description="",
@@ -388,7 +388,7 @@ class DownloadCSV(BrowserView):
                                    'quotechar': '"',
                                    'quoting': csv.QUOTE_MINIMAL})
         csvWriter.writerow([x for x in CSV_HEADER])
-        for subscriber in ctool(portal_type='ENLSubscriber',
+        for subscriber in ctool(portal_type='Newsletter Subscriber',
                                 path='/'.join(self.context.getPhysicalPath()),
                                 sort_on='email'):
             obj = subscriber.getObject()
