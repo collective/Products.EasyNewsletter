@@ -38,7 +38,6 @@ setup(
     zip_safe=False,
     install_requires=[
         "Plone",
-        "zope.formlib",
         "jinja2",
         "nameparser",
         "plone.api",
