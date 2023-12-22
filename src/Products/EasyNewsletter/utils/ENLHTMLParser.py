@@ -84,7 +84,7 @@ class ENLHTMLParser(HTMLParser.HTMLParser):
                 if attr[1].startswith(self.context.portal_url()):
                     # content-id must be globaly unique!
                     self.html += ' src="cid:image_%s"' % image_content_id
-                    path = attr[1][len(self.context.portal_url()):]
+                    path = attr[1][len(self.context.portal_url()) :]
                     path = "/".join(self.context.getPhysicalPath()) + path
                     self.image_urls.append((path, image_content_id))
                 elif "http" in attr[1]:

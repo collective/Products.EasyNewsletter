@@ -1,5 +1,0 @@
--c constraints_plone51.txt
-setuptools
-zc.buildout
-pathlib2
-isort

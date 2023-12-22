@@ -4,7 +4,7 @@ from setuptools import find_packages
 from setuptools import setup
 
 
-version = "6.0.0a9.dev0"
+version = "6.0.0b3.dev0"
 long_description = open("README.rst").read() + "\n" + open("CHANGES.rst").read()
 
 setup(
@@ -18,9 +18,10 @@ setup(
         "Framework :: Plone :: 5.2",
         "Framework :: Plone :: 6.0",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Framework :: Plone :: Addon",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
@@ -34,11 +35,9 @@ setup(
     namespace_packages=["Products"],
     package_dir={"": "src"},
     include_package_data=True,
-    python_requires=">=3.7",
+    python_requires=">=3.8",
     zip_safe=False,
     install_requires=[
-        "Plone",
-        "zope.formlib",
         "jinja2",
         "nameparser",
         "plone.api",
@@ -62,6 +61,7 @@ setup(
             "plone.testing",
             "plone.app.contenttypes",
             "plone.app.robotframework[debug]",
+            "plone.app.standardtiles",
             "pdbpp",
             "isort",
         ],

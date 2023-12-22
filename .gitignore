@@ -67,3 +67,5 @@ docs/Makefile
 **/__pycache__/**
 /venv
 /docs/_build
+/venv311
+/.python-version

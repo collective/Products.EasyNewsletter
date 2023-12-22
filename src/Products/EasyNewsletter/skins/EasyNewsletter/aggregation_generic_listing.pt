@@ -95,13 +95,11 @@
                           <tr>
                             <td valign="top"
                               class="nestedContainerCell"
-                              tal:define="has_image python: enl_helpers.brain_has_lead_image(brain);
-                                          obj brain/getObject;
-                                          scale_func obj/@@images;
-                                          scaled_image python: getattr(obj.aq_explicit, 'image', False) and scale_func.scale('image', scale='mini');
-    													            obj_url brain/getURL">
+                              tal:define="scale_util python: enl_helpers.get_scale_util(brain);
+                                          scaled_image python: scale_util and scale_util.scale('image', scale='mini');
+                                          has_image python: scaled_image and True or False;
+    													            obj_url python: enl_helpers.get_object_url(brain)">
 
-                              <!-- CONTENT TABLE // -->
                               <table tal:condition="has_image"
                                 align="Left"
                                 border="0"
@@ -120,9 +118,7 @@
                                   </td>
                                 </tr>
                               </table>
-                              <!-- // CONTENT TABLE -->
 
-                              <!-- CONTENT TABLE // -->
                               <table tal:attributes="width python: (has_image and '290') or '520'"
                                 align="Right"
                                 border="0"
@@ -152,7 +148,6 @@
                                   </td>
                                 </tr>
                               </table>
-                              <!-- // CONTENT TABLE -->
 
                             </td>
                           </tr>
