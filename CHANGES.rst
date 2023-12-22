@@ -1,7 +1,7 @@
 Changelog
 =========
 
-6.0.0b4 (unreleased)
+6.0.0b4 (2023-12-22)
 --------------------
 
 - Enable upgrade steps
