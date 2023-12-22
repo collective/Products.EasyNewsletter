@@ -35,13 +35,6 @@
       </value>
   </record>
 
-  <records prefix="plone.resources/easynewsletter"
-           interface='Products.CMFPlone.interfaces.IResourceRegistry'>
-    <value key="css">
-      <element>++plone++easynewsletter/easynewsletter.less</element>
-    </value>
-  </records>
-
   <records
       interface="Products.CMFPlone.interfaces.IBundleRegistry"
       prefix="plone.bundles/easynewsletter">

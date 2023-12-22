@@ -10,5 +10,5 @@ from .base import reload_gs_profile
 def upgrade(setup_tool=None):
     """
     """
-    logger.info("Running upgrade (Python): Update resource registry entries, remove resources, only bundles are needed now.")
-    reload_gs_profile(setup_tool)
+    # logger.info("Running upgrade (Python): Update resource registry entries, remove resources, only bundles are needed now.")
+    # reload_gs_profile(setup_tool)
