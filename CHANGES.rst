@@ -18,6 +18,9 @@ Changelog
 - set batch size in NewsletterIssueAggregateContent queryCatalog to 30000
   [MrTango]
 
+- updated italian translations
+  [sauzher]
+
 
 6.0.0a8 (2022-07-12)
 --------------------
