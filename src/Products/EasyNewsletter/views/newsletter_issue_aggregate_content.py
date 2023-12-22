@@ -7,6 +7,7 @@ from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter import _
 from Products.EasyNewsletter.config import AGG_SOURCES_INFOS
 from Products.Five.browser import BrowserView
+
 # from transaction import commit
 from zope.annotation import IAnnotations
 

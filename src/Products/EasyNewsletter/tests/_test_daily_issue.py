@@ -28,7 +28,7 @@ class DailyIssueBaseTestCase(unittest.TestCase):
     def setUp(self):
         self.portal = self.layer["portal"]
         self.catalog = getToolByName(self.portal, "portal_catalog")
-        setRoles(self.portal, TEST_USER_ID, ["Manager"])
+        setRoles(self.portal, TEST_USER_ID, ["Manager", "Contributor", "Owner", "Editor"])
 
         # creating test objects: folder, news, newsletter and subscriber
         self.portal.invokeFactory("Folder", "testfolder")
@@ -38,7 +38,7 @@ class DailyIssueBaseTestCase(unittest.TestCase):
         self.folder.invokeFactory("Newsletter", "daily-news")
         self.newsletter = self.folder["daily-news"]
         self.newsletter.title = "Daily News"
-        # XXX check if we could ovaid this by using defaults from site settings
+        # XXX check if we could avoid this by using defaults from site settings
         self.newsletter.sender_email = "newsletter@acme.com"
         self.newsletter.sender_name = "ACME newsletter"
         self.newsletter.test_email = "test@acme.com"
@@ -160,6 +160,8 @@ class DailyIssueMethodPOST(DailyIssueBaseTestCase):
         self.assertEqual(len(self.portal.MailHost.messages), 0)
 
     def test_send_issue_and_check_http_status(self):
+        print(api.user.getPermissions())
+        import pdb; pdb.set_trace()  # NOQA: E702
         self.view()
         self.assertEqual(self.view.request.response.getStatus(), 200)
         self.assertEqual(len(self.portal.MailHost.messages), 1)

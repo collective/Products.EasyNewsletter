@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from plone.dexterity.interfaces import IDexterityContent
+
 # from plone import api
 from plone.registry.interfaces import IRegistry
 from Products.EasyNewsletter import _

@@ -15,10 +15,17 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                plone-version:
-                  - 'Plone60'
-                  - 'Plone52'
-                python-version: [3.8, 3.9]
+                # # plone-version:
+                # #   - 'Plone60'
+                # #   - 'Plone52'
+                # python-version: [3.8]
+                include:
+                  - plone-version: Plone52
+                    python-version: 3.8
+                  - plone-version: Plone60
+                    python-version: 3.9
+                  - plone-version: Plone60
+                    python-version: '3.11'
 
         steps:
             - uses: actions/checkout@v2
