@@ -4,7 +4,8 @@ Changelog
 6.0.0b4 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Enable upgrade steps
+  [MrTango]
 
 
 6.0.0b3 (2023-12-22)
