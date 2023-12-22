@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 
-from setuptools import find_packages
+from setuptools import find_namespace_packages
 from setuptools import setup
 
 
@@ -31,8 +31,8 @@ setup(
     author_email="md@derico.de",
     url="https://github.com/collective/Products.EasyNewsletter",
     license="GPL",
-    packages=find_packages("src", exclude=["ez_setup"]),
-    namespace_packages=["Products"],
+    packages=find_namespace_packages(where="src/", include=['Products.EasyNewsletter']),
+    # namespace_packages=["Products"],
     package_dir={"": "src"},
     include_package_data=True,
     python_requires=">=3.8",
