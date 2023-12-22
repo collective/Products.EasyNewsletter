@@ -10,6 +10,16 @@ from zope.interface.declarations import implementer
 class IENLHelperView(Interface):
     """ """
 
+    def get_scale_util(self, brain=None):
+        """
+            return the scale_util for a brain's object,
+            if the object does not have an image field, return None
+        """
+
+    def get_object_url(self, brain):
+        """ return object url or None
+        """
+
     def brain_has_lead_image(self, brain=None):
         """check if brain has lead image"""
 
@@ -27,6 +37,23 @@ class IENLHelperView(Interface):
 class ENLHelperView(BrowserView):
     """View with some helper methods"""
 
+    def get_scale_util(self, brain=None):
+        if not brain:
+            return
+        context = brain.getObject()
+        has_image = hasattr(context.aq_explicit, "image")
+        if not has_image:
+            return
+        scale_util = api.content.get_view("images", context)
+        return scale_util
+
+    def get_object_url(self, brain):
+        """ return object url or None
+        """
+        if not brain:
+            return
+        return brain.getURL()
+
     def brain_has_lead_image(self, brain=None):
         has_image = False
         if not brain:
@@ -34,14 +61,6 @@ class ENLHelperView(BrowserView):
         item_object = brain.getObject()
         # Plone 5:
         has_image = hasattr(item_object.aq_explicit, "image")
-        if has_image and not getattr(item_object.aq_explicit, "image"):
-            return
-        # Plone 4:
-        if not has_image:
-            has_image = hasattr(item_object.aq_explicit, "tag")
-            if not hasattr(item_object.aq_explicit, "getRawImage"):
-                return
-            has_image = item_object.getRawImage()
         return has_image
 
     def type_filter(self, items, types=None):

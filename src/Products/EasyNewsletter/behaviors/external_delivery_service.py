@@ -3,6 +3,7 @@
 # from plone import schema
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.supermodel import model
+
 # from Products.EasyNewsletter import _
 from zope.component import adapter
 from zope.interface import implementer

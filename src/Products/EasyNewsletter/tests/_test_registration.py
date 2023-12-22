@@ -123,6 +123,7 @@ class RegistrationIntegrationTests(unittest.TestCase):
         )
 
     def test_confirm_subscriber(self):
+        self.assertSequenceEqual(self.mailhost.messages, [])
         self.portal.REQUEST.form.update(
             {
                 "newsletter": "/enl1",
@@ -130,15 +131,12 @@ class RegistrationIntegrationTests(unittest.TestCase):
                 "firstname": "Max",
                 "name": "Mustermann",
                 "subscriber": "max@example.com",
-                "organization": "Musterfirma",
-                "name_prefix": "Dr.",
             }
         )
         view = getMultiAdapter(
             (self.portal, self.portal.REQUEST), name="register-subscriber"
         )
         view.__call__()
-
         enl_reg_entry = self.enl_reg_tool.values()[0]
         self.portal.REQUEST.form.update(
             {
@@ -163,20 +161,12 @@ class RegistrationIntegrationTests(unittest.TestCase):
             "Mustermann",
         )
         self.assertEqual(
-            subscriber.name_prefix,
-            "Dr.",
-        )
-        self.assertEqual(
-            subscriber.organization,
-            "Musterfirma",
-        )
-        self.assertEqual(
             subscriber.salutation,
             "mr",
         )
         self.assertEqual(
             subscriber.title,
-            "max@example.com - Dr. Max Mustermann",
+            "max@example.com - Max Mustermann",
         )
 
         # check that anonymous can't access the subscriber object

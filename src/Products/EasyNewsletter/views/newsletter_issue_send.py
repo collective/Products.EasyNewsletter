@@ -6,7 +6,9 @@ from plone.namedfile.scaling import ImageScale
 from plone.namedfile.scaling import ImageScaling
 from plone.protect import PostOnly
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
-from Products.EasyNewsletter.behaviors.plone_user_group_recipients import IPloneUserGroupRecipients
+from Products.EasyNewsletter.behaviors.plone_user_group_recipients import (
+    IPloneUserGroupRecipients,
+)
 from Products.EasyNewsletter.content.newsletter_issue import ISendStatus
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter

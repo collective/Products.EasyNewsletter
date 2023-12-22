@@ -60,7 +60,10 @@ class DailyIssueView(BrowserView):
         self.issue.output_template = self.context.output_template
 
         # aggregate content for issue:
-        getMultiAdapter((self.issue, self.context.REQUEST), name="aggregate-content")()
+        # self.context.REQUEST.set("URL", self.issue.absolute_url())
+        # self.context.REQUEST.set("ACTUAL_URL", self.issue.absolute_url())
+        aggregate_view = getMultiAdapter((self.issue, self.context.REQUEST), name="aggregate-content")
+        aggregate_view()
 
     def send(self):
         if self.issue:

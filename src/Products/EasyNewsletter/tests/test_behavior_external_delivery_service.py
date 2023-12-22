@@ -3,7 +3,9 @@
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.behavior.interfaces import IBehavior
-from Products.EasyNewsletter.behaviors.external_delivery_service import IExternalDeliveryServiceMarker
+from Products.EasyNewsletter.behaviors.external_delivery_service import (
+    IExternalDeliveryServiceMarker,
+)
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 from zope.component import getUtility
 
