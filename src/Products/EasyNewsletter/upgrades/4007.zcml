@@ -1,0 +1,25 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+  xmlns:gs="http://namespaces.zope.org/genericsetup">
+
+  <gs:registerProfile name="4007"
+    title="Update resource registry entries, remove resources, only bundles are needed now."
+    directory="4007"
+    description='Configuration for version 4007'
+    for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+    provides="Products.GenericSetup.interfaces.EXTENSION" />
+
+  <gs:upgradeSteps source="4006"
+    destination="4007"
+    profile="Products.EasyNewsletter:default">
+
+    <gs:upgradeStep title="Update resource registry entries, remove resources, only bundles are needed now."
+      description=""
+      handler=".v4007.upgrade" />
+
+    <gs:upgradeDepends title="Update resource registry entries, remove resources, only bundles are needed now. (GS profile)"
+      description=""
+      import_profile="Products.EasyNewsletter.upgrades:4007" />
+
+  </gs:upgradeSteps>
+
+</configure>
