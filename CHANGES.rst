@@ -4,7 +4,11 @@ Changelog
 6.0.0b3 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Remove requireJS from iframeresizer, update registry.xml for Plone 6
+  [MrTango]
+
+- update italian translations
+  [sauzher]
 
 
 6.0.0b2 (2023-02-07)
