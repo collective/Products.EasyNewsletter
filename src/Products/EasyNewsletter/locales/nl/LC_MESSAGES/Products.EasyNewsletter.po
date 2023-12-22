@@ -2,13 +2,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Products.EasyNewsletter\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"PO-Revision-Date: 2011-08-10 15:41+0100\n"
-"Last-Translator: Fred van Dijk - fredvd <f.vandijk@zestsoftware.nl>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2022-11-18 22:48+0000\n"
+"Last-Translator: Kim Paulissen <kim.paulissen@gmail.com>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/"
+"products-easynewsletter/products-easynewsletter/nl/>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.15-dev\n"
 "Language-Code: nl\n"
 "Language-Name: Dutch\n"
 "Preferred-Encodings: utf-8 latin1\n"
@@ -66,19 +69,19 @@ msgstr ""
 
 #: EasyNewsletter/upgrades/4002.zcml:11
 msgid "Configuration for version 4002"
-msgstr ""
+msgstr "Configuratie voor versie 4002"
 
 #: EasyNewsletter/upgrades/4003.zcml:11
 msgid "Configuration for version 4003"
-msgstr ""
+msgstr "Configuratie voor versie 4003"
 
 #: EasyNewsletter/upgrades/4004.zcml:11
 msgid "Configuration for version 4004"
-msgstr ""
+msgstr "Configuratie voor versie 4004"
 
 #: EasyNewsletter/upgrades/4005.zcml:11
 msgid "Configuration for version 4005"
-msgstr ""
+msgstr "Configuratie voor versie 4005"
 
 #: EasyNewsletter/config.py:67
 msgid "Confirm your subscription on ${portal_url}"
@@ -86,19 +89,21 @@ msgstr "Bevestig uw inschrijving op ${portal_url}"
 
 #: EasyNewsletter/browser/controlpanel.py:19
 msgid "Content type"
-msgstr ""
+msgstr "Contenttype"
 
 #: EasyNewsletter/browser/controlpanel.py:15
 msgid "Content types which will be visible in the Content aggregation sources reference field."
 msgstr ""
+"Contenttypes die zichtbaar zullen zijn in het veld voor Content aggregatie "
+"bronnen"
 
 #: EasyNewsletter/content/newsletter_issue.py:73
 msgid "Customizations"
-msgstr ""
+msgstr "Aanpassingen"
 
 #: EasyNewsletter/views/newsletter_issue_statistics.pt:23
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: EasyNewsletter/browser/enl_subscribers_view.pt:135
 #: EasyNewsletter/views/newsletter_subscribers.pt:151
@@ -117,23 +122,27 @@ msgstr "E-mail"
 #: EasyNewsletter/content/newsletter.py:115
 #: EasyNewsletter/content/newsletter_issue.py:97
 msgid "ENL_content_aggregation_sources_desc"
-msgstr ""
+msgstr "Kies bronnen om de inhoud van de nieuwsbrief te verzamelen"
 
 #. Default: "Content aggregation sources"
 #: EasyNewsletter/content/newsletter.py:111
 #: EasyNewsletter/content/newsletter_issue.py:93
 msgid "ENL_content_aggregation_sources_label"
-msgstr ""
+msgstr "Bronnen voor content aggregatie"
 
 #. Default: "Text used for confirmation email subject. You can                 customize the text, but it should include the                 placeholder: ${portal_url}!"
 #: EasyNewsletter/content/newsletter.py:246
 msgid "ENL_description_subscriber_confirmation_mail_subject"
 msgstr ""
+"Tekst voor onderwerp bevestigingsmail. Je kan de tekst wijzigen maar het "
+"moet de placeholder $(portal_url) bevatten"
 
 #. Default: "Text used for confirmation email. You can customize                 the text, but it should include the placeholders:                 ${portal_url}, ${subscriber_email} and                 ${confirmation_url}!"
 #: EasyNewsletter/content/newsletter.py:261
 msgid "ENL_description_subscriber_confirmation_mail_text"
 msgstr ""
+"Tekst voor bevestigingsmail. Je kan deze wijzigen, maar het moet volgende "
+"placeholders bevatten: ${subscriber_email} en ${confirmation_url}!\""
 
 #. Default: "The default epilogue text. This is used as a default                 for new issues. You can use placeholders like                {{subscriber_salutation}} and {{unsubscribe}} here."
 #: EasyNewsletter/content/newsletter.py:205
@@ -156,7 +165,7 @@ msgstr ""
 #. Default: "This will be used if the subscriber has no fullname."
 #: EasyNewsletter/content/newsletter.py:146
 msgid "ENL_help_fullname_fallback"
-msgstr ""
+msgstr "Dit wordt gebruikt als de abonnee geen naam heeft"
 
 #. Default: "Define here possible salutations for subscriber.                 One salutation per line in the form of: \"mr|Dear Mr.\".                 The left hand value \"mr\" or \"ms\" is mapped to salutation                 of each subscriber and then the right hand value, which                 you can customize is used as salutation."
 #: EasyNewsletter/content/newsletter.py:128
@@ -166,22 +175,22 @@ msgstr ""
 #. Default: "Default for the sender address of the newsletters."
 #: EasyNewsletter/content/newsletter.py:79
 msgid "ENL_help_senderEmail"
-msgstr ""
+msgstr "Standaard afzender adres van de nieuwsbrieven"
 
 #. Default: "Default for the sender name of the newsletters."
 #: EasyNewsletter/content/newsletter.py:88
 msgid "ENL_help_senderName"
-msgstr ""
+msgstr "Standaard naam van de afzender van de nieuwsbrieven"
 
 #. Default: "Default for the test email address."
 #: EasyNewsletter/content/newsletter.py:97
 msgid "ENL_help_testEmail"
-msgstr ""
+msgstr "Standaard test e-mailadres"
 
 #. Default: "This will replace the placeholder {{UNSUBSCRIBE}}."
 #: EasyNewsletter/content/newsletter.py:158
 msgid "ENL_help_unsubscribe_string"
-msgstr ""
+msgstr "Dit vervangt de placeholder {{UNSUBSCRIBE}}"
 
 #. Default: "Banner image, you can include in the templates by\n adding the {{banner}} placeholder into it. By default it should be 600x200 pixel."
 #: EasyNewsletter/content/newsletter.py:169
@@ -193,45 +202,45 @@ msgstr ""
 #: EasyNewsletter/content/newsletter.py:168
 #: EasyNewsletter/content/newsletter_issue.py:177
 msgid "ENL_image_label"
-msgstr ""
+msgstr "Banner afbeelding"
 
 #. Default: "Epilogue"
 #: EasyNewsletter/content/newsletter.py:204
 #: EasyNewsletter/content/newsletter_issue.py:150
 msgid "ENL_label_default_footer"
-msgstr ""
+msgstr "Epiloog"
 
 #. Default: "Prologue"
 #: EasyNewsletter/content/newsletter.py:191
 #: EasyNewsletter/content/newsletter_issue.py:137
 msgid "ENL_label_default_header"
-msgstr ""
+msgstr "Proloog"
 
 #. Default: "Exclude all subscribers"
 #: EasyNewsletter/content/newsletter.py:219
 #: EasyNewsletter/content/newsletter_issue.py:113
 msgid "ENL_label_excludeAllSubscribers"
-msgstr ""
+msgstr "Sluit alle abonnees uit"
 
 #. Default: "Fallback for subscribers without a name."
 #: EasyNewsletter/content/newsletter.py:142
 msgid "ENL_label_fullname_fallback"
-msgstr ""
+msgstr "Fallback voor abonnees zonder naam"
 
 #. Default: "Subscriber Salutations."
 #: EasyNewsletter/content/newsletter.py:127
 msgid "ENL_label_salutations"
-msgstr ""
+msgstr "Aanhef abonnees"
 
 #. Default: "Sender email"
 #: EasyNewsletter/content/newsletter.py:78
 msgid "ENL_label_senderEmail"
-msgstr ""
+msgstr "E-mail afzender"
 
 #. Default: "Sender name"
 #: EasyNewsletter/content/newsletter.py:87
 msgid "ENL_label_senderName"
-msgstr ""
+msgstr "Naam afzender"
 
 #. Default: "Subscriber confirmation mail subject"
 #: EasyNewsletter/content/newsletter.py:242
@@ -241,17 +250,17 @@ msgstr ""
 #. Default: "Subscriber confirmation mail text"
 #: EasyNewsletter/content/newsletter.py:257
 msgid "ENL_label_subscriber_confirmation_mail_text"
-msgstr ""
+msgstr "Tekst bevestigingsmail abonnee"
 
 #. Default: "Test email"
 #: EasyNewsletter/content/newsletter.py:96
 msgid "ENL_label_testEmail"
-msgstr ""
+msgstr "Test e-mail"
 
 #. Default: "Text for the 'unsubscribe' link"
 #: EasyNewsletter/content/newsletter.py:155
 msgid "ENL_label_unsubscribe_string"
-msgstr ""
+msgstr "Tekst voor uitschrijven link"
 
 #. Default: "Logo image, you can include in the templates by\n adding the {{logo}} placeholder into it."
 #: EasyNewsletter/content/newsletter.py:181
@@ -261,7 +270,7 @@ msgstr ""
 #. Default: "Logo image"
 #: EasyNewsletter/content/newsletter.py:180
 msgid "ENL_logo_label"
-msgstr ""
+msgstr "Logo afbeelding"
 
 #. Default: "Enable sendbutton"
 #: EasyNewsletter/browser/issue_send_form.pt:115
@@ -380,7 +389,7 @@ msgstr "Test e-mail"
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 #: EasyNewsletter/profiles/default/types/Newsletter_Subscriber.xml
 msgid "Edit"
-msgstr ""
+msgstr "Bewerken"
 
 #: EasyNewsletter/portlets/subscriber.py:248
 msgid "Edit Newsletter portlet"
@@ -395,19 +404,19 @@ msgstr "E-mail"
 #: EasyNewsletter/browser/subscribers.py:316
 #: EasyNewsletter/views/newsletter_subscribers_upload.py:132
 msgid "Email existed, updated subscriber."
-msgstr ""
+msgstr "E-mailadres bestond, abonnee bijgewerkt."
 
 #: EasyNewsletter/views/newsletter_issue_statistics.pt:26
 msgid "Error Message"
-msgstr ""
+msgstr "Foutboodschap"
 
 #: EasyNewsletter/views/newsletter_subscribers.pt:34
 msgid "Export subscriber"
-msgstr ""
+msgstr "Exporteer abonnee"
 
 #: EasyNewsletter/views/newsletter_issue_statistics.pt:38
 msgid "Failed"
-msgstr ""
+msgstr "Mislukt"
 
 #: EasyNewsletter/browser/upload_csv.pt:92
 #: EasyNewsletter/portlets/subscriber.pt:33
@@ -422,7 +431,7 @@ msgstr "Importeren"
 
 #: EasyNewsletter/views/newsletter_subscribers.pt:27
 msgid "Import subscriber"
-msgstr ""
+msgstr "Importeer abonnee"
 
 #: EasyNewsletter/viewlets/newsletter_actions.pt:8
 msgid "Issue archive"
@@ -453,26 +462,28 @@ msgstr "Masters"
 #: EasyNewsletter/views/newsletter_subscribers_upload.py:108
 msgid "More than one subscriber with this email address existed, subscriber info was NOT updated. Check manually!"
 msgstr ""
+"Meer dan één abonnee met e-mailadres, abonnee werd niet bijgewerkt. Kijk "
+"manueel na!"
 
 #: EasyNewsletter/vocabularies/salutations.py:25
 msgid "Mr"
-msgstr ""
+msgstr "Meneer"
 
 #: EasyNewsletter/vocabularies/salutations.py:24
 msgid "Ms"
-msgstr ""
+msgstr "Mevrouw"
 
 #: EasyNewsletter/profiles/default/types/Newsletter.xml
 msgid "Newsletter"
-msgstr ""
+msgstr "Nieuwsbrief"
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "Newsletter Issue"
-msgstr ""
+msgstr "Nieuwsbrief editie"
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Subscriber.xml
 msgid "Newsletter Subscriber"
-msgstr ""
+msgstr "Nieuwsbrief abonnee"
 
 #: EasyNewsletter/behaviors/collection_as_newsletter_aggregation_source.py:27
 msgid "Newsletter aggregation template"
@@ -515,7 +526,7 @@ msgstr "Organisatie"
 
 #: EasyNewsletter/content/newsletter.py:59
 msgid "Personalization"
-msgstr ""
+msgstr "Personalisatie"
 
 #: EasyNewsletter/browser/registration.py:193
 msgid "Please enter a valid email address."
@@ -524,7 +535,7 @@ msgstr "Gelieve een geldig e-mailadres in te vullen of schrijf je opnieuw in om 
 #: EasyNewsletter/browser/registration.py:290
 #: EasyNewsletter/views/newsletter_unsubscribe.py:23
 msgid "Please use the correct unsubscribe url!"
-msgstr ""
+msgstr "Gelieve de juiste url te gebruiken om uit te schrijven!"
 
 #: EasyNewsletter/browser/upload_csv.pt:91
 #: EasyNewsletter/views/newsletter_subscribers_upload.pt:76
@@ -533,15 +544,15 @@ msgstr "Titel"
 
 #: EasyNewsletter/views/newsletter_issue.pt:12
 msgid "Preview email content in new window"
-msgstr ""
+msgstr "Bekijk voorbeeld e-mail in nieuw venster"
 
 #: EasyNewsletter/upgrades/4001.zcml:11
 msgid "Products.EasyNewsletter (4001)"
-msgstr ""
+msgstr "Products.EasyNewsletter (4001)"
 
 #: EasyNewsletter/upgrades/4002.zcml:11
 msgid "Products.EasyNewsletter (4002)"
-msgstr ""
+msgstr "Products.EasyNewsletter (4002)"
 
 #: EasyNewsletter/upgrades/4003.zcml:11
 msgid "Products.EasyNewsletter (4003)"
