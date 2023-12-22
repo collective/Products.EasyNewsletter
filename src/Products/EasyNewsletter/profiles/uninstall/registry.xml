@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<registry>
+
+        <records prefix="plone.resources/iframeResizer"
+                interface='Products.CMFPlone.interfaces.IResourceRegistry'
+                remove="true">
+        </records>
+
+        <records interface="Products.CMFPlone.interfaces.IBundleRegistry"
+                prefix="plone.bundles/easynewsletter"
+                remove="true">
+        </records>
+
+        <records interface='Products.CMFPlone.interfaces.IResourceRegistry'
+                prefix="plone.resources/easynewsletter"
+                remove="true">
+        </records>
+
+        <record name="Products.EasyNewsletter.allowed_content_aggregation_types"
+                interface="Products.EasyNewsletter.browser.controlpanel.IENLSettings"
+                field="allowed_content_aggregation_types"
+                remove="true">
+        </record>
+</registry>
