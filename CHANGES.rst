@@ -1,7 +1,7 @@
 Changelog
 =========
 
-6.0.0b3 (unreleased)
+6.0.0b3 (2023-12-22)
 --------------------
 
 - Remove requireJS from iframeresizer, update registry.xml for Plone 6
