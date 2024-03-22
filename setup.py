@@ -53,6 +53,8 @@ setup(
         "html2text",
         "email-validator>=1.1.2",
         "six",
+        "huey",
+        "gevent",
     ],
     extras_require=dict(
         test=[

@@ -10,4 +10,7 @@
       package=".taskqueue"
       zcml:condition="installed collective.taskqueue"
   />
+  <include
+      package=".huey"
+  />
 </configure>
