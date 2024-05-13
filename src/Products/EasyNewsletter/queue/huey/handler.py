@@ -7,7 +7,5 @@ from .huey_tasks import send_newsletters
 class IssueQueue(object):
     def start(self, context):
         """Queues issue for sendout through huey-mini task queue"""
-        print(context.UID())
         task_res = send_newsletters(context.UID())
-        print(task_res)
         return task_res

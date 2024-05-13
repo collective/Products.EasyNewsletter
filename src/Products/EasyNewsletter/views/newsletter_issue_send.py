@@ -14,6 +14,8 @@ from Products.Five.browser import BrowserView
 from Products.MailHost.interfaces import IMailHost
 from zope.component import getMultiAdapter, getUtility, queryUtility, subscribers
 from zope.component.hooks import getSite
+from zope.interface import alsoProvides
+from plone.protect.interfaces import IDisableCSRFProtection
 
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.behaviors.plone_user_group_recipients import (
@@ -63,7 +65,8 @@ class Message(
 
 
 class LocalLoader(object):
-    """ """
+    """ local emails loader for transform Plone image url's
+    """
 
     def __getitem__(self, uri):
         image_file = None
@@ -167,7 +170,7 @@ class NewsletterIssueSend(BrowserView):
                 'Executed queue issue for sendout in wrong review state!'
             )
         res = queue.start(self.context)
-        # log.info(f"queue runner results: {res()}")
+        log.info(f"queue runner results: {res}")
 
     def _send_issue_prepare(self):
         self.request["enlwf_guard"] = True
@@ -183,6 +186,7 @@ class NewsletterIssueSend(BrowserView):
         never call this from UI - needs a way to protect
         currently manager only
         """
+        alsoProvides(self.request, IDisableCSRFProtection)
         self._send_issue_prepare()
         self.send()
 

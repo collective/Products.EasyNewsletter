@@ -2,7 +2,6 @@ import tempfile
 
 from huey import SqliteHuey
 from plone import api
-from zope.site.hooks import getSite, setSite
 from Products.EasyNewsletter import log
 
 QUEUE_NAME = "Products.EasyNewsletter.queue"
@@ -18,8 +17,9 @@ def send_newsletters(uid):
     """ resolve the context object by given uid and triggers
         generation and sending of the newsletter issue.
     """
-    from zope.component import getGlobalSiteManager
-    gsm = getGlobalSiteManager()
-    import pdb; pdb.set_trace()  # NOQA: E702
+    # from zope.component import getGlobalSiteManager
+    # gsm = getGlobalSiteManager()
+    # import pdb; pdb.set_trace()  # NOQA: E702
+    context = api.content.get(UID=uid)
     send_view = api.content.get_view(name="send-issue", context=context)
     send_view.send()

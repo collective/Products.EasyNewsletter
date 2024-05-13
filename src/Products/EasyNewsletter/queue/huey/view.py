@@ -13,3 +13,4 @@ class ProcessQueue(BrowserView):
         log.info("generating and sending newsletter issue emails")
         send_view = api.content.get_view(name="send-issue", context=self.context)
         send_view.send()
+        log.info("sending done ;)")

@@ -6,9 +6,9 @@
   <utility factory=".handler.TCIssueQueue" />
   <browser:page
       class=".view.ProcessQueue"
-      for="Products.EasyNewsletter.interfaces.IENLIssue"
-      layer="collective.taskqueue.interfaces.ITaskQueueLayer"
+      for="Products.EasyNewsletter.content.newsletter_issue.INewsletterIssue"
       name="enl_taskqueue_sendout"
-      permission="cmf.ReviewPortalContent"
+      permission="cmf.ModifyPortalContent"
   />
+      <!-- layer="Products.EasyNewsletter.interfaces.IProductsEasyNewsletterLayer" -->
 </configure>

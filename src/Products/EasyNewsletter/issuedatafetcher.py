@@ -105,7 +105,9 @@ class DefaultDXIssueDataFetcher(object):
         with header+body+footer (raw html).
         """
         output_tmpl_id = self.issue.output_template
-        issue_tmpl = self.issue.restrictedTraverse(str(output_tmpl_id))
+        issue_tmpl = self.issue.restrictedTraverse(str(output_tmpl_id), None)
+        if not issue_tmpl:
+            import pdb; pdb.set_trace()  # NOQA: E702
         output_html = issue_tmpl.render()
         return output_html
 
