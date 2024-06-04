@@ -1,0 +1,22 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="Products.EasyNewsletter">
+
+  <browser:page
+    name="easy_newsletter_control_panel-controlpanel"
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    class=".controlpanel.EasyNewsletterControlPanelView"
+    layer="Products.EasyNewsletter.interfaces.IProductsEasynewsletterLayer"
+    permission="cmf.ManagePortal"
+    />
+
+  <include package="plone.restapi"  />
+  <adapter
+    factory=".controlpanel.EasyNewsletterControlPanelConfigletPanel"
+    name="easy_newsletter_control_panel" />
+
+
+</configure>

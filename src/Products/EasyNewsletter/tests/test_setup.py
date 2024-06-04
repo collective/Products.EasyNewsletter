@@ -7,9 +7,9 @@ import unittest
 
 
 if IS_PLONE_5:
-    from zope.component import getUtility
     from plone.registry.interfaces import IRegistry
     from Products.CMFPlone.interfaces import INavigationSchema, ISearchSchema
+    from zope.component import getUtility
 
 
 class EasyNewsletterSetupTests(unittest.TestCase):

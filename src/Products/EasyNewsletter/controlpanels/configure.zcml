@@ -1,0 +1,15 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="Products.EasyNewsletter">
+
+ <!-- -*- extra stuff goes here -*- -->
+
+    <include
+        package=".easy_newsletter_control_panel"
+    />
+
+
+
+</configure>
