@@ -9,11 +9,13 @@ from Products.EasyNewsletter.behaviors.plone_user_group_recipients import (
     IPloneUserGroupRecipients,
 )
 from Products.EasyNewsletter.content.newsletter_issue import ISendStatus
+from Products.EasyNewsletter.controlpanels.easy_newsletter_control_panel.controlpanel import (
+    IEasyNewsletterControlPanel,
+)
 from Products.EasyNewsletter.interfaces import (
     IIssueDataFetcher,
     IReceiversPostSendingFilter,
 )
-from Products.EasyNewsletter.controlpanels.easy_newsletter_control_panel.controlpanel import IEasyNewsletterControlPanel
 from Products.Five.browser import BrowserView
 from Products.MailHost.interfaces import IMailHost
 from zope.component import getMultiAdapter, getUtility, subscribers

@@ -1,0 +1,13 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="Products.EasyNewsletter">
+
+ <!-- -*- extra stuff goes here -*- -->
+
+  <subscriber for="plone.dexterity.interfaces.IDexterityContent
+                   zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+              handler=".record_modified_event_mailhost2.handler"
+              />
+
+
+</configure>
