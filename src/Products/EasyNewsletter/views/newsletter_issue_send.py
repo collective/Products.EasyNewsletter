@@ -13,6 +13,7 @@ from Products.EasyNewsletter.interfaces import (
     IIssueDataFetcher,
     IReceiversPostSendingFilter,
 )
+from Products.EasyNewsletter.controlpanels.easy_newsletter_control_panel.controlpanel import IEasyNewsletterControlPanel
 from Products.Five.browser import BrowserView
 from Products.MailHost.interfaces import IMailHost
 from zope.component import getMultiAdapter, getUtility, subscribers
@@ -180,9 +181,13 @@ class NewsletterIssueSend(BrowserView):
         receivers = self._get_recipients()
 
         # determine MailHost first (build-in vs. external)
-        delivery_service_name = "mailhost"  # XXX enl.delivery_dervice
+        delivery_service_name = api.portal.get_registry_record(
+            'Products.EasyNewsletter.easy_newsletter_control_panel.delivery_service_name',
+        )
         if delivery_service_name == "mailhost":
             self.mail_host = api.portal.get_tool("MailHost")
+        elif delivery_service_name == "mailhost2":
+            self.mail_host = api.portal.get_tool("MailHost2")
         else:
             self.mail_host = getUtility(IMailHost, name=delivery_service_name)
         log.info('Using mail delivery service "%r"' % self.mail_host)

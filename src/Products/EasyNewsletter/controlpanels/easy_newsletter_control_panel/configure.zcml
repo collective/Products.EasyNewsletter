@@ -9,7 +9,7 @@
     name="easy_newsletter_control_panel-controlpanel"
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
     class=".controlpanel.EasyNewsletterControlPanelView"
-    layer="Products.EasyNewsletter.interfaces.IProductsEasynewsletterLayer"
+    layer="Products.EasyNewsletter.interfaces.IProductsEasyNewsletterLayer"
     permission="cmf.ManagePortal"
     />
 

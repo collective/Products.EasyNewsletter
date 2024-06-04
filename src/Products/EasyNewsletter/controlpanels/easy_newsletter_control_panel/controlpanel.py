@@ -6,23 +6,110 @@ from plone.app.registry.browser.controlpanel import (
 from plone.restapi.controlpanels import RegistryConfigletPanel
 from plone.z3cform import layout
 from Products.EasyNewsletter import _
-from Products.EasyNewsletter.interfaces import IProductsEasynewsletterLayer
+from Products.EasyNewsletter.interfaces import IProductsEasyNewsletterLayer
 from zope import schema
 from zope.component import adapter
 from zope.interface import Interface
 
 
 class IEasyNewsletterControlPanel(Interface):
-    myfield_name = schema.TextLine(
+    website_url = schema.TextLine(
         title=_(
-            "This is an example field for this control panel",
+            "Website url",
         ),
         description=_(
-            "",
+            "Website url to be used inside Newsletter templates",
         ),
         default="",
         required=False,
-        readonly=False,
+    )
+
+    delivery_service_name = schema.TextLine(
+        title=_(
+            u'Delivery Service Name',
+        ),
+        description=_(
+            u'Delivery service to be used. Can be either "mailhost" (default), "mailhost2" to use an alternative Mailhost with the data below or a custom utility providing IMailHost.',
+        ),
+        default=u'mailhost',
+        required=True,
+    )
+
+    smtp_host = schema.TextLine(
+        title=_(
+            "SMTP Host",
+        ),
+        description=_(
+            "The address of your local SMTP (outgoing e-mail) server. Usually 'localhost', unless you use an external server to send e-mail.",
+        ),
+        default="localhost",
+        required=False,
+    )
+
+    smtp_port = schema.Int(
+        title=_(
+            "SMTP port",
+        ),
+        description=_(
+            "The port of your local SMTP (outgoing e-mail) server. Usually '25'.",
+        ),
+        default=25,
+        required=False,
+    )
+
+    smtp_userid = schema.TextLine(
+        title=_(
+            "ESMTP username",
+        ),
+        description=_(
+            "SMTP username to be used instead of the Plone SMTP username",
+        ),
+        default="",
+        required=False,
+    )
+
+    smtp_password = schema.Password(
+        title=_(
+            "ESMTP password",
+        ),
+        description=_(
+            "SMTP password to be used instead of the Plone SMTP password",
+        ),
+        default="",
+        required=False,
+    )
+
+    email_from_name = schema.TextLine(
+        title=_(
+            u'Site "From" name',
+        ),
+        description=_(
+            u'EasyNewsletter generates e-mail using this name as the e-mail sender.',
+        ),
+        required=False,
+        default=u'',
+    )
+
+    email_from_address = schema.TextLine(
+        title=_(
+            u'Site "From" address',
+        ),
+        description=_(
+            u'EasyNewsletter generates e-mail using this address as the e-mail return address.',
+        ),
+        required=False,
+        default=u'',
+    )
+
+    email_charset = schema.TextLine(
+        title=_(
+            u'E-mail characterset',
+        ),
+        description=_(
+            u'Characterset to use when sending e-mails.',
+        ),
+        required=True,
+        default=u'utf-8',
     )
 
 
@@ -37,8 +124,7 @@ EasyNewsletterControlPanelView = layout.wrap_form(
 )
 
 
-
-@adapter(Interface, IProductsEasynewsletterLayer)
+@adapter(Interface, IProductsEasyNewsletterLayer)
 class EasyNewsletterControlPanelConfigletPanel(RegistryConfigletPanel):
     """Control Panel endpoint"""
 
