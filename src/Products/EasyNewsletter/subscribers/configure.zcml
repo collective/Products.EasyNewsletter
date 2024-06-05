@@ -4,8 +4,8 @@
 
  <!-- -*- extra stuff goes here -*- -->
 
-  <subscriber for="plone.dexterity.interfaces.IDexterityContent
-                   zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+  <subscriber for="Products.EasyNewsletter.controlpanels.easy_newsletter_control_panel.controlpanel.IEasyNewsletterControlPanel
+                   plone.registry.interfaces.IRecordModifiedEvent"
               handler=".record_modified_event_mailhost2.handler"
               />
 

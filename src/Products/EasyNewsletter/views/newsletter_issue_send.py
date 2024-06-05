@@ -200,7 +200,6 @@ class NewsletterIssueSend(BrowserView):
         issue_data_fetcher = IIssueDataFetcher(self.context)
         # get issue subject an rendered output data
         issue_data = issue_data_fetcher()
-        # import pdb; pdb.set_trace()  # NOQA: E702
         for receiver in receivers:
             personalized_html = issue_data_fetcher.personalize(
                 receiver, issue_data["body_html"]

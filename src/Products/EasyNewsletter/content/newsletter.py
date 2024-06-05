@@ -269,6 +269,25 @@ class INewsletter(model.Schema):
         required=True,
     )
 
+    newsletter_url = schema.URI(
+        title=_(
+            u'Newsletter URL',
+        ),
+        description=_(
+            u'A fix URL for the Newsletter, used in templates.',
+        ),
+        default=None,
+        required=False,
+    )
+
+    model.fieldset(
+        'settings',
+        label=u'Settings',
+        fields=[
+            'newsletter_url',
+        ],
+    )
+
     directives.order_after(content_aggregation_sources="IBasic.title")
     directives.order_after(test_email="IBasic.title")
     directives.order_after(sender_name="IBasic.title")

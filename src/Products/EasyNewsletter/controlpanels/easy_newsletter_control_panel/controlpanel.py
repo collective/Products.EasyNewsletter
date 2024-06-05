@@ -13,16 +13,6 @@ from zope.interface import Interface
 
 
 class IEasyNewsletterControlPanel(Interface):
-    website_url = schema.TextLine(
-        title=_(
-            "Website url",
-        ),
-        description=_(
-            "Website url to be used inside Newsletter templates",
-        ),
-        default="",
-        required=False,
-    )
 
     delivery_service_name = schema.TextLine(
         title=_(
@@ -77,39 +67,6 @@ class IEasyNewsletterControlPanel(Interface):
         ),
         default="",
         required=False,
-    )
-
-    email_from_name = schema.TextLine(
-        title=_(
-            u'Site "From" name',
-        ),
-        description=_(
-            u'EasyNewsletter generates e-mail using this name as the e-mail sender.',
-        ),
-        required=False,
-        default=u'',
-    )
-
-    email_from_address = schema.TextLine(
-        title=_(
-            u'Site "From" address',
-        ),
-        description=_(
-            u'EasyNewsletter generates e-mail using this address as the e-mail return address.',
-        ),
-        required=False,
-        default=u'',
-    )
-
-    email_charset = schema.TextLine(
-        title=_(
-            u'E-mail characterset',
-        ),
-        description=_(
-            u'Characterset to use when sending e-mails.',
-        ),
-        required=True,
-        default=u'utf-8',
     )
 
 
