@@ -2,47 +2,43 @@
 
 from plone import api
 from Products.EasyNewsletter import log
+from Products.MailHost.interfaces import IMailHost
+from Products.MailHost.MailHost import MailHost
+from zope.component import getSiteManager
+
+
+ENL_MAILHOST_NAME = "MailHost2"
 
 
 def handler(obj, event):
     """Event handler"""
-    mailhost = api.portal.get_tool("MailHost2")
+    try:
+        mailhost = api.portal.get_tool(ENL_MAILHOST_NAME)
+    except api.exc.InvalidParameterError:
+        mailhost = MailHost(
+            id=ENL_MAILHOST_NAME,
+            title="Alternative email server settings for Newsletters",
+            smtp_host="",
+            smtp_port=25,
+            smtp_uid="",
+            smtp_pwd="",
+            force_tls=False,
+        )
+        portal = api.portal.get()
+        portal._setObject(ENL_MAILHOST_NAME, mailhost)
+        sm = getSiteManager(context=portal)
+        sm.unregisterUtility(provided=IMailHost)
+        sm.registerUtility(mailhost, provided=IMailHost)
     log.info(
-        "Handle IEasyNewsletterControlPanel IRecordEvent for field '{}' to update MailHost2 settings.".format(
-            event.record.fieldName
+        "Handle IEasyNewsletterControlPanel IRecordEvent for field '{}' to update {} settings.".format(
+            event.record.fieldName, ENL_MAILHOST_NAME
         )
     )
-    changed = False
-    smtp_host = None
-    smtp_port = None
-    smtp_userid = None
-    smtp_password = None
     if event.record.fieldName == "smtp_host":
-        smtp_host = event.newValue
-        changed = True
+        mailhost.smtp_host = event.newValue
     if event.record.fieldName == "smtp_port":
-        smtp_port = event.newValue
-        changed = True
+        mailhost.smtp_port = event.newValue
     if event.record.fieldName == "smtp_userid":
-        smtp_userid = event.newValue
-        changed = True
+        mailhost.smtp_uid = event.newValue
     if event.record.fieldName == "smtp_password":
-        smtp_password = event.newValue
-        changed = True
-    if changed:
-        if not smtp_host:
-            smtp_host = mailhost.smtp_host
-        if not smtp_port:
-            smtp_port = mailhost.smtp_port
-        if not smtp_userid:
-            smtp_userid = mailhost.smtp_userid
-        if not smtp_password:
-            smtp_password = mailhost.smtp_pwd
-
-        mailhost.manage_makeChanges(
-            mailhost.title,
-            smtp_host=smtp_host,
-            smtp_port=smtp_port,
-            smtp_uid=smtp_userid,
-            smtp_pwd=smtp_password,
-        )
+        mailhost.smtp_pwd = event.newValue
