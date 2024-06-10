@@ -88,7 +88,7 @@ class DefaultDXIssueDataFetcher(object):
             unsubscribe_text = "Click here to unsubscribe"
 
         unsubscribe_link = "{0}/unsubscribe?subscriber={1}".format(
-            self.enl.newsletter_url or self.enl.absolute_url(), receiver["uid"]
+            self.enl.absolute_url(), receiver["uid"]
         )
         unsubscribe_markup = """<a href="{0}" class="enl_unsubscribe_link">{1}.</a>""".format(
             unsubscribe_link, unsubscribe_text
@@ -128,7 +128,7 @@ class DefaultDXIssueDataFetcher(object):
         scales = self.enl.restrictedTraverse("@@images")
         logo_src = ""
         if scales.scale("logo", scale="mini"):
-            logo_src = (self.enl.newsletter_url or self.enl.absolute_url()) + "/@@images/logo"
+            logo_src = self.enl.absolute_url() + "/@@images/logo"
         self._issue_data["logo_src"] = logo_src
         self._issue_data["date"] = self.plone_view.toLocalizedTime(
             self.issue.effective(), long_format=0
@@ -171,10 +171,10 @@ class DefaultDXIssueDataFetcher(object):
         """ Create a plain-text-message by parsing the html
             and attaching links as endnotes
         """
-        if self.enl.newsletter_url:
-            baseurl = self.enl.newsletter_url + "/" + self.issue.id
-        else:
-            baseurl = self.issue.absolute_url()
+        # if self.enl.newsletter_url:
+        #     baseurl = self.enl.newsletter_url + "/" + self.issue.id
+        # else:
+        baseurl = self.issue.absolute_url()
         html_to_text = HTML2Text(baseurl=baseurl)
         html_to_text.ul_style_dash = True
         html_to_text.inline_links = False

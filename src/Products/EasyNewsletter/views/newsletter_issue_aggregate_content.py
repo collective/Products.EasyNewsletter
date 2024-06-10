@@ -6,6 +6,7 @@ from plone.app.textfield import RichTextValue
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter import _
 from Products.EasyNewsletter.config import AGG_SOURCES_INFOS
+from Products.EasyNewsletter.utils.base import use_fixed_newsletter_url
 from Products.Five.browser import BrowserView
 # from transaction import commit
 from zope.annotation import IAnnotations
@@ -13,7 +14,14 @@ from zope.annotation import IAnnotations
 
 class NewsletterIssueAggregateContent(BrowserView):
     def __call__(self):
-        text = self.render_aggregation_sources()
+        enl = self.context.get_newsletter()
+        if enl.newsletter_url:
+            enl_url = enl.newsletter_url + "/" + self.context.id + "/aggregate-content"
+            with use_fixed_newsletter_url(enl_url, self.request):
+                text = self.render_aggregation_sources()
+        else:
+            text = self.render_aggregation_sources()
+
         self.context.text = RichTextValue(
             raw=text, mimeType="text/html", outputMimeType="text/html",
         )
@@ -64,7 +72,6 @@ class NewsletterIssueAggregateContent(BrowserView):
     def store_source_info_in_annotation(self, source_info):
         """
         """
-        # import pdb; pdb.set_trace()
         annotations = IAnnotations(aq_inner(self.context))
         if AGG_SOURCES_INFOS not in annotations:
             annotations[AGG_SOURCES_INFOS] = []

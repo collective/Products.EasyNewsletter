@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from datetime import datetime
 from plone import api
 from plone.namedfile.scaling import ImageScale, ImageScaling
@@ -8,6 +7,7 @@ from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.behaviors.plone_user_group_recipients import (
     IPloneUserGroupRecipients,
 )
+from Products.EasyNewsletter.utils.base import use_fixed_newsletter_url
 from Products.EasyNewsletter.content.newsletter_issue import ISendStatus
 from Products.EasyNewsletter.controlpanels.easy_newsletter_control_panel.controlpanel import (
     IEasyNewsletterControlPanel,
@@ -20,7 +20,6 @@ from Products.Five.browser import BrowserView
 from Products.MailHost.interfaces import IMailHost
 from zope.component import getMultiAdapter, getUtility, subscribers
 from zope.component.hooks import getSite
-
 import emails
 import emails.loader
 import logging
@@ -164,7 +163,13 @@ class NewsletterIssueSend(BrowserView):
         currently manager only
         """
         self._send_issue_prepare()
-        self.send()
+        enl = self.context.get_newsletter()
+        if enl.newsletter_url:
+            enl_url = enl.newsletter_url + "/" + self.context.id + "/send-issue-form"
+            with use_fixed_newsletter_url(enl_url, self.request):
+                self.send()
+        else:
+            self.send()
 
     def send(self):
         """Sends the newsletter, sending might be queued for async send out."""
@@ -184,15 +189,32 @@ class NewsletterIssueSend(BrowserView):
 
         # determine MailHost first (build-in vs. external)
         delivery_service_name = api.portal.get_registry_record(
-            'Products.EasyNewsletter.easy_newsletter_control_panel.delivery_service_name',
+            "Products.EasyNewsletter.easy_newsletter_control_panel.delivery_service_name",
         )
         if delivery_service_name == "mailhost":
             self.mail_host = api.portal.get_tool("MailHost")
+            log.info(
+                'Using mail delivery service "{}" with id "{}"'.format(
+                    self.mail_host, self.mail_host.id
+                )
+            )
         elif delivery_service_name == "mailhost2":
             self.mail_host = api.portal.get_tool("MailHost2")
+            log.info(
+                'Using mail delivery service "{}" with id "{}"'.format(
+                    self.mail_host, self.mail_host.id
+                )
+            )
+            log.info(
+                "\nhost:{}\nport: {}".format(
+                    self.mail_host.id,
+                    self.mail_host.smtp_host,
+                    self.mail_host.smtp_port,
+                )
+            )
         else:
             self.mail_host = getUtility(IMailHost, name=delivery_service_name)
-        log.info('Using mail delivery service "%r"' % self.mail_host)
+            log.info('Using mail delivery service "%r"' % self.mail_host)
 
         send_counter = 0
         send_error_counter = 0
@@ -244,7 +266,7 @@ class NewsletterIssueSend(BrowserView):
                 continue
 
             if "HTTPLoaderError" in msg_string:
-                log.exception(u"Transform message failed: {0}".format(m.as_string()))
+                log.exception("Transform message failed: {0}".format(m.as_string()))
 
             try:
                 self.mail_host.send(msg_string, immediate=True)
@@ -359,10 +381,10 @@ class NewsletterIssueSend(BrowserView):
                     "email": subscriber.email,
                     "gender": subscriber.salutation,
                     "name_prefix": subscriber.name_prefix,
-                    "firstname": subscriber.firstname or u"",
-                    "lastname": subscriber.lastname or u"",
+                    "firstname": subscriber.firstname or "",
+                    "lastname": subscriber.lastname or "",
                     "fullname": " ".join(
-                        [subscriber.firstname or u"", subscriber.lastname or u""]
+                        [subscriber.firstname or "", subscriber.lastname or ""]
                     ),
                     "salutation": salutation.get(
                         None,  # subscriber.getNl_language(),

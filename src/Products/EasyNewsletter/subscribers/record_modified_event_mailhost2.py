@@ -12,11 +12,37 @@ def handler(obj, event):
             event.record.fieldName
         )
     )
+    changed = False
+    smtp_host = None
+    smtp_port = None
+    smtp_userid = None
+    smtp_password = None
     if event.record.fieldName == "smtp_host":
-        mailhost.smtp_host = event.newValue
+        smtp_host = event.newValue
+        changed = True
     if event.record.fieldName == "smtp_port":
-        mailhost.smtp_port = event.newValue
+        smtp_port = event.newValue
+        changed = True
     if event.record.fieldName == "smtp_userid":
-        mailhost.smtp_userid = event.newValue
+        smtp_userid = event.newValue
+        changed = True
     if event.record.fieldName == "smtp_password":
-        mailhost.smtp_password = event.newValue
+        smtp_password = event.newValue
+        changed = True
+    if changed:
+        if not smtp_host:
+            smtp_host = mailhost.smtp_host
+        if not smtp_port:
+            smtp_port = mailhost.smtp_port
+        if not smtp_userid:
+            smtp_userid = mailhost.smtp_userid
+        if not smtp_password:
+            smtp_password = mailhost.smtp_pwd
+
+        mailhost.manage_makeChanges(
+            mailhost.title,
+            smtp_host=smtp_host,
+            smtp_port=smtp_port,
+            smtp_uid=smtp_userid,
+            smtp_pwd=smtp_password,
+        )

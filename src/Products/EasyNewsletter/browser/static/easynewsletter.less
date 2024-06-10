@@ -1,7 +1,7 @@
-// vs code ext: Easy Less:
-// out: easynewsletter.css, compress: true, sourceMap: true
+// out: "./easynewsletter.css", compress: true, sourceMap: true
+// vs code ext: Easy Compile
 
-@import (reference) url("https://raw.githubusercontent.com/plone/mockup/master/mockup/patterns/toolbar/variables.less");
+// @import (reference) url("https://raw.githubusercontent.com/plone/mockup/master/mockup/patterns/toolbar/variables.less");
 
 @font-face {
   font-family: "easynewsletter";
@@ -13,6 +13,7 @@
   font-weight: normal;
   font-style: normal;
 }
+
 /* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
 /* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
 /*
@@ -144,13 +145,6 @@ input.easynewsletter_text {
 
 }
 
-.template-atct_edit.portaltype-enltemplate #archetypes-fieldname-body textarea {
-  height: 850px;
-  min-width: 800px;
-  font-family: Courier New;
-  font-size: 90%;
-}
-
 .template-enl_subscribers_view .search {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
@@ -185,10 +179,17 @@ input.easynewsletter_text {
   }
 }
 
+.portaltype-newsletter-issue.template-statistics{
+  #content-core{
+    overflow: auto;
+    max-width: 100%
+  }
+}
+
 #enl_actions {
   margin: 1em 0 2em 0;
   padding: 0.5em;
-  border-bottom: 1px solid @plone-link-color;
+  border-bottom: 1px solid blue;
 }
 
 #enl_actions li {

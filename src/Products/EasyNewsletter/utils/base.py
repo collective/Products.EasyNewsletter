@@ -2,8 +2,10 @@
 from AccessControl import getSecurityManager
 from AccessControl.SecurityManagement import newSecurityManager, setSecurityManager
 from AccessControl.User import Super as BaseUnrestrictedUser
+from contextlib import contextmanager
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter.utils.mail import get_email_charset
+from urllib.parse import urlparse
 
 
 def safe_portal_encoding(string):
@@ -49,6 +51,36 @@ def execute_under_special_role(portal, role, function, *args, **kwargs):
     finally:
         # Restore the old security manager
         setSecurityManager(sm)
+
+
+@contextmanager
+def use_fixed_newsletter_url(url, request):
+    server_url = request.get('SERVER_URL', '')
+    old_url = urlparse(server_url)
+    # old_virtual_root = request.getVirtualRoot()
+    # change url in request
+    url_obj = urlparse(url)
+    protocol = url_obj.scheme
+    hostname = url_obj.hostname
+    port = url_obj.port
+    if not port:
+        if protocol == "https":
+            port = 443
+        else:
+            port = 80
+    request.setServerURL(
+        protocol=protocol, hostname=hostname, port=port,
+    )
+    try:
+        yield
+    finally:
+        # reset url in request
+        protocol = old_url.scheme
+        hostname = old_url.hostname
+        port = old_url.port
+        request.setServerURL(
+            protocol=protocol, hostname=hostname, port=port,
+        )
 
 
 class UnrestrictedUser(BaseUnrestrictedUser):
