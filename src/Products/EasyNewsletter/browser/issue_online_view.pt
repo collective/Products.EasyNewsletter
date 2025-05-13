@@ -12,7 +12,13 @@
         }
         </script>
 
-        <script type="text/javascript" src="++resource++Products.EasyNewsletter.iframeResizer.contentWindow.min.js" data-bundle="none"></script>
+        <!-- script type="text/javascript" src="++resource++Products.EasyNewsletter.iframeResizer.contentWindow.min.js" data-bundle="none"></script -->
+
+<script
+  src="https://cdn.jsdelivr.net/npm/@iframe-resizer/child@5.4.6"
+  type="text/javascript"
+  async
+></script>
 
         <script type="text/javascript">
         //            <![CDATA[

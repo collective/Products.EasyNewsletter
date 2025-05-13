@@ -34,6 +34,17 @@
       </iframe>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@iframe-resizer/parent@5.4.6"></script>
+<script>
+alert("HELLO");
+  iframeResize({
+    license: 'GPLv3',
+    log: 'collapsed',
+    waitForLoad: true,
+  }, '#enl-issue-preview')
+</script>
+
+
       <script type="text/javascript">
         if(typeof define !== 'undefined'){
             var _old_define = define;
@@ -42,7 +53,7 @@
             require = undefined;
         }
 
-        iFrameResize();
+        <!-- iFrameResize(); -->
 
         if(typeof _old_define !== 'undefined'){
             define = _old_define;
