@@ -41,7 +41,6 @@
     <value key="enabled">True</value>
     <value key="depends">plone</value>
     <value key="csscompilation">++plone++easynewsletter/easynewsletter.css</value>
-    <value key="jscompilation">++resource++Products.EasyNewsletter.iframeResizer.min.js</value>
   </records>
 
   <record name="plone.displayed_types" interface="Products.CMFPlone.interfaces.controlpanel.INavigationSchema" field="displayed_types">

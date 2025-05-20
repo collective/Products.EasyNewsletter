@@ -1,0 +1,21 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+  xmlns:gs="http://namespaces.zope.org/genericsetup">
+
+  <gs:registerProfile name="4008"
+    title="Update resource registry entries, remove iframeResizer, use updated version now."
+    directory="4008"
+    description='Configuration for version 4008'
+    for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+    provides="Products.GenericSetup.interfaces.EXTENSION" />
+
+  <gs:upgradeSteps source="4007"
+    destination="4008"
+    profile="Products.EasyNewsletter:default">
+
+    <gs:upgradeDepends title="Update resource registry entries, remove iframeResizer, use updated version now. (GS profile)"
+      description=""
+      import_profile="Products.EasyNewsletter.upgrades:4008" />
+
+  </gs:upgradeSteps>
+
+</configure>

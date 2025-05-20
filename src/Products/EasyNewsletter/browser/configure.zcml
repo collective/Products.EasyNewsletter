@@ -97,12 +97,12 @@
     file="javascripts/enl_edithelper.js" />
 
   <browser:resource
-    name="Products.EasyNewsletter.iframeResizer.min.js"
-    file="javascripts/iframeResizer.min.js" />
+    name="Products.EasyNewsletter.iframeResizer-child.js"
+    file="javascripts/iframeResizer-child.js" />
 
   <browser:resource
-    name="Products.EasyNewsletter.iframeResizer.contentWindow.min.js"
-    file="javascripts/iframeResizer.contentWindow.min.js" />
+    name="Products.EasyNewsletter.iframeResizer-parent.js"
+    file="javascripts/iframeResizer-parent.js" />
 
   <browser:page
     name="load_enl_edithelper"
