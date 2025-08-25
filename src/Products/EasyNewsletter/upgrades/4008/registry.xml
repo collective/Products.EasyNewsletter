@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<registry>
+
+        <records interface='Products.CMFPlone.interfaces.IResourceRegistry'
+                prefix="plone.resources/easynewsletter"
+                remove="true">
+        </records>
+
+        <records interface="Products.CMFPlone.interfaces.IBundleRegistry"
+                prefix="plone.bundles/easynewsletter">
+                <value key="enabled">True</value>
+                <value key="depends">plone</value>
+                <value key="csscompilation">++plone++easynewsletter/easynewsletter.css</value>
+                <value key="jscompilation"></value>
+        </records>
+
+</registry>
