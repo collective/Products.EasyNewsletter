@@ -69,3 +69,4 @@ docs/Makefile
 /docs/_build
 /venv311
 /.python-version
+/huey.log

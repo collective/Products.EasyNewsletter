@@ -1,30 +1,32 @@
 # -*- coding: utf-8 -*-
 
+import logging
+import re
 from datetime import datetime
+
+import emails
+import emails.loader
+import transaction
 from plone import api
-from plone.namedfile.scaling import ImageScale
-from plone.namedfile.scaling import ImageScaling
+from plone.namedfile.scaling import ImageScale, ImageScaling
 from plone.protect import PostOnly
+from Products.Five.browser import BrowserView
+from Products.MailHost.interfaces import IMailHost
+from zope.component import getMultiAdapter, getUtility, queryUtility, subscribers
+from zope.component.hooks import getSite
+from zope.interface import alsoProvides
+from plone.protect.interfaces import IDisableCSRFProtection
+
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.behaviors.plone_user_group_recipients import (
     IPloneUserGroupRecipients,
 )
 from Products.EasyNewsletter.content.newsletter_issue import ISendStatus
-from Products.EasyNewsletter.interfaces import IIssueDataFetcher
-from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter
-from Products.Five.browser import BrowserView
-from Products.MailHost.interfaces import IMailHost
-from zope.component import getMultiAdapter
-from zope.component import getUtility
-from zope.component import subscribers
-from zope.component.hooks import getSite
-
-import emails
-import emails.loader
-import logging
-import re
-import transaction
-
+from Products.EasyNewsletter.interfaces import (
+    IIssueDataFetcher,
+    IReceiversPostSendingFilter,
+)
+from Products.EasyNewsletter.queue.interfaces import IIssueQueue
 
 log = logging.getLogger("Products.EasyNewsletter")
 
@@ -63,7 +65,8 @@ class Message(
 
 
 class LocalLoader(object):
-    """ """
+    """ local emails loader for transform Plone image url's
+    """
 
     def __getitem__(self, uri):
         image_file = None
@@ -129,24 +132,45 @@ class NewsletterIssueSend(BrowserView):
             )
             return self.request.response.redirect(self.context.absolute_url())
 
-        # XXX implement this:
-        # if self.context.issue_queue is not None:
-        #     self._send_issue_prepare()
-        #     self.context.queue_issue_for_sendout()
-        #     api.portal.show_message(
-        #         message=_("The issue sending has been initiated in the background."),
-        #         request=self.request,
-        #     )
-        #     return self.request.response.redirect(self.context.absolute_url())
+        if self.issue_queue is not None:
+            self._send_issue_prepare()
+            self.queue_issue_for_sendout()
+            api.portal.show_message(
+                message=_("The issue sending has been initiated in the background."),
+                request=self.request,
+            )
+            return self.request.response.redirect(self.context.absolute_url())
 
         # No queuing but direct send
-        # self._send_issue_prepare()
         self.send_issue_immediately()
         api.portal.show_message(
             message=_("The issue has been generated and sent to the mail server."),
             request=self.request,
         )
         return self.request.response.redirect(self.context.absolute_url())
+
+    @property
+    def issue_queue(self):
+        return queryUtility(IIssueQueue)
+
+    def queue_issue_for_sendout(self):
+        """queues this issue for sendout using async queue
+        """
+        queue = self.issue_queue
+        if queue is None:
+            raise NotImplementedError(
+                'One need to install and configure a queue in '
+                'order to use the feature of a queued sendout.'
+            )
+
+        # check for workflow
+        current_state = api.content.get_state(obj=self.context)
+        if current_state != 'sending':
+            raise ValueError(
+                'Executed queue issue for sendout in wrong review state!'
+            )
+        res = queue.start(self.context)
+        log.info(f"queue runner results: {res}")
 
     def _send_issue_prepare(self):
         self.request["enlwf_guard"] = True
@@ -162,6 +186,7 @@ class NewsletterIssueSend(BrowserView):
         never call this from UI - needs a way to protect
         currently manager only
         """
+        alsoProvides(self.request, IDisableCSRFProtection)
         self._send_issue_prepare()
         self.send()
 

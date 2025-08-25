@@ -15,6 +15,7 @@
 
   <include package=".browser" />
   <include package=".content" />
+  <include package=".global_utilities" />
   <include package=".portlets" />
   <include package=".queue" />
   <include package=".utils" />

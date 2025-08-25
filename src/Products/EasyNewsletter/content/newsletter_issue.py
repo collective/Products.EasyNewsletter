@@ -206,7 +206,8 @@ class NewsletterIssue(Container):
     context_property("content_aggregation_sources")
 
     def get_newsletter(self):
-        return self.__parent__
+        return self.aq_inner.aq_parent
+        # return self.__parent__
 
     # bbb to support ATCT way, needs to be removed in v5.x:
     getNewsletter = get_newsletter
