@@ -4,7 +4,8 @@ Changelog
 6.0.0b5 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Update iframeResizer
+  [jensens,gogobd]
 
 
 6.0.0b4 (2023-12-22)
