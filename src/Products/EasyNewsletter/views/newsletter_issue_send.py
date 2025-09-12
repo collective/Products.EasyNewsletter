@@ -82,10 +82,13 @@ class LocalLoader(object):
             # @@images/image/thumb > thumb
             image_scale = groups[2]
 
-            scaling_view = portal.unrestrictedTraverse(
-                base_url.replace(purl, "").lstrip("/")
-            )
-            image_scale = scaling_view.publishTraverse(portal.REQUEST, image_fieldname)
+            try:
+                scaling_view = portal.unrestrictedTraverse(
+                    base_url.replace(purl, "").lstrip("/")
+                )
+                image_scale = scaling_view.publishTraverse(portal.REQUEST, image_fieldname)
+            except KeyError:
+                return
             if not image_scale:
                 return
             image_file = image_scale.data.open()
