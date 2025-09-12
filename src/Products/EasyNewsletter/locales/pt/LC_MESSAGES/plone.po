@@ -1,68 +1,70 @@
+# Manual added translations for EasyNewsletter. .
+# Wim Boucquaert - wimbou <wim.boucquaert@gmail.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Products.EasyNewsletter\n"
 "POT-Creation-Date: 2025-08-16 15:25+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2025-08-16 18:25+0300\n"
+"Last-Translator: Maik Derstappen <md@derico.de>\n"
+"Language-Team: Portuguese <translation-team-pt@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
-"Language-Code: nl\n"
-"Language-Name: Dutch\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: plone\n"
-"X-Is-Fallback-For: nl-be nl-nl\n"
+"Domain: Products.EasyNewsletter\n"
+"Language: pt\n"
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "Aggregate content"
-msgstr "Inhoud samenvoegen"
+msgstr ""
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "Copy as draft"
-msgstr "Kopieer als concept"
+msgstr ""
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "Copy as master"
-msgstr "Kopieer als master"
+msgstr ""
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Draft"
-msgstr "Concept"
+msgstr ""
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Make draft"
-msgstr "Maak concept"
+msgstr ""
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Make master"
-msgstr "Maak master"
+msgstr ""
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Master"
-msgstr "Master"
+msgstr ""
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Revert sending"
-msgstr "Herstel versturen"
+msgstr ""
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Send"
-msgstr "Verstuur"
+msgstr ""
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Sending"
-msgstr "Aan het versturen"
+msgstr ""
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Sending Completed"
-msgstr "Versturen afgerond"
+msgstr ""
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Sent"
-msgstr "Verstuurd"
+msgstr ""
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "View Statistics"
@@ -75,7 +77,7 @@ msgstr ""
 #. Default: "Portlet to add subscribers."
 #: EasyNewsletter/profiles/default/portlets.xml
 msgid "description_newsletter_subscriber_portlet"
-msgstr "Portlet voor het aanmelden van abonnees"
+msgstr ""
 
 msgid "read_more"
 msgstr ""
@@ -83,4 +85,4 @@ msgstr ""
 #. Default: "Newsletter subscriber portlet"
 #: EasyNewsletter/profiles/default/portlets.xml
 msgid "title_newsletter_subscriber_portlet"
-msgstr "Nieuwsbrief aanmeldportlet"
+msgstr ""

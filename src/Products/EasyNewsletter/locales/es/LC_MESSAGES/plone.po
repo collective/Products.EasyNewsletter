@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: EasyNewsletter\n"
-"POT-Creation-Date: 2021-02-03 15:14+0000\n"
+"POT-Creation-Date: 2025-08-16 15:25+0000\n"
 "PO-Revision-Date: 2015-07-12 03:05-0430\n"
 "Last-Translator: Leonardo J. Caballero G. <leonardocaballero@gmail.com>\n"
 "Language-Team: ES <LL@li.org>\n"
@@ -79,6 +79,9 @@ msgstr ""
 #: EasyNewsletter/profiles/default/portlets.xml
 msgid "description_newsletter_subscriber_portlet"
 msgstr "Portlets para agregar suscriptores."
+
+msgid "read_more"
+msgstr ""
 
 #. Default: "Newsletter subscriber portlet"
 #: EasyNewsletter/profiles/default/portlets.xml
