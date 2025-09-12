@@ -44,19 +44,17 @@
                    tal:content="string:${view/here_url}/preview">preview url</a>
             </iframe>
 
+            <script type="text/javascript"
+                    src="++resource++Products.EasyNewsletter.iframeResizer-parent.js"
+            />
 
-            <script type="text/javascript">
-                var _old_define = define;
-                var _old_require = require ;
-                define = undefined;
-                require = undefined;
-
-                iFrameResize();
-
-                define = _old_define;
-                require = _old_require
+            <script>
+                iframeResize({
+                license: 'GPLv3',
+                log: 'collapsed',
+                waitForLoad: true,
+                }, '#enl-issue-preview')
             </script>
-
 
             <div tal:replace="structure provider:plone.belowcontentbody" />
         </div>

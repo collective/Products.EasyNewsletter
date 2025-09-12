@@ -12,7 +12,7 @@
         }
         </script>
 
-        <script type="text/javascript" src="++resource++Products.EasyNewsletter.iframeResizer.contentWindow.min.js" data-bundle="none"></script>
+        <script type="text/javascript" src="++resource++Products.EasyNewsletter.iframeResizer-child.js" data-bundle="none" async></script>
 
         <script type="text/javascript">
         //            <![CDATA[
