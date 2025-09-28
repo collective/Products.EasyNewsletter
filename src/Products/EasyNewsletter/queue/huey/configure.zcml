@@ -3,12 +3,12 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:zcml="http://namespaces.zope.org/zcml">
-  <utility factory=".handler.TCIssueQueue" />
+  <utility factory=".handler.IssueQueue" />
   <browser:page
       class=".view.ProcessQueue"
       for="Products.EasyNewsletter.content.newsletter_issue.INewsletterIssue"
+      layer="Products.EasyNewsletter.interfaces.IProductsEasyNewsletterLayer"
       name="enl_taskqueue_sendout"
-      permission="cmf.ModifyPortalContent"
+      permission="cmf.ReviewPortalContent"
   />
-      <!-- layer="Products.EasyNewsletter.interfaces.IProductsEasyNewsletterLayer" -->
 </configure>

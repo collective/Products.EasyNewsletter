@@ -53,6 +53,9 @@ setup(
         "html2text",
         "email-validator>=1.1.2",
         "six",
+        "collective.taskqueue2",
+        # "huey",
+        # "gevent",
     ],
     extras_require=dict(
         test=[

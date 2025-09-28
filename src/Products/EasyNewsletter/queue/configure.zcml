@@ -8,6 +8,9 @@
   />
   <include
       package=".taskqueue"
-      zcml:condition="installed collective.taskqueue"
+      zcml:condition="installed collective.taskqueue2"
   />
+  <!-- <include
+      package=".huey"
+  /> -->
 </configure>
