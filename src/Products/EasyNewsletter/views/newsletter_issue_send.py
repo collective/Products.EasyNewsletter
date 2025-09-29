@@ -82,10 +82,13 @@ class LocalLoader(object):
             # @@images/image/thumb > thumb
             image_scale = groups[2]
 
-            scaling_view = portal.unrestrictedTraverse(
-                base_url.replace(purl, "").lstrip("/")
-            )
-            image_scale = scaling_view.publishTraverse(portal.REQUEST, image_fieldname)
+            try:
+                scaling_view = portal.unrestrictedTraverse(
+                    base_url.replace(purl, "").lstrip("/")
+                )
+                image_scale = scaling_view.publishTraverse(portal.REQUEST, image_fieldname)
+            except KeyError:
+                return
             if not image_scale:
                 return
             image_file = image_scale.data.open()
@@ -210,7 +213,12 @@ class NewsletterIssueSend(BrowserView):
                 text=personalized_plaintext,
                 subject=issue_data["subject"],
                 mail_from=(sender_name, sender_email),
-                mail_to=(receiver["fullname"], receiver["email"]),
+                mail_to=(
+                    [
+                        (receiver["fullname"].strip(),
+                        i.strip()) for i in receiver["email"].split(",")
+                    ]
+                ),
             )
             m.transformer.local_loader = LocalLoader()
             m.transform(
