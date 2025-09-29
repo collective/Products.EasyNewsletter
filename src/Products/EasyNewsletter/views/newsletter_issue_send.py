@@ -213,7 +213,12 @@ class NewsletterIssueSend(BrowserView):
                 text=personalized_plaintext,
                 subject=issue_data["subject"],
                 mail_from=(sender_name, sender_email),
-                mail_to=(receiver["fullname"], receiver["email"]),
+                mail_to=(
+                    [
+                        (receiver["fullname"],
+                        i.strip()) for i in receiver["email"].split(",")
+                    ]
+                ),
             )
             m.transformer.local_loader = LocalLoader()
             m.transform(
