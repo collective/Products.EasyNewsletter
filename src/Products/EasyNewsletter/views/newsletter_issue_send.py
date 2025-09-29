@@ -215,7 +215,7 @@ class NewsletterIssueSend(BrowserView):
                 mail_from=(sender_name, sender_email),
                 mail_to=(
                     [
-                        (receiver["fullname"],
+                        (receiver["fullname"].strip(),
                         i.strip()) for i in receiver["email"].split(",")
                     ]
                 ),
