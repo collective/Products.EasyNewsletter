@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Products.EasyNewsletter\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"PO-Revision-Date: 2022-11-18 22:48+0000\n"
+"PO-Revision-Date: 2025-10-20 04:50+0000\n"
 "Last-Translator: Kim Paulissen <kim.paulissen@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/"
 "products-easynewsletter/products-easynewsletter/nl/>\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.15-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 "Language-Code: nl\n"
 "Language-Name: Dutch\n"
 "Preferred-Encodings: utf-8 latin1\n"
@@ -34,20 +34,20 @@ msgstr ""
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Subscriber.xml
 msgid "A Newsletter Subscriber."
-msgstr ""
+msgstr "Een nieuwsbrief abonnee."
 
 #: EasyNewsletter/browser/upload_csv.pt:131
 #: EasyNewsletter/views/newsletter_subscribers_upload.pt:116
 msgid "Action"
-msgstr ""
+msgstr "Actie"
 
 #: EasyNewsletter/views/newsletter_subscribers.pt:20
 msgid "Add subscriber"
-msgstr ""
+msgstr "Abonnee toevoegen"
 
 #: EasyNewsletter/browser/controlpanel.py:14
 msgid "Allowed content aggregation types"
-msgstr ""
+msgstr "Toegelaten content aggregatie types"
 
 #: EasyNewsletter/browser/registration.py:302
 #: EasyNewsletter/views/newsletter_unsubscribe.py:38
@@ -65,7 +65,7 @@ msgstr "CSV-bestand"
 
 #: EasyNewsletter/upgrades/4001.zcml:11
 msgid "Configuration for version 4001"
-msgstr ""
+msgstr "Configuratie voor versie 4001"
 
 #: EasyNewsletter/upgrades/4002.zcml:11
 msgid "Configuration for version 4002"
@@ -245,7 +245,7 @@ msgstr "Naam afzender"
 #. Default: "Subscriber confirmation mail subject"
 #: EasyNewsletter/content/newsletter.py:242
 msgid "ENL_label_subscriber_confirmation_mail_subject"
-msgstr ""
+msgstr "Onderwerp van bevestingsmail abonnee"
 
 #. Default: "Subscriber confirmation mail text"
 #: EasyNewsletter/content/newsletter.py:257
@@ -266,6 +266,8 @@ msgstr "Tekst voor uitschrijven link"
 #: EasyNewsletter/content/newsletter.py:181
 msgid "ENL_logo_desc"
 msgstr ""
+"Logo afbeelding, je kan dit toevoegen aan templates\n"
+" met een {{logo}} placeholder"
 
 #. Default: "Logo image"
 #: EasyNewsletter/content/newsletter.py:180
@@ -487,7 +489,7 @@ msgstr "Nieuwsbrief abonnee"
 
 #: EasyNewsletter/behaviors/collection_as_newsletter_aggregation_source.py:27
 msgid "Newsletter aggregation template"
-msgstr ""
+msgstr "Template voor nieuwsbrief aggregatie"
 
 #: EasyNewsletter/profiles/default/types/Newsletter.xml
 msgid "Newsletter container which holds Newsletter Issues and Subscribers."
