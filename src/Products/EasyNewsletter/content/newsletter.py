@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
 # from z3c.form.browser.radio import RadioFieldWidget
-from plone import api
-from plone import schema
+from plone import api, schema
 from plone.app import textfield
 from plone.app.z3cform.widget import SingleCheckBoxBoolFieldWidget
 from plone.autoform import directives
@@ -9,11 +7,11 @@ from plone.dexterity.content import Container
 from plone.namedfile import field as namedfile
 from plone.registry.interfaces import IRegistry
 from plone.supermodel import model
-from Products.EasyNewsletter import _
-from Products.EasyNewsletter import config
 from z3c import relationfield
 from zope.component import getUtility
 from zope.interface import implementer
+
+from Products.EasyNewsletter import _, config
 
 
 def get_default_output_template():
@@ -71,9 +69,7 @@ class INewsletter(model.Schema):
         ],
     )
 
-    model.fieldset(
-        "recipients", label=_("Recipients"), fields=["exclude_all_subscribers"]
-    )
+    model.fieldset("recipients", label=_("Recipients"), fields=["exclude_all_subscribers"])
 
     sender_email = schema.TextLine(
         title=_("ENL_label_senderEmail", default="Sender email"),
@@ -95,9 +91,7 @@ class INewsletter(model.Schema):
 
     test_email = schema.TextLine(
         title=_("ENL_label_testEmail", default="Test email"),
-        description=_(
-            "ENL_help_testEmail", default="Default for the test email address."
-        ),
+        description=_("ENL_help_testEmail", default="Default for the test email address."),
         required=True,
     )
 
@@ -153,9 +147,7 @@ class INewsletter(model.Schema):
     )
 
     unsubscribe_string = schema.TextLine(
-        title=_(
-            "ENL_label_unsubscribe_string", default="Text for the 'unsubscribe' link"
-        ),
+        title=_("ENL_label_unsubscribe_string", default="Text for the 'unsubscribe' link"),
         description=_(
             "ENL_help_unsubscribe_string",
             default="This will replace the placeholder {{UNSUBSCRIBE}}.",

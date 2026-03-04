@@ -1,4 +1,5 @@
 """Invoke tasks for Products.EasyNewsletter."""
+
 from invoke import task
 
 
@@ -35,7 +36,7 @@ def create_site(c, site_id="Plone"):
     import os
     import tempfile
 
-    script = '''
+    script = """
 from Testing.makerequest import makerequest
 import transaction
 app = makerequest(app)
@@ -54,7 +55,7 @@ site_api.create(
 )
 transaction.commit()
 print("Created site: SITE_ID")
-'''.replace("SITE_ID", site_id)
+""".replace("SITE_ID", site_id)
     with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
         f.write(script)
         script_path = f.name

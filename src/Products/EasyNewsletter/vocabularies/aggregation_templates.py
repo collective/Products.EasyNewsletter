@@ -1,23 +1,20 @@
-# -*- coding: utf-8 -*-
-
 from plone.dexterity.interfaces import IDexterityContent
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 from zope.globalrequest import getRequest
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
-from zope.schema.vocabulary import SimpleTerm
-from zope.schema.vocabulary import SimpleVocabulary
+from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 
 
-class VocabItem(object):
+class VocabItem:
     def __init__(self, token, value):
         self.token = token
         self.value = value
 
 
 @implementer(IVocabularyFactory)
-class AggregationTemplates(object):
+class AggregationTemplates:
     """ """
 
     def __call__(self, context):

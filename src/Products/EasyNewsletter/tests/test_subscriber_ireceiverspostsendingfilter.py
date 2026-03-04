@@ -1,14 +1,12 @@
-# -*- coding: utf-8 -*-
-
+import unittest
 from datetime import datetime
+
 from plone import api
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
+from plone.app.testing import TEST_USER_ID, setRoles
+
 from Products.EasyNewsletter.content.newsletter_issue import ISendStatus
 from Products.EasyNewsletter.subscriber import FilterAlreadySentReceivers
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
-
-import unittest
 
 
 class FilterAlreadySentReceiversTests(unittest.TestCase):
@@ -67,10 +65,10 @@ class FilterAlreadySentReceiversTests(unittest.TestCase):
 
         already_sent = FilterAlreadySentReceivers(self.issue)
         final_receivers = already_sent.filter(receivers)
-        self.assertEquals(len(final_receivers), 2)
+        self.assertEqual(len(final_receivers), 2)
 
         status_adapter = ISendStatus(self.issue)
         status_adapter.add_records(successful_receivers)
 
         final_receivers = already_sent.filter(receivers)
-        self.assertEquals(len(final_receivers), 1)
+        self.assertEqual(len(final_receivers), 1)

@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
+from plone import api
 
 from . import logger
-from plone import api
 
 
 def upgrade(setup_tool=None):

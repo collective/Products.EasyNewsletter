@@ -42,10 +42,12 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "pytest",
+    "pytest-cov",
     "pytest-plone>=0.5.0",
     "plone.app.testing",
     "plone.app.robotframework",
     "plone.testing",
+    "ruff",
     "invoke",
     "watchdog",
 ]
@@ -73,6 +75,7 @@ python_files = ["test_*.py"]
 [tool.ruff]
 line-length = 100
 target-version = "py310"
+extend-exclude = ["docs", "setup.py", "import_enl_stats.py"]
 
 [tool.ruff.lint]
 select = [
@@ -87,10 +90,28 @@ select = [
     "SIM",  # simplify
     "PGH",  # pygrep-hooks
 ]
-ignore = ["E731"]
+ignore = [
+    "B005",   # strip with multi-char strings
+    "C901",   # too complex
+    "E501",   # line too long (legacy code)
+    "E731",   # lambda assignment
+    "PGH004", # specific noqa codes
+    "S105",   # hardcoded password (test fixtures)
+    "S306",   # mktemp usage (legacy code)
+    "S602",   # subprocess shell=True (locale scripts)
+    "SIM102", # nested if
+    "SIM103", # return condition directly
+    "SIM105", # contextlib.suppress
+    "SIM108", # ternary operator
+    "SIM115", # context manager for open
+    "UP030",  # implicit format references
+    "UP031",  # percent format (legacy code)
+    "UP032",  # f-string instead of format
+]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["S101"]
+"src/Products/EasyNewsletter/tests/_test_daily_issue.py" = ["I001", "F811", "E702"]
 
 [tool.ruff.lint.isort]
 known-first-party = ["Products"]

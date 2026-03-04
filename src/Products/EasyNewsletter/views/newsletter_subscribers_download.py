@@ -1,16 +1,13 @@
-# -*- coding: utf-8 -*-
-
-from Acquisition import aq_inner
-from plone import api
-from Products.CMFPlone.utils import safe_encode
-from Products.CMFPlone.utils import safe_unicode
-from Products.Five.browser import BrowserView
-
 import codecs
 import csv
-import six
 import tempfile
 
+import six
+from Acquisition import aq_inner
+from plone import api
+
+from Products.CMFPlone.utils import safe_encode, safe_unicode
+from Products.Five.browser import BrowserView
 
 CSV_HEADER = [
     "salutation",
@@ -48,20 +45,18 @@ class NewsletterSubscribersDownload(BrowserView):
             portal_type="Newsletter Subscriber", context=self.context, sort_on="email"
         ):
             obj = subscriber.getObject()
-            csvWriter.writerow(
-                [
-                    obj.salutation,
-                    obj.name_prefix,
-                    obj.firstname,
-                    obj.lastname,
-                    # obj.nl_language,
-                    obj.email,
-                    obj.organization,
-                ]
-            )
+            csvWriter.writerow([
+                obj.salutation,
+                obj.name_prefix,
+                obj.firstname,
+                obj.lastname,
+                # obj.nl_language,
+                obj.email,
+                obj.organization,
+            ])
         file.close()
 
-        with open(filename, "r") as f:
+        with open(filename) as f:
             data = f.read()
         data = safe_encode(data)
         # Create response
@@ -72,9 +67,7 @@ class NewsletterSubscribersDownload(BrowserView):
         response.addHeader("Content-Type", "text/csv")
         response.addHeader("Content-Length", "%d" % len(data))
         response.addHeader("Pragma", "no-cache")
-        response.addHeader(
-            "Cache-Control", "must-revalidate, post-check=0, pre-check=0, public"
-        )
+        response.addHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0, public")
         response.addHeader("Expires", "0")
 
         # Return CSV data

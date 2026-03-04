@@ -1,9 +1,9 @@
-# -*- coding: utf-8 -*-
 from plone import schema
 from plone.dexterity.content import Item
 from plone.supermodel import model
-from Products.EasyNewsletter import _
 from zope.interface import implementer
+
+from Products.EasyNewsletter import _
 
 
 class INewsletterSubscriber(model.Schema):
@@ -37,9 +37,7 @@ class INewsletterSubscriber(model.Schema):
         required=False,
     )
 
-    email = schema.TextLine(
-        title=_("EasyNewsletter_label_email", default="Email"), required=True
-    )
+    email = schema.TextLine(title=_("EasyNewsletter_label_email", default="Email"), required=True)
 
 
 @implementer(INewsletterSubscriber)

@@ -1,15 +1,16 @@
-# -*- coding: utf-8 -*-
-from Acquisition import aq_inner
 from copy import copy
+
+from Acquisition import aq_inner
 from plone import api
 from plone.app.textfield import RichTextValue
+
+# from transaction import commit
+from zope.annotation import IAnnotations
+
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter import _
 from Products.EasyNewsletter.config import AGG_SOURCES_INFOS
 from Products.Five.browser import BrowserView
-
-# from transaction import commit
-from zope.annotation import IAnnotations
 
 
 class NewsletterIssueAggregateContent(BrowserView):
@@ -50,7 +51,7 @@ class NewsletterIssueAggregateContent(BrowserView):
             # Convert CatalogContentListingObject instances to raw catalog
             # brains, which have __allow_access_to_unprotected_subobjects__
             # and work correctly in restricted Python (skin templates).
-            sresults = [getattr(r, '_brain', r) for r in sresults]
+            sresults = [getattr(r, "_brain", r) for r in sresults]
             result_info = {
                 "id": source_obj.id,
                 "title": source_obj.Title(),

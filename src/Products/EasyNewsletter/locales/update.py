@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
 import os
 import subprocess
-
 
 package_name = "Products.EasyNewsletter"
 # domain = package_name
@@ -21,9 +19,7 @@ def locale_folder_setup(domain=None):
         lc_message_dir_path = os.path.join(locale_path, lang, "LC_MESSAGES")
         if not os.path.isdir(lc_message_dir_path):
             os.mkdir(lc_message_dir_path)
-        domain_po_file_path = os.path.join(
-            locale_path, lang, "LC_MESSAGES", domain + ".po"
-        )
+        domain_po_file_path = os.path.join(locale_path, lang, "LC_MESSAGES", domain + ".po")
         if not os.path.isfile(domain_po_file_path):
             cmd = "msginit --locale={0} --input={2}/manual.pot --output={2}/{0}/LC_MESSAGES/{1}.po".format(  # NOQA: E501
                 lang, domain, locale_path
@@ -32,12 +28,10 @@ def locale_folder_setup(domain=None):
 
 
 def _rebuild(domain=None, target_path=None):
-    print("rebuild-pot domain: {0} target_path: {1}".format(domain, target_path))
-    cmd = "{0} rebuild-pot --no-wrap --pot {1}/{2}.pot --create {2} {3} --merge {1}/manual.pot".format(
-        i18ndude, locale_path, domain, target_path
-    )
+    print(f"rebuild-pot domain: {domain} target_path: {target_path}")
+    cmd = f"{i18ndude} rebuild-pot --no-wrap --pot {locale_path}/{domain}.pot --create {domain} {target_path} --merge {locale_path}/manual.pot"
     if domain == package_domain:
-        cmd += " --merge {0}/manual.pot".format(locale_path)
+        cmd += f" --merge {locale_path}/manual.pot"
     subprocess.call(cmd, shell=True)
 
 
@@ -55,9 +49,9 @@ def _rebuild(domain=None, target_path=None):
 
 
 def _sync(domain=None):
-    print("sync domain: {0}".format(domain))
-    cmd = "{0} sync --pot {1}/{2}.pot {1}/**/LC_MESSAGES/{2}.po".format(
-        i18ndude, locale_path, domain
+    print(f"sync domain: {domain}")
+    cmd = (
+        f"{i18ndude} sync --pot {locale_path}/{domain}.pot {locale_path}/**/LC_MESSAGES/{domain}.po"
     )
     subprocess.call(cmd, shell=True)
 

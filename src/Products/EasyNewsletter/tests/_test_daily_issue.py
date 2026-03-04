@@ -1,23 +1,20 @@
-# -*- coding: utf-8 -*-
+import unittest
+
+import transaction
 from Acquisition import aq_base
 from plone import api
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
+from plone.app.testing import TEST_USER_ID, setRoles
+from z3c.relationfield.relation import RelationValue
+from zExceptions import BadRequest
+from zope.component import getMultiAdapter, getSiteManager, getUtility
+from zope.intid.interfaces import IIntIds
+
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.EasyNewsletter.content.newsletter_issue import INewsletterIssue
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.MailHost.interfaces import IMailHost
-from z3c.relationfield.relation import RelationValue
-from zExceptions import BadRequest
-from zope.component import getMultiAdapter
-from zope.component import getSiteManager
-from zope.component import getUtility
-from zope.intid.interfaces import IIntIds
-
-import transaction
-import unittest
 
 
 class DailyIssueBaseTestCase(unittest.TestCase):
@@ -69,9 +66,7 @@ class DailyIssueBaseTestCase(unittest.TestCase):
             container=self.newsletter,
             email="jane@example.com",
         )
-        self.view = getMultiAdapter(
-            (self.newsletter, self.layer["request"]), name="daily-issue"
-        )
+        self.view = getMultiAdapter((self.newsletter, self.layer["request"]), name="daily-issue")
 
         self.mail_settings = get_portal_mail_settings()
         self.mail_settings.email_from_address = "noreply@plone.org"
@@ -161,7 +156,9 @@ class DailyIssueMethodPOST(DailyIssueBaseTestCase):
 
     def test_send_issue_and_check_http_status(self):
         print(api.user.getPermissions())
-        import pdb; pdb.set_trace()  # NOQA: E702
+        import pdb
+
+        pdb.set_trace()  # NOQA: E702
         self.view()
         self.assertEqual(self.view.request.response.getStatus(), 200)
         self.assertEqual(len(self.portal.MailHost.messages), 1)

@@ -1,15 +1,15 @@
-# -*- coding: utf-8 -*-
 from plone.registry.interfaces import IRegistry
-from Products.CMFPlone.interfaces.controlpanel import IMailSchema
 from zope.component import getUtility
 from zope.interface import Interface
+
+from Products.CMFPlone.interfaces.controlpanel import IMailSchema
 
 
 class IPortalMailSettings(Interface):
     """PortalMailSettings proxy interface"""
 
 
-class PortalMailSettings(object):
+class PortalMailSettings:
     """PortalMailSettings proxy"""
 
     def __init__(self):

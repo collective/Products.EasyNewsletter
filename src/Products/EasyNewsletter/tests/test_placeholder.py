@@ -1,17 +1,12 @@
-# -*- coding: utf-8 -*-
+import unittest
+from datetime import datetime, timedelta
+
 from App.Common import package_home
-from datetime import datetime
-from datetime import timedelta
 from plone import api
-from plone.app.testing import login
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
-from plone.app.testing import TEST_USER_NAME
+from plone.app.testing import TEST_USER_ID, TEST_USER_NAME, login, setRoles
+
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
-
-import unittest
-
 
 GLOBALS = globals()
 TESTS_HOME = package_home(GLOBALS)
@@ -59,16 +54,11 @@ class PlaceholderIntegrationTests(unittest.TestCase):
         now = datetime.now()
         effective_date = now + timedelta(2)
         self.newsletter.issue.effective_date = effective_date
-        self.assertNotEqual(
-            self.newsletter.issue.modified(), self.newsletter.issue.effective()
-        )
+        self.assertNotEqual(self.newsletter.issue.modified(), self.newsletter.issue.effective())
         issue_data_fetcher = IIssueDataFetcher(self.newsletter.issue)
         issue_data = issue_data_fetcher.personalize(receiver, html)
         self.assertIn(
-            "{0}/{1}".format(
-                self.newsletter.issue.effective().month(),
-                self.newsletter.issue.effective().year(),
-            ),
+            f"{self.newsletter.issue.effective().month()}/{self.newsletter.issue.effective().year()}",
             issue_data,
         )
 
@@ -88,9 +78,7 @@ class PlaceholderIntegrationTests(unittest.TestCase):
         now = datetime.now()
         effective_date = now + timedelta(2)
         self.newsletter.issue.effective_date = effective_date
-        self.assertNotEqual(
-            self.newsletter.issue.modified(), self.newsletter.issue.effective()
-        )
+        self.assertNotEqual(self.newsletter.issue.modified(), self.newsletter.issue.effective())
         issue_data_fetcher = IIssueDataFetcher(self.newsletter.issue)
         issue_data = issue_data_fetcher.personalize(receiver, html)
         self.assertIn(self.newsletter.issue.effective().strftime("%V"), issue_data)

@@ -1,30 +1,21 @@
-# -*- coding: utf-8 -*-
+import os
+import unittest
 
+import transaction as zt
 from App.Common import package_home
 from plone import api
-from plone.app.testing import login
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
-from plone.app.testing import TEST_USER_NAME
+from plone.app.testing import TEST_USER_ID, TEST_USER_NAME, login, setRoles
 from plone.app.textfield import RichTextValue
+from zExceptions import Forbidden
+from zope.component import getGlobalSiteManager, getMultiAdapter, getSiteManager, provideHandler
+
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter.interfaces import IBeforePersonalizationEvent
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
-from Products.EasyNewsletter.tests.base import parsed_attachments_from_msg
-from Products.EasyNewsletter.tests.base import parsed_payloads_from_msg
+from Products.EasyNewsletter.tests.base import parsed_attachments_from_msg, parsed_payloads_from_msg
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.MailHost.interfaces import IMailHost
-from zExceptions import Forbidden
-from zope.component import getGlobalSiteManager
-from zope.component import getMultiAdapter
-from zope.component import getSiteManager
-from zope.component import provideHandler
-
-import os
-import transaction as zt
-import unittest
-
 
 GLOBALS = globals()
 TESTS_HOME = package_home(GLOBALS)
@@ -133,15 +124,13 @@ class EasyNewsletterTests(unittest.TestCase):
         self.issue.epilogue = self.default_epilogue
         self.issue.output_template = "output_default"
 
-        self.portal.REQUEST.form.update(
-            {
-                "sender_name": self.newsletter.sender_name,
-                "sender_email": self.newsletter.sender_email,
-                "test_receiver": self.newsletter.test_email,
-                "subject": self.issue.title,
-                "test": "submit",
-            }
-        )
+        self.portal.REQUEST.form.update({
+            "sender_name": self.newsletter.sender_name,
+            "sender_email": self.newsletter.sender_email,
+            "test_receiver": self.newsletter.test_email,
+            "subject": self.issue.title,
+            "test": "submit",
+        })
         self.portal.REQUEST["REQUEST_METHOD"] = "POST"
         zt.commit()
         view = getMultiAdapter((self.issue, self.portal.REQUEST), name="send-issue")
@@ -172,15 +161,13 @@ class EasyNewsletterTests(unittest.TestCase):
         self.issue.output_template = "output_default"
         zt.commit()
 
-        self.portal.REQUEST.form.update(
-            {
-                "sender_name": self.newsletter.sender_name,
-                "sender_email": self.newsletter.sender_email,
-                "test_receiver": self.newsletter.test_email,
-                "subject": self.issue.title,
-                "test": "submit",
-            }
-        )
+        self.portal.REQUEST.form.update({
+            "sender_name": self.newsletter.sender_name,
+            "sender_email": self.newsletter.sender_email,
+            "test_receiver": self.newsletter.test_email,
+            "subject": self.issue.title,
+            "test": "submit",
+        })
         self.portal.REQUEST["REQUEST_METHOD"] = "POST"
         view = getMultiAdapter((self.issue, self.portal.REQUEST), name="send-issue")
         view()
@@ -257,14 +244,12 @@ class EasyNewsletterTests(unittest.TestCase):
             output_template="output_default",
         )
         zt.commit()
-        self.portal.REQUEST.form.update(
-            {
-                "sender_name": self.newsletter.sender_name,
-                "sender_email": self.newsletter.sender_email,
-                "test_receiver": self.newsletter.test_email,
-                "subject": self.issue.title,
-            }
-        )
+        self.portal.REQUEST.form.update({
+            "sender_name": self.newsletter.sender_name,
+            "sender_email": self.newsletter.sender_email,
+            "test_receiver": self.newsletter.test_email,
+            "subject": self.issue.title,
+        })
         self.portal.REQUEST["REQUEST_METHOD"] = "POST"
         view = getMultiAdapter((self.issue, self.portal.REQUEST), name="send-issue")
         view()
@@ -308,9 +293,7 @@ class EasyNewsletterTests(unittest.TestCase):
             firstname = edc["receiver"].get("firstname")
             lastname = edc["receiver"].get("lastname")
             if not firstname and not lastname:
-                edc["SUBSCRIBER_SALUTATION"] = "Dear {0}".format(
-                    edc["receiver"]["email"]
-                )
+                edc["SUBSCRIBER_SALUTATION"] = "Dear {0}".format(edc["receiver"]["email"])
 
         provideHandler(_personalize, [IBeforePersonalizationEvent])
         try:
@@ -356,14 +339,12 @@ class EasyNewsletterTests(unittest.TestCase):
             self.issue.prologue = self.default_prologue
             self.issue.epilogue = self.default_epilogue
             self.issue.output_template = "output_default"
-            self.portal.REQUEST.form.update(
-                {
-                    "sender_name": self.newsletter.sender_name,
-                    "sender_email": self.newsletter.sender_email,
-                    "test_receiver": self.newsletter.test_email,
-                    "subject": self.issue.title,
-                }
-            )
+            self.portal.REQUEST.form.update({
+                "sender_name": self.newsletter.sender_name,
+                "sender_email": self.newsletter.sender_email,
+                "test_receiver": self.newsletter.test_email,
+                "subject": self.issue.title,
+            })
             self.portal.REQUEST["REQUEST_METHOD"] = "POST"
             zt.commit()
             # clearEvents()  # noqa
@@ -377,23 +358,17 @@ class EasyNewsletterTests(unittest.TestCase):
             parsed_payloads1 = parsed_payloads_from_msg(msg1)
             self.assertIn("Jane Doe", parsed_payloads1["to"])
             self.assertIn("<jane@example.com>", parsed_payloads1["to"])
-            self.assertIn(
-                "Dear Ms. Jane Doe", safe_unicode(parsed_payloads1["text/html"])
-            )
+            self.assertIn("Dear Ms. Jane Doe", safe_unicode(parsed_payloads1["text/html"]))
 
             msg2 = safe_unicode(self.mailhost.messages[1])
             parsed_payloads2 = parsed_payloads_from_msg(msg2)
             self.assertIn("john@example.com", parsed_payloads2["to"])
-            self.assertIn(
-                "Dear john@example.com", safe_unicode(parsed_payloads2["text/html"])
-            )
+            self.assertIn("Dear john@example.com", safe_unicode(parsed_payloads2["text/html"]))
         finally:
-            getGlobalSiteManager().unregisterHandler(
-                _personalize, [IBeforePersonalizationEvent]
-            )
+            getGlobalSiteManager().unregisterHandler(_personalize, [IBeforePersonalizationEvent])
 
     def test_send_test_issue_with_image(self):
-        body = '<img src="{0}"/>'.format(self.image1.absolute_url_path())
+        body = f'<img src="{self.image1.absolute_url_path()}"/>'
         msg = self.send_sample_message(body)
         parsed_payloads = parsed_payloads_from_msg(msg)
         self.assertIn('src="cid:image', safe_unicode(parsed_payloads["text/html"]))
@@ -404,11 +379,9 @@ class EasyNewsletterTests(unittest.TestCase):
         # self.assertIn("Content-Type: image/jpeg;", safe_unicode(msg))
 
     def test_send_test_issue_with_scale_image(self):
-        body = '<img src="{0}/@@images/image/thumb"/>'.format(
-            self.image1.absolute_url_path()
-        )
+        body = f'<img src="{self.image1.absolute_url_path()}/@@images/image/thumb"/>'
         # trigger scale generation:
-        image_scales_url = "{0}/@@images".format(self.image1.absolute_url_path())
+        image_scales_url = f"{self.image1.absolute_url_path()}/@@images"
         scales = self.portal.restrictedTraverse(image_scales_url)
         scale_view = scales.scale(fieldname="image", scale="thumb")
         scale_view()
@@ -426,7 +399,7 @@ class EasyNewsletterTests(unittest.TestCase):
 
     def test_send_test_issue_with_hashed_scale_image(self):
         # trigger scale generation:
-        image_scales_url = "{0}/@@images".format(self.image2.absolute_url_path())
+        image_scales_url = f"{self.image2.absolute_url_path()}/@@images"
         scales = self.portal.restrictedTraverse(image_scales_url)
         scale_view = scales.scale(fieldname="image", scale="thumb")
         scale_view()
@@ -435,7 +408,7 @@ class EasyNewsletterTests(unittest.TestCase):
 
         # create img tag with hasged image:
         # @@images/71d2fe96-e930-4265-9cd8-e3d4123d75f5.jpeg
-        body = '<img src="{0}"/>'.format(scale_view.url)
+        body = f'<img src="{scale_view.url}"/>'
 
         msg = self.send_sample_message(body)
         parsed_payloads = parsed_payloads_from_msg(msg)
@@ -443,13 +416,11 @@ class EasyNewsletterTests(unittest.TestCase):
             'src="cid:{0}'.format(scale_view.url.split("/")[-1]),
             safe_unicode(parsed_payloads["text/html"]),
         )
-        self.assertIn(
-            "Content-ID: <{0}>".format(scale_view.url.split("/")[-1]), safe_unicode(msg)
-        )
+        self.assertIn("Content-ID: <{0}>".format(scale_view.url.split("/")[-1]), safe_unicode(msg))
         self.assertIn("Content-Type: image/jpeg;", safe_unicode(msg))
 
     def test_send_test_issue_with_resolveuid_image(self):
-        body = '<img src="../../resolveuid/{0}"/>'.format(self.image1.UID())
+        body = f'<img src="../../resolveuid/{self.image1.UID()}"/>'
         msg = self.send_sample_message(body)
         parsed_payloads = parsed_payloads_from_msg(msg)
         self.assertNotIn("resolveuid", safe_unicode(parsed_payloads["text/html"]))
@@ -457,7 +428,7 @@ class EasyNewsletterTests(unittest.TestCase):
         self.assertIn("Content-ID: <image", msg)
         try:
             self.assertIn("Content-Type: image/jpeg;", safe_unicode(msg))
-        except AssertionError as e:
+        except AssertionError:
             # Plone < 6
             # mimetype is not detected by python-emails because of missing file extension,
             # until https://github.com/lavr/python-emails/issues/163 is fixed.
@@ -468,20 +439,20 @@ class EasyNewsletterTests(unittest.TestCase):
         stack = path.split("/")
 
         # trigger scale generation:
-        image_scales_url = "{0}/@@images".format(self.image1.absolute_url_path())
+        image_scales_url = f"{self.image1.absolute_url_path()}/@@images"
         scales = self.portal.restrictedTraverse(image_scales_url)
         scale_view = scales.scale(fieldname=stack[0], scale=stack[1])
         image_scale = scale_view()
-        body = '<img src="{0}"/>'.format(image_scale.absolute_url())
+        body = f'<img src="{image_scale.absolute_url()}"/>'
         zt.commit()
         msg = self.send_sample_message(body)
         parsed_payloads = parsed_payloads_from_msg(msg)
         self.assertNotIn("resolveuid", safe_unicode(parsed_payloads["text/html"]))
         self.assertIn(
-            'src="cid:{0}"'.format(image_scale.__name__),
+            f'src="cid:{image_scale.__name__}"',
             safe_unicode(parsed_payloads["text/html"]),
         )
-        self.assertIn("Content-ID: <{0}>".format(image_scale.__name__), msg)
+        self.assertIn(f"Content-ID: <{image_scale.__name__}>", msg)
         self.assertIn("Content-Type: image/jpeg;", safe_unicode(msg))
 
     def test_mailonly_filter_in_issue_public_view(self):
@@ -506,44 +477,33 @@ class EasyNewsletterTests(unittest.TestCase):
         self.issue.epilogue = self.default_epilogue
         self.issue.output_template = "output_default"
         zt.commit()
-        view = getMultiAdapter(
-            (self.issue, self.portal.REQUEST), name="get-public-body"
-        )
+        view = getMultiAdapter((self.issue, self.portal.REQUEST), name="get-public-body")
         view_result = view()
 
         self.assertTrue(
             "mailonly" not in safe_unicode(view_result),
-            "get-public-body view contains mailonly elements,"
-            " this should filtert out!",
+            "get-public-body view contains mailonly elements, this should filtert out!",
         )
 
     def test_send_test_issue_with_multiple_images(self):
-        body = """<h1>Headline</h1><br />
-        {0}
-        <img src="{1}" />
-        <img src="{2}" />
-        """.format(
-            self.image1_tag,
-            self.image2_url,
-            self.image3_url,
-        )
+        body = f"""<h1>Headline</h1><br />
+        {self.image1_tag}
+        <img src="{self.image2_url}" />
+        <img src="{self.image3_url}" />
+        """
         msg = self.send_sample_message(body)
         parsed_payloads = parsed_payloads_from_msg(msg)
         self.assertIn(
-            'src="cid:{0}'.format(self.image3_uid),
+            f'src="cid:{self.image3_uid}',
             safe_unicode(parsed_payloads["text/html"]),
         )
-        self.assertIn(
-            "Content-ID: <{0}.jpeg>".format(self.image2_uid), safe_unicode(msg)
-        )
-        self.assertIn(
-            "Content-ID: <{0}.jpeg>".format(self.image3_uid), safe_unicode(msg)
-        )
+        self.assertIn(f"Content-ID: <{self.image2_uid}.jpeg>", safe_unicode(msg))
+        self.assertIn(f"Content-ID: <{self.image3_uid}.jpeg>", safe_unicode(msg))
         self.assertIn("Content-Type: image/jpeg;", safe_unicode(msg))
 
         attachments = parsed_attachments_from_msg(msg)
-        self.assertIn("{0}.jpeg".format(self.image2_uid), attachments)
-        self.assertIn("{0}.jpeg".format(self.image3_uid), attachments)
+        self.assertIn(f"{self.image2_uid}.jpeg", attachments)
+        self.assertIn(f"{self.image3_uid}.jpeg", attachments)
 
     def test_permission(self):
         setRoles(self.portal, TEST_USER_ID, ["Editor"])
@@ -566,9 +526,7 @@ class EasyNewsletterTests(unittest.TestCase):
         self.issue.epilogue = self.default_epilogue
         self.issue.output_template = "output_default"
 
-        view = getMultiAdapter(
-            (self.newsletter, self.portal.REQUEST), name="newsletter-drafts"
-        )
+        view = getMultiAdapter((self.newsletter, self.portal.REQUEST), name="newsletter-drafts")
         view_result = view()
         self.assertIn("test-folder/newsletter/issue", view_result)
 

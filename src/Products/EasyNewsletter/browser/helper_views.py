@@ -1,10 +1,10 @@
-# -*- coding: utf-8 -*-
 from plone import api
-from Products.EasyNewsletter.config import AGG_SOURCES_INFOS
-from Products.Five.browser import BrowserView
 from zope.annotation import IAnnotations
 from zope.interface import Interface
 from zope.interface.declarations import implementer
+
+from Products.EasyNewsletter.config import AGG_SOURCES_INFOS
+from Products.Five.browser import BrowserView
 
 
 class IENLHelperView(Interface):
@@ -12,13 +12,12 @@ class IENLHelperView(Interface):
 
     def get_scale_util(self, brain=None):
         """
-            return the scale_util for a brain's object,
-            if the object does not have an image field, return None
+        return the scale_util for a brain's object,
+        if the object does not have an image field, return None
         """
 
     def get_object_url(self, brain):
-        """ return object url or None
-        """
+        """return object url or None"""
 
     def brain_has_lead_image(self, brain=None):
         """check if brain has lead image"""
@@ -48,8 +47,7 @@ class ENLHelperView(BrowserView):
         return scale_util
 
     def get_object_url(self, brain):
-        """ return object url or None
-        """
+        """return object url or None"""
         if not brain:
             return
         return brain.getURL()

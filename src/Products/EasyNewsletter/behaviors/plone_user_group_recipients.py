@@ -1,18 +1,15 @@
-# -*- coding: utf-8 -*-
-from ..content.newsletter import INewsletter
-from plone import api
-from plone import schema
-from plone.autoform.interfaces import IFormFieldProvider
-from plone.supermodel import model
-from Products.EasyNewsletter import _
-from zope.component import adapter
-from zope.interface import implementer
-from zope.interface import Interface
-from zope.interface import provider
-from zope.schema.interfaces import IContextAwareDefaultFactory
-
 import logging
 
+from plone import api, schema
+from plone.autoform.interfaces import IFormFieldProvider
+from plone.supermodel import model
+from zope.component import adapter
+from zope.interface import Interface, implementer, provider
+from zope.schema.interfaces import IContextAwareDefaultFactory
+
+from Products.EasyNewsletter import _
+
+from ..content.newsletter import INewsletter
 
 log = logging.getLogger("Products.EasyNewsletter")
 
@@ -80,7 +77,7 @@ class IPloneUserGroupRecipients(model.Schema):
 
 @implementer(IPloneUserGroupRecipients)
 @adapter(IPloneUserGroupRecipientsMarker)
-class PloneUserGroupRecipients(object):
+class PloneUserGroupRecipients:
     def __init__(self, context):
         self.context = context
 
@@ -151,16 +148,14 @@ class PloneUserGroupRecipients(object):
                 continue
             salutation = salutation_mappings[member.getProperty("nl_gender", "default")]
             language = member.getProperty("language") or self.context.language
-            plone_subscribers.append(
-                {
-                    "userid": member.getUserId(),
-                    "fullname": member.getProperty("fullname"),
-                    "email": email,
-                    "salutation": salutation.get(
-                        language,
-                        salutation.get(self.context.language or "en", "unset"),
-                    ),
-                    "nl_language": language,
-                }
-            )
+            plone_subscribers.append({
+                "userid": member.getUserId(),
+                "fullname": member.getProperty("fullname"),
+                "email": email,
+                "salutation": salutation.get(
+                    language,
+                    salutation.get(self.context.language or "en", "unset"),
+                ),
+                "nl_language": language,
+            })
         return plone_subscribers
