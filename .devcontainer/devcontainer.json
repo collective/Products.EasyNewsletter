@@ -53,7 +53,7 @@
 	},
 	"workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=delegated",
 	"workspaceFolder": "/workspace",
-	"postCreateCommand": "uv sync --extra dev --reinstall-package products-easynewsletter",
+	"postCreateCommand": "uv sync --extra dev --reinstall-package products-easynewsletter && tox --notest",
 	"postStartCommand": "sudo /usr/local/bin/init-firewall.sh",
 	"waitFor": "postStartCommand"
 }

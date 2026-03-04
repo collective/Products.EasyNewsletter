@@ -105,7 +105,10 @@ RUN mkdir -p /workspace/src/Products/EasyNewsletter && \
   touch /workspace/src/Products/__init__.py /workspace/src/Products/EasyNewsletter/__init__.py /workspace/README.md && \
   uv sync --extra dev && \
   rm -rf /workspace/src /workspace/README.md
-RUN uv tool install invoke
+RUN uv tool install invoke && \
+  uv tool install tox && \
+  uv tool install black && \
+  uv tool install isort
 
 # Copy and set up firewall script
 COPY .devcontainer/init-firewall.sh /usr/local/bin/
