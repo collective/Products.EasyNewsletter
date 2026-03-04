@@ -44,6 +44,7 @@ dev = [
     "pytest",
     "pytest-plone>=0.5.0",
     "plone.app.testing",
+    "plone.app.robotframework",
     "plone.testing",
     "invoke",
     "watchdog",
@@ -66,7 +67,7 @@ db_storage = "direct"
 created_at = "2026-02-27"
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["src/Products/EasyNewsletter/tests"]
 python_files = ["test_*.py"]
 
 [tool.ruff]
