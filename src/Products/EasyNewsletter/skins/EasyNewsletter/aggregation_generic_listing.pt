@@ -132,7 +132,7 @@
                                     <h3>
                                       <a tal:attributes="href obj_url"
                                         target="_top"
-                                        tal:content=" brain/Title"
+                                        tal:content="brain/Title"
                                         target="_top"
                                         >
                                       Title

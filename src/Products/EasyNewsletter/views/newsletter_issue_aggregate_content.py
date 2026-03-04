@@ -34,6 +34,8 @@ class NewsletterIssueAggregateContent(BrowserView):
         results_text = ""
         portal = api.portal.get()
         sources = self.context.content_aggregation_sources
+        if not sources:
+            return results_text
 
         # clear AGG_SOURCES_INFOS in annotations:
         annotations = IAnnotations(aq_inner(self.context))
@@ -45,6 +47,10 @@ class NewsletterIssueAggregateContent(BrowserView):
             sresults = source_obj.queryCatalog(b_size=30000)
             if not sresults:
                 continue
+            # Convert CatalogContentListingObject instances to raw catalog
+            # brains, which have __allow_access_to_unprotected_subobjects__
+            # and work correctly in restricted Python (skin templates).
+            sresults = [getattr(r, '_brain', r) for r in sresults]
             result_info = {
                 "id": source_obj.id,
                 "title": source_obj.Title(),
