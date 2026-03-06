@@ -1,30 +1,24 @@
-# -*- coding: utf-8 -*-
-
+import logging
+import re
 from datetime import datetime
+
+import emails
+import emails.loader
+import transaction
 from plone import api
-from plone.namedfile.scaling import ImageScale
-from plone.namedfile.scaling import ImageScaling
+from plone.namedfile.scaling import ImageScale, ImageScaling
 from plone.protect import PostOnly
+from zope.component import getMultiAdapter, getUtility, subscribers
+from zope.component.hooks import getSite
+
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.behaviors.plone_user_group_recipients import (
     IPloneUserGroupRecipients,
 )
 from Products.EasyNewsletter.content.newsletter_issue import ISendStatus
-from Products.EasyNewsletter.interfaces import IIssueDataFetcher
-from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter
+from Products.EasyNewsletter.interfaces import IIssueDataFetcher, IReceiversPostSendingFilter
 from Products.Five.browser import BrowserView
 from Products.MailHost.interfaces import IMailHost
-from zope.component import getMultiAdapter
-from zope.component import getUtility
-from zope.component import subscribers
-from zope.component.hooks import getSite
-
-import emails
-import emails.loader
-import logging
-import re
-import transaction
-
 
 log = logging.getLogger("Products.EasyNewsletter")
 
@@ -62,7 +56,7 @@ class Message(
     """
 
 
-class LocalLoader(object):
+class LocalLoader:
     """ """
 
     def __getitem__(self, uri):
@@ -82,9 +76,7 @@ class LocalLoader(object):
             # @@images/image/thumb > thumb
             image_scale = groups[2]
 
-            scaling_view = portal.unrestrictedTraverse(
-                base_url.replace(purl, "").lstrip("/")
-            )
+            scaling_view = portal.unrestrictedTraverse(base_url.replace(purl, "").lstrip("/"))
             image_scale = scaling_view.publishTraverse(portal.REQUEST, image_fieldname)
             if not image_scale:
                 return
@@ -197,13 +189,9 @@ class NewsletterIssueSend(BrowserView):
         issue_data = issue_data_fetcher()
         # import pdb; pdb.set_trace()  # NOQA: E702
         for receiver in receivers:
-            personalized_html = issue_data_fetcher.personalize(
-                receiver, issue_data["body_html"]
-            )
+            personalized_html = issue_data_fetcher.personalize(receiver, issue_data["body_html"])
             # get plain text version
-            personalized_plaintext = issue_data_fetcher.create_plaintext_message(
-                personalized_html
-            )
+            personalized_plaintext = issue_data_fetcher.create_plaintext_message(personalized_html)
 
             m = Message(
                 html=personalized_html,
@@ -240,7 +228,7 @@ class NewsletterIssueSend(BrowserView):
                 continue
 
             if "HTTPLoaderError" in msg_string:
-                log.exception("Transform message failed: {0}".format(m.as_string()))
+                log.exception(f"Transform message failed: {m.as_string()}")
 
             try:
                 self.mail_host.send(msg_string, immediate=True)
@@ -251,8 +239,7 @@ class NewsletterIssueSend(BrowserView):
                 send_status["successful"] = False
                 send_status["error"] = e
                 log.exception(
-                    'Sending newsletter to "%s" failed, with error "%s"!'
-                    % (receiver["email"], e)
+                    'Sending newsletter to "%s" failed, with error "%s"!' % (receiver["email"], e)
                 )
                 send_error_counter += 1
             finally:
@@ -277,14 +264,10 @@ class NewsletterIssueSend(BrowserView):
             additional_warning = ""
             if send_error_counter:
                 msg_type = "warn"
-                additional_warning = _(
-                    "\nPlease check the log files, for more details!"
-                )
+                additional_warning = _("\nPlease check the log files, for more details!")
             api.portal.show_message(
                 message=_(
-                    "Newsletter was sent to ({0}) receivers. ({1}) errors occurred!{2}".format(
-                        send_counter, send_error_counter, additional_warning
-                    )
+                    f"Newsletter was sent to ({send_counter}) receivers. ({send_error_counter}) errors occurred!{additional_warning}"
                 ),
                 request=self.request,
                 type=msg_type,
@@ -357,9 +340,7 @@ class NewsletterIssueSend(BrowserView):
                     "name_prefix": subscriber.name_prefix,
                     "firstname": subscriber.firstname or "",
                     "lastname": subscriber.lastname or "",
-                    "fullname": " ".join(
-                        [subscriber.firstname or "", subscriber.lastname or ""]
-                    ),
+                    "fullname": " ".join([subscriber.firstname or "", subscriber.lastname or ""]),
                     "salutation": salutation.get(
                         None,  # subscriber.getNl_language(),
                         salutation.get(self.context.language or "en", ""),

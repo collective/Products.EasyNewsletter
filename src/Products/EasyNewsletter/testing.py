@@ -1,15 +1,15 @@
-# -*- coding: utf-8 -*-
-from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
-from plone.app.testing import applyProfile
-from plone.app.testing import FunctionalTesting
-from plone.app.testing import IntegrationTesting
-from plone.app.testing import PLONE_FIXTURE
-from plone.app.testing import PloneSandboxLayer
-from plone.testing import z2
-from Products.EasyNewsletter.tests.base import enable_behavior
-
 import pkg_resources
+from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
+from plone.app.testing import (
+    PLONE_FIXTURE,
+    FunctionalTesting,
+    IntegrationTesting,
+    PloneSandboxLayer,
+    applyProfile,
+)
+from plone.testing import z2
 
+from Products.EasyNewsletter.tests.base import enable_behavior
 
 try:
     pkg_resources.get_distribution("plone.app.contenttypes")
@@ -21,7 +21,6 @@ else:
 
 
 class EasyNewsletter(PloneSandboxLayer):
-
     defaultBases = (PLONE_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):
@@ -41,12 +40,8 @@ class EasyNewsletter(PloneSandboxLayer):
         # Install into Plone site using portal_setup
         applyProfile(portal, "Products.EasyNewsletter:default")
         # applyProfile(portal, 'Products.EasyNewsletter:install-base')
-        enable_behavior(
-            "Newsletter", "Products.EasyNewsletter.plone_user_group_recipients"
-        )
-        enable_behavior(
-            "Newsletter Issue", "Products.EasyNewsletter.plone_user_group_recipients"
-        )
+        enable_behavior("Newsletter", "Products.EasyNewsletter.plone_user_group_recipients")
+        enable_behavior("Newsletter Issue", "Products.EasyNewsletter.plone_user_group_recipients")
 
     def tearDownZope(self, app):
         # Uninstall product

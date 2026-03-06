@@ -1,8 +1,5 @@
-# -*- coding:utf-8 -*-
 
-from setuptools import find_packages
-from setuptools import setup
-
+from setuptools import find_packages, setup
 
 version = "6.0.0b5.dev0"
 long_description = open("README.rst").read() + "\n" + open("CHANGES.rst").read()

@@ -1,13 +1,10 @@
-# -*- coding: utf-8 -*-
-
 from plone import schema
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.supermodel import model
-from Products.EasyNewsletter import _
 from zope.component import adapter
-from zope.interface import implementer
-from zope.interface import Interface
-from zope.interface import provider
+from zope.interface import Interface, implementer, provider
+
+from Products.EasyNewsletter import _
 
 
 class ICollectionAsNewsletterAggregationSourceMarker(Interface):
@@ -37,7 +34,7 @@ class ICollectionAsNewsletterAggregationSource(model.Schema):
 
 @implementer(ICollectionAsNewsletterAggregationSource)
 @adapter(ICollectionAsNewsletterAggregationSourceMarker)
-class CollectionAsNewsletterAggregationSource(object):
+class CollectionAsNewsletterAggregationSource:
     def __init__(self, context):
         self.context = context
 

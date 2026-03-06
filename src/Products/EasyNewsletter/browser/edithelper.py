@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from Products.EasyNewsletter.config import ENL_EDITHELPER_TYPES
 from Products.Five.browser import BrowserView
 

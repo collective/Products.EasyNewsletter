@@ -1,14 +1,10 @@
-# -*- coding: utf-8 -*-
-
 # from plone import schema
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.supermodel import model
 
 # from Products.EasyNewsletter import _
 from zope.component import adapter
-from zope.interface import implementer
-from zope.interface import Interface
-from zope.interface import provider
+from zope.interface import Interface, implementer, provider
 
 
 class IExternalSubscriberSourcesMarker(Interface):
@@ -29,7 +25,7 @@ class IExternalSubscriberSources(model.Schema):
 
 @implementer(IExternalSubscriberSources)
 @adapter(IExternalSubscriberSourcesMarker)
-class ExternalSubscriberSources(object):
+class ExternalSubscriberSources:
     def __init__(self, context):
         self.context = context
 

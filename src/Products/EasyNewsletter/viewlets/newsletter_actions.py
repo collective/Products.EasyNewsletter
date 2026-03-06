@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from plone import api
 from plone.app.layout.viewlets import ViewletBase
 
@@ -12,6 +11,6 @@ class NewsletterActions(ViewletBase):
 
     def render(self):
         if not api.user.is_anonymous():
-            return super(NewsletterActions, self).render()
+            return super().render()
         else:
             return ""

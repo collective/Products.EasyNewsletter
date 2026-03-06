@@ -1,19 +1,16 @@
-# -*- coding: utf-8 -*-
+import unittest
+
 from plone import api
 from plone.api.exc import InvalidParameterError
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
+from plone.app.testing import TEST_USER_ID, setRoles
 from plone.dexterity.interfaces import IDexterityFTI
+from zope.component import createObject, queryUtility
+
 from Products.EasyNewsletter.content.newsletter import INewsletter
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
-from zope.component import createObject
-from zope.component import queryUtility
-
-import unittest
 
 
 class NewsletterIntegrationTest(unittest.TestCase):
-
     layer = PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 
     def setUp(self):
@@ -37,9 +34,7 @@ class NewsletterIntegrationTest(unittest.TestCase):
 
         self.assertTrue(
             INewsletter.providedBy(obj),
-            "INewsletter not provided by {0}!".format(
-                obj,
-            ),
+            f"INewsletter not provided by {obj}!",
         )
 
     def test_ct_newsletter_adding(self):
@@ -52,9 +47,7 @@ class NewsletterIntegrationTest(unittest.TestCase):
 
         self.assertTrue(
             INewsletter.providedBy(obj),
-            "INewsletter not provided by {0}!".format(
-                obj.id,
-            ),
+            f"INewsletter not provided by {obj.id}!",
         )
 
         parent = obj.__parent__
@@ -67,7 +60,7 @@ class NewsletterIntegrationTest(unittest.TestCase):
     def test_ct_newsletter_globally_addable(self):
         setRoles(self.portal, TEST_USER_ID, ["Contributor"])
         fti = queryUtility(IDexterityFTI, name="Newsletter")
-        self.assertTrue(fti.global_allow, "{0} is not globally addable!".format(fti.id))
+        self.assertTrue(fti.global_allow, f"{fti.id} is not globally addable!")
 
     def test_ct_newsletter_filter_content_type_true(self):
         setRoles(self.portal, TEST_USER_ID, ["Contributor"])

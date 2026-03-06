@@ -1,17 +1,17 @@
-# -*- coding: utf-8 -*-
+import unittest
+
 from plone import api
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
+from plone.app.testing import TEST_USER_ID, setRoles
 from zope.component import getMultiAdapter
 from zope.interface.interfaces import ComponentLookupError
 
-import unittest
+from Products.EasyNewsletter.testing import (
+    PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING,
+    PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING,
+)
 
 
 class ViewsIntegrationTest(unittest.TestCase):
-
     layer = PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 
     def setUp(self):
@@ -29,13 +29,10 @@ class ViewsIntegrationTest(unittest.TestCase):
 
     def test_newsletter_subscribers_not_matching_interface(self):
         with self.assertRaises(ComponentLookupError):
-            getMultiAdapter(
-                (self.portal, self.portal.REQUEST), name="newsletter-subscribers"
-            )
+            getMultiAdapter((self.portal, self.portal.REQUEST), name="newsletter-subscribers")
 
 
 class ViewsFunctionalTest(unittest.TestCase):
-
     layer = PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
 
     def setUp(self):

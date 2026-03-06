@@ -1,27 +1,23 @@
-# -*- coding: utf-8 -*-
+import logging
 
-from email_validator import EmailNotValidError
-from email_validator import validate_email
+from email_validator import EmailNotValidError, validate_email
 from plone import api
 from plone.dexterity.interfaces import IDexterityContent
-from Products.CMFPlone.utils import safe_unicode
-from Products.EasyNewsletter import _
-from Products.EasyNewsletter.interfaces import IReceiversMemberFilter
 from zope.component import subscribers
 from zope.globalrequest import getRequest
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
-from zope.schema.vocabulary import SimpleTerm
-from zope.schema.vocabulary import SimpleVocabulary
+from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 
-import logging
-
+from Products.CMFPlone.utils import safe_unicode
+from Products.EasyNewsletter import _
+from Products.EasyNewsletter.interfaces import IReceiversMemberFilter
 
 log = logging.getLogger("Products.EasyNewsletter")
 
 
 @implementer(IVocabularyFactory)
-class PloneUsers(object):
+class PloneUsers:
     """ """
 
     def __call__(self, context):
@@ -43,21 +39,15 @@ class PloneUsers(object):
                     vemail = validate_email(property["email"])
                 except EmailNotValidError as e:
                     log.error(
-                        _('Property email: "{0}" is not an email!').format(
-                            property["email"]
-                        ),
+                        _('Property email: "{0}" is not an email!').format(property["email"]),
                         e,
                     )
                 else:
-                    results.append(
-                        (id, "{0} - {1}".format(property["fullname"], vemail.email))
-                    )
+                    results.append((id, "{0} - {1}".format(property["fullname"], vemail.email)))
         except TypeError as e:  # noqa
             log.error(
-                ":get_plone_members: error in member_properties {0} \
-                properties:'{1}'".format(
-                    e, member_properties.items()
-                )
+                f":get_plone_members: error in member_properties {e} \
+                properties:'{member_properties.items()}'"
             )
 
         # run registered member filter

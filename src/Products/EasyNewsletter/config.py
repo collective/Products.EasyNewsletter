@@ -41,12 +41,8 @@ MESSAGE_CODE = {
         " subscription.",
     ),
     "invalid_email": _("invalid_email", default="Please enter a valid email address."),
-    "email_exists": _(
-        "email_exists", default="Your email address is already registered."
-    ),
-    "invalid_hashkey": _(
-        "invalid_hashkey", default="Please enter a valid email address."
-    ),
+    "email_exists": _("email_exists", default="Your email address is already registered."),
+    "invalid_hashkey": _("invalid_hashkey", default="Please enter a valid email address."),
     "subscription_confirmed": _(
         "subscription_confirmed",
         default="Your subscription was successfully confirmed.",
@@ -54,14 +50,10 @@ MESSAGE_CODE = {
 }
 
 
-EMAIL_RE = re.compile(
-    r"(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,63}(?:\s|$)", re.IGNORECASE
-)
+EMAIL_RE = re.compile(r"(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,63}(?:\s|$)", re.IGNORECASE)
 
 
-DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT = _(
-    "Confirm your subscription on ${portal_url}"
-)
+DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT = _("Confirm your subscription on ${portal_url}")
 
 DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_TEXT = """\
 You subscribe to the ${newsletter_title}.\n\n

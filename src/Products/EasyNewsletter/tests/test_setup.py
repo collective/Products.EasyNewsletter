@@ -1,17 +1,14 @@
-# -*- coding: utf-8 -*-
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
+import unittest
+
+from plone.app.testing import TEST_USER_ID, setRoles
 from plone.registry.interfaces import IRegistry
-from Products.CMFPlone.interfaces import INavigationSchema
-from Products.CMFPlone.interfaces import ISearchSchema
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 from zope.component import getUtility
 
-import unittest
+from Products.CMFPlone.interfaces import INavigationSchema, ISearchSchema
+from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 
 
 class EasyNewsletterSetupTests(unittest.TestCase):
-
     layer = PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 
     def setUp(self):
@@ -37,9 +34,7 @@ class EasyNewsletterSetupTests(unittest.TestCase):
         self.assertFalse("Newsletter Subscriber" in self.nav_settings.displayed_types)
 
     def test_newsletter_subtypes_in_types_not_searched(self):
-        self.assertTrue(
-            "Newsletter Subscriber" in self.search_settings.types_not_searched
-        )
+        self.assertTrue("Newsletter Subscriber" in self.search_settings.types_not_searched)
 
 
 def test_suite():

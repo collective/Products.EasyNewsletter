@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from .newsletter import get_content_aggregation_sources_base_path
-from .newsletter import INewsletter
 from persistent.dict import PersistentDict
 from plone import schema
 from plone.app import textfield
@@ -9,14 +6,14 @@ from plone.autoform import directives
 from plone.dexterity.content import Container
 from plone.namedfile import field as namedfile
 from plone.supermodel import model
-from Products.EasyNewsletter import _
 from z3c import relationfield
 from zope.annotation.interfaces import IAnnotations
-from zope.interface import implementer
-from zope.interface import Interface
-from zope.interface import provider
+from zope.interface import Interface, implementer, provider
 from zope.schema.interfaces import IContextAwareDefaultFactory
 
+from Products.EasyNewsletter import _
+
+from .newsletter import INewsletter, get_content_aggregation_sources_base_path
 
 SEND_STATUS_KEY = "PRODUCTS_EASYNEWSLETTER_SEND_STATUS"
 
@@ -279,7 +276,7 @@ class ISendStatus(Interface):
 
 
 @implementer(ISendStatus)
-class SendStatus(object):
+class SendStatus:
     def __init__(self, context):
         self.context = context
 

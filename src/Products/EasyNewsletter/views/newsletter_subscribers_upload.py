@@ -1,17 +1,15 @@
-# -*- coding: utf-8 -*-
+import csv
+import logging
 
+import six
 from Acquisition import aq_inner
 from plone import api
 from plone.i18n.normalizer.interfaces import IIDNormalizer
+from zope.component import getUtility
+
 from Products.EasyNewsletter import _
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
-from zope.component import getUtility
-
-import csv
-import logging
-import six
-
 
 if six.PY2:
     import codecs
@@ -51,9 +49,7 @@ class NewsletterSubscribersUpload(BrowserView):
         # plone_utils = getToolByName(self.context, 'plone_utils')
         # encoding = plone_utils.getSiteEncoding()
         existing = []
-        subscribers = api.content.find(
-            context=self.context, portal_type="Newsletter Subscriber"
-        )
+        subscribers = api.content.find(context=self.context, portal_type="Newsletter Subscriber")
         for subscriber in subscribers:
             existing.append(subscriber.email.lower())
 
@@ -66,21 +62,15 @@ class NewsletterSubscribersUpload(BrowserView):
         if not filename:
             msg = _("No file specified.")
             IStatusMessage(self.request).addStatusMessage(msg, type="error")
-            return self.request.response.redirect(
-                context.absolute_url() + "/subscribers-upload"
-            )
+            return self.request.response.redirect(context.absolute_url() + "/subscribers-upload")
 
         reader = UnicodeReader(filename)
         header = next(reader)
         if header != [x for x in CSV_HEADER]:
             log.info("Got header %s\n Expected:%s" % (header, CSV_HEADER))
-            msg = _(
-                "Wrong specification of the CSV file. " + "Please correct it and retry."
-            )
+            msg = _("Wrong specification of the CSV file. " + "Please correct it and retry.")
             IStatusMessage(self.request).addStatusMessage(msg, type="error")
-            return self.request.response.redirect(
-                context.absolute_url() + "/subscribers-upload"
-            )
+            return self.request.response.redirect(context.absolute_url() + "/subscribers-upload")
 
         for subscriber in reader:
             # Check the length of the line
@@ -109,18 +99,16 @@ class NewsletterSubscribersUpload(BrowserView):
                             "address existed, subscriber info was NOT "
                             "updated. Check manually!"
                         )
-                        fail.append(
-                            {
-                                "salutation": salutation,
-                                "name_prefix": name_prefix,
-                                "firstname": firstname,
-                                "lastname": lastname,
-                                # 'nl_language': nl_language,
-                                "email": email,
-                                "organization": organization,
-                                "failure": msg,
-                            }
-                        )
+                        fail.append({
+                            "salutation": salutation,
+                            "name_prefix": name_prefix,
+                            "firstname": firstname,
+                            "lastname": lastname,
+                            # 'nl_language': nl_language,
+                            "email": email,
+                            "organization": organization,
+                            "failure": msg,
+                        })
                     else:
                         sub = sub[0].getObject()
                         sub.email = email
@@ -133,18 +121,16 @@ class NewsletterSubscribersUpload(BrowserView):
                         sub.title = email + " - " + " ".join([lastname, firstname])
                         sub.reindexObject()
                         msg = _("Email existed, updated subscriber.")
-                        success.append(
-                            {
-                                "salutation": salutation,
-                                "name_prefix": name_prefix,
-                                "firstname": firstname,
-                                "lastname": lastname,
-                                # 'nl_language': nl_language,
-                                "email": email,
-                                "organization": organization,
-                                "success": msg,
-                            }
-                        )
+                        success.append({
+                            "salutation": salutation,
+                            "name_prefix": name_prefix,
+                            "firstname": firstname,
+                            "lastname": lastname,
+                            # 'nl_language': nl_language,
+                            "email": email,
+                            "organization": organization,
+                            "success": msg,
+                        })
                 else:
                     # If it doesn't exist, create subscriber
                     title = email + " - " + " ".join([lastname, firstname])
@@ -167,33 +153,29 @@ class NewsletterSubscribersUpload(BrowserView):
                         # update existing
                         existing.append(email)
                         msg = _("Subscriber created.")
-                        success.append(
-                            {
-                                "salutation": salutation,
-                                "name_prefix": name_prefix,
-                                "firstname": firstname,
-                                "lastname": lastname,
-                                # 'nl_language': nl_language,
-                                "email": email,
-                                "organization": organization,
-                                "success": msg,
-                            }
-                        )
+                        success.append({
+                            "salutation": salutation,
+                            "name_prefix": name_prefix,
+                            "firstname": firstname,
+                            "lastname": lastname,
+                            # 'nl_language': nl_language,
+                            "email": email,
+                            "organization": organization,
+                            "success": msg,
+                        })
 
                     except Exception as e:
-                        fail.append(
-                            {
-                                "salutation": salutation,
-                                "name_prefix": name_prefix,
-                                "firstname": firstname,
-                                "lastname": lastname,
-                                # 'nl_language': nl_language,
-                                "email": email,
-                                "organization": organization,
-                                "failure": "An error occured while creating this subscriber: %s"
-                                % str(e),
-                            }
-                        )
+                        fail.append({
+                            "salutation": salutation,
+                            "name_prefix": name_prefix,
+                            "firstname": firstname,
+                            "lastname": lastname,
+                            # 'nl_language': nl_language,
+                            "email": email,
+                            "organization": organization,
+                            "failure": "An error occured while creating this subscriber: %s"
+                            % str(e),
+                        })
 
         return {"success": success, "fail": fail}
 

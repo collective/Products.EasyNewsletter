@@ -1,14 +1,13 @@
-# -*- coding: utf-8 -*-
+import transaction
 from plone import api
 from plone.protect import PostOnly
 from plone.protect.interfaces import IDisableCSRFProtection
+from zope.interface import alsoProvides
+
 from Products.CMFPlone.resources import add_resource_on_request
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.Five.browser import BrowserView
-from zope.interface import alsoProvides
-
-import transaction
 
 
 class IssueView(BrowserView):
@@ -16,7 +15,7 @@ class IssueView(BrowserView):
 
     def __call__(self):
         add_resource_on_request(self.request, "iframeResizer")
-        return super(IssueView, self).__call__()
+        return super().__call__()
 
     @property
     def here_url(self):
@@ -100,9 +99,7 @@ class IssueView(BrowserView):
             "uid": "xyz",
         }
         issuedatafetcher = IIssueDataFetcher(self.context)
-        preview_html = issuedatafetcher.preview_html(
-            disable_filter=True, receiver=test_receiver
-        )
+        preview_html = issuedatafetcher.preview_html(disable_filter=True, receiver=test_receiver)
         return preview_html
 
     # BBB: can be removed in 5.x

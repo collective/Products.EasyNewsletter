@@ -1,29 +1,24 @@
-# -*- coding: utf-8 -*-
+import unittest
+
 from AccessControl import Unauthorized
 from App.Common import package_home
 from plone import api
-from plone.app.testing import login
-from plone.app.testing import logout
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
-from plone.app.testing import TEST_USER_NAME
+from plone.app.testing import TEST_USER_ID, TEST_USER_NAME, login, logout, setRoles
 from plone.registry.interfaces import IRegistry
 from plone.testing.z2 import Browser
+from zope.component import getMultiAdapter, getSiteManager, getUtility
+
 from Products.CMFPlone.interfaces.controlpanel import IMailSchema
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter.interfaces import IENLRegistrationTool
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
+from Products.EasyNewsletter.testing import (
+    PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING,
+    PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING,
+)
 from Products.EasyNewsletter.tests.base import parsed_payloads_from_msg
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.MailHost.interfaces import IMailHost
-from zope.component import getMultiAdapter
-from zope.component import getSiteManager
-from zope.component import getUtility
-
-import unittest
-
 
 GLOBALS = globals()
 TESTS_HOME = package_home(GLOBALS)
@@ -64,18 +59,14 @@ class RegistrationIntegrationTests(unittest.TestCase):
 
     def test_register_subscriber(self):
         self.assertSequenceEqual(self.mailhost.messages, [])
-        self.portal.REQUEST.form.update(
-            {
-                "newsletter": "/enl1",
-                "salutation": "mr",
-                "firstname": "Max",
-                "name": "Mustermann",
-                "subscriber": "max@example.com",
-            }
-        )
-        view = getMultiAdapter(
-            (self.portal, self.portal.REQUEST), name="register-subscriber"
-        )
+        self.portal.REQUEST.form.update({
+            "newsletter": "/enl1",
+            "salutation": "mr",
+            "firstname": "Max",
+            "name": "Mustermann",
+            "subscriber": "max@example.com",
+        })
+        view = getMultiAdapter((self.portal, self.portal.REQUEST), name="register-subscriber")
         view.__call__()
         self.assertEqual(len(self.mailhost.messages), 1)
         self.assertTrue(self.mailhost.messages[0])
@@ -83,9 +74,7 @@ class RegistrationIntegrationTests(unittest.TestCase):
         parsed_payloads = parsed_payloads_from_msg(msg)
         self.assertIn("To: max@example.com", msg)
         self.assertIn("From: portal@plone.test", msg)
-        self.assertIn(
-            "confirm-subscriber?hkey=", safe_unicode(parsed_payloads["text/plain"])
-        )
+        self.assertIn("confirm-subscriber?hkey=", safe_unicode(parsed_payloads["text/plain"]))
 
         enl_reg_entry = self.enl_reg_tool.values()[0]
         self.assertEqual(
@@ -124,28 +113,20 @@ class RegistrationIntegrationTests(unittest.TestCase):
 
     def test_confirm_subscriber(self):
         self.assertSequenceEqual(self.mailhost.messages, [])
-        self.portal.REQUEST.form.update(
-            {
-                "newsletter": "/enl1",
-                "salutation": "mr",
-                "firstname": "Max",
-                "name": "Mustermann",
-                "subscriber": "max@example.com",
-            }
-        )
-        view = getMultiAdapter(
-            (self.portal, self.portal.REQUEST), name="register-subscriber"
-        )
+        self.portal.REQUEST.form.update({
+            "newsletter": "/enl1",
+            "salutation": "mr",
+            "firstname": "Max",
+            "name": "Mustermann",
+            "subscriber": "max@example.com",
+        })
+        view = getMultiAdapter((self.portal, self.portal.REQUEST), name="register-subscriber")
         view.__call__()
         enl_reg_entry = self.enl_reg_tool.values()[0]
-        self.portal.REQUEST.form.update(
-            {
-                "hkey": enl_reg_entry.id,
-            }
-        )
-        view = getMultiAdapter(
-            (self.portal, self.portal.REQUEST), name="confirm-subscriber"
-        )
+        self.portal.REQUEST.form.update({
+            "hkey": enl_reg_entry.id,
+        })
+        view = getMultiAdapter((self.portal, self.portal.REQUEST), name="confirm-subscriber")
         view.__call__()
         catalog = self.portal.portal_catalog
         query = {"portal_type": "Newsletter Subscriber"}
@@ -185,7 +166,6 @@ class RegistrationIntegrationTests(unittest.TestCase):
 
 
 class RegistrationFunctionalTests(unittest.TestCase):
-
     layer = PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
 
     def setUp(self):

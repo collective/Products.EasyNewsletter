@@ -1,21 +1,20 @@
-# -*- coding: utf-8 -*-
+import unittest
+
 from plone import api
-from plone.app.testing import logout
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
-from Products.EasyNewsletter.interfaces import IProductsEasyNewsletterLayer
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
-from Products.Five.browser import BrowserView
+from plone.app.testing import TEST_USER_ID, logout, setRoles
 from zope.component import queryMultiAdapter
 from zope.interface import alsoProvides
 from zope.viewlet.interfaces import IViewletManager
 
-import unittest
+from Products.EasyNewsletter.interfaces import IProductsEasyNewsletterLayer
+from Products.EasyNewsletter.testing import (
+    PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING,
+    PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING,
+)
+from Products.Five.browser import BrowserView
 
 
 class ViewletIntegrationTest(unittest.TestCase):
-
     layer = PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 
     def setUp(self):
@@ -43,9 +42,7 @@ class ViewletIntegrationTest(unittest.TestCase):
         )
         self.assertIsNotNone(manager)
         manager.update()
-        my_viewlets = [
-            v for v in manager.viewlets if v.__name__ == "newsletter-actions"
-        ]  # NOQA: E501
+        my_viewlets = [v for v in manager.viewlets if v.__name__ == "newsletter-actions"]  # NOQA: E501
         self.assertEqual(len(my_viewlets), 1)
         self.assertIn("toc-nav newsletter", manager.render())
 
@@ -62,9 +59,7 @@ class ViewletIntegrationTest(unittest.TestCase):
         )
         self.assertIsNotNone(manager)
         manager.update()
-        my_viewlets = [
-            v for v in manager.viewlets if v.__name__ == "newsletter-actions"
-        ]  # NOQA: E501
+        my_viewlets = [v for v in manager.viewlets if v.__name__ == "newsletter-actions"]  # NOQA: E501
         self.assertEqual(len(my_viewlets), 1)
         self.assertNotIn("toc-nav newsletter", manager.render())
 
@@ -81,14 +76,11 @@ class ViewletIntegrationTest(unittest.TestCase):
         )
         self.assertIsNotNone(manager)
         manager.update()
-        my_viewlets = [
-            v for v in manager.viewlets if v.__name__ == "newsletter-actions"
-        ]  # NOQA: E501
+        my_viewlets = [v for v in manager.viewlets if v.__name__ == "newsletter-actions"]  # NOQA: E501
         self.assertEqual(len(my_viewlets), 0)
 
 
 class ViewletFunctionalTest(unittest.TestCase):
-
     layer = PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
 
     def setUp(self):

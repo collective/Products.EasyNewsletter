@@ -1,16 +1,13 @@
-# -*- coding: utf-8 -*-
+import logging
 
 from plone import api
 from plone.protect.utils import addTokenToUrl
-from Products.EasyNewsletter import _
-from Products.EasyNewsletter import config
-from Products.EasyNewsletter.interfaces import ISubscriberSource
-from Products.Five.browser import BrowserView
 from zope.component import getUtility
 from zope.interface.interfaces import ComponentLookupError
 
-import logging
-
+from Products.EasyNewsletter import _, config
+from Products.EasyNewsletter.interfaces import ISubscriberSource
+from Products.Five.browser import BrowserView
 
 log = logging.getLogger("Products.EasyNewsletter")
 
@@ -70,9 +67,7 @@ class NewsletterSubscribers(BrowserView):
         if ext_subcriber_source:
             if ext_subcriber_source != "default":
                 try:
-                    external_source = getUtility(
-                        ISubscriberSource, name=ext_subcriber_source
-                    )
+                    external_source = getUtility(ISubscriberSource, name=ext_subcriber_source)
                 except ComponentLookupError:
                     log.warn(
                         _(

@@ -1,11 +1,16 @@
-# -*- coding: utf-8 -*-
+from logging import getLogger
+
+import emails
+import OFS
 from AccessControl.SecurityManagement import newSecurityManager
 from Acquisition import aq_inner
-from email_validator import EmailNotValidError
-from email_validator import validate_email
-from logging import getLogger
+from email_validator import EmailNotValidError, validate_email
 from plone import api
 from plone.i18n.normalizer.interfaces import IIDNormalizer
+from zExceptions import BadRequest
+from zope.component import getMultiAdapter, queryUtility
+from zope.interface import alsoProvides
+
 from Products.CMFCore.utils import getToolByName
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
 from Products.EasyNewsletter.config import MESSAGE_CODE
@@ -16,14 +21,6 @@ from Products.EasyNewsletter.utils.base import execute_under_special_role
 from Products.EasyNewsletter.utils.mail import get_portal_mail_settings
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
-from zExceptions import BadRequest
-from zope.component import getMultiAdapter
-from zope.component import queryUtility
-from zope.interface import alsoProvides
-
-import emails
-import OFS
-
 
 try:
     from plone import protect
@@ -71,9 +68,7 @@ class SubscriberView(BrowserView):
         try:
             valid_subscriber = validate_email(subscriber)
         except EmailNotValidError as e:
-            messages.addStatusMessage(
-                _("Please enter a valid email address.\n{0}".format(e)), "error"
-            )
+            messages.addStatusMessage(_(f"Please enter a valid email address.\n{e}"), "error")
             return self._msg_redirect(newsletter_container)
 
         lastname = self.request.get("name", "")
@@ -90,9 +85,7 @@ class SubscriberView(BrowserView):
         norm = queryUtility(IIDNormalizer)
         normalized_subscriber = norm.normalize(valid_subscriber.email)
         if normalized_subscriber in newsletter_container.objectIds():
-            messages.addStatusMessage(
-                _("Your email address is already registered."), "error"
-            )
+            messages.addStatusMessage(_("Your email address is already registered."), "error")
             return self._msg_redirect(newsletter_container)
         subscriber_data = {}
         subscriber_data["subscriber"] = valid_subscriber.email
@@ -107,28 +100,18 @@ class SubscriberView(BrowserView):
         # use password reset tool to create a hash
         pwr_data = self._requestReset(subscriber_data["subscriber"])
         hashkey = pwr_data["randomstring"]
-        enl_registration_tool = queryUtility(
-            IENLRegistrationTool, "enl_registration_tool"
-        )
+        enl_registration_tool = queryUtility(IENLRegistrationTool, "enl_registration_tool")
         if hashkey not in enl_registration_tool.objectIds():
-            enl_registration_tool[hashkey] = RegistrationData(
-                hashkey, **subscriber_data
+            enl_registration_tool[hashkey] = RegistrationData(hashkey, **subscriber_data)
+            msg_subject = newsletter_container.subscriber_confirmation_mail_subject.replace(
+                "${portal_url}", self.portal_url.strip("http://")
             )
-            msg_subject = (
-                newsletter_container.subscriber_confirmation_mail_subject.replace(
-                    "${portal_url}", self.portal_url.strip("http://")
-                )
-            )
-            confirmation_url = (
-                self.portal_url + "/confirm-subscriber?hkey=" + str(hashkey)
-            )
+            confirmation_url = self.portal_url + "/confirm-subscriber?hkey=" + str(hashkey)
             confirmation_url = protect.utils.addTokenToUrl(confirmation_url)
             msg_text = newsletter_container.subscriber_confirmation_mail_text.replace(
                 "${newsletter_title}", newsletter_container.title
             )
-            msg_text = msg_text.replace(
-                "${subscriber_email}", subscriber_data["subscriber"]
-            )
+            msg_text = msg_text.replace("${subscriber_email}", subscriber_data["subscriber"])
             msg_text = msg_text.replace("${confirmation_url}", confirmation_url)
             settings = get_portal_mail_settings()
             msg_sender = settings.email_from_address
@@ -154,16 +137,12 @@ class SubscriberView(BrowserView):
 
     def confirm_subscriber(self):
         hashkey = self.request.get("hkey")
-        enl_registration_tool = queryUtility(
-            IENLRegistrationTool, "enl_registration_tool"
-        )
+        enl_registration_tool = queryUtility(IENLRegistrationTool, "enl_registration_tool")
         regdataobj = enl_registration_tool.get(hashkey)
         messages = IStatusMessage(self.request)
         if regdataobj:
             portal = api.portal.get()
-            easynewsletter = portal.unrestrictedTraverse(
-                regdataobj.path_to_easynewsletter
-            )
+            easynewsletter = portal.unrestrictedTraverse(regdataobj.path_to_easynewsletter)
             email = regdataobj.subscriber
             plone_utils = api.portal.get_tool(name="plone_utils")
             subscriber_id = plone_utils.normalizeString(email)
@@ -289,9 +268,7 @@ class UnsubscribeView(BrowserView):
 
         newsletter = self.context
         if not INewsletter.providedBy(newsletter):
-            putils.addPortalMessage(
-                _("Please use the correct unsubscribe url!"), "error"
-            )
+            putils.addPortalMessage(_("Please use the correct unsubscribe url!"), "error")
             return self.request.response.redirect(
                 api.portal.get_navigation_root(self).absolute_url()
             )
@@ -307,6 +284,4 @@ class UnsubscribeView(BrowserView):
             del newsletter[subscriber.id]
             putils.addPortalMessage(_("You have been unsubscribed."))
 
-        return self.request.response.redirect(
-            api.portal.get_navigation_root(self).absolute_url()
-        )
+        return self.request.response.redirect(api.portal.get_navigation_root(self).absolute_url())

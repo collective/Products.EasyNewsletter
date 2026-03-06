@@ -1,17 +1,14 @@
-# -*- coding: utf-8 -*-
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
+import unittest
+
+from plone.app.testing import TEST_USER_ID, setRoles
+from zope.component import getUtility
+from zope.schema.interfaces import IVocabularyFactory, IVocabularyTokenized
+
 from Products.EasyNewsletter import _
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
-from zope.component import getUtility
-from zope.schema.interfaces import IVocabularyFactory
-from zope.schema.interfaces import IVocabularyTokenized
-
-import unittest
 
 
 class OutputTemplatesIntegrationTest(unittest.TestCase):
-
     layer = PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 
     def setUp(self):

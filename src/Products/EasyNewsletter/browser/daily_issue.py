@@ -1,15 +1,14 @@
-# -*- coding: utf-8 -*-
+import datetime
+import logging
+
 from plone import api
 from plone.protect.interfaces import IDisableCSRFProtection
-from Products.CMFPlone.utils import safe_unicode
-from Products.Five.browser import BrowserView
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
 from zope.interface import alsoProvides
 
-import datetime
-import logging
-
+from Products.CMFPlone.utils import safe_unicode
+from Products.Five.browser import BrowserView
 
 log = logging.getLogger("Products.EasyNewsletter: daily-issue")
 
@@ -40,9 +39,7 @@ class DailyIssueView(BrowserView):
         id = self.__generate_id()
 
         try:
-            self.issue = api.content.create(
-                type="Newsletter Issue", id=id, container=self.context
-            )
+            self.issue = api.content.create(type="Newsletter Issue", id=id, container=self.context)
         # If issue already exist, don't create it again
         except BadRequest:
             raise
@@ -54,15 +51,15 @@ class DailyIssueView(BrowserView):
         # https://community.plone.org/t/icontextawaredefaultfactory-has-wrong-context-and-no-acquisition-chain-if-called-in-python/9119
         self.issue.prologue = safe_unicode(self.context.default_prologue)
         self.issue.epilogue = safe_unicode(self.context.default_epilogue)
-        self.issue.content_aggregation_sources = (
-            self.context.content_aggregation_sources
-        )
+        self.issue.content_aggregation_sources = self.context.content_aggregation_sources
         self.issue.output_template = self.context.output_template
 
         # aggregate content for issue:
         # self.context.REQUEST.set("URL", self.issue.absolute_url())
         # self.context.REQUEST.set("ACTUAL_URL", self.issue.absolute_url())
-        aggregate_view = getMultiAdapter((self.issue, self.context.REQUEST), name="aggregate-content")
+        aggregate_view = getMultiAdapter(
+            (self.issue, self.context.REQUEST), name="aggregate-content"
+        )
         aggregate_view()
 
     def send(self):

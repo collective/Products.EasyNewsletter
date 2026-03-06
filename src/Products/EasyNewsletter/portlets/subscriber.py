@@ -1,13 +1,12 @@
-# -*- coding: utf-8 -*-
 # from plone.app.vocabularies.catalog import SearchableTextSourceBinder
 from bs4 import BeautifulSoup
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope import schema
 from zope.interface import implementer
 
+from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 VALID_TAGS = [
     "strong",
@@ -56,7 +55,7 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
         title=_("label_newsletter_path", default="Path to Newsletter"),
         description=_(
             "help_newsletter_path",
-            default="Search for the accordingly newsletter, choose one and " "apply.",
+            default="Search for the accordingly newsletter, choose one and apply.",
         ),
         vocabulary="Products.EasyNewsletter.newsletters",
         required=True,
@@ -72,17 +71,13 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
     )
 
     query_name = schema.Bool(
-        title=_(
-            "label_newletter_show_name", default="Ask for the name of the subscriber"
-        ),
+        title=_("label_newletter_show_name", default="Ask for the name of the subscriber"),
         default=True,
         required=False,
     )
 
     query_firstname = schema.Bool(
-        title=_(
-            "label_newletter_show_firstname", default="Ask for the firstname as well"
-        ),
+        title=_("label_newletter_show_firstname", default="Ask for the firstname as well"),
         default=False,
         required=False,
     )
@@ -99,7 +94,7 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
     query_organization = schema.Bool(
         title=_(
             "label_newletter_show_organization",
-            default="Display field to enter company/organization of " "subscriber",
+            default="Display field to enter company/organization of subscriber",
         ),
         default=False,
         required=False,
