@@ -1,22 +1,25 @@
 [project]
 name = "Products.EasyNewsletter"
-version = "1.0.0"
-description = "A Newsletter and Mailing addon for Plone"
+version = "6.0.0b5.dev0"
+description = "Powerful newsletter/mailing addon for Plone"
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "GPL-2.0-or-later"}
 authors = [
     {name = "Maik Derstappen", email = "md@derico.de"}
 ]
+keywords = ["Plone", "Newsletter", "Mailing", "Email", "Mailinglist"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Framework :: Plone",
     "Framework :: Plone :: 6.1",
+    "Framework :: Plone :: Addon",
     "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 
 dependencies = [
@@ -56,6 +59,9 @@ dev = [
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[project.scripts]
+update_locale = "Products.EasyNewsletter.locales.update:update_locale"
+
 [project.entry-points."z3c.autoinclude.plugin"]
 target = "plone"
 
@@ -75,7 +81,7 @@ python_files = ["test_*.py"]
 [tool.ruff]
 line-length = 100
 target-version = "py310"
-extend-exclude = ["docs", "setup.py", "import_enl_stats.py"]
+extend-exclude = ["docs", "import_enl_stats.py"]
 
 [tool.ruff.lint]
 select = [
@@ -118,6 +124,9 @@ known-first-party = ["Products"]
 
 [tool.ruff.format]
 preview = true
+
+[tool.zest-releaser]
+create-wheel = true
 
 [tool.uv]
 constraint-dependencies = [

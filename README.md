@@ -30,12 +30,10 @@ EasyNewsletter is a simple but powerful newsletter/mailing add-on for Plone.
 
 ## Installation
 
-Create a virtual environment and install dependencies:
+Install dependencies using `uv`:
 
 ```bash
-python -m venv venv
-source venv/bin/activate
-pip install -e ".[dev]"
+uv sync --extra dev
 ```
 
 ## Running
@@ -59,7 +57,7 @@ The initial admin user is configured in `instance/inituser` (default: admin/admi
 ### Running Tests
 
 ```bash
-pytest
+uv run pytest
 ```
 
 ### Tasks
@@ -67,8 +65,27 @@ pytest
 Use invoke for common tasks:
 
 ```bash
-invoke --list
+uv run invoke --list
 ```
+
+### Releasing
+
+The project uses [zest.releaser](https://zestreleaser.readthedocs.io/) for releases. The build backend is [hatchling](https://hatch.pypa.io/) — no `setup.py` is needed.
+
+To do a full release:
+
+```bash
+uv run fullrelease
+```
+
+This will:
+1. Update the version in `pyproject.toml`
+2. Update `CHANGES.rst`
+3. Tag the release in git
+4. Build an sdist and wheel
+5. Upload to PyPI via twine
+
+Release configuration is in `pyproject.toml` under `[tool.zest-releaser]`.
 
 ## Documentation
 
@@ -97,10 +114,9 @@ https://github.com/collective/Products.EasyNewsletter/issues
 
 Funding welcome ;)
 
-- Async task queue for WSGI as an alternative to collective.taskqueue which will not support WSGI
+- Async task queue for Plone > 5.2, as an alternative to collective.taskqueue which will not support WSGI
 - Integration of Mosaico newsletter editor
 - External subscriber sources / delivery services
-- Content migration AT >> DX
 
 ## Maintainer
 
