@@ -2,13 +2,15 @@
 from setuptools import find_packages, setup
 
 version = "6.0.0b5.dev0"
-long_description = open("README.rst").read() + "\n" + open("CHANGES.rst").read()
+long_description = open("README.md").read() + "\n" + open("CHANGES.rst").read()
+long_description_content_type = "text/markdown"
 
 setup(
     name="Products.EasyNewsletter",
     version=version,
     description="Powerful newsletter/mailing addon for Plone",
     long_description=long_description,
+    long_description_content_type=long_description_content_type,
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Framework :: Plone",
