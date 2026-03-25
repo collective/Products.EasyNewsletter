@@ -1,29 +1,27 @@
-# -*- coding: utf-8 -*-
+import logging
+
+import jinja2
 from bs4 import BeautifulSoup
 from html2text import HTML2Text
 from plone import api
-from Products.CMFPlone.utils import safe_unicode
-from Products.EasyNewsletter.config import PLACEHOLDERS
-from Products.EasyNewsletter.interfaces import IBeforePersonalizationEvent
-from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from zope.event import notify
 from zope.interface import implementer
 
-import jinja2
-import logging
-
+from Products.CMFPlone.utils import safe_unicode
+from Products.EasyNewsletter.config import PLACEHOLDERS
+from Products.EasyNewsletter.interfaces import IBeforePersonalizationEvent, IIssueDataFetcher
 
 log = logging.getLogger("Products.EasyNewsletter")
 
 
 @implementer(IBeforePersonalizationEvent)
-class BeforePersonalizationEvent(object):
+class BeforePersonalizationEvent:
     def __init__(self, data):
         self.data = data
 
 
 @implementer(IIssueDataFetcher)
-class DefaultDXIssueDataFetcher(object):
+class DefaultDXIssueDataFetcher:
     def __init__(self, issue):
         self.issue = issue
 
@@ -35,9 +33,7 @@ class DefaultDXIssueDataFetcher(object):
         """
         data = {}
         request = self.issue.REQUEST
-        data["subject"] = safe_unicode(request.get("subject")) or safe_unicode(
-            self.issue.title
-        )
+        data["subject"] = safe_unicode(request.get("subject")) or safe_unicode(self.issue.title)
         data["body_html"] = safe_unicode(self._render_output_html())
         return data
 
@@ -74,9 +70,8 @@ class DefaultDXIssueDataFetcher(object):
         return receiver.get("salutation") or ""
 
     def _subscriber_salutation(self, receiver):
-        return "{0} {1}".format(
-            safe_unicode(self._salutation(receiver)),
-            safe_unicode(self._fullname(receiver)),
+        return (
+            f"{safe_unicode(self._salutation(receiver))} {safe_unicode(self._fullname(receiver))}"
         )
 
     def _unsubscribe_info(self, receiver):
@@ -90,9 +85,7 @@ class DefaultDXIssueDataFetcher(object):
             self.enl.absolute_url(), receiver["uid"]
         )
         unsubscribe_markup = (
-            """<a href="{0}" class="enl_unsubscribe_link">{1}.</a>""".format(
-                unsubscribe_link, unsubscribe_text
-            )
+            f"""<a href="{unsubscribe_link}" class="enl_unsubscribe_link">{unsubscribe_text}.</a>"""
         )
         return {
             "link": safe_unicode(unsubscribe_link),
@@ -153,9 +146,7 @@ class DefaultDXIssueDataFetcher(object):
         data["context"]["unsubscribe"] = data["context"]["unsubscribe_info"]["html"]
         data["context"]["UNSUBSCRIBE"] = data["context"]["unsubscribe"]
         data["context"]["subscriber_salutation"] = self._subscriber_salutation(receiver)
-        data["context"]["SUBSCRIBER_SALUTATION"] = data["context"][
-            "subscriber_salutation"
-        ]
+        data["context"]["SUBSCRIBER_SALUTATION"] = data["context"]["subscriber_salutation"]
         # issue_data:
         data["context"]["issue_title"] = issue_data["title"]
         data["context"]["issue_description"] = issue_data["description"]

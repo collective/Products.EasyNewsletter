@@ -1,13 +1,11 @@
-# -*- coding: utf-8 -*-
-
 from AccessControl.SecurityManagement import newSecurityManager
-from plone import api
-from plone import protect
+from plone import api, protect
+from zope.interface import alsoProvides
+
 from Products.EasyNewsletter import _
 from Products.EasyNewsletter.content.newsletter import INewsletter
 from Products.EasyNewsletter.content.newsletter_subscriber import INewsletterSubscriber
 from Products.Five.browser import BrowserView
-from zope.interface import alsoProvides
 
 
 class NewsletterUnsubscribe(BrowserView):
@@ -46,6 +44,4 @@ class NewsletterUnsubscribe(BrowserView):
                 type="info",
             )
 
-        return self.request.response.redirect(
-            api.portal.get_navigation_root(self).absolute_url()
-        )
+        return self.request.response.redirect(api.portal.get_navigation_root(self).absolute_url())

@@ -1,17 +1,15 @@
 # example usage: ./bin/instance run import_enl_stats.py --errors-filenam=missing.csv --issue-path=/enl-dx-clean/test-newsletter-issue /Plone
 
+import argparse
+import logging
+import sys
 from datetime import datetime
+
 from plone import api
-from Products.EasyNewsletter.content.newsletter_issue import ISendStatus
 from transaction import commit
 from zope.site.hooks import setSite
 
-import argparse
-import csv
-import logging
-import os
-import sys
-
+from Products.EasyNewsletter.content.newsletter_issue import ISendStatus
 
 # from Acquisition import aq_inner
 # from Products.CMFPlone.utils import safe_unicode
@@ -114,7 +112,7 @@ class BaseScriptWrapper:
 #################
 
 
-SCRIPTNAME = u"import_enl_stats: "
+SCRIPTNAME = "import_enl_stats: "
 
 
 parser = get_base_parser()
@@ -167,7 +165,7 @@ class ScriptWrapper(BaseScriptWrapper):
         record_status = {'successful': True, 'error': None, 'datetime': datetime.now()}
         for sub in successful_subscribers:
             records.append({"email": sub, "status": record_status})
-            print("Add subscriber '{}' as successful to stattistics.".format(sub))
+            print(f"Add subscriber '{sub}' as successful to stattistics.")
         status_adapter.add_records(records)
         commit()
 

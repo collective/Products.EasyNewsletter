@@ -1,13 +1,11 @@
-# -*- coding: utf-8 -*-
 from collective.zamqp.consumer import Consumer
 from collective.zamqp.interfaces import IProducer
 from collective.zamqp.producer import Producer
 from plone import api
-from Products.EasyNewsletter.queue.interfaces import IIssueQueue
 from zope.component import getUtility
-from zope.interface import implementer
-from zope.interface import Interface
+from zope.interface import Interface, implementer
 
+from Products.EasyNewsletter.queue.interfaces import IIssueQueue
 
 QUEUE_NAME = "Products.EasyNewsletter.queue"
 
@@ -51,7 +49,7 @@ def process_message(message, event):
 
 
 @implementer(IIssueQueue)
-class ZAMQPIssueQueue(object):
+class ZAMQPIssueQueue:
     def start(self, context):
         """Queues issue for sendout through collective.zamqp."""
         kwargs = {}

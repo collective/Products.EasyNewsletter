@@ -22,6 +22,7 @@
 /local/
 /parts
 /share/
+/instance/
 /src/collective*
 /src/plone*
 /var
@@ -68,4 +69,7 @@ docs/Makefile
 /venv
 /docs/_build
 /venv311
+/src/enl.templates
 /.python-version
+/CLAUDE.md
+/AGENTS.md

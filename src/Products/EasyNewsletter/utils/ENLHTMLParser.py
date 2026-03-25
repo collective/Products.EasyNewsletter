@@ -1,11 +1,11 @@
-# -*- coding: utf-8 -*-
-from Products.CMFCore.utils import getToolByName
+import urllib
+import uuid
 
 import HTMLParser
 import six
-import urllib
 import urlparse
-import uuid
+
+from Products.CMFCore.utils import getToolByName
 
 
 class ENLHTMLParser(HTMLParser.HTMLParser):

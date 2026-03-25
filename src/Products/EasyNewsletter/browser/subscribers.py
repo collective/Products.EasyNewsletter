@@ -1,26 +1,24 @@
-# -*- coding: utf-8 -*-
-from Acquisition import aq_inner
+import codecs
+import csv
+import tempfile
 from logging import getLogger
+
+import cStringIO
+import six
+from Acquisition import aq_inner
 from plone import api
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from plone.protect.utils import addTokenToUrl
+from zope.component import getUtility
+from zope.interface import Interface, implementer
+from zope.interface.interfaces import ComponentLookupError
+
 from Products.CMFCore.utils import getToolByName
 from Products.EasyNewsletter import EasyNewsletterMessageFactory as _
 from Products.EasyNewsletter.config import SALUTATION
 from Products.EasyNewsletter.interfaces import ISubscriberSource
 from Products.Five import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
-from zope.component import getUtility
-from zope.interface import implementer
-from zope.interface import Interface
-from zope.interface.interfaces import ComponentLookupError
-
-import codecs
-import cStringIO
-import csv
-import six
-import tempfile
-
 
 logger = getLogger("Subscribers")
 
@@ -126,7 +124,7 @@ class Enl_Subscribers_View(BrowserView):
     def __call__(self):
         if self.can_delete():
             self.delete()
-        return super(Enl_Subscribers_View, self).__call__()
+        return super().__call__()
 
     @property
     def portal_catalog(self):
@@ -184,9 +182,7 @@ class Enl_Subscribers_View(BrowserView):
         external_source_name = self.context.getSubscriberSource()
         if external_source_name != "default":
             try:
-                external_source = getUtility(
-                    ISubscriberSource, name=external_source_name
-                )
+                external_source = getUtility(ISubscriberSource, name=external_source_name)
             except ComponentLookupError:
                 pass
 
@@ -238,9 +234,7 @@ class UploadCSV(BrowserView):
         # plone_utils = getToolByName(self.context, 'plone_utils')
         # encoding = plone_utils.getSiteEncoding()
         existing = []
-        subscribers = api.content.find(
-            context=self.context, portal_type="ENLSubscriber"
-        )
+        subscribers = api.content.find(context=self.context, portal_type="ENLSubscriber")
         for subscriber in subscribers:
             existing.append(subscriber.email.lower())
 
@@ -253,22 +247,16 @@ class UploadCSV(BrowserView):
         if not filename:
             msg = _("No file specified.")
             IStatusMessage(self.request).addStatusMessage(msg, type="error")
-            return self.request.response.redirect(
-                context.absolute_url() + "/@@upload_csv"
-            )
+            return self.request.response.redirect(context.absolute_url() + "/@@upload_csv")
 
         # Show error if no data has been provided in the file
         reader = UnicodeReader(filename)
         header = reader.next()
         if header != [x for x in CSV_HEADER]:
             logger.info("Got header %s\n Expected:%s" % (header, CSV_HEADER))
-            msg = _(
-                "Wrong specification of the CSV file. " + "Please correct it and retry."
-            )
+            msg = _("Wrong specification of the CSV file. " + "Please correct it and retry.")
             IStatusMessage(self.request).addStatusMessage(msg, type="error")
-            return self.request.response.redirect(
-                context.absolute_url() + "/@@upload_csv"
-            )
+            return self.request.response.redirect(context.absolute_url() + "/@@upload_csv")
 
         for subscriber in reader:
             # Check the length of the line
@@ -296,18 +284,16 @@ class UploadCSV(BrowserView):
                             "address existed, subscriber info was NOT "
                             "updated. Check manually!"
                         )
-                        fail.append(
-                            {
-                                "salutation": salutation,
-                                "name_prefix": name_prefix,
-                                "firstname": firstname,
-                                "lastname": lastname,
-                                "nl_language": nl_language,
-                                "email": email,
-                                "organization": organization,
-                                "failure": msg,
-                            }
-                        )
+                        fail.append({
+                            "salutation": salutation,
+                            "name_prefix": name_prefix,
+                            "firstname": firstname,
+                            "lastname": lastname,
+                            "nl_language": nl_language,
+                            "email": email,
+                            "organization": organization,
+                            "failure": msg,
+                        })
                     else:
                         sub = sub[0].getObject()
                         sub.email = email
@@ -320,18 +306,16 @@ class UploadCSV(BrowserView):
                         sub.title = email + " - " + " ".join([lastname, firstname])
                         sub.reindexObject()
                         msg = _("Email existed, updated subscriber.")
-                        success.append(
-                            {
-                                "salutation": salutation,
-                                "name_prefix": name_prefix,
-                                "firstname": firstname,
-                                "lastname": lastname,
-                                "nl_language": nl_language,
-                                "email": email,
-                                "organization": organization,
-                                "success": msg,
-                            }
-                        )
+                        success.append({
+                            "salutation": salutation,
+                            "name_prefix": name_prefix,
+                            "firstname": firstname,
+                            "lastname": lastname,
+                            "nl_language": nl_language,
+                            "email": email,
+                            "organization": organization,
+                            "success": msg,
+                        })
 
                 else:
                     # If it doesn't exist, create subscriber
@@ -356,33 +340,29 @@ class UploadCSV(BrowserView):
                         # update existing
                         existing.append(email)
                         msg = _("Subscriber created.")
-                        success.append(
-                            {
-                                "salutation": salutation,
-                                "name_prefix": name_prefix,
-                                "firstname": firstname,
-                                "lastname": lastname,
-                                "nl_language": nl_language,
-                                "email": email,
-                                "organization": organization,
-                                "success": msg,
-                            }
-                        )
+                        success.append({
+                            "salutation": salutation,
+                            "name_prefix": name_prefix,
+                            "firstname": firstname,
+                            "lastname": lastname,
+                            "nl_language": nl_language,
+                            "email": email,
+                            "organization": organization,
+                            "success": msg,
+                        })
 
                     except Exception as e:
-                        fail.append(
-                            {
-                                "salutation": salutation,
-                                "name_prefix": name_prefix,
-                                "firstname": firstname,
-                                "lastname": lastname,
-                                "nl_language": nl_language,
-                                "email": email,
-                                "organization": organization,
-                                "failure": "An error occured while creating this subscriber: %s"
-                                % str(e),
-                            }
-                        )
+                        fail.append({
+                            "salutation": salutation,
+                            "name_prefix": name_prefix,
+                            "firstname": firstname,
+                            "lastname": lastname,
+                            "nl_language": nl_language,
+                            "email": email,
+                            "organization": organization,
+                            "failure": "An error occured while creating this subscriber: %s"
+                            % str(e),
+                        })
 
         return {"success": success, "fail": fail}
 
@@ -406,19 +386,17 @@ class DownloadCSV(BrowserView):
             sort_on="email",
         ):
             obj = subscriber.getObject()
-            csvWriter.writerow(
-                [
-                    obj.salutation,
-                    obj.name_prefix,
-                    obj.firstname,
-                    obj.lastname,
-                    obj.nl_language,
-                    obj.email,
-                    obj.organization,
-                ]
-            )
+            csvWriter.writerow([
+                obj.salutation,
+                obj.name_prefix,
+                obj.firstname,
+                obj.lastname,
+                obj.nl_language,
+                obj.email,
+                obj.organization,
+            ])
         file.close()
-        data = open(filename, "r").read()
+        data = open(filename).read()
 
         # Create response
         response = context.REQUEST.response
@@ -428,9 +406,7 @@ class DownloadCSV(BrowserView):
         response.addHeader("Content-Type", "text/csv")
         response.addHeader("Content-Length", "%d" % len(data))
         response.addHeader("Pragma", "no-cache")
-        response.addHeader(
-            "Cache-Control", "must-revalidate, post-check=0, pre-check=0, public"
-        )
+        response.addHeader("Cache-Control", "must-revalidate, post-check=0, pre-check=0, public")
         response.addHeader("Expires", "0")
 
         # Return CSV data

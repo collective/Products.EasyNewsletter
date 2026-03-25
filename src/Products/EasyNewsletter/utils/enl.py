@@ -1,15 +1,15 @@
-# -*- coding: utf-8 -*-
 from plone.registry.interfaces import IRegistry
-from Products.EasyNewsletter.browser.controlpanel import IENLSettings
 from zope.component import getUtility
 from zope.interface import Interface
+
+from Products.EasyNewsletter.browser.controlpanel import IENLSettings
 
 
 class IENLUtils(Interface):
     """ENL utils methods"""
 
 
-class ENLUtils(object):
+class ENLUtils:
     """ENL utils methods"""
 
     def get_allowed_content_aggregation_types(self):

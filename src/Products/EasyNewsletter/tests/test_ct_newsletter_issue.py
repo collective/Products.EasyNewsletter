@@ -1,19 +1,16 @@
-# -*- coding: utf-8 -*-
+import unittest
+
 from plone import api
 from plone.api.exc import InvalidParameterError
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
+from plone.app.testing import TEST_USER_ID, setRoles
 from plone.dexterity.interfaces import IDexterityFTI
+from zope.component import createObject, queryUtility
+
 from Products.EasyNewsletter.content.newsletter_issue import INewsletterIssue
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
-from zope.component import createObject
-from zope.component import queryUtility
-
-import unittest
 
 
 class NewsletterIssueIntegrationTest(unittest.TestCase):
-
     layer = PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 
     def setUp(self):
@@ -45,9 +42,7 @@ class NewsletterIssueIntegrationTest(unittest.TestCase):
 
         self.assertTrue(
             INewsletterIssue.providedBy(obj),
-            "INewsletterIssue not provided by {0}!".format(
-                obj,
-            ),
+            f"INewsletterIssue not provided by {obj}!",
         )
 
     def test_ct_newsletter_issue_adding(self):
@@ -60,9 +55,7 @@ class NewsletterIssueIntegrationTest(unittest.TestCase):
 
         self.assertTrue(
             INewsletterIssue.providedBy(obj),
-            "INewsletterIssue not provided by {0}!".format(
-                obj.id,
-            ),
+            f"INewsletterIssue not provided by {obj.id}!",
         )
 
         self.assertIn("newsletter_issue", self.parent.objectIds())
@@ -73,7 +66,7 @@ class NewsletterIssueIntegrationTest(unittest.TestCase):
     def test_ct_newsletter_issue_globally_not_addable(self):
         setRoles(self.portal, TEST_USER_ID, ["Contributor"])
         fti = queryUtility(IDexterityFTI, name="Newsletter Issue")
-        self.assertFalse(fti.global_allow, "{0} is globally addable!".format(fti.id))
+        self.assertFalse(fti.global_allow, f"{fti.id} is globally addable!")
 
     def test_ct_newsletter_issue_filter_content_type_true(self):
         setRoles(self.portal, TEST_USER_ID, ["Contributor"])

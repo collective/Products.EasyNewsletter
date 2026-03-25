@@ -1,0 +1,11 @@
+{
+    "folders": [
+		{
+			"path": "./"
+		}
+	],
+    "settings": {
+        "path-intellisense.autoSlashAfterDirectory": true,
+        "git.ignoreLimitWarning": true
+    }
+}

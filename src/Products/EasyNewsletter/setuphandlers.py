@@ -1,13 +1,13 @@
-# -*- coding: utf-8 -*-
-from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.interfaces import INonInstallable
+import logging
+
 from zope.interface import implementer
 
-import logging
+from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.interfaces import INonInstallable
 
 
 @implementer(INonInstallable)
-class HiddenProfiles(object):
+class HiddenProfiles:
     def getNonInstallableProfiles(self):  # noqa
         """Hide uninstall profile from site-creation and quickinstaller"""
         return [

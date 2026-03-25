@@ -1,19 +1,16 @@
-# -*- coding: utf-8 -*-
-from plone.app.contentmenu.interfaces import IActionsMenu
-from plone.app.contentmenu.interfaces import IActionsSubMenuItem
-from plone.app.contentmenu.menu import BrowserMenu
-from plone.app.contentmenu.menu import BrowserSubMenuItem
+from plone.app.contentmenu.interfaces import IActionsMenu, IActionsSubMenuItem
+from plone.app.contentmenu.menu import BrowserMenu, BrowserSubMenuItem
 from plone.protect.utils import addTokenToUrl
-from Products.EasyNewsletter.content.newsletter import INewsletter
-from Products.EasyNewsletter.content.newsletter_issue import INewsletterIssue
 from zope.component import getMultiAdapter
 from zope.interface import implementer
 from zope.security import checkPermission
 
+from Products.EasyNewsletter.content.newsletter import INewsletter
+from Products.EasyNewsletter.content.newsletter_issue import INewsletterIssue
+
 
 @implementer(IActionsSubMenuItem)
 class EasyNewsletterActionsSubMenuItem(BrowserSubMenuItem):
-
     title = "Newsletter"
     submenuId = "easynewsletter-actions"
 
@@ -32,10 +29,7 @@ class EasyNewsletterActionsSubMenuItem(BrowserSubMenuItem):
         if (
             checkPermission("cmf.ModifyPortalContent", self.context)
             or checkPermission("cmf.ReviewPortalContent", self.context)
-        ) and (
-            INewsletterIssue.providedBy(self.context)
-            or INewsletter.providedBy(self.context)
-        ):
+        ) and (INewsletterIssue.providedBy(self.context) or INewsletter.providedBy(self.context)):
             return True
         return False
 
@@ -63,20 +57,18 @@ class EasyNewsletterActionsMenu(BrowserMenu):
                 if modal:
                     css_class += " pat-plone-modal"
 
-                results.append(
-                    {
-                        "title": action["title"],
-                        "description": "",
-                        "action": addTokenToUrl(action["url"], request),
-                        "selected": False,
-                        "icon": icon,
-                        "extra": {
-                            "id": "plone-contentmenu-actions-" + aid,
-                            "separator": None,
-                            "class": css_class,
-                            "modal": modal,
-                        },
-                        "submenu": None,
-                    }
-                )
+                results.append({
+                    "title": action["title"],
+                    "description": "",
+                    "action": addTokenToUrl(action["url"], request),
+                    "selected": False,
+                    "icon": icon,
+                    "extra": {
+                        "id": "plone-contentmenu-actions-" + aid,
+                        "separator": None,
+                        "class": css_class,
+                        "modal": modal,
+                    },
+                    "submenu": None,
+                })
         return results

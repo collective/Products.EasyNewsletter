@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # EasyNewsletter documentation build configuration file, created by
 # sphinx-quickstart on Thu Jan 27 10:47:48 2011.
@@ -11,7 +10,6 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys, os
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -37,8 +35,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'EasyNewsletter'
-copyright = u'2011, Kai Diefenbach and the Plone Community'
+project = 'EasyNewsletter'
+copyright = '2011, Kai Diefenbach and the Plone Community'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -172,8 +170,8 @@ htmlhelp_basename = 'EasyNewsletterdoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'EasyNewsletter.tex', u'EasyNewsletter Documentation',
-   u'Kai Diefenbach and the Plone Community', 'manual'),
+  ('index', 'EasyNewsletter.tex', 'EasyNewsletter Documentation',
+   'Kai Diefenbach and the Plone Community', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
