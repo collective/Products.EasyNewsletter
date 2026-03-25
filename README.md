@@ -117,6 +117,7 @@ Funding welcome ;)
 - Async task queue for Plone > 5.2, as an alternative to collective.taskqueue which will not support WSGI
 - Integration of Mosaico newsletter editor
 - External subscriber sources / delivery services
+- convert robot tests with playwright based E2E tests
 
 ## Maintainer
 
