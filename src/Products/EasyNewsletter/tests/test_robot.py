@@ -1,10 +1,11 @@
-from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_ACCEPTANCE_TESTING
+import os
+import unittest
+
+import robotsuite
 from plone.app.testing import ROBOT_TEST_LEVEL
 from plone.testing import layered
 
-import os
-import robotsuite
-import unittest
+from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_ACCEPTANCE_TESTING
 
 
 def test_suite():

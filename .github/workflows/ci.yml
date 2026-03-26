@@ -27,7 +27,7 @@ jobs:
         run: uv sync --extra dev
 
       - name: Run tests
-        run: uv run pytest -v
+        run: uv run pytest -v --ignore=src/Products/EasyNewsletter/tests/test_robot.py
 
   robot:
     runs-on: ubuntu-latest

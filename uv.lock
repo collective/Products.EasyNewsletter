@@ -4191,6 +4191,7 @@ dev = [
     { name = "pytest" },
     { name = "pytest-cov" },
     { name = "pytest-plone" },
+    { name = "robotsuite" },
     { name = "ruff" },
     { name = "watchdog" },
 ]
@@ -4224,6 +4225,7 @@ requires-dist = [
     { name = "pytest", marker = "extra == 'dev'" },
     { name = "pytest-cov", marker = "extra == 'dev'" },
     { name = "pytest-plone", marker = "extra == 'dev'", specifier = ">=0.5.0" },
+    { name = "robotsuite", marker = "extra == 'dev'" },
     { name = "ruff", marker = "extra == 'dev'" },
     { name = "setuptools" },
     { name = "six" },

@@ -121,7 +121,7 @@ Funding welcome ;)
 
 ## Maintainer
 
-- Maik Derstappen [MrTango] md@derico.de
+- Maik Derstappen [MrTango] md@derico.de - https://derico.de
 
 ## Contributors
 
