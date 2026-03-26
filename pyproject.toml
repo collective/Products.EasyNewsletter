@@ -50,6 +50,7 @@ dev = [
     "plone.app.testing",
     "plone.app.robotframework",
     "plone.testing",
+    "robotsuite",
     "ruff",
     "invoke",
     "watchdog",
