@@ -1,11 +1,44 @@
 Changelog
 =========
 
-6.0.0b5 (unreleased)
+6.0.0 (unreleased)
 --------------------
 
-- Update iframeResizer
+- Fix iframeResizer scrolling and resizing issue in newsletter issue and online view.
+  [gogobd]
+
+- Update iframeResizer.
   [jensens,gogobd]
+
+- Add Portuguese (pt) translations.
+  [MrTango]
+
+- Fix aggregate content view: handle missing content sources gracefully and fix
+  CatalogContentListingObject handling for restricted Python compatibility in
+  skin templates.
+  [MrTango]
+
+- Fix whitespace in aggregation listing template tal:content attribute.
+  [MrTango]
+
+- Update pinned dependency versions to address 14 security vulnerabilities
+  reported by Dependabot.
+  [MrTango]
+
+- Migrate packaging from setup.py/setup.cfg to pyproject.toml.
+  [MrTango]
+
+- Switch development tooling and CI to uv.
+  [MrTango]
+
+- Add robot framework acceptance tests with pytest and Plone test layers integration.
+  [MrTango]
+
+- Add devcontainer configuration for development with uv.
+  [MrTango]
+
+- Migrate README from RST to Markdown.
+  [MrTango]
 
 
 6.0.0b4 (2023-12-22)
