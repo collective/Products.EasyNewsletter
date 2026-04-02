@@ -2,7 +2,7 @@
 name = "Products.EasyNewsletter"
 version = "6.0.1.dev0"
 description = "Powerful newsletter/mailing addon for Plone"
-readme = "README.md"
+dynamic = ["readme"]
 requires-python = ">=3.10"
 license = {text = "GPL-2.0-or-later"}
 authors = [
@@ -55,6 +55,8 @@ dev = [
     "invoke",
     "watchdog",
 ]
+
+[tool.hatch.metadata.hooks.custom]
 
 [build-system]
 requires = ["hatchling"]
@@ -128,6 +130,7 @@ preview = true
 
 [tool.zest-releaser]
 create-wheel = true
+history_file = "CHANGELOG.md"
 
 [tool.uv]
 constraint-dependencies = [

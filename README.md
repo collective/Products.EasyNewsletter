@@ -80,7 +80,7 @@ uv run fullrelease
 
 This will:
 1. Update the version in `pyproject.toml`
-2. Update `CHANGES.rst`
+2. Update `CHANGELOG.md`
 3. Tag the release in git
 4. Build an sdist and wheel
 5. Upload to PyPI via twine
