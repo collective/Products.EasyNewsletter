@@ -38,6 +38,7 @@ Scenario: As a site administrator I can add a Newsletter
   Given a logged-in site administrator
     and an add Newsletter form
    When I type 'My Newsletter' into the title field
+    and I fill in the required newsletter fields
     and I submit the form
    Then a Newsletter with the title 'My Newsletter' has been created
 
@@ -59,12 +60,17 @@ an add Newsletter form
   Go To  ${PLONE_URL}/++add++Newsletter
 
 a Newsletter 'My Newsletter'
-  Create content  type=Newsletter  id=my-newsletter  title=My Newsletter
+  Create content  type=Newsletter  id=my-newsletter  title=My Newsletter  sender_email=sender@example.com  sender_name=Test Sender  test_email=test@example.com
 
 # --- WHEN -------------------------------------------------------------------
 
 I type '${title}' into the title field
   Input Text  name=form.widgets.IBasic.title  ${title}
+
+I fill in the required newsletter fields
+  Input Text  name=form.widgets.sender_email  sender@example.com
+  Input Text  name=form.widgets.sender_name  Test Sender
+  Input Text  name=form.widgets.test_email  test@example.com
 
 I submit the form
   Click Button  Save

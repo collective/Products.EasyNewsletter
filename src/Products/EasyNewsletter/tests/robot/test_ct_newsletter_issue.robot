@@ -36,14 +36,15 @@ Test Teardown  Close all browsers
 
 Scenario: As a site administrator I can add a Newsletter Issue
   Given a logged-in site administrator
-    and an add Newsletter form
+    and a Newsletter 'My Newsletter'
+    and an add Newsletter Issue form
    When I type 'My Newsletter Issue' into the title field
     and I submit the form
    Then a Newsletter Issue with the title 'My Newsletter Issue' has been created
 
 Scenario: As a site administrator I can view a Newsletter Issue
   Given a logged-in site administrator
-    and a Newsletter Issue 'My Newsletter Issue'
+    and a Newsletter with an Issue 'My Newsletter Issue'
    When I go to the Newsletter Issue view
    Then I can see the Newsletter Issue title 'My Newsletter Issue'
 
@@ -55,11 +56,15 @@ Scenario: As a site administrator I can view a Newsletter Issue
 a logged-in site administrator
   Enable autologin as  Site Administrator
 
-an add Newsletter form
-  Go To  ${PLONE_URL}/++add++Newsletter
+a Newsletter 'My Newsletter'
+  Create content  type=Newsletter  id=my-newsletter  title=My Newsletter  sender_email=sender@example.com  sender_name=Test Sender  test_email=test@example.com
 
-a Newsletter Issue 'My Newsletter Issue'
-  Create content  type=Newsletter  id=my-newsletter_issue  title=My Newsletter Issue
+an add Newsletter Issue form
+  Go To  ${PLONE_URL}/my-newsletter/++add++Newsletter Issue
+
+a Newsletter with an Issue 'My Newsletter Issue'
+  ${newsletter_uid}=  Create content  type=Newsletter  id=my-newsletter  title=My Newsletter  sender_email=sender@example.com  sender_name=Test Sender  test_email=test@example.com
+  Create content  type=Newsletter Issue  id=my-newsletter-issue  title=My Newsletter Issue  container=${newsletter_uid}
 
 # --- WHEN -------------------------------------------------------------------
 
@@ -70,7 +75,7 @@ I submit the form
   Click Button  Save
 
 I go to the Newsletter Issue view
-  Go To  ${PLONE_URL}/my-newsletter_issue
+  Go To  ${PLONE_URL}/my-newsletter/my-newsletter-issue
   Wait until page contains  Site Map
 
 

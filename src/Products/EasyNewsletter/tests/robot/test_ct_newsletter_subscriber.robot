@@ -36,16 +36,17 @@ Test Teardown  Close all browsers
 
 Scenario: As a site administrator I can add a Newsletter Subscriber
   Given a logged-in site administrator
-    and an add Newsletter form
-   When I type 'My Newsletter Subscriber' into the title field
+    and a Newsletter 'My Newsletter'
+    and an add Newsletter Subscriber form
+   When I type 'subscriber@example.com' into the email field
     and I submit the form
-   Then a Newsletter Subscriber with the title 'My Newsletter Subscriber' has been created
+   Then a Newsletter Subscriber with email 'subscriber@example.com' has been created
 
 Scenario: As a site administrator I can view a Newsletter Subscriber
   Given a logged-in site administrator
-    and a Newsletter Subscriber 'My Newsletter Subscriber'
+    and a Newsletter with a Subscriber 'subscriber@example.com'
    When I go to the Newsletter Subscriber view
-   Then I can see the Newsletter Subscriber title 'My Newsletter Subscriber'
+   Then I can see the Newsletter Subscriber email 'subscriber@example.com'
 
 
 *** Keywords *****************************************************************
@@ -55,32 +56,37 @@ Scenario: As a site administrator I can view a Newsletter Subscriber
 a logged-in site administrator
   Enable autologin as  Site Administrator
 
-an add Newsletter form
-  Go To  ${PLONE_URL}/++add++Newsletter
+a Newsletter 'My Newsletter'
+  Create content  type=Newsletter  id=my-newsletter  title=My Newsletter  sender_email=sender@example.com  sender_name=Test Sender  test_email=test@example.com
 
-a Newsletter Subscriber 'My Newsletter Subscriber'
-  Create content  type=Newsletter  id=my-newsletter_subscriber  title=My Newsletter Subscriber
+an add Newsletter Subscriber form
+  Go To  ${PLONE_URL}/my-newsletter/++add++Newsletter Subscriber
+
+a Newsletter with a Subscriber 'subscriber@example.com'
+  ${newsletter_uid}=  Create content  type=Newsletter  id=my-newsletter  title=My Newsletter  sender_email=sender@example.com  sender_name=Test Sender  test_email=test@example.com
+  Create content  type=Newsletter Subscriber  id=my-subscriber  email=subscriber@example.com  container=${newsletter_uid}
 
 # --- WHEN -------------------------------------------------------------------
 
-I type '${title}' into the title field
-  Input Text  name=form.widgets.IBasic.title  ${title}
+I type '${email}' into the email field
+  Input Text  name=form.widgets.email  ${email}
 
 I submit the form
+  Press Keys  name=form.widgets.email  TAB
   Click Button  Save
 
 I go to the Newsletter Subscriber view
-  Go To  ${PLONE_URL}/my-newsletter_subscriber
+  Go To  ${PLONE_URL}/my-newsletter/my-subscriber
   Wait until page contains  Site Map
 
 
 # --- THEN -------------------------------------------------------------------
 
-a Newsletter Subscriber with the title '${title}' has been created
+a Newsletter Subscriber with email '${email}' has been created
   Wait until page contains  Site Map
-  Page should contain  ${title}
+  Page should contain  ${email}
   Page should contain  Item created
 
-I can see the Newsletter Subscriber title '${title}'
+I can see the Newsletter Subscriber email '${email}'
   Wait until page contains  Site Map
-  Page should contain  ${title}
+  Page should contain  ${email}
