@@ -72,6 +72,7 @@ I type '${email}' into the email field
   Input Text  name=form.widgets.email  ${email}
 
 I submit the form
+  Press Keys  name=form.widgets.email  TAB
   Click Button  Save
 
 I go to the Newsletter Subscriber view
