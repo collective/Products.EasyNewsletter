@@ -1,6 +1,6 @@
 [project]
 name = "Products.EasyNewsletter"
-version = "6.0.0b5.dev0"
+version = "6.0.0"
 description = "Powerful newsletter/mailing addon for Plone"
 readme = "README.md"
 requires-python = ">=3.10"

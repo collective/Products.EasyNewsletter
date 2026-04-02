@@ -1,8 +1,8 @@
 Changelog
 =========
 
-6.0.0 (unreleased)
---------------------
+6.0.0 (2026-04-02)
+------------------
 
 - Fix iframeResizer scrolling and resizing issue in newsletter issue and online view.
   [gogobd]
