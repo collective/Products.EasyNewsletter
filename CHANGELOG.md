@@ -3,7 +3,8 @@
 ## 6.0.2 (unreleased)
 
 
-- Nothing changed yet.
+- Add `chardet` as explicit dependency.
+  [MrTango]
 
 
 ## 6.0.1 (2026-04-03)

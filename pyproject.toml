@@ -26,6 +26,7 @@ dependencies = [
     "beautifulsoup4",
     "email-validator>=1.1.2",
     "emails",
+    "chardet",
     "html2text",
     "jinja2",
     "nameparser",
