@@ -220,18 +220,18 @@ class NewsletterIssue(Container):
     # XXX we should cache this call, it's called twice
     def get_image_src(self):
         """find banner image, if not set on Issue we use the one from the Newsletter"""
-        img_src = ""
         if self.hide_image:
-            return img_src
+            return ""
         scales = self.restrictedTraverse("@@images")
-        if scales.scale("banner", scale="mini"):
-            img_src = self.absolute_url() + "/@@images/banner"
-            return img_src
+        scale = scales.scale("banner")
+        if scale:
+            return scale.url
         enl = self.get_newsletter()
         scales = enl.restrictedTraverse("@@images")
-        if scales.scale("banner", scale="mini"):
-            img_src = enl.absolute_url() + "/@@images/banner"
-        return img_src
+        scale = scales.scale("banner")
+        if scale:
+            return scale.url
+        return ""
 
     def getHeader(self):
         if self.prologue:

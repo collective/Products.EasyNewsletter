@@ -455,6 +455,15 @@ class EasyNewsletterTests(unittest.TestCase):
         self.assertIn(f"Content-ID: <{image_scale.__name__}>", msg)
         self.assertIn("Content-Type: image/jpeg;", safe_unicode(msg))
 
+    def test_send_test_issue_with_banner_image(self):
+        self.newsletter.banner = dummy_image("img1.jpg")
+        zt.commit()
+        msg = self.send_sample_message("")
+        self.assertIn("Content-Type: image/jpeg;", safe_unicode(msg))
+        self.assertNotIn("Content-Type: application/unknown;", safe_unicode(msg))
+        parsed_payloads = parsed_payloads_from_msg(msg)
+        self.assertIn('src="cid:banner', safe_unicode(parsed_payloads["text/html"]))
+
     def test_mailonly_filter_in_issue_public_view(self):
         self.issue = api.content.create(
             type="Newsletter Issue",
