@@ -1,6 +1,6 @@
 ## Changelog
 
-### 6.0.1 (unreleased)
+## 6.0.1 (2026-04-03)
 
 - Fix banner image rendered as attachment with unknown MIME type in newsletter
   emails. Use the scale URL with file extension so the email client can
