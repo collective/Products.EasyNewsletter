@@ -1,5 +1,0 @@
--c constraints.txt
-setuptools
-zc.buildout
-pathlib2
-isort
