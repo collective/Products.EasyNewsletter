@@ -3,7 +3,12 @@
 ## 6.0.3 (unreleased)
 
 
-- Nothing changed yet.
+- Fix `@@daily-issue` view so `has_content()` no longer silently caps the
+  number of matching items at the default batch size of 30 (and could even
+  report an empty result for collections that rely on `sort_limit`). The
+  method now queries each referenced collection with batching disabled and
+  safely skips broken relations.
+  [MrTango]
 
 
 ## 6.0.2 (2026-04-03)

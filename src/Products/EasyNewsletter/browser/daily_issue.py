@@ -19,10 +19,19 @@ class DailyIssueView(BrowserView):
     def has_content(self):
         results = []
         enl = self.context
-        sources = enl.content_aggregation_sources
+        sources = enl.content_aggregation_sources or []
         for source in sources:
-            source = source.to_object
-            source_results = source.queryCatalog()
+            source_obj = source.to_object
+            if source_obj is None:
+                # broken relation, e.g. the referenced collection was deleted
+                continue
+            # queryCatalog() defaults to batch=True with b_size=30, which
+            # silently caps the result count at the default batch size and
+            # therefore misrepresents collections with more than 30 items (or,
+            # in combination with sort_limit, can even report 0 matches while
+            # the collection's own view lists the items). Disable batching so
+            # we actually count all matching items.
+            source_results = source_obj.queryCatalog(batch=False)
             results.extend(source_results)
         return len(results)
 
