@@ -1,6 +1,6 @@
 ## Changelog
 
-## 6.0.3 (unreleased)
+## 6.0.3 (2026-04-14)
 
 
 - Fix `@@daily-issue` view so `has_content()` no longer silently caps the
