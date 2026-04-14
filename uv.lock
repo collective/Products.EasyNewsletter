@@ -4160,10 +4160,11 @@ wheels = [
 
 [[package]]
 name = "products-easynewsletter"
-version = "6.0.1.dev0"
+version = "6.0.3.dev0"
 source = { editable = "." }
 dependencies = [
     { name = "beautifulsoup4" },
+    { name = "chardet" },
     { name = "email-validator" },
     { name = "emails" },
     { name = "html2text" },
@@ -4204,6 +4205,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "beautifulsoup4" },
+    { name = "chardet" },
     { name = "email-validator", specifier = ">=1.1.2" },
     { name = "emails" },
     { name = "html2text" },
