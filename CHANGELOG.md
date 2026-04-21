@@ -1,6 +1,6 @@
 ## Changelog
 
-## 6.0.4 (unreleased)
+## 6.0.4 (2026-04-21)
 
 
 - Use bootstrap classes in portlet markup to look more like standard Plone portlets.
