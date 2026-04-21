@@ -4160,7 +4160,7 @@ wheels = [
 
 [[package]]
 name = "products-easynewsletter"
-version = "6.0.3.dev0"
+version = "6.0.4.dev0"
 source = { editable = "." }
 dependencies = [
     { name = "beautifulsoup4" },
