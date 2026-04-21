@@ -1,5 +1,11 @@
 ## Changelog
 
+## 6.0.5 (unreleased)
+
+
+- Nothing changed yet.
+
+
 ## 6.0.4 (2026-04-21)
 
 
