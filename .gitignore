@@ -73,3 +73,6 @@ docs/Makefile
 /.python-version
 /CLAUDE.md
 /AGENTS.md
+robot_log.html
+robot_output.xml
+robot_report.html
