@@ -39,25 +39,19 @@ class DailyIssueHasContentTest(unittest.TestCase):
             container=self.folder,
             title="News Collection",
         )
-        self.collection.setQuery(
-            [
-                {
-                    "i": "portal_type",
-                    "o": "plone.app.querystring.operation.selection.is",
-                    "v": ["News Item"],
-                }
-            ]
-        )
+        self.collection.setQuery([
+            {
+                "i": "portal_type",
+                "o": "plone.app.querystring.operation.selection.is",
+                "v": ["News Item"],
+            }
+        ])
         transaction.commit()
 
         intids = getUtility(IIntIds)
-        self.newsletter.content_aggregation_sources = [
-            RelationValue(intids.getId(self.collection))
-        ]
+        self.newsletter.content_aggregation_sources = [RelationValue(intids.getId(self.collection))]
 
-        self.view = getMultiAdapter(
-            (self.newsletter, self.request), name="daily-issue"
-        )
+        self.view = getMultiAdapter((self.newsletter, self.request), name="daily-issue")
 
     def _create_news(self, count):
         for idx in range(count):
@@ -87,9 +81,7 @@ class DailyIssueHasContentTest(unittest.TestCase):
 
     def test_has_content_with_broken_relation(self):
         # A deleted collection must not break has_content().
-        self.newsletter.content_aggregation_sources.append(
-            RelationValue(987654321)
-        )
+        self.newsletter.content_aggregation_sources.append(RelationValue(987654321))
         self._create_news(1)
         self.assertTrue(self.view.has_content())
 

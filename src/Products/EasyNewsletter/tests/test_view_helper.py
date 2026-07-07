@@ -46,9 +46,7 @@ class HelperViewIntegrationTest(unittest.TestCase):
             title="A Document",
             description="A short description.",
         )
-        self.helper = getMultiAdapter(
-            (self.portal, self.portal.REQUEST), name="enl_helpers"
-        )
+        self.helper = getMultiAdapter((self.portal, self.portal.REQUEST), name="enl_helpers")
         self.brain = api.content.find(UID=self.doc.UID())[0]
         self.listing = FakeContentListingObject(self.doc)
 
@@ -62,14 +60,10 @@ class HelperViewIntegrationTest(unittest.TestCase):
         self.assertEqual(self.helper.get_title(self.listing), "A Document")
 
     def test_get_description_from_brain(self):
-        self.assertEqual(
-            self.helper.get_description(self.brain), "A short description."
-        )
+        self.assertEqual(self.helper.get_description(self.brain), "A short description.")
 
     def test_get_description_from_contentlisting_object(self):
-        self.assertEqual(
-            self.helper.get_description(self.listing), "A short description."
-        )
+        self.assertEqual(self.helper.get_description(self.listing), "A short description.")
 
     def test_get_object_from_brain(self):
         self.assertEqual(self.helper.get_object(self.brain), self.doc)
@@ -78,9 +72,7 @@ class HelperViewIntegrationTest(unittest.TestCase):
         self.assertEqual(self.helper.get_object(self.listing), self.doc)
 
     def test_get_object_url_from_contentlisting_object(self):
-        self.assertEqual(
-            self.helper.get_object_url(self.listing), self.doc.absolute_url()
-        )
+        self.assertEqual(self.helper.get_object_url(self.listing), self.doc.absolute_url())
 
     def test_accessors_tolerate_none(self):
         self.assertEqual(self.helper.get_title(None), "")

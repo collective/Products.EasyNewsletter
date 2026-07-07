@@ -20,12 +20,10 @@ def test_suite():
     for robot_test in robot_tests:
         robottestsuite = robotsuite.RobotTestSuite(robot_test)
         robottestsuite.level = ROBOT_TEST_LEVEL
-        suite.addTests(
-            [
-                layered(
-                    robottestsuite,
-                    layer=PRODUCTS_EASYNEWSLETTER_ACCEPTANCE_TESTING,
-                ),
-            ]
-        )
+        suite.addTests([
+            layered(
+                robottestsuite,
+                layer=PRODUCTS_EASYNEWSLETTER_ACCEPTANCE_TESTING,
+            ),
+        ])
     return suite

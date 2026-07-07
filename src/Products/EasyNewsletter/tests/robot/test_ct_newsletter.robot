@@ -2,9 +2,15 @@
 # DEXTERITY ROBOT TESTS
 # ============================================================================
 #
+# These tests use the Playwright based robotframework-browser library
+# (plone/app/robotframework/browser.robot). Before running them once, the
+# Playwright node dependencies and browser binaries must be installed:
+#
+#  $ uv run rfbrowser init
+#
 # Run this robot test stand-alone:
 #
-#  $ bin/test -s Products.EasyNewsletter -t test_newsletter.robot --all
+#  $ bin/test -s Products.EasyNewsletter -t test_ct_newsletter.robot --all
 #
 # Run this robot test with robot server (which is faster):
 #
@@ -14,7 +20,7 @@
 #
 # 2) Run robot tests:
 #
-# $ bin/robot /src/Products/EasyNewsletter/tests/robot/test_newsletter.robot
+# $ bin/robot /src/Products/EasyNewsletter/tests/robot/test_ct_newsletter.robot
 #
 # See the http://docs.plone.org for further details (search for robot
 # framework).
@@ -23,13 +29,12 @@
 
 *** Settings *****************************************************************
 
-Resource  plone/app/robotframework/selenium.robot
-Resource  plone/app/robotframework/keywords.robot
+Resource  plone/app/robotframework/browser.robot
 
 Library  Remote  ${PLONE_URL}/RobotRemote
 
-Test Setup  Open test browser
-Test Teardown  Close all browsers
+Test Setup  Plone Test Setup
+Test Teardown  Plone Test Teardown
 
 
 *** Test Cases ***************************************************************
@@ -58,6 +63,7 @@ a logged-in site administrator
 
 an add Newsletter form
   Go To  ${PLONE_URL}/++add++Newsletter
+  Wait For Condition  Classes  //body  contains  patterns-loaded
 
 a Newsletter 'My Newsletter'
   Create content  type=Newsletter  id=my-newsletter  title=My Newsletter  sender_email=sender@example.com  sender_name=Test Sender  test_email=test@example.com
@@ -65,28 +71,25 @@ a Newsletter 'My Newsletter'
 # --- WHEN -------------------------------------------------------------------
 
 I type '${title}' into the title field
-  Input Text  name=form.widgets.IBasic.title  ${title}
+  Type Text  //input[@name="form.widgets.IBasic.title"]  ${title}
 
 I fill in the required newsletter fields
-  Input Text  name=form.widgets.sender_email  sender@example.com
-  Input Text  name=form.widgets.sender_name  Test Sender
-  Input Text  name=form.widgets.test_email  test@example.com
+  Type Text  //input[@name="form.widgets.sender_email"]  sender@example.com
+  Type Text  //input[@name="form.widgets.sender_name"]  Test Sender
+  Type Text  //input[@name="form.widgets.test_email"]  test@example.com
 
 I submit the form
-  Click Button  Save
+  Click  //button[@name="form.buttons.save"]
 
 I go to the Newsletter view
   Go To  ${PLONE_URL}/my-newsletter
-  Wait until page contains  Site Map
 
 
 # --- THEN -------------------------------------------------------------------
 
 a Newsletter with the title '${title}' has been created
-  Wait until page contains  Site Map
-  Page should contain  ${title}
-  Page should contain  Item created
+  Get Text  //body  contains  ${title}
+  Get Text  //body  contains  Item created
 
 I can see the Newsletter title '${title}'
-  Wait until page contains  Site Map
-  Page should contain  ${title}
+  Get Text  //body  contains  ${title}
