@@ -98,7 +98,9 @@
                               tal:define="scale_util python: enl_helpers.get_scale_util(brain);
                                           scaled_image python: scale_util and scale_util.scale('image', scale='mini');
                                           has_image python: scaled_image and True or False;
-    													            obj_url python: enl_helpers.get_object_url(brain)">
+    													            obj_url python: enl_helpers.get_object_url(brain);
+                                          title python: enl_helpers.get_title(brain);
+                                          description python: enl_helpers.get_description(brain)">
 
                               <table tal:condition="has_image"
                                 align="Left"
@@ -132,16 +134,16 @@
                                     <h3>
                                       <a tal:attributes="href obj_url"
                                         target="_top"
-                                        tal:content="brain/Title"
+                                        tal:content="title"
                                         target="_top"
                                         >
                                       Title
                                       </a>
                                     </h3>
-                                    <span tal:replace="brain/Description">
+                                    <span tal:replace="description">
                                     Description
                                     </span>
-                                    <br tal:condition="brain/Description" />
+                                    <br tal:condition="description" />
                                     <a i18n:translate="read_more"
                                       tal:attributes="href obj_url"
                                       target="_top">Read More&hellip;</a>

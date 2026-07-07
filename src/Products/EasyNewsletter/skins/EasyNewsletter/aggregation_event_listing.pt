@@ -62,7 +62,7 @@
     i18n:domain="EasyNewsletter">
 
     <!-- MODULE ROW // -->
-    <tr tal:define="item_obj brain/getObject">
+    <tr tal:define="item_obj python: enl_helpers.get_object(brain)">
       <td align="center"
           valign="top">
 
@@ -97,7 +97,9 @@
                               tal:define="has_image python: enl_helpers.brain_has_lead_image(brain);
                                           scale_func item_obj/@@images;
                                           scaled_image python: getattr(item_obj.aq_explicit, 'image', False) and scale_func.scale('image', scale='mini');
-    														          obj_url brain/getURL"
+    														          obj_url python: enl_helpers.get_object_url(brain);
+                                          title python: enl_helpers.get_title(brain);
+                                          description python: enl_helpers.get_description(brain)"
                                           >
 
                               <!-- CONTENT TABLE // -->
@@ -135,17 +137,17 @@
                                     <h3>
                                       <a tal:attributes="href obj_url"
                                         target="_top"
-                                        tal:content=" brain/Title"
+                                        tal:content="title"
                                         target="_top"
                                         style="text-decoration: none; color: #404040;">
                                       Title
                                       </a>
                                     </h3>
                                     <br />
-                                    <span tal:replace="brain/Description">
+                                    <span tal:replace="description">
                                     Description
                                     </span>
-                                    <br tal:condition="brain/Description" />
+                                    <br tal:condition="description" />
                                     <span tal:condition="python: item_obj.portal_type == 'Event'"
                                           tal:replace="structure item_obj/@@event_summary"></span>
                                     <a i18n:translate="read_more"

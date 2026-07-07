@@ -3,7 +3,16 @@
 ## 6.0.5 (unreleased)
 
 
-- Nothing changed yet.
+- Make the default aggregation templates robust against
+  `queryCatalog()` returning `IContentListing` wrappers instead of raw
+  catalog brains. The `aggregation_generic_listing` and
+  `aggregation_event_listing` skin templates no longer access brain
+  metadata via restricted TAL paths (`brain/Title`, `brain/Description`,
+  `brain/getObject`, `brain/getURL`), which raised
+  `zExceptions.NotFound` for the unrestricted contentlisting objects.
+  New trusted `ENLHelperView` accessors (`get_title`, `get_description`,
+  `get_object`) normalize both brains and contentlisting objects.
+  [MrTango]
 
 
 ## 6.0.4 (2026-04-21)
