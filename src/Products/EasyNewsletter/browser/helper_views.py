@@ -3,6 +3,7 @@ from zope.annotation import IAnnotations
 from zope.interface import Interface
 from zope.interface.declarations import implementer
 
+from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter.config import AGG_SOURCES_INFOS
 from Products.Five.browser import BrowserView
 
@@ -15,6 +16,15 @@ class IENLHelperView(Interface):
         return the scale_util for a brain's object,
         if the object does not have an image field, return None
         """
+
+    def get_object(self, brain):
+        """return the content object for a brain or None"""
+
+    def get_title(self, brain=None):
+        """return the title as text for a brain or contentlisting object"""
+
+    def get_description(self, brain=None):
+        """return the description as text for a brain or contentlisting object"""
 
     def get_object_url(self, brain):
         """return object url or None"""
@@ -45,6 +55,44 @@ class ENLHelperView(BrowserView):
             return
         scale_util = api.content.get_view("images", context)
         return scale_util
+
+    def get_object(self, brain):
+        """Return the content object for a brain or contentlisting object.
+
+        Works for both raw catalog brains and ``IContentListing`` wrappers,
+        which both expose ``getObject()``.
+        """
+        if not brain:
+            return
+        return brain.getObject()
+
+    def get_title(self, brain=None):
+        """Return the title as text.
+
+        Robust against being handed either a raw catalog brain (where
+        ``Title`` is a metadata attribute) or an ``IContentListing`` object
+        (where ``Title`` is a method). Returns an empty string if absent.
+        """
+        return self._get_metadata_text(brain, "Title")
+
+    def get_description(self, brain=None):
+        """Return the description as text.
+
+        See :meth:`get_title` for why this normalizes attribute vs. method
+        access.
+        """
+        return self._get_metadata_text(brain, "Description")
+
+    def _get_metadata_text(self, brain, name):
+        """Read a Dublin Core metadata field from a brain or listing object."""
+        if not brain:
+            return ""
+        value = getattr(brain, name, "")
+        if callable(value):
+            value = value()
+        if not value:
+            return ""
+        return safe_unicode(value)
 
     def get_object_url(self, brain):
         """return object url or None"""

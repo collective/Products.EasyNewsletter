@@ -73,3 +73,11 @@ docs/Makefile
 /.python-version
 /CLAUDE.md
 /AGENTS.md
+robot_log.html
+robot_output.xml
+robot_report.html
+# robotsuite / robotframework per-test output directories
+/test_ct_*/
+# robotframework-browser (Playwright) log
+/playwright-log.txt
+/browser/
