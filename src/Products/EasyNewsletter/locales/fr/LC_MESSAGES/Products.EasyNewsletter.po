@@ -5,9 +5,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"PO-Revision-Date: 2021-06-01 02:33+0000\n"
-"Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/products-easynewsletter/products-easynewsletter/fr/>\n"
+"PO-Revision-Date: 2026-11-24 08:56+0000\n"
+"Last-Translator: Anonymous <anonymous@users.noreply.hosted.weblate.org>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/products-"
+"easynewsletter/products-easynewsletter/fr/>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: EasyNewsletter\n"
 "Language: fr\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 "X-Is-Fallback-For: fr-be fr-ca fr-lu fr-mc fr-ch fr-fr\n"
 
 #: EasyNewsletter/browser/upload_csv.pt:115
@@ -299,25 +300,33 @@ msgstr ""
 #: EasyNewsletter/browser/issue_send_form.pt:54
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:46
 msgid "EasyNewsletter_help_senderEmailForm"
-msgstr "Adresse de l'expéditeur de la lettre. Si vous laissez ce champ vide, la valeur par défaut sera utilisée."
+msgstr ""
+"Adresse de l'expéditeur de la lettre. Si vous laissez ce champ vide, la "
+"valeur par défaut sera utilisée."
 
 #. Default: "Sender name of the newsletter email. If you let this field empty, the default sender name will be used."
 #: EasyNewsletter/browser/issue_send_form.pt:36
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:27
 msgid "EasyNewsletter_help_senderNameForm"
-msgstr "Nom de l'envoyeur de la newsletter. Si vous laissez vide, la valeur par défaut sera utilisée."
+msgstr ""
+"Nom de l'envoyeur de la newsletter. Si vous laissez vide, la valeur par "
+"défaut sera utilisée."
 
 #. Default: "Subject of the newsletter email. If you let this field empty, the title of the newsletter will be used."
 #: EasyNewsletter/browser/issue_send_form.pt:72
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:65
 msgid "EasyNewsletter_help_subject"
-msgstr "Sujet de la newsletter. Si vous laissez ce champ vide, le titre de la newsletter sera utilisé."
+msgstr ""
+"Sujet de la newsletter. Si vous laissez ce champ vide, le titre de la "
+"newsletter sera utilisé."
 
 #. Default: "Test email. If you let this field empty, the default test email address will be used."
 #: EasyNewsletter/browser/issue_send_form.pt:90
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:84
 msgid "EasyNewsletter_help_testreceiverForm"
-msgstr "Email de test. Si vous laissez ce champ vide, la valeur par défaut sera utilisée."
+msgstr ""
+"Email de test. Si vous laissez ce champ vide, la valeur par défaut sera "
+"utilisée."
 
 #. Default: "Email"
 #: EasyNewsletter/content/newsletter_subscriber.py:41
@@ -709,7 +718,10 @@ msgstr "Votre adresse email est déjà enregistrée."
 
 #: EasyNewsletter/browser/registration.py:145
 msgid "Your email has been registered.                 A confirmation email was sent to your address. Please check                 your inbox and click on the link in the email in order to                 confirm your subscription."
-msgstr "Votre email a été enregistré. Un message de confirmation vous a été adressé. Veuillez vérifier votre messagerie et cliquer sur le lien de confirmation pour valider votre inscription."
+msgstr ""
+"Votre email a été enregistré. Un message de confirmation vous a été adressé. "
+"Veuillez vérifier votre messagerie et cliquer sur le lien de confirmation "
+"pour valider votre inscription."
 
 #: EasyNewsletter/views/newsletter_unsubscribe_form.pt:12
 msgid "Your registered E-Mail address:"
@@ -836,7 +848,10 @@ msgstr "Désabonner"
 #: EasyNewsletter/config.py:36
 #, fuzzy
 msgid "email_added"
-msgstr "Votre email a été enregistré. Un message de confirmation vous a été adressé. Veuillez vérifier votre messagerie et cliquer sur le lien de confirmation pour valider votre inscription."
+msgstr ""
+"Votre email a été enregistré. Un message de confirmation vous a été adressé. "
+"Veuillez vérifier votre messagerie et cliquer sur le lien de confirmation "
+"pour valider votre inscription."
 
 #. Default: "Your email address is already registered."
 #: EasyNewsletter/config.py:44
@@ -924,7 +939,8 @@ msgstr ""
 #. Default: "Display field to enter company/organization of subscriber"
 #: EasyNewsletter/portlets/subscriber.py:100
 msgid "label_newletter_show_organization"
-msgstr "Afficher le champ pour saisir l'entreprise ou l'organisation de l'abonné"
+msgstr ""
+"Afficher le champ pour saisir l'entreprise ou l'organisation de l'abonné"
 
 #. Default: "Ask for the salutation of the subscriber"
 #: EasyNewsletter/portlets/subscriber.py:66
