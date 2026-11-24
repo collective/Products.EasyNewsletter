@@ -5,17 +5,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.6.2dev\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"PO-Revision-Date: 2012-02-24 15:22-0300\n"
-"Last-Translator: Malthe Borch <mborch@gmail.com>\n"
-"Language-Team: Danish <>\n"
+"PO-Revision-Date: 2026-11-24 08:56+0000\n"
+"Last-Translator: Anonymous <anonymous@users.noreply.hosted.weblate.org>\n"
+"Language-Team: Danish <https://hosted.weblate.org/projects/products-"
+"easynewsletter/products-easynewsletter/da/>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Language-Code: da\n"
 "Language-Name: Danish\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: Products.EasyNewsletter\n"
+"Language: da\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 #: EasyNewsletter/browser/upload_csv.pt:115
 #: EasyNewsletter/views/newsletter_subscribers_upload.pt:100
@@ -295,25 +298,33 @@ msgstr ""
 #: EasyNewsletter/browser/issue_send_form.pt:54
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:46
 msgid "EasyNewsletter_help_senderEmailForm"
-msgstr "Afsender-adresse. Hvis du lader dette felt være tomt, bruges den globale indstilling."
+msgstr ""
+"Afsender-adresse. Hvis du lader dette felt være tomt, bruges den globale "
+"indstilling."
 
 #. Default: "Sender name of the newsletter email. If you let this field empty, the default sender name will be used."
 #: EasyNewsletter/browser/issue_send_form.pt:36
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:27
 msgid "EasyNewsletter_help_senderNameForm"
-msgstr "Afsender-navn. Hvis du lader dette felt være tomt, bruges den globale indstilling."
+msgstr ""
+"Afsender-navn. Hvis du lader dette felt være tomt, bruges den globale "
+"indstilling."
 
 #. Default: "Subject of the newsletter email. If you let this field empty, the title of the newsletter will be used."
 #: EasyNewsletter/browser/issue_send_form.pt:72
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:65
 msgid "EasyNewsletter_help_subject"
-msgstr "Emne. Hvis du lader dette felt være tomt, bruges titlen på nyhedsbrevet som emne."
+msgstr ""
+"Emne. Hvis du lader dette felt være tomt, bruges titlen på nyhedsbrevet som "
+"emne."
 
 #. Default: "Test email. If you let this field empty, the default test email address will be used."
 #: EasyNewsletter/browser/issue_send_form.pt:90
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:84
 msgid "EasyNewsletter_help_testreceiverForm"
-msgstr "E-mail adresse til brug ved afsending af test. Hvis du lader dette felt stå tomt, bruges den globale indstilling."
+msgstr ""
+"E-mail adresse til brug ved afsending af test. Hvis du lader dette felt stå "
+"tomt, bruges den globale indstilling."
 
 #. Default: "Email"
 #: EasyNewsletter/content/newsletter_subscriber.py:41
@@ -705,7 +716,9 @@ msgstr "Din e-mail adresse er allerede registeret."
 
 #: EasyNewsletter/browser/registration.py:145
 msgid "Your email has been registered.                 A confirmation email was sent to your address. Please check                 your inbox and click on the link in the email in order to                 confirm your subscription."
-msgstr "Din e-mail adresse blev registret. En anmodning om godkendelse er blevet sendt."
+msgstr ""
+"Din e-mail adresse blev registret. En anmodning om godkendelse er blevet "
+"sendt."
 
 #: EasyNewsletter/views/newsletter_unsubscribe_form.pt:12
 msgid "Your registered E-Mail address:"

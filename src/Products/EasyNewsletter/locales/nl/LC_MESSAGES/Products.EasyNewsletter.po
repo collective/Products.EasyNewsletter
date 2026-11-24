@@ -2,9 +2,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Products.EasyNewsletter\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"PO-Revision-Date: 2022-11-18 22:48+0000\n"
-"Last-Translator: Kim Paulissen <kim.paulissen@gmail.com>\n"
-"Language-Team: Dutch <https://hosted.weblate.org/projects/products-easynewsletter/products-easynewsletter/nl/>\n"
+"PO-Revision-Date: 2026-11-24 08:56+0000\n"
+"Last-Translator: Kim Paulissen "
+"<kim.paulissen@users.noreply.hosted.weblate.org>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/products-"
+"easynewsletter/products-easynewsletter/nl/>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,7 +16,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: Products.EasyNewsletter\n"
 "Language: nl\n"
-"X-Generator: Weblate 4.15-dev\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 "X-Is-Fallback-For: nl-be nl-nl\n"
 
 #: EasyNewsletter/browser/upload_csv.pt:115
@@ -92,7 +94,9 @@ msgstr "Contenttype"
 
 #: EasyNewsletter/browser/controlpanel.py:14
 msgid "Content types which will be visible in the Content aggregation sources reference field."
-msgstr "Contenttypes die zichtbaar zullen zijn in het veld voor Content aggregatie bronnen"
+msgstr ""
+"Contenttypes die zichtbaar zullen zijn in het veld voor Content aggregatie "
+"bronnen"
 
 #: EasyNewsletter/content/newsletter_issue.py:71
 msgid "Customizations"
@@ -130,12 +134,16 @@ msgstr "Bronnen voor content aggregatie"
 #. Default: "Text used for confirmation email subject. You can                 customize the text, but it should include the                 placeholder: ${portal_url}!"
 #: EasyNewsletter/content/newsletter.py:247
 msgid "ENL_description_subscriber_confirmation_mail_subject"
-msgstr "Tekst voor onderwerp bevestigingsmail. Je kan de tekst wijzigen maar het moet de placeholder $(portal_url) bevatten"
+msgstr ""
+"Tekst voor onderwerp bevestigingsmail. Je kan de tekst wijzigen maar het "
+"moet de placeholder $(portal_url) bevatten"
 
 #. Default: "Text used for confirmation email. You can customize                 the text, but it should include the placeholders:                 ${portal_url}, ${subscriber_email} and                 ${confirmation_url}!"
 #: EasyNewsletter/content/newsletter.py:262
 msgid "ENL_description_subscriber_confirmation_mail_text"
-msgstr "Tekst voor bevestigingsmail. Je kan deze wijzigen, maar het moet volgende placeholders bevatten: ${subscriber_email} en ${confirmation_url}!\""
+msgstr ""
+"Tekst voor bevestigingsmail. Je kan deze wijzigen, maar het moet volgende "
+"placeholders bevatten: ${subscriber_email} en ${confirmation_url}!\""
 
 #. Default: "The default epilogue text. This is used as a default                 for new issues. You can use placeholders like                {{subscriber_salutation}} and {{unsubscribe}} here."
 #: EasyNewsletter/content/newsletter.py:206
@@ -279,12 +287,16 @@ msgstr "Titulatuur"
 #: EasyNewsletter/behaviors/plone_user_group_recipients.py:69
 #, fuzzy
 msgid "EasyNewsletter_help_ploneReceiverGroups"
-msgstr "Kies de groepen die deze nieuwsbrief opgestuurd krijgen. Al verzonden edities worden niet aangepast of opnieuw verzonden."
+msgstr ""
+"Kies de groepen die deze nieuwsbrief opgestuurd krijgen. Al verzonden "
+"edities worden niet aangepast of opnieuw verzonden."
 
 #. Default: "Choose Plone Members which should receive                     the newsletter. Changing this setting does not affect                     already existing issues."
 #: EasyNewsletter/behaviors/plone_user_group_recipients.py:53
 msgid "EasyNewsletter_help_ploneReceiverMembers"
-msgstr "Kies de gebruikers die deze nieuwsbrief opgestuurd krijgen. Al verzonden edities worden niet aangepast of opnieuw verzonden."
+msgstr ""
+"Kies de gebruikers die deze nieuwsbrief opgestuurd krijgen. Al verzonden "
+"edities worden niet aangepast of opnieuw verzonden."
 
 #: EasyNewsletter/content/newsletter_subscriber.py:14
 msgid "EasyNewsletter_help_salutation"
@@ -294,25 +306,32 @@ msgstr "Begroeting"
 #: EasyNewsletter/browser/issue_send_form.pt:54
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:46
 msgid "EasyNewsletter_help_senderEmailForm"
-msgstr "E-mailadres waarmee de nieuwsbrief verzonden wordt. Indien leeg, dan wordt de standaard website-instelling gebruikt."
+msgstr ""
+"E-mailadres waarmee de nieuwsbrief verzonden wordt. Indien leeg, dan wordt "
+"de standaard website-instelling gebruikt."
 
 #. Default: "Sender name of the newsletter email. If you let this field empty, the default sender name will be used."
 #: EasyNewsletter/browser/issue_send_form.pt:36
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:27
 msgid "EasyNewsletter_help_senderNameForm"
-msgstr "Afzendernaam van deze nieuwsbrief. Indien leeg, dan wordt de standaard afzendernaam gebruikt."
+msgstr ""
+"Afzendernaam van deze nieuwsbrief. Indien leeg, dan wordt de standaard "
+"afzendernaam gebruikt."
 
 #. Default: "Subject of the newsletter email. If you let this field empty, the title of the newsletter will be used."
 #: EasyNewsletter/browser/issue_send_form.pt:72
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:65
 msgid "EasyNewsletter_help_subject"
-msgstr "Onderwerp van de nieuwsbrief. Indien leeg, dan wordt de standaard titel van de website gebruikt."
+msgstr ""
+"Onderwerp van de nieuwsbrief. Indien leeg, dan wordt de standaard titel van "
+"de website gebruikt."
 
 #. Default: "Test email. If you let this field empty, the default test email address will be used."
 #: EasyNewsletter/browser/issue_send_form.pt:90
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:84
 msgid "EasyNewsletter_help_testreceiverForm"
-msgstr "Test-e-mail. Indien leeg, dan wordt de standaard test-e-mailadres gebruikt."
+msgstr ""
+"Test-e-mail. Indien leeg, dan wordt de standaard test-e-mailadres gebruikt."
 
 #. Default: "Email"
 #: EasyNewsletter/content/newsletter_subscriber.py:41
@@ -454,7 +473,9 @@ msgstr "Masters"
 #: EasyNewsletter/browser/subscribers.py:294
 #: EasyNewsletter/views/newsletter_subscribers_upload.py:107
 msgid "More than one subscriber with this email address existed, subscriber info was NOT updated. Check manually!"
-msgstr "Meer dan één abonnee met e-mailadres, abonnee werd niet bijgewerkt. Kijk manueel na!"
+msgstr ""
+"Meer dan één abonnee met e-mailadres, abonnee werd niet bijgewerkt. Kijk "
+"manueel na!"
 
 #: EasyNewsletter/vocabularies/salutations.py:25
 msgid "Mr"
@@ -521,7 +542,9 @@ msgstr "Personalisatie"
 
 #: EasyNewsletter/browser/registration.py:198
 msgid "Please enter a valid email address."
-msgstr "Gelieve een geldig e-mailadres in te vullen of schrijf je opnieuw in om een nieuwe bevestigings-e-mail te ontvangen."
+msgstr ""
+"Gelieve een geldig e-mailadres in te vullen of schrijf je opnieuw in om een "
+"nieuwe bevestigings-e-mail te ontvangen."
 
 #: EasyNewsletter/browser/registration.py:293
 #: EasyNewsletter/views/newsletter_unsubscribe.py:22
@@ -631,7 +654,9 @@ msgstr ""
 #: EasyNewsletter/browser/upload_csv.pt:32
 #: EasyNewsletter/views/newsletter_subscribers_upload.pt:17
 msgid "The CSV file must contain the header and follow this format"
-msgstr "Het CSV bestand dient deze hoofding te bevatten en dient de structuur te respecteren"
+msgstr ""
+"Het CSV bestand dient deze hoofding te bevatten en dient de structuur te "
+"respecteren"
 
 #: EasyNewsletter/browser/issue.py:68
 #: EasyNewsletter/views/newsletter_issue_send.py:146
@@ -649,7 +674,9 @@ msgstr "De test verzending is geïnitialiseerd."
 
 #: EasyNewsletter/browser/subscribers.py:276
 msgid "The number of items in the line is not correct.                         It should be 7. Check your CSV file."
-msgstr "Het aantal elementen in de regel is niet juist. Het zouden er 7 moeten zijn. Controleer het CSV bestand."
+msgstr ""
+"Het aantal elementen in de regel is niet juist. Het zouden er 7 moeten zijn. "
+"Controleer het CSV bestand."
 
 #: EasyNewsletter/browser/enl_subscribers_view.pt:72
 #: EasyNewsletter/views/newsletter_subscribers.pt:78
@@ -704,7 +731,10 @@ msgstr "Je e-mailadres is reeds geregistreerd."
 
 #: EasyNewsletter/browser/registration.py:145
 msgid "Your email has been registered.                 A confirmation email was sent to your address. Please check                 your inbox and click on the link in the email in order to                 confirm your subscription."
-msgstr "Je e-mail werd geregistreerd. Een bevestigings-e-mail werd verzonden naar je e-mailadres. Gelieve je inbox te controleren en te klikken op de link in de e-mail om je registratie te bevestigen."
+msgstr ""
+"Je e-mail werd geregistreerd. Een bevestigings-e-mail werd verzonden naar je "
+"e-mailadres. Gelieve je inbox te controleren en te klikken op de link in de "
+"e-mail om je registratie te bevestigen."
 
 #: EasyNewsletter/views/newsletter_unsubscribe_form.pt:12
 msgid "Your registered E-Mail address:"
@@ -829,7 +859,10 @@ msgstr "Abonnement beëindigen"
 #. Default: "Your email has been registered. A confirmation email was sent to your address. Please check your inbox and click  on the link in the email in order to confirm your subscription."
 #: EasyNewsletter/config.py:36
 msgid "email_added"
-msgstr "Uw e-mailadres is geregistreerd. Een e-mail is verzonden ter bevestiging. Controleer alstublieft uw inbox en klik op de link om het abonnement te bevestigen."
+msgstr ""
+"Uw e-mailadres is geregistreerd. Een e-mail is verzonden ter bevestiging. "
+"Controleer alstublieft uw inbox en klik op de link om het abonnement te "
+"bevestigen."
 
 #. Default: "Your email address is already registered."
 #: EasyNewsletter/config.py:44
@@ -1054,7 +1087,9 @@ msgstr "abonnee(s) succesvol verwijderd"
 #: EasyNewsletter/browser/enl_subscribers_view.pt:44
 #: EasyNewsletter/views/newsletter_subscribers.pt:44
 msgid "subscribers_search_note"
-msgstr "Deze zoekopdracht vindt alleen lokale abonnee's en zoekt niet in externe bronnen."
+msgstr ""
+"Deze zoekopdracht vindt alleen lokale abonnee's en zoekt niet in externe "
+"bronnen."
 
 #. Default: "Your subscription was successfully confirmed."
 #: EasyNewsletter/config.py:50
