@@ -4,9 +4,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EasyNewsletter 2.6.2dev\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"PO-Revision-Date: 2021-06-08 18:33+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/products-easynewsletter/products-easynewsletter/es/>\n"
+"PO-Revision-Date: 2026-11-24 08:56+0000\n"
+"Last-Translator: Anonymous <anonymous@users.noreply.hosted.weblate.org>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/products-"
+"easynewsletter/products-easynewsletter/es/>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,8 +17,9 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: EasyNewsletter\n"
 "Language: es\n"
-"X-Generator: Weblate 4.7-dev\n"
-"X-Is-Fallback-For: es-ar es-bo es-cl es-co es-cr es-do es-ec es-es es-sv es-gt es-hn es-mx es-ni es-pa es-py es-pe es-pr es-us es-uy es-ve\n"
+"X-Generator: Weblate 2026.12.dev0\n"
+"X-Is-Fallback-For: es-ar es-bo es-cl es-co es-cr es-do es-ec es-es es-sv es-"
+"gt es-hn es-mx es-ni es-pa es-py es-pe es-pr es-us es-uy es-ve\n"
 
 #: EasyNewsletter/browser/upload_csv.pt:115
 #: EasyNewsletter/views/newsletter_subscribers_upload.pt:100
@@ -281,12 +283,17 @@ msgstr ""
 #: EasyNewsletter/behaviors/plone_user_group_recipients.py:69
 #, fuzzy
 msgid "EasyNewsletter_help_ploneReceiverGroups"
-msgstr "Seleccione los grupos de miembros del sitio Plone que deben recibir el boletín de noticias. Cambiar esta configuración no afecta a ediciones ya existentes."
+msgstr ""
+"Seleccione los grupos de miembros del sitio Plone que deben recibir el "
+"boletín de noticias. Cambiar esta configuración no afecta a ediciones ya "
+"existentes."
 
 #. Default: "Choose Plone Members which should receive                     the newsletter. Changing this setting does not affect                     already existing issues."
 #: EasyNewsletter/behaviors/plone_user_group_recipients.py:53
 msgid "EasyNewsletter_help_ploneReceiverMembers"
-msgstr "Seleccione los miembros del sitio Plone que deben recibir el boletín de noticias. Cambiar esta configuración no afecta a ediciones ya existentes."
+msgstr ""
+"Seleccione los miembros del sitio Plone que deben recibir el boletín de "
+"noticias. Cambiar esta configuración no afecta a ediciones ya existentes."
 
 #: EasyNewsletter/content/newsletter_subscriber.py:14
 msgid "EasyNewsletter_help_salutation"
@@ -296,25 +303,33 @@ msgstr ""
 #: EasyNewsletter/browser/issue_send_form.pt:54
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:46
 msgid "EasyNewsletter_help_senderEmailForm"
-msgstr "Remitente por defecto para el envío del boletín de noticias. Si deja este campo vacío, se utilizara la dirección del remitente por defecto."
+msgstr ""
+"Remitente por defecto para el envío del boletín de noticias. Si deja este "
+"campo vacío, se utilizara la dirección del remitente por defecto."
 
 #. Default: "Sender name of the newsletter email. If you let this field empty, the default sender name will be used."
 #: EasyNewsletter/browser/issue_send_form.pt:36
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:27
 msgid "EasyNewsletter_help_senderNameForm"
-msgstr "Nombre del remitente por defecto para el envío del boletín de noticias. Si deja este campo vacío, se utilizara el nombre del remitente por defecto."
+msgstr ""
+"Nombre del remitente por defecto para el envío del boletín de noticias. Si "
+"deja este campo vacío, se utilizara el nombre del remitente por defecto."
 
 #. Default: "Subject of the newsletter email. If you let this field empty, the title of the newsletter will be used."
 #: EasyNewsletter/browser/issue_send_form.pt:72
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:65
 msgid "EasyNewsletter_help_subject"
-msgstr "Asunto por defecto para el envío del boletín de noticias. Si deja este campo vacío, se utilizara el titulo del boletín de noticias."
+msgstr ""
+"Asunto por defecto para el envío del boletín de noticias. Si deja este campo "
+"vacío, se utilizara el titulo del boletín de noticias."
 
 #. Default: "Test email. If you let this field empty, the default test email address will be used."
 #: EasyNewsletter/browser/issue_send_form.pt:90
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:84
 msgid "EasyNewsletter_help_testreceiverForm"
-msgstr "Dirección de correo electrónico para pruebas. Si deja este campo vacío, se utilizara la dirección de correo electrónico por defecto."
+msgstr ""
+"Dirección de correo electrónico para pruebas. Si deja este campo vacío, se "
+"utilizara la dirección de correo electrónico por defecto."
 
 #. Default: "Email"
 #: EasyNewsletter/content/newsletter_subscriber.py:41
@@ -633,7 +648,8 @@ msgstr ""
 #: EasyNewsletter/browser/upload_csv.pt:32
 #: EasyNewsletter/views/newsletter_subscribers_upload.pt:17
 msgid "The CSV file must contain the header and follow this format"
-msgstr "El archivo CSV debe contener un encabezado que cumpla el siguiente formato"
+msgstr ""
+"El archivo CSV debe contener un encabezado que cumpla el siguiente formato"
 
 #: EasyNewsletter/browser/issue.py:68
 #: EasyNewsletter/views/newsletter_issue_send.py:146
@@ -651,7 +667,9 @@ msgstr "El envío de prueba del número comenzó."
 
 #: EasyNewsletter/browser/subscribers.py:276
 msgid "The number of items in the line is not correct.                         It should be 7. Check your CSV file."
-msgstr "El número de elementos de la línea no es la correcta. Debe ser 7. Compruebe el archivo CSV."
+msgstr ""
+"El número de elementos de la línea no es la correcta. Debe ser 7. Compruebe "
+"el archivo CSV."
 
 #: EasyNewsletter/browser/enl_subscribers_view.pt:72
 #: EasyNewsletter/views/newsletter_subscribers.pt:78
@@ -660,7 +678,8 @@ msgstr "Hay ${subscribers_count} suscriptores"
 
 #: EasyNewsletter/portlets/subscriber.py:228
 msgid "This portlet displays the subscriber add form of a newsletter."
-msgstr "Este portlet muestra el formulario de registro para un boletín de noticias."
+msgstr ""
+"Este portlet muestra el formulario de registro para un boletín de noticias."
 
 #: EasyNewsletter/portlets/subscriber.pt:29
 msgid "Title"
@@ -684,7 +703,9 @@ msgstr "Le enviamos un mensaje para que confirme la baja."
 #: EasyNewsletter/browser/subscribers.py:265
 #: EasyNewsletter/views/newsletter_subscribers_upload.py:77
 msgid "Wrong specification of the CSV file. Please correct it and retry."
-msgstr "La especificación del archivo CSV no es correcta. Por favor corrija esto y vuelva intentarlo."
+msgstr ""
+"La especificación del archivo CSV no es correcta. Por favor corrija esto y "
+"vuelva intentarlo."
 
 #: EasyNewsletter/browser/registration.py:308
 #: EasyNewsletter/views/newsletter_unsubscribe.py:44
@@ -698,7 +719,8 @@ msgstr "¿Quiere darse de baja de este boletín?"
 #: EasyNewsletter/browser/registration.py:280
 #: EasyNewsletter/views/newsletter_unsubscribe_form.py:65
 msgid "Your email address could not be found in subscribers."
-msgstr "Su dirección de correo electrónico no se pudo encontrar en los suscriptores."
+msgstr ""
+"Su dirección de correo electrónico no se pudo encontrar en los suscriptores."
 
 #: EasyNewsletter/browser/registration.py:94
 msgid "Your email address is already registered."
@@ -706,7 +728,11 @@ msgstr "Su dirección de correo electrónico ya se encuentra registrada."
 
 #: EasyNewsletter/browser/registration.py:145
 msgid "Your email has been registered.                 A confirmation email was sent to your address. Please check                 your inbox and click on the link in the email in order to                 confirm your subscription."
-msgstr "Su dirección de correo electrónico ha sido registrada. Un correo electrónico de confirmación fue enviado a esta dirección. Por favor verifique su correspondencia y presione sobre el enlace que contiene el correo para confirmar su suscripción."
+msgstr ""
+"Su dirección de correo electrónico ha sido registrada. Un correo electrónico "
+"de confirmación fue enviado a esta dirección. Por favor verifique su "
+"correspondencia y presione sobre el enlace que contiene el correo para "
+"confirmar su suscripción."
 
 #: EasyNewsletter/views/newsletter_unsubscribe_form.pt:12
 msgid "Your registered E-Mail address:"
@@ -831,7 +857,11 @@ msgstr "Darse de baja"
 #. Default: "Your email has been registered. A confirmation email was sent to your address. Please check your inbox and click  on the link in the email in order to confirm your subscription."
 #: EasyNewsletter/config.py:36
 msgid "email_added"
-msgstr "Tu correo electrónico ha sido registrado. Un correo electrónico de confirmación fue enviado a su dirección. Por favor, revise su bandeja de entrada y haga clic en el enlace en el correo electrónico para confirmar su suscripción."
+msgstr ""
+"Tu correo electrónico ha sido registrado. Un correo electrónico de "
+"confirmación fue enviado a su dirección. Por favor, revise su bandeja de "
+"entrada y haga clic en el enlace en el correo electrónico para confirmar su "
+"suscripción."
 
 #. Default: "Your email address is already registered."
 #: EasyNewsletter/config.py:44
@@ -929,7 +959,8 @@ msgstr "Pregunte por el saludo del subscriptor"
 #. Default: "Display an unsubscribe link in portlet footer"
 #: EasyNewsletter/portlets/subscriber.py:109
 msgid "label_newletter_show_unsubscribe_link"
-msgstr "Mostrar un enlace para darse de baja en el pie de página de los portlets"
+msgstr ""
+"Mostrar un enlace para darse de baja en el pie de página de los portlets"
 
 #. Default: "Path to Newsletter"
 #: EasyNewsletter/portlets/subscriber.py:56
