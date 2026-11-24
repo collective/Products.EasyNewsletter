@@ -2,9 +2,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"PO-Revision-Date: 2021-06-11 19:33+0000\n"
-"Last-Translator: Érico Andrei <ericof@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/products-easynewsletter/products-easynewsletter/pt_BR/>\n"
+"PO-Revision-Date: 2026-11-24 08:56+0000\n"
+"Last-Translator: Anonymous <anonymous@users.noreply.hosted.weblate.org>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
+"products-easynewsletter/products-easynewsletter/pt_BR/>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,7 +15,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: Products.EasyNewsletter\n"
 "Language: pt_BR\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 "X-Poedit-Country: BRAZIL\n"
 
 #: EasyNewsletter/browser/upload_csv.pt:115
@@ -295,25 +296,33 @@ msgstr "Saudação"
 #: EasyNewsletter/browser/issue_send_form.pt:54
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:46
 msgid "EasyNewsletter_help_senderEmailForm"
-msgstr "Padrão de endereço de remetente para este boletim. Deixe este campo vazio para usar o email padrão do remetente dos boletins."
+msgstr ""
+"Padrão de endereço de remetente para este boletim. Deixe este campo vazio "
+"para usar o email padrão do remetente dos boletins."
 
 #. Default: "Sender name of the newsletter email. If you let this field empty, the default sender name will be used."
 #: EasyNewsletter/browser/issue_send_form.pt:36
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:27
 msgid "EasyNewsletter_help_senderNameForm"
-msgstr "Nome do remetente do email do boletim. Deixe este campo vazio para utilizar o nome de remetente padrão."
+msgstr ""
+"Nome do remetente do email do boletim. Deixe este campo vazio para utilizar "
+"o nome de remetente padrão."
 
 #. Default: "Subject of the newsletter email. If you let this field empty, the title of the newsletter will be used."
 #: EasyNewsletter/browser/issue_send_form.pt:72
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:65
 msgid "EasyNewsletter_help_subject"
-msgstr "Assunto do email do boletim. Deixe este campo vazio para utilizar o título do boletim padrão."
+msgstr ""
+"Assunto do email do boletim. Deixe este campo vazio para utilizar o título "
+"do boletim padrão."
 
 #. Default: "Test email. If you let this field empty, the default test email address will be used."
 #: EasyNewsletter/browser/issue_send_form.pt:90
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:84
 msgid "EasyNewsletter_help_testreceiverForm"
-msgstr "Email de testes. Deixe este campo vazio para utilizar o endereço de email de testes padrão."
+msgstr ""
+"Email de testes. Deixe este campo vazio para utilizar o endereço de email de "
+"testes padrão."
 
 #. Default: "Email"
 #: EasyNewsletter/content/newsletter_subscriber.py:41
@@ -659,7 +668,9 @@ msgstr "Existem ${subscribers_count} assinantes"
 
 #: EasyNewsletter/portlets/subscriber.py:228
 msgid "This portlet displays the subscriber add form of a newsletter."
-msgstr "Este portlet apresenta um formulário para o cadastro de novos assinantes a um boletim."
+msgstr ""
+"Este portlet apresenta um formulário para o cadastro de novos assinantes a "
+"um boletim."
 
 #: EasyNewsletter/portlets/subscriber.pt:29
 msgid "Title"
@@ -683,7 +694,8 @@ msgstr ""
 #: EasyNewsletter/browser/subscribers.py:265
 #: EasyNewsletter/views/newsletter_subscribers_upload.py:77
 msgid "Wrong specification of the CSV file. Please correct it and retry."
-msgstr "Especificação inválida do arquivo CSV. Por favor corrija e tente novamente."
+msgstr ""
+"Especificação inválida do arquivo CSV. Por favor corrija e tente novamente."
 
 #: EasyNewsletter/browser/registration.py:308
 #: EasyNewsletter/views/newsletter_unsubscribe.py:44
@@ -705,7 +717,10 @@ msgstr "Seu endereço de email já está cadastrado."
 
 #: EasyNewsletter/browser/registration.py:145
 msgid "Your email has been registered.                 A confirmation email was sent to your address. Please check                 your inbox and click on the link in the email in order to                 confirm your subscription."
-msgstr "Seu email foi registrado. Um email de confirmação foi enviado para seu endereço. Por favor verifique sua caixa de entrada e clique no link no email recebido a fim de confirmarmos o seu cadastro."
+msgstr ""
+"Seu email foi registrado. Um email de confirmação foi enviado para seu "
+"endereço. Por favor verifique sua caixa de entrada e clique no link no email "
+"recebido a fim de confirmarmos o seu cadastro."
 
 #: EasyNewsletter/views/newsletter_unsubscribe_form.pt:12
 msgid "Your registered E-Mail address:"
