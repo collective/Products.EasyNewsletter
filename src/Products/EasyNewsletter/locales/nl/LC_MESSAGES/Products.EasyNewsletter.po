@@ -3,7 +3,8 @@ msgstr ""
 "Project-Id-Version: Products.EasyNewsletter\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "PO-Revision-Date: 2026-11-24 08:56+0000\n"
-"Last-Translator: Anonymous <anonymous@users.noreply.hosted.weblate.org>\n"
+"Last-Translator: Kim Paulissen "
+"<kim.paulissen@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/products-"
 "easynewsletter/products-easynewsletter/nl/>\n"
 "MIME-Version: 1.0\n"
@@ -93,7 +94,9 @@ msgstr "Contenttype"
 
 #: EasyNewsletter/browser/controlpanel.py:14
 msgid "Content types which will be visible in the Content aggregation sources reference field."
-msgstr "Contenttypes die zichtbaar zullen zijn in het veld voor Content aggregatie bronnen"
+msgstr ""
+"Contenttypes die zichtbaar zullen zijn in het veld voor Content aggregatie "
+"bronnen"
 
 #: EasyNewsletter/content/newsletter_issue.py:71
 msgid "Customizations"
@@ -131,12 +134,16 @@ msgstr "Bronnen voor content aggregatie"
 #. Default: "Text used for confirmation email subject. You can                 customize the text, but it should include the                 placeholder: ${portal_url}!"
 #: EasyNewsletter/content/newsletter.py:247
 msgid "ENL_description_subscriber_confirmation_mail_subject"
-msgstr "Tekst voor onderwerp bevestigingsmail. Je kan de tekst wijzigen maar het moet de placeholder $(portal_url) bevatten"
+msgstr ""
+"Tekst voor onderwerp bevestigingsmail. Je kan de tekst wijzigen maar het "
+"moet de placeholder $(portal_url) bevatten"
 
 #. Default: "Text used for confirmation email. You can customize                 the text, but it should include the placeholders:                 ${portal_url}, ${subscriber_email} and                 ${confirmation_url}!"
 #: EasyNewsletter/content/newsletter.py:262
 msgid "ENL_description_subscriber_confirmation_mail_text"
-msgstr "Tekst voor bevestigingsmail. Je kan deze wijzigen, maar het moet volgende placeholders bevatten: ${subscriber_email} en ${confirmation_url}!\""
+msgstr ""
+"Tekst voor bevestigingsmail. Je kan deze wijzigen, maar het moet volgende "
+"placeholders bevatten: ${subscriber_email} en ${confirmation_url}!\""
 
 #. Default: "The default epilogue text. This is used as a default                 for new issues. You can use placeholders like                {{subscriber_salutation}} and {{unsubscribe}} here."
 #: EasyNewsletter/content/newsletter.py:206
@@ -466,7 +473,9 @@ msgstr "Masters"
 #: EasyNewsletter/browser/subscribers.py:294
 #: EasyNewsletter/views/newsletter_subscribers_upload.py:107
 msgid "More than one subscriber with this email address existed, subscriber info was NOT updated. Check manually!"
-msgstr "Meer dan één abonnee met e-mailadres, abonnee werd niet bijgewerkt. Kijk manueel na!"
+msgstr ""
+"Meer dan één abonnee met e-mailadres, abonnee werd niet bijgewerkt. Kijk "
+"manueel na!"
 
 #: EasyNewsletter/vocabularies/salutations.py:25
 msgid "Mr"
