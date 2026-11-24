@@ -3,8 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "PO-Revision-Date: 2026-11-24 08:56+0000\n"
-"Last-Translator: Alessandro Ceglie <sauzher@users.noreply.hosted.weblate.org>"
-"\n"
+"Last-Translator: Anonymous <anonymous@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/products-"
 "easynewsletter/products-easynewsletter/it/>\n"
 "MIME-Version: 1.0\n"
@@ -322,7 +321,9 @@ msgstr "Scelgiere la forma di saluto"
 #: EasyNewsletter/browser/issue_send_form.pt:54
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:46
 msgid "EasyNewsletter_help_senderEmailForm"
-msgstr "Indirizzo e-mail del mittente della newsletter. Se viene lasciato vuoto, verrà usato l'indirizzo predefinito"
+msgstr ""
+"Indirizzo e-mail del mittente della newsletter. Se viene lasciato vuoto, "
+"verrà usato l'indirizzo predefinito"
 
 #. Default: "Sender name of the newsletter email. If you let this field empty, the default sender name will be used."
 #: EasyNewsletter/browser/issue_send_form.pt:36
@@ -748,7 +749,10 @@ msgstr "Il tuo indirizzo email è già registrato."
 
 #: EasyNewsletter/browser/registration.py:145
 msgid "Your email has been registered.                 A confirmation email was sent to your address. Please check                 your inbox and click on the link in the email in order to                 confirm your subscription."
-msgstr "La tua email è stata registrata. Un'email di conferma è stata inviata al tuo indirizzo. Controlla la tua posta in ingresso e clicca sul link di conferma della registrazione."
+msgstr ""
+"La tua email è stata registrata. Un'email di conferma è stata inviata al tuo "
+"indirizzo. Controlla la tua posta in ingresso e clicca sul link di conferma "
+"della registrazione."
 
 #: EasyNewsletter/views/newsletter_unsubscribe_form.pt:12
 msgid "Your registered E-Mail address:"
