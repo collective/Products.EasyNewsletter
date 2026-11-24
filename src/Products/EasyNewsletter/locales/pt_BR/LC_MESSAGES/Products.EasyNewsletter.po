@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "PO-Revision-Date: 2026-11-24 08:56+0000\n"
-"Last-Translator: Anonymous <anonymous@users.noreply.hosted.weblate.org>\n"
+"Last-Translator: Érico Andrei <ericof@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "products-easynewsletter/products-easynewsletter/pt_BR/>\n"
 "MIME-Version: 1.0\n"
@@ -93,7 +93,9 @@ msgstr "Tipo de conteúdo"
 
 #: EasyNewsletter/browser/controlpanel.py:14
 msgid "Content types which will be visible in the Content aggregation sources reference field."
-msgstr "Tipos de conteúdo que serão visíveis no campo de referência de fontes de agregação de conteúdo."
+msgstr ""
+"Tipos de conteúdo que serão visíveis no campo de referência de fontes de "
+"agregação de conteúdo."
 
 #: EasyNewsletter/content/newsletter_issue.py:71
 msgid "Customizations"
